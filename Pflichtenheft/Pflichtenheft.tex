@@ -1,0 +1,100 @@
+%+++Art des Dokuments+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\documentclass[a4paper,12pt, DIV12]{scrartcl} % zuerst Angabe der Papiergrösse, danach Angabe der Schrift-
+% grösse in Punkt.
+% Die dritte Angabe beeinflusst die Seitenränder. Diese könnte man mittels 
+% \typearea[RandZumBinden]{Breite}{Höhe} auch manuell einstellen. Um aber möglichst gute (typographisch gesehen)
+% Seitenlayouts zu erreichen, empfiehlt sich obenstehende Angabe. DIV gefolgt von einer Zahl zwischen 6 und 15,
+% wobei 15 extrem kleine Ränder erzeugt.
+
+% Am Ende die Dokumentklassen: scrartcl: für kleine bis mittlere Dokumente, 
+% scrreprt: für grosse Dokumente, scrbook: für Bücher
+
+%+++Grundeinstellungen++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\usepackage[ngerman]{babel}			%Trennungen, Schriftsatz; Neue deutsche Rechtschreibung
+\usepackage[T1]{fontenc}				%Umlaute, Sonderzeichen...				
+\usepackage[ansinew]{inputenc}	%Dateicodierung: Unter Linux latin1 anstatt ansinew verwende
+																%Für Betriebssysteme mit utf8-Codierung (einige Unixe):
+																%\usepackage{ucs}  \usepackage[utf8]{inputenc}
+\usepackage{graphicx}						%Paket um Grafiken einzubinden. Evtl. muss unter Windows  
+																% mit \usepackage[dvips]{graphicx} der dvips-Treiber für EPS-Grafiken geladen werden
+\usepackage{palatino}						%Schriftart - hier könnte auch times oder helvet stehen
+																%wird zwar von l2tabu nicht empfohlen - finde ich persönlich aber
+																%die "schönste" Varianten
+\usepackage{multicol}						%Paket für mehrspaltige Dokumente
+
+\usepackage{float}
+\usepackage{picins}
+\usepackage{longtable}
+
+%+++Glossar+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\usepackage[nonumberlist]{glossaries}
+
+% Glossar erstellen
+\newglossary[slg]{symbols}{sym}{sbl}{List of Symbols}
+
+% alle Begriffe des Glossars
+\input{_Glossar}
+
+\makeglossaries
+
+%+++Kopf- und Fusszeilen++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\usepackage{scrpage2}						%An Koma-Script optimierte Kopfzeilenklasse, jedoch auf gut für
+																%andere Dokumentklassen zu verwenden
+																%Mit diesem Paket sind auch Kopf- und Fusszeilen möglich, die 
+																%Unterschiede für rechte und linke Seiten machen (bspw für Bücher)
+
+%Hier folgen die Kopfzeilentexte
+\ihead{INSERT}
+\chead{}
+\ohead{}
+\ifoot{INSERT}
+\cfoot{}
+\ofoot{\pagemark}
+% nützlich: \pagemark = Seitenzahl
+
+\setheadsepline{1pt}						%Dicke der Trennlinie Kopfzeile - Text
+\setfootsepline{0.5pt}					%Dicke der Trennlinie Fusszeile - Text
+
+\pagestyle{scrheadings}					%gemachte Einstellungen anwenden
+
+%ANMERKUNG: Das Paket scrpage2 hat noch viele weitere Einstellungsmöglichkeiten. Die Dokumentation dazu
+%finden sie beispielsweise hier: http://www.ctan.org/tex-archive/macros/latex/contrib/koma-script/scrguide.pdf
+
+%+++Linienabstand+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%\linespread{1.2}	              %für kleine Zeilenabstandskorrekturen.
+																%Soll aber der Zeilenabstand in den Fussnoten beibehalten werden,
+																%so muss man das Paket setspace.sty verwenden:
+\usepackage{setspace}
+\onehalfspacing									%1.5 Zeilenabstand; 1 = \singlespacing; 2 = \doublespacing
+
+
+%+++Absatzeinzug++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\setlength{\parindent}{1em}			% 1em = Grösse, die ein grosses M der aktuellen Schrift
+																% Platz braucht: Somit ist diese Grösse Schriftabhängig
+																% (was auch Sinn macht)
+
+%Schusterjungen und Hurenkinder vermeiden 
+\clubpenalty=5000\relax 
+\widowpenalty=5000\relax 
+%Maximalwert ist 10000
+
+%+++Hier beginnt das eigenliche Dokument++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\begin{document}
+  \input{PH00-Titelblatt} \newpage
+  \tableofcontents \newpage
+  \input{PH01-Zielbestimmungen} \newpage
+  \input{PH02-Produkteinsatz} \newpage
+  \input{PH03-Produktumgebung} \newpage
+  \input{PH04-Funktionale_Anforderungen} \newpage
+  \input{PH05-Produktdaten} \newpage
+  \input{PH06-Nichtfunktionale_Anforderungen} \newpage
+  \input{PH07-Globale_Testfaelle} \newpage
+  \input{PH08-Systemmodelle} \newpage
+  \input{PH08a-Szenarien} \newpage
+  \input{PH08b-Anwendungsfaelle} \newpage
+  \input{PH08c-Objektmodell} \newpage
+  \input{PH08d-Dynamische_Modelle} \newpage
+  \input{PH08e-Benutzerschnittstelle} \newpage
+  \input{PH09-Glossar}
+\end{document}

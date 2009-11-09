@@ -1,0 +1,10 @@
+%+++Workaround++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+% Durch diesen Workaround, wird das Glossar in der TOC und auf der Seite richtig nummeriert
+\stepcounter{section}
+\addcontentsline{toc}{section}{\numberline {\thesection} Glossar}
+
+%+++Ausgabe+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+% Schreibt das Glossar
+\printglossary[style=list,title=\thesection~Glossar]

@@ -1,0 +1,535 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2009.11.8)  8 NOV 2009 21:06
+entering extended mode
+**D:/My*Dropbox/Praxis*der*Softwareentwicklung/1.*Pflichtenheft/LATEX_PSE0910_P
+flichtenheft/Pflichtenheft.tex
+
+("D:/My Dropbox/Praxis der Softwareentwicklung/1. Pflichtenheft/LATEX_PSE0910_P
+flichtenheft/Pflichtenheft.tex"
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman, ngerman, german-x-2009-06-19, ngerman-x-2009-06-19, french, loaded.
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\koma-script\scrartcl.cls"
+Document Class: scrartcl 2009/07/24 v3.04a KOMA-Script document class (article)
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\koma-script\scrkbase.sty"
+Package: scrkbase 2009/07/24 v3.04a KOMA-Script package (KOMA-Script-dependent 
+basics and keyval usage)
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\koma-script\scrbase.sty"
+Package: scrbase 2009/07/24 v3.04a KOMA-Script package (KOMA-Script-independent
+ basics and keyval usage)
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\keyval.sty"
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\koma-script\scrlfile.sty"
+Package: scrlfile 2009/03/25 v3.03 KOMA-Script package (loading files)
+
+Package scrlfile, 2009/03/25 v3.03 KOMA-Script package (loading files)
+                  Copyright (C) Markus Kohm
+
+))) ("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\koma-script\tocbasic.sty"
+Package: tocbasic 2009/06/08 v3.03b KOMA-Script package (handling toc-files)
+)
+Package tocbasic Info: omitting babel extension for `toc'
+(tocbasic)             because of feature `nobabel' available
+(tocbasic)             for `toc' on input line 115.
+Package tocbasic Info: omitting babel extension for `lof'
+(tocbasic)             because of feature `nobabel' available
+(tocbasic)             for `lof' on input line 116.
+Package tocbasic Info: omitting babel extension for `lot'
+(tocbasic)             because of feature `nobabel' available
+(tocbasic)             for `lot' on input line 117.
+Package scrartcl Info: You've used obsolete option `12pt'.
+(scrartcl)             \KOMAExecuteOptions{fontsize=12pt} will be
+(scrartcl)             used instead.
+(scrartcl)             You may simply replace `12pt'
+(scrartcl)             by `fontsize=12pt'.
+Class scrartcl Info: File `scrsize12pt.clo' used to setup font sizes on input l
+ine 1171.
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\koma-script\scrsize12pt.clo"
+File: scrsize12pt.clo 2009/07/24 v3.04a KOMA-Script font size class option (12p
+t)
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\koma-script\typearea.sty"
+Package: typearea 2009/07/24 v3.04a KOMA-Script package (type area)
+
+Package typearea, 2009/07/24 v3.04a KOMA-Script package (type area)
+                  Copyright (C) Frank Neukam, 1992-1994
+                  Copyright (C) Markus Kohm, 1994-
+
+\ta@bcor=\skip41
+\ta@div=\count79
+Package typearea Info: You've used standard option `a4paper'.
+(typearea)             This is correct!
+(typearea)             Internaly I'm using `paper=a4'.
+(typearea)             If you'd like to set the option with \KOMAoptions,
+(typearea)             you'd have to use `paper=a4' there
+(typearea)             instead of `a4paper', too.
+\ta@hblk=\skip42
+\ta@vblk=\skip43
+\ta@temp=\skip44
+Package typearea Info: These are the values describing the layout:
+(typearea)             DIV  = 12
+(typearea)             BCOR = 0.0pt
+(typearea)             \paperwidth      = 597.50793pt
+(typearea)              \textwidth      = 448.13095pt
+(typearea)              DIV departure   = -6%
+(typearea)              \evensidemargin = 2.4185pt
+(typearea)              \oddsidemargin  = 2.4185pt
+(typearea)             \paperheight     = 845.04694pt
+(typearea)              \textheight     = 635.5pt
+(typearea)              \topmargin      = -41.72441pt
+(typearea)              \headheight     = 18.125pt
+(typearea)              \headsep        = 21.75pt
+(typearea)              \topskip        = 12.0pt
+(typearea)              \footskip       = 50.75pt
+(typearea)              \baselineskip   = 14.5pt
+(typearea)              on input line 1115.
+)
+\c@part=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\abovecaptionskip=\skip45
+\belowcaptionskip=\skip46
+\c@pti@nb@sid@b@x=\box26
+\c@figure=\count86
+\c@table=\count87
+\bibindent=\dimen102
+) ("C:\Program Files (x86)\MiKTeX 2.8\tex\generic\babel\babel.sty"
+Package: babel 2008/07/06 v3.8l The Babel package
+
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\00miktex\bblopts.cfg"
+File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\generic\babel\ngermanb.ldf"
+Language: ngermanb 2008/07/06 v2.6n new German support from the babel system
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\generic\babel\babel.def"
+File: babel.def 2008/07/06 v3.8l Babel common definitions
+\babel@savecnt=\count88
+\U@D=\dimen103
+)
+\l@naustrian = a dialect from \language\l@ngerman 
+Package babel Info: Making " an active character on input line 92.
+))
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\fontenc.sty"
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\t1enc.def"
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\inputenc.sty"
+Package: inputenc 2008/03/30 v1.1d Input encoding file
+\inpenc@prehook=\toks15
+\inpenc@posthook=\toks16
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\ansinew.def"
+File: ansinew.def 2008/03/30 v1.1d Input encoding file
+))
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\graphicx.sty"
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\graphics.sty"
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2009/08/25 v0.04m Graphics/color for pdfTeX
+\Gread@gobject=\count89
+))
+\Gin@req@height=\dimen104
+\Gin@req@width=\dimen105
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\psnfss\palatino.sty"
+Package: palatino 2005/04/12 PSNFSS-v9.2a (SPQR) 
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\tools\multicol.sty"
+Package: multicol 2008/12/05 v1.6h multicolumn formatting (FMi)
+\c@tracingmulticols=\count90
+\mult@box=\box27
+\multicol@leftmargin=\dimen106
+\c@unbalance=\count91
+\c@collectmore=\count92
+\doublecol@number=\count93
+\multicoltolerance=\count94
+\multicolpretolerance=\count95
+\full@width=\dimen107
+\page@free=\dimen108
+\premulticols=\dimen109
+\postmulticols=\dimen110
+\multicolsep=\skip47
+\multicolbaselineskip=\skip48
+\partial@page=\box28
+\last@line=\box29
+\mult@rightbox=\box30
+\mult@grightbox=\box31
+\mult@gfirstbox=\box32
+\mult@firstbox=\box33
+\@tempa=\box34
+\@tempa=\box35
+\@tempa=\box36
+\@tempa=\box37
+\@tempa=\box38
+\@tempa=\box39
+\@tempa=\box40
+\@tempa=\box41
+\@tempa=\box42
+\@tempa=\box43
+\@tempa=\box44
+\@tempa=\box45
+\@tempa=\box46
+\@tempa=\box47
+\@tempa=\box48
+\@tempa=\box49
+\@tempa=\box50
+\c@columnbadness=\count96
+\c@finalcolumnbadness=\count97
+\last@try=\dimen111
+\multicolovershoot=\dimen112
+\multicolundershoot=\dimen113
+\mult@nat@firstbox=\box51
+\colbreak@box=\box52
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count98
+\float@exts=\toks17
+\float@box=\box53
+\@float@everytoks=\toks18
+\@floatcapt=\box54
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\picins\picins.sty"
+Option `picins' Version 3.0 Sep. 1992, TH Darmstadt/HRZ
+\@BILD=\box55
+\@TEXT=\box56
+\d@breite=\dimen114
+\d@hoehe=\dimen115
+\d@xoff=\dimen116
+\d@yoff=\dimen117
+\d@shad=\dimen118
+\d@dash=\dimen119
+\d@boxl=\dimen120
+\d@pichskip=\dimen121
+\d@tmp=\dimen122
+\d@tmpa=\dimen123
+\d@bskip=\dimen124
+\hsiz@=\dimen125
+\p@getot@l=\dimen126
+\c@breite=\count99
+\c@hoehe=\count100
+\c@xoff=\count101
+\c@yoff=\count102
+\c@pos=\count103
+\c@shad=\count104
+\c@dash=\count105
+\c@boxl=\count106
+\c@zeilen=\count107
+\@changemode=\count108
+\c@piccaption=\count109
+\c@piccaptionpos=\count110
+\c@picpos=\count111
+\c@whole=\count112
+\c@half=\count113
+\c@tmp=\count114
+\c@tmpa=\count115
+\c@tmpb=\count116
+\c@tmpc=\count117
+\c@tmpd=\count118
+\d@leftskip=\skip49
+\ptoti=\dimen127
+\ptotii=\dimen128
+\env@box=\box57
+\d@envdp=\dimen129
+\c@hsize=\count119
+\c@envdp=\count120
+\d@envb=\dimen130
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\tools\longtable.sty"
+Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
+\LTleft=\skip50
+\LTright=\skip51
+\LTpre=\skip52
+\LTpost=\skip53
+\LTchunksize=\count121
+\LTcapwidth=\dimen131
+\LT@head=\box58
+\LT@firsthead=\box59
+\LT@foot=\box60
+\LT@lastfoot=\box61
+\LT@cols=\count122
+\LT@rows=\count123
+\c@LT@tables=\count124
+\c@LT@chunks=\count125
+\LT@p@ftn=\toks19
+)
+Class scrartcl Info: longtable captions redefined on input line 28.
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\glossaries\base\glossaries.sty"
+Package: glossaries 2009/09/23 v2.03 (NLCT)
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\ifthen.sty"
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\xkeyval\xkeyval.sty"
+Package: xkeyval 2008/08/13 v2.6a package option processing (HA)
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\generic\xkeyval\xkeyval.tex"
+\XKV@toks=\toks20
+\XKV@tempa@toks=\toks21
+\XKV@depth=\count126
+File: xkeyval.tex 2008/08/13 v2.6a key=value parser (HA)
+))
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\glossaries\base\mfirstuc.sty"
+Package: mfirstuc 2008/12/22 v1.03 (NLCT)
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\xfor\xfor.sty"
+Package: xfor 2009/02/05 v1.05 (NLCT)
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ams\math\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks22
+\ex@=\dimen132
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\translator\base\translator.sty"
+Package: translator 2007/03/11 ver 1.00
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\translator\base\translator-langua
+ge-mappings.tex"))
+\gls@level=\count127
+\@gls@tmpb=\toks23
+\gls@tmplen=\skip54
+\istfile=\write3
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\glossaries\styles\glossary-hypern
+av.sty"
+Package: glossary-hypernav 2007/07/04 v1.01 (NLCT)
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\glossaries\styles\glossary-list.s
+ty"
+Package: glossary-list 2009/05/30 v2.01 (NLCT)
+\glslistdottedwidth=\skip55
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\glossaries\styles\glossary-long.s
+ty"
+Package: glossary-long 2009/05/30 v2.01 (NLCT)
+\glsdescwidth=\skip56
+\glspagelistwidth=\skip57
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\glossaries\styles\glossary-super.
+sty"
+Package: glossary-super 2009/05/30 v2.01 (NLCT)
+ ("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\supertabular\supertabular.sty"
+Package: supertabular 2004/02/20 v4.1e the supertabular environment
+\c@tracingst=\count128
+\ST@wd=\dimen133
+\ST@rightskip=\skip58
+\ST@leftskip=\skip59
+\ST@parfillskip=\skip60
+\ST@pageleft=\dimen134
+\ST@headht=\dimen135
+\ST@tailht=\dimen136
+\ST@pagesofar=\dimen137
+\ST@pboxht=\dimen138
+\ST@lineht=\dimen139
+\ST@stretchht=\dimen140
+\ST@prevht=\dimen141
+\ST@toadd=\dimen142
+\ST@dimen=\dimen143
+\ST@pbox=\box62
+))
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\glossaries\styles\glossary-tree.s
+ty"
+Package: glossary-tree 2009/01/14 v1.01 (NLCT)
+\glstreeindent=\skip61
+))
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\_Glossar.tex")
+\glo@main@file=\write4
+Package glossaries Info: Writing glossary file Pflichtenheft.glo on input line 
+38.
+\glo@symbols@file=\write5
+Package glossaries Info: Writing glossary file Pflichtenheft.sbl on input line 
+38.
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\koma-script\scrpage2.sty"
+Package: scrpage2 2008/12/08 v2.3 LaTeX2e KOMA-Script package
+LaTeX Info: Redefining \pagemark on input line 176.
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\setspace\setspace.sty"
+Package: setspace 2000/12/01 6.7 Contributed and Supported LaTeX2e package
+
+Package: `setspace' 6.7 <2000/12/01>
+)
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\Pflichtenheft.aux")
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Try loading font information for T1+ppl on input line 83.
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\psnfss\t1ppl.fd"
+File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\context\base\supp-pdf.tex"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count129
+\scratchdimen=\dimen144
+\scratchbox=\box63
+\nofMPsegments=\count130
+\nofMParguments=\count131
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count132
+\MPscratchDim=\dimen145
+\MPnumerator=\count133
+\everyMPtoPDFconversion=\toks25
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\glossaries\dict\glossaries-dictio
+nary-English.dict"
+Dictionary: glossaries-dictionary, Language: English 
+)
+
+Package scrpage2 Warning: seems you are using a very small headheight.
+(scrpage2)                If you get overfull \vbox warnings at almost every
+(scrpage2)                page, you should increase headheight e.g. writing
+(scrpage2)                 \setlength{\headheight}{1.1\baselineskip}
+(scrpage2)                into the preamble of your document.
+(scrpage2)                A better solution would be to use typearea package.
+
+
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\PH00-Titelblatt.tex"
+LaTeX Font Info:    Try loading font information for T1+phv on input line 7.
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\psnfss\t1phv.fd"
+File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
+)
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 7.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <24.88> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 7.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <17.28> on input line 7.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 7.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 7.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 7.
+ [1
+
+
+{C:/ProgramData/MiKTeX/2.8/pdftex/config/pdftex.map}])
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <17.28> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 85.
+
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\Pflichtenheft.toc"
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 2.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 3.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 4.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 5.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 6.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 7.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 8.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 9.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 15.
+)
+\tf@toc=\write6
+ [2]
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\PH01-Zielbestimmungen.tex") [3]
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\PH02-Produkteinsatz.tex") [4]
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\PH03-Produktumgebung.tex") [5]
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\PH04-Funktionale_Anforderungen.tex") [6]
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\PH05-Produktdaten.tex") [7]
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\PH06-Nichtfunktionale_Anforderungen.tex") [8]
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\PH07-Globale_Testfaelle.tex") [9]
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\PH08-Systemmodelle.tex") [10]
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\PH08a-Szenarien.tex"
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
+) [11]
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\PH08b-Anwendungsfaelle.tex") [12]
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\PH08c-Objektmodell.tex") [13]
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\PH08d-Dynamische_Modelle.tex") [14]
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\PH08e-Benutzerschnittstelle.tex") [15]
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\PH09-Glossar.tex"
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\Pflichtenheft.gls")) [16]
+("D:\My Dropbox\Praxis der Softwareentwicklung\1. Pflichtenheft\LATEX_PSE0910_P
+flichtenheft\Pflichtenheft.aux") ) 
+Here is how much of TeX's memory you used:
+ 4692 strings out of 495285
+ 72887 string characters out of 3179884
+ 157935 words of memory out of 3000000
+ 7744 multiletter control sequences out of 15000+200000
+ 25599 words of font info for 42 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 36i,9n,43p,1153b,275s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files (x86)/MiKTeX 2.8/fonts/enc/
+dvips/fontname/8r.enc}<C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/urw/helvet
+ic/uhvb8a.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/urw/palatino/uplr8
+a.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/urw/palatino/uplr8a.pfb>
+Output written on Pflichtenheft.pdf (16 pages, 49600 bytes).
+PDF statistics:
+ 67 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

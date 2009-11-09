@@ -1,0 +1,6 @@
+\glossarysection[\glossarytoctitle]{\glossarytitle}\glossarypreamble
+\begin{theglossary}\glossaryheader
+\glsgroupheading{J}\relax \glsresetentrylist %
+\glossaryentryfield{jee}{\glsnamefont{JEE}}{Java Enterprise Edition}{\relax }{\glossaryentrynumbers{\relax 
+		\setentrycounter{page}\glsnumberformat{3}}}%
+\end{theglossary}\glossarypostamble
