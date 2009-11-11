@@ -1,6 +1,7 @@
 \glossarysection[\glossarytoctitle]{\glossarytitle}\glossarypreamble
 \begin{theglossary}\glossaryheader
-\glsgroupheading{J}\relax \glsresetentrylist %
-\glossaryentryfield{jee}{\glsnamefont{JEE}}{Java Enterprise Edition}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter{page}\glsnumberformat{3}}}%
+\glsgroupheading{P}\relax \glsresetentrylist %
+\glossaryentryfield{tempX}{\glsnamefont{Programm}}{Programm}{\relax }{\glossaryentrynumbers{\relax 
+		\setentrycounter{page}\glsnumberformat{4}\delimN 
+		\setentrycounter{page}\glsnumberformat{6}}}%
 \end{theglossary}\glossarypostamble
