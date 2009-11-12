@@ -1,26 +1,26 @@
 %+++Art des Dokuments+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\documentclass[a4paper,12pt, DIV12]{scrartcl} % zuerst Angabe der Papiergrösse, danach Angabe der Schrift-
-% grösse in Punkt.
-% Die dritte Angabe beeinflusst die Seitenränder. Diese könnte man mittels 
-% \typearea[RandZumBinden]{Breite}{Höhe} auch manuell einstellen. Um aber möglichst gute (typographisch gesehen)
+\documentclass[a4paper,12pt, DIV12]{scrartcl} % zuerst Angabe der Papiergrï¿½sse, danach Angabe der Schrift-
+% grï¿½sse in Punkt.
+% Die dritte Angabe beeinflusst die Seitenrï¿½nder. Diese kï¿½nnte man mittels 
+% \typearea[RandZumBinden]{Breite}{Hï¿½he} auch manuell einstellen. Um aber mï¿½glichst gute (typographisch gesehen)
 % Seitenlayouts zu erreichen, empfiehlt sich obenstehende Angabe. DIV gefolgt von einer Zahl zwischen 6 und 15,
-% wobei 15 extrem kleine Ränder erzeugt.
+% wobei 15 extrem kleine Rï¿½nder erzeugt.
 
-% Am Ende die Dokumentklassen: scrartcl: für kleine bis mittlere Dokumente, 
-% scrreprt: für grosse Dokumente, scrbook: für Bücher
+% Am Ende die Dokumentklassen: scrartcl: fï¿½r kleine bis mittlere Dokumente, 
+% scrreprt: fï¿½r grosse Dokumente, scrbook: fï¿½r Bï¿½cher
 
 %+++Grundeinstellungen++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \usepackage[ngerman]{babel}			%Trennungen, Schriftsatz; Neue deutsche Rechtschreibung
 \usepackage[T1]{fontenc}				%Umlaute, Sonderzeichen...				
 \usepackage[ansinew]{inputenc}	%Dateicodierung: Unter Linux latin1 anstatt ansinew verwende
-																%Für Betriebssysteme mit utf8-Codierung (einige Unixe):
+																%Fï¿½r Betriebssysteme mit utf8-Codierung (einige Unixe):
 																%\usepackage{ucs}  \usepackage[utf8]{inputenc}
 \usepackage{graphicx}						%Paket um Grafiken einzubinden. Evtl. muss unter Windows  
-																% mit \usepackage[dvips]{graphicx} der dvips-Treiber für EPS-Grafiken geladen werden
-\usepackage{palatino}						%Schriftart - hier könnte auch times oder helvet stehen
-																%wird zwar von l2tabu nicht empfohlen - finde ich persönlich aber
-																%die "schönste" Varianten
-\usepackage{multicol}						%Paket für mehrspaltige Dokumente
+																% mit \usepackage[dvips]{graphicx} der dvips-Treiber fï¿½r EPS-Grafiken geladen werden
+\usepackage{palatino}						%Schriftart - hier kï¿½nnte auch times oder helvet stehen
+																%wird zwar von l2tabu nicht empfohlen - finde ich persï¿½nlich aber
+																%die "schï¿½nste" Varianten
+\usepackage{multicol}						%Paket fï¿½r mehrspaltige Dokumente
 
 \usepackage{float}
 \usepackage{picins}
@@ -35,10 +35,10 @@
 \makeglossaries
 
 %+++Kopf- und Fusszeilen++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\usepackage{scrpage2}						%An Koma-Script optimierte Kopfzeilenklasse, jedoch auf gut für
+\usepackage{scrpage2}						%An Koma-Script optimierte Kopfzeilenklasse, jedoch auf gut fï¿½r
 																%andere Dokumentklassen zu verwenden
-																%Mit diesem Paket sind auch Kopf- und Fusszeilen möglich, die 
-																%Unterschiede für rechte und linke Seiten machen (bspw für Bücher)
+																%Mit diesem Paket sind auch Kopf- und Fusszeilen mï¿½glich, die 
+																%Unterschiede fï¿½r rechte und linke Seiten machen (bspw fï¿½r Bï¿½cher)
 
 %Hier folgen die Kopfzeilentexte
 \ihead{INSERT}
@@ -47,19 +47,19 @@
 \ifoot{INSERT}
 \cfoot{}
 \ofoot{\pagemark}
-% nützlich: \pagemark = Seitenzahl
+% nï¿½tzlich: \pagemark = Seitenzahl
 
 \setheadsepline{1pt}						%Dicke der Trennlinie Kopfzeile - Text
 \setfootsepline{0.5pt}					%Dicke der Trennlinie Fusszeile - Text
 
 \pagestyle{scrheadings}					%gemachte Einstellungen anwenden
 
-%ANMERKUNG: Das Paket scrpage2 hat noch viele weitere Einstellungsmöglichkeiten. Die Dokumentation dazu
+%ANMERKUNG: Das Paket scrpage2 hat noch viele weitere Einstellungsmï¿½glichkeiten. Die Dokumentation dazu
 %finden sie beispielsweise hier: http://www.ctan.org/tex-archive/macros/latex/contrib/koma-script/scrguide.pdf
 
 %+++Linienabstand+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-%\linespread{1.2}	              %für kleine Zeilenabstandskorrekturen.
+%\linespread{1.2}	              %fï¿½r kleine Zeilenabstandskorrekturen.
 																%Soll aber der Zeilenabstand in den Fussnoten beibehalten werden,
 																%so muss man das Paket setspace.sty verwenden:
 \usepackage{setspace}
@@ -67,8 +67,8 @@
 
 
 %+++Absatzeinzug++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\setlength{\parindent}{1em}			% 1em = Grösse, die ein grosses M der aktuellen Schrift
-																% Platz braucht: Somit ist diese Grösse Schriftabhängig
+\setlength{\parindent}{1em}			% 1em = Grï¿½sse, die ein grosses M der aktuellen Schrift
+																% Platz braucht: Somit ist diese Grï¿½sse Schriftabhï¿½ngig
 																% (was auch Sinn macht)
 
 %Schusterjungen und Hurenkinder vermeiden 
