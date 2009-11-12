@@ -1,27 +1,16 @@
 %+++Art des Dokuments+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\documentclass[a4paper,12pt, DIV12]{scrartcl} % zuerst Angabe der Papiergr�sse, danach Angabe der Schrift-
-% gr�sse in Punkt.
-% Die dritte Angabe beeinflusst die Seitenr�nder. Diese k�nnte man mittels 
-% \typearea[RandZumBinden]{Breite}{H�he} auch manuell einstellen. Um aber m�glichst gute (typographisch gesehen)
-% Seitenlayouts zu erreichen, empfiehlt sich obenstehende Angabe. DIV gefolgt von einer Zahl zwischen 6 und 15,
-% wobei 15 extrem kleine R�nder erzeugt.
-
-% Am Ende die Dokumentklassen: scrartcl: f�r kleine bis mittlere Dokumente, 
-% scrreprt: f�r grosse Dokumente, scrbook: f�r B�cher
+\documentclass[a4paper,12pt, DIV12]{scrartcl}
 
 %+++Grundeinstellungen++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\usepackage[ngerman]{babel}			%Trennungen, Schriftsatz; Neue deutsche Rechtschreibung
-\usepackage[T1]{fontenc}				%Umlaute, Sonderzeichen...				
-\usepackage[ansinew]{inputenc}	%Dateicodierung: Unter Linux latin1 anstatt ansinew verwende
-																%F�r Betriebssysteme mit utf8-Codierung (einige Unixe):
-																%\usepackage{ucs}  \usepackage[utf8]{inputenc}
-\usepackage{graphicx}						%Paket um Grafiken einzubinden. Evtl. muss unter Windows  
-																% mit \usepackage[dvips]{graphicx} der dvips-Treiber f�r EPS-Grafiken geladen werden
-\usepackage{palatino}						%Schriftart - hier k�nnte auch times oder helvet stehen
-																%wird zwar von l2tabu nicht empfohlen - finde ich pers�nlich aber
-																%die "sch�nste" Varianten
-\usepackage{multicol}						%Paket f�r mehrspaltige Dokumente
-
+\usepackage[ngerman]{babel}		%Trennungen, Schriftsatz; Neue deutsche Rechtschreibung
+\usepackage[T1]{fontenc}		%Umlaute, Sonderzeichen...				
+\usepackage[utf8]{inputenc}		%UTF-8 Support
+\usepackage{graphicx}			%Paket um Grafiken einzubinden. Evtl. muss unter Windows  
+								% mit \usepackage[dvips]{graphicx} der dvips-Treiber für EPS-Grafiken geladen werden
+\usepackage{palatino}			%Schriftart - hier könnte auch times oder helvet stehen
+								%wird zwar von l2tabu nicht empfohlen - finde ich persönlich aber
+								%die "schönste" Varianten
+\usepackage{multicol}			%Paket für mehrspaltige Dokumente
 \usepackage{float}
 \usepackage{picins}
 \usepackage{longtable}
@@ -35,10 +24,10 @@
 \makeglossaries
 
 %+++Kopf- und Fusszeilen++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\usepackage{scrpage2}						%An Koma-Script optimierte Kopfzeilenklasse, jedoch auf gut f�r
-																%andere Dokumentklassen zu verwenden
-																%Mit diesem Paket sind auch Kopf- und Fusszeilen m�glich, die 
-																%Unterschiede f�r rechte und linke Seiten machen (bspw f�r B�cher)
+\usepackage{scrpage2}					%An Koma-Script optimierte Kopfzeilenklasse, jedoch auf gut für
+										%andere Dokumentklassen zu verwenden Mit diesem Paket sind auch Kopf-
+										%und Fusszeilen möglich, die Unterschiede für rechte und linke Seiten
+										%machen (bspw für Bücher)
 
 %Hier folgen die Kopfzeilentexte
 \ihead{INSERT}
@@ -47,29 +36,23 @@
 \ifoot{INSERT}
 \cfoot{}
 \ofoot{\pagemark}
-% n�tzlich: \pagemark = Seitenzahl
+% nützlich: \pagemark = Seitenzahl
 
-\setheadsepline{1pt}						%Dicke der Trennlinie Kopfzeile - Text
+\setheadsepline{1pt}					%Dicke der Trennlinie Kopfzeile - Text
 \setfootsepline{0.5pt}					%Dicke der Trennlinie Fusszeile - Text
 
 \pagestyle{scrheadings}					%gemachte Einstellungen anwenden
 
-%ANMERKUNG: Das Paket scrpage2 hat noch viele weitere Einstellungsm�glichkeiten. Die Dokumentation dazu
-%finden sie beispielsweise hier: http://www.ctan.org/tex-archive/macros/latex/contrib/koma-script/scrguide.pdf
-
 %+++Linienabstand+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-%\linespread{1.2}	              %f�r kleine Zeilenabstandskorrekturen.
-																%Soll aber der Zeilenabstand in den Fussnoten beibehalten werden,
-																%so muss man das Paket setspace.sty verwenden:
 \usepackage{setspace}
-\onehalfspacing									%1.5 Zeilenabstand; 1 = \singlespacing; 2 = \doublespacing
+\onehalfspacing							%1.5 Zeilenabstand; 1 = \singlespacing; 2 = \doublespacing
 
 
 %+++Absatzeinzug++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\setlength{\parindent}{1em}			% 1em = Gr�sse, die ein grosses M der aktuellen Schrift
-																% Platz braucht: Somit ist diese Gr�sse Schriftabh�ngig
-																% (was auch Sinn macht)
+\setlength{\parindent}{1em}			% 1em = Größe, die ein großes M der aktuellen Schrift
+									% Platz braucht: Somit ist diese Größe Schriftabhängig
+									% (was auch Sinn macht)
 
 %Schusterjungen und Hurenkinder vermeiden 
 \clubpenalty=5000\relax 
