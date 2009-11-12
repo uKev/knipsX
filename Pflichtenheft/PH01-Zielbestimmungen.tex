@@ -1,43 +1,65 @@
 \section{Zielbestimmungen}
-
+\begin{itemize}
+  \item Fotographen sollen durch das Produkt in der Lage sein, aus Metadaten ihrer Bilder, welche dem \gls{exif}-Standard entsprechen, Statistiken über ihre Einstellungen beim Fotographieren zu erstellen, diese zu präsentieren sowie sie zu analysieren.
+  \end{itemize} 
 \subsection{Musskriterien} 
 \begin{itemize}
 	\item Verwalten von Projekten
 	\item Verwalten von Bildmengen
-	\item Verwalten von Auswertungen
-	\item Exportieren von Auswertungen in JPEG
-	\item Auswertungstypen
-		\begin{itemize}
-			\item Boxplot
-			\item 2D Histogramm 
-			\item 3D Histogramm 
-			\item 3D Cluster
-		\end{itemize}
-	\item Auszuwertende EXIF Daten
+	\item Hinzufügen (Entfernen) von Bildern zu (aus) Bildmengen per Ordnermenü und Drag und Drop
+	\item Bildvorschau bei der Bildauswahl
+	\item Beibehalten von ausgewählten Bildern nach Programmbeendigung
+	\item Bild/\gls{exif} Filter zur Auswahl bestimmter Bildmengen
+	\item Auslesen, Anzeigen und Auswerten von \gls{exif} Daten
+	\item Auszuwertende \gls{exif} Daten:
 			\begin{itemize}
 			\item Kameramodel
 			\item Blende 
 			\item Verschlusszeit
 			\item ISO-Wert
 			\item Brennweite
-			\item Uhrzeit
-			\item Wochentag
 			\item Datum
-			\item Objektivname, falls vorhanden
+			\item Wochentag
+			\item Uhrzeit
+			\item Objektivname
 		\end{itemize}
-	
+	\item Verwalten von Auswertungen
+	\item Vergleich mehrere Bildmengen
+	\item Erstellen von verschieden Diagrammtypen aus \gls{exif} Daten
+	\item Die verschiedenen Diagrammtypen:
+		\begin{itemize}
+		  \item Tabelle
+			\item 2D Histogramm (Zwei-Werte-Balkendiagramm)
+			\item 3D Histogramm (Drei-Werte-Balkenfelddiagramm)
+			\item 3D Cluster / Wolkendiagramm (Punktediagramm)
+			\item Boxplots
+		\end{itemize}
+	\item Exportieren bzw. Speichern von Diagrammen im JPEG Dateiformat
+	\item Produkt muss in Java 1.6 geschrieben sein	
 \end{itemize}
 
 \subsection{Wunschkriterien} 
 \begin{itemize}
+  \item Unterstützung weiterer Bildformate mit Metadaten
 	\item Normierung von Werten, z.B. Brennweitenkorrektur
-	\item Tabelle als Auswertungstyp
+	\item Umbennenen von Bilddateinamen
+	\item Unterstützen weiterer \gls{exif}-Parameter sowie Kameraspezifischer Parameter
+	\item Flüssige Programmdarstellung bei angegebenen Hardwarevoraussetzungen
+	\item Anzeige von Tags in den Diagrammen
+	\item Weitere Diagrammtypen
+	\item Anzeige von Thumbnails sowie Dateinamen in Diagrammen über eine Mengenauswahl
+	\item Bilder von Diagrammen aus aktueller Sichtperspektive abspeichern sowie weiter Ausgabeformate unterstützen 
+	\item Vernünftige eventuell anpassbare Diagrammskalierungen
+	\item Leichte Konfigurierbarkeit des Layouts
+	\item Gute User-Usability
+	\item Internationalisierung
 \end{itemize}
 
 \subsection{Abgrenzungskriterien} 
 \begin{itemize}
-	\item \gls{tempX} soll keine EXIF Daten bearbeiten.
+	\item \gls{tempX} soll keine \gls{exif} Daten bearbeiten können.
 	\item \gls{tempX} soll keine Bilder bearbeiten bzw. löschen.
 	\item \gls{tempX} soll keine Bilder ausdrucken.
-	\item \gls{tempX} soll keine Diashow anzeigen. 
+	\item \gls{tempX} soll keine Diashow anzeigen.
+	\item \gls{tempX} muss keinen sehr hohen Sicherheitsansprüchen genügen.
 \end{itemize}
