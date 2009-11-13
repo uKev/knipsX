@@ -1,54 +1,54 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2009.11.13)  13 NOV 2009 12:11
+This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=latex 2009.11.13)  13 NOV 2009 12:37
 entering extended mode
-**C:/Users/Kai/Desktop/PSE0910/tempX/Pflichtenheft/Pflichtenheft.tex
-(C:/Users/Kai/Desktop/PSE0910/tempX/Pflichtenheft/Pflichtenheft.tex
-LaTeX2e <2009/09/24>
-Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, german, ngerman, german-x-2009-06-19, ngerm
-an-x-2009-06-19, french, loaded.
-("C:\Program Files\MiKTeX 2.8\tex\latex\koma-script\scrartcl.cls"
-Document Class: scrartcl 2009/07/24 v3.04a KOMA-Script document class (article)
-("C:\Program Files\MiKTeX 2.8\tex\latex\koma-script\scrkbase.sty"
-Package: scrkbase 2009/07/24 v3.04a KOMA-Script package (KOMA-Script-dependent basics and keyval usage)
+**Pflichtenheft.tex
+(Pflichtenheft.tex
+LaTeX2e <2005/12/01>
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, german, ngerman, german-x-2008-06-18, ngerm
+an-x-2008-06-18, french, loaded.
+("C:\Program Files\MiKTeX 2.7\tex\latex\koma-script\scrartcl.cls"
+Document Class: scrartcl 2009/01/01 v3.02 KOMA-Script document class (article)
+("C:\Program Files\MiKTeX 2.7\tex\latex\koma-script\scrkbase.sty"
+Package: scrkbase 2009/01/01 v3.02 KOMA-Script package (KOMA-Script-dependent basics and keyval usage)
 
-("C:\Program Files\MiKTeX 2.8\tex\latex\koma-script\scrbase.sty"
-Package: scrbase 2009/07/24 v3.04a KOMA-Script package (KOMA-Script-independent basics and keyval usage)
+("C:\Program Files\MiKTeX 2.7\tex\latex\koma-script\scrbase.sty"
+Package: scrbase 2009/01/01 v3.02 KOMA-Script package (KOMA-Script-independent basics and keyval usage)
 
-("C:\Program Files\MiKTeX 2.8\tex\latex\graphics\keyval.sty"
+("C:\Program Files\MiKTeX 2.7\tex\latex\graphics\keyval.sty"
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-("C:\Program Files\MiKTeX 2.8\tex\latex\koma-script\scrlfile.sty"
-Package: scrlfile 2009/03/25 v3.03 KOMA-Script package (loading files)
+("C:\Program Files\MiKTeX 2.7\tex\latex\koma-script\scrlfile.sty"
+Package: scrlfile 2008/07/09 v3.00 KOMA-Script package (loading files)
 
-Package scrlfile, 2009/03/25 v3.03 KOMA-Script package (loading files)
+Package scrlfile, 2008/07/09 v3.00 KOMA-Script package (loading files)
                   Copyright (C) Markus Kohm
 
-))) ("C:\Program Files\MiKTeX 2.8\tex\latex\koma-script\tocbasic.sty"
-Package: tocbasic 2009/06/08 v3.03b KOMA-Script package (handling toc-files)
+))) ("C:\Program Files\MiKTeX 2.7\tex\latex\koma-script\tocbasic.sty"
+Package: tocbasic 2009/01/01 v3.02(package)
 )
 Package tocbasic Info: omitting babel extension for `toc'
 (tocbasic)             because of feature `nobabel' available
-(tocbasic)             for `toc' on input line 115.
+(tocbasic)             for `toc' on input line 112.
 Package tocbasic Info: omitting babel extension for `lof'
 (tocbasic)             because of feature `nobabel' available
-(tocbasic)             for `lof' on input line 116.
+(tocbasic)             for `lof' on input line 113.
 Package tocbasic Info: omitting babel extension for `lot'
 (tocbasic)             because of feature `nobabel' available
-(tocbasic)             for `lot' on input line 117.
+(tocbasic)             for `lot' on input line 114.
 Package scrartcl Info: You've used obsolete option `12pt'.
 (scrartcl)             \KOMAExecuteOptions{fontsize=12pt} will be
 (scrartcl)             used instead.
 (scrartcl)             You may simply replace `12pt'
 (scrartcl)             by `fontsize=12pt'.
-Class scrartcl Info: File `scrsize12pt.clo' used to setup font sizes on input line 1171.
+Class scrartcl Info: File `scrsize12pt.clo' used to setup font sizes on input line 1159.
 
-("C:\Program Files\MiKTeX 2.8\tex\latex\koma-script\scrsize12pt.clo"
-File: scrsize12pt.clo 2009/07/24 v3.04a KOMA-Script font size class option (12pt)
+("C:\Program Files\MiKTeX 2.7\tex\latex\koma-script\scrsize12pt.clo"
+File: scrsize12pt.clo 2009/01/01 v3.02 KOMA-Script font size class option (12pt)
 )
-("C:\Program Files\MiKTeX 2.8\tex\latex\koma-script\typearea.sty"
-Package: typearea 2009/07/24 v3.04a KOMA-Script package (type area)
+("C:\Program Files\MiKTeX 2.7\tex\latex\koma-script\typearea.sty"
+Package: typearea 2009/01/01 v3.02 KOMA-Script package (type area)
 
-Package typearea, 2009/07/24 v3.04a KOMA-Script package (type area)
+Package typearea, 2009/01/01 v3.02 KOMA-Script package (type area)
                   Copyright (C) Frank Neukam, 1992-1994
                   Copyright (C) Markus Kohm, 1994-
 
@@ -79,7 +79,7 @@ Package typearea Info: These are the values describing the layout:
 (typearea)              \topskip        = 12.0pt
 (typearea)              \footskip       = 50.75pt
 (typearea)              \baselineskip   = 14.5pt
-(typearea)              on input line 1115.
+(typearea)              on input line 1041.
 )
 \c@part=\count80
 \c@section=\count81
@@ -93,43 +93,43 @@ Package typearea Info: These are the values describing the layout:
 \c@figure=\count86
 \c@table=\count87
 \bibindent=\dimen102
-) ("C:\Program Files\MiKTeX 2.8\tex\generic\babel\babel.sty"
+) ("C:\Program Files\MiKTeX 2.7\tex\generic\babel\babel.sty"
 Package: babel 2008/07/06 v3.8l The Babel package
 
 *************************************
 * Local config file bblopts.cfg used
 *
-("C:\Program Files\MiKTeX 2.8\tex\latex\00miktex\bblopts.cfg"
+("C:\Program Files\MiKTeX 2.7\tex\latex\00miktex\bblopts.cfg"
 File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
 )
-("C:\Program Files\MiKTeX 2.8\tex\generic\babel\ngermanb.ldf"
+("C:\Program Files\MiKTeX 2.7\tex\generic\babel\ngermanb.ldf"
 Language: ngermanb 2008/07/06 v2.6n new German support from the babel system
- ("C:\Program Files\MiKTeX 2.8\tex\generic\babel\babel.def"
+ ("C:\Program Files\MiKTeX 2.7\tex\generic\babel\babel.def"
 File: babel.def 2008/07/06 v3.8l Babel common definitions
 \babel@savecnt=\count88
 \U@D=\dimen103
 )
 \l@naustrian = a dialect from \language\l@ngerman 
 Package babel Info: Making " an active character on input line 92.
-)) ("C:\Program Files\MiKTeX 2.8\tex\latex\base\fontenc.sty"
+)) ("C:\Program Files\MiKTeX 2.7\tex\latex\base\fontenc.sty"
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
- ("C:\Program Files\MiKTeX 2.8\tex\latex\base\t1enc.def"
+ ("C:\Program Files\MiKTeX 2.7\tex\latex\base\t1enc.def"
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 ))
-("C:\Program Files\MiKTeX 2.8\tex\latex\base\inputenc.sty"
-Package: inputenc 2008/03/30 v1.1d Input encoding file
+("C:\Program Files\MiKTeX 2.7\tex\latex\base\inputenc.sty"
+Package: inputenc 2006/05/05 v1.1b Input encoding file
 \inpenc@prehook=\toks15
 \inpenc@posthook=\toks16
- ("C:\Program Files\MiKTeX 2.8\tex\latex\base\utf8.def"
-File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+ ("C:\Program Files\MiKTeX 2.7\tex\latex\base\utf8.def"
+File: utf8.def 2006/03/30 v1.1i UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
-... processing UTF-8 mapping file for font encoding T1
+... processing UTF-8 mapping file for font encodingT1
 
-("C:\Program Files\MiKTeX 2.8\tex\latex\base\t1enc.dfu"
-File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
+("C:\Program Files\MiKTeX 2.7\tex\latex\base\t1enc.dfu"
+File: t1enc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
    defining Unicode char U+00AB (decimal 171)
@@ -276,9 +276,9 @@ File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+2423 (decimal 9251)
 )
 Now handling font encoding OT1 ...
-... processing UTF-8 mapping file for font encoding OT1
- ("C:\Program Files\MiKTeX 2.8\tex\latex\base\ot1enc.dfu"
-File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
+... processing UTF-8 mapping file for font encodingOT1
+ ("C:\Program Files\MiKTeX 2.7\tex\latex\base\ot1enc.dfu"
+File: ot1enc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
    defining Unicode char U+00B8 (decimal 184)
@@ -306,10 +306,10 @@ File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+201D (decimal 8221)
 )
 Now handling font encoding OMS ...
-... processing UTF-8 mapping file for font encoding OMS
+... processing UTF-8 mapping file for font encodingOMS
 
-("C:\Program Files\MiKTeX 2.8\tex\latex\base\omsenc.dfu"
-File: omsenc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
+("C:\Program Files\MiKTeX 2.7\tex\latex\base\omsenc.dfu"
+File: omsenc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
    defining Unicode char U+00B7 (decimal 183)
@@ -331,36 +331,35 @@ Now handling font encoding U ...
    defining Unicode char U+2026 (decimal 8230)
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
-)) ("C:\Program Files\MiKTeX 2.8\tex\latex\graphics\graphicx.sty"
+)) ("C:\Program Files\MiKTeX 2.7\tex\latex\graphics\graphicx.sty"
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
- ("C:\Program Files\MiKTeX 2.8\tex\latex\graphics\graphics.sty"
-Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+ ("C:\Program Files\MiKTeX 2.7\tex\latex\graphics\graphics.sty"
+Package: graphics 2006/02/20 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files\MiKTeX 2.8\tex\latex\graphics\trig.sty"
+("C:\Program Files\MiKTeX 2.7\tex\latex\graphics\trig.sty"
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
-) ("C:\Program Files\MiKTeX 2.8\tex\latex\00miktex\graphics.cfg"
+) ("C:\Program Files\MiKTeX 2.7\tex\latex\00miktex\graphics.cfg"
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
-Package graphics Info: Driver file: pdftex.def on input line 91.
- ("C:\Program Files\MiKTeX 2.8\tex\latex\pdftex-def\pdftex.def"
-File: pdftex.def 2009/08/25 v0.04m Graphics/color for pdfTeX
-\Gread@gobject=\count89
+Package graphics Info: Driver file: dvips.def on input line 90.
+ ("C:\Program Files\MiKTeX 2.7\tex\latex\graphics\dvips.def"
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 ))
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
 )
-("C:\Program Files\MiKTeX 2.8\tex\latex\psnfss\palatino.sty"
+("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\palatino.sty"
 Package: palatino 2005/04/12 PSNFSS-v9.2a (SPQR) 
-) ("C:\Program Files\MiKTeX 2.8\tex\latex\tools\multicol.sty"
-Package: multicol 2008/12/05 v1.6h multicolumn formatting (FMi)
-\c@tracingmulticols=\count90
+) ("C:\Program Files\MiKTeX 2.7\tex\latex\tools\multicol.sty"
+Package: multicol 2006/05/18 v1.6g multicolumn formatting (FMi)
+\c@tracingmulticols=\count89
 \mult@box=\box27
 \multicol@leftmargin=\dimen106
-\c@unbalance=\count91
-\c@collectmore=\count92
-\doublecol@number=\count93
-\multicoltolerance=\count94
-\multicolpretolerance=\count95
+\c@unbalance=\count90
+\c@collectmore=\count91
+\doublecol@number=\count92
+\multicoltolerance=\count93
+\multicolpretolerance=\count94
 \full@width=\dimen107
 \page@free=\dimen108
 \premulticols=\dimen109
@@ -390,152 +389,186 @@ Package: multicol 2008/12/05 v1.6h multicolumn formatting (FMi)
 \@tempa=\box48
 \@tempa=\box49
 \@tempa=\box50
-\c@columnbadness=\count96
-\c@finalcolumnbadness=\count97
+\c@columnbadness=\count95
+\c@finalcolumnbadness=\count96
 \last@try=\dimen111
 \multicolovershoot=\dimen112
 \multicolundershoot=\dimen113
 \mult@nat@firstbox=\box51
 \colbreak@box=\box52
-) ("C:\Program Files\MiKTeX 2.8\tex\latex\float\float.sty"
+) ("C:\Program Files\MiKTeX 2.7\tex\latex\float\float.sty"
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count98
+\c@float@type=\count97
 \float@exts=\toks17
 \float@box=\box53
 \@float@everytoks=\toks18
 \@floatcapt=\box54
-) ("C:\Program Files\MiKTeX 2.8\tex\latex\tools\longtable.sty"
+) ("C:\Program Files\MiKTeX 2.7\tex\latex\picins\picins.sty"
+Option `picins' Version 3.0 Sep. 1992, TH Darmstadt/HRZ
+\@BILD=\box55
+\@TEXT=\box56
+\d@breite=\dimen114
+\d@hoehe=\dimen115
+\d@xoff=\dimen116
+\d@yoff=\dimen117
+\d@shad=\dimen118
+\d@dash=\dimen119
+\d@boxl=\dimen120
+\d@pichskip=\dimen121
+\d@tmp=\dimen122
+\d@tmpa=\dimen123
+\d@bskip=\dimen124
+\hsiz@=\dimen125
+\p@getot@l=\dimen126
+\c@breite=\count98
+\c@hoehe=\count99
+\c@xoff=\count100
+\c@yoff=\count101
+\c@pos=\count102
+\c@shad=\count103
+\c@dash=\count104
+\c@boxl=\count105
+\c@zeilen=\count106
+\@changemode=\count107
+\c@piccaption=\count108
+\c@piccaptionpos=\count109
+\c@picpos=\count110
+\c@whole=\count111
+\c@half=\count112
+\c@tmp=\count113
+\c@tmpa=\count114
+\c@tmpb=\count115
+\c@tmpc=\count116
+\c@tmpd=\count117
+\d@leftskip=\skip49
+\ptoti=\dimen127
+\ptotii=\dimen128
+\env@box=\box57
+\d@envdp=\dimen129
+\c@hsize=\count118
+\c@envdp=\count119
+\d@envb=\dimen130
+) ("C:\Program Files\MiKTeX 2.7\tex\latex\tools\longtable.sty"
 Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
-\LTleft=\skip49
-\LTright=\skip50
-\LTpre=\skip51
-\LTpost=\skip52
-\LTchunksize=\count99
-\LTcapwidth=\dimen114
-\LT@head=\box55
-\LT@firsthead=\box56
-\LT@foot=\box57
-\LT@lastfoot=\box58
-\LT@cols=\count100
-\LT@rows=\count101
-\c@LT@tables=\count102
-\c@LT@chunks=\count103
+\LTleft=\skip50
+\LTright=\skip51
+\LTpre=\skip52
+\LTpost=\skip53
+\LTchunksize=\count120
+\LTcapwidth=\dimen131
+\LT@head=\box58
+\LT@firsthead=\box59
+\LT@foot=\box60
+\LT@lastfoot=\box61
+\LT@cols=\count121
+\LT@rows=\count122
+\c@LT@tables=\count123
+\c@LT@chunks=\count124
 \LT@p@ftn=\toks19
 )
 Class scrartcl Info: longtable captions redefined on input line 17.
- ("C:\Program Files\MiKTeX 2.8\tex\latex\glossaries\base\glossaries.sty"
-Package: glossaries 2009/09/23 v2.03 (NLCT)
 
-("C:\Program Files\MiKTeX 2.8\tex\latex\base\ifthen.sty"
+("C:\Program Files\MiKTeX 2.7\tex\latex\glossaries\base\glossaries.sty"
+Package: glossaries 2008/12/26 v1.17 (NLCT)
+
+("C:\Program Files\MiKTeX 2.7\tex\latex\base\ifthen.sty"
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
-) ("C:\Program Files\MiKTeX 2.8\tex\latex\xkeyval\xkeyval.sty"
+) ("C:\Program Files\MiKTeX 2.7\tex\latex\xkeyval\xkeyval.sty"
 Package: xkeyval 2008/08/13 v2.6a package option processing (HA)
 
-("C:\Program Files\MiKTeX 2.8\tex\generic\xkeyval\xkeyval.tex"
+("C:\Program Files\MiKTeX 2.7\tex\generic\xkeyval\xkeyval.tex"
 \XKV@toks=\toks20
 \XKV@tempa@toks=\toks21
-\XKV@depth=\count104
+\XKV@depth=\count125
 File: xkeyval.tex 2008/08/13 v2.6a key=value parser (HA)
 ))
-("C:\Program Files\MiKTeX 2.8\tex\latex\glossaries\base\mfirstuc.sty"
+("C:\Program Files\MiKTeX 2.7\tex\latex\glossaries\base\mfirstuc.sty"
 Package: mfirstuc 2008/12/22 v1.03 (NLCT)
 )
-("C:\Program Files\MiKTeX 2.8\tex\latex\xfor\xfor.sty"
-Package: xfor 2009/02/05 v1.05 (NLCT)
-) ("C:\Program Files\MiKTeX 2.8\tex\latex\ams\math\amsgen.sty"
-File: amsgen.sty 1999/11/30 v2.0
-\@emptytoks=\toks22
-\ex@=\dimen115
+("C:\Program Files\MiKTeX 2.7\tex\latex\xfor\xfor.sty"
+Package: xfor 2007/08/21 v1.03 (NLCT)
 )
-("C:\Program Files\MiKTeX 2.8\tex\latex\translator\base\translator.sty"
+("C:\Program Files\MiKTeX 2.7\tex\latex\translator\base\translator.sty"
 Package: translator 2007/03/11 ver 1.00
 
-("C:\Program Files\MiKTeX 2.8\tex\latex\translator\base\translator-language-mappings.tex"))
-\gls@level=\count105
+("C:\Program Files\MiKTeX 2.7\tex\latex\translator\base\translator-language-mappings.tex"))
+("C:\Program Files\MiKTeX 2.7\tex\latex\amsmath\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks22
+\ex@=\dimen132
+)
+\gls@level=\count126
 \@gls@tmpb=\toks23
-\gls@tmplen=\skip53
+\gls@tmplen=\skip54
 \istfile=\write3
 
-("C:\Program Files\MiKTeX 2.8\tex\latex\glossaries\styles\glossary-hypernav.sty"
+("C:\Program Files\MiKTeX 2.7\tex\latex\glossaries\styles\glossary-hypernav.sty"
 Package: glossary-hypernav 2007/07/04 v1.01 (NLCT)
 )
-("C:\Program Files\MiKTeX 2.8\tex\latex\glossaries\styles\glossary-list.sty"
-Package: glossary-list 2009/05/30 v2.01 (NLCT)
-\glslistdottedwidth=\skip54
+("C:\Program Files\MiKTeX 2.7\tex\latex\glossaries\styles\glossary-list.sty"
+Package: glossary-list 2008/12/11 v1.04 (NLCT)
+\glslistdottedwidth=\skip55
 )
-("C:\Program Files\MiKTeX 2.8\tex\latex\glossaries\styles\glossary-long.sty"
-Package: glossary-long 2009/05/30 v2.01 (NLCT)
-\glsdescwidth=\skip55
-\glspagelistwidth=\skip56
+("C:\Program Files\MiKTeX 2.7\tex\latex\glossaries\styles\glossary-long.sty"
+Package: glossary-long 2008/12/11 v1.02 (NLCT)
+\glsdescwidth=\skip56
+\glspagelistwidth=\skip57
 )
-("C:\Program Files\MiKTeX 2.8\tex\latex\glossaries\styles\glossary-super.sty"
-Package: glossary-super 2009/05/30 v2.01 (NLCT)
+("C:\Program Files\MiKTeX 2.7\tex\latex\glossaries\styles\glossary-super.sty"
+Package: glossary-super 2008/12/11 v1.02 (NLCT)
 
-("C:\Program Files\MiKTeX 2.8\tex\latex\supertabular\supertabular.sty"
+("C:\Program Files\MiKTeX 2.7\tex\latex\supertabular\supertabular.sty"
 Package: supertabular 2004/02/20 v4.1e the supertabular environment
-\c@tracingst=\count106
-\ST@wd=\dimen116
-\ST@rightskip=\skip57
-\ST@leftskip=\skip58
-\ST@parfillskip=\skip59
-\ST@pageleft=\dimen117
-\ST@headht=\dimen118
-\ST@tailht=\dimen119
-\ST@pagesofar=\dimen120
-\ST@pboxht=\dimen121
-\ST@lineht=\dimen122
-\ST@stretchht=\dimen123
-\ST@prevht=\dimen124
-\ST@toadd=\dimen125
-\ST@dimen=\dimen126
-\ST@pbox=\box59
+\c@tracingst=\count127
+\ST@wd=\dimen133
+\ST@rightskip=\skip58
+\ST@leftskip=\skip59
+\ST@parfillskip=\skip60
+\ST@pageleft=\dimen134
+\ST@headht=\dimen135
+\ST@tailht=\dimen136
+\ST@pagesofar=\dimen137
+\ST@pboxht=\dimen138
+\ST@lineht=\dimen139
+\ST@stretchht=\dimen140
+\ST@prevht=\dimen141
+\ST@toadd=\dimen142
+\ST@dimen=\dimen143
+\ST@pbox=\box62
 ))
-("C:\Program Files\MiKTeX 2.8\tex\latex\glossaries\styles\glossary-tree.sty"
-Package: glossary-tree 2009/01/14 v1.01 (NLCT)
-\glstreeindent=\skip60
-))
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\_Glossar.tex)
+("C:\Program Files\MiKTeX 2.7\tex\latex\glossaries\styles\glossary-tree.sty"
+Package: glossary-tree 2008/12/11 v1.0 (NLCT)
+\glstreeindent=\skip61
+)) (_Glossar.tex)
 \glo@main@file=\write4
 Package glossaries Info: Writing glossary file Pflichtenheft.glo on input line 24.
 
-("C:\Program Files\MiKTeX 2.8\tex\latex\koma-script\scrpage2.sty"
+("C:\Program Files\MiKTeX 2.7\tex\latex\koma-script\scrpage2.sty"
 Package: scrpage2 2008/12/08 v2.3 LaTeX2e KOMA-Script package
-LaTeX Info: Redefining \pagemark on input line 176.
+LaTeX Info: Redefining \pagemark on input line 173.
 )
-("C:\Program Files\MiKTeX 2.8\tex\latex\setspace\setspace.sty"
+("C:\Program Files\MiKTeX 2.7\tex\latex\setspace\setspace.sty"
 Package: setspace 2000/12/01 6.7 Contributed and Supported LaTeX2e package
 
 Package: `setspace' 6.7 <2000/12/01>
-) (C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\Pflichtenheft.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Try loading font information for T1+ppl on input line 62.
-
-("C:\Program Files\MiKTeX 2.8\tex\latex\psnfss\t1ppl.fd"
+) (Pflichtenheft.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Try loading font information for T1+ppl on input line 63.
+ ("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\t1ppl.fd"
 File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
-) ("C:\Program Files\MiKTeX 2.8\tex\context\base\supp-pdf.tex"
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count107
-\scratchdimen=\dimen127
-\scratchbox=\box60
-\nofMPsegments=\count108
-\nofMParguments=\count109
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count110
-\MPscratchDim=\dimen128
-\MPnumerator=\count111
-\everyMPtoPDFconversion=\toks25
-) ("C:\Program Files\MiKTeX 2.8\tex\latex\glossaries\dict\glossaries-dictionary-English.dict"
+)
+("C:\Program Files\MiKTeX 2.7\tex\latex\glossaries\dict\glossaries-dictionary-English.dict"
 Dictionary: glossaries-dictionary, Language: English 
 )
 
@@ -546,10 +579,9 @@ Package scrpage2 Warning: seems you are using a very small headheight.
 (scrpage2)                into the preamble of your document.
 (scrpage2)                A better solution would be to use typearea package.
 
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH00-Titelblatt.tex
+(PH00-Titelblatt.tex
 LaTeX Font Info:    Try loading font information for T1+phv on input line 7.
-
-("C:\Program Files\MiKTeX 2.8\tex\latex\psnfss\t1phv.fd"
+ ("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\t1phv.fd"
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
@@ -567,11 +599,10 @@ LaTeX Font Info:    External font `cmex10' loaded for size
  [1
 
 
-{C:/ProgramData/MiKTeX/2.8/pdftex/config/pdftex.map}])
+])
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 64.
-
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\Pflichtenheft.toc
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 65.
+ (Pflichtenheft.toc
 Class scrartcl Info: You've told me to use the font selection of the element
 (scrartcl)           `sectioning' that is an alias of element `disposition'
 (scrartcl)            on input line 2.
@@ -586,26 +617,25 @@ Class scrartcl Info: You've told me to use the font selection of the element
 (scrartcl)            on input line 13.
 Class scrartcl Info: You've told me to use the font selection of the element
 (scrartcl)           `sectioning' that is an alias of element `disposition'
-(scrartcl)            on input line 19.
+(scrartcl)            on input line 14.
 Class scrartcl Info: You've told me to use the font selection of the element
 (scrartcl)           `sectioning' that is an alias of element `disposition'
-(scrartcl)            on input line 22.
+(scrartcl)            on input line 15.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 16.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 17.
 Class scrartcl Info: You've told me to use the font selection of the element
 (scrartcl)           `sectioning' that is an alias of element `disposition'
 (scrartcl)            on input line 23.
-Class scrartcl Info: You've told me to use the font selection of the element
-(scrartcl)           `sectioning' that is an alias of element `disposition'
-(scrartcl)            on input line 24.
-Class scrartcl Info: You've told me to use the font selection of the element
-(scrartcl)           `sectioning' that is an alias of element `disposition'
-(scrartcl)            on input line 30.
 )
 \tf@toc=\write5
- [2] [3]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH01-Zielbestimmungen.tex
+ [2]
+(PH01-Zielbestimmungen.tex
 LaTeX Font Info:    Try loading font information for OMS+ppl on input line 3.
-
-("C:\Program Files\MiKTeX 2.8\tex\latex\psnfss\omsppl.fd"
+ ("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\omsppl.fd"
 File: omsppl.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ppl/m/n' in size <12> not available
@@ -614,47 +644,133 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 5.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
 (Font)              Font shape `T1/ppl/b/n' tried instead on input line 16.
- [4] [5]) [6]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH02-Produkteinsatz.tex) [7]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH03-Produktumgebung.tex) [8]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH04-Funktionale_Anforderungen.tex [9] [10]) [11]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH05-Produktdaten.tex
-Overfull \hbox (7.31395pt too wide) in paragraph at lines 15--16
-[]\T1/ppl/m/n/12 Alle zu ei-nem Pro-jekt ge-hö-ren-de Bild-men-gen, Ver-zeich-nis-se-pfa-de und/oder
+ [3] [4]) [5]
+(PH02-Produkteinsatz.tex) [6] (PH03-Produktumgebung.tex) [7] (PH04-Funktionale_Anforderungen.tex
+Underfull \hbox (badness 10000) in paragraph at lines 3--4
+
  []
 
 
-Overfull \hbox (17.15524pt too wide) in paragraph at lines 29--30
-[]\T1/ppl/m/n/12 Auswertungsname, Bild-men-gen, Aus-ge-wähl-ter Dia-gramm-typ, Aus-wer-tungs-
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+
  []
 
-[12]) [13] (C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH06-Nichtfunktionale_Anforderungen.tex) [14]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH07-Globale_Testfaelle.tex [15]) [16]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08-Systemmodelle.tex) [17]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08a-Szenarien.tex) [18]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08b-Anwendungsfaelle.tex) [19]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08c-Objektmodell.tex) [20]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08d-Dynamische_Modelle.tex) [21]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08e-Benutzerschnittstelle.tex) [22]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH09-Glossar.tex
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\Pflichtenheft.gls)) [23]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\Pflichtenheft.aux) ) 
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 7--8
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+
+ []
+
+
+Overfull \hbox (2.8611pt too wide) in paragraph at lines 20--21
+[][]\T1/ppl/m/n/12 /F30/Graph (PLOT) er-stel-len: aus vor-han-de-nen Da-tensaet-zen wird einen Graph
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
+
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 24--25
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 25--26
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 26--27
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 31--32
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 32--33
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 33--34
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 36--37
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--40
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--42
+
+ []
+
+) [9] (PH05-Produktdaten.tex) [10] (PH06-Nichtfunktionale_Anforderungen.tex) [11] (PH07-Globale_Testfaelle.tex) [12]
+(PH08-Systemmodelle.tex) [13] (PH08a-Szenarien.tex) [14] (PH08b-Anwendungsfaelle.tex) [15] (PH08c-Objektmodell.tex)
+[16] (PH08d-Dynamische_Modelle.tex) [17] (PH08e-Benutzerschnittstelle.tex) [18] (PH09-Glossar.tex (Pflichtenheft.gls))
+[19] (Pflichtenheft.aux) ) 
 Here is how much of TeX's memory you used:
- 4870 strings out of 495285
- 72260 string characters out of 3180399
- 162204 words of memory out of 3000000
- 7910 multiletter control sequences out of 15000+200000
- 30207 words of font info for 48 fonts, out of 3000000 for 9000
+ 4510 strings out of 95305
+ 61777 string characters out of 1183058
+ 157677 words of memory out of 1500000
+ 7581 multiletter control sequences out of 110000
+ 20919 words of font info for 37 fonts, out of 3000000 for 5000
  14 hyphenation exceptions out of 8191
- 36i,9n,43p,1112b,342s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.8/fonts/enc/dvips/fontn
-ame/8r.enc}<C:/Program Files/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.8/fonts/typ
-e1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files/MiKTeX 2.8
-/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/
-MiKTeX 2.8/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on Pflichtenheft.pdf (23 pages, 86613 bytes).
-PDF statistics:
- 101 PDF objects out of 1000 (max. 8388607)
- 0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36i,9n,43p,972b,339s stack positions out of 5000i,500n,10000p,200000b,50000s
 
+Output written on Pflichtenheft.dvi (19 pages, 25080 bytes).
