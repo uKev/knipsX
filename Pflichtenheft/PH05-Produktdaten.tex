@@ -1,36 +1,43 @@
 \section{Produktdaten}
 
+\subsection{Programmdaten}
+
 \begin{itemize}
-	\item /D10/\\Daten die im Programm gespeichert sind:
-
-		\begin{itemize} 
-			\item Alle im Programm verfügbaren Projekte, deren Name sowie deren Speicherort
-			\item Alle Projekte müssen mit einem Bearbeitungsdatum versehen werden
-		\end{itemize}
-
-	\item /D20/\\Daten die mit einem Projekt gespeichert werden:
-
-	\begin{itemize}
-			\item Alle zu einem Projekt gehörende Bildmengen
-			\item Alle zum Projekt gehörenden Auswertungen
-			\item Alle zum Projekt gehörenden Einstellungen
+	\item /D10/\\Daten die im Programm gespeichert sind /LD10/:
+	\begin{itemize} 
+		\item Alle im Programm verfügbaren Projekte, deren Name sowie deren Speicherort
+		\item Alle Projekte müssen mit einem Bearbeitungsdatum versehen werden
 	\end{itemize}
 
-	\item /D30/\\Daten die mit einer Bildmenge gespeichert werden:
+	\item /D20/\\Daten die mit einem Projekt gespeichert werden /LD20/:
+	\begin{itemize}
+		\item Projektname, letztes Bearbeitungsdatum
+		\item Alle zu einem Projekt gehörende Bildmengen, Verzeichnissepfade und/oder Bildpfade
+		\item Alle zum Projekt gehörenden Auswertungen
+	\end{itemize}
 
+	\item /D30/\\Daten die mit einer Bildmenge gespeichert werden /LD30/:
 	\begin{itemize}
 		\item Bildmengenname
-		\item Dateinamen und Verzeichnis der zur Bildermenge gehörenden Bilder und Ordner
+		\item Hauptverzeichnis der zur Bildermenge gehörenden Verzeichnisse
+		\item Vollständiger Pfad der zur Bildermenge gehörenden Bilder
 	\end{itemize}
 	
-	\item /D40/\\Mit einer Auswertung gespeicherte Daten:
-		\begin{itemize}
-			\item Auswertungsname, Hinzugefügte Bildmengen, Ausgewählter Diagrammtyp, Auswertungseinstellung, Bildmengentag
-		\end{itemize}
+	\item /D40/\\Mit einer Auswertung gespeicherte Daten /LD40/:
+	\begin{itemize}
+		\item Auswertungsname, Bildmengen, Ausgewählter Diagrammtyp, Auswertungseinstellung, Bildmengentag
+		\item Diagrammspezifische Daten \itshape{(siehe \ref{subsec:daten-diagrammtypen})}
+	\end{itemize}
 		
-	\item /D50/\\ Mit der Statistik gespeicherte Daten:
-		\begin{itemize}
-			\item Erstellen eines JPEGs aus der aktuellen Statistik.
-		\end{itemize}
-	
+	\item /D50/\\ Mit der Statistik gespeicherte Daten /LD50/:
+	\begin{itemize}
+		\item Erstellen eines JPEGs aus der aktuellen Statistik.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Daten der einzelnen Diagrammtypen}
+\label{subsec:daten-diagrammtypen}
+
+\begin{itemize}
+	\item /D60/ Daten des Diagrammtyps "`Boxplot"' /LD60/:
 \end{itemize}
