@@ -4,7 +4,8 @@
 \glossaryentryfield{exif}{\glsnamefont{Exif}}{Exchangeable Image File Format ist ein Standard der Japan Electronic and Information Technology Industries Association (JEITA) für das Dateiformat, in dem moderne Digitalkameras Informationen über die aufgenommenen Bilder (Metadaten) speichern}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter{page}\glsnumberformat{3\delimR 5}\delimN 
 		\setentrycounter{page}\glsnumberformat{7}\delimN 
-		\setentrycounter{page}\glsnumberformat{11\delimN 12}}}\glsgroupskip
+		\setentrycounter{page}\glsnumberformat{9\delimN 10}\delimN 
+		\setentrycounter{page}\glsnumberformat{13\delimN 14}}}\glsgroupskip
 \glsgroupheading{K}\relax \glsresetentrylist %
 \glossaryentryfield{kit}{\glsnamefont{KIT}}{Karlsruher Institut für Technologie ist die neue Bezeichnung der früheren Universität Karlsruhe (TH), die seit dem 01.10.2009 ihre Gültigkeit hat}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter{page}\glsnumberformat{7}}}\glsgroupskip
@@ -12,5 +13,5 @@
 \glossaryentryfield{tempX}{\glsnamefont{Programm}}{Programm}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter{page}\glsnumberformat{5}\delimN 
 		\setentrycounter{page}\glsnumberformat{7}\delimN 
-		\setentrycounter{page}\glsnumberformat{11\delimN 12}}}%
+		\setentrycounter{page}\glsnumberformat{13\delimN 14}}}%
 \end{theglossary}\glossarypostamble

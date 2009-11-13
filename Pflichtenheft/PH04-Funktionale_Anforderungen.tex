@@ -1,5 +1,44 @@
 \section{Funktionale Anforderungen}
 
-\begin{itemize}
-	\item /F10/\\Bereits erstellte Auswertungen können als Vorlage für neue Auswertungen verwendet werden.
-\end{itemize}
+\subsection{Projektmanagement}
+	\begin{itemize}
+		\item /F10/\\ Anlegen und Erstellen eines neuen Projekts inklusive Namensvergabe
+		\item /F20/\\ Speichern, Laden und Löschen von Projekten
+		\item /F30/\\ Auswählen eines Projekts über eine Liste
+	\end{itemize}
+
+\subsection{Bildmengenmanagement}
+	\begin{itemize}
+		\item /F40/\\ Anlegen von neuen Bildmengen inklusive Namensvergabe
+		\item /F50/\\ Auswählen von Bildmengen über eine Bildmengenliste
+		\item /F60/\\ Löschen von Bildmengen
+		\item /F70/\\ Festlegen von Bildmengen über Drag und Drop aus Bilddateien und Dateiordnern
+		\item /F71/\\ Hinzufügen von Bildmengen zu Bildmengen
+	\end{itemize}
+
+\subsection{Auswertungsmanagement}
+	\begin{itemize}
+		\item /F80/\\ Anlegen von neuen Auswertungen inklusive Namensvergabe
+		\item /F90/\\ Auswählen von Auswertungen über eine Auswertungsliste. Sobald eine ausgewählt ist kann der Diagrammwizard gestartet werden.
+		\item /F100/\\ Das Löschen von Auswertungen
+		\item /F110/\\ Das hinzufügen und entfernen von Bildmengen zu bzw. aus Auswertungen
+		\item /F120/\\ Das Filtern von Bildmengen über Dateinamen und \gls{exif}-Daten
+		\item /F130/\\ Bereits erstellte Auswertungen können als Vorlage für neue Auswertungen verwendet werden
+	\end{itemize}
+
+\subsection{Diagrammmanagement}
+	\begin{itemize}
+		\item /F140/\\ Erstellung des Ausgewählten Diagrammtyps aus \gls{exif}-Daten und deren statistischer Werte
+		\item /F150/\\ Anzeigen einer Diagrammvorschau bei der Auswahl eines Diagramms
+		\item /F160/\\ Darstellung des Diagrammtyps in einem Fenster
+		\item /F170/\\ Drehen und Zoomen Dreidimensionaler Diagramme
+		\item /F180/\\ Aktuelle Ansicht als JPEG ausgeben
+		\item /F190/\\ Der Benutzer kann in Diagrammen mit der Maus einzellne Bildmengen auswählen sowie einzellne Bilder anwählen und bekommt ein infofenster mit 	Dateinamen	
+		\item /F200/\\ Der Benutzer legt die Beschriftungen und die Achsen des Diagramms fest. er gibt eventuelle notwendige Skalierungen an.
+	\end{itemize}
+
+\subsection{EXIF-Auswertung}
+	\begin{itemize}
+		\item /F210/\\ Einlesen von allen sich in einer Bildmenge befinlichen Bildern. Hieraus extrahieren sich sämtliche \gls{exif}-Daten.
+		\item /F220/\\ Eventuelle Normierung der von \gls{exif}-Parametern
+	\end{itemize}
