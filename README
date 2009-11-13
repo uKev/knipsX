@@ -1,0 +1,26 @@
+Git Benutzung:
+
+Anfang (einmalig):
+git clone git@github.com:uKev/tempX.git
+
+Neue Datei zur Versionsverwaltung hinzufügen:
+git add filename
+
+bzw. 
+
+Alle neuen Dateien zur Versionsverwaltung hinzufügen:
+git add .
+
+
+Die Änderungen mit Kommentar übernehmen:
+git commit -m "Kommentar"
+
+oder
+Um alle neuen Dateien zur Versionsverwaltung hinzufügen und (mit Kommentar) zu übernehmen:
+git commit -am "Kommentar"
+
+Neue Änderungen vom Server holen:
+git pull
+
+Änderungen auf den Server übertragen:
+git push origin master
