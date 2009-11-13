@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2009.11.13)  13 NOV 2009 12:07
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2009.11.13)  13 NOV 2009 12:11
 entering extended mode
 **C:/Users/Kai/Desktop/PSE0910/tempX/Pflichtenheft/Pflichtenheft.tex
 (C:/Users/Kai/Desktop/PSE0910/tempX/Pflichtenheft/Pflichtenheft.tex
@@ -571,9 +571,37 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <17.28> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 64.
 
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\Pflichtenheft.toc)
+(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\Pflichtenheft.toc
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 2.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 6.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 10.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 13.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 19.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 22.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 23.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 24.
+Class scrartcl Info: You've told me to use the font selection of the element
+(scrartcl)           `sectioning' that is an alias of element `disposition'
+(scrartcl)            on input line 30.
+)
 \tf@toc=\write5
- [2]
+ [2] [3]
 (C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH01-Zielbestimmungen.tex
 LaTeX Font Info:    Try loading font information for OMS+ppl on input line 3.
 
@@ -586,10 +614,10 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 5.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
 (Font)              Font shape `T1/ppl/b/n' tried instead on input line 16.
- [3] [4]) [5]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH02-Produkteinsatz.tex) [6]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH03-Produktumgebung.tex) [7]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH04-Funktionale_Anforderungen.tex [8] [9]) [10]
+ [4] [5]) [6]
+(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH02-Produkteinsatz.tex) [7]
+(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH03-Produktumgebung.tex) [8]
+(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH04-Funktionale_Anforderungen.tex [9] [10]) [11]
 (C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH05-Produktdaten.tex
 Overfull \hbox (7.31395pt too wide) in paragraph at lines 15--16
 []\T1/ppl/m/n/12 Alle zu ei-nem Pro-jekt ge-hö-ren-de Bild-men-gen, Ver-zeich-nis-se-pfa-de und/oder
@@ -600,42 +628,33 @@ Overfull \hbox (17.15524pt too wide) in paragraph at lines 29--30
 []\T1/ppl/m/n/12 Auswertungsname, Bild-men-gen, Aus-ge-wähl-ter Dia-gramm-typ, Aus-wer-tungs-
  []
 
-
-LaTeX Warning: Reference `subsec:daten-diagrammtypen' on page 11 undefined on input line 30.
-
-[11]) [12] (C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH06-Nichtfunktionale_Anforderungen.tex) [13]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH07-Globale_Testfaelle.tex) [14]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08-Systemmodelle.tex) [15]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08a-Szenarien.tex) [16]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08b-Anwendungsfaelle.tex) [17]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08c-Objektmodell.tex) [18]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08d-Dynamische_Modelle.tex) [19]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08e-Benutzerschnittstelle.tex) [20]
+[12]) [13] (C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH06-Nichtfunktionale_Anforderungen.tex) [14]
+(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH07-Globale_Testfaelle.tex [15]) [16]
+(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08-Systemmodelle.tex) [17]
+(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08a-Szenarien.tex) [18]
+(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08b-Anwendungsfaelle.tex) [19]
+(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08c-Objektmodell.tex) [20]
+(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08d-Dynamische_Modelle.tex) [21]
+(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH08e-Benutzerschnittstelle.tex) [22]
 (C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\PH09-Glossar.tex
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\Pflichtenheft.gls)) [21]
-(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\Pflichtenheft.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\Pflichtenheft.gls)) [23]
+(C:\Users\Kai\Desktop\PSE0910\tempX\Pflichtenheft\Pflichtenheft.aux) ) 
 Here is how much of TeX's memory you used:
- 4869 strings out of 495285
- 72242 string characters out of 3180399
- 161193 words of memory out of 3000000
- 7909 multiletter control sequences out of 15000+200000
+ 4870 strings out of 495285
+ 72260 string characters out of 3180399
+ 162204 words of memory out of 3000000
+ 7910 multiletter control sequences out of 15000+200000
  30207 words of font info for 48 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  36i,9n,43p,1112b,342s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.8/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files/MiKTeX 2.8/fonts/type1/public/amsfonts/
-cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/
-urw/palatino/uplb8a.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX 2.8/fo
-nts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on Pflichtenheft.pdf (21 pages, 88567 bytes).
+{C:/Program Files/MiKTeX 2.8/fonts/enc/dvips/fontn
+ame/8r.enc}<C:/Program Files/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.8/fonts/typ
+e1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files/MiKTeX 2.8
+/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/
+MiKTeX 2.8/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on Pflichtenheft.pdf (23 pages, 86613 bytes).
 PDF statistics:
- 95 PDF objects out of 1000 (max. 8388607)
+ 101 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
