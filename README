@@ -24,3 +24,15 @@ git pull
 
 Änderungen auf den Server übertragen:
 git push origin master
+
+
+GLOSSARIES.STY und XFOR.STY Probleme mit Latex unter Ubuntu:
+
+http://www.ctan.org/pub/tex-archive/install/macros/latex/contrib/glossaries.tds.zip
+http://www.ctan.org/pub/tex-archive/install/macros/latex/contrib/xfor.tds.zip
+
+then went to /usr/share/texmf-texlive
+And just copied the files from that zip into the respective directiories.
+Then "sudo mktexlsr"
+
+
