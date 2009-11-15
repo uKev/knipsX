@@ -1,44 +1,128 @@
 \section{Funktionale Anforderungen}
 
-\subsection{Projektmanagement}
+\subsection{Programmausführung}
 	\begin{itemize}
-		\item /F10/\\ Anlegen und Erstellen eines neuen Projekts inklusive Namensvergabe
-		\item /F20/\\ Speichern, Laden und Löschen von Projekten
-		\item /F30/\\ Auswählen eines Projekts über eine Liste
+		\item \textbf{/F010/}\\ \textit{Programm beenden}: In dem Dialog aus /F110/, ist die Möglichkeit gegeben, durch betätigen der "`Fenster schliesen"' Schaltfläche (Je nach BS), das Programm zu beenden. Dabei werden keinerlei Daten der Projekte, die durch den Dialog zu Auswahl stehen, verändert.
+	\end{itemize}
+
+\subsection{Projektmanagement}
+	\gls{tempX} verfügt über eine eingebaute Projektverwaltung, mit der der Benutzer beliebige Kombinationen von Bildmengen und Auswertungen verwalten kann. Es kann allerdings immer nur ein Projekt im aktiven Zustand sein, ein Wechsel in ein anderes Projekte während der Programmausführung ist möglich.
+	\begin{itemize}
+		
+		\item \textbf{/F110/}\\ \textit{Automatisches durchsuchen des Projektordners}: Bei Programmstart, wird in dem Projektordner des Programms nach Projektkonfigurationsdaten gesucht. Auf der Basis dieser Datensätze, wird eine Projektliste generiert, die in einem Dialog nach absteigendem Bearbeitungsdatum (aktuelles zuerst) sortiert angezeigt werden. (VGL GUI)
+		
+		\item \textbf{/F120/}\\ \textit{Neues Projekt anlegen}: In dem Dialog aus \textbf{/F110/}, ist die Möglichkeit gegeben, ein neues Projekt zu erstellen und ihm einen Namen zu geben.\\ Dabei wird überprüft, ob dieser Projektname schon von einem anderen Projekt verwendet wird. Ist dies der Fall, kann der Benutzer einen neuen Namen eingeben oder einen automatisch generierten Vorschlag des Programms übernehmen.\par Nun wird eine neue Projektkonfigurationsdatei im PROJEKTE-Ordner angelegt. Bei der Projektanlegung wird auch ein Erstellungsdatum gespeichert (VGL Produktdaten). Danach, wird das Hauptprogramm gestartet, mit dem gerade erstellten Projekt (VGL GUI).
+		
+		\item \textbf{/F130/}\\ \textit{Vorhandens Projekt bearbeiten}: In dem Dialog aus \textbf{/F110/}, ist die Möglichkeit gegeben, durch einen Doppelklick auf den Projektnamen eines bereits vorhanden Projektes oder durch betätigen der Schaltfläche "`PROJEKT BEARBEITEN"' (VGL GUI), das Hauptprogramm zu starten.\par In der damit verbundenen Projektkonfigurationsdatei gespeicherte Bildmengen und Auswertungen werden nun verfügbar gemacht. Damit gemeint ist: 
+			\begin{itemize}
+				\item Das Einlesen von \gls{exif}-Daten aller Bilder, die in den Bildmengen des Projekts definiert sind (VGL NF). Das einlesen läuft im Hintergrund, d.h. es kann mit dem Programm interagiert werden, vollständige Funktionalität ist aber erst nach dem vollständigen Einlese der \gls{exif} Daten gegeben.
+				\item Anzeige der Bildmengen (VGL)
+				\item Anzeige der Auswerungen (VGL)
+			\end{itemize}		
+		
+		\item \textbf{/F140/}\\ \textit{Projekt kopieren}: In dem Dialog aus \textbf{/F110/}, ist die Möglichkeit gegeben, ein vorhandens Projekt mit allen in ihm definierten Bildmengen und Auswertungen zu kopieren und es unter neuem Namen, mit neuem Erstellungsdatum, abzuspeichern. Der Funktionsablauf ist nach diesem Schritt analog zu \textbf{/F130/}.
+		
+		\item \textbf{/F150/}\\ \textit{Projekt löschen}: In dem Dialog aus \textbf{/F110/}, ist die Möglichkeit gegeben, durch auswählen eines Projektes und betättigen der Schaltfläche "`PROJEKT LÖSCHEN"' folgende Aktionen auszulösen:
+			\begin{enumerate}
+				\item Es wird eine Sicherheitsabfrage angezeigt, die dem Benutzer die Möglichkeit gibt, das Löschen abzubrechen.
+				\item Das Projekt wird aus der Liste des Dialogs entfernt.
+				\item Die Projektkonfigurationsdatei wird in dem Projektordner gelöscht.
+				\item Dem Benutzer wird eine Rückmeldung gegeben, ob das Löschen erfolgreich war oder ob es einen Fehler gab.
+			\end{enumerate}
 	\end{itemize}
 
 \subsection{Bildmengenmanagement}
+\label{subsec:bildmengenmgmt}
+	In einem Projekt, können zwischen 1 und 10.000 Bildmengen verwaltet werden. Eine Bildmenge ist folgendermaßen definiert:
 	\begin{itemize}
-		\item /F40/\\ Anlegen von neuen Bildmengen inklusive Namensvergabe
-		\item /F50/\\ Auswählen von Bildmengen über eine Bildmengenliste
-		\item /F60/\\ Löschen von Bildmengen
-		\item /F70/\\ Festlegen von Bildmengen über Drag und Drop aus Bilddateien und Dateiordnern
-		\item /F71/\\ Hinzufügen von Bildmengen zu Bildmengen
+		\item Eine Bildmenge kann ein oder mehrere Verweise auf Bilder (im JPG Format) des zu verwendeten Dateisystems enthalten.
+		\item Eine Bildmenge kann ein oder mehrere Verweise auf Ordner des zu verwendeten Dateisystems enthalten.
+		\item Eine Bildmenge kann ein oder mehrere Verweise auf Bildmengen haben, die in dem Projekt definiert sind. Dabei ist zu beachten:
+			\begin{itemize}
+				\item Bei den Verweisen, darf es zu keinen Endlosverweisen führen (Bildmenge A ist in Bildmenge B und Bildmenge B ist in Bildmenge A).
+				\item Wird eine Bildmenge gelöscht, so wird der Verweis auf diese Bildmenge auch gelöscht.
+			\end{itemize}
+		\item Eine Bildmenge hat einen frei definierbaren Namen, der nicht leer sein darf.
+		\item Eine Bildmenge wird über eine interne ID eindeutig identifiziert (damit sind auch doppelt vorkommende Namen von Bildmengen möglich).
 	\end{itemize}
-
-\subsection{Auswertungsmanagement}
+	Es ist außerdem zu beachten, dass bei einem Dateisystem- oder einem Datenspeicherstrukturwechsel die Verweise keine Gültigkeit mehr haben können und ein Neuanlegen dieser Verweise unumgänglich ist.\par Wird ein Projekt geöffnet, werden alle in der Projektkonfigurationsdatei definierten Bildmengen lexikographisch sortiert angezeigt. Die erste Bildmenge der Liste, wird dabei automatisch auf aktiv gesetzt. (VGL GUI)
 	\begin{itemize}
-		\item /F80/\\ Anlegen von neuen Auswertungen inklusive Namensvergabe
-		\item /F90/\\ Auswählen von Auswertungen über eine Auswertungsliste. Sobald eine ausgewählt ist kann der Diagrammwizard gestartet werden.
-		\item /F100/\\ Das Löschen von Auswertungen
-		\item /F110/\\ Das hinzufügen und entfernen von Bildmengen zu bzw. aus Auswertungen
-		\item /F120/\\ Das Filtern von Bildmengen über Dateinamen und \gls{exif}-Daten
-		\item /F130/\\ Bereits erstellte Auswertungen können als Vorlage für neue Auswertungen verwendet werden
+		
+		\item \textbf{/F210/}\\ \textit{Anlegen einer neuen Bildmenge}: Durch betätigen der Schaltfläche "`Erstellen"' im Bereich Bildmengen, wird ein Dialog geöffnet, der dem Benutzer folgende Möglichkeiten gibt:
+			\begin{itemize}
+				\item Auswahl ein oder mehrerer Ordner, die dann einzeln als "`Hauptordner"' in die Bildmenge übernommen werden. Ausgehend von diesen Hauptordnern, wird dann rekursiv der Verzeichnisbaum nach Bilder im JPG Format durchsucht.
+				\item Auswahl ein oder mehrerer Bilder im JPG Format, die dann einzeln in die Bildmenge übernommen werden.
+			\end{itemize}
+		Nach dem Durchsuchen, wird ein weiterer Dialog geöffnet, der die Möglichkeit gibt der Bildmenge einen Namen zu geben.
+		
+		\item \textbf{/F220/}\\ \textit{Aktivieren einer Bildmenge}: Um eine Bildmenge zu aktivieren, muss man sie in der Liste der Bildmengen, im Bereich "`Bildmengen"', auswählen. Dadurch wird der Bereich "`Inhalt"' aktualisiert (FKT).
+		
+		\item \textbf{/F230/}\\ \textit{Hinzufügen von Bildern und Ordnern zu einer vorhandenen Bildmenge}: Um diese Aktionen auszuführen, muss eine Bildmenge aktiv sein. Das Hinzufügen kann durch zwei Arten geschehen:
+			\begin{itemize}
+				\item Durch Drag\&Drop von Ordnern und Bildern aus der grafischen Benutzerschnittstelle des Betriebssystems in den Bereich "`Inhalt"', einer aktiven Bildmenge (VLG GUI). 
+				\item Durch betätigen der Schaltfläche "`Hinzufügen"' in dem Bereich "`Inhalt"' einer aktiven Bildmenge, wird ein Dialog geöffnet, der analog zu dem in Funktion /F210/ beschriebenen Dialog arbeitet. Auch die folgenden Schritte sind analog.
+			\end{itemize}
+		
+		\item \textbf{/F240/}\\ \textit{Hinzufügen von Bildmengen zu einer vorhandenen Bildmenge}: Das Hinzufügen kann nur per Drag\&Drop einer vorhanden Bildmenge aus dem Bereich "`Bildmengen"' in den Bereich "`Inhalt"' einer aktiven Bildmenge erfolgen. Dabei wird die Definition von Bildmengen eingehalten (vgl: \ref{subsec:bildmengenmgmt}).
+		
+		\item \textbf{/F250/}\\ \textit{Löschen von Bildmengen}: Um diese Aktionen auszuführen, muss eine Bildmenge aktiv sein. Durch betätigen der Schaltfläsche "`Löschen"', werden folgende Aktionen ausgelöst:
+			\begin{enumerate}
+				\item Es wird eine Sicherheitsabfrage angezeigt, die dem Benutzer die Möglichkeit gibt, das Löschen abzubrechen.
+				\item Die Bildmenge wird aus der Liste der Bildmengen entfernt.
+				\item Es werden alle restlichen Bildmengen nach Verweisen auf diese Bildmenge durchsucht. Falls Verweise vorhanden sind, werden diese Verweise gelöscht.
+				\item Dem Benutzer wird eine Rückmeldung gegeben, ob das Löschen erfolgreich war oder ob es einen Fehler gab.
+				\item Nach dem Löschen, ist die erste Bildmenge in der Liste aktiv.
+			\end{enumerate}
 	\end{itemize}
 
 \subsection{Diagrammmanagement}
+	\gls{tempX} beherrscht verschiedene Diagrammtypen, welche im folgenden genannt sind:
+	
 	\begin{itemize}
-		\item /F140/\\ Erstellung des Ausgewählten Diagrammtyps aus \gls{exif}-Daten und deren statistischer Werte
-		\item /F150/\\ Anzeigen einer Diagrammvorschau bei der Auswahl eines Diagramms
-		\item /F160/\\ Darstellung des Diagrammtyps in einem Fenster
-		\item /F170/\\ Drehen und Zoomen Dreidimensionaler Diagramme
-		\item /F180/\\ Aktuelle Ansicht als JPEG ausgeben
-		\item /F190/\\ Der Benutzer kann in Diagrammen mit der Maus einzellne Bildmengen auswählen sowie einzellne Bilder anwählen und bekommt ein infofenster mit 	Dateinamen	
-		\item /F200/\\ Der Benutzer legt die Beschriftungen und die Achsen des Diagramms fest. er gibt eventuelle notwendige Skalierungen an.
+		\item \textbf{/F310/} \textit{Tabelle}: 
+		\item \textbf{/F320/} \textit{Histogram 2D}: 
+		\item \textbf{/F330/} \textit{Histogram 3D}: 
+		\item \textbf{/F340/} \textit{Boxplot}: 
+		\item \textbf{/F350/} \textit{Punktewolke}: 
 	\end{itemize}
 
-\subsection{EXIF-Auswertung}
+\subsection{Auswertungsmanagement}
+	Eine Auswertung ist eine Verknüpfung von ein oder mehreren Bildmengen mit einem Diagrammtyp. Eine Auswertung ist dabei folgendermaßen definiert:
 	\begin{itemize}
-		\item /F210/\\ Einlesen von allen sich in einer Bildmenge befinlichen Bildern. Hieraus extrahieren sich sämtliche \gls{exif}-Daten.
-		\item /F220/\\ Eventuelle Normierung der von \gls{exif}-Parametern
+		\item Eine Auswertung kann auch ohne Auswahl ein oder mehrer Bildmengen existieren. 
+		\item Eine Auswertung hat einen frei definierbaren Namen, der nicht leer sein darf (zu beachten ist, dass der Name automatisch um eine vorangestellte Zeichenkette ergänzt wird, die den Namen des gewählten Diagrammtyps beinhaltet).
+		\item Eine Auswertung wird über eine interne ID eindeutig identifiziert (damit sind auch doppelt vorkommende Namen von Auswertungen möglich).
+	\end{itemize}
+	\begin{itemize}
+		
+		\item \textbf{/F410/}\\ \textit{Anlegen einer neuen Auswertung}: Durch betätigen der Schaltfläche "`Erstellen"' in dem Bereich "`Auswertungen"', wird ein Assistent gestartet, der den Benutzer durch die Auswertungserstellung führt.\par Folgende Schritte führt der Assistent aus:
+			\begin{enumerate}
+				\item Diagrammtyp bestimmen
+					\begin{itemize}
+						\item Festlegen eines Auswertungsnamens .
+						\item Eine optionale Beschreibung der Auswertung.
+						\item Auswahl eines Diagrammtyps (VGL FKT/GUI). Bei der Auswahl, wird eine Livevorschau des Diagramms mit einem Dummydatensatz angezeigt, sowie eine kurze Beschreibung über Sinn und Zweck des Diagramms.\par Hier kann auch eine bereits in dem aktiven Projekt vorhandene Auswertung als Vorlage verwendet werden. Hierbei werden alle Werte der Auswertungsvorlage übernommen, bis auf die ID, die neu generiert wird.
+					\end{itemize}
+				\item Parameter festlegen\\	Festlegen der x, y oder z Achse (je nach Diagrammtyp VGL). Mit Festlegen ist hier das Verknüpfen mit \gls{exif} Parametern gemeint. Optional kann eine Beschreibung angegeben werden, die dann anstatt der Bennenung des \gls{exif} Parameters verwendet wird. Noch nicht getätigte Verknüpfungen werden als Fehler angezeigt und führen dazu, dass der Assistent nicht mit dem nächsten Schritt fortfahren kann.
+			\end{enumerate}
+			Nach Beendigung des Assistenten, wird die Auswertung gespeichert und geöffnet (VGL)
+		
+		\item \textbf{/F420/}\\ \textit{Aktivieren einer Auswertung}: Um eine Auswertung zu aktivieren, muss man sie in der Liste der Auswertungen, im Bereich "`Auswertungen"', auswählen.
+		
+		\item \textbf{/F430/}\\ \textit{Bearbeiten einer Auswertung}: Um eine Auswertung zu bearbeiten, muss sie aktiv sein. Durch betätigen der Schaltfläche Bearbeiten"' in dem Bereich "`Auswertungen"', wird ein Dialog geöffnet, der die gleichen Auswahlmöglichkeiten des Assistenten aus \textbf{/F310/} enthält. Diese sind über Tabs auswählbar und sind mit den Werten der Auswertung vorbelegt. Nach beenden des Dialogs, wird die Auswertung automatisch gespeichert.
+				
+		\item \textbf{/F440/}\\ \textit{Löschen einer Auswertung}: Um eine Auswertung zu löschen, muss sie aktiv sein. Durch betätigen der Schaltfläche Entfernen"' in dem Bereich "`Auswertungen"', werden folgende Aktionen ausgelöst:
+			\begin{enumerate}
+				\item Es wird eine Sicherheitsabfrage angezeigt, die dem Benutzer die Möglichkeit gibt, das Löschen abzubrechen.
+				\item Die Auswertung wird aus der Liste der Auswertungen entfernt.
+				\item Dem Benutzer wird eine Rückmeldung gegeben, ob das Löschen erfolgreich war oder ob es einen Fehler gab.
+				\item Nach dem Löschen, ist die erste Auswertung in der Liste aktiv.
+			\end{enumerate}
+			
+	\end{itemize}
+
+\subsection{Exif-Auswertung}
+
+	\begin{itemize}
+		\item \textbf{/F510/}\\ \textit{Extraktion von \gls{exif} Daten}: Beim Einlesen von Dateien im JPG Format, werden nur die \gls{exif} Daten eingelesen, nicht die Bilddaten. Die Parameter, die verarbeitet werden, sind unter VGL definiert. Die Daten werden nur während der Programmausführung intern gespeichert. Bei jedem Programmstart, werden diese neu eingelesen (siehe auch \textbf{/F130/})
 	\end{itemize}
