@@ -2,18 +2,27 @@
 \documentclass[a4paper,12pt, DIV12]{scrartcl}
 
 %+++Grundeinstellungen++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\usepackage[ngerman]{babel}		%Trennungen, Schriftsatz; Neue deutsche Rechtschreibung
-\usepackage[T1]{fontenc}		%Umlaute, Sonderzeichen...				
-\usepackage[utf8]{inputenc}		%UTF-8 Support
-\usepackage{graphicx}			%Paket um Grafiken einzubinden. Evtl. muss unter Windows  
-								% mit \usepackage[dvips]{graphicx} der dvips-Treiber für EPS-Grafiken geladen werden
-\usepackage{palatino}			%Schriftart - hier könnte auch times oder helvet stehen
-								%wird zwar von l2tabu nicht empfohlen - finde ich persönlich aber
-								%die "schönste" Varianten
-\usepackage{multicol}			%Paket für mehrspaltige Dokumente
-\usepackage{pst-all}			%Paket um pstricks Grafiken darzustellen
+\usepackage[ngerman]{babel}		% Trennungen, Schriftsatz; Neue deutsche Rechtschreibung
+\usepackage[T1]{fontenc}			% Umlaute, Sonderzeichen...				
+\usepackage[utf8]{inputenc}		% UTF-8 Support
+\usepackage{graphicx}					% Paket um Grafiken einzubinden. Evtl. muss unter Windows  
+															% mit \usepackage[dvips]{graphicx} der dvips-Treiber für EPS-Grafiken geladen werden
+\usepackage{palatino}					% Schriftart - hier könnte auch times oder helvet stehen
+															% wird zwar von l2tabu nicht empfohlen - finde ich persönlich aber
+															% die "schönste" Varianten
+\usepackage{multicol}					% Paket für mehrspaltige Dokumente
+\usepackage{pst-all}					% Paket um pstricks Grafiken darzustellen
 \usepackage{float}
 \usepackage{longtable}
+\usepackage[colorlinks,
+						pdfpagelabels,
+						pdfstartview			= FitH,
+						bookmarksopen			= true,
+						bookmarksnumbered = true,
+						linkcolor					= black,
+						plainpages				= false,
+						hypertexnames			= false,
+						citecolor					= black] {hyperref} % Paket für hyperrefs
 
 %+++Glossar+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \usepackage[nonumberlist]{glossaries}
@@ -25,9 +34,9 @@
 
 %+++Kopf- und Fusszeilen++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \usepackage{scrpage2}					%An Koma-Script optimierte Kopfzeilenklasse, jedoch auf gut für
-										%andere Dokumentklassen zu verwenden Mit diesem Paket sind auch Kopf-
-										%und Fusszeilen möglich, die Unterschiede für rechte und linke Seiten
-										%machen (bspw für Bücher)
+															%andere Dokumentklassen zu verwenden Mit diesem Paket sind auch Kopf-
+															%und Fusszeilen möglich, die Unterschiede für rechte und linke Seiten
+															%machen (bspw für Bücher)
 
 %Hier folgen die Kopfzeilentexte
 \ihead{INSERT}
@@ -39,20 +48,20 @@
 % nützlich: \pagemark = Seitenzahl
 
 \setheadsepline{1pt}					%Dicke der Trennlinie Kopfzeile - Text
-\setfootsepline{0.5pt}					%Dicke der Trennlinie Fusszeile - Text
+\setfootsepline{0.5pt}				%Dicke der Trennlinie Fusszeile - Text
 
-\pagestyle{scrheadings}					%gemachte Einstellungen anwenden
+\pagestyle{scrheadings}				%gemachte Einstellungen anwenden
 
 %+++Linienabstand+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 \usepackage{setspace}
-\onehalfspacing							%1.5 Zeilenabstand; 1 = \singlespacing; 2 = \doublespacing
+\onehalfspacing								%1.5 Zeilenabstand; 1 = \singlespacing; 2 = \doublespacing
 
 
 %+++Absatzeinzug++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\setlength{\parindent}{1em}			% 1em = Größe, die ein großes M der aktuellen Schrift
-									% Platz braucht: Somit ist diese Größe Schriftabhängig
-									% (was auch Sinn macht)
+\setlength{\parindent}{1em}		% 1em = Größe, die ein großes M der aktuellen Schrift
+															% Platz braucht: Somit ist diese Größe Schriftabhängig
+															% (was auch Sinn macht)
 
 %Schusterjungen und Hurenkinder vermeiden 
 \clubpenalty=5000\relax 
@@ -73,8 +82,6 @@
   \input{PH08-Systemmodelle} \newpage
   \input{PH08a-Szenarien} \newpage
   \input{PH08b-Anwendungsfaelle} \newpage
-  \input{PH08c-Objektmodell} \newpage
-  \input{PH08d-Dynamische_Modelle} \newpage
-  \input{PH08e-Benutzerschnittstelle} \newpage
+  \input{PH08c-Benutzerschnittstelle} \newpage
   \input{PH09-Glossar}
 \end{document}
