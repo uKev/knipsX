@@ -1,65 +1,47 @@
-This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=latex 2009.11.13)  13 NOV 2009 12:37
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.11.3)  16 NOV 2009 09:22
 entering extended mode
+ %&-line parsing enabled.
 **Pflichtenheft.tex
-(Pflichtenheft.tex
+(./Pflichtenheft.tex
 LaTeX2e <2005/12/01>
-Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, german, ngerman, german-x-2008-06-18, ngerm
-an-x-2008-06-18, french, loaded.
-("C:\Program Files\MiKTeX 2.7\tex\latex\koma-script\scrartcl.cls"
-Document Class: scrartcl 2009/01/01 v3.02 KOMA-Script document class (article)
-("C:\Program Files\MiKTeX 2.7\tex\latex\koma-script\scrkbase.sty"
-Package: scrkbase 2009/01/01 v3.02 KOMA-Script package (KOMA-Script-dependent basics and keyval usage)
+Babel <v3.8h> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, loaded.
+(/usr/share/texmf-texlive/tex/latex/koma-script/scrartcl.cls
+Document Class: scrartcl 2006/07/30 v2.95b KOMA-Script document class (article)
 
-("C:\Program Files\MiKTeX 2.7\tex\latex\koma-script\scrbase.sty"
-Package: scrbase 2009/01/01 v3.02 KOMA-Script package (KOMA-Script-independent basics and keyval usage)
+(/usr/share/texmf-texlive/tex/latex/koma-script/scrkbase.sty
+Package: scrkbase 2006/07/30 v2.95b KOMA-Script package (basics and keyval use)
 
-("C:\Program Files\MiKTeX 2.7\tex\latex\graphics\keyval.sty"
-Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
-\KV@toks@=\toks14
-)
-("C:\Program Files\MiKTeX 2.7\tex\latex\koma-script\scrlfile.sty"
-Package: scrlfile 2008/07/09 v3.00 KOMA-Script package (loading files)
 
-Package scrlfile, 2008/07/09 v3.00 KOMA-Script package (loading files)
+(/usr/share/texmf-texlive/tex/latex/koma-script/scrlfile.sty
+Package: scrlfile 2006/03/28 v2.95 KOMA-Script package (loading files)
+
+Package scrlfile, 2006/03/28 v2.95 KOMA-Script package (loading files)
                   Copyright (C) Markus Kohm
 
-))) ("C:\Program Files\MiKTeX 2.7\tex\latex\koma-script\tocbasic.sty"
-Package: tocbasic 2009/01/01 v3.02(package)
-)
-Package tocbasic Info: omitting babel extension for `toc'
-(tocbasic)             because of feature `nobabel' available
-(tocbasic)             for `toc' on input line 112.
-Package tocbasic Info: omitting babel extension for `lof'
-(tocbasic)             because of feature `nobabel' available
-(tocbasic)             for `lof' on input line 113.
-Package tocbasic Info: omitting babel extension for `lot'
-(tocbasic)             because of feature `nobabel' available
-(tocbasic)             for `lot' on input line 114.
-Package scrartcl Info: You've used obsolete option `12pt'.
-(scrartcl)             \KOMAExecuteOptions{fontsize=12pt} will be
-(scrartcl)             used instead.
-(scrartcl)             You may simply replace `12pt'
-(scrartcl)             by `fontsize=12pt'.
-Class scrartcl Info: File `scrsize12pt.clo' used to setup font sizes on input line 1159.
+) (/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+))
+Package scrkbase Info: You've used the obsolete option `12pt'.
+(scrkbase)             \KOMAoptions{fontsize=12pt} will be used instead.
+(scrkbase)             You should do this change too on input line 594.
 
-("C:\Program Files\MiKTeX 2.7\tex\latex\koma-script\scrsize12pt.clo"
-File: scrsize12pt.clo 2009/01/01 v3.02 KOMA-Script font size class option (12pt)
+(/usr/share/texmf-texlive/tex/latex/base/size12.clo
+File: size12.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
 )
-("C:\Program Files\MiKTeX 2.7\tex\latex\koma-script\typearea.sty"
-Package: typearea 2009/01/01 v3.02 KOMA-Script package (type area)
+(/usr/share/texmf-texlive/tex/latex/koma-script/typearea.sty
+Package: typearea 2006/07/30 v2.95b KOMA-Script package (type area)
 
-Package typearea, 2009/01/01 v3.02 KOMA-Script package (type area)
+Package typearea, 2006/07/30 v2.95b KOMA-Script package (type area)
                   Copyright (C) Frank Neukam, 1992-1994
-                  Copyright (C) Markus Kohm, 1994-
+                  Copyright (C) Markus Kohm, 1994-2002
 
 \ta@bcor=\skip41
 \ta@div=\count79
-Package typearea Info: You've used standard option `a4paper'.
-(typearea)             This is correct!
-(typearea)             Internaly I'm using `paper=a4'.
-(typearea)             If you'd like to set the option with \KOMAoptions,
-(typearea)             you'd have to use `paper=a4' there
-(typearea)             instead of `a4paper', too.
+Package scrkbase Info: You've used the obsolete option `a4paper'.
+(scrkbase)             \KOMAoptions{paper=a4} will be used instead.
+(scrkbase)             You should do this change too on input line 419.
 \ta@hblk=\skip42
 \ta@vblk=\skip43
 \ta@temp=\skip44
@@ -68,7 +50,7 @@ Package typearea Info: These are the values describing the layout:
 (typearea)             BCOR = 0.0pt
 (typearea)             \paperwidth      = 597.50793pt
 (typearea)              \textwidth      = 448.13095pt
-(typearea)              DIV departure   = -6%
+(typearea)              DIV-departure   = -6/100
 (typearea)              \evensidemargin = 2.4185pt
 (typearea)              \oddsidemargin  = 2.4185pt
 (typearea)             \paperheight     = 845.04694pt
@@ -79,7 +61,7 @@ Package typearea Info: These are the values describing the layout:
 (typearea)              \topskip        = 12.0pt
 (typearea)              \footskip       = 50.75pt
 (typearea)              \baselineskip   = 14.5pt
-(typearea)              on input line 1041.
+(typearea)              on input line 832.
 )
 \c@part=\count80
 \c@section=\count81
@@ -93,42 +75,45 @@ Package typearea Info: These are the values describing the layout:
 \c@figure=\count86
 \c@table=\count87
 \bibindent=\dimen102
-) ("C:\Program Files\MiKTeX 2.7\tex\generic\babel\babel.sty"
-Package: babel 2008/07/06 v3.8l The Babel package
+) (/usr/share/texmf-texlive/tex/generic/babel/babel.sty
+Package: babel 2005/11/23 v3.8h The Babel package
 
-*************************************
-* Local config file bblopts.cfg used
-*
-("C:\Program Files\MiKTeX 2.7\tex\latex\00miktex\bblopts.cfg"
-File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
-)
-("C:\Program Files\MiKTeX 2.7\tex\generic\babel\ngermanb.ldf"
-Language: ngermanb 2008/07/06 v2.6n new German support from the babel system
- ("C:\Program Files\MiKTeX 2.7\tex\generic\babel\babel.def"
-File: babel.def 2008/07/06 v3.8l Babel common definitions
+(/usr/share/texmf-texlive/tex/generic/babel/ngermanb.ldf
+Language: ngermanb 2004/02/20 v2.6m new German support from the babel system
+
+(/usr/share/texmf-texlive/tex/generic/babel/babel.def
+File: babel.def 2005/11/23 v3.8h Babel common definitions
 \babel@savecnt=\count88
 \U@D=\dimen103
 )
+
+Package babel Warning: No hyphenation patterns were loaded for
+(babel)                the language `ngerman'
+(babel)                I will use the patterns loaded for \language=0 instead.
+
+\l@ngerman = a dialect from \language0
 \l@naustrian = a dialect from \language\l@ngerman 
 Package babel Info: Making " an active character on input line 92.
-)) ("C:\Program Files\MiKTeX 2.7\tex\latex\base\fontenc.sty"
+)) (/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
- ("C:\Program Files\MiKTeX 2.7\tex\latex\base\t1enc.def"
+
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.def
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 ))
-("C:\Program Files\MiKTeX 2.7\tex\latex\base\inputenc.sty"
+(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
 Package: inputenc 2006/05/05 v1.1b Input encoding file
 \inpenc@prehook=\toks15
 \inpenc@posthook=\toks16
- ("C:\Program Files\MiKTeX 2.7\tex\latex\base\utf8.def"
+
+(/usr/share/texmf-texlive/tex/latex/base/utf8.def
 File: utf8.def 2006/03/30 v1.1i UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encodingT1
 
-("C:\Program Files\MiKTeX 2.7\tex\latex\base\t1enc.dfu"
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.dfu
 File: t1enc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -277,7 +262,8 @@ File: t1enc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
 )
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encodingOT1
- ("C:\Program Files\MiKTeX 2.7\tex\latex\base\ot1enc.dfu"
+
+(/usr/share/texmf-texlive/tex/latex/base/ot1enc.dfu
 File: ot1enc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -308,7 +294,7 @@ File: ot1enc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
 Now handling font encoding OMS ...
 ... processing UTF-8 mapping file for font encodingOMS
 
-("C:\Program Files\MiKTeX 2.7\tex\latex\base\omsenc.dfu"
+(/usr/share/texmf-texlive/tex/latex/base/omsenc.dfu
 File: omsenc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
@@ -331,35 +317,41 @@ Now handling font encoding U ...
    defining Unicode char U+2026 (decimal 8230)
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
-)) ("C:\Program Files\MiKTeX 2.7\tex\latex\graphics\graphicx.sty"
+))
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
- ("C:\Program Files\MiKTeX 2.7\tex\latex\graphics\graphics.sty"
+
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
 Package: graphics 2006/02/20 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files\MiKTeX 2.7\tex\latex\graphics\trig.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
-) ("C:\Program Files\MiKTeX 2.7\tex\latex\00miktex\graphics.cfg"
+)
+(/etc/texmf/tex/latex/config/graphics.cfg
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
-Package graphics Info: Driver file: dvips.def on input line 90.
- ("C:\Program Files\MiKTeX 2.7\tex\latex\graphics\dvips.def"
-File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+Package graphics Info: Driver file: pdftex.def on input line 90.
+
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2007/01/08 v0.04d Graphics/color for pdfTeX
+\Gread@gobject=\count89
 ))
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
 )
-("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\palatino.sty"
+(/usr/share/texmf-texlive/tex/latex/psnfss/palatino.sty
 Package: palatino 2005/04/12 PSNFSS-v9.2a (SPQR) 
-) ("C:\Program Files\MiKTeX 2.7\tex\latex\tools\multicol.sty"
+)
+(/usr/share/texmf-texlive/tex/latex/tools/multicol.sty
 Package: multicol 2006/05/18 v1.6g multicolumn formatting (FMi)
-\c@tracingmulticols=\count89
+\c@tracingmulticols=\count90
 \mult@box=\box27
 \multicol@leftmargin=\dimen106
-\c@unbalance=\count90
-\c@collectmore=\count91
-\doublecol@number=\count92
-\multicoltolerance=\count93
-\multicolpretolerance=\count94
+\c@unbalance=\count91
+\c@collectmore=\count92
+\doublecol@number=\count93
+\multicoltolerance=\count94
+\multicolpretolerance=\count95
 \full@width=\dimen107
 \page@free=\dimen108
 \premulticols=\dimen109
@@ -389,388 +381,201 @@ Package: multicol 2006/05/18 v1.6g multicolumn formatting (FMi)
 \@tempa=\box48
 \@tempa=\box49
 \@tempa=\box50
-\c@columnbadness=\count95
-\c@finalcolumnbadness=\count96
+\c@columnbadness=\count96
+\c@finalcolumnbadness=\count97
 \last@try=\dimen111
 \multicolovershoot=\dimen112
 \multicolundershoot=\dimen113
 \mult@nat@firstbox=\box51
 \colbreak@box=\box52
-) ("C:\Program Files\MiKTeX 2.7\tex\latex\float\float.sty"
+)
+(/usr/share/texmf-texlive/tex/latex/pstricks/pst-all.sty
+Package: pst-all 2006/11/07 the main pstricks tools
+
+(/usr/share/texmf-texlive/tex/latex/pstricks/pstricks.sty
+Package: pstricks 2006/08/10 v0.32 LaTeX wrapper for `PSTricks' (RN,HV)
+
+(/usr/share/texmf-texlive/tex/generic/pstricks/pstricks.tex
+`PSTricks' v1.15  <2006/12/22> (tvz)
+\pst@dima=\dimen114
+\pst@dimb=\dimen115
+\pst@dimc=\dimen116
+\pst@dimd=\dimen117
+\pst@dimg=\dimen118
+\pst@dimh=\dimen119
+\pst@hbox=\box53
+\pst@boxg=\box54
+\pst@cnta=\count98
+\pst@cntb=\count99
+\pst@cntc=\count100
+\pst@cntd=\count101
+\pst@cntg=\count102
+\pst@cnth=\count103
+\pst@toks=\toks17
+(/usr/share/texmf-texlive/tex/generic/pstricks/pstricks.con)
+\psunit=\dimen120
+\psxunit=\dimen121
+\psyunit=\dimen122
+\pslinewidth=\dimen123
+\pst@customdefs=\toks18
+\pslinearc=\dimen124
+\everypsbox=\toks19
+\psframesep=\dimen125
+\pslabelsep=\dimen126
+\psk@shift=\dimen127
+\pst@shift=\dimen128
+\theoverlaybox=\box55
+)
+File: pstricks.tex 2006/12/22 v1.15 `PSTricks' (tvz)
+
+(/usr/share/texmf/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(/etc/texmf/tex/latex/config/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Package option `override' ignored on input line 216.
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+))
+(/usr/share/texmf-texlive/tex/latex/pstricks/pst-plot.sty
+Package: pst-plot 2004/07/15 package wrapper for pst-plot.tex
+
+(/usr/share/texmf-texlive/tex/generic/pstricks/pst-plot.tex
+ v97 patch 2, 1999/12/12
+(/usr/share/texmf-texlive/tex/generic/multido/multido.tex
+ v1.41, 2004/05/18 <tvz>
+\multido@count=\count104
+\multidocount=\count105
+\multido@stuff=\toks20
+))
+File: pst-plot.tex 2004/05/18 1.41 `pst-plot' (tvz)
+)
+(/usr/share/texmf-texlive/tex/latex/pstricks/pst-tree.sty
+Package: pst-tree 2004/07/15 package wrapper for pst-tree.tex
+
+(/usr/share/texmf-texlive/tex/generic/pstricks/pst-tree.tex
+(/usr/share/texmf-texlive/tex/generic/pstricks/pst-node.tex
+ v97 patch 11, 2000/11/09
+\psrow=\count106
+\pscol=\count107
+\psmatrixcnt=\count108
+\psrowsep=\skip49
+\pscolsep=\skip50
+)  v97 patch 6, 2004/07/24
+\pstree@rootbox=\box56
+\pstree@box=\box57
+\psnodecnt=\count109
+\pstreelevel=\count110
+\pstreecnt=\count111
+\pstree@cnt=\count112
+\pstree@stop=\count113
+)
+File: pst-tree.tex 2004/07/24 97 patch 6 `pst-tree' (tvz)
+)
+(/usr/share/texmf-texlive/tex/latex/pstricks/pst-node.sty
+Package: pst-node 2006/01/01 package wrapper for pst-node.tex
+
+(/usr/share/texmf-texlive/tex/generic/pstricks/pst-node.tex
+ v97 patch 11, 2000/11/09)
+File: pst-node.tex 2000/11/09 97 patch 11 `pst-node' (tvz)
+)
+(/usr/share/texmf-texlive/tex/latex/pst-3d/pst-3d.sty
+Package: pst-3d 2005/09/02 package wrapper for pst-3d.tex (hv)
+
+(/usr/share/texmf-texlive/tex/generic/pst-3d/pst-3d.tex
+(/usr/share/texmf-texlive/tex/latex/xkeyval/pst-xkey.tex
+File: pst-xkey.tex 2005/11/25 v1.6 PSTricks specialization of xkeyval (HA)
+
+(/usr/share/texmf-texlive/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2006/11/18 v2.5f package option processing (HA)
+
+(/usr/share/texmf-texlive/tex/latex/xkeyval/xkeyval.tex
+\XKV@toks=\toks21
+\XKV@depth=\count114
+File: xkeyval.tex 2006/11/18 v2.5f key=value parser (HA)
+)))
+`PST-3d' v1.00, 2005/09/03 (tvz))
+File: pst-3d.tex 2005/09/03 v1.00 `PST-3d' (tvz)
+)
+(/usr/share/texmf-texlive/tex/latex/pst-grad/pst-grad.sty
+Package: pst-grad 2004/07/15 package wrapper for pst-grad.tex (hv)
+
+(/usr/share/texmf-texlive/tex/generic/pst-grad/pst-grad.tex
+`pst-plot' v1.05, 2006/11/04 (tvz,dg,hv))
+File: pst-grad.tex 2006/11/04 1.05 `pst-grad' (tvz)
+)
+(/usr/share/texmf-texlive/tex/latex/pst-coil/pst-coil.sty
+Package: pst-coil 2006/08/11 package wrapper for pst-coil.tex (hv)
+
+(/usr/share/texmf-texlive/tex/generic/pst-coil/pst-coil.tex  v1.05, 2006/11/04)
+File: pst-coil.tex 2006/11/05 v1.00 `pst-coil' (tvz)
+) (/usr/share/texmf-texlive/tex/latex/pst-text/pst-text.sty
+Package: pst-text 2006/01/01 package wrapper for pst-text.tex (hv)
+
+(/usr/share/texmf-texlive/tex/generic/pst-text/pst-text.tex
+ v1.00, 2006/11/05(tvz,hv))
+File: pst-text.tex 2006/11/05 1.00 `pst-text' (tvz)
+)
+(/usr/share/texmf-texlive/tex/latex/pst-eps/pst-eps.sty
+Package: pst-eps 2005/05/20 package wrapper for pst-eps.tex (hv)
+
+(/usr/share/texmf-texlive/tex/generic/pst-eps/pst-eps.tex  v1.00, 2006/11/04
+\pst@epsout=\write3
+\pst@tempout=\write4
+)
+File: pst-eps.tex 2006/11/04 1.00 `pst-eps' (tvz)
+)
+(/usr/share/texmf-texlive/tex/latex/pst-fill/pst-fill.sty
+Package: pst-fill 2005/09/13 package wrapper for pst-fill.tex (hv)
+
+(/usr/share/texmf-texlive/tex/generic/pst-fill/pst-fill.tex
+`PST-Fill' v1.00, 2005/09/12 (tvz,dg,hv)
+\pst@fillbox=\box58
+)
+File: pst-fill.tex 2005/09/12 v1.00 `PST-fill' (tvz,dg)
+)
+(/usr/share/texmf-texlive/tex/generic/multido/multido.sty
+Package: multido 2004/05/17 package wrapper for PSTricks `multido.tex', (HV/RN)
+
+))
+(/usr/share/texmf-texlive/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count97
-\float@exts=\toks17
-\float@box=\box53
-\@float@everytoks=\toks18
-\@floatcapt=\box54
-) ("C:\Program Files\MiKTeX 2.7\tex\latex\picins\picins.sty"
-Option `picins' Version 3.0 Sep. 1992, TH Darmstadt/HRZ
-\@BILD=\box55
-\@TEXT=\box56
-\d@breite=\dimen114
-\d@hoehe=\dimen115
-\d@xoff=\dimen116
-\d@yoff=\dimen117
-\d@shad=\dimen118
-\d@dash=\dimen119
-\d@boxl=\dimen120
-\d@pichskip=\dimen121
-\d@tmp=\dimen122
-\d@tmpa=\dimen123
-\d@bskip=\dimen124
-\hsiz@=\dimen125
-\p@getot@l=\dimen126
-\c@breite=\count98
-\c@hoehe=\count99
-\c@xoff=\count100
-\c@yoff=\count101
-\c@pos=\count102
-\c@shad=\count103
-\c@dash=\count104
-\c@boxl=\count105
-\c@zeilen=\count106
-\@changemode=\count107
-\c@piccaption=\count108
-\c@piccaptionpos=\count109
-\c@picpos=\count110
-\c@whole=\count111
-\c@half=\count112
-\c@tmp=\count113
-\c@tmpa=\count114
-\c@tmpb=\count115
-\c@tmpc=\count116
-\c@tmpd=\count117
-\d@leftskip=\skip49
-\ptoti=\dimen127
-\ptotii=\dimen128
-\env@box=\box57
-\d@envdp=\dimen129
-\c@hsize=\count118
-\c@envdp=\count119
-\d@envb=\dimen130
-) ("C:\Program Files\MiKTeX 2.7\tex\latex\tools\longtable.sty"
-Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
-\LTleft=\skip50
-\LTright=\skip51
-\LTpre=\skip52
-\LTpost=\skip53
-\LTchunksize=\count120
-\LTcapwidth=\dimen131
-\LT@head=\box58
-\LT@firsthead=\box59
-\LT@foot=\box60
-\LT@lastfoot=\box61
-\LT@cols=\count121
-\LT@rows=\count122
-\c@LT@tables=\count123
-\c@LT@chunks=\count124
-\LT@p@ftn=\toks19
-)
-Class scrartcl Info: longtable captions redefined on input line 17.
-
-("C:\Program Files\MiKTeX 2.7\tex\latex\glossaries\base\glossaries.sty"
-Package: glossaries 2008/12/26 v1.17 (NLCT)
-
-("C:\Program Files\MiKTeX 2.7\tex\latex\base\ifthen.sty"
-Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
-) ("C:\Program Files\MiKTeX 2.7\tex\latex\xkeyval\xkeyval.sty"
-Package: xkeyval 2008/08/13 v2.6a package option processing (HA)
-
-("C:\Program Files\MiKTeX 2.7\tex\generic\xkeyval\xkeyval.tex"
-\XKV@toks=\toks20
-\XKV@tempa@toks=\toks21
-\XKV@depth=\count125
-File: xkeyval.tex 2008/08/13 v2.6a key=value parser (HA)
-))
-("C:\Program Files\MiKTeX 2.7\tex\latex\glossaries\base\mfirstuc.sty"
-Package: mfirstuc 2008/12/22 v1.03 (NLCT)
-)
-("C:\Program Files\MiKTeX 2.7\tex\latex\xfor\xfor.sty"
-Package: xfor 2007/08/21 v1.03 (NLCT)
-)
-("C:\Program Files\MiKTeX 2.7\tex\latex\translator\base\translator.sty"
-Package: translator 2007/03/11 ver 1.00
-
-("C:\Program Files\MiKTeX 2.7\tex\latex\translator\base\translator-language-mappings.tex"))
-("C:\Program Files\MiKTeX 2.7\tex\latex\amsmath\amsgen.sty"
-File: amsgen.sty 1999/11/30 v2.0
-\@emptytoks=\toks22
-\ex@=\dimen132
-)
-\gls@level=\count126
-\@gls@tmpb=\toks23
-\gls@tmplen=\skip54
-\istfile=\write3
-
-("C:\Program Files\MiKTeX 2.7\tex\latex\glossaries\styles\glossary-hypernav.sty"
-Package: glossary-hypernav 2007/07/04 v1.01 (NLCT)
-)
-("C:\Program Files\MiKTeX 2.7\tex\latex\glossaries\styles\glossary-list.sty"
-Package: glossary-list 2008/12/11 v1.04 (NLCT)
-\glslistdottedwidth=\skip55
-)
-("C:\Program Files\MiKTeX 2.7\tex\latex\glossaries\styles\glossary-long.sty"
-Package: glossary-long 2008/12/11 v1.02 (NLCT)
-\glsdescwidth=\skip56
-\glspagelistwidth=\skip57
-)
-("C:\Program Files\MiKTeX 2.7\tex\latex\glossaries\styles\glossary-super.sty"
-Package: glossary-super 2008/12/11 v1.02 (NLCT)
-
-("C:\Program Files\MiKTeX 2.7\tex\latex\supertabular\supertabular.sty"
-Package: supertabular 2004/02/20 v4.1e the supertabular environment
-\c@tracingst=\count127
-\ST@wd=\dimen133
-\ST@rightskip=\skip58
-\ST@leftskip=\skip59
-\ST@parfillskip=\skip60
-\ST@pageleft=\dimen134
-\ST@headht=\dimen135
-\ST@tailht=\dimen136
-\ST@pagesofar=\dimen137
-\ST@pboxht=\dimen138
-\ST@lineht=\dimen139
-\ST@stretchht=\dimen140
-\ST@prevht=\dimen141
-\ST@toadd=\dimen142
-\ST@dimen=\dimen143
-\ST@pbox=\box62
-))
-("C:\Program Files\MiKTeX 2.7\tex\latex\glossaries\styles\glossary-tree.sty"
-Package: glossary-tree 2008/12/11 v1.0 (NLCT)
-\glstreeindent=\skip61
-)) (_Glossar.tex)
-\glo@main@file=\write4
-Package glossaries Info: Writing glossary file Pflichtenheft.glo on input line 24.
-
-("C:\Program Files\MiKTeX 2.7\tex\latex\koma-script\scrpage2.sty"
-Package: scrpage2 2008/12/08 v2.3 LaTeX2e KOMA-Script package
-LaTeX Info: Redefining \pagemark on input line 173.
-)
-("C:\Program Files\MiKTeX 2.7\tex\latex\setspace\setspace.sty"
-Package: setspace 2000/12/01 6.7 Contributed and Supported LaTeX2e package
-
-Package: `setspace' 6.7 <2000/12/01>
-) (Pflichtenheft.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Try loading font information for T1+ppl on input line 63.
- ("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\t1ppl.fd"
-File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
-)
-("C:\Program Files\MiKTeX 2.7\tex\latex\glossaries\dict\glossaries-dictionary-English.dict"
-Dictionary: glossaries-dictionary, Language: English 
+\c@float@type=\count115
+\float@exts=\toks22
+\float@box=\box59
+\@float@everytoks=\toks23
+\@floatcapt=\box60
 )
 
-Package scrpage2 Warning: seems you are using a very small headheight.
-(scrpage2)                If you get overfull \vbox warnings at almost every
-(scrpage2)                page, you should increase headheight e.g. writing
-(scrpage2)                 \setlength{\headheight}{1.1\baselineskip}
-(scrpage2)                into the preamble of your document.
-(scrpage2)                A better solution would be to use typearea package.
-
-(PH00-Titelblatt.tex
-LaTeX Font Info:    Try loading font information for T1+phv on input line 7.
- ("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\t1phv.fd"
-File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
-)
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 7.
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <24.88> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 7.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <17.28> on input line 7.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 7.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 7.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 7.
- [1
-
-
-])
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 65.
- (Pflichtenheft.toc
-Class scrartcl Info: You've told me to use the font selection of the element
-(scrartcl)           `sectioning' that is an alias of element `disposition'
-(scrartcl)            on input line 2.
-Class scrartcl Info: You've told me to use the font selection of the element
-(scrartcl)           `sectioning' that is an alias of element `disposition'
-(scrartcl)            on input line 6.
-Class scrartcl Info: You've told me to use the font selection of the element
-(scrartcl)           `sectioning' that is an alias of element `disposition'
-(scrartcl)            on input line 10.
-Class scrartcl Info: You've told me to use the font selection of the element
-(scrartcl)           `sectioning' that is an alias of element `disposition'
-(scrartcl)            on input line 13.
-Class scrartcl Info: You've told me to use the font selection of the element
-(scrartcl)           `sectioning' that is an alias of element `disposition'
-(scrartcl)            on input line 14.
-Class scrartcl Info: You've told me to use the font selection of the element
-(scrartcl)           `sectioning' that is an alias of element `disposition'
-(scrartcl)            on input line 15.
-Class scrartcl Info: You've told me to use the font selection of the element
-(scrartcl)           `sectioning' that is an alias of element `disposition'
-(scrartcl)            on input line 16.
-Class scrartcl Info: You've told me to use the font selection of the element
-(scrartcl)           `sectioning' that is an alias of element `disposition'
-(scrartcl)            on input line 17.
-Class scrartcl Info: You've told me to use the font selection of the element
-(scrartcl)           `sectioning' that is an alias of element `disposition'
-(scrartcl)            on input line 23.
-)
-\tf@toc=\write5
- [2]
-(PH01-Zielbestimmungen.tex
-LaTeX Font Info:    Try loading font information for OMS+ppl on input line 3.
- ("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\omsppl.fd"
-File: omsppl.fd 
-)
-LaTeX Font Info:    Font shape `OMS/ppl/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 3.
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 5.
-LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 16.
- [3] [4]) [5]
-(PH02-Produkteinsatz.tex) [6] (PH03-Produktumgebung.tex) [7] (PH04-Funktionale_Anforderungen.tex
-Underfull \hbox (badness 10000) in paragraph at lines 3--4
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 5--6
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 6--7
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 7--8
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 8--9
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 9--10
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 10--11
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 13--14
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 15--16
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 16--17
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 17--18
-
- []
-
-
-Overfull \hbox (2.8611pt too wide) in paragraph at lines 20--21
-[][]\T1/ppl/m/n/12 /F30/Graph (PLOT) er-stel-len: aus vor-han-de-nen Da-tensaet-zen wird einen Graph
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 22--23
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 23--24
-
- []
-
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 24--25
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 25--26
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 26--27
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 31--32
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 32--33
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 33--34
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--37
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 39--40
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--42
-
- []
-
-) [9] (PH05-Produktdaten.tex) [10] (PH06-Nichtfunktionale_Anforderungen.tex) [11] (PH07-Globale_Testfaelle.tex) [12]
-(PH08-Systemmodelle.tex) [13] (PH08a-Szenarien.tex) [14] (PH08b-Anwendungsfaelle.tex) [15] (PH08c-Objektmodell.tex)
-[16] (PH08d-Dynamische_Modelle.tex) [17] (PH08e-Benutzerschnittstelle.tex) [18] (PH09-Glossar.tex (Pflichtenheft.gls))
-[19] (Pflichtenheft.aux) ) 
+! LaTeX Error: File `picins.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+! Emergency stop.
+<read *> 
+         
+l.17 \usepackage
+                {longtable}^^M
+*** (cannot \read from terminal in nonstop modes)
+
+ 
 Here is how much of TeX's memory you used:
- 4510 strings out of 95305
- 61777 string characters out of 1183058
- 157677 words of memory out of 1500000
- 7581 multiletter control sequences out of 110000
- 20919 words of font info for 37 fonts, out of 3000000 for 5000
- 14 hyphenation exceptions out of 8191
- 36i,9n,43p,972b,339s stack positions out of 5000i,500n,10000p,200000b,50000s
-
-Output written on Pflichtenheft.dvi (19 pages, 25080 bytes).
+ 4643 strings out of 95086
+ 57956 string characters out of 1183255
+ 151066 words of memory out of 1500000
+ 7735 multiletter control sequences out of 10000+50000
+ 4702 words of font info for 16 fonts, out of 1200000 for 2000
+ 28 hyphenation exceptions out of 8191
+ 43i,1n,39p,293b,45s stack positions out of 5000i,500n,6000p,200000b,5000s
+!  ==> Fatal error occurred, no output PDF file produced!

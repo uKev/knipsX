@@ -26,6 +26,10 @@ git pull
 git push origin master
 
 
+Einen Ordner im Repository löschen:
+git rm -r cache/
+
+
 GLOSSARIES.STY und XFOR.STY Probleme mit Latex unter Ubuntu:
 
 http://www.ctan.org/pub/tex-archive/install/macros/latex/contrib/glossaries.tds.zip
