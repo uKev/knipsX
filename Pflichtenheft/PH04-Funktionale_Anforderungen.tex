@@ -6,45 +6,52 @@
 		
 		\item[/F010/] \textit{Programm beenden:}\par Im ganzen Programm die Möglichkeit gegeben, durch betätigen der "`Fenster schliesen"' Schaltfläche (differiert je nach Betriebssystem), das Programm zu beenden.
 		
-		\item[/F020/] \textit{Automatisches speichern:}\par Nach jeder Funktion, die Aspekte eines Projektes ändern, wird der Status im Hintergrund gesichert.
+		% TODO Schaltfläche benennen
+		\item[/F020/] \textit{Speicherverhalten:}\par Nach jedem Dialog, ist die Möglichkeit gegeben, die aktuelle Änderung für die aktuelle Programmausführung zu sichern. Sollen Änderungen dauerhaft gesichert werden, muss die Schaltfläche "`XXX"' betätigt werden. Durch betätigen dieser Schaltfläche, wird die Projektkonfigurationsdatei neu generiert und in dem Projektordner gespeichert.
 		
-		\item[/F030/] \textit{Verschiebbare Bediengruppen:}\par Jeder Funktionsbereich, kann frei im Programmfenster positioniert werden und ist in der größe veränderbar.
+		\item[/F030/] \textit{Automatische Anpassung der Größe der Bedienoberfläsche:}\par Das Programm positioniert automatisch seine Bedienelemente, in Abhängigkeit zur Auflösung des Programmfensters.
 		
-		\item[/F040/] \textit{Automatische Anpassung der größe der Bedienoberfläsche:}\par Das Programm positioniert automatisch seine Bedienelemente, in Abhängigkeit zur Auflösung des Programmfensters.
-		
-		\item[/F050/] \textit{Automatisches durchsuchen des Projektordners:}\par Bei Programmstart, wird in dem Projektordner des Programms nach Projektkonfigurationsdaten gesucht. Auf der Basis dieser Datensätze, wird eine Projektliste generiert, die in einem Dialog nach absteigendem Bearbeitungsdatum (aktuelles zuerst) sortiert angezeigt werden. Zudem, wird das Datum anders formatiert dargestellt, als der Projektname. (VGL GUI)
+		%TODO Guireferenz
+		\item[/F040/] \textit{Automatisches durchsuchen des Projektordners:}\par Bei Programmstart, wird in dem Projektordner des Programms nach Projektkonfigurationsdateien gesucht. Auf der Basis dieser Datensätze, wird eine Projektliste generiert, die in einem Dialog, nach absteigendem Bearbeitungsdatum (aktuelles zuerst) sortiert angezeigt werden. Zudem, wird das Datum anders formatiert dargestellt, als der Projektname. (siehe Kapitel REF)
 		
 	\end{description}
 
 \subsection{Projektmanagement}
+
+\label{subsec:projektmanagement}
 	
 	\gls{tempX} verfügt über eine eingebaute Projektverwaltung, mit der der Benutzer beliebige Kombinationen von Bildmengen und Auswertungen verwalten kann. Es kann allerdings immer nur ein Projekt im aktiven Zustand sein, ein Wechsel in ein anderes Projekte während der Programmausführung ist möglich.
 	
 	\begin{description}		
 		
-		\item[/F110/] \textit{Neues Projekt anlegen:}\par In dem Dialog aus \textbf{/F050/}, ist die Möglichkeit gegeben, durch betätigen der Schaltfläche "`Projekt erstellen"', ein neues Projekt zu erstellen und ihm einen Namen zu geben.\\ Dabei wird überprüft, ob dieser Projektname schon von einem anderen Projekt verwendet wird. Ist dies der Fall, kann der Benutzer einen neuen Namen eingeben oder einen automatisch generierten Vorschlag des Programms übernehmen.\par Nun wird eine neue Projektkonfigurationsdatei im PROJEKTE-Ordner angelegt. Bei der Projektanlegung wird auch ein Erstellungsdatum gespeichert (VGL Produktdaten). Danach, wird das Hauptprogramm gestartet, mit dem gerade erstellten Projekt (VGL GUI).
+		%TODO Projektordner benennen, GUI
+		\item[/F110/] \textit{Neues Projekt anlegen:}\par In dem Dialog aus \textbf{/F040/}, ist die Möglichkeit gegeben, durch betätigen der Schaltfläche "`Projekt erstellen"', ein neues Projekt zu erstellen und ihm einen Namen zu geben.\par Dabei wird überprüft, ob dieser Projektname schon von einem anderen Projekt verwendet wird. Ist dies der Fall, kann der Benutzer einen neuen Namen eingeben. Dabei ist auch zu beachten, dass der Projektname zwischen einem und 255 Zeichen lang sein muss.\par Nun wird eine neue Projektkonfigurationsdatei im PROJEKTE-Ordner angelegt. Bei der Projektanlegung wird auch ein Erstellungsdatum gespeichert (siehe Kapitel \ref{subsec:programmdaten} \textbf{/D20/}). Danach, wird das Hauptprogramm gestartet, mit dem gerade erstellten Projekt (siehe Kapitel \ref{subsec:benutzerschnittstelle}).
 		
-		\item[/F120/] \textit{Projekt aktivieren:}\par Um eine Projekt zu aktivieren, muss man sie in der Liste der Projekte, in dem Dialog aus \textbf{/F050/}, auswählen.
-				
-		\item[/F130/] \textit{Vorhandens Projekt öffnen:}\par In dem Dialog aus \textbf{/F050/}, ist die Möglichkeit gegeben, durch einen Doppelklick auf den Projektnamen eines bereits vorhanden Projektes oder durch aktivieren eines Projektes und betätigen der Schaltfläche "`Projekt öffnen"' (VGL GUI), das Hauptprogramm zu starten.\par In der damit verbundenen Projektkonfigurationsdatei gespeicherte Bildmengen und Auswertungen werden nun verfügbar gemacht. Damit gemeint ist: 
+		\item[/F120/] \textit{Projekt aktivieren:}\par Um eine Projekt zu aktivieren, muss man es in der Liste der Projekte, in dem Dialog aus \textbf{/F040/}, auswählen.
+		
+		%TODO GUI
+		\item[/F130/] \textit{Vorhandens Projekt öffnen:}\par In dem Dialog aus \textbf{/F040/}, ist die Möglichkeit gegeben, durch einen Doppelklick, mit der linken Maustaste, auf den Projektnamen eines bereits vorhanden Projektes oder durch aktivieren eines Projektes und betätigen der Schaltfläche "`Projekt öffnen"' (siehe Kapitel \ref{subsec:benutzerschnittstelle}, das Hauptprogramm zu starten.\par In der damit verbundenen Projektkonfigurationsdatei gespeicherte Bildmengen und Auswertungen werden nun verfügbar gemacht. Damit gemeint ist: 
 			
 			\begin{itemize}
 				
-				\item Das Einlesen von \gls{exif}-Daten aller Bilder, die in den Bildmengen des Projekts definiert sind (VGL NF). Das Einlesen geschieht im Hintergrund, d.h. der Benutzer kann mit dem Programm interagieren, vollständige Funktionalität ist aber erst nach dem vollständigen Einlesen der \gls{exif} Daten gegeben.
+				\item Das Einlesen von \gls{exif}-Parametern aller Bilder, die in den Bildmengen des Projekts definiert sind. Das Einlesen geschieht im Hintergrund, d.h. der Benutzer kann mit dem Programm interagieren, vollständige Funktionalität ist aber erst nach dem vollständigen Einlesen der \gls{exif} Daten gegeben.
 				
-				\item Anzeige der Bildmengen (siehe \ref{subsec:bildmengenmgmt}).
+				\item Anzeige der Bildmengen (siehe Kapitel \ref{subsec:bildmengenmgmt} \textbf{/F250/}).
 				
-				\item Anzeige der Auswerungen (siehe \ref{subsec:auswertungsmgmt}).
+				\item Anzeige der Auswerungen (siehe Kapitel \ref{subsec:auswertungsmgmt}).
+				
+				% TODO in GUI kennzeichnen
+				\item Anzeige aller Bilder der Bildmengen in dem Bereich "`Bildansicht"' und aktivieren des ersten Bildes. Dadurch wird der Bildbereich "`\gls{exif}-Daten"' mit den \gls{exif}-Parametern dieses Bildes aktualisiert.
 			
 			\end{itemize}		
 		
-		\item[/F140/] \textit{Projekt kopieren:}\par In dem Dialog aus \textbf{/F050/}, ist die Möglichkeit gegeben, ein aktiviertes Projekt mit allen in ihm definierten Bildmengen und Auswertungen zu kopieren und es unter neuem Namen, mit neuem Erstellungsdatum, abzuspeichern. Der Funktionsablauf ist nach diesem Schritt analog zu \textbf{/F130/}.
+		\item[/F140/] \textit{Projekt kopieren:}\par In dem Dialog aus \textbf{/F040/}, ist die Möglichkeit gegeben, ein aktiviertes Projekt mit allen in ihm definierten Daten, Bildmengen und Auswertungen zu kopieren und es unter neuem Namen und neuem Erstellungsdatum abzuspeichern. Danach, wird das Hauptprogramm gestartet, mit dem gerade kopierten Projekt (siehe Kapitel \ref{subsec:benutzerschnittstelle}).
 		
-		\item[/F150/] \textit{Projekt entfernen:}\par In dem Dialog aus \textbf{/F050/}, ist die Möglichkeit gegeben, bei einem aktivierten Projekt, mit betätigen der Schaltfläche "`Projekt entfernen"', folgende Aktionen auszulösen:
+		\item[/F150/] \textit{Projekt entfernen:}\par In dem Dialog aus \textbf{/F040/}, ist die Möglichkeit gegeben, bei einem aktivierten Projekt, mit betätigen der Schaltfläche "`Projekt entfernen"', folgende Aktionen auszulösen:
 			
 			\begin{enumerate}
 				
-				\item Es wird eine Sicherheitsabfrage angezeigt, die dem Benutzer die Möglichkeit gibt, das Entfernen abzubrechen.
+				\item Es wird eine Sicherheitsabfrage (ein Dialog mit Ja/Nein Auswahlmöglichkeit) angezeigt, die dem Benutzer die Möglichkeit gibt, das Entfernen abzubrechen.
 				
 				\item Das Projekt wird aus der Liste des Dialogs entfernt.
 				
@@ -60,11 +67,11 @@
 
 \label{subsec:bildmengenmgmt}
 	
-	In einem Projekt, können "`beliebig"' (begrenzt durch Speicherausbau und Betriebssystem des Systems) viele Bildmengen verwaltet werden. Eine Bildmenge ist folgendermaßen definiert:
+	In einem Projekt, können Bildmengen verwaltet werden (siehe Kapitel \ref{sec:nichtfunktionale_anforderungen} \textbf{/NF020/}). Eine Bildmenge ist folgendermaßen definiert:
 	
 	\begin{itemize}
 		
-		\item Eine Bildmenge kann ein oder mehrere Verweise auf Bilder (im JPG Format) des verwendeten Dateisystems enthalten.
+		\item Eine Bildmenge kann ein oder mehrere Verweise auf Bilder (im \gls{jpg}-Format) des verwendeten Dateisystems enthalten.
 		
 		\item Eine Bildmenge kann ein oder mehrere Verweise auf Ordner des verwendeten Dateisystems enthalten.
 		
@@ -74,51 +81,53 @@
 			
 				\item Bei den Verweisen, darf es zu keinen Endlosverweisen führen (Bildmenge A ist in Bildmenge B und Bildmenge B ist in Bildmenge A).
 				
-				\item Wird eine Bildmenge gelöscht, so wird der Verweis auf diese Bildmenge auch gelöscht.
+				\item Wird eine Bildmenge entfernt, so wird ein Verweis auf diese Bildmenge ebenfalls entfernt.
 			
 			\end{itemize}
 		
-		\item Eine Bildmenge hat einen frei definierbaren Namen, der nicht leer sein darf.
+		\item Eine Bildmenge hat einen frei definierbaren und vom Projektkontext abhängigen eindeutigen Namen, der zwischen einem und 255 Zeichen lang sein muss.
 		
-		\item Eine Bildmenge wird über eine interne ID eindeutig identifiziert (damit sind auch doppelt vorkommende Namen von Bildmengen möglich).
+		\item Eine Bildmenge wird über eine interne ID eindeutig identifiziert.
 	
 	\end{itemize}
 	
-	Es ist außerdem zu beachten, dass bei einem Dateisystem- oder einem Datenspeicherstrukturwechsel die Verweise keine Gültigkeit mehr haben können und ein Neuanlegen dieser Verweise unumgänglich ist.\par Wird ein Projekt geöffnet, werden alle in der Projektkonfigurationsdatei definierten Bildmengen lexikographisch sortiert angezeigt. Die erste Bildmenge der Liste, wird dabei automatisch auf aktiv gesetzt. (VGL GUI)
+	% TODO GUI
+	Es ist außerdem zu beachten, dass bei einem Dateisystem- oder einem Datenspeicherstrukturwechsel die Verweise keine Gültigkeit mehr haben können und ein Neuanlegen dieser Verweise unumgänglich ist.\par Wird ein Projekt geöffnet, werden alle in der Projektkonfigurationsdatei definierten Bildmengen \gls{lexgraph} sortiert angezeigt. Die erste Bildmenge der Liste (falls vorhanden), wird dabei automatisch auf aktiv gesetzt (siehe Kapitel GUI).
 	
 	\begin{description}
 		
-		\item[/F210/] \textit{Anlegen einer neuen Bildmenge:}\par Durch betätigen der Schaltfläche "`Erstellen"' im Bereich Bildmengen, wird ein Dialog geöffnet, der dem Benutzer folgende Möglichkeiten gibt:
+		\item[/F210/] \textit{Anlegen einer neuen Bildmenge:}\par Durch betätigen der Schaltfläche "`Erstellen"' im Bereich Bildmengen, wird ein Dialog (der je nach verwendetem Betriebssystem eine unterschiedliche Handhabung hat) geöffnet, der dem Benutzer folgende Möglichkeiten gibt:
 			
 			\begin{itemize}
 			
-				\item Auswahl ein oder mehrerer Ordner, die dann einzeln als "`Hauptordner"' in die Bildmenge übernommen werden. Ausgehend von diesen Hauptordnern, wird dann rekursiv der Verzeichnisbaum nach Bilder im JPG Format durchsucht.
+				\item Auswahl ein oder mehrerer Ordner, die einzeln als Pfade zum jeweiligen Ordner in die Bildmenge übernommen werden. Ausgehend von diesen Ordnern, wird rekursiv der Verzeichnisbaum nach Bilder im \gls{jpg}-Format durchsucht.
 				
-				\item Auswahl ein oder mehrerer Bilder im JPG Format, die dann einzeln in die Bildmenge übernommen werden.
+				\item Auswahl ein oder mehrerer Bilder im \gls{jpg}-Format, deren Pfade einzeln in die Bildmenge übernommen werden.
 			
 			\end{itemize}
 		
 		Nach dem Durchsuchen, wird ein weiterer Dialog geöffnet, der die Möglichkeit gibt der Bildmenge einen Namen zu geben.
 		
-		\item[/F220/] \textit{Aktivieren einer Bildmenge:}\par Um eine Bildmenge zu aktivieren, muss man sie in der Liste der Bildmengen, im Bereich "`Bildmengen"', auswählen. Dadurch wird der Bereich "`Inhalt"' aktualisiert (FKT).
+		\item[/F220/] \textit{Aktivieren einer Bildmenge:}\par Um eine Bildmenge zu aktivieren, muss man sie in der Liste der Bildmengen, im Bereich "`Bildmengen"', auswählen. Dadurch wird der Bereich "`Inhalt"' aktualisiert (siehe Kapitel \textbf{/F250/}).
 		
-		\item[/F230/] \textit{Hinzufügen von Bildern und Ordnern zu einer vorhandenen Bildmenge:}\par Um diese Aktionen auszuführen, muss eine Bildmenge aktiv sein. Das Hinzufügen kann durch zwei Arten geschehen:
+		\item[/F230/] \textit{Hinzufügen von Bildern und Ordnern zu einer vorhandenen Bildmenge:}\par Um diese Aktionen auszuführen, muss eine Bildmenge aktiv sein. Das Hinzufügen kann über zwei Arten geschehen:
 		
 			\begin{itemize}
-			
-				\item Durch Drag\&Drop von Ordnern und Bildern aus der grafischen Benutzerschnittstelle des Betriebssystems in den Bereich "`Inhalt"', einer aktiven Bildmenge (VLG GUI). 
 				
-				\item Durch betätigen der Schaltfläche "`Hinzufügen"' in dem Bereich "`Inhalt"' einer aktiven Bildmenge, wird ein Dialog geöffnet, der analog zu dem in Funktion /F210/ beschriebenen Dialog arbeitet. Auch die folgenden Schritte sind analog.
+				% TODO GUI
+				\item Durch \gls{dragndrop} von Ordnern und Bildern aus der grafischen Benutzerschnittstelle des Betriebssystems in den Bereich "`Inhalt"', einer aktiven Bildmenge (siehe Kapitel GUI). 
+				
+				\item Durch betätigen der Schaltfläche "`Hinzufügen"' in dem Bereich "`Inhalt"' einer aktiven Bildmenge, wird ein Dialog geöffnet, der analog zu dem in Funktion \textbf{/F210/} beschriebenen Dialog arbeitet. Auch die folgenden Schritte sind analog.
 			
 			\end{itemize}
 		
-		\item[/F240/] \textit{Hinzufügen von Bildmengen zu einer vorhandenen Bildmenge:}\par Das Hinzufügen kann nur per Drag\&Drop einer vorhanden Bildmenge aus dem Bereich "`Bildmengen"' in den Bereich "`Inhalt"' einer aktiven Bildmenge erfolgen. Dabei wird die Definition von Bildmengen eingehalten (vgl: \ref{subsec:bildmengenmgmt}).
+		\item[/F240/] \textit{Hinzufügen von Bildmengen zu einer vorhandenen Bildmenge:}\par Das Hinzufügen kann nur per \gls{dragndrop} einer vorhanden Bildmenge aus dem Bereich "`Bildmengen"' in den Bereich "`Inhalt"' einer aktiven Bildmenge erfolgen. Dabei wird die Definition von Bildmengen eingehalten (siehe Kapitel \ref{subsec:bildmengenmgmt}).
 		
 		\item[/F250/] \textit{Entfernen von Bildmengen:}\par Um diese Aktionen auszuführen, muss eine Bildmenge aktiv sein. Durch betätigen der Schaltfläsche "`Entfernen"', werden folgende Aktionen ausgelöst:
 			
 			\begin{enumerate}
 			
-				\item Es wird eine Sicherheitsabfrage angezeigt, die dem Benutzer die Möglichkeit gibt, das Entfernen abzubrechen.
+				\item Es wird eine Sicherheitsabfrage (ein Dialog mit Ja/Nein Auswahlmöglichkeit) angezeigt, die dem Benutzer die Möglichkeit gibt, das Entfernen abzubrechen.
 				
 				\item Die Bildmenge wird aus der Liste der Bildmengen entfernt.
 				
@@ -126,7 +135,7 @@
 				
 				\item Dem Benutzer wird eine Rückmeldung gegeben, ob das Entfernen erfolgreich war oder ob es einen Fehler gab.
 				
-				\item Nach dem Entfernen, ist die erste Bildmenge in der Liste aktiv.
+				\item Nach dem Entfernen, ist die erste Bildmenge (falls vorhanden) in der Liste aktiv.
 			
 			\end{enumerate}
 
@@ -134,15 +143,15 @@
 		
 			\begin{enumerate}
 			
-				\item Mit der Bildmenge verknüpfte Bildmengen, lexikographisch sortiert.
+				\item Mit der Bildmenge verknüpfte Bildmengen, \gls{lexgraph} sortiert.
 			
-				\item Mit der Bildmenge verknüpfte Verweise auf Ordner, lexikographisch sortiert.
+				\item Mit der Bildmenge verknüpfte Verweise auf Ordner, \gls{lexgraph} sortiert.
 				
-				\item Mit der Bildmenge verknüpfte Verweise auf Bilder, lexikographisch sortiert.
+				\item Mit der Bildmenge verknüpfte Verweise auf Bilder, \gls{lexgraph} sortiert.
 				
 			\end{enumerate}
 			
-			Jeder Block ist dabei mit unterschiedlicher Textfarbe formatiert.
+			Jeder Block ist dabei mit einer unterschiedlichen Textfarbe formatiert.
 		
 	\end{description}
 
@@ -231,6 +240,7 @@
 	\end{description}
 
 \subsection{Auswertungsmanagement}
+
 \label{subsec:auswertungsmgmt}
 
 	Eine Auswertung ist eine Verknüpfung von ein oder mehreren Bildmengen mit einem Diagrammtyp. Eine Auswertung ist dabei folgendermaßen definiert:
@@ -239,55 +249,57 @@
 
 		\item Eine Auswertung kann auch ohne Auswahl ein oder mehrer Bildmengen existieren. 
 
-		\item Eine Auswertung hat einen frei definierbaren Namen, der nicht leer sein darf (zu beachten ist, dass der Name automatisch um eine vorangestellte Zeichenkette ergänzt wird, die den Namen des gewählten Diagrammtyps beinhaltet).
+		\item Eine Auswertung hat einen frei definierbaren und vom Projektkontext abhängigen eindeutigen Namen, der zwischen einem und 200 Zeichen lang sein muss. Zu beachten ist, dass der Name automatisch um eine vorangestellte Zeichenkette ergänzt wird, die den Namen des gewählten Diagrammtyps beinhaltet.
 
-		\item Eine Auswertung wird über eine interne ID eindeutig identifiziert (damit sind auch doppelt vorkommende Namen von Auswertungen möglich).
+		\item Eine Auswertung wird über eine interne ID eindeutig identifiziert.
 
 	\end{itemize}
 
-	Wird ein Projekt geöffnet, werden alle in der Projektkonfigurationsdatei definierten Auswertungen lexikographisch sortiert angezeigt. Die erste Auswertung der Liste, wird dabei automatisch auf aktiv gesetzt. (VGL GUI)
+	% TODO Gui
+	Wird ein Projekt geöffnet, werden alle in der Projektkonfigurationsdatei definierten Auswertungen \gls{lexgraph} sortiert angezeigt. Die erste Auswertung der Liste (falls vorhanden), wird dabei automatisch auf aktiv gesetzt (siehe Kapitel GUI).
 
 	\begin{description}
 		
-		\item[/F410/] \textit{Anlegen einer neuen Auswertung:}\par Durch betätigen der Schaltfläche "`Erstellen"' in dem Bereich "`Auswertungen"', wird ein Assistent gestartet, der den Benutzer durch die Auswertungserstellung führt.\par Folgende Schritte führt der Assistent aus:
+		% TODO Formulierung
+		\item[/F410/] \textit{Anlegen einer neuen Auswertung:}\par Durch betätigen der Schaltfläche "`Erstellen"' in dem Bereich "`Auswertungen"', wird ein Assistent gestartet, der den Benutzer durch die Auswertungserstellung führt.\par Über die Schaltfläche "`weiter"' kann der Benutzer dabei auf den nächsten Schritt wechseln, sofern er in der aktuellen Eingabemaske keine Fehleingabe getätigt hat. Durch betätigen der Schaltfläche "`zurück"', kann der Benutzer hingegen zu einem bereits getätigten Schritt wechseln. Auch hierbei wird vor dem Druck auf "`weiter"' überprüft, ob alle Eingabedaten immer noch korrekt sind.\par Folgende Schritte führt der Assistent aus:
 
 			\begin{enumerate}
 
-				\item Diagrammtyp festlegen
+				\item \textbf{Diagrammtyp festlegen.}
 
 					\begin{itemize}
 
-						\item Festlegen eines Auswertungsnamens .
+						\item Festlegen eines Auswertungsnamens.
 
 						\item Eine optionale Beschreibung der Auswertung.
 
-						\item Auswahl eines Diagrammtyps (siehe \ref{subsec:diagrammmgmt}). Bei der Auswahl, wird eine Livevorschau des Diagramms mit einem Dummydatensatz angezeigt, sowie eine kurze Beschreibung über Sinn und Zweck des Diagramms.\par Hier kann auch eine bereits in dem aktiven Projekt vorhandene Auswertung, als Vorlage verwendet werden. Hierbei werden alle Werte der Auswertungsvorlage übernommen, bis auf die ID, die neu generiert wird.
+						\item Auswahl eines Diagrammtyps (siehe Kapitel \ref{subsec:diagrammmgmt}).\par Bei der Auswahl, wird eine Livevorschau des Diagramms mit einem Dummydatensatz angezeigt, sowie eine kurze Beschreibung über Sinn und Zweck des Diagramms.\par Hier kann auch eine bereits in dem aktiven Projekt vorhandene Auswertung, als Vorlage verwendet werden. Dabei werden alle Werte der Auswertungsvorlage übernommen, bis auf die ID und der Name. Diese beiden Werte müssen neu generiert werden, damit die Definition nicht verletzt wird.
 
 					\end{itemize}
 
-				\item Parameter festlegen\par	Festlegen der X, Y oder Z Achse (je nach Diagrammtyp - siehe \ref{subsec:diagrammmgmt}). Mit Festlegen ist hier das Verknüpfen mit \gls{exif} Parametern gemeint. Optional kann eine Beschreibung angegeben werden, die dann anstatt der Bennenung des \gls{exif} Parameters verwendet wird. Noch nicht getätigte Verknüpfungen werden als Fehler angezeigt und führen dazu, dass der Assistent nicht mit dem nächsten Schritt fortfahren kann.
+				\item \textbf{Parameter festlegen}.\par Festlegen der X, Y oder Z Achse (je nach Diagrammtyp - siehe Kapitel \ref{subsec:diagrammmgmt}). Mit Festlegen ist hier das Verknüpfen mit \gls{exif}-Parametern gemeint. Optional kann eine Beschreibung angegeben werden, die dann anstatt der Bezeichnung des \gls{exif}-Parameters verwendet wird.
 
-				\item Bildmengen festlegen\par Hier werden Bildmengen des aktuell aktiven Projektes mit der Auswertung verknüpft. Außerdem kann hier anhand bestimmter \gls{exif}-Parametern eine Reduzierung der gesamten Bildmenge bewirkt werden (\textit{Filterung der Daten}).
+				\item \textbf{Bildmengen festlegen}.\par Hier werden Bildmengen des aktuell aktiven Projektes mit der Auswertung verknüpft. Außerdem kann hier anhand bestimmter \gls{exif}-Parametern eine Reduzierung der gesamten Bildmenge bewirkt werden (\textit{Filterung der Daten}).
 
 			\end{enumerate}
 
-			Nach Beendigung des Assistenten, wird die Auswertung gespeichert und geöffnet (VGL GUI).
+			Nach Beendigung des Assistenten, wird die Auswertung gespeichert und, falls bereits Bildmengen mit der Auswertung verknüpft wurden, geöffnet.
 		
 		\item[/F420/] \textit{Aktivieren einer Auswertung:}\par Um eine Auswertung zu aktivieren, muss man sie in der Liste der Auswertungen, im Bereich "`Auswertungen"', auswählen.
 		
-		\item[/F430/] \textit{Bearbeiten einer Auswertung:}\par Um eine Auswertung zu bearbeiten, muss sie aktiv sein. Durch betätigen der Schaltfläche Bearbeiten"' in dem Bereich "`Auswertungen"', wird ein Dialog geöffnet, der die gleichen Auswahlmöglichkeiten des Assistenten aus \textbf{/F310/} enthält. Diese sind über Tabs auswählbar und sind mit den Werten der Auswertung vorbelegt. Nach beenden des Dialogs, wird die Auswertung automatisch gespeichert.
+		\item[/F430/] \textit{Bearbeiten einer Auswertung:}\par Um eine Auswertung zu bearbeiten, muss sie aktiv sein. Durch betätigen der Schaltfläche Bearbeiten"' in dem Bereich "`Auswertungen"', wird ein Dialog geöffnet, der die gleichen Auswahlmöglichkeiten des Assistenten aus \textbf{/F310/} enthält. Diese sind über Tabs auswählbar und sind mit den Werten der Auswertung vorbelegt. Nach dem Beenden des Dialogs, wird die Auswertung automatisch gespeichert.
 				
 		\item[/F440/] \textit{Entfernen einer Auswertung:}\par Um eine Auswertung zu entfernen, muss sie aktiv sein. Durch betätigen der Schaltfläche Entfernen"' in dem Bereich "`Auswertungen"', werden folgende Aktionen ausgelöst:
 
 			\begin{enumerate}
 
-				\item Es wird eine Sicherheitsabfrage angezeigt, die dem Benutzer die Möglichkeit gibt, das Entfernen abzubrechen.
+				\item Es wird eine Sicherheitsabfrage (ein Dialog mit Ja/Nein Auswahlmöglichkeit) angezeigt, die dem Benutzer die Möglichkeit gibt, das Entfernen abzubrechen.
 
 				\item Die Auswertung wird aus der Liste der Auswertungen entfernt.
 
 				\item Dem Benutzer wird eine Rückmeldung gegeben, ob das Entfernen erfolgreich war oder ob es einen Fehler gab.
 
-				\item Nach dem Entfernen, ist die erste Auswertung in der Liste aktiv.
+				\item Nach dem Entfernen, ist die erste Auswertung (falls vorhanden) in der Liste aktiv.
 
 			\end{enumerate}
 			
@@ -297,6 +309,7 @@
 
 	\begin{description}
 
-		\item[/F510/] \textit{Extraktion von \gls{exif} Daten:}\par Beim Einlesen von Bildern im JPG Format, werden nur die \gls{exif} Daten eingelesen, nicht die Bilddaten. Die Parameter, die verarbeitet werden, sind unter VGL definiert. Die Daten werden nur während der Programmausführung intern gespeichert. Bei jedem Programmstart, werden diese neu eingelesen (siehe auch \textbf{/F130/})
+		% TODO XXX->Ref
+		\item[/F510/] \textit{Extraktion von \gls{exif} Daten:}\par Beim Einlesen von Bildern im \gls{jpg}-Format, werden nur die \gls{exif}-Parameter eingelesen, nicht die Bilddaten. Die \gls{exif}-Parameter, die verarbeitet werden, sind unter XXX definiert. Die Daten werden nur während der Programmausführung intern gespeichert, dies hat zur konsequenz, dass bei jedem Programmstart, alle \gls{exif}-Parameter neu eingelesen werden müssen (siehe Kapitel \ref{subsec:projektmanagement} \textbf{/F130/}).
 	
 	\end{description}

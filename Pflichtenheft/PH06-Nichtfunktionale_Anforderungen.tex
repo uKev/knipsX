@@ -1,10 +1,13 @@
 \section{Nichtfunktionale Anforderungen}
 
-\begin{itemize}
-	\item /NF10/\\Das Einlesen und extrahieren der \gls{exif} Daten sollte pro 1.000 Bildern maximal 2 Minuten und 30 Sekunden brauchen.
-	\item /NF20/\\Ein Projekt muss mit einer Bildmenge von 10.000 Bildern umgehen können, ohne dass ein Programmabsturz oder längerfristigen Programmunterbrechungen daraus resultieren.
-	\item /NF30/\\Bedienfehler dürfen nicht dazu führen, dass Daten verloren gehen.
-	\item /NF40/\\Die grafische Benutzerschnittstelle sollte so gestaltet sein, dass ein unerfahrener Benutzer sich in angemessener Zeit einarbeiten kann.
-	\item /NF50/\\ \gls{tempX} enthält nicht mehr als 1\% plattformspezifischer Anweisungen.	
-	\item /NF60/\\ \gls{tempX} soll für den Startvorgang, auf dem empfohlenen System, maximal 3 Sekunden benötigen.
-\end{itemize}
+\label{sec:nichtfunktionale_anforderungen}
+
+\begin{description}
+	
+	\item[/NF010/] Das Einlesen und extrahieren der \gls{exif}-Parameter, muss auf einem Poolrechner (siehe Kapitel \ref{sec:produktumgebung}) pro 1.000 Bildern maximal 2 Minuten und 30 Sekunden benötigen.
+	
+	\item[/NF020/] Ein Projekt, muss entweder maximal mit einer Bildmenge von 10.000 Bildern oder 10.000 Bildmengen mit jeweils einem Bild (die jeweils eine Auflösung von 8 MP nicht überschreiten dürfen) umgehen können, ohne dass ein Programmabsturz oder längerfristigen Programmunterbrechungen daraus resultieren.
+
+	\item[/NF030/] Zu jeder Schaltfläche, muss ein Tooltip vorhanden sein.
+	
+\end{description}
