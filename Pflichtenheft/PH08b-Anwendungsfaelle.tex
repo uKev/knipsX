@@ -1,16 +1,108 @@
 \subsection{Anwendungsfälle}
+
+	\subsubsection{Programmmanagement:}
+	\# 1 \#
 	\begin{itemize}
-		\item Projektmanagement:
-		
-		Name: Erstellen eines neuen Projekts
+		\item Name: Programm starten
+		\item Teilnehmender Akteure:
 		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms.
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item Fotograf A. besitzt das Programm.
+			\item Fotograf A. hat das Programm ordnungsgemäß auf seinem PC installiert und eingerichtet.						
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Fotograf A. hat das Programm gestartet. Es erschein das Projektverwaltungsfenster.		
+		\end{itemize}
+		\item Ereignisfluss:	
+		\begin{itemize}
+			\item Fotograf A. startet das Programm mit der ausführbaren Datei.		
+			\item Das Projektverwaltungsfenster wird angezeigt.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Der Computer muss den gegebenen Anforderungen genügen.
+		\end{itemize}
+	\end{itemize}
+	
+	\# 2 \#
+	\begin{itemize}
+		\item Name: Programm schließen
+		\item Teilnehmender Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms.
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item Fotograf A. hat das Programm geöffnet.
+			\item Fotograf A. ist fertig mit seiner Arbeit und will das Programm beenden.						
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Fotograf A. hat das Programm beendet.		
+		\end{itemize}
+		\item Ereignisfluss:\\Erste Möglichkeit:	
+		\begin{itemize}
+			\item Fotograf A. befindet sich im Projektansichtsfenster und klickt oben rechts auf Fenster schließen.
+			\item Fotograf A. hat somit das Programm beendet. Es verschwindet vom Desktop und aus den laufenden Prozessen.
+		\end{itemize}
+		Zweite Möglichkeit:
+		\begin{itemize}
+			\item Fotograf A. befindet sich nicht im Projektansichtsfenster. Daher muss er zuerst ins Projektansichtsfenster zurückkehren, indem er entweder den aktuelle Ansicht schließt oder abbricht.
+			\item Fotograf A. befindet sich im Projektansichtsfenster und klickt oben rechts auf Fenster schließen.
+			\item Fotograf A. hat somit das Programm beendet. Es verschwindet vom Desktop und aus den laufenden Prozessen.
+		\end{itemize}	
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Alle Eingaben müssen gültig sein.		
+		\end{itemize}
+	\end{itemize}
+	
+	\# 3 \#
+	\begin{itemize}
+		\item Name: Programmfenster anpassen
+		\item Teilnehmender Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms.
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item Fotograf A. hat das Programm geöffnet.
+			\item Fotograf A. will sein Programmfenster anpassen.						
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Fotograf A. hat das Programmfenster seinen Bedürfnissen angepasst.		
+		\end{itemize}
+		\item Ereignisfluss:	
+		\begin{itemize}
+			\item Fotograf A. kann das Programmfenster minimieren und maximieren.
+			\item Fotograf A. kann das Programmfenster auf der Desktopoberfläche verschieben und positionieren.
+			\item Fotograf A. kann das Programmfenster in der Höhe und Breite anpassen indem er den Rahmen mit der Maus zieht.
+			\item Wenn Fotograf A. sein Programmfenster ausgerichtet hat kann er die Arbeit fortsetzen.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es muss die Mindestauflösung eingehalten werden.
+			\item Die Funktionalität beschränkt sich jeweils auf die Darstellbarkeit auf dem Desktops und dem Bildschirm.
+		\end{itemize}
+	\end{itemize}
+		
+	
+	\subsubsection{Projektmanagement:}
+		
+		\# 4 \#
+		\begin{itemize}
+			\item Name: Erstellen eines neuen Projekts
 			\item Teilnehmender Akteure:
 			\begin{itemize}
 				\item	Fotograf A.: Benutzer des Programms.
 			\end{itemize}
 			\item Eingangsbedingung:
 			\begin{itemize}
-				\item Fotograf A. besitzt das Programm.
 				\item Fotograf A. will Bilder analysieren bzw. eine Auswertung erstellen.						
 			\end{itemize}
 			\item Ausgangsbedingung:
@@ -20,20 +112,24 @@
 			\item Ereignisfluss:
 			\begin{itemize}
 				\item Fotograf A. startet das Programm auf seinem Computer.
-				\item Fotograf A. bekommt das Projektverwaltungsfenster angezeigt. Es befindet sich noch kein Projekt in der Liste.
+				\item Fotograf A. bekommt das Projektverwaltungsfenster angezeigt. Es befindet sich entweder noch kein Projekt in der Liste oder es sind bereits Projekte vorhanden.
 				\item Fotograf A. klickt auf Neues Projekt erstellen.
+				\item Es erscheint ein Fenster mit Textfeld.
 				\item Fotograf A. gibt einen gültigen Namen für sein Projekt ein.
 				\item Fotograf A. bestätigt seine Eingabe.
-				\item Fotograf A. gelangt in das Hauptfenster seines Projekts und kann mit seinem Vorhaben beginnen.							
+				\item Fotograf A. gelangt in das Projektansichtsfenster seines Projekts und kann mit seinem Vorhaben beginnen. Ihm wird der Projektname links oben angezeigt.
+				\item In Zukunft wird der Name des Projekts auch in der Liste der Projekte mit aufgenommen.
 			\end{itemize}
 			\item Spezielle Anforderungen:
 			\begin{itemize}
-				\item	Das Programm muss korrekt auf dem PC eingerichtet sein.		
+				\item	Das Programm muss korrekt auf dem PC eingerichtet sein.
+				\item Alle Eingaben müssen korrekt sein.
 			\end{itemize}			
 		\end{itemize}
 		
-		Name: Entfernen eines Projekts
+		\# 5 \#
 		\begin{itemize}
+			\item Name: Entfernen eines Projekts
 			\item Teilnehmender Akteure:
 			\begin{itemize}
 				\item	Fotograf A.: Benutzer des Programms.	
@@ -50,7 +146,8 @@
 			\begin{itemize}
 				\item Fotograf A. klickt auf das Projekt welches er entfernen will um es zu markieren.
 				\item Fotograf A. klickt auf den Button Projekt entfernen.
-				\item Fotograf A.	bestätigt Sicherheitsabfrage mit Ja.				
+				\item Fotograf A.	bestätigt Sicherheitsabfrage mit Ja.
+				\item Das Projekt verschwindet aus der Liste.
 			\end{itemize}
 			\item Spezielle Anforderungen:
 			\begin{itemize}
@@ -58,63 +155,103 @@
 			\end{itemize}			
 		\end{itemize}
 		
-		Name: Öfnnen eines Projekts
+		\# 6 \#
 		\begin{itemize}
+			\item Name: Öffnen eines Projekts
 			\item Teilnehmender Akteure:
 			\begin{itemize}
 				\item	Fotograf A.: Benutzer des Programms.		
 			\end{itemize}
 			\item Eingangsbedingung:
 			\begin{itemize}
-				\item	Das Programm befindet sich im Projektverwaltungsfenster.		
+				\item	Das Programm befindet sich im Projektverwaltungsfenster.
+				\item Es ist bereits mindestens ein Projekt in der Projektliste vorhanden.
 			\end{itemize}
 			\item Ausgangsbedingung:
 			\begin{itemize}
 				\item	Ein bereits erstelltes Projekt ist vollständig geladen und wird Fotograf A. angezeigt. Es kann bearbeitet werden.		
 			\end{itemize}
-			\item Ereignisfluss:
+			\item Ereignisfluss:\\Erste Möglichkeit:
 			\begin{itemize}
-				\item Erste Möglichkeit:
-				\begin{itemize}
-					\item Fotograf A. klickt einmal auf das zu öffnende Projekt um es zu markieren.
-					\item Fotograf A. klickt auf Button Projekt öffnen (TODO) um zum Projekt zu gelangen.
-				\end{itemize}
-				\item Zweite Möglichkeit:
-				\begin{itemize}
-					\item Fotograf A. klickt per Doppelklick direkt aud Projektnamen um es direkt zu öfnnen.					
-				\end{itemize}
-				\item Fotograf A. bekommt sein ausgewähltes projekt angezeigt und kann es bearbeiten.					
+				\item Fotograf A. klickt einmal auf das zu öffnende Projekt um es zu markieren.
+				\item Fotograf A. klickt auf Button Projekt öffnen um zum Projekt zu gelangen.
+				\item Das Projekt wird im Projektansichtsfenster angezeigt.
+			\end{itemize}
+			Zweite Möglichkeit:
+			\begin{itemize}
+				\item Fotograf A. klickt per Doppelklick direkt aud Projektnamen um es direkt zu öffnen.
+				\item Das Projekt wird im Projektansichtsfenster angezeigt.					
 			\end{itemize}
 			\item Spezielle Anforderungen:
 			\begin{itemize}
-				\item			
+				\item	Es existiert bereits mindestens ein Projekt.	
 			\end{itemize}			
 		\end{itemize}
 		
-		Name: Kopieren eines Projekts
+		\# 7 \#
 		\begin{itemize}
+			\item Name: Kopieren eines Projekts
 			\item Teilnehmender Akteure:
 			\begin{itemize}
 				\item	Fotograf A.: Benutzer des Programms		
 			\end{itemize}
 			\item Eingangsbedingung:
 			\begin{itemize}
-				\item			
+				\item	Das Programm befindet sich im Projektverwaltungsfenster.
+				\item Es ist bereits mindestens ein Projekt in der Projektliste vorhanden.			
 			\end{itemize}
 			\item Ausgangsbedingung:
 			\begin{itemize}
-				\item			
+				\item	Es wurde ein neues Projekt erstellt, welches die selben Eigenschaften und Daten enthält wie ein anderes.	
 			\end{itemize}
 			\item Ereignisfluss:
 			\begin{itemize}
-				\item
-				\item
-				\item
-				\item							
+				\item Fotograf A. klickt einmal auf das zu kopierende Projekt um es zu markieren.
+				\item Fotograf A. klickt auf den Button Projekt kopieren.
+				\item Es erscheint ein Fenster mit Textfeld.
+				\item Fotograf A. gibt einen gültigen Namen für sein Projekt ein.
+				\item Fotograf A. bestätigt seine Eingabe.
+				\item Fotograf A. gelangt in das Projektansichtsfenster seines eben erstellten Projekts und kann mit seiner Arbeit beginnen. Ihm wird der Projektname links oben angezeigt.
+				\item Alle Werte und Einstellungen werden vom Originalobjekt übernommen und auch dementsprechend angezeigt.
 			\end{itemize}
 			\item Spezielle Anforderungen:
 			\begin{itemize}
-				\item			
+				\item	Es existiert bereits mindestens ein Projekt.		
 			\end{itemize}			
-		\end{itemize}	
+		\end{itemize}
+
+	\subsubsection{Bildmengenmanagement:}
+	
+	\# 8 \#
+	\begin{itemize}
+		\item Name: Erstellen einer Bildmenge
+		\item Teilnehmender Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines aktiven Projekts.
+			\item Fotograf A. will eine neue Bildmenge erstellen und dieser Bilder zuweisen.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es wurde eine neue Bildmenge erstellt welche Bilder enthält.	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. klickt im Projektansichtsfenster im Bereich der Bildmengen auf "`Erstellen"'.		
+			\item Nun erscheint ein neues Fenster, indem oben in einem Textfeld einen Namen eingetragen werden kann.
+			\item Fotograf A. gibt einen gültigen Namen für seine Bildermenge ein.
+			\item Im unteren Teil des Fensters befindet sich links
+			\item Es erscheint ein Fenster mit Textfeld.
+			\item Fotograf A. gibt einen gültigen Namen für sein Projekt ein.
+			\item Fotograf A. bestätigt seine Eingabe.
+			\item Fotograf A. gelangt in das Projektansichtsfenster seines eben erstellten Projekts und kann mit seiner Arbeit beginnen. Ihm wird der Projektname links oben angezeigt.
+			\item Alle Werte und Einstellungen werden vom Originalobjekt übernommen und auch dementsprechend angezeigt.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es existiert bereits mindestens ein Projekt.		
+		\end{itemize}			
 	\end{itemize}
