@@ -12,6 +12,7 @@
 	\item Bild/\gls{exif} Filter zur Auswahl bestimmter Bildmengen
 	\item Auslesen, Anzeigen und Auswerten von \gls{exif} Daten
 	\item Auszuwertende \gls{exif} Daten:
+	\label{subsec:auszuwertendedaten}
 			\begin{itemize}
 			\item Kameramodel
 			\item Blende 
@@ -39,21 +40,26 @@
 \end{itemize}
 
 \subsection{Wunschkriterien} 
-\begin{itemize}
-  \item Unterstützung weiterer Bildformate mit Metadaten
-	\item Normierung von Werten, z.B. Brennweitenkorrektur
-	\item Umbennenen von Bilddateinamen
-	\item Unterstützen weiterer \gls{exif}-Parameter sowie Kameraspezifischer Parameter
-	\item Flüssige Programmdarstellung bei angegebenen Hardwarevoraussetzungen
-	\item Anzeige von Tags in den Diagrammen
-	\item Weitere Diagrammtypen
+\subsubsection{Hohe Priorität}
+	\begin{itemize}
+	\item Internationalisierungsmechanismen vorbereiten
+	\item weiter Ausgabeformate unterstützen 
+	\end{itemize}
+\subsubsection{Mittlere Priorität}
+	\begin{itemize}
+	\item Optimierung von Algorithmen
 	\item Anzeige von Thumbnails sowie Dateinamen in Diagrammen über eine Mengenauswahl
-	\item Bilder von Diagrammen aus aktueller Sichtperspektive abspeichern sowie weiter Ausgabeformate unterstützen 
 	\item Vernünftige eventuell anpassbare Diagrammskalierungen
-	\item Leichte Konfigurierbarkeit des Layouts
-	\item Gute User-Usability
-	\item Internationalisierung
-\end{itemize}
+	\item Konfigurierbarkeit des Layouts	
+	\end{itemize}
+\subsubsection{Niedrige Priorität}
+	\begin{itemize}
+	\item Unterstützen weiterer \gls{exif}-Parameter sowie Kameraspezifischer Parameter
+	\item Normierung von Werten, z.B. Brennweitenkorrektur
+ 	\item Unterstützung weiterer Bildformate mit Metadaten 	
+ 	\item Weitere Diagrammtypen
+	\end{itemize}
+
 
 \subsection{Abgrenzungskriterien} 
 \begin{itemize}
