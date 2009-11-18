@@ -4,15 +4,15 @@
 	
 	\begin{description}
 		
-		\item[/F010/] \textit{Programm beenden:}\par Im ganzen Programm die Möglichkeit gegeben, durch betätigen der "`Fenster schliesen"' Schaltfläche (differiert je nach Betriebssystem), das Programm zu beenden.
+		\item[/F010/] \textit{Programm beenden:}\par Im ganzen Programm die Möglichkeit gegeben, durch betätigen der "`Fenster schließen"' Schaltfläche (differiert je nach Betriebssystem), das Programm zu beenden.
 		
 		% TODO Schaltfläche benennen
 		\item[/F020/] \textit{Speicherverhalten:}\par Nach jedem Dialog, ist die Möglichkeit gegeben, die aktuelle Änderung für die aktuelle Programmausführung zu sichern. Sollen Änderungen dauerhaft gesichert werden, muss die Schaltfläche "`XXX"' betätigt werden. Durch betätigen dieser Schaltfläche, wird die Projektkonfigurationsdatei neu generiert und in dem Projektordner gespeichert.
 		
-		\item[/F030/] \textit{Automatische Anpassung der Größe der Bedienoberfläsche:}\par Das Programm positioniert automatisch seine Bedienelemente, in Abhängigkeit zur Auflösung des Programmfensters.
+		\item[/F030/] \textit{Automatische Anpassung der Größe der Bedienoberfläche:}\par Das Programm positioniert automatisch seine Bedienelemente, in Abhängigkeit zur Auflösung des Programmfensters.
 		
 		%TODO Guireferenz
-		\item[/F040/] \textit{Automatisches durchsuchen des Projektordners:}\par Bei Programmstart, wird in dem Projektordner des Programms nach Projektkonfigurationsdateien gesucht. Auf der Basis dieser Datensätze, wird eine Projektliste generiert, die in einem Dialog, nach absteigendem Bearbeitungsdatum (aktuelles zuerst) sortiert angezeigt werden. Zudem, wird das Datum anders formatiert dargestellt, als der Projektname. (siehe Kapitel REF)
+		\item[/F040/] \textit{Automatisches durchsuchen des Projektordners:}\par Bei Programmstart, wird in dem Projektordner des Programms nach Projektkonfigurationsdateien gesucht. Auf der Basis dieser Datensätze wird eine Projektliste generiert, die in einem Dialog, nach absteigendem Bearbeitungsdatum (aktuelles zuerst), sortiert angezeigt werden. Zudem wird das Datum anders formatiert dargestellt als der Projektname. (siehe Kapitel REF)
 		
 	\end{description}
 
@@ -25,7 +25,7 @@
 	\begin{description}		
 		
 		%TODO Projektordner benennen, GUI
-		\item[/F110/] \textit{Neues Projekt anlegen:}\par In dem Dialog aus \textbf{/F040/}, ist die Möglichkeit gegeben, durch betätigen der Schaltfläche "`Projekt erstellen"', ein neues Projekt zu erstellen und ihm einen Namen zu geben.\par Dabei wird überprüft, ob dieser Projektname schon von einem anderen Projekt verwendet wird. Ist dies der Fall, kann der Benutzer einen neuen Namen eingeben. Dabei ist auch zu beachten, dass der Projektname zwischen einem und 255 Zeichen lang sein muss.\par Nun wird eine neue Projektkonfigurationsdatei im PROJEKTE-Ordner angelegt. Bei der Projektanlegung wird auch ein Erstellungsdatum gespeichert (siehe Kapitel \ref{subsec:programmdaten} \textbf{/D20/}). Danach, wird das Hauptprogramm gestartet, mit dem gerade erstellten Projekt (siehe Kapitel \ref{subsec:benutzerschnittstelle}).
+		\item[/F110/] \textit{Neues Projekt anlegen:}\par In dem Dialog aus \textbf{/F040/}, ist die Möglichkeit gegeben, durch betätigen der Schaltfläche "`Projekt erstellen"', ein neues Projekt zu erstellen und ihm einen Namen zu geben.\par Dabei wird überprüft, ob dieser Projektname schon von einem anderen Projekt verwendet wird. Ist dies der Fall, kann der Benutzer einen neuen Namen eingeben. Dabei ist auch zu beachten, dass der Projektname zwischen einem und 255 Zeichen lang sein muss.\par Nun wird eine neue Projektkonfigurationsdatei im PROJEKTE-Ordner angelegt. Bei der Projektanlegung wird auch ein Erstellungsdatum gespeichert (siehe Kapitel \ref{subsec:programmdaten} \textbf{/D20/}). Danach wird das Hauptprogramm gestartet, mit dem gerade erstellten Projekt (siehe Kapitel \ref{subsec:benutzerschnittstelle}).
 		
 		\item[/F120/] \textit{Projekt aktivieren:}\par Um eine Projekt zu aktivieren, muss man es in der Liste der Projekte, in dem Dialog aus \textbf{/F040/}, auswählen.
 		
@@ -38,7 +38,7 @@
 				
 				\item Anzeige der Bildmengen (siehe Kapitel \ref{subsec:bildmengenmgmt} \textbf{/F250/}).
 				
-				\item Anzeige der Auswerungen (siehe Kapitel \ref{subsec:auswertungsmgmt}).
+				\item Anzeige der Auswertungen (siehe Kapitel \ref{subsec:auswertungsmgmt}).
 				
 				% TODO in GUI kennzeichnen
 				\item Anzeige aller Bilder der Bildmengen in dem Bereich "`Bildansicht"' und aktivieren des ersten Bildes. Dadurch wird der Bildbereich "`\gls{exif}-Daten"' mit den \gls{exif}-Parametern dieses Bildes aktualisiert.
@@ -244,7 +244,7 @@
 
 	\begin{itemize}
 
-		\item Eine Auswertung kann auch ohne Auswahl ein oder mehrer Bildmengen existieren. 
+		\item Eine Auswertung kann auch ohne Auswahl ein oder mehrerer Bildmengen existieren. 
 
 		\item Eine Auswertung hat einen frei definierbaren und vom Projektkontext abhängigen eindeutigen Namen, der zwischen einem und 200 Zeichen lang sein muss. Zu beachten ist, dass der Name automatisch um eine vorangestellte Zeichenkette ergänzt wird, die den Namen des gewählten Diagrammtyps beinhaltet.
 
