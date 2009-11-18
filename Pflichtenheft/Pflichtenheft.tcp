@@ -6,7 +6,7 @@ Version=4
 MainFile=Pflichtenheft.tex
 UseBibTeX=0
 UseMakeIndex=1
-ActiveProfile=LaTeX ⇨ PS ⇨ PDF ⇨ makeindex
+ActiveProfile=LaTeX => DVI
 ProjectLanguage=de
 ProjectDialect=DE
 
