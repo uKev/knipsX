@@ -30,7 +30,7 @@ Einen Ordner im Repository löschen:
 git rm -r cache/
 
 
-GLOSSARIES.STY und XFOR.STY Probleme mit Latex unter Ubuntu:
+GLOSSARIES.STY und NAND.STY Probleme mit Latex unter Ubuntu:
 
 http://www.ctan.org/pub/tex-archive/install/macros/latex/contrib/glossaries.tds.zip
 http://www.ctan.org/pub/tex-archive/install/macros/latex/contrib/xfor.tds.zip
