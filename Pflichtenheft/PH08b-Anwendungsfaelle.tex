@@ -1,12 +1,14 @@
 \subsection{Anwendungsfälle}
 
 	\subsubsection{Programmmanagement:}
+	
 	\begin{description}
 	\item[Anwendungsfall 1]
 	\end{description}
+	
 	\begin{itemize}
 		\item Name: Programm starten
-		\item Teilnehmender Akteure:
+		\item Teilnehmende Akteure:
 		\begin{itemize}
 			\item	Fotograf A.: Benutzer des Programms.
 		\end{itemize}
@@ -29,13 +31,14 @@
 			\item	Der Computer muss den gegebenen Anforderungen genügen.
 		\end{itemize}
 	\end{itemize}
+	
 	\begin{description}
 	\item[Anwendungsfall 2]
 	\end{description}
 	
 	\begin{itemize}
 		\item Name: Programm schließen
-		\item Teilnehmender Akteure:
+		\item Teilnehmende Akteure:
 		\begin{itemize}
 			\item	Fotograf A.: Benutzer des Programms.
 		\end{itemize}
@@ -71,7 +74,7 @@
 	
 	\begin{itemize}
 		\item Name: Programmfenster anpassen
-		\item Teilnehmender Akteure:
+		\item Teilnehmende Akteure:
 		\begin{itemize}
 			\item	Fotograf A.: Benutzer des Programms.
 		\end{itemize}
@@ -100,10 +103,13 @@
 	
 	\subsubsection{Projektmanagement:}
 		
-		\# 4 \#
+	\begin{description}
+		\item[Anwendungsfall 4]
+	\end{description}
+	
 		\begin{itemize}
 			\item Name: Erstellen eines neuen Projekts
-			\item Teilnehmender Akteure:
+			\item Teilnehmende Akteure:
 			\begin{itemize}
 				\item	Fotograf A.: Benutzer des Programms.
 			\end{itemize}
@@ -124,7 +130,7 @@
 				\item Fotograf A. gibt einen gültigen Namen für sein Projekt ein.
 				\item Fotograf A. bestätigt seine Eingabe.
 				\item Fotograf A. gelangt in das Projektansichtsfenster seines Projekts und kann mit seinem Vorhaben beginnen. Ihm wird der Projektname links oben angezeigt.
-				\item In Zukunft wird der Name des Projekts auch in der Liste der Projekte mit aufgenommen.
+				\item Der Name des Projekts ist mit letztem Speicherdatum auch in der Liste der Projekte mit aufgenommen.
 			\end{itemize}
 			\item Spezielle Anforderungen:
 			\begin{itemize}
@@ -133,10 +139,13 @@
 			\end{itemize}			
 		\end{itemize}
 		
-		\# 5 \#
+	\begin{description}
+		\item[Anwendungsfall 5]
+	\end{description}
+	
 		\begin{itemize}
 			\item Name: Entfernen eines Projekts
-			\item Teilnehmender Akteure:
+			\item Teilnehmende Akteure:
 			\begin{itemize}
 				\item	Fotograf A.: Benutzer des Programms.	
 			\end{itemize}
@@ -161,10 +170,13 @@
 			\end{itemize}			
 		\end{itemize}
 		
-		\# 6 \#
+		\begin{description}
+			\item[Anwendungsfall 6]
+		\end{description}
+		
 		\begin{itemize}
 			\item Name: Öffnen eines Projekts
-			\item Teilnehmender Akteure:
+			\item Teilnehmende Akteure:
 			\begin{itemize}
 				\item	Fotograf A.: Benutzer des Programms.		
 			\end{itemize}
@@ -194,10 +206,13 @@
 			\end{itemize}			
 		\end{itemize}
 		
-		\# 7 \#
+	\begin{description}
+		\item[Anwendungsfall 7]
+	\end{description}
+	
 		\begin{itemize}
 			\item Name: Kopieren eines Projekts
-			\item Teilnehmender Akteure:
+			\item Teilnehmende Akteure:
 			\begin{itemize}
 				\item	Fotograf A.: Benutzer des Programms		
 			\end{itemize}
@@ -225,39 +240,641 @@
 				\item	Es existiert bereits mindestens ein Projekt.		
 			\end{itemize}			
 		\end{itemize}
+		
+		\begin{description}
+		\item[Anwendungsfall 8]
+	\end{description}
+	
+		\begin{itemize}
+			\item Name: Projekts wechseln
+			\item Teilnehmender Akteure:
+			\begin{itemize}
+				\item	Fotograf A.: Benutzer des Programms		
+			\end{itemize}
+			\item Eingangsbedingung:
+			\begin{itemize}
+				\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+				\item Es ist mindestens ein anderes Projekt als das Aktuelle vorhanden.			
+			\end{itemize}
+			\item Ausgangsbedingung:
+			\begin{itemize}
+				\item	Fotograf A. hat das Projekt gewechselt. Er arbeitet nun in einem anderen Projekt. Das alte Projekt wurde gespeichert.
+			\end{itemize}
+			\item Ereignisfluss:
+			\begin{itemize}
+			  \item Fotograf A. klickt einmal auf "`Projekt speichern"' um das aktuelle Projekt zu speichern.
+				\item Ihm erscheint kurz eine Meldung "`Aktuelles Projekt wurde gespeichert"'.
+				\item Fotograf A. klickt einmal auf "`Projekt wechseln"'.
+				\item Hat Fotograf A. das aktuelle Projekt noch nicht nach einer Änderung gespeichert, so erhält er nun die folgende Meldung: Projekt speichern? und kann sie mit "`Ja"' oder "`Nein"' bestätigen.
+				\item Fotograf A. gelangt in das Projektverwaltungsfenster.
+				\item Dort kann er so wie in "`Anwendungsfall 6"' beschrieben fortfahren und wählt ein anderes Projekt aus.
+			\end{itemize}
+			\item Spezielle Anforderungen:
+			\begin{itemize}
+				\item	Es existiert bereits mindestens ein anderes Projekt.		
+			\end{itemize}			
+		\end{itemize}
 
 	\subsubsection{Bildmengenmanagement:}
 	
-	\# 8 \#
+	\begin{description}
+		\item[Anwendungsfall 9]
+	\end{description}
+	
 	\begin{itemize}
 		\item Name: Erstellen einer Bildmenge
-		\item Teilnehmender Akteure:
+		\item Teilnehmende Akteure:
 		\begin{itemize}
 			\item	Fotograf A.: Benutzer des Programms		
 		\end{itemize}
 		\item Eingangsbedingung:
 		\begin{itemize}
-			\item	Das Programm befindet sich im Projektansichtsfenster eines aktiven Projekts.
-			\item Fotograf A. will eine neue Bildmenge erstellen und dieser Bilder zuweisen.
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. will eine neue Bildmenge erstellen.
 		\end{itemize}
 		\item Ausgangsbedingung:
 		\begin{itemize}
-			\item	Es wurde eine neue Bildmenge erstellt welche Bilder enthält.	
+			\item	Es wurde eine neue Bildmenge erstellt.	
 		\end{itemize}
 		\item Ereignisfluss:
 		\begin{itemize}
 			\item Fotograf A. klickt im Projektansichtsfenster im Bereich der Bildmengen auf "`Erstellen"'.		
 			\item Nun erscheint ein neues Fenster, indem oben in einem Textfeld einen Namen eingetragen werden kann.
 			\item Fotograf A. gibt einen gültigen Namen für seine Bildermenge ein.
-			\item Im unteren Teil des Fensters befindet sich links
-			\item Es erscheint ein Fenster mit Textfeld.
-			\item Fotograf A. gibt einen gültigen Namen für sein Projekt ein.
 			\item Fotograf A. bestätigt seine Eingabe.
-			\item Fotograf A. gelangt in das Projektansichtsfenster seines eben erstellten Projekts und kann mit seiner Arbeit beginnen. Ihm wird der Projektname links oben angezeigt.
-			\item Alle Werte und Einstellungen werden vom Originalobjekt übernommen und auch dementsprechend angezeigt.
+			\item Fotograf A. gelangt in das Projektansichtsfenster zurück. Seine soeben angelegte Bildmenge wird ihm in der Liste der Bildmengen mit Namen angezeigt.
 		\end{itemize}
 		\item Spezielle Anforderungen:
 		\begin{itemize}
-			\item	Es existiert bereits mindestens ein Projekt.		
+			\item	Es finden nur gültige Eingaben statt.		
 		\end{itemize}			
 	\end{itemize}
+	
+	\begin{description}
+		\item[Anwendungsfall 10]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Entfernen einer Bildmenge
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. will eine Bildmenge entfernen.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es wurde eine Bildmenge entfernt.	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. klickt im Projektansichtsfenster in der Liste der Bildmengen auf diejenige Bildmenge, die er entfernen will, um sie zu markieren.		
+			\item Nun klickt Fotograf A. im Projektansichtsfenster im Bereich der Bildmengen auf "`Entfernen"'.
+			\item Ihm wird ein Fenster zur bestätigung angezeigt.
+			\item Fotograf A. bestätigt das Entfernen der Bildmenge.
+			\item Die Bildmenge wird aus der Bildmengenliste entfernt.
+			\item Die nun aktive Bildmenge ist die erste der Bildmengenliste, falls vorhanden, sonst sind die Listen nun leer.
+			\item Der Inhalt der Inhaltsliste und von der Bilderliste einer Bildmenge wird aktualisiert. 
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.
+			\item Es existiert mindestens eine Bildmenge.
+		\end{itemize}			
+	\end{itemize}
+	
+	\begin{description}
+		\item[Anwendungsfall 11]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Kopieren einer Bildmenge
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. will eine Bildmenge kopieren.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es wurde eine Kopie einer bereits vorhandenen Bildmenge inklusive Bildinhalt erstellt.	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. klickt im Projektansichtsfenster in der Liste der Bildmengen auf diejenige Bildmenge, die er kopieren will, um sie zu markieren.		
+			\item Nun klickt Fotograf A. im Projektansichtsfenster im Bereich der Bildmengen auf "`Kopieren"'.
+			\item Ihm wird ein Fenster mit Textfeld angezeigt.
+			\item Fotograf A. gibt einen gültigen Namen für seine Bildmenge ein.
+			\item Fotograf A. bestätigt seine Eingabe.
+			\item Die nun aktive Bildmenge ist die soeben erstellte Kopie. Sie zeigt die gleichen Listeninhalte an wie die Ursprungsbildmenge.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.
+			\item Es existiert mindestens eine Bildmenge.
+		\end{itemize}			
+	\end{itemize}
+	
+	\begin{description}
+		\item[Anwendungsfall 12]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Hinzufügen von Bildern zu Bildmengen
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. will einer Bildmenge Bilder zuweisen.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es wurden einer bereits vorhandenen Bildmenge Bilder zugewiesen.
+			\item Die zugewiesenen Bilder werden angezeigt.
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. klickt im Projektansichtsfenster in der Liste der Bildmengen auf diejenige Bildmenge, der er Bilder hinzufügen will, um sie zu markieren.		
+			\item Nun klickt Fotograf A. im Projektansichtsfenster im Bereich Inhalt auf "`Hinzufügen"'.
+			\item Ihm wird ein Fenster mit Auswahlmöglichkeit zweier Filemanager angezeigt. Einer für das Hinzufügen von Ordnern ein anderer für das hinzufügen einzellner Bild-Dateien.\\\\Erste Möglichkeit:\\
+			\item Fotograf A. wählt Filemanager für Ordner aus und gelangt in dessen Fenster.
+			\item Fotograf A. wählt entweder ein oder mehrere Ordner mit dem Filemanager aus und drückt auf hinzufügen.
+			\item Das Projektansichtsfenster wird angezeigt.
+			\item Die soeben hinzugefügten Ordner werden mit blauer Schrift im Inhaltsfenster der Bildmenge angezeigt, der sie zugewiesen wurden.
+			\item Die Bilderliste einer Bildmenge wird mit allen Bildern aktualisiert die sich nun in der Bildmenge befinden.
+			\item Der Bildstatus aller Bilder ist nach dem Hinzufügen immer aktiv.\\\\Zweite Möglichkeit:\\
+			\item Fotograf A. wählt Filemanager für Bilddateien aus und gelangt in dessen Fenster.
+			\item Fotograf A. wählt entweder ein oder mehrere Bilder mit dem Filemanager aus und drückt auf hinzufügen.
+			\item Das Projektansichtsfenster wird angezeigt.
+			\item Die soeben hinzugefügten Bilder werden mit schwarzer Schrift im Inhaltsfenster der Bildmenge angezeigt, der sie zugewiesen wurden.
+			\item Die Bilderliste einer Bildmenge wird mit allen Bildern aktualisiert die sich nun in der Bildmenge befinden.
+			\item Der Bildstatus aller Bilder ist nach dem Hinzufügen immer aktiv.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.
+			\item Es existiert mindestens eine Bildmenge.
+			\item Es existieren Bilder und Ordner mit Bildern als Inhalt auf dem Computer.
+			\item Alle Verzeichnispfade sind gültig.
+		\end{itemize}			
+	\end{itemize}
+	
+	\begin{description}
+		\item[Anwendungsfall 13]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Einfügen von Bildmengen zu Bildmengen
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. will eine Bildmenge zu einer anderen Bildmenge hinzufügen.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Eine Bildmenge hat nun als Inhalt bzw. Teilmenge eine andere Bildmenge mit deren Inhalt. 	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. klickt im Projektansichtsfenster in der Liste der Bildmengen auf diejenige Bildmenge, in die eingefügt werden soll, aktiviert diese.
+			\item Diese Bildmenge wird nun in allen Fenstern geladen und dargestellt.
+			\item Nun klickt Fotograf A. im Projektansichtsfenster im Bereich der Bildmengen auf diejenige Bildmenge, die er einfügen will und lässt dabei die Maus nicht los. Er kann diese dann nach unten in das Inhaltsfenster der anderen Bildmenge ziehen. Befindet sich die Bildmenge über dem Inhaltfenster kann er die Maus loslassen.
+			\item Nun erscheint die Bildmenge in grüner Schrift im Inhaltsfenster. Dabei bleibt sie aber in der bildmengenliste stehen.
+			\item Die Bilderliste einer Bildmenge wird mit allen Bildern aktualisiert die sich nun in der Bildmenge befinden.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.
+			\item Es existiert mindestens zwei Bildmengen.
+		\end{itemize}			
+	\end{itemize}
+	
+	\begin{description}
+		\item[Anwendungsfall 14]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Das Entfernen von Inhalten der Bildmengen
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. will einen oder mehrere Bildmengeninhalte entfernen.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es wurden Inhalte aus Bildmengen entfernt.	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. klickt im Projektansichtsfenster in der Liste der Bildmengen auf diejenige Bildmenge, in der etwas entfernt werden soll, um sie zu aktivieren.		
+			\item Diese Bildmenge wird nun in allen Fenstern geladen und dargestellt.
+			\item Fotograf A. klickt im Projektansichtsfenster in der Liste des Inhalts der aktuellen Bildmenge auf eine oder mehrere Bilddateien, Ordner oder Bildmengen und aktiviert bzw. markiert diese.
+			\item Fotograf A. drückt dannach den "`Entfernen Button"' welcher zur Liste gehört.
+			\item Im folgenden verschwinden alle Einträge, welche zu entfernen waren, aus der Inhaltsliste.
+			\item Die Bilderliste einer Bildmenge wird mit allen Bildern aktualisiert die sich nun in der Bildmenge befinden.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.
+			\item Es existiert mindestens eine Bildmenge mit Inhalt.
+			\item Alle Verzeichnispfade sind gültig.
+		\end{itemize}			
+	\end{itemize}
+	
+	\begin{description}
+		\item[Anwendungsfall 15]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Aktualisieren der Listeninhalte
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. hat außerhalb des Programms Änderungen am Dateisystem vorgenommen und Daten sowie Verzeichnisse manipuliert.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es werden aktuelle Inhalte angezeigt.	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. klickt im Projektansichtsfenster auf den Button "`Aktualisieren"'
+			\item Im folgenden werden alle Listen aktualisiert und gegebenfalls verändert angezeigt.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.
+		\end{itemize}			
+	\end{itemize}
+	
+	\begin{description}
+		\item[Anwendungsfall 16]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Aktivieren und Deaktivieren von Bildern
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. hat vor Bildermengen auszuwerten. Er will nicht alle Bilder einer Bildermenge für die Auswertung berücksichtigen.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es existieren Bildermengen, bei denen nicht alle Bilder berücksichtigt werden.	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. klickt im Projektansichtsfenster in der Bilderliste einer Bildmenge ein oder mehrere Bilder an um diese zu aktivieren bzw. deaktivieren.
+			\item Bei den jeweiligen Bildern werden Häkchen gesetzt oder entfernt sowie bei den deaktivierten ihre Darstellung verändert.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.
+			\item Es befinden sich Bilder in der aktiven Bildermenge.
+		\end{itemize}			
+	\end{itemize}
+	
+	\begin{description}
+		\item[Anwendungsfall 17]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Das Anzeigen einer Bildvorschau
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. hat vor Bilder in einer Bildmenge zu betrachten.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es wird eine Bildvorschau angezeigt.	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. fährt mit dem Mauszeiger im Projektansichtsfenster in der Bilderliste einer Bildmenge über einen Dateinamen und bleibt dort mit dem Mauzeiger stehen.
+			\item Es wird das Bild auf welches gezeigt wird in einer gewissen Größe im Vordergrund ausgegeben.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.
+			\item Es befinden sich Bilder in der aktiven Bildermenge.
+			\item Die Bilder können angezeigt werden.			
+		\end{itemize}			
+	\end{itemize}
+	
+	\begin{description}
+		\item[Anwendungsfall 18]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Festlegen der Bildvorschaugröße
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. hat vor Bilder in einer Bildmenge zu betrachten. Die aktuelle Bildgröße ist ungeeignet.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es wird eine Bildvorschau in veränderter Größe angezeigt.	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. verstellt den Schieberegeler unter der Bilderliste einer Bildmenge in gewünschte Position.
+			\item Es wird das Bild, auf welches gezeigt wird, nun in angepasster Größe im Vordergrund ausgegeben.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.
+			\item Es befinden sich Bilder in der aktiven Bildermenge.
+			\item Die Bilder können angezeigt werden.			
+		\end{itemize}			
+	\end{itemize}
+	
+	\subsubsection{Auswertungsmanagement:}
+	Hier gilt Allgemein: Wenn Eingaben gemacht werden die nicht korrekt sind, oder nicht alle notwendigen Parameter und Werte bestimmt sind, kann entweder der Vorgang nicht fortgesetzt werden, oder im Endeffekt keine Auswertung erstellt werden. Auf kritische Stellen wird mit einer Markierung und einer Nachricht hingewiesen. Über diverse Vorwärts und Rückwärtsfunktionen ist es auch gut möglich flexibel zu arbeiten und zwischen den folgenden Optionen Hin und Her zu springen. Einen erneuten Einstieg bietet hier der Button "`Bearbeiten"'.
+	
+	\begin{description}
+		\item[Anwendungsfall 19]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Das Erstellen einer Auswertung
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. hat vor eine Auswertung zu erstellen.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es wurde eine Auswertung erstellt, mit der man arbeiten kann.	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. klickt mit der Maus im Bereich Auswertung auf "`Erstellen"'.
+			\item Das "`Auswertung erstellen"' Fenster erscheint.
+			\item Hier ist zuerst ein Name für die Auswertung einzutragen und dann optional eine Beschreibung.
+			\item Fotograf A. gibt einen korrekten Namen ein.\\\\Erste Möglichkeit:\\
+			\item Fotograf A. wählt keinen Diagrammtyp aus und klickt mit der Maus auf "`Vorwärts"'.
+			\item Nun erscheint ein neues Fenster namens: Parameter.
+			\item Fotograf A. macht keine Angaben und klickt auf "`Übernehmen"'.
+			\item Dem Fotograf A. wird das Projektansichtsfenster angezeigt mit seiner eben erstellten Auswertung in der Auswertungsliste.\\\\Zweite Möglichkeit:\\		
+			\item Fotograf A. wählt mit einem Mausklick einen Diagrammtyp an.
+			\item Zu jedem ausgewählten Diagrammtyp wird eine kleine Vorschau inklusive Beschreibung angezeigt.
+			\item Beim klick auf "`Vorwärts"' wird der zuletzt ausgewählte Diagrammtyp übernommen.
+			\item Nun erscheint ein neues Fenster namens: Parameter.
+			Fotograf A. macht keine Angaben und klickt auf "`Übernehmen"'.
+			\item Dem Fotograf A. wird das Projektansichtsfenster angezeigt mit seiner eben erstellten Auswertung in der Auswertungsliste.\\\\Dritte Möglichkeit:\\
+			\item Fotograf A. wählt mit einem Mausklick einen Diagrammtyp an.
+			\item Zu jedem ausgewählten Diagrammtyp wird eine kleine Vorschau inklusive Beschreibung angezeigt.
+			\item Beim klick auf "`Vorwärts"' wird der zuletzt ausgewählte Diagrammtyp übernommen.
+			\item Nun erscheint ein neues Fenster namens: Parameter.
+			\item Weiterer Verlauf siehe Anwendungsfall 20.			
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.			
+		\end{itemize}			
+	\end{itemize}
+	
+	\begin{description}
+		\item[Anwendungsfall 20]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Bearbeiten einer Auswertung
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. hat vor eine Auswertung zu erstellen.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es wurde eine Auswertung erstellt.	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. klickt mit der Maus im Bereich Auswertung auf "`Erstellen"'.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.
+		\end{itemize}			
+	\end{itemize}
+	
+	\begin{description}
+		\item[Anwendungsfall 21]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Auswahl von Bildmengen für eine Auwertung
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A., Fotograf B.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. hat vor eine Auswertung zu erstellen.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es wurde eine Auswertung erstellt.	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. klickt mit der Maus im Bereich Auswertung auf "`Erstellen"'.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.			
+		\end{itemize}			
+	\end{itemize}
+	
+	\begin{description}
+		\item[Anwendungsfall 22]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Wilkoxentest-Konfiguration
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. hat vor eine Auswertung zu erstellen.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es wurde eine Auswertung erstellt.	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. klickt mit der Maus im Bereich Auswertung auf "`Erstellen"'.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.
+		\end{itemize}			
+	\end{itemize}
+	
+	\begin{description}
+		\item[Anwendungsfall 23]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Auswertung anzeigen lassen
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. hat vor eine Auswertung zu erstellen.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es wurde eine Auswertung erstellt.	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. klickt mit der Maus im Bereich Auswertung auf "`Erstellen"'.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.			
+		\end{itemize}			
+	\end{itemize}
+	
+	\begin{description}
+		\item[Anwendungsfall 24]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Sich in der Auswertung bewegen.
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. hat vor eine Auswertung zu erstellen.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es wurde eine Auswertung erstellt.	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. klickt mit der Maus im Bereich Auswertung auf "`Erstellen"'.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.			
+		\end{itemize}			
+	\end{itemize}
+	
+	\begin{description}
+		\item[Anwendungsfall 25]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Eine Auswertung als Bild exportieren.
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. hat vor eine Auswertung zu erstellen.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es wurde eine Auswertung erstellt.	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. klickt mit der Maus im Bereich Auswertung auf "`Erstellen"'.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.			
+		\end{itemize}			
+	\end{itemize}
+	
+	\begin{description}
+		\item[Anwendungsfall 26]
+	\end{description}
+	
+	\begin{itemize}
+		\item Name: Auswertung schließen.
+		\item Teilnehmende Akteure:
+		\begin{itemize}
+			\item	Fotograf A.: Benutzer des Programms		
+		\end{itemize}
+		\item Eingangsbedingung:
+		\begin{itemize}
+			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
+			\item Fotograf A. hat vor eine Auswertung zu erstellen.
+		\end{itemize}
+		\item Ausgangsbedingung:
+		\begin{itemize}
+			\item	Es wurde eine Auswertung erstellt.	
+		\end{itemize}
+		\item Ereignisfluss:
+		\begin{itemize}
+			\item Fotograf A. klickt mit der Maus im Bereich Auswertung auf "`Erstellen"'.
+		\end{itemize}
+		\item Spezielle Anforderungen:
+		\begin{itemize}
+			\item	Es finden nur gültige Eingaben statt.			
+		\end{itemize}			
+	\end{itemize}
+	
+	
+
