@@ -12,8 +12,7 @@
 		
 		\item[/F030/] \textit{Automatische Anpassung der Größe der Bedienoberfläche:}\par Das Programm positioniert automatisch seine Bedienelemente, in Abhängigkeit zur Auflösung des Programmfensters.
 		
-		%TODO Guireferenz
-		\item[/F040/] \textit{Automatisches durchsuchen des Projektverzeichnisses:}\par Bei Programmstart, wird in dem Projektverzeichnis des Programms nach Projektkonfigurationsdateien gesucht. Auf der Basis dieser Datensätze wird eine Projektliste generiert, die in einem Projektübersicht, nach absteigendem Bearbeitungsdatum (aktuelles zuerst), sortiert angezeigt werden. Zudem wird das Datum anders formatiert dargestellt als der Projektname. (siehe Kapitel REF)
+		\item[/F040/] \textit{Automatisches durchsuchen des Projektverzeichnisses:}\par Bei Programmstart, wird in dem Projektverzeichnis des Programms nach Projektkonfigurationsdateien gesucht. Auf der Basis dieser Datensätze wird eine Projektliste generiert, die in einem Projektübersicht, nach absteigendem Bearbeitungsdatum (aktuelles zuerst), sortiert angezeigt werden. Zudem wird das Datum anders formatiert dargestellt als der Projektname.
 		
 	\end{description}
 
@@ -21,16 +20,14 @@
 
 \label{subsec:projektmanagement}
 	
-	\gls{tempX} verfügt über eine eingebaute Projektverwaltung, mit der der Benutzer beliebige Kombinationen von Bildmengen und Auswertungen verwalten kann. Es kann allerdings immer nur ein Projekt im aktiven Zustand sein, ein Wechsel in ein anderes Projekte während der Programmausführung ist möglich.
+	\gls{tempX} verfügt über eine eingebaute Projektverwaltung, mit der der Benutzer beliebige Kombinationen von Bildmengen und Auswertungen verwalten kann. Es kann allerdings immer nur ein Projekt im aktiven Zustand sein, ein Wechsel in ein anderes Projekte während der Programmausführung ist möglich.\par Ein Projekt wird in einer Projektkonfigurationsdatei gespeichert, die sich in dem Projektverzeichnis von \gls{tempX} befindet. Dieses Projektverzeichnis ist vom Elternverzeichnis ausgehend mit "`projekte"' gekennzeichnet.
 	
 	\begin{description}		
 		
-		%TODO Projektverzeichnis benennen, GUI
 		\item[/F110/] \textit{Neues Projekt anlegen:}\par In der Projektübersicht ist die Möglichkeit gegeben, durch betätigen der Schaltfläche "`Projekt erstellen"', ein neues Projekt zu erstellen und ihm einen Namen zu geben.\par Dabei wird überprüft, ob dieser Projektname schon von einem anderen Projekt verwendet wird. Ist dies der Fall, kann der Benutzer einen neuen Namen eingeben. Dabei ist auch zu beachten, dass der Projektname zwischen einem und 255 Zeichen lang sein muss.\par Bei der Projektanlegung wird auch ein Erstellungsdatum erstellt (siehe Kapitel \ref{subsec:programmdaten} \textbf{/D20/}). Danach wird die Projektansicht gestartet, mit dem gerade erstellten Projekt (siehe Kapitel \ref{subsec:benutzerschnittstelle}). Zu beachten ist, dass ein Projekt erst nach der in Kapitel \ref{subsec:programmausfuehrung} beschriebenen Funktion \textbf{/F020/} dauerhaft verfügbar ist. 
 		
 		\item[/F120/] \textit{Projekt aktivieren:}\par Um eine Projekt zu aktivieren, muss man es in der Liste der Projekte, in dem Dialog aus \textbf{/F040/}, auswählen.
 		
-		%TODO GUI
 		\item[/F130/] \textit{Vorhandens Projekt öffnen:}\par In der Projektübersicht ist die Möglichkeit gegeben, durch einen Doppelklick, mit der linken Maustaste, auf den Projektnamen eines bereits vorhanden Projektes oder durch aktivieren eines Projektes und betätigen der Schaltfläche "`Projekt öffnen"' (siehe Kapitel \ref{subsec:benutzerschnittstelle}, das Hauptprogramm zu starten.\par In der damit verbundenen Projektkonfigurationsdatei gespeicherte Bildmengen und Auswertungen werden nun verfügbar gemacht. Damit gemeint ist: 
 			
 			\begin{itemize}
@@ -41,7 +38,6 @@
 				
 				\item Anzeige der Auswertungen (siehe Kapitel \ref{subsec:auswertungsmgmt}).
 				
-				% TODO in GUI kennzeichnen
 				\item Anzeige aller Bilder der Bildmengen in dem Bereich "`Bildansicht"' und aktivieren des ersten Bildes. Dadurch wird der Bereich "`\gls{exif}-Daten"' der Projektansicht, mit den \gls{exif}-Parametern dieses Bildes aktualisiert.
 			
 			\end{itemize}		
@@ -59,6 +55,21 @@
 				\item Die Projektkonfigurationsdatei, wird in dem Projektverzeichnis gelöscht.
 				
 				\item Dem Benutzer wird eine Rückmeldung gegeben, ob das Entfernen erfolgreich war oder ob es einen Fehler gab.
+			
+			\end{enumerate}
+	
+		\item[/F160/] \textit{Projektbeschreibung hinzufügen:}\par in dem Feld "`Projektbeschreibung"' lässt sich das Projekt genauer spezifizieren. Erst nach Ausführung von \textbf{/F020/} ist diese dauerhaft verfügbar.
+	
+		\item[/F170/] \textit{Projekt wechseln:}\par durch betätigen der Schaltfläche "`Wechseln"' in dem Bereich "`Projekt"' der Projektansicht, werden folgende Aktionen ausgelöst:
+		\begin{enumerate}
+				
+				\item Es wird eine Sicherheitsabfrage (ein Dialog mit Ja/Nein Auswahlmöglichkeit) angezeigt, die dem Benutzer die Möglichkeit gibt, das Projekt zu speichern.
+				
+				\item Das gerade aktive Projekt wird geschlossen.
+				
+				\item Die Projektansicht wird beendet.
+				
+				\item Die Projektübersicht wird gestartet.
 			
 			\end{enumerate}
 	
@@ -92,8 +103,7 @@
 	
 	\end{itemize}
 	
-	% TODO GUI
-	Es ist außerdem zu beachten, dass bei einem Dateisystem- oder einem Datenspeicherstrukturwechsel die Verweise keine Gültigkeit mehr haben können und ein Neuanlegen dieser Verweise unumgänglich ist.\par Wird ein Projekt geöffnet, werden alle in der Projektkonfigurationsdatei definierten Bildmengen \gls{lexgraph} sortiert angezeigt. Die erste Bildmenge der Liste (falls vorhanden), wird dabei automatisch auf aktiv gesetzt (siehe Kapitel GUI).
+	Es ist außerdem zu beachten, dass bei einem Dateisystem- oder einem Datenspeicherstrukturwechsel die Verweise keine Gültigkeit mehr haben können und ein Neuanlegen dieser Verweise unumgänglich ist.\par Wird ein Projekt geöffnet, werden alle in der Projektkonfigurationsdatei definierten Bildmengen \gls{lexgraph} sortiert angezeigt. Die erste Bildmenge der Liste (falls vorhanden), wird dabei automatisch auf aktiv gesetzt.
 	
 	\begin{description}
 		
@@ -105,8 +115,7 @@
 		
 			\begin{itemize}
 				
-				% TODO GUI
-				\item Durch \gls{dragndrop} von Verzeichnissen und Bildern aus der grafischen Benutzerschnittstelle des Betriebssystems in den Bereich "`Inhalt"', einer aktiven Bildmenge (siehe Kapitel GUI). 
+				\item Durch \gls{dragndrop} von Verzeichnissen und Bildern aus der grafischen Benutzerschnittstelle des Betriebssystems in den Bereich "`Inhalt"', einer aktiven Bildmenge. 
 				
 				\item Durch betätigen der Schaltfläche "`Hinzufügen"' in dem Bereich "`Inhalt"' der Projektansicht einer aktiven Bildmenge, wird ein Dialog (der je nach verwendetem Betriebssystem eine unterschiedliche Handhabung hat) geöffnet, der dem Benutzer folgende Möglichkeiten gibt:
 				
@@ -175,7 +184,7 @@
 					\end{minipage}  
 				}    		
 			\end{figure}			
-			Die Tabelle stellt alle auszuwertenden \gls{exif}-Daten mit Dateinamen tabellarisch dar (siehe Kapitel \ref{subsec:auszuwertendedaten}). Dabei wird absteigend nach dem Dateinamen sortiert. Die Tabelle kann als \gls{jpg} exportiert werden.
+			Die Tabelle stellt alle auszuwertenden \gls{exif}-Daten mit Dateinamen tabellarisch dar (siehe Kapitel \ref{subsec:auszuwertendedaten}). Dabei wird \gls{lexgraph} nach dem Dateinamen sortiert. Die Tabelle kann als \gls{jpg} exportiert werden.
 
 		\item[/F320/] \textit{2D Histogramm:}\par 
 		
@@ -190,7 +199,7 @@
 					\end{minipage}  
 					}    		
 			\end{figure}
-			Das 2D Histogramm gibt eine grafische Darstellung der Häufigskeitsverteilung von Messwerten an. Dabei wird ein \gls{exif}-Parameter der x-Achse zugewiesen, die in äquidistante Abschnitte zerlegt wird. Die y-Achse gibt die Häufigkeit des zu betrachtenden Abschnittes an. Falls n Bildmengen mit der aktuellen Auswertung verbunden sind, so wird jeder Abschnitt nochmals in n Unterabschnitte zerlegt ($ n \in \mathbb{N} $ und $ n>1 $). Das 2D Histogram kann als \gls{jpg} exportiert werden.
+			Das 2D Histogramm gibt eine grafische Darstellung der Häufigskeitsverteilung von Messwerten an. Dabei wird ein \gls{exif}-Parameter der X-Achse zugewiesen, die in äquidistante Abschnitte zerlegt wird. Die Y-Achse gibt die Häufigkeit des zu betrachtenden Abschnittes an. Falls n Bildmengen mit der aktuellen Auswertung verbunden sind, so wird jeder Abschnitt nochmals in n gleich große Unterabschnitte zerlegt ($ n \in \mathbb{N} $ und $ n>1 $). Das 2D Histogram kann als \gls{jpg} exportiert werden.
 			
 
 		\item[/F330/] \textit{3D Histogramm:}\par
@@ -208,8 +217,8 @@
 					\end{minipage}  
 				}    		
 			\end{figure}
-			Das 3D Histogramm erlaubt einen weiteren \gls{exif}-Paramter einer zweiten Achse, der z-Achse, zuzuweisen.
-			Dabei wird die xz-Ebene in gleichgroße Rechtecke aufgeteilt. Die y-Achse gibt die Häufigkeit des zu betrachtenden Rechtecks an. Falls n Bildmengen mit der aktuellen Auswertung verbunden sind, so wird jedes Rechteck nochmals in n Rechtecke zerlegt ($ n \in \mathbb{N} $ und $ n>1 $). Das 3D Histogramm kann als \gls{jpg} exportiert werden.
+			Das 3D Histogramm erlaubt einen weiteren \gls{exif}-Paramter einer zweiten Achse, der Z-Achse, zuzuweisen. Dieser muss verschieden von dem \gls{exif}-Paramter der X-Achse sein.
+			Dabei wird die XZ-Ebene in gleichgroße Rechtecke aufgeteilt. Die Y-Achse gibt die Häufigkeit des zu betrachtenden Rechtecks an. Falls n Bildmengen mit der aktuellen Auswertung verbunden sind, so wird jedes Rechteck nochmals in n Rechtecke zerlegt ($ n \in \mathbb{N} $ und $ n>1 $). Das 3D Histogramm kann als \gls{jpg} exportiert werden.
 
 		\item[/F340/] \textit{Boxplot:}\par 
 			\begin{figure}[H]
@@ -223,7 +232,9 @@
 						\end{minipage}  
 					}    		
 			\end{figure}
-
+			Der Boxplot stellt einige wesentlichen Beschreibungsmerkmale einer Verteilung in einem Diagramm dar. Dabei wird der Median, hier der rote Balken, der Mittelwert, hier der schwarze Punkt, das untere und obere Quartil dargestellt. Die Whiskers (dt.: Schnurrhaare) zeigen das Maximum beziehungsweise das Minimum einer Verteilung, sofern diese nicht mehr als das 1,5-fache des Interquartilabstands vom Median abweichen. Datenpunkte, die außerhalb dieses Ranges liegen, gelten als Ausreisser und werden als einzelne Datenpunkte dargestellt.
+			\par
+			Beim Boxplot können ein bis zwei Bildmengen als Auswertungsgrundlage verwendet werden. Außerdem hat man die Möglichkeit, falls man zwei Bildmengen als Auswertungsgrundlage verwendet, den \gls{wilcoxon} im Einstellungsfenster zu aktivieren (siehe Kapitel \ref{gui:willcoxon}). Der \gls{wilcoxon} gibt den \gls{pwert} aus. Der Boxplot kann als \gls{jpg} exportiert werden.
 
 		\item[/F350/] \textit{Punktewolke:}\par		
 			\begin{figure}[H]
@@ -237,6 +248,11 @@
 					\end{minipage}  
     		}    		
 			\end{figure}
+			Die Punktewolke ist ein dreidimensionales Diagramm, bei der Punkte in einem kartesisches Koordiantensystem dargestellt werden.
+			Dabei können die drei Achsen jeweils mit einem \gls{exif}-Parameter belegt werden, wobei jeder \gls{exif}-Parameter nur einmal verwendet werden darf.
+			Punkte, die die gleichen Koordianten haben werden farbkodiert. Eine Farbskala gibt die Häufigkeit der individuellen Punkte an.
+			Bätigt man die linken Maustaste auf einem Punkt, so wird das entsprechende Bild angezeigt. Verbirgt sich hinter einem Punkt mehrere Bilder, so wird ein beliebiges, aber festes Bild angezeigt.
+			Die Punktewolke kann als \gls{jpg} exportiert werden.
 
 	\end{description}
 
@@ -256,13 +272,11 @@
 
 	\end{itemize}
 
-	% TODO Gui
-	Wird ein Projekt geöffnet, werden alle in der Projektkonfigurationsdatei definierten Auswertungen \gls{lexgraph} sortiert angezeigt. Die erste Auswertung der Liste (falls vorhanden), wird dabei automatisch auf aktiv gesetzt (siehe Kapitel GUI).
+	Wird ein Projekt geöffnet, werden alle in der Projektkonfigurationsdatei definierten Auswertungen \gls{lexgraph} sortiert angezeigt. Die erste Auswertung der Liste (falls vorhanden), wird dabei automatisch auf aktiv gesetzt.
 
 	\begin{description}
 		
-		% TODO Formulierung
-		\item[/F410/] \textit{Anlegen einer neuen Auswertung:}\par Durch betätigen der Schaltfläche "`Erstellen"' in dem Bereich "`Auswertungen"' der Projektansicht, wird ein Assistent gestartet, der den Benutzer durch die Auswertungserstellung führt.\par Über die Schaltfläche "`vorwärts"' kann der Benutzer dabei auf den nächsten Schritt wechseln, sofern er in der aktuellen Eingabemaske keine Fehleingabe getätigt hat. Durch betätigen der Schaltfläche "`zurück"', kann der Benutzer hingegen zu einem bereits getätigten Schritt wechseln. Auch hierbei wird vor dem Druck auf "`vorwärts"' überprüft, ob alle Eingabedaten immer noch korrekt sind.\par Folgende Schritte führt der Assistent aus:
+		\item[/F410/] \textit{Anlegen einer neuen Auswertung:}\par Durch betätigen der Schaltfläche "`Erstellen"' in dem Bereich "`Auswertungen"' der Projektansicht, wird ein Assistent gestartet, der den Benutzer durch die Auswertungserstellung führt.\par Über die Schaltfläche "`Vorwärts"' kann der Benutzer dabei auf den nächsten Schritt wechseln, sofern er in der aktuellen Eingabemaske keine Fehleingabe getätigt hat. Durch betätigen der Schaltfläche "`Zurück"', kann der Benutzer hingegen zu einem bereits getätigten Schritt wechseln. Auch hierbei wird vor dem Druck auf "`Vorwärts"' überprüft, ob alle Eingabedaten immer noch korrekt sind.\par Folgende Schritte führt der Assistent aus:
 
 			\begin{enumerate}
 
