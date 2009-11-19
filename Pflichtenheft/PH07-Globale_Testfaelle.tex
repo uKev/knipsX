@@ -1,6 +1,6 @@
 \section{Globale Testfälle}
 
-Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überprüft werden.
+Die Testfälle sollen auf allen in Kapitel \ref{subsec:software} erwähnten Betriebssystemen ausgeführt und überprüft werden.
 
  % TODO: Ein Testfall für jede Anforderung. *bei Fertigstellung diese Zeile entfernen*
  % TODO: Testfallnummern am Ende überprüfen und ggf. den Anforderungsnummern anpassen.
@@ -15,15 +15,15 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 			
 			\item[/T011/] Das Programm wird beendet, während es sich in der Projektansicht beendet.
 				
-			\item[/T020/] \textit{Projekt speichern:}\par Das in /T110/ erstellte Projekt wird mithilfe des entsprechenden Knopfes innerhalb der Projektansicht gespeichert. 
+			\item[/T020/] \textit{Projekt speichern:}\par Das in /T110/ erstellte Projekt, wird durch betätigen der entsprechenden Schaltfläche innerhalb der Projektansicht gespeichert. 
 				
 			\item[/T030/] \textit{Automatische Anpassung der Größe der Bedienoberfläche:}\par Die Größe des Programmfensters wird geändert und die Position der Bedienelemente überprüft.
 			
 			\item[/T040/] \textit{Automatisches durchsuchen des Projektordners:}\par Das Programm wird gestartet und es wird überprüft, ob die generierte Projektliste mit den bisher erstellten Projekten übereinstimmt.
 		
-			\item[/T050/] \textit{Besondere Formatierung markierter Listeneinträge:}\par Es wird in der Projektübersicht ein Eintrag ausgewählt und auf markiertheit überprüft.
+			\item[/T050/] \textit{Besondere Formatierung markierter Listeneinträge:}\par Es wird in der Projektübersicht ein Eintrag ausgewählt und auf zu anderen Einträgen unterschiedliche Formatierung überprüft.
 			
-			\item[/T060/] \textit{Listen mit Scrollbalken versehen:}\par
+			\item[/T060/] \textit{Listen mit Scrollbalken versehen:}\par Es werden in alle Listen soviele Einträge erstellt, so dass sie gerade noch in die Anzeige passen. Dann wird jeweils ein Eintrag hinzugefügt und überprüft, ob ein funktionierender Scrollbalken erscheint.
 			
 		\end{description}
 
@@ -33,19 +33,19 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 		
 			\item[/T110/] \textit{Neues Projekt mit Namen erstellen:}\par Es wird in der Projektübersicht ein neues Projekt mit dem Namen "`Schwarzwald \#3 mit Kamera \$B54\% ~n @ 2. \& 3. Berg"' erstellt.
 			
-			\item[/T111/] \textit{Namenskollision:} Es wird zusätzlich ein Projekt mit dem Namen "`David, Andreas - ein Vergleich"' erstellt und gespeichert. Im Anschluss wird noch einmal versucht, ein Projekt mit dem gleichen Namen zu erstellen. Dies schlägt fehl.
+			\item[/T111/] \textit{Namenskollision:} Es wird zusätzlich ein Projekt mit dem Namen "`David, Andreas - ein Vergleich"' erstellt und gespeichert. Im Anschluss wird noch einmal versucht, ein Projekt mit dem gleichen Namen zu erstellen. Dies muss nun mit einem entsprechenden Hinweis fehlschlagen.
 				
 			\item[/T120/] \textit{Projekt markieren:}\par Es wird ein Projekt in der Liste der Projektübersicht ausgewählt.
 				
-			\item[/T130/] \textit{Gespeichertes Projekt öffnen:}\par Das in \textbf{/T110/} gespeicherte Projekt, wird in der Projektübersicht ausgewählt und geöffnet. Dabei werden die \gls{exif}-Parameter der Bilder in den Bildmengen des Projekts eingelesen und im Anschluss überprüft.
+			\item[/T130/] \textit{Gespeichertes Projekt öffnen:}\par Das in \textbf{/T110/} gespeicherte Projekt, wird in der Projektübersicht ausgewählt und geöffnet. Dabei werden die \gls{exif}-Parameter der Bilder in den Bildmengen des Projekts eingelesen. Im Anschluss wird anhand der Projektkonfigurationsdatei das geladene Projekt verifiziert.
 
-			\item[/T131/] \textit{Ansprechbarkeit:}	Während dem Einlesen muss das Programm auf weitere Eingaben reagieren.
+			\item[/T131/] \textit{Ansprechbarkeit:}	Während dem Einlesen, muss das Programm auf weitere Eingaben reagieren.
 			
-			\item[/T132/] \textit{Vollständigkeit:} Nach dem Einlesen muss die Bilderliste, die Bildmengenliste, die Verzeichnisliste und die Auswertungsliste vollständig sein und alle diesem Projekt zugeordneten Objekte beinhalten.
+			\item[/T132/] \textit{Vollständigkeit:} Nach dem Einlesen muss die Bilderliste, die Bildmengenliste, die Verzeichnisliste und die Auswertungsliste vollständig sein.
 			
-			\item[/T140/] \textit{Projekt kopieren:}\par Es wird das Projekt aus \textbf{/T110/} kopiert. Dabei wird der Kopie der Namen "`David, Andreas - Vergleich++"' gegeben. Es wird kontrolliert, ob alle Daten des Quellprojekts - mit Ausnahme des exakten Namens - auch in der Kopie vorhanden sind.
+			\item[/T140/] \textit{Projekt kopieren:}\par Es wird das Projekt aus \textbf{/T110/} kopiert. Dabei wird der Kopie der Namen "`David, Andreas - Vergleich++"' gegeben. Es wird kontrolliert, ob alle Daten des Quellprojekts - mit Ausnahme des exakten Namens und der ID - auch in der Kopie vorhanden sind.
 				
-			\item[/T150/] \textit{Projekt entfernen:}\par Das in \textbf{/T140/} kopierte Projekt wird gelöscht. Es wird überprüft, ob alle zugehörigen Daten im Projektordner ebenfalls gelöscht sind.
+			\item[/T150/] \textit{Projekt entfernen:}\par Das in \textbf{/T140/} kopierte Projekt wird entfernt. Es wird überprüft, ob alle zugehörigen Daten im Projektordner ebenfalls gelöscht sind.
 		
 		\end{description}
 	
@@ -57,25 +57,29 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 				
 			\item[/T220/] \textit{Bildmenge auswählen:}\par Es wird die in \textbf{/T210/} erstellte Bildmenge ausgewählt und kontrolliert, ob sich alle Bilder des Verzeichnisses "`Skihütte Berg 2"' in der Bildmenge befinden.
 
-			\item[/T230/] \textit{Bilder per Drag \& Drop hinzufügen:}\par Es wird eine Bildmenge "`Berg 3"' erstellt und ihr werden per Drag \& Drop sowohl das Verzeichnis `"Skilift 1 Berg 3"' sowie zwei weitere Einzelbilder hinzugefügt.
+			\item[/T230/] \textit{Bilder per Drag \& Drop hinzufügen:}\par Es wird eine Bildmenge "`Berg 3"' erstellt und ihr werden per \gls{dragndrop} sowohl das Verzeichnis `"Skilift 1 Berg 3"' sowie zwei weitere Einzelbilder hinzugefügt.
 			
-			\item[/T231/] \textit{Bilder hinzufügen:} Es werden über die Hinzufügen-Funktion weitere 3 Einzelbilder sowie der Ordner "`Abfahrt Berg 3"' zur Bildmenge "`Berg 3"' aus \textbf{/T230/} hinzugefügt.
+			\item[/T231/] \textit{Bilder hinzufügen:} Es werden über die Hinzufügen-Funktion weitere 3 Einzelbilder sowie das Verzeichnis "`Abfahrt Berg 3"' zur Bildmenge "`Berg 3"' aus \textbf{/T230/} hinzugefügt.
 			
 			\item[/T240/] \textit{Hinzufügen von Bildmengen zu einer vorhandenen Bildmenge:}\par Es wird eine Bildmenge "`Berg 2+3"' erstellt. Ihr wird die Bildmenge "`Berg 3"' nach Ergänzung durch \textbf{/T231/} und die Bildmenge "`Berg 2"' aus \textbf{/T210/} hinzugefügt.
 				
 			\item[/T250/] \textit{Bildmenge entfernen:}\par Es wird die Bildmenge "`Berg 3"' von \textbf{/T231/} entfernt. Die Bildmenge muss nun ebenfalls aus der Bildmenge "`Berg 2+3"' entfernt worden sein.
 			
 			\item[/T260/] \textit{Unterbildmengen in der Inhaltsliste:}\par Es werden 2 weitere Bildmengen zur Bildmenge "`Berg 2+3"' aus \textbf{/T240/} hinzugefügt. Diese müssen \gls{lexgraph} sortiert in der Inhaltsliste sein.
-			\item[/T261/] \textit{Ordner in der Inhaltsliste:}\par Zur Bildmenge aus \textbf{/T260/} werden 3 weitere Ordner mit Bildern hinzugefügt. Diese müssen in sich \gls{lexgraph} sortiert sein und unterhalb der Unterbildmengen stehen.
-			\item[/T262/] \textit{Bilder in der Inhaltsliste:}\par Zur Bildmenge aus \textbf{/T261/} werden 10 weitere Bilder hinzugefügt. Diese müssen in sich \gls{lexgraph} sortiert sein und sich alle unterhalb der Ordner in der Inhaltsliste befinden.
+			
+			\item[/T261/] \textit{Ordner in der Inhaltsliste:}\par Zur Bildmenge aus \textbf{/T260/} werden 3 weitere Verzeichnisse mit Bildern hinzugefügt. Diese müssen in sich \gls{lexgraph} sortiert sein und unterhalb der Unterbildmengen stehen.
+			
+			\item[/T262/] \textit{Bilder in der Inhaltsliste:}\par Zur Bildmenge aus \textbf{/T261/} werden 10 weitere Bilder hinzugefügt. Diese müssen in sich \gls{lexgraph} sortiert sein und sich alle unterhalb der Verzeichnisse in der Inhaltsliste befinden.
+			
 			\item[/T263/] \textit{Farbe der Inhalte:}\par Basierend auf \textbf{/T262/}. Die 3 Blöcke aus \textbf{/T260/}, \textbf{/T261/} und \textbf{/T262/} müssen unterschiedliche Textfarben haben. 
 		
-			\item[/T270/] \textit{Markieren eines Eintrags der Inhaltsliste:}\par Es wird ein Eintrag in der Inhaltsliste ausgewählt.
+			\item[/T270/] \textit{Markieren eines Eintrags der Inhaltsliste:}\par Es wird ein Eintrag in der Inhaltsliste ausgewählt. Diese muss sich von den anderen Einträgen in der Formatierung unterscheiden.
 		
 			\item[/T280/] \textit{Entfernen von Inhalten aus der Inhaltsliste:}\par Der ausgewählte Eintrag aus \textbf{/T270/} wird entfernt.
 		
-			\item{/T290/} \textit{Deaktivieren von Bildern in der Bilderliste einer Bildermenge:}\par Basierend auf \textbf{/T262/} werden 2 Bilder einer Bildermenge in der Bilderliste deaktiviert. Die Bilderliste der aktiven Bilder beinhaltet jetzt nur noch die restlichen Bilder.
-			\item{/T291/} \textit{Aktivieren von Bildern}\par Basierend auf \textbf{/T290/} wird das eine der deaktivierten Bilder wieder aktiviert. Die Bilderliste der aktiven Bilder beinhaltet jetzt zusätlich noch das erneut aktivierte Bild. Lediglich das verbleibende, deaktivierte Bild, fehlt.
+			\item{/T290/} \textit{Deaktivieren von Bildern in der Bilderliste einer Bildermenge:}\par Basierend auf \textbf{/T262/} werden zwei Bilder einer Bildermenge in der Bilderliste deaktiviert. Diese zwei Bilder müssen nun ausgegraut sein. Die Bilderliste der aktiven Bilder beinhaltet jetzt nur noch die restlichen Bilder.
+			
+			\item{/T291/} \textit{Aktivieren von Bildern}\par Basierend auf \textbf{/T290/} wird eines der deaktivierten zwei Bilder wieder aktiviert. Die Bilderliste der aktiven Bilder, beinhaltet jetzt zusätlich das erneut aktivierte Bild. Lediglich das verbleibende deaktivierte Bild fehlt.
 			
 			\item{/T295/} \textit{Anzeige von Exif-Parametern bei Bildmarkierung:}\par
 			
@@ -85,23 +89,15 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 	
 		\begin{description}
 			
-			\item[/T310/] \textit{Tabelle:}\par
-			
-			Überprüfung der korrekten Darstellung der \gls{exif}-Paramter. 
+			\item[/T310/] \textit{Tabelle:}\par Überprüfung der korrekten Darstellung der \gls{exif}-Paramter. 
 
-			\item[/T320/] \textit{2D Histogramm:}\par
-			
-			Eine Auswertung mit Diagrammtyp 2D Histogramm wird erstellt, ein beliebiger \gls{exif}-Paramter der x-Achse zugewiesen und mit einer Bildmenge verbunden. Anschließend wird die aktuelle Auswertung erstellt und als \gls{jpg} exportiert.
+			\item[/T320/] \textit{2D Histogramm:}\par	Eine Auswertung mit Diagrammtyp 2D Histogramm wird erstellt, ein beliebiger \gls{exif}-Parameter der x-Achse zugewiesen und mit einer Bildmenge verbunden. Anschließend wird die aktuelle Auswertung erstellt und als Bild im \gls{jpg}-Format exportiert.
 		
-			\item[/T330/] \textit{3D Histogramm:}\par
-			
-			Eine Auswertung mit Diagrammtyp 3D Histogramm wird erstellt, ein beliebiger \gls{exif}-Paramter der x-Achse und y-Achse zugewiesen und mit drei Bildmengen verbunden. Anschließend wird die aktuelle Auswertung erstellt und als \gls{jpg} exportiert.
+			\item[/T330/] \textit{3D Histogramm:}\par Eine Auswertung mit Diagrammtyp 3D Histogramm wird erstellt, beliebige \gls{exif}-Parameter der x-Achse und y-Achse zugewiesen und mit drei Bildmengen verbunden. Anschließend wird die aktuelle Auswertung erstellt und als Bild im \gls{jpg}-Format exportiert.
 
-			\item[/T340/] \textit{Boxplot:}\par
-			Eine Auswertung mit Diagrammtyp Boxplot wird erstellt, ein beliebiger \gls{exif}-Paramter als Auswertungsgrundlage verwendet und mit zwei Bildmengen verbunden. Zusätzlich wird der \gls{wilcoxon} aktiviert und das Signifikanzniveau auf 2\% gesetzt. Anschließend wird die aktuelle Auswertung erstellt und als \gls{jpg} exportiert.
+			\item[/T340/] \textit{Boxplot:}\par Eine Auswertung mit Diagrammtyp Boxplot wird erstellt, ein beliebiger \gls{exif}-Parameter als Auswertungsgrundlage verwendet und mit zwei Bildmengen verbunden. Zusätzlich wird der \gls{wilcoxon} aktiviert und das Signifikanzniveau auf 2\% gesetzt. Anschließend wird die aktuelle Auswertung erstellt und als Bild im \gls{jpg}-Format exportiert.
 
-			\item[/T350/] \textit{Punktewolke:}\par
-			Eine Auswertung mit Diagrammtyp Punktewolke wird erstellt, drei beliebige \gls{exif}-Paramter der x,y und z-Achse zugewiesen und mit vier Bildmengen verbunden. Anschließend wird die aktuelle Auswertung erstellt und als \gls{jpg} exportiert.
+			\item[/T350/] \textit{Punktewolke:}\par	Eine Auswertung mit Diagrammtyp Punktewolke wird erstellt, drei beliebige \gls{exif}-Parameter der x-, y- und z-Achse zugewiesen und mit vier Bildmengen verbunden. Anschließend wird die aktuelle Auswertung erstellt und als Bild im \gls{jpg}-Format exportiert.
 
 		\end{description}
 	
@@ -109,14 +105,14 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 
 		\begin{description}
 		
-			\item[/T410/] \textit{Neue Auswertung anlegen.}\par Es wird eine neue Auswertung ohne zugeordnete Bildmenge mit Namen "`Vergleich Berg 2 und Berg 3"' erstellt. Als Diagrammtyp wird "`Boxplot"' ausgewählt. Als Achse wird "`Blende"' ausgewählt und die Bezeichnung "`Blede im Vergleich"' eingegeben.
+			\item[/T410/] \textit{Neue Auswertung anlegen.}\par Es wird eine neue Auswertung ohne zugeordnete Bildmenge mit Namen "`Vergleich Berg 2 und Berg 3"' erstellt. Als Diagrammtyp wird "`Boxplot"' ausgewählt, als Achse wird "`Blende"' ausgewählt und die Bezeichnung "`Blede im Vergleich"' eingegeben.
 			% AAAAACHTUNG: "Blede" obendrüber ist KEIN Tippfehler, bitte so lassen(!!!)
 			
 			\item[/T420/] \textit{Eine Auswertung markieren.}\par Es wird die in \textbf{/T410/} angelegte Auswertung in der Auswertungsliste ausgewählt.
 			
-			\item[/T430/] \textit{Bearbeiten einer Auswertung:}\par Es wird die in \textbf{/T420/} markierte Auswertung geöffnet. Die Achsenbezeichnung wird auf von "`Blede im Vergleich"' auf "`Blende im Vergleich"' korrigiert und das Resultat "`übernommen"'. Das Diagramm wird "`angezeigt"' und begutachtet.
+			\item[/T430/] \textit{Bearbeiten einer Auswertung:}\par Es wird die in \textbf{/T420/} markierte Auswertung geöffnet. Die Achsenbezeichnung wird von "`Blede im Vergleich"' auf "`Blende im Vergleich"' korrigiert und das Resultat "`übernommen"'. Das Diagramm wird "`angezeigt"' und begutachtet.
 				
-			\item[/T440/] \textit{Eine Auswertung wird gelöscht.}\par Die in [/T430/] bearbeitete Auswertung wird gelöscht.
+			\item[/T440/] \textit{Eine Auswertung wird entfernt:}\par Die in [/T430/] bearbeitete Auswertung wird entfernt.
 							
 		\end{description}
 	
@@ -124,15 +120,14 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 	
 		\begin{description}
 
-			\item[/T510/] \textit{Extraktion von \gls{exif}-Parametern:}\par Es wird ein Bild in der Bildliste markiert und die angezeigten Exif-Daten mit denen, die in der original Kamera angezeigt werden, verglichen.
+			\item[/T510/] \textit{Extraktion von \gls{exif}-Parametern:}\par Es wird ein Bild in der Bildliste markiert und die angezeigten \gls{exif}-Parameter mit denen, die in der originalen Kamera angezeigt werden, verglichen.
 			
-
 		\end{description}
 		
 \subsection{Testfälle für nicht funktionale Anforderungen}
 	
 	\begin{description}
 		
-			\item[/TN010/]\textit{10.000 Fotos mit \gls{tempX} analysieren. Für das Einlesen und Extrahieren der \gls{exif} Daten dürfen maximal 25 Minuten benötigt}\par werden.
+			\item[/TN010/] \textit{10.000 Fotos mit \gls{tempX} analysieren:}\par Für das Einlesen und Extrahieren der \gls{exif}-Parameter dürfen maximal 25 Minuten benötigt werden.
 	
 	\end{description}
