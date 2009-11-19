@@ -48,6 +48,8 @@
 \ofoot{\pagemark}
 % nützlich: \pagemark = Seitenzahl
 
+\headheight=2cm								% Fix für Headline
+
 \setheadsepline{1pt}					%Dicke der Trennlinie Kopfzeile - Text
 \setfootsepline{0.5pt}				%Dicke der Trennlinie Fusszeile - Text
 
@@ -69,12 +71,9 @@
 \widowpenalty=5000\relax 
 %Maximalwert ist 10000
 
-
 %Schriftarten ändern
 %\addtokomafont{Element}{Befehl}
 \addtokomafont{caption}{\small} % Schriftart in Bildunterschriften verkleinern
-
-
 
 %+++Hier beginnt das eigenliche Dokument++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \begin{document}
