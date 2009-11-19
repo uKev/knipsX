@@ -32,7 +32,7 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 		
 			\item[/T110/] \textit{Neues Projekt mit Namen erstellen:}\par Es wird in der Projektübersicht ein neues Projekt mit dem Namen "`Schwarzwald \#3 mit Kamera \$B54\% ~n @ 2. \& 3. Berg"' erstellt.
 			
-			\item[/T111/] \textit{Namenskollision:} Es wird zusätzlich ein Projekt mit dem Namen "David, Andreas - ein Vergleich" erstellt und gespeichert. Im Anschluss wird noch einmal versucht, ein Projekt mit dem gleichen Namen zu erstellen - was fehlschlägt.
+			\item[/T111/] \textit{Namenskollision:} Es wird zusätzlich ein Projekt mit dem Namen "`David, Andreas - ein Vergleich"' erstellt und gespeichert. Im Anschluss wird noch einmal versucht, ein Projekt mit dem gleichen Namen zu erstellen. Dies schlägt fehl.
 				
 			\item[/T120/] \textit{Projekt markieren:}\par TODO: was soll hier getestet werden?
 				
@@ -42,7 +42,7 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 			
 			\item[/T132/] \textit{Vollständigkeit:} Nach dem Einlesen muss die Bilderliste, die Bildmengenliste, die Verzeichnisliste und die Auswertungsliste vollständig sein und alle diesem Projekt zugeordneten Objekte beinhalten.
 			
-			\item[/T140/] \textit{Projekt kopieren:}\par Es wird das Projekt aus \textbf{/T110/} kopiert. Dabei wird der Kopie der Namen "David, Andreas - Vergleich++" gegeben. Es wird kontrolliert, ob alle Daten des Quellprojekts - mit Ausnahme des exakten Namens - auch in der Kopie vorhanden sind.
+			\item[/T140/] \textit{Projekt kopieren:}\par Es wird das Projekt aus \textbf{/T110/} kopiert. Dabei wird der Kopie der Namen "`David, Andreas - Vergleich++"' gegeben. Es wird kontrolliert, ob alle Daten des Quellprojekts - mit Ausnahme des exakten Namens - auch in der Kopie vorhanden sind.
 				
 			\item[/T150/] \textit{Projekt entfernen:}\par Das in \textbf{/T140/} kopierte Projekt wird gelöscht. Es wird überprüft, ob alle zugehörigen Daten im Projektordner ebenfalls gelöscht sind.
 		
@@ -52,19 +52,19 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 		
 		\begin{description}
 		
-			\item[/T210/] \textit{Neue Bildmenge erstellen:}\par Es wird im Projekt aus \textbf{/T110/} eine Bildmenge mit dem Namen "Berg 2" erstellt. Dieser Bildmenge wird das Verzeichnis "Skihütte Berg 2" zugeordnet.
+			\item[/T210/] \textit{Neue Bildmenge erstellen:}\par Es wird im Projekt aus \textbf{/T110/} eine Bildmenge mit dem Namen "`Berg 2"' erstellt. Dieser Bildmenge wird das Verzeichnis "`Skihütte Berg 2"' zugeordnet.
 				
-			\item[/T220/] \textit{Bildmenge auswählen:}\par Es wird die in \textbf{/T210/} erstellte Bildmenge ausgewählt und kontrolliert, ob sich alle Bilder des Verzeichnisses "Skihütte Berg 2" in der Bildmenge befinden.
+			\item[/T220/] \textit{Bildmenge auswählen:}\par Es wird die in \textbf{/T210/} erstellte Bildmenge ausgewählt und kontrolliert, ob sich alle Bilder des Verzeichnisses "`Skihütte Berg 2"' in der Bildmenge befinden.
 
-			\item[/T230/] \textit{Bilder per Drag \& Drop hinzufügen:}\par Es wird eine Bildmenge "Berg 3" erstellt und ihr werden per Drag \& Drop sowohl das Verzeichnis "Skilift 1 Berg 3" sowie zwei weitere Einzelbilder hinzugefügt.
+			\item[/T230/] \textit{Bilder per Drag \& Drop hinzufügen:}\par Es wird eine Bildmenge "`Berg 3"' erstellt und ihr werden per Drag \& Drop sowohl das Verzeichnis `"Skilift 1 Berg 3"' sowie zwei weitere Einzelbilder hinzugefügt.
 			
-			\item[/T231/] \textit{Bilder hinzufügen:} Es werden über die Hinzufügenfunktion weitere 3 Einzelbilder sowie der Ordner "Abfahrt Berg 3" zur Bildmenge "Berg 3" aus \textbf{/T230/} hinzugefügt.
+			\item[/T231/] \textit{Bilder hinzufügen:} Es werden über die Hinzufügen-Funktion weitere 3 Einzelbilder sowie der Ordner "`Abfahrt Berg 3"' zur Bildmenge "`Berg 3"' aus \textbf{/T230/} hinzugefügt.
 			
-			\item[/T240/] \textit{Hinzufügen von Bildmengen zu einer vorhandenen Bildmenge:}\par Es wird eine Bildmenge "Berg 2+3" erstellt. Ihr wird die Bildmenge "Berg 3" nach Ergänzung durch \textbf{/T231/} und die Bildmenge "Berg 2" aus \textbf{/T210/} hinzugefügt.
+			\item[/T240/] \textit{Hinzufügen von Bildmengen zu einer vorhandenen Bildmenge:}\par Es wird eine Bildmenge "`Berg 2+3"' erstellt. Ihr wird die Bildmenge "`Berg 3"' nach Ergänzung durch \textbf{/T231/} und die Bildmenge "`Berg 2"' aus \textbf{/T210/} hinzugefügt.
 				
-			\item[/T250/] \textit{Bildmenge entfernen:}\par Es wird die Bildmenge "Berg 3" von \textbf{/T231/} entfernt. Die Bildmenge muss nun ebenfalls aus der Bildmenge "Berg 2+3" entfernt worden sein.
+			\item[/T250/] \textit{Bildmenge entfernen:}\par Es wird die Bildmenge "`Berg 3"' von \textbf{/T231/} entfernt. Die Bildmenge muss nun ebenfalls aus der Bildmenge "`Berg 2+3"' entfernt worden sein.
 			
-			\item[/T260/] \textit{Unterbildmengen in der Inhaltsliste:}\par Es werden 2 weitere Bildmengen zur Bildmenge "Berg 2+3" aus \textbf{/T240/} hinzugefügt. Diese müssen \gls{lexgraph} sortiert in der Inhaltsliste sein.
+			\item[/T260/] \textit{Unterbildmengen in der Inhaltsliste:}\par Es werden 2 weitere Bildmengen zur Bildmenge "`Berg 2+3"' aus \textbf{/T240/} hinzugefügt. Diese müssen \gls{lexgraph} sortiert in der Inhaltsliste sein.
 			\item[/T261/] \textit{Ordner in der Inhaltsliste:}\par Zur Bildmenge aus \textbf{/T260/} werden 3 weitere Ordner mit Bildern hinzugefügt. Diese müssen in sich \gls{lexgraph} sortiert sein und unterhalb der Unterbildmengen stehen.
 			\item[/T262/] \textit{Bilder in der Inhaltsliste:}\par Zur Bildmenge aus \textbf{/T261/} werden 10 weitere Bilder hinzugefügt. Diese müssen in sich \gls{lexgraph} sortiert sein und sich alle unterhalb der Ordner in der Inhaltsliste befinden.
 			\item[/T263/] \textit{Farbe der Inhalte:}\par Basierend auf \textbf{/T262/}. Die 3 Blöcke aus \textbf{/T260/}, \textbf{/T261/} und \textbf{/T262/} müssen unterschiedliche Textfarben haben. 
@@ -107,7 +107,7 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 
 		\begin{description}
 		
-			\item[/T410/] \textit{Neue Auswertung anlegen.}\par Es wird eine neue Auswertung ohne zugeordnete Bildmenge mit Namen "Vergleich Berg 2 und Berg 3" erstellt. Als Diagrammtyp wird "Boxplot" ausgewählt. Als Achse wird "Blende" ausgewählt und die Bezeichnung "Blende im Vergleich" eingegeben.
+			\item[/T410/] \textit{Neue Auswertung anlegen.}\par Es wird eine neue Auswertung ohne zugeordnete Bildmenge mit Namen "`Vergleich Berg 2 und Berg 3"' erstellt. Als Diagrammtyp wird "`Boxplot"' ausgewählt. Als Achse wird "`Blende"' ausgewählt und die Bezeichnung "`Blende im Vergleich"' eingegeben.
 			
 			\item[/T420/] \textit{Eine Auswertung auswählen.}\par Es wird die in \textbf{/T410/} angelegte Auswertung in der Auswertungsliste ausgewählt.
 			
