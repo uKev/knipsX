@@ -152,7 +152,7 @@
 				
 				\item Dem Benutzer wird eine Rückmeldung gegeben, ob das Entfernen erfolgreich war oder ob es einen Fehler gab.
 				
-				\item Nach dem Entfernen, ist die erste Bildmenge (falls vorhanden) in der Liste markieren.
+				\item Nach dem Entfernen, ist die erste Bildmenge (falls vorhanden) in der Liste markiert.
 			
 			\end{enumerate}
 
@@ -247,7 +247,9 @@
 				}    		
 			\end{figure}
 			Das 3D Histogramm erlaubt einen weiteren \gls{exif}-Paramter einer zweiten Achse, der Z-Achse, zuzuweisen. Dieser muss verschieden von dem \gls{exif}-Paramter der X-Achse sein.
-			Dabei wird die XZ-Ebene in gleichgroße Rechtecke aufgeteilt. Die Y-Achse gibt die Häufigkeit des zu betrachtenden Rechtecks an. Falls n Bildmengen mit der aktuellen Auswertung verbunden sind, so wird jedes Rechteck nochmals in n Rechtecke zerlegt ($ n \in \mathbb{N} $ und $ n>1 $). Das 3D Histogramm kann als \gls{jpg} exportiert werden.
+			Dabei wird die XZ-Ebene in gleichgroße Rechtecke aufgeteilt. Die Y-Achse gibt die Häufigkeit des zu betrachtenden Rechtecks an. Falls n Bildmengen mit der aktuellen Auswertung verbunden sind, so wird jedes Rechteck nochmals in n Rechtecke zerlegt ($ n \in \mathbb{N} $ und $ n>1 $). \par
+			
+			Die Ansicht kann frei bewegt, rotiert und skaliert werden. Außerdem kann die aktuelle Ansicht durch einen Klick auf die entsprechende Schaltfläche zurückgesetzt werden. Das 3D Histogramm kann als \gls{jpg} exportiert werden.
 
 		\item[/F340/] \textit{Boxplot:}\par 
 			\begin{figure}[H]
@@ -263,7 +265,8 @@
 			\end{figure}
 			Der Boxplot stellt einige wesentlichen Beschreibungsmerkmale einer Verteilung in einem Diagramm dar. Dabei wird der Median, hier der rote Balken, der Mittelwert, hier der schwarze Punkt, das untere und obere Quartil dargestellt. Die Whiskers (dt.: Schnurrhaare) zeigen das Maximum beziehungsweise das Minimum einer Verteilung, sofern diese nicht mehr als das 1,5-fache des Interquartilabstands vom Median abweichen. Datenpunkte, die außerhalb dieses Ranges liegen, gelten als Ausreisser und werden als einzelne Datenpunkte dargestellt.
 			\par
-			Beim Boxplot können ein bis zwei Bildmengen als Auswertungsgrundlage verwendet werden. Außerdem hat man die Möglichkeit, falls man zwei Bildmengen als Auswertungsgrundlage verwendet, den \gls{wilcoxon} im Einstellungsfenster zu aktivieren (siehe Kapitel \ref{gui:willcoxon}). Der \gls{wilcoxon} gibt den \gls{pwert} aus. Der Boxplot kann als \gls{jpg} exportiert werden.
+			Beim Boxplot können ein bis zwei Bildmengen als Auswertungsgrundlage verwendet werden. Außerdem hat man die Möglichkeit, falls man zwei Bildmengen als Auswertungsgrundlage verwendet, den \gls{wilcoxon} im Einstellungsfenster zu aktivieren (siehe Kapitel \ref{gui:willcoxon}). Dabei muss eine Hypothese und ein Signifikanzniveau festgelegt werden.
+\par Der \gls{wilcoxon} gibt den \gls{pwert} aus. Der Boxplot kann als \gls{jpg} exportiert werden.
 
 		\item[/F350/] \textit{Punktewolke:}\par		
 			\begin{figure}[H]
@@ -280,7 +283,10 @@
 			Die Punktewolke ist ein dreidimensionales Diagramm, bei der Punkte in einem kartesisches Koordiantensystem dargestellt werden.
 			Dabei können die drei Achsen jeweils mit einem \gls{exif}-Parameter belegt werden, wobei jeder \gls{exif}-Parameter nur einmal verwendet werden darf.
 			Punkte, die die gleichen Koordianten haben werden farbkodiert. Eine Farbskala gibt die Häufigkeit der individuellen Punkte an.
-			Bätigt man die linken Maustaste auf einem Punkt, so wird das entsprechende Bild angezeigt. Verbirgt sich hinter einem Punkt mehrere Bilder, so wird ein beliebiges, aber festes Bild angezeigt.
+			Betätigt man die linken Maustaste auf einem Punkt, so wird das entsprechende Bild mit Namen angezeigt. Verbirgt sich hinter einem Punkt mehrere Bilder, so wird ein beliebiges, aber festes Bild angezeigt. 
+			\par 
+			
+		Die Ansicht kann frei bewegt, rotiert und skaliert werden. Außerdem hat man die Möglichkeit die aktuelle Ansicht mit einem Klick auf die entsprechende Schaltfläche zurückzusetzen.
 			Die Punktewolke kann als \gls{jpg} exportiert werden.
 
 	\end{description}
@@ -323,7 +329,7 @@
 
 				\item \textbf{Parameter festlegen}.\par Festlegen der x-, y- oder z-Achse (je nach Diagrammtyp - siehe Kapitel \ref{subsec:diagrammmgmt}). Mit Festlegen ist hier das Verknüpfen mit \gls{exif}-Parametern gemeint. Optional kann eine Beschreibung angegeben werden, die dann anstatt der Bezeichnung des \gls{exif}-Parameters verwendet wird.
 
-				\item \textbf{Bildmengen festlegen}.\par Hier werden Bildmengen des aktuell geöffneten Projektes mit der Auswertung verknüpft. Außerdem kann hier anhand bestimmter \gls{exif}-Parametern eine Reduzierung der gesamten Bildmenge bewirkt werden (\textit{Filterung der Daten}).
+				\item \textbf{Bildmengen festlegen}.\par Hier werden Bildmengen des aktuell aktiven Projektes mit der Auswertung verknüpft. Außerdem kann hier anhand der \gls{exif}-Keywords eine Reduzierung der gesamten Bildmenge bewirkt werden. Dabei werden gleiche \gls{exif}-Keywords zusammengefasst (\textit{Filterung der Daten}).
 
 			\end{enumerate}
 
