@@ -11,15 +11,19 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 	
 		\begin{description}
 
-			\item[/T010/] \textit{Programm beenden:}\par Das Programm wird während in der Projektübersicht beendet.
-			\item[/T011/] Das Programm wird in der Projektansicht beendet.
+			\item[/T010/] \textit{Programm beenden:}\par Das Programm wird beendet, während es sich in der Projektübersicht befindet.
+			\item[/T011/] Das Programm wird beendet, während es sich in der Projektansicht beendet.
 				
 			\item[/T020/] \textit{Projekt speichern:}\par Das in /T110/ erstellte Projekt wird mithilfe des entsprechenden Knopfes innerhalb der Projektansicht gespeichert. 
 				
-			\item[/F030/] \textit{Automatische Anpassung der Größe der Bedienoberfläche:}\par TODO: Wie soll man das testen?	
+			\item[/T030/] \textit{Automatische Anpassung der Größe der Bedienoberfläche:}\par TODO: Wie soll man das testen?	
 				
-			\item[/F040/] \textit{Automatisches durchsuchen des Projektordners:}\par Das Programm wird gestartet und es wird überprüft ob die generierte Projektliste mit den bisher erstellten Projekten übereinstimmt.
+			\item[/T040/] \textit{Automatisches durchsuchen des Projektordners:}\par Das Programm wird gestartet und es wird überprüft, ob die generierte Projektliste mit den bisher erstellten Projekten übereinstimmt.
 		
+			\item[/T050/] \textit{Besondere Formatierung aktiver Listeneinträge:}\par
+			
+			\item[/T060/] \textit{Listen mit Scrollbalken versehen:}\par
+			
 		\end{description}
 
 	\subsubsection{Projektmanagement}
@@ -27,19 +31,20 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 		\begin{description}
 		
 			\item[/T110/] \textit{Neues Projekt mit Namen erstellen:}\par Es wird in der Projektübersicht ein neues Projekt mit dem Namen "`Schwarzwald \#3 mit Kamera \$B54\% ~n @ 2. \& 3. Berg"' erstellt.
-			\item[/T111/] \textit{Namenskollision: }Es wird zusätzlich ein Projekt mit dem Namen "David, Andreas - ein Vergleich" erstellt und gespeichert. Im Anschluss wird noch einmal versucht ein Projekt mit dem gleichen Namen erstellt. Dies schlägt fehl.
+			
+			\item[/T111/] \textit{Namenskollision:} Es wird zusätzlich ein Projekt mit dem Namen "David, Andreas - ein Vergleich" erstellt und gespeichert. Im Anschluss wird noch einmal versucht, ein Projekt mit dem gleichen Namen zu erstellen - was fehlschlägt.
 				
 			\item[/T120/] \textit{Projekt aktivieren:}\par TODO: was soll hier getestet werden?
 				
-			\item[/T130/] \textit{Gespeichertes Projekt öffnen:}\par Das in \textbf{/T110/} gespeicherte Projekt wird in der Projektübersicht ausgewählt und geöffnet. Dabei werden die Exif-Daten der Bilder in den Bildmengen des Projekts eingelesen und im Anschluss überprüft.
+			\item[/T130/] \textit{Gespeichertes Projekt öffnen:}\par Das in \textbf{/T110/} gespeicherte Projekt, wird in der Projektübersicht ausgewählt und geöffnet. Dabei werden die \gls{exif}-Parameter der Bilder in den Bildmengen des Projekts eingelesen und im Anschluss überprüft.
 
 			\item[/T131/] \textit{Ansprechbarkeit:}	Während dem Einlesen muss das Programm auf weitere Eingaben reagieren.
 			
 			\item[/T132/] \textit{Vollständigkeit:} Nach dem Einlesen muss die Bilderliste, die Bildmengenliste, die Verzeichnisliste und die Auswertungsliste vollständig sein und alle diesem Projekt zugeordneten Objekte beinhalten.
 			
-			\item[/T140/] \textit{Projekt kopieren:}\par Es wird das Projekt aus \textbf{/T110/} kopiert. Dabei wird der Kopie der Namen "David, Andreas - Vergleich++" gegeben. Es wird kontrolliert ob alle Daten des Quellprojekts - mit Ausnahme des exakten Namens - auch in der Kopie vorhanden sind.
+			\item[/T140/] \textit{Projekt kopieren:}\par Es wird das Projekt aus \textbf{/T110/} kopiert. Dabei wird der Kopie der Namen "David, Andreas - Vergleich++" gegeben. Es wird kontrolliert, ob alle Daten des Quellprojekts - mit Ausnahme des exakten Namens - auch in der Kopie vorhanden sind.
 				
-			\item[/T150/] \textit{Projekt entfernen:}\par Das in \textbf{/T140/} kopierte Projekt wird gelöscht. Es wird überprüft ob alle zugehörigen Daten im Projektordner ebenfalls gelöscht sind.
+			\item[/T150/] \textit{Projekt entfernen:}\par Das in \textbf{/T140/} kopierte Projekt wird gelöscht. Es wird überprüft, ob alle zugehörigen Daten im Projektordner ebenfalls gelöscht sind.
 		
 		\end{description}
 	
@@ -53,7 +58,7 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 
 			\item[/T230/] \textit{Bilder per Drag \& Drop hinzufügen:}\par Es wird eine Bildmenge "Berg 3" erstellt und ihr werden per Drag \& Drop sowohl das Verzeichnis "Skilift 1 Berg 3" sowie zwei weitere Einzelbilder hinzugefügt.
 			
-			\item[/T231/] \textit{Bilder hinzufügen:} Es werden über die Hinzufügen-Funktion weitere 3 Einzelbilder sowie der Ordner "Abfahrt Berg 3" zur Bildmenge "Berg 3" aus \textbf{/T230/} hinzugefügt.
+			\item[/T231/] \textit{Bilder hinzufügen:} Es werden über die Hinzufügenfunktion weitere 3 Einzelbilder sowie der Ordner "Abfahrt Berg 3" zur Bildmenge "Berg 3" aus \textbf{/T230/} hinzugefügt.
 			
 			\item[/T240/] \textit{Hinzufügen von Bildmengen zu einer vorhandenen Bildmenge:}\par Es wird eine Bildmenge "Berg 2+3" erstellt. Ihr wird die Bildmenge "Berg 3" nach Ergänzung durch \textbf{/T231/} und die Bildmenge "Berg 2" aus \textbf{/T210/} hinzugefügt.
 				
@@ -64,6 +69,14 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 			\item[/T262/] \textit{Bilder in der Inhaltsliste:}\par Zur Bildmenge aus \textbf{/T261/} werden 10 weitere Bilder hinzugefügt. Diese müssen in sich \gls{lexgraph} sortiert sein und sich alle unterhalb der Ordner in der Inhaltsliste befinden.
 			\item[/T263/] \textit{Farbe der Inhalte:}\par Basierend auf \textbf{/T262/}. Die 3 Blöcke aus \textbf{/T260/}, \textbf{/T261/} und \textbf{/T262/} müssen unterschiedliche Textfarben haben. 
 		
+			\item[/T270/] \textit{Aktivieren eines Eintrags der Inhaltsliste:}\par
+		
+			\item[/T280/] \textit{Entfernen von Inhalten aus der Inhaltsliste:}\par
+		
+			\item{/T290/} \textit{Aktivieren/Deaktivieren von Bildern in der Bilderliste einer Bildermenge:}\par
+			
+			\item{/T295/} \textit{Anzeige von Exif-Parametern bei Bildaktivierung:}\par
+			
 		\end{description}
 	
 	\subsubsection{Diagrammmanagement}
@@ -114,7 +127,7 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 	
 		\begin{description}
 
-			\item[/T510/] \textit{Extraktion von \gls{exif} Daten:}\par 
+			\item[/T510/] \textit{Extraktion von \gls{exif}-Parameter:}\par 
 
 		\end{description}
 		
@@ -125,4 +138,3 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 			\item[/TN010/]\textit{10.000 Fotos mit \gls{tempX} analysieren. Für das Einlesen und Extrahieren der \gls{exif} Daten dürfen maximal 25 Minuten benötigt}\par werden.
 	
 	\end{description}
- 
