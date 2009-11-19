@@ -175,7 +175,7 @@
 					\end{minipage}  
 				}    		
 			\end{figure}			
-			Die Tabelle stellt alle auszuwertenden \gls{exif}-Daten mit Dateinamen tabellarisch dar (siehe Kapitel \ref{subsec:auszuwertendedaten}). Dabei wird absteigend nach dem Dateinamen sortiert. Die Tabelle kann als \gls{jpg} exportiert werden.
+			Die Tabelle stellt alle auszuwertenden \gls{exif}-Daten mit Dateinamen tabellarisch dar (siehe Kapitel \ref{subsec:auszuwertendedaten}). Dabei wird \gls{lexgraph} nach dem Dateinamen sortiert. Die Tabelle kann als \gls{jpg} exportiert werden.
 
 		\item[/F320/] \textit{2D Histogramm:}\par 
 		
@@ -190,7 +190,7 @@
 					\end{minipage}  
 					}    		
 			\end{figure}
-			Das 2D Histogramm gibt eine grafische Darstellung der Häufigskeitsverteilung von Messwerten an. Dabei wird ein \gls{exif}-Parameter der x-Achse zugewiesen, die in äquidistante Abschnitte zerlegt wird. Die y-Achse gibt die Häufigkeit des zu betrachtenden Abschnittes an. Falls n Bildmengen mit der aktuellen Auswertung verbunden sind, so wird jeder Abschnitt nochmals in n Unterabschnitte zerlegt ($ n \in \mathbb{N} $ und $ n>1 $). Das 2D Histogram kann als \gls{jpg} exportiert werden.
+			Das 2D Histogramm gibt eine grafische Darstellung der Häufigskeitsverteilung von Messwerten an. Dabei wird ein \gls{exif}-Parameter der X-Achse zugewiesen, die in äquidistante Abschnitte zerlegt wird. Die Y-Achse gibt die Häufigkeit des zu betrachtenden Abschnittes an. Falls n Bildmengen mit der aktuellen Auswertung verbunden sind, so wird jeder Abschnitt nochmals in n gleich große Unterabschnitte zerlegt ($ n \in \mathbb{N} $ und $ n>1 $). Das 2D Histogram kann als \gls{jpg} exportiert werden.
 			
 
 		\item[/F330/] \textit{3D Histogramm:}\par
@@ -208,8 +208,8 @@
 					\end{minipage}  
 				}    		
 			\end{figure}
-			Das 3D Histogramm erlaubt einen weiteren \gls{exif}-Paramter einer zweiten Achse, der z-Achse, zuzuweisen.
-			Dabei wird die xz-Ebene in gleichgroße Rechtecke aufgeteilt. Die y-Achse gibt die Häufigkeit des zu betrachtenden Rechtecks an. Falls n Bildmengen mit der aktuellen Auswertung verbunden sind, so wird jedes Rechteck nochmals in n Rechtecke zerlegt ($ n \in \mathbb{N} $ und $ n>1 $). Das 3D Histogramm kann als \gls{jpg} exportiert werden.
+			Das 3D Histogramm erlaubt einen weiteren \gls{exif}-Paramter einer zweiten Achse, der Z-Achse, zuzuweisen. Dieser muss verschieden von dem \gls{exif}-Paramter der X-Achse sein.
+			Dabei wird die XZ-Ebene in gleichgroße Rechtecke aufgeteilt. Die Y-Achse gibt die Häufigkeit des zu betrachtenden Rechtecks an. Falls n Bildmengen mit der aktuellen Auswertung verbunden sind, so wird jedes Rechteck nochmals in n Rechtecke zerlegt ($ n \in \mathbb{N} $ und $ n>1 $). Das 3D Histogramm kann als \gls{jpg} exportiert werden.
 
 		\item[/F340/] \textit{Boxplot:}\par 
 			\begin{figure}[H]
@@ -223,7 +223,9 @@
 						\end{minipage}  
 					}    		
 			\end{figure}
-
+			Der Boxplot stellt einige wesentlichen Beschreibungsmerkmale einer Verteilung in einem Diagramm dar. Dabei wird der Median, hier der rote Balken, der Mittelwert, hier der schwarze Punkt, das untere und obere Quartil dargestellt. Die Whiskers (dt.: Schnurrhaare) zeigen das Maximum beziehungsweise das Minimum einer Verteilung, sofern diese nicht mehr als das 1,5-fache des Interquartilabstands vom Median abweichen. Datenpunkte, die außerhalb dieses Ranges liegen, gelten als Ausreisser und werden als einzelne Datenpunkte dargestellt.
+			\par
+			Beim Boxplot können ein bis zwei Bildmengen als Auswertungsgrundlage verwendet werden. Außerdem hat man die Möglichkeit, falls man zwei Bildmengen als Auswertungsgrundlage verwendet, den \gls{wilcoxon} im Einstellungsfenster zu aktivieren (siehe Kapitel \ref{gui:willcoxon}). Der \gls{wilcoxon} gibt den \gls{pwert} aus. Der Boxplot kann als \gls{jpg} exportiert werden.
 
 		\item[/F350/] \textit{Punktewolke:}\par		
 			\begin{figure}[H]
@@ -237,6 +239,11 @@
 					\end{minipage}  
     		}    		
 			\end{figure}
+			Die Punktewolke ist ein dreidimensionales Diagramm, bei der Punkte in einem kartesisches Koordiantensystem dargestellt werden.
+			Dabei können die drei Achsen jeweils mit einem \gls{exif}-Parameter belegt werden, wobei jeder \gls{exif}-Parameter nur einmal verwendet werden darf.
+			Punkte, die die gleichen Koordianten haben werden farbkodiert. Eine Farbskala gibt die Häufigkeit der individuellen Punkte an.
+			Bätigt man die linken Maustaste auf einem Punkt, so wird das entsprechende Bild angezeigt. Verbirgt sich hinter einem Punkt mehrere Bilder, so wird ein beliebiges, aber festes Bild angezeigt.
+			Die Punktewolke kann als \gls{jpg} exportiert werden.
 
 	\end{description}
 
