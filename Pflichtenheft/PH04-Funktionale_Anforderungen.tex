@@ -14,7 +14,7 @@
 		
 		\item[/F040/] \textit{Automatisches durchsuchen des Projektverzeichnisses:}\par Bei Programmstart, wird in dem Projektverzeichnis des Programms nach Projektkonfigurationsdateien gesucht. Auf der Basis dieser Datensätze wird eine Projektliste generiert, die in einem Projektübersicht, nach absteigendem Bearbeitungsdatum (aktuelles zuerst), sortiert angezeigt werden. Zudem wird das Datum anders formatiert dargestellt als der Projektname.
 		
-		\item[/F050/] \textit{Besondere Formatierung aktiver Listeneinträge:}\par Ist ein Listeneintrag aktiv, so wird er durch eine andere Vorder- und Hintergrundfarbe von anderen Listeneinträgen abgehoben.
+		\item[/F050/] \textit{Besondere Formatierung markierter Listeneinträge:}\par Ist ein Listeneintrag markiert, so wird er durch eine andere Vorder- und Hintergrundfarbe von anderen Listeneinträgen abgehoben.
 
 		\item[/F060/] \textit{Listen mit Scrollbalken versehen:}\par Hat eine Liste so viele Einträge, dass sie nicht mehr in die Anzeige passen, wird ein Scrollbalken aktiviert mit dem man sich alle Einträge anzeigen lassen kann.
 		
@@ -24,15 +24,15 @@
 
 \label{subsec:projektmanagement}
 	
-	\gls{tempX} verfügt über eine eingebaute Projektverwaltung, mit der der Benutzer beliebige Kombinationen von Bildmengen und Auswertungen verwalten kann. Es kann allerdings immer nur ein Projekt im aktiven Zustand sein, ein Wechsel in ein anderes Projekte während der Programmausführung ist möglich.\par Ein Projekt wird in einer Projektkonfigurationsdatei gespeichert, die sich in dem Projektverzeichnis von \gls{tempX} befindet. Dieses Projektverzeichnis ist vom Elternverzeichnis ausgehend mit "`projekte"' gekennzeichnet.
+	\gls{tempX} verfügt über eine eingebaute Projektverwaltung, mit der der Benutzer beliebige Kombinationen von Bildmengen und Auswertungen verwalten kann. Es kann allerdings immer nur ein Projekt geöffnet sein, ein Wechsel in ein anderes Projekte während der Programmausführung ist möglich.\par Ein Projekt wird in einer Projektkonfigurationsdatei gespeichert, die sich in dem Projektverzeichnis von \gls{tempX} befindet. Dieses Projektverzeichnis ist vom Elternverzeichnis ausgehend mit "`projekte"' gekennzeichnet.
 	
 	\begin{description}		
 		
 		\item[/F110/] \textit{Neues Projekt anlegen:}\par In der Projektübersicht ist die Möglichkeit gegeben, durch betätigen der Schaltfläche "`Projekt erstellen"', ein neues Projekt zu erstellen und ihm einen Namen zu geben.\par Dabei wird überprüft, ob dieser Projektname schon von einem anderen Projekt verwendet wird. Ist dies der Fall, kann der Benutzer einen neuen Namen eingeben. Dabei ist auch zu beachten, dass der Projektname zwischen einem und 255 Zeichen lang sein muss.\par Bei der Projektanlegung wird auch ein Erstellungsdatum erstellt (siehe Kapitel \ref{subsec:programmdaten} \textbf{/D20/}). Danach wird die Projektansicht gestartet, mit dem gerade erstellten Projekt (siehe Kapitel \ref{subsec:benutzerschnittstelle}). Zu beachten ist, dass ein Projekt erst nach der in Kapitel \ref{subsec:programmausfuehrung} beschriebenen Funktion \textbf{/F020/} dauerhaft verfügbar ist. 
 		
-		\item[/F120/] \textit{Projekt aktivieren:}\par Um eine Projekt zu aktivieren, muss man es in der Liste der Projekte, in dem Dialog aus \textbf{/F040/}, auswählen.
+		\item[/F120/] \textit{Projekt markieren:}\par Um eine Projekt zu markieren, muss man es in der Liste der Projekte, in dem Dialog aus \textbf{/F040/}, auswählen.
 		
-		\item[/F130/] \textit{Vorhandens Projekt öffnen:}\par In der Projektübersicht ist die Möglichkeit gegeben, durch einen Doppelklick, mit der linken Maustaste, auf den Projektnamen eines bereits vorhanden Projektes oder durch aktivieren eines Projektes und betätigen der Schaltfläche "`Projekt öffnen"' (siehe Kapitel \ref{subsec:benutzerschnittstelle}, die Projektansicht zu starten.\par In der damit verbundenen Projektkonfigurationsdatei gespeicherte Bildmengen und Auswertungen werden nun verfügbar gemacht. Damit gemeint ist: 
+		\item[/F130/] \textit{Vorhandens Projekt öffnen:}\par In der Projektübersicht ist die Möglichkeit gegeben, durch einen Doppelklick, mit der linken Maustaste, auf den Projektnamen eines bereits vorhanden Projektes oder durch markieren eines Projektes und betätigen der Schaltfläche "`Projekt öffnen"' (siehe Kapitel \ref{subsec:benutzerschnittstelle}, die Projektansicht zu starten.\par In der damit verbundenen Projektkonfigurationsdatei gespeicherte Bildmengen und Auswertungen werden nun verfügbar gemacht. Damit gemeint ist: 
 			
 			\begin{itemize}
 				
@@ -42,13 +42,13 @@
 				
 				\item Anzeige der Auswertungen (siehe Kapitel \ref{subsec:auswertungsmgmt}).
 				
-				\item Anzeige aller Bilder der Bildmengen in dem Bereich "`Bildansicht"' und aktivieren des ersten Bildes. Dadurch wird der Bereich "`\gls{exif}-Daten"' der Projektansicht, mit den \gls{exif}-Parametern dieses Bildes aktualisiert.
+				\item Anzeige aller Bilder der Bildmengen in dem Bereich "`Bildansicht"' und markieren des ersten Bildes. Dadurch wird der Bereich "`\gls{exif}-Daten"' der Projektansicht, mit den \gls{exif}-Parametern dieses Bildes aktualisiert.
 			
 			\end{itemize}		
 		
-		\item[/F140/] \textit{Projekt kopieren:}\par In der Projektübersicht ist die Möglichkeit gegeben, ein aktiviertes Projekt mit allen in ihm definierten Daten, Bildmengen und Auswertungen zu kopieren und es unter neuem Namen und neuem Erstellungsdatum temporär zu definieren. Danach wird die Projektansicht gestartet, mit dem gerade kopierten Projekt (siehe Kapitel \ref{subsec:benutzerschnittstelle}). Zu beachten ist, dass ein Projekt erst nach der in Kapitel \ref{subsec:programmausfuehrung} beschriebenen Funktion \textbf{/F020/} dauerhaft verfügbar ist.
+		\item[/F140/] \textit{Projekt kopieren:}\par In der Projektübersicht ist die Möglichkeit gegeben, ein markiertes Projekt mit allen in ihm definierten Daten, Bildmengen und Auswertungen zu kopieren und es unter neuem Namen und neuem Erstellungsdatum temporär zu definieren. Danach wird die Projektansicht gestartet, mit dem gerade kopierten Projekt (siehe Kapitel \ref{subsec:benutzerschnittstelle}). Zu beachten ist, dass ein Projekt erst nach der in Kapitel \ref{subsec:programmausfuehrung} beschriebenen Funktion \textbf{/F020/} dauerhaft verfügbar ist.
 		
-		\item[/F150/] \textit{Projekt entfernen:}\par In der Projektübersicht ist die Möglichkeit gegeben, bei einem aktivierten Projekt mit betätigen der Schaltfläche "`Projekt entfernen"' folgende Aktionen auszulösen:
+		\item[/F150/] \textit{Projekt entfernen:}\par In der Projektübersicht ist die Möglichkeit gegeben, bei einem markierten Projekt mit betätigen der Schaltfläche "`Projekt entfernen"' folgende Aktionen auszulösen:
 			
 			\begin{enumerate}
 				
@@ -70,7 +70,7 @@
 				
 				\item Es wird eine Sicherheitsabfrage (ein Dialog mit Ja/Nein Auswahlmöglichkeit) angezeigt, die dem Benutzer die Möglichkeit gibt, das Projekt zu speichern.
 				
-				\item Das gerade aktive Projekt wird geschlossen.
+				\item Das gerade geöffnete Projekt wird geschlossen.
 				
 				\item Die Projektansicht wird beendet.
 				
@@ -110,21 +110,21 @@
 	
 	\end{itemize}
 	
-	Es ist außerdem zu beachten, dass bei einem Dateisystem- oder einem Datenspeicherstrukturwechsel die Verweise keine Gültigkeit mehr haben können und ein Neuanlegen dieser Verweise unumgänglich ist.\par Wird ein Projekt geöffnet, werden alle in der Projektkonfigurationsdatei definierten Bildmengen \gls{lexgraph} sortiert angezeigt. Die erste Bildmenge der Liste (falls vorhanden), wird dabei automatisch auf aktiv gesetzt.
+	Es ist außerdem zu beachten, dass bei einem Dateisystem- oder einem Datenspeicherstrukturwechsel die Verweise keine Gültigkeit mehr haben können und ein Neuanlegen dieser Verweise unumgänglich ist.\par Wird ein Projekt geöffnet, werden alle in der Projektkonfigurationsdatei definierten Bildmengen \gls{lexgraph} sortiert angezeigt. Die erste Bildmenge der Liste (falls vorhanden), wird dabei automatisch markiert.
 	
 	\begin{description}
 		
 		\item[/F210/] \textit{Anlegen einer neuen Bildmenge:}\par Durch betätigen der Schaltfläche "`Erstellen"' im Bereich "`Bildmengen"' der Projektansicht, wird ein Dialog geöffnet, der dem Benutzer die Möglichkeit gibt, der Bildmenge einen Namen zu geben.
 		
-		\item[/F220/] \textit{Aktivieren einer Bildmenge:}\par Um eine Bildmenge zu aktivieren, muss man sie in der Liste der Bildmengen, im Bereich "`Bildmengen"' der Projektansicht, auswählen. Dadurch wird der Bereich "`Inhalt"' der Projektansicht aktualisiert (siehe Kapitel \textbf{/F250/}).
+		\item[/F220/] \textit{Markieren einer Bildmenge:}\par Um eine Bildmenge zu markieren, muss man sie in der Liste der Bildmengen, im Bereich "`Bildmengen"' der Projektansicht, auswählen. Dadurch wird der Bereich "`Inhalt"' der Projektansicht aktualisiert (siehe Kapitel \textbf{/F250/}).
 		
-		\item[/F230/] \textit{Hinzufügen von Bildern und Verzeichnissen zu einer vorhandenen Bildmenge:}\par Um diese Aktionen auszuführen, muss eine Bildmenge aktiv sein. Das Hinzufügen kann über zwei Arten geschehen:
+		\item[/F230/] \textit{Hinzufügen von Bildern und Verzeichnissen zu einer vorhandenen Bildmenge:}\par Um diese Aktionen auszuführen, muss eine Bildmenge markiert sein. Das Hinzufügen kann über zwei Arten geschehen:
 		
 			\begin{itemize}
 				
-				\item Durch \gls{dragndrop} von Verzeichnissen und Bildern aus der grafischen Benutzerschnittstelle des Betriebssystems in den Bereich "`Inhalt"', einer aktiven Bildmenge. 
+				\item Durch \gls{dragndrop} von Verzeichnissen und Bildern aus der grafischen Benutzerschnittstelle des Betriebssystems in den Bereich "`Inhalt"', einer markierten Bildmenge. 
 				
-				\item Durch betätigen der Schaltfläche "`Hinzufügen"' in dem Bereich "`Inhalt"' der Projektansicht einer aktiven Bildmenge, wird ein Dialog mit Bildvorschau geöffnet, der dem Benutzer folgende Möglichkeiten gibt:
+				\item Durch betätigen der Schaltfläche "`Hinzufügen"' in dem Bereich "`Inhalt"' der Projektansicht einer markierten Bildmenge, wird ein Dialog mit Bildvorschau geöffnet, der dem Benutzer folgende Möglichkeiten gibt:
 				
 					\begin{itemize}
 			
@@ -138,9 +138,9 @@
 				
 			\end{itemize}
 		
-		\item[/F240/] \textit{Hinzufügen von Bildmengen zu einer vorhandenen Bildmenge:}\par Das Hinzufügen kann nur per \gls{dragndrop} einer vorhanden Bildmenge aus dem Bereich "`Bildmengen"' der Projektansicht in den Bereich "`Inhalt"' der Projektansicht einer aktiven Bildmenge erfolgen. Dabei wird die Definition von Bildmengen eingehalten (siehe Kapitel \ref{subsec:bildmengenmgmt}).
+		\item[/F240/] \textit{Hinzufügen von Bildmengen zu einer vorhandenen Bildmenge:}\par Das Hinzufügen kann nur per \gls{dragndrop} einer vorhanden Bildmenge aus dem Bereich "`Bildmengen"' der Projektansicht in den Bereich "`Inhalt"' der Projektansicht einer markierten Bildmenge erfolgen. Dabei wird die Definition von Bildmengen eingehalten (siehe Kapitel \ref{subsec:bildmengenmgmt}).
 		
-		\item[/F250/] \textit{Entfernen von Bildmengen:}\par Um diese Aktionen auszuführen, muss eine Bildmenge aktiv sein. Durch betätigen der Schaltfläsche "`Entfernen"', werden folgende Aktionen ausgelöst:
+		\item[/F250/] \textit{Entfernen von Bildmengen:}\par Um diese Aktionen auszuführen, muss eine Bildmenge markiert sein. Durch betätigen der Schaltfläsche "`Entfernen"', werden folgende Aktionen ausgelöst:
 			
 			\begin{enumerate}
 			
@@ -152,11 +152,11 @@
 				
 				\item Dem Benutzer wird eine Rückmeldung gegeben, ob das Entfernen erfolgreich war oder ob es einen Fehler gab.
 				
-				\item Nach dem Entfernen, ist die erste Bildmenge (falls vorhanden) in der Liste aktiv.
+				\item Nach dem Entfernen, ist die erste Bildmenge (falls vorhanden) in der Liste markieren.
 			
 			\end{enumerate}
 
-		\item[/F260/] \textit{Aufbau der Inhaltsliste:}\par Ist eine Bildmenge aktiv, wird in dem Bereich "`Inhalt"' der Proektansicht die Liste mit dem Inhalt der Bildmenge aktualisiert. Die Liste wird dabei blockweise nach folgendem Schema aufgebaut:
+		\item[/F260/] \textit{Aufbau der Inhaltsliste:}\par Ist eine Bildmenge markiert, wird in dem Bereich "`Inhalt"' der Proektansicht die Liste mit dem Inhalt der Bildmenge aktualisiert. Die Liste wird dabei blockweise nach folgendem Schema aufgebaut:
 		
 			\begin{enumerate}
 			
@@ -170,9 +170,9 @@
 			
 			Jeder Block ist dabei mit einer unterschiedlichen Textfarbe formatiert.
 		
-		\item[/F270/] \textit{Aktivieren eines Eintrags der Inhaltsliste:}\par Um einen Eintrag der Inhaltsliste zu aktivieren, muss man ihn in der Liste der Inhalte in dem Bereich "`Inhalt"' der Projektansicht, auswählen.
+		\item[/F270/] \textit{Markieren eines Eintrags der Inhaltsliste:}\par Um einen Eintrag der Inhaltsliste zu markieren, muss man ihn in der Liste der Inhalte in dem Bereich "`Inhalt"' der Projektansicht, auswählen.
 		
-		\item[/F280/] \textit{Entfernen von Inhalten aus der Inhaltsliste:}\par Um diese Aktionen auszuführen, muss ein Eintrag in der Inhaltsliste aktiv sein. Durch betätigen der Schaltfläsche "`Entfernen"' in dem Bereich "`Inhalt"' der Projektansicht, werden folgende Aktionen ausgelöst:
+		\item[/F280/] \textit{Entfernen von Inhalten aus der Inhaltsliste:}\par Um diese Aktionen auszuführen, muss ein Eintrag in der Inhaltsliste markiert sein. Durch betätigen der Schaltfläsche "`Entfernen"' in dem Bereich "`Inhalt"' der Projektansicht, werden folgende Aktionen ausgelöst:
 			
 			\begin{enumerate}
 			
@@ -182,13 +182,13 @@
 				
 				\item Dem Benutzer wird eine Rückmeldung gegeben, ob das Entfernen erfolgreich war oder ob es einen Fehler gab.
 				
-				\item Nach dem Entfernen, ist der erste Eintrag (falls vorhanden) in der Liste aktiv.
+				\item Nach dem Entfernen, ist der erste Eintrag (falls vorhanden) in der Liste markiert.
 			
 			\end{enumerate}
 		
 		\item{/F290/} \textit{Aktivieren/Deaktivieren von Bildern in der Bilderliste einer Bildermenge:}\par Standardmäßig sind aller Bilder in der Bilderliste einer Bildermenge aktiviert. Durch klicken auf eine Checkbox vor einem Bild, wird der Status abwechselnd von aktiv auf inaktiv oder inaktiv auf aktiv gesetzt. Aktiv bedeutet, dass in einer Checkbox vor dem Bild ein Haken gesetzt ist. Ist ein Bild im Status inaktiv, ist die Checkbox vor dem Bild leer und der Bildname ist ausgegraut.
 
-		\item{/F295/} \textit{Anzeige von Exif-Parametern bei Bildaktivierung:}\par Wird durch Mausklick ein Bild ausgewählt, wird der Bereich "`\gls{exif}-Daten"' der Projektansicht, mit den \gls{exif}-Parametern dieses Bildes aktualisiert.
+		\item{/F295/} \textit{Anzeige von Exif-Parametern bei Bildmarkierung:}\par Wird durch Mausklick ein Bild in der Bildliste ausgewählt, wird der Bereich "`\gls{exif}-Daten"' der Projektansicht, mit den \gls{exif}-Parametern dieses Bildes aktualisiert.
 		
 	\end{description}
 
@@ -301,7 +301,7 @@
 
 	\end{itemize}
 
-	Wird ein Projekt geöffnet, werden alle in der Projektkonfigurationsdatei definierten Auswertungen \gls{lexgraph} sortiert angezeigt. Die erste Auswertung der Liste (falls vorhanden), wird dabei automatisch auf aktiv gesetzt.
+	Wird ein Projekt geöffnet, werden alle in der Projektkonfigurationsdatei definierten Auswertungen \gls{lexgraph} sortiert angezeigt. Die erste Auswertung der Liste (falls vorhanden), wird dabei automatisch markiert.
 
 	\begin{description}
 		
@@ -317,23 +317,23 @@
 
 						\item Eine optionale Beschreibung der Auswertung.
 
-						\item Auswahl eines Diagrammtyps (siehe Kapitel \ref{subsec:diagrammmgmt}).\par Bei der Auswahl, wird eine Livevorschau des Diagramms mit einem Dummydatensatz angezeigt, sowie eine kurze Beschreibung über Sinn und Zweck des Diagramms.\par Hier kann auch eine bereits in dem aktiven Projekt vorhandene Auswertung, als Vorlage verwendet werden. Dabei werden alle Werte der Auswertungsvorlage übernommen, bis auf die ID und der Name. Diese beiden Werte müssen neu generiert werden, damit die Definition nicht verletzt wird.
+						\item Auswahl eines Diagrammtyps (siehe Kapitel \ref{subsec:diagrammmgmt}).\par Bei der Auswahl, wird eine Live-Vorschau des Diagramms mit einem Dummy-Datensatz angezeigt, sowie eine kurze Beschreibung über Sinn und Zweck des Diagramms.\par Hier kann auch eine bereits in dem geöffneten Projekt vorhandene Auswertung als Vorlage verwendet werden. Dabei werden alle Werte der Auswertungsvorlage übernommen bis auf die ID und den Namen. Diese beiden Werte müssen neu generiert werden, damit die Definition nicht verletzt wird.
 
 					\end{itemize}
 
 				\item \textbf{Parameter festlegen}.\par Festlegen der x-, y- oder z-Achse (je nach Diagrammtyp - siehe Kapitel \ref{subsec:diagrammmgmt}). Mit Festlegen ist hier das Verknüpfen mit \gls{exif}-Parametern gemeint. Optional kann eine Beschreibung angegeben werden, die dann anstatt der Bezeichnung des \gls{exif}-Parameters verwendet wird.
 
-				\item \textbf{Bildmengen festlegen}.\par Hier werden Bildmengen des aktuell aktiven Projektes mit der Auswertung verknüpft. Außerdem kann hier anhand bestimmter \gls{exif}-Parametern eine Reduzierung der gesamten Bildmenge bewirkt werden (\textit{Filterung der Daten}).
+				\item \textbf{Bildmengen festlegen}.\par Hier werden Bildmengen des aktuell geöffneten Projektes mit der Auswertung verknüpft. Außerdem kann hier anhand bestimmter \gls{exif}-Parametern eine Reduzierung der gesamten Bildmenge bewirkt werden (\textit{Filterung der Daten}).
 
 			\end{enumerate}
 
 			Nach Beendigung des Assistenten durch betätigen der Schaltfläche "`Übernehmen"', wird die Auswertung gespeichert und, falls bereits Bildmengen mit der Auswertung verknüpft wurden, geöffnet.
 		
-		\item[/F420/] \textit{Aktivieren einer Auswertung:}\par Um eine Auswertung zu aktivieren, muss man sie in der Liste der Auswertungen im Bereich "`Auswertungen"' der Projektansicht, auswählen.
+		\item[/F420/] \textit{Markieren einer Auswertung:}\par Um eine Auswertung zu aktivieren, muss man sie in der Liste der Auswertungen im Bereich "`Auswertungen"' der Projektansicht, auswählen.
 		
-		\item[/F430/] \textit{Bearbeiten einer Auswertung:}\par Um eine Auswertung zu bearbeiten, muss sie aktiv sein. Durch betätigen der Schaltfläche Bearbeiten"' in dem Bereich "`Auswertungen"' der Projektansicht, wird ein Dialog geöffnet, der die gleichen Auswahlmöglichkeiten des Assistenten aus \textbf{/F310/} enthält. Diese sind über Tabs auswählbar und sind mit den Werten der Auswertung vorbelegt. Nach dem Beenden des Dialogs, wird die Auswertung übernommen.
+		\item[/F430/] \textit{Bearbeiten einer Auswertung:}\par Um eine Auswertung zu bearbeiten, muss sie markiert sein. Durch betätigen der Schaltfläche Bearbeiten"' in dem Bereich "`Auswertungen"' der Projektansicht, wird ein Dialog geöffnet, der die gleichen Auswahlmöglichkeiten des Assistenten aus \textbf{/F310/} enthält. Diese sind über Tabs auswählbar und sind mit den Werten der Auswertung vorbelegt. Nach dem Beenden des Dialogs, wird die Auswertung übernommen.
 				
-		\item[/F440/] \textit{Entfernen einer Auswertung:}\par Um eine Auswertung zu entfernen, muss sie aktiv sein. Durch betätigen der Schaltfläche Entfernen"' in dem Bereich "`Auswertungen"' der Projektansicht, werden folgende Aktionen ausgelöst:
+		\item[/F440/] \textit{Entfernen einer Auswertung:}\par Um eine Auswertung zu entfernen, muss sie markiert sein. Durch betätigen der Schaltfläche Entfernen"' in dem Bereich "`Auswertungen"' der Projektansicht, werden folgende Aktionen ausgelöst:
 
 			\begin{enumerate}
 
@@ -343,7 +343,7 @@
 
 				\item Dem Benutzer wird eine Rückmeldung gegeben, ob das Entfernen erfolgreich war oder ob es einen Fehler gab.
 
-				\item Nach dem Entfernen, ist die erste Auswertung (falls vorhanden) in der Liste aktiv.
+				\item Nach dem Entfernen, ist die erste Auswertung (falls vorhanden) in der Liste markiert.
 
 			\end{enumerate}
 			
