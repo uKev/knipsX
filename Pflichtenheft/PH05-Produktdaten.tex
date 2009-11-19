@@ -6,35 +6,39 @@
 
 \begin{description}
 	
-	\item[/D10/] Daten die im Programm gespeichert sind:
+	\item[/D010/] \textit{Daten die im Programm gespeichert sind:}
 	
 	\begin{itemize} 
 			
-			\item Alle im Programm verfügbaren Projekte, deren Name sowie deren Speicherort
-	
-			\item Alle Projekte müssen mit einem Bearbeitungsdatum versehen werden
-	
-	\end{itemize}
-
-	\item[/D20/] Daten die mit einem Projekt gespeichert werden:
-	
-	\begin{itemize}
-		
-		\item Projektname, Projektbeschreibung, Erstellungsdatum, letztes Bearbeitungsdatum
-		
-		\item Alle zu einem Projekt gehörende Bildmengen, Verzeichnissepfade und/oder Bildpfade
-		
-		\item Alle zum Projekt gehörenden Auswertungen
+			\item Alle im Programm verfügbaren Projekte (in dem Projektverzeichnis - siehe Kapitel \ref{subsec:projektmanagement})
+			
+			\item Alle Auswertungen eines aktiven Projektes
+			
+			\item Alle Bildmengen eines aktiven Projektes (damit verbunden alle Pfade zu den Bildern, die in den Bildmengen liegen)
+			
+			\item \gls{exif}-Parameter zu jedem Bild der Bildmengen eines aktiven Projekts (siehe Kapitel \ref{subsec:musskriterien})
 	
 	\end{itemize}
 
-	\item[/D30/] Daten die mit einer Bildmenge gespeichert werden:
+	\item[/D020/] \textit{Daten die mit einem Projekt gespeichert werden:}
+	
+	\begin{itemize}
+		
+		\item Projektid, Projektname, Projektbeschreibung, Erstellungsdatum, letztes Bearbeitungsdatum
+		
+		\item Alle zu einem Projekt gehörende Bildmengen, Verzeichnispfade und/oder Bildpfade
+		
+		\item Alle zu einem Projekt gehörenden Auswertungen
+	
+	\end{itemize}
+
+	\item[/D030/] \textit{Daten die mit einer Bildmenge gespeichert werden:}
 	
 	\begin{itemize}
 	
-		\item Bildmengenname
+		\item Bildmengenid, Bildmengenname
 		
-		\item Hauptverzeichnis der zur Bildermenge gehörenden Verzeichnisse
+		\item Vollständiger Pfad der zur Bildermenge gehörenden Verzeichnisse
 		
 		\item Vollständiger Pfad der zur Bildermenge gehörenden Bilder
 		
@@ -42,24 +46,16 @@
 	
 	\end{itemize}
 	
-	\item[/D40/] Mit einer Auswertung gespeicherte Daten:
+	\item[/D040/] \textit{Mit einer Auswertung gespeicherte Daten:}
 	
 	\begin{itemize}
 		
-		\item Auswertungsname, Bildmengen, Ausgewählter Diagrammtyp, Auswertungseinstellung, Bildmengentag
+		\item Auswertungsid, Auswertungsname, verknüpfte Bildmengen, \gls{exif}-Keywords, ausgewählter Diagrammtyp
 		
 		\item Diagrammspezifische Daten \itshape{(siehe \ref{subsec:daten-diagrammtypen})}
 	
 	\end{itemize}
 		
-	\item[/D50/] Mit der Statistik gespeicherte Daten:
-	
-	\begin{itemize}
-	
-		\item Erstellen eines JPEGs aus der aktuellen Statistik.
-	
-	\end{itemize}
-
 \end{description}
 
 \subsection{Daten der einzelnen Diagrammtypen}
@@ -68,6 +64,6 @@
 
 \begin{description}
 
-	\item[/D60/] Daten des Diagrammtyps "`Boxplot"':
+	\item[/D110/] \textit{Daten des Diagrammtyps "`Boxplot"':}
 
 \end{description}
