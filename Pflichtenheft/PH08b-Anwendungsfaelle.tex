@@ -19,7 +19,7 @@
 		\end{itemize}
 		\item Ausgangsbedingung:
 		\begin{itemize}
-			\item	Fotograf A. hat das Programm gestartet. Es erschein das Projektübersichtsfenster.		
+			\item	Fotograf A. hat das Programm gestartet. Es erscheint das Projektübersichtsfenster.		
 		\end{itemize}
 		\item Ereignisfluss:	
 		\begin{itemize}
@@ -56,7 +56,7 @@
 			\item Fotograf A. befindet sich im Projektansichtsfenster und klickt oben rechts auf Fenster schließen.
 			\item Es kommt ein Fenster mit einer Sicherheitsabfrage auf, welche zum Speichern auffordert.
 			\item Fotograf A. bestätigt das Speichern.
-			\item Fotograf A. hat somit das Programm beendet. Es verschwindet vom Desktop und aus den laufenden Prozessen.
+			\item Fotograf A. hat somit das Programm beendet. Das Programmfenster verschwindet vom Desktop und der Prozess wird aus den laufenden Prozessen entfernt.
 		\end{itemize}
 		Zweite Möglichkeit:
 		\begin{itemize}
@@ -64,7 +64,7 @@
 			\item Fotograf A. befindet sich im Projektansichtsfenster und klickt oben rechts auf Fenster schließen.
 			\item Es kommt ein Fenster mit einer Sicherheitsabfrage auf, welche zum Speichern auffordert.
 			\item Fotograf A. bestätigt das Speichern.
-			\item Fotograf A. hat somit das Programm beendet. Es verschwindet vom Desktop und aus den laufenden Prozessen.
+			\item Fotograf A. hat somit das Programm beendet. Das Programmfenster verschwindet vom Desktop und der Prozess wird aus den laufenden Prozessen entfernt.
 		\end{itemize}	
 		\item Spezielle Anforderungen:
 		\begin{itemize}
@@ -101,7 +101,7 @@
 		\item Spezielle Anforderungen:
 		\begin{itemize}
 			\item	Es muss die Mindestauflösung eingehalten werden.
-			\item Die Funktionalität beschränkt sich jeweils auf die Darstellbarkeit auf dem Desktop und dem Bildschirm.
+			\item Die Funktionalität beschränkt sich jeweils auf die Darstellbarkeit auf dem Desktop.
 		\end{itemize}
 	\end{itemize}	
 	
@@ -129,7 +129,7 @@
 			\begin{itemize}
 				\item Fotograf A. startet das Programm auf seinem Computer.
 				\item Fotograf A. bekommt das Projektübersichtsfenster angezeigt. Es befindet sich entweder noch kein Projekt in der Liste oder es sind bereits Projekte vorhanden.
-				\item Fotograf A. klickt auf Neues Projekt erstellen.
+				\item Fotograf A. klickt auf "`Projekt erstellen"'.
 				\item Es erscheint ein Fenster mit Textfeld.
 				\item Fotograf A. gibt einen gültigen Namen für sein Projekt ein.
 				\item Fotograf A. bestätigt seine Eingabe.
@@ -305,7 +305,7 @@
 \begin{itemize}
 \item Fotograf A. klickt auf das Textfeld, in dem der Namen des Projekts steht.
 \item Fotograf A. editiert das Textfeld nach seinen Bedürfnissen.
-\item Fotograf A. speichert das aktuelle Projekt. Nun wird überall der Name verändert angezeigt.
+\item Fotograf A. speichert das aktuelle Projekt. Nun wird überall der Name aktualisiert und verändert angezeigt.
 \end{itemize}
 \item Spezielle Anforderungen:
 \begin{itemize}
@@ -339,7 +339,7 @@
 		\begin{itemize}
 			\item Fotograf A. klickt im Projektansichtsfenster im Bereich der Bildmengen auf "`Erstellen"'.		
 			\item Nun erscheint ein neues Fenster, in dem ein Namen in einem Textfeld eingetragen werden kann.
-			\item Fotograf A. gibt einen gültigen Namen für seine Bildermenge ein.
+			\item Fotograf A. gibt einen gültigen Namen für seine Bildmenge ein.
 			\item Fotograf A. bestätigt seine Eingabe.
 			\item Fotograf A. gelangt in das Projektansichtsfenster zurück. Seine soeben angelegte Bildmenge wird ihm in der Liste der Bildmengen mit Namen angezeigt.
 		\end{itemize}
@@ -373,9 +373,9 @@
 			\item Fotograf A. klickt im Projektansichtsfenster in der Liste der Bildmengen auf diejenige Bildmenge, die er entfernen will, um sie zu markieren.		
 			\item Nun klickt Fotograf A. im Projektansichtsfenster im Bereich der Bildmengen auf "`Entfernen"'.
 			\item Ihm wird ein Fenster als Sicherheitsabfrage angezeigt.
-			\item Fotograf A. bestätigt das Entfernen der Bildmenge ,it "`Ja"'.
+			\item Fotograf A. bestätigt das Entfernen der Bildmenge mit "`Ja"'.
 			\item Die Bildmenge wird aus der Bildmengenliste entfernt.
-			\item Die nun aktive Bildmenge ist die erste der Bildmengenliste, falls vorhanden, sonst sind die Listen nun leer.
+			\item Die nun aktive Bildmenge ist die erste der Bildmengenliste, falls vorhanden, sonst sind die Bildmengenliste und die Inhaltsliste nun leer.
 			\item Der Inhalt der Inhaltsliste und von der Bilderliste einer Bildmenge wird aktualisiert. 
 		\end{itemize}
 		\item Spezielle Anforderungen:
@@ -444,15 +444,15 @@
 		\begin{itemize}
 			\item Fotograf A. klickt im Projektansichtsfenster in der Liste der Bildmengen auf diejenige Bildmenge, der er Bilder hinzufügen will, um sie zu markieren.		
 			\item Nun klickt Fotograf A. im Projektansichtsfenster im Bereich Inhalt auf "`Hinzufügen"'.
-			\item Ihm wird ein Fenster mit Filemanager angezeigt.\\\\Erste Möglichkeit:\\
-			\item Fotograf A. wählt entweder ein oder mehrere Ordner mit dem Filemanager aus und drückt auf "`Hinzufügen"'.
+			\item Ihm wird ein Fenster mit \gls{dateimanager} angezeigt.\\\\Erste Möglichkeit:\\
+			\item Fotograf A. wählt entweder ein oder mehrere Ordner mit dem  \gls{dateimanager} aus und drückt auf "`Hinzufügen"'.
 			\item Das Projektansichtsfenster wird angezeigt.
 			\item Die soeben hinzugefügten Ordner werden mit blauer Schrift im Inhaltsfenster der Bildmenge angezeigt, der sie zugewiesen wurden.
 			\item Die Bilderliste einer Bildmenge wird mit allen Bildern aktualisiert die sich nun in der Bildmenge befinden.
 			\item Der Bildstatus aller Bilder ist nach dem Hinzufügen immer aktiv.\\\\Zweite Möglichkeit:\\
 			\item Fotograf A. will in einen Ordner schauen und kann diesen mit einem Doppelklick öffnen.
 			\item Fotograf A. klickt auf ein Bild um es zu markieren, er bekommt dabei eine Vorschau des Bildes angezeigt.
-			\item Fotograf A. wählt entweder ein oder mehrere Bilder mit dem Filemanager aus und drückt dann auf "`Hinzufügen"'.		
+			\item Fotograf A. wählt entweder ein oder mehrere Bilder mit dem  \gls{dateimanager} aus und drückt dann auf "`Hinzufügen"'.		
 			\item Das Projektansichtsfenster wird angezeigt.
 			\item Die soeben hinzugefügten Bilder werden mit schwarzer Schrift im Inhaltsfenster der Bildmenge angezeigt, der sie zugewiesen wurden.
 			\item Die Bilderliste einer Bildmenge wird mit allen Bildern aktualisiert die sich nun in der Bildmenge befinden.
@@ -491,7 +491,7 @@
 			\item Fotograf A. klickt im Projektansichtsfenster in der Liste der Bildmengen auf diejenige Bildmenge, in die eingefügt werden soll, um sie zu markieren.
 			\item Diese Bildmenge wird nun in allen Fenstern geladen und dargestellt.
 			\item Nun klickt Fotograf A. im Projektansichtsfenster im Bereich der Bildmengen auf diejenige Bildmenge, die er einfügen will und lässt dabei die Maus nicht los. Er kann diese dann nach unten in das Inhaltsfenster der anderen Bildmenge ziehen. Befindet sich die Bildmenge über dem Inhaltfenster kann er die Maus loslassen.
-			\item Nun erscheint die Bildmenge in grüner Schrift im Inhaltsfenster. Dabei bleibt sie aber in der bildmengenliste stehen.
+			\item Nun erscheint die Bildmenge in grüner Schrift im Inhaltsfenster. Dabei bleibt sie aber in der Bildmengenliste stehen.
 			\item Die Bilderliste einer Bildmenge wird mit allen Bildern aktualisiert die sich nun in der Bildmenge befinden.
 		\end{itemize}
 		\item Spezielle Anforderungen:
@@ -525,9 +525,9 @@
 			\item Fotograf A. klickt im Projektansichtsfenster in der Liste der Bildmengen auf diejenige Bildmenge, in der etwas entfernt werden soll, um sie zu markieren.		
 			\item Diese Bildmenge wird nun in allen Fenstern geladen und dargestellt.
 			\item Fotograf A. klickt im Projektansichtsfenster in der Liste des Inhalts der aktuellen Bildmenge auf eine oder mehrere Bilddateien, Ordner oder Bildmengen und aktiviert bzw. markiert diese.
-			\item Fotograf A. drückt dannach den "`Entfernen Button"' welcher zur Liste gehört.
+			\item Fotograf A. drückt danach den "`Entfernen Button"' welcher zur Inhaltsliste gehört.
 			\item Im folgenden verschwinden alle Einträge, welche zu entfernen waren, aus der Inhaltsliste.
-			\item Die Bilderliste einer Bildmenge wird mit allen Bildern aktualisiert die sich nun in der Bildmenge befinden.
+			\item Die Bilderliste einer Bildmenge wird mit allen Bildern aktualisiert, die sich nun in der Bildmenge befinden.
 		\end{itemize}
 		\item Spezielle Anforderungen:
 		\begin{itemize}
@@ -559,7 +559,7 @@
 		\item Ereignisfluss:
 		\begin{itemize}
 			\item Fotograf A. klickt im Projektansichtsfenster auf den Button "`Aktualisieren"'
-			\item Im folgenden werden alle Listen aktualisiert und gegebenfalls verändert angezeigt.
+			\item Im folgenden werden die Bildliste und die Inhaltsliste aktualisiert und gegebenfalls verändert angezeigt.
 		\end{itemize}
 		\item Spezielle Anforderungen:
 		\begin{itemize}
@@ -580,11 +580,11 @@
 		\item Eingangsbedingung:
 		\begin{itemize}
 			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
-			\item Fotograf A. hat vor, Bildermengen auszuwerten. Er will nicht alle Bilder einer Bildermenge für die Auswertung berücksichtigen.
+			\item Fotograf A. hat vor, Bildmengen auszuwerten. Er will nicht alle Bilder einer Bildmenge für die Auswertung berücksichtigen.
 		\end{itemize}
 		\item Ausgangsbedingung:
 		\begin{itemize}
-			\item	Es existieren Bildermengen, bei denen nicht alle Bilder berücksichtigt werden.	
+			\item	Es existieren Bildmengen, bei denen nicht alle Bilder berücksichtigt werden.	
 		\end{itemize}
 		\item Ereignisfluss:
 		\begin{itemize}
@@ -594,7 +594,7 @@
 		\item Spezielle Anforderungen:
 		\begin{itemize}
 			\item	Es finden nur gültige Eingaben statt.
-			\item Es befinden sich Bilder in der aktiven Bildermenge.
+			\item Es befinden sich Bilder in der aktiven Bildmenge.
 		\end{itemize}			
 	\end{itemize}
 	
@@ -619,13 +619,13 @@
 		\end{itemize}
 		\item Ereignisfluss:
 		\begin{itemize}
-			\item Fotograf A. fährt mit dem Mauszeiger im Projektansichtsfenster in der Bilderliste einer Bildmenge über einen Dateinamen und bleibt dort mit dem Mauzeiger stehen.
+			\item Fotograf A. fährt mit dem Mauszeiger im Projektansichtsfenster in der Bilderliste einer Bildmenge über einen Dateinamen und bleibt dort mit dem Mauszeiger stehen.
 			\item Es wird das Bild auf welches gezeigt wird in einer gewissen Größe im Vordergrund ausgegeben.
 		\end{itemize}
 		\item Spezielle Anforderungen:
 		\begin{itemize}
 			\item	Es finden nur gültige Eingaben statt.
-			\item Es befinden sich Bilder in der aktiven Bildermenge.
+			\item Es befinden sich Bilder in der aktiven Bildmenge.
 			\item Die Bilder können angezeigt werden.			
 		\end{itemize}			
 	\end{itemize}
@@ -643,7 +643,7 @@
 		\item Eingangsbedingung:
 		\begin{itemize}
 			\item	Das Programm befindet sich im Projektansichtsfenster eines Projekts.
-			\item Fotograf A. hat vor, \gls{exif}-Daten eines bildes anzuschauen.
+			\item Fotograf A. hat vor, \gls{exif}-Daten eines Bildes anzuschauen.
 		\end{itemize}
 		\item Ausgangsbedingung:
 		\begin{itemize}
@@ -651,19 +651,19 @@
 		\end{itemize}
 		\item Ereignisfluss:
 		\begin{itemize}
-			\item Fotograf A. klickt entweder auf ein Bild im Inhaltsfenster oder auf eines in der bilderliste der Bildmenge, um dieses zu markieren.
+			\item Fotograf A. klickt entweder auf ein Bild im Inhaltsfenster oder auf eines in der Bilderliste der Bildmenge, um dieses zu markieren.
 			\item Der Bereich mit den \gls{exif}-Daten wird hierbei aktualisiert und die \gls{exif}-Daten des markierten Bildes ausgegeben.
 		\end{itemize}
 		\item Spezielle Anforderungen:
 		\begin{itemize}
 			\item	Es finden nur gültige Eingaben statt.
-			\item Es befinden sich Bilder in der aktiven Bildermenge.
+			\item Es befinden sich Bilder in der aktiven Bildmenge.
 			\item Die \gls{exif}-Daten können angezeigt werden.			
 		\end{itemize}			
 	\end{itemize}
 		
 	\subsubsection{Auswertungsmanagement:}
-Hier gilt Allgemein: Wenn Eingaben gemacht werden die nicht korrekt sind, oder nicht alle notwendigen Parameter und Werte bestimmt sind, kann entweder der Vorgang nicht fortgesetzt werden, oder im Endeffekt keine Auswertung erstellt werden. Dies wird auch durch ausgegraute Schaltflächen signalisiert. Auf kritische Stellen wird mit einer Markierung und einer Nachricht hingewiesen. Über diverse "`Vorwärts"' und "`Rückwärts"' Funktionen ist es auch gut möglich flexibel zu arbeiten und zwischen den folgenden Optionen hin und her zu springen. Einen erneuten Einstieg bietet hier der Button "`Öffnen"'.
+Hier gilt Allgemein: Wenn Eingaben gemacht werden, die nicht korrekt sind oder nicht alle notwendigen Parameter und Werte bestimmt sind, so kann entweder der Vorgang nicht fortgesetzt werden oder im Endeffekt keine Auswertung erstellt werden. Dies wird auch durch ausgegraute Schaltflächen signalisiert. Auf kritische Stellen wird mit einer Markierung und einer Nachricht hingewiesen. Über diverse "`Vorwärts"' und "`Rückwärts"' Funktionen ist es auch möglich flexibel zu arbeiten und zwischen den folgenden Optionen hin und her zu springen. Einen erneuten Einstieg bietet hier der Button "`Öffnen"'.
  
 \begin{description}
 \item[Anwendungsfall 19]
@@ -687,7 +687,7 @@ Hier gilt Allgemein: Wenn Eingaben gemacht werden die nicht korrekt sind, oder n
 \item Ereignisfluss:
 \begin{itemize}
 \item Fotograf A. klickt mit der Maus im Bereich Auswertung auf "`Erstellen"'.
-\item Der "`Auswertung erstellen"' Wizard erscheint. Dieser ist jederzeit mit dem Button "`Schließen"' abbrechbar.
+\item Der "`Auswertung erstellen"' Assistent erscheint. Dieser ist jederzeit mit dem Button "`Schließen"' abbrechbar.
 \item Hier ist zuerst ein Name für die Auswertung einzutragen und dann optional eine Beschreibung.
 \item Fotograf A. gibt einen korrekten Namen ein.
 \item Fotograf A. wählt mit einem Mausklick einen Diagrammtyp an.
@@ -700,12 +700,11 @@ Hier gilt Allgemein: Wenn Eingaben gemacht werden die nicht korrekt sind, oder n
 \item Fotograf A. klickt danach wieder auf "`Vorwärts"' um zum nächsten Fenster zu gelangen.
 \item Jetzt wird die Bildmengenverwaltung innerhalb einer Auswertung angezeigt.
 \item Oben links werden alle Bildmengen des aktuellen Projekts angezeigt. Diese kann man über die Pfeile in der Mitte nach Rechts und nach Links schieben.
-\item Wird eine Bildmenge zur Auswertung herangezogen und ist somit oben rechts, so wird das Fenster unten links mit den \gls{exif}-Keywords aktualisiert und Keywords angezeigt falls welche in der Bildmenge vorhanden sind. Duplikate werden dabei in einem Eintrag zusammengefasst.
-\item Hat Fotograf A. nun alles Relevantes für seinen Diagrammtyp angegeben, so kann er auf den Button "`Ansicht"' klicken um das Diagrammansichtfenster zu öffnen.
+\item Wird eine Bildmenge zur Auswertung herangezogen und ist somit oben rechts, so wird das Fenster unten links mit den \gls{exif}-Keywords aktualisiert und Keywords angezeigt, falls welche in der Bildmenge vorhanden sind. Duplikate werden dabei in einem Eintrag zusammengefasst.
+\item Hat Fotograf A. nun alles korrekt für seinen Diagrammtyp angegeben, so kann er auf den Button "`Ansicht"' klicken um das Diagrammansichtfenster zu öffnen.
 \item Fotograf A. kann auch auf "`Übernhemen"' klicken um seine Einstellungen mit der Auswertung zu verankern.
 \item Fotograf A. klickt auf "`Übernehmen"'.
 \item Dem Fotograf A. wird das Projektansichtsfenster mit seiner eben erstellten Auswertung in der Auswertungsliste angezeigt.
-\item 
 \end{itemize}
 \item Spezielle Anforderungen:
 \begin{itemize}
@@ -726,7 +725,7 @@ Hier gilt Allgemein: Wenn Eingaben gemacht werden die nicht korrekt sind, oder n
 \item Eingangsbedingung:
 \begin{itemize}
 \item Das Programm befindet sich im Projektansichtsfenster eines Projekts.
-\item Fotograf A. hat vor Änderungen an Auswertung vorzunehemen, oder sich eine Auswertung anzeigen zu lassen.
+\item Fotograf A. hat vor Änderungen an einer Auswertung vorzunehmen oder sich eine Auswertung anzeigen zu lassen.
 \end{itemize}
 \item Ausgangsbedingung:
 \begin{itemize}
@@ -735,9 +734,9 @@ Hier gilt Allgemein: Wenn Eingaben gemacht werden die nicht korrekt sind, oder n
 \item Ereignisfluss:
 \begin{itemize}
 \item Fotograf A. klickt mit der Maus in der Liste der Auswertungen auf die Auswertungen, die er öffnen will, um diese zu markieren.
-\item Fotograf A. klickt nun auf den Button "`Öffnen"' im Auswertungsbereich um in das Auswertungsinterne Fenster zu gelangen.
+\item Fotograf A. klickt nun auf den Button "`Öffnen"' im Auswertungsbereich um in das Auswertungbearbeitungsfenster zu gelangen.
 \item Dies ist auch über die Auswertungsliste per Doppelklick möglich.
-\item Wird nun das Auswertungsinterne Fenster angezeigt können wie bereits erwähnt Einstellungen vorgenommen werden siehe "`Anwendungsfall 19"'. Das wechseln der Fenster wird hier aber nicht mehr über "`Vorwärts"' und "`Rückwärts"' realsiert, sondern über einzelne Fenstertabs.
+\item Wird nun das Auswertungbearbeitungsfenster angezeigt können wie bereits erwähnt Einstellungen vorgenommen werden (siehe "`Anwendungsfall 19"'). Das wechseln der Fenster wird hier aber nicht mehr über "`Vorwärts"' und "`Rückwärts"' realsiert, sondern über einzelne Fenstertabs.
 \item Will man zur Diagrammansicht kann man jederzeit auf "`Anzeigen"' klicken, falls dieses anwählbar ist.
 \end{itemize}
 \item Spezielle Anforderungen:
@@ -769,7 +768,7 @@ Hier gilt Allgemein: Wenn Eingaben gemacht werden die nicht korrekt sind, oder n
 \item Ereignisfluss:
 \begin{itemize}
 \item Fotograf A. klickt mit der Maus in der Liste der Auswertungen auf die Auswertungen, die er öffnen will, um diese zu markieren.
-\item Fotograf A. klickt nun auf den Button "`Öffnen"' im Auswertungsbereich um in das Auswertungsinterne Fenster zu gelangen.
+\item Fotograf A. klickt nun auf den Button "`Öffnen"' im Auswertungsbereich um in das Auswertungbearbeitungsfenster zu gelangen.
 \item Dies ist auch über die Auswertungsliste per Doppelklick möglich.
 \item Fotograf A. klickt nun auf "`Anzeigen"'.
 \item Das Diagramm wird in einem neuen Fenster präsentiert.
@@ -805,7 +804,7 @@ Hier gilt Allgemein: Wenn Eingaben gemacht werden die nicht korrekt sind, oder n
 \begin{itemize}
 \item Fotograf A. klickt mit der rechten Maustaste in den Diagrammbereich und hält die Maustaste gedrückt. Er kann so die Sicht frei rotieren.
 \item Fotograf A. kann die Sicht mittels der mittleren Maustaste und dem Mausrad heranzoomen und wegzoomen.
-\item Will man die Sicht zurücksetzen aud Default, so klickt man auf "`Ansicht zurücksetzen"'.
+\item Will man die Sicht zurücksetzen, so klickt man auf "`Ansicht zurücksetzen"'.
 \item Das aktuelle Diagrammfenster wird mit jeder Eingabe aktualisiert.
 \end{itemize}
 \item Spezielle Anforderungen:
@@ -838,7 +837,7 @@ Hier gilt Allgemein: Wenn Eingaben gemacht werden die nicht korrekt sind, oder n
 \begin{itemize}
 \item Fotograf A. passt, wenn es Möglich ist, je nach Diagrammtyp die aktuelle Ansicht an.
 \item Fotograf A. klickt auf den Button "`Als Bild exportieren"'.
-\item Ein Filemanagerfenster wird aufgerufen, in welchem man ein Zielverzeichnis auswählt.
+\item Ein  \gls{dateimanager} wird aufgerufen, in welchem man ein Zielverzeichnis auswählt.
 \item In einem Textfeld gibt man den gewünschten Dateinamen an.
 \item Man bestätigt den Export mit "`Ok"' 
 \end{itemize}
@@ -873,7 +872,7 @@ Hier gilt Allgemein: Wenn Eingaben gemacht werden die nicht korrekt sind, oder n
 Erste Möglichkeit:
 \begin{itemize}
 \item Fotograf A. klickt mit der Maus auf "Auswertung bearbeiten"'.
-\item Nun wird wieder das Auswertungsinterne Fenster angezeigt.\\\\Zweite Möglichkeit:\\
+\item Nun wird wieder das Auswertungbearbeitungsfenster angezeigt.\\\\Zweite Möglichkeit:\\
 \item Fotograf A. klickt mit der Maus auf "Schließen"'.
 \item Das Projektansichtsfenster wird geöffnet. Alle anderen Fenster des Programms geschlossen.
 \end{itemize}
@@ -895,7 +894,7 @@ Erste Möglichkeit:
 \end{itemize}
 \item Eingangsbedingung:
 \begin{itemize}
-\item Das Programm befindet sich in der Auswertungsinternen Ansicht.
+\item Das Programm befindet sich in der Auswertungbearbeitungsfenster Ansicht.
 \item Fotograf A. hat vor eine Auswertung zu schließen.
 \end{itemize}
 \item Ausgangsbedingung:
@@ -905,7 +904,7 @@ Erste Möglichkeit:
 \item Ereignisfluss:
 \begin{itemize}
 \item Fotograf A. klickt auf den Button "`Übernhemen"'.
-\item Die Auswertungsinternen Ansicht schließt sich.
+\item Die Auswertungbearbeitungsfenster schließt sich.
 \item Das reine Projektansichtsfenster ist nun offen.
 \end{itemize}
 \item Spezielle Anforderungen:
