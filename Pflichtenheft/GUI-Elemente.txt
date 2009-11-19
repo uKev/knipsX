@@ -1,0 +1,8 @@
+Projekteigenschaften (links oben)
+Bildmengenliste (links mitte)
+Inhaltsliste (links unten)
+
+Bildliste (mitte)
+
+Auswertungsliste (rechts oben)
+Exif-Daten (rechts unten)
