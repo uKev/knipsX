@@ -12,15 +12,16 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 		\begin{description}
 
 			\item[/T010/] \textit{Programm beenden:}\par Das Programm wird beendet, während es sich in der Projektübersicht befindet.
+			
 			\item[/T011/] Das Programm wird beendet, während es sich in der Projektansicht beendet.
 				
 			\item[/T020/] \textit{Projekt speichern:}\par Das in /T110/ erstellte Projekt wird mithilfe des entsprechenden Knopfes innerhalb der Projektansicht gespeichert. 
 				
-			\item[/T030/] \textit{Automatische Anpassung der Größe der Bedienoberfläche:}\par TODO: Wie soll man das testen?	
+			\item[/T030/] \textit{Automatische Anpassung der Größe der Bedienoberfläche:}\par Die Größe des Programmfensters wird geändert und die Position der Bedienelemente überprüft.
 			
 			\item[/T040/] \textit{Automatisches durchsuchen des Projektordners:}\par Das Programm wird gestartet und es wird überprüft, ob die generierte Projektliste mit den bisher erstellten Projekten übereinstimmt.
 		
-			\item[/T050/] \textit{Besondere Formatierung markierter Listeneinträge:}\par
+			\item[/T050/] \textit{Besondere Formatierung markierter Listeneinträge:}\par Es wird in der Projektübersicht ein Eintrag ausgewählt und auf markiertheit überprüft.
 			
 			\item[/T060/] \textit{Listen mit Scrollbalken versehen:}\par
 			
@@ -34,7 +35,7 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 			
 			\item[/T111/] \textit{Namenskollision:} Es wird zusätzlich ein Projekt mit dem Namen "`David, Andreas - ein Vergleich"' erstellt und gespeichert. Im Anschluss wird noch einmal versucht, ein Projekt mit dem gleichen Namen zu erstellen. Dies schlägt fehl.
 				
-			\item[/T120/] \textit{Projekt markieren:}\par TODO: was soll hier getestet werden?
+			\item[/T120/] \textit{Projekt markieren:}\par Es wird ein Projekt in der Liste der Projektübersicht ausgewählt.
 				
 			\item[/T130/] \textit{Gespeichertes Projekt öffnen:}\par Das in \textbf{/T110/} gespeicherte Projekt, wird in der Projektübersicht ausgewählt und geöffnet. Dabei werden die \gls{exif}-Parameter der Bilder in den Bildmengen des Projekts eingelesen und im Anschluss überprüft.
 
@@ -74,7 +75,7 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 			\item[/T280/] \textit{Entfernen von Inhalten aus der Inhaltsliste:}\par Der ausgewählte Eintrag aus \textbf{/T270/} wird entfernt.
 		
 			\item{/T290/} \textit{Deaktivieren von Bildern in der Bilderliste einer Bildermenge:}\par Basierend auf \textbf{/T262/} werden 2 Bilder einer Bildermenge in der Bilderliste deaktiviert. Die Bilderliste der aktiven Bilder beinhaltet jetzt nur noch die restlichen Bilder.
-			\item{/T291/} \textit{Aktivieren von Bildern}\par Basierend auf /textbf{/T290/} wird das eine der deaktivierten Bilder wieder aktiviert. Die Bilderliste der aktiven Bilder beinhaltet jetzt zusätlich noch das erneut aktivierte Bild. Lediglich das verbleibende, deaktivierte Bild, fehlt.
+			\item{/T291/} \textit{Aktivieren von Bildern}\par Basierend auf \textbf{/T290/} wird das eine der deaktivierten Bilder wieder aktiviert. Die Bilderliste der aktiven Bilder beinhaltet jetzt zusätlich noch das erneut aktivierte Bild. Lediglich das verbleibende, deaktivierte Bild, fehlt.
 			
 			\item{/T295/} \textit{Anzeige von Exif-Parametern bei Bildmarkierung:}\par
 			
@@ -108,13 +109,14 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 
 		\begin{description}
 		
-			\item[/T410/] \textit{Neue Auswertung anlegen.}\par Es wird eine neue Auswertung ohne zugeordnete Bildmenge mit Namen "`Vergleich Berg 2 und Berg 3"' erstellt. Als Diagrammtyp wird "`Boxplot"' ausgewählt. Als Achse wird "`Blende"' ausgewählt und die Bezeichnung "`Blende im Vergleich"' eingegeben.
+			\item[/T410/] \textit{Neue Auswertung anlegen.}\par Es wird eine neue Auswertung ohne zugeordnete Bildmenge mit Namen "`Vergleich Berg 2 und Berg 3"' erstellt. Als Diagrammtyp wird "`Boxplot"' ausgewählt. Als Achse wird "`Blende"' ausgewählt und die Bezeichnung "`Blede im Vergleich"' eingegeben.
+			% AAAAACHTUNG: "Blede" obendrüber ist KEIN Tippfehler, bitte so lassen(!!!)
 			
-			\item[/T420/] \textit{Eine Auswertung auswählen.}\par Es wird die in \textbf{/T410/} angelegte Auswertung in der Auswertungsliste ausgewählt.
+			\item[/T420/] \textit{Eine Auswertung markieren.}\par Es wird die in \textbf{/T410/} angelegte Auswertung in der Auswertungsliste ausgewählt.
 			
-			\item[/T430/] \textit{Bearbeiten einer Auswertung:}\par 
+			\item[/T430/] \textit{Bearbeiten einer Auswertung:}\par Es wird die in \textbf{/T420/} markierte Auswertung geöffnet. Die Achsenbezeichnung wird auf von "`Blede im Vergleich"' auf "`Blende im Vergleich"' korrigiert und das Resultat "`übernommen"'. Das Diagramm wird "`angezeigt"' und begutachtet.
 				
-			\item[/T440/] \textit{Eine Auswertung wird gelöscht.}\par
+			\item[/T440/] \textit{Eine Auswertung wird gelöscht.}\par Die in [/T430/] bearbeitete Auswertung wird gelöscht.
 							
 		\end{description}
 	
@@ -122,7 +124,8 @@ Die Testfälle sollen sowohl auf Windows als auch Linux ausgeführt und überpr�
 	
 		\begin{description}
 
-			\item[/T510/] \textit{Extraktion von \gls{exif}-Parameter:}\par 
+			\item[/T510/] \textit{Extraktion von \gls{exif}-Parametern:}\par Es wird ein Bild in der Bildliste markiert und die angezeigten Exif-Daten mit denen, die in der original Kamera angezeigt werden, verglichen.
+			
 
 		\end{description}
 		
