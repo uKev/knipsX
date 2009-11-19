@@ -1,68 +1,76 @@
 \section{Zielbestimmungen}
+
 \begin{itemize}
   \item Fotografen sollen durch das Produkt in der Lage sein, aus Metadaten ihrer Bilder, welche dem \gls{exif}-Standard entsprechen, Statistiken über ihre Einstellungen beim Fotographieren zu erstellen, diese zu präsentieren sowie sie zu analysieren.
-  \end{itemize} 
+\end{itemize} 
+
 \subsection{Musskriterien}
 
 \label{subsec:musskriterien}
 
 \begin{itemize}
-	\item Verwalten von Projekten
-	\item Verwalten von Bildmengen
-	\item Hinzufügen und Entfernen von Bildern zu bzw. aus Bildmengen per Ordnermenü und Drag und Drop
-	\item Bildvorschau bei der Bildauswahl
-	\item Beibehalten von ausgewählten Bildern nach Programmbeendigung
-	\item Bild/\gls{exif} Filter zur Auswahl bestimmter Bildmengen
-	\item Auslesen, Anzeigen und Auswerten von \gls{exif} Daten
-	\item Auszuwertende \gls{exif} Daten:
-	\label{subsec:auszuwertendedaten}
-			\begin{itemize}
-			\item Kameramodel
-			\item Blende 
-			\item Verschlusszeit
-			\item ISO-Wert
-			\item Brennweite
-			\item Datum
-			\item Wochentag
-			\item Uhrzeit
-			\item Objektivname
-		\end{itemize}
-	\item Verwalten von Auswertungen
-	\item Vergleich mehrere Bildmengen
-	\item Erstellen von verschieden Diagrammtypen aus \gls{exif} Daten
-	\item Die verschiedenen Diagrammtypen:
-		\begin{itemize}
-		  \item Tabelle
-			\item 2D Histogramm
-			\item 3D Histogramm
-			\item Punktewolke
-			\item Boxplot
-		\end{itemize}
-	\item Exportieren bzw. Speichern von Diagrammen im JPEG Dateiformat
-	\item Produkt muss in Java 1.6 geschrieben sein	
+	\item Verwaltung von Projekten
+	\item Verwaltung von Bildmengen in Projekten
+	\item Verwaltung von Auswertungen
+	\item Auslesen, Anzeigen und Auswerten von \gls{exif}-Parametern\\\\
+				Auszuwertende \gls{exif}-Parameter sind:
+				\label{subsec:auszuwertendedaten}
+				\begin{itemize}
+					\item Kameramodel
+					\item Blende 
+					\item Verschlusszeit
+					\item ISO-Wert
+					\item Brennweite
+					\item Datum
+					\item Wochentag
+					\item Uhrzeit
+					\item Objektivname
+				\end{itemize}
+	\item Hinzufügen von Bildern zu Bildmengen per Dateidialog und \gls{dragndrop}
+	\item Entfernen von Bildern aus Bildmengen
+	\item Bei der Bildauswahl, müssen Vorschaubilder angezeigt werden
+	\item Beibehalten von ausgewählten Bildmengen nach Programmbeendigung
+	\item Filterung von Bilder anhand von \gls{exif}-Keywords
+	\item Vergleich mehrere Bildmengen in einer Auswertung
+	\item Erstellen von verschieden Diagrammtypen aus gleicher Bildmenge\\\\
+				Notwendige Diagrammtypen:
+				\begin{itemize}
+					\item Tabelle
+					\item 2D Histogramm
+					\item 3D Histogramm
+					\item Punktewolke
+					\item Boxplot \& Unterstützung des Wilcoxon-Mann-Whitney-Tests
+				\end{itemize}
+	\item Exportieren bzw. Speichern von Diagrammen in Bilder im \gls{exif}-Format
+	\item Das Programm muss in Java 1.6 geschrieben sein
 \end{itemize}
 
 \subsection{Wunschkriterien} 
+
 \subsubsection{Hohe Priorität}
+
 	\begin{itemize}
-	\item Internationalisierungsmechanismen vorbereiten
-	\item weiter Ausgabeformate unterstützen 
-	\end{itemize}
-\subsubsection{Mittlere Priorität}
-	\begin{itemize}
-	\item Optimierung von Algorithmen
-	\item Anzeige von Thumbnails sowie Dateinamen in Diagrammen über eine Mengenauswahl
-	\item Vernünftige eventuell anpassbare Diagrammskalierungen
-	\item Konfigurierbarkeit des Layouts	
-	\end{itemize}
-\subsubsection{Niedrige Priorität}
-	\begin{itemize}
-	\item Unterstützen weiterer \gls{exif}-Parameter sowie Kameraspezifischer Parameter
-	\item Normierung von Werten, z.B. Brennweitenkorrektur
- 	\item Unterstützung weiterer Bildformate mit Metadaten 	
- 	\item Weitere Diagrammtypen
+		\item Internationalisierungsmechanismen vorbereiten
+		\item weiter Ausgabeformate unterstützen 
 	\end{itemize}
 
+\subsubsection{Mittlere Priorität}
+
+	\begin{itemize}
+		\item Optimierung von Algorithmen
+		\item Anzeige von Thumbnails sowie Dateinamen in Diagrammen über eine Mengenauswahl
+		\item Vernünftige eventuell anpassbare Diagrammskalierungen
+		\item Konfigurierbarkeit des Layouts	
+	\end{itemize}
+
+\subsubsection{Niedrige Priorität}
+
+	\begin{itemize}
+		\item Unterstützen weiterer \gls{exif}-Parameter sowie Kameraspezifischer Parameter
+		\item Normierung von Werten, z.B. Brennweitenkorrektur
+		\item Unterstützung weiterer Bildformate mit Metadaten 	
+		\item Weitere Diagrammtypen
+	\end{itemize}
 
 \subsection{Abgrenzungskriterien} 
 \begin{itemize}
