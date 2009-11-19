@@ -6,13 +6,17 @@
 
 	\begin{description}
 		
-		\item[/F010/] \textit{Programm beenden:}\par In der Projektansicht und der Projektübersicht ist die Möglichkeit gegeben durch betätigen der "`Fenster schließen"' Schaltfläche (differiert je nach Betriebssystem), das Programm zu beenden.
+		\item[/F010/] \textit{Programm beenden:}\par In der Projektansicht und der Projektübersicht ist die Möglichkeit gegeben durch betätigen der "`Fenster schließen"' Schaltfläche (differiert je nach Betriebssystem), das Programm zu beenden. Vor dem endgültigen schließen, wird eine Sicherheitsabfrage (ein Dialog mit Ja/Nein Auswahlmöglichkeit) angezeigt, die dem Benutzer die Möglichkeit gibt, das Projekt zu speichern.
 		
 		\item[/F020/] \textit{Speicherverhalten:}\par Nach jedem Dialog ist die Möglichkeit gegeben, die aktuelle Änderung für die aktuelle Programmausführung zu übernehmen. Sollen Änderungen dauerhaft gesichert werden, muss die Schaltfläche "`Speichern"' in dem Bereich "`Projekt"' der Projektansicht betätigt werden. Dadurch, wird die Projektkonfigurationsdatei neu generiert und in dem Projektverzeichnis gespeichert.
 		
 		\item[/F030/] \textit{Automatische Anpassung der Größe der Bedienoberfläche:}\par Das Programm positioniert automatisch seine Bedienelemente, in Abhängigkeit zur Auflösung des Programmfensters.
 		
 		\item[/F040/] \textit{Automatisches durchsuchen des Projektverzeichnisses:}\par Bei Programmstart, wird in dem Projektverzeichnis des Programms nach Projektkonfigurationsdateien gesucht. Auf der Basis dieser Datensätze wird eine Projektliste generiert, die in einem Projektübersicht, nach absteigendem Bearbeitungsdatum (aktuelles zuerst), sortiert angezeigt werden. Zudem wird das Datum anders formatiert dargestellt als der Projektname.
+		
+		\item[/F050/] \textit{Besondere Formatierung aktiver Listeneinträge:}\par Ist ein Listeneintrag aktiv, so wird er durch eine andere Vorder- und Hintergrundfarbe von anderen Listeneinträgen abgehoben.
+
+		\item[/F060/] \textit{Listen mit Scrollbalken versehen:}\par Hat eine Liste so viele Einträge, dass sie nicht mehr in die Anzeige passen, wird ein Scrollbalken aktiviert mit dem man sich alle Einträge anzeigen lassen kann.
 		
 	\end{description}
 
@@ -28,7 +32,7 @@
 		
 		\item[/F120/] \textit{Projekt aktivieren:}\par Um eine Projekt zu aktivieren, muss man es in der Liste der Projekte, in dem Dialog aus \textbf{/F040/}, auswählen.
 		
-		\item[/F130/] \textit{Vorhandens Projekt öffnen:}\par In der Projektübersicht ist die Möglichkeit gegeben, durch einen Doppelklick, mit der linken Maustaste, auf den Projektnamen eines bereits vorhanden Projektes oder durch aktivieren eines Projektes und betätigen der Schaltfläche "`Projekt öffnen"' (siehe Kapitel \ref{subsec:benutzerschnittstelle}, das Hauptprogramm zu starten.\par In der damit verbundenen Projektkonfigurationsdatei gespeicherte Bildmengen und Auswertungen werden nun verfügbar gemacht. Damit gemeint ist: 
+		\item[/F130/] \textit{Vorhandens Projekt öffnen:}\par In der Projektübersicht ist die Möglichkeit gegeben, durch einen Doppelklick, mit der linken Maustaste, auf den Projektnamen eines bereits vorhanden Projektes oder durch aktivieren eines Projektes und betätigen der Schaltfläche "`Projekt öffnen"' (siehe Kapitel \ref{subsec:benutzerschnittstelle}, die Projektansicht zu starten.\par In der damit verbundenen Projektkonfigurationsdatei gespeicherte Bildmengen und Auswertungen werden nun verfügbar gemacht. Damit gemeint ist: 
 			
 			\begin{itemize}
 				
@@ -60,7 +64,8 @@
 	
 		\item[/F160/] \textit{Projektbeschreibung hinzufügen:}\par in dem Feld "`Projektbeschreibung"' lässt sich das Projekt genauer spezifizieren. Erst nach Ausführung von \textbf{/F020/} ist diese dauerhaft verfügbar.
 	
-		\item[/F170/] \textit{Projekt wechseln:}\par durch betätigen der Schaltfläche "`Wechseln"' in dem Bereich "`Projekt"' der Projektansicht, werden folgende Aktionen ausgelöst:
+		\item[/F170/] \textit{Projekt wechseln:}\par Durch betätigen der Schaltfläche "`Wechseln"' in dem Bereich "`Projekt"' der Projektansicht, werden folgende Aktionen ausgelöst:
+		
 		\begin{enumerate}
 				
 				\item Es wird eine Sicherheitsabfrage (ein Dialog mit Ja/Nein Auswahlmöglichkeit) angezeigt, die dem Benutzer die Möglichkeit gibt, das Projekt zu speichern.
@@ -72,6 +77,8 @@
 				\item Die Projektübersicht wird gestartet.
 			
 			\end{enumerate}
+
+		\item[/F180/] \textit{Projektnamen ändern:}\par Durch eine Neueingabe des Projektnamens im Projektnamenfeld des Bereichs "`Projekt"' in der Projektansicht, wird dem Projekt ein neuer Name vergeben. Dabei wird überprüft, ob der Name nicht schon von einem anderen Projekt benutzt wird.
 	
 	\end{description}
 
@@ -117,7 +124,7 @@
 				
 				\item Durch \gls{dragndrop} von Verzeichnissen und Bildern aus der grafischen Benutzerschnittstelle des Betriebssystems in den Bereich "`Inhalt"', einer aktiven Bildmenge. 
 				
-				\item Durch betätigen der Schaltfläche "`Hinzufügen"' in dem Bereich "`Inhalt"' der Projektansicht einer aktiven Bildmenge, wird ein Dialog (der je nach verwendetem Betriebssystem eine unterschiedliche Handhabung hat) geöffnet, der dem Benutzer folgende Möglichkeiten gibt:
+				\item Durch betätigen der Schaltfläche "`Hinzufügen"' in dem Bereich "`Inhalt"' der Projektansicht einer aktiven Bildmenge, wird ein Dialog mit Bildvorschau geöffnet, der dem Benutzer folgende Möglichkeiten gibt:
 				
 					\begin{itemize}
 			
@@ -126,6 +133,8 @@
 						\item Auswahl beliebig (im Rahmen der \textbf{/NF020/)} vieler Bilder im \gls{jpg}-Format, deren Pfade einzeln in die Bildmenge übernommen werden.
 					
 					\end{itemize}
+				
+				Der Dialog zeigt dabei nur Bilder im \gls{jpg}-Format oder Verzeichnisse an.
 				
 			\end{itemize}
 		
@@ -137,7 +146,7 @@
 			
 				\item Es wird eine Sicherheitsabfrage (ein Dialog mit Ja/Nein Auswahlmöglichkeit) angezeigt, die dem Benutzer die Möglichkeit gibt, das Entfernen abzubrechen.
 				
-				\item Die Bildmenge wird aus der Liste der Bildmengen, in dem Bereich "`Bildmengen"' der Projektansicht, entfernt.
+				\item Die Bildmenge wird aus der Liste der Bildmengen in dem Bereich "`Bildmengen"' der Projektansicht, entfernt.
 				
 				\item Es werden alle restlichen Bildmengen nach Verweisen auf diese Bildmenge durchsucht. Falls Verweise vorhanden sind, werden diese Verweise entfernt.
 				
@@ -160,6 +169,24 @@
 			\end{enumerate}
 			
 			Jeder Block ist dabei mit einer unterschiedlichen Textfarbe formatiert.
+		
+		\item[/F270/] \textit{Aktivieren eines Eintrags der Inhaltsliste:}\par Um einen Eintrag der Inhaltsliste zu aktivieren, muss man ihn in der Liste der Inhalte in dem Bereich "`Inhalt"' der Projektansicht, auswählen.
+		
+		\item[/F280/] \textit{Entfernen von Inhalten aus der Inhaltsliste:}\par Um diese Aktionen auszuführen, muss ein Eintrag in der Inhaltsliste aktiv sein. Durch betätigen der Schaltfläsche "`Entfernen"' in dem Bereich "`Inhalt"' der Projektansicht, werden folgende Aktionen ausgelöst:
+			
+			\begin{enumerate}
+			
+				\item Es wird eine Sicherheitsabfrage (ein Dialog mit Ja/Nein Auswahlmöglichkeit) angezeigt, die dem Benutzer die Möglichkeit gibt, das Entfernen abzubrechen.
+				
+				\item Der Eintrag wird aus der Inhaltsliste in dem Bereich "`Inhalte"' der Projektansicht, entfernt.
+				
+				\item Dem Benutzer wird eine Rückmeldung gegeben, ob das Entfernen erfolgreich war oder ob es einen Fehler gab.
+				
+				\item Nach dem Entfernen, ist der erste Eintrag (falls vorhanden) in der Liste aktiv.
+			
+			\end{enumerate}
+		
+		\item{/F290/} \textit{Aktivieren/Deaktivieren von Bildern in der Bilderliste einer Bildermenge:}\par Standardmäßig sind aller Bilder in der Bilderliste einer Bildermenge aktiviert. Durch klicken auf eine Checkbox vor einem Bild, wird der Status abwechselnd von aktiv auf inaktiv oder inaktiv auf aktiv gesetzt. Aktiv bedeutet, dass in einer Checkbox vor dem Bild ein Haken gesetzt ist. Ist ein Bild im Status inaktiv, ist die Checkbox vor dem Bild leer und der Bildname ist ausgegraut.
 		
 	\end{description}
 
@@ -298,7 +325,7 @@
 
 			\end{enumerate}
 
-			Nach Beendigung des Assistenten, wird die Auswertung gespeichert und, falls bereits Bildmengen mit der Auswertung verknüpft wurden, geöffnet.
+			Nach Beendigung des Assistenten durch betätigen der Schaltfläche "`Übernehmen"', wird die Auswertung gespeichert und, falls bereits Bildmengen mit der Auswertung verknüpft wurden, geöffnet.
 		
 		\item[/F420/] \textit{Aktivieren einer Auswertung:}\par Um eine Auswertung zu aktivieren, muss man sie in der Liste der Auswertungen im Bereich "`Auswertungen"' der Projektansicht, auswählen.
 		
