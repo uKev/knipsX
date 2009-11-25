@@ -28,7 +28,8 @@
 	
 	\begin{description}		
 		
-		\item[/F110/] \textit{Neues Projekt anlegen:}\par In der Projektübersicht ist die Möglichkeit gegeben, durch betätigen der Schaltfläche "`Projekt erstellen"', ein neues Projekt zu erstellen und ihm einen Namen zu geben.\par Dabei wird überprüft, ob dieser Projektname schon von einem anderen Projekt verwendet wird. Ist dies der Fall, kann der Benutzer einen neuen Namen eingeben. Dabei ist auch zu beachten, dass der Projektname zwischen einem und 255 Zeichen lang sein muss.\par Bei der Projektanlegung wird auch ein Erstellungsdatum erstellt (siehe Kapitel \ref{subsec:programmdaten} \textbf{/D20/}). Danach wird die Projektansicht gestartet, mit dem gerade erstellten Projekt (siehe Kapitel \ref{subsec:benutzerschnittstelle}). Zu beachten ist, dass ein Projekt erst nach der in Kapitel \ref{subsec:programmausfuehrung} beschriebenen Funktion \textbf{/F020/} dauerhaft verfügbar ist. 
+		%TODO Nach der Eingabe, werden für die Speicherung kritische Steuerzeichen erkannt und dem Benutzer die Möglichkeit gegeben, seine Eingabe zu korrigieren.
+		\item[/F110/] \textit{Neues Projekt anlegen:}\par In der Projektübersicht ist die Möglichkeit gegeben, durch betätigen der Schaltfläche "`Projekt erstellen"', ein neues Projekt zu erstellen und ihm einen Namen zu geben.\par Dabei wird überprüft, ob dieser Projektname schon von einem anderen Projekt verwendet wird. Ist dies der Fall, kann der Benutzer einen neuen Namen eingeben. Dabei ist auch zu beachten, dass der Projektname zwischen einem und 255 Zeichen lang sein muss. \par Bei der Projektanlegung wird auch ein Erstellungsdatum erstellt (siehe Kapitel \ref{subsec:programmdaten} \textbf{/D20/}). Danach wird die Projektansicht gestartet, mit dem gerade erstellten Projekt (siehe Kapitel \ref{subsec:benutzerschnittstelle}). Zu beachten ist, dass ein Projekt erst nach der in Kapitel \ref{subsec:programmausfuehrung} beschriebenen Funktion \textbf{/F020/} dauerhaft verfügbar ist. 
 		
 		\item[/F120/] \textit{Projekt markieren:}\par Um eine Projekt zu markieren, muss man es in der Liste der Projekte, in dem Dialog aus \textbf{/F040/}, auswählen.
 		
@@ -36,7 +37,7 @@
 			
 			\begin{itemize}
 				
-				\item Das Einlesen von \gls{exif}-Parametern aller Bilder, die in den Bildmengen des Projekts definiert sind. Das Einlesen geschieht im Hintergrund, d.h. der Benutzer kann mit dem Programm interagieren, vollständige Funktionalität ist aber erst nach dem vollständigen Einlesen der \gls{exif}-Daten gegeben.
+				\item Das Einlesen von \gls{exif}-Parametern aller Bilder, die in den Bildmengen des Projekts definiert sind. Das Einlesen geschieht im Hintergrund, d.h. der Benutzer kann mit dem Programm interagieren, vollständige Funktionalität ist aber erst nach dem vollständigen Einlesen der \gls{exif}-Parameter gegeben.
 				
 				\item Anzeige der Bildmengen (siehe Kapitel \ref{subsec:bildmengenmgmt} \textbf{/F250/}).
 				
@@ -46,7 +47,7 @@
 			
 			\end{itemize}		
 		
-		\item[/F140/] \textit{Projekt kopieren:}\par In der Projektübersicht ist die Möglichkeit gegeben, ein markiertes Projekt mit allen in ihm definierten Daten, Bildmengen und Auswertungen zu kopieren und es unter neuem Namen und neuem Erstellungsdatum temporär zu definieren. Danach wird die Projektansicht gestartet, mit dem gerade kopierten Projekt (siehe Kapitel \ref{subsec:benutzerschnittstelle}). Zu beachten ist, dass ein Projekt erst nach der in Kapitel \ref{subsec:programmausfuehrung} beschriebenen Funktion \textbf{/F020/} dauerhaft verfügbar ist.
+		\item[/F140/] \textit{Projekt kopieren:}\par In der Projektübersicht ist die Möglichkeit gegeben, ein markiertes Projekt mit allen in ihm definierten Daten, Bildmengen und Auswertungen zu kopieren und es unter neuem Namen und neuem Erstellungsdatum temporär zu definieren (siehe Kapitel \ref{subsec:projektmanagement} \textbf{/F110/}). Danach wird die Projektansicht gestartet, mit dem gerade kopierten Projekt (siehe Kapitel \ref{subsec:benutzerschnittstelle}). Zu beachten ist, dass ein Projekt erst nach der in Kapitel \ref{subsec:programmausfuehrung} beschriebenen Funktion \textbf{/F020/} dauerhaft verfügbar ist.
 		
 		\item[/F150/] \textit{Projekt entfernen:}\par In der Projektübersicht ist die Möglichkeit gegeben, bei einem markierten Projekt mit betätigen der Schaltfläche "`Projekt entfernen"' folgende Aktionen auszulösen:
 			
@@ -78,7 +79,7 @@
 			
 			\end{enumerate}
 
-		\item[/F180/] \textit{Projektnamen ändern:}\par Durch eine Neueingabe des Projektnamens im Projektnamenfeld des Bereichs "`Projekt"' in der Projektansicht, wird dem Projekt ein neuer Name vergeben. Dabei wird überprüft, ob der Name nicht schon von einem anderen Projekt benutzt wird.
+		\item[/F180/] \textit{Projektnamen ändern:}\par Durch eine Neueingabe des Projektnamens im Projektnamenfeld des Bereichs "`Projekt"' in der Projektansicht, wird dem Projekt ein neuer Name vergeben. Dabei werden die Richtlinien bezüglich des Projektnamens aus \textbf{/F110/} angewandt.
 	
 	\end{description}
 
