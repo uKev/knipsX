@@ -8,7 +8,7 @@
 		
 		\item[/F010/] \textit{Programm beenden:}\par In der Projektansicht und der Projektübersicht ist die Möglichkeit gegeben durch betätigen der "`Fenster schließen"' Schaltfläche (differiert je nach Betriebssystem), das Programm zu beenden. Vor dem endgültigen schließen, wird eine Sicherheitsabfrage (ein Dialog mit Ja/Nein Auswahlmöglichkeit) angezeigt, die dem Benutzer die Möglichkeit gibt, das Projekt zu speichern.
 		
-		\item[/F020/] \textit{Speicherverhalten:}\par Nach jedem Dialog ist die Möglichkeit gegeben, die aktuelle Änderung für die aktuelle Programmausführung zu übernehmen. Sollen Änderungen dauerhaft gesichert werden, muss die Schaltfläche "`Speichern"' in dem Bereich "`Projekt"' der Projektansicht betätigt werden. Dadurch, wird die Projektkonfigurationsdatei neu generiert und in dem Projektverzeichnis gespeichert.
+		\item[/F020/] \textit{Speicherverhalten:}\par Nach jedem Dialog ist die Möglichkeit gegeben, die aktuelle Änderung für die aktuelle Programmausführung zu übernehmen. Sollen Änderungen dauerhaft gesichert werden, muss die Schaltfläche "`Speichern"' in dem Bereich "`Projekt"' der Projektansicht betätigt werden. Dadurch, wird die Projektkonfigurationsdatei neu generiert und in dem Projektverzeichnis (siehe Kapitel \ref{subsec:projektmanagement} gespeichert.
 		
 		\item[/F030/] \textit{Automatische Anpassung der Größe der Bedienoberfläche:}\par Das Programm positioniert automatisch seine Bedienelemente, in Abhängigkeit zur Auflösung des Programmfensters.
 		
@@ -24,7 +24,7 @@
 
 \label{subsec:projektmanagement}
 	
-	\gls{tempX} verfügt über eine eingebaute Projektverwaltung, mit der der Benutzer beliebige Kombinationen von Bildmengen und Auswertungen verwalten kann. Es kann allerdings immer nur ein Projekt geöffnet sein, ein Wechsel in ein anderes Projekte während der Programmausführung ist möglich.\par Ein Projekt wird in einer Projektkonfigurationsdatei gespeichert, die sich in dem Projektverzeichnis von \gls{tempX} befindet. Dieses Projektverzeichnis ist vom Elternverzeichnis ausgehend mit "`projekte"' gekennzeichnet.
+	\gls{tempX} verfügt über eine eingebaute Projektverwaltung, mit der der Benutzer beliebige Kombinationen von Bildmengen und Auswertungen verwalten kann. Es kann allerdings immer nur ein Projekt geöffnet sein, ein Wechsel in ein anderes Projekte während der Programmausführung ist möglich.\par Ein Projekt wird in einer Projektkonfigurationsdatei gespeichert, die sich in dem Projektverzeichnis von \gls{tempX} befindet. Dabei wird nicht der Name des Projekts als Name der Projektkonfigurationsdatei verwendet, sondern die Projekt-ID, die programmweit eindeutig sein muss.\par Um den Speicherort des Projektverzeichnisses zu ermitteln, wird die betriebssystemspezifische Variable in der das Benutzerverzeichnis des aktuellen Benutzers festgelegt ist abgefragt.\\ Ausgehend von diesem Verzeichnis, wird der Ordner "`\gls{tempX}\_projekte"' angelegt oder verwendet, falls er schon vorhanden ist.
 	
 	\begin{description}		
 		
