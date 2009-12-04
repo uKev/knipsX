@@ -20,7 +20,7 @@
  */
 
 
-package org.experimente.tooltip;
+package org.studien.tooltip;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ToolTipManager;

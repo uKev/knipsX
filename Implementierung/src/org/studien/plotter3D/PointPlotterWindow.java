@@ -1,3 +1,5 @@
+package org.studien.plotter3D;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Insets;

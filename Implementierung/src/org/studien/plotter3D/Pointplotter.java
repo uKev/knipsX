@@ -1,3 +1,4 @@
+package org.studien.plotter3D;
 
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
