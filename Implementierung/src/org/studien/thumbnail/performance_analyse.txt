@@ -27,3 +27,116 @@ Anhand der vorgegebenen, nicht funktionalen, Anforderung von maximal 25 Minuten 
 Ein Bild darf maximal 150 Millisekunden zum Einlesen und skalieren benötigen.
 
 Schlussfolgerung: Ein Test mit der maximal zur Verfügung stehenden Hardware ist unbedingt erforderlich. Die bisherige Performance auf dem Testsystem reicht bei Weitem nicht für die Anforderungen aus.
+
+
+__Detailiertere Performanceanalyse__
+
+a.) Atom
+Anfang::
+Zeit benötigt (letzter Schritt): 0 milisec
+Zeit benötigt (letzter Schritt): 0 sec
+Zeit benötigt (gesamt): 0 milisec
+Zeit benötigt (gesamt): 0 sec
+
+Eingelesen:
+Zeit benötigt (letzter Schritt): 2225 milisec
+Zeit benötigt (letzter Schritt): 2 sec
+Zeit benötigt (gesamt): 2225 milisec
+Zeit benötigt (gesamt): 2 sec
+
+Neue Höhe und Breite berechnet:
+Zeit benötigt (letzter Schritt): 1 milisec
+Zeit benötigt (letzter Schritt): 0 sec
+Zeit benötigt (gesamt): 2226 milisec
+Zeit benötigt (gesamt): 2 sec
+
+Skalierte Instanz zurückgeliefert:
+Zeit benötigt (letzter Schritt): 333 milisec
+Zeit benötigt (letzter Schritt): 0 sec
+Zeit benötigt (gesamt): 2559 milisec
+Zeit benötigt (gesamt): 2 sec
+
+Buffered Image erzeugt:
+Zeit benötigt (letzter Schritt): 3361 milisec
+Zeit benötigt (letzter Schritt): 3 sec
+Zeit benötigt (gesamt): 5920 milisec
+Zeit benötigt (gesamt): 5 sec
+
+Skalierte Instanz in Buffered Image geschrieben:
+Zeit benötigt (letzter Schritt): 32 milisec
+Zeit benötigt (letzter Schritt): 0 sec
+Zeit benötigt (gesamt): 5952 milisec
+Zeit benötigt (gesamt): 5 sec
+
+Thumbnail gespeichert:
+Zeit benötigt (letzter Schritt): 77 milisec
+Zeit benötigt (letzter Schritt): 0 sec
+Zeit benötigt (gesamt): 6029 milisec
+Zeit benötigt (gesamt): 6 sec
+
+Gesamtzeit:
+Zeit benötigt (letzter Schritt): 0 milisec
+Zeit benötigt (letzter Schritt): 0 sec
+Zeit benötigt (gesamt): 6029 milisec
+Zeit benötigt (gesamt): 6 sec
+
+b.) Phenom
+AMD Phenom(tm) II X4 955 Processor
+cpu MHz         : 3200.000
+cache size      : 512 KB 
+bogomips        : 6428.18
+
+Anfang::
+Zeit benötigt (letzter Schritt): 0 milisec
+Zeit benötigt (letzter Schritt): 0 sec
+Zeit benötigt (gesamt): 0 milisec
+Zeit benötigt (gesamt): 0 sec
+
+Eingelesen:
+Zeit benötigt (letzter Schritt): 476 milisec
+Zeit benötigt (letzter Schritt): 0 sec
+Zeit benötigt (gesamt): 476 milisec
+Zeit benötigt (gesamt): 0 sec
+
+Neue Höhe und Breite berechnet:
+Zeit benötigt (letzter Schritt): 0 milisec
+Zeit benötigt (letzter Schritt): 0 sec
+Zeit benötigt (gesamt): 476 milisec
+Zeit benötigt (gesamt): 0 sec
+
+Skalierte Instanz zurückgeliefert:
+Zeit benötigt (letzter Schritt): 16 milisec
+Zeit benötigt (letzter Schritt): 0 sec
+Zeit benötigt (gesamt): 492 milisec
+Zeit benötigt (gesamt): 0 sec
+
+Buffered Image erzeugt:
+Zeit benötigt (letzter Schritt): 833 milisec
+Zeit benötigt (letzter Schritt): 0 sec
+Zeit benötigt (gesamt): 1325 milisec
+Zeit benötigt (gesamt): 1 sec
+
+Skalierte Instanz in Buffered Image geschrieben:
+Zeit benötigt (letzter Schritt): 679 milisec
+Zeit benötigt (letzter Schritt): 0 sec
+Zeit benötigt (gesamt): 2004 milisec
+Zeit benötigt (gesamt): 2 sec
+
+Thumbnail gespeichert:
+Zeit benötigt (letzter Schritt): 11 milisec
+Zeit benötigt (letzter Schritt): 0 sec
+Zeit benötigt (gesamt): 2015 milisec
+Zeit benötigt (gesamt): 2 sec
+
+Gesamtzeit:
+Zeit benötigt (letzter Schritt): 0 milisec
+Zeit benötigt (letzter Schritt): 0 sec
+Zeit benötigt (gesamt): 2015 milisec
+Zeit benötigt (gesamt): 2 sec
+
+
+Schlussfolgerungen:
+Das BufferedImage Format nach der Transformierung verschlingt viel zu viel Zeit (>3/4).
+Falls das wirklich für die Anzeige notwendig ist, wird das erst bei Bedarf von einem Bild erzeugt, oder bei "Langeweile", jedoch auf keinen Fall bereits beim ersten Einlesen.
+
+Dann besteht bei optimaler Pralellität die realistische Chance der Anforderung recht zu werden.

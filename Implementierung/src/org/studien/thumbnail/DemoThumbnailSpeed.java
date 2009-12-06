@@ -30,16 +30,16 @@ public class DemoThumbnailSpeed {
 		
 		// scale and save the thumbnail in 2 steps
 		
-		BufferedImage temp = getThumbOf(rawImage, 200, Image.SCALE_FAST);		
+		Image temp = getThumbOf(rawImage, 200, Image.SCALE_SMOOTH);		
 		
-		ImageIO.write(temp, "jpg", new File(tPath + "10MegTestPic_thumb_default.jpg"));
+		/*ImageIO.write(temp, "jpg", new File(tPath + "10MegTestPic_thumb_fast.jpg"));
 		measurepoint("Thumbnail gespeichert");
-
+		 */
 		measurepoint("Gesamtzeit");
 		// stop time measurement
 		zstNachher = System.currentTimeMillis();
 	}
-	public static BufferedImage getThumbOf(BufferedImage bImage, int maxWidthOrHight, int hints){
+	public static Image getThumbOf(BufferedImage bImage, int maxWidthOrHight, int hints){
 		int width = bImage.getWidth();
 		int height = bImage.getHeight();
 		
@@ -50,19 +50,19 @@ public class DemoThumbnailSpeed {
 			width = -1; // negative breite: Breite wird dem Seitenverhältnis entsprechend an die neue Höhe angepasst.
 			height = maxWidthOrHight;
 		}
-		measurepoint("Neue höhe und Breite berechnet");
+		measurepoint("Neue Höhe und Breite berechnet");
 
 		Image thumbnailed = bImage.getScaledInstance(width, height, hints);
 		measurepoint("Skalierte Instanz zurückgeliefert");
 
-		BufferedImage bThumb = new BufferedImage(thumbnailed.getWidth(null),thumbnailed.getHeight(null), bImage.getType());
+		/*BufferedImage bThumb = new BufferedImage(thumbnailed.getWidth(null),thumbnailed.getHeight(null), bImage.getType());
 		measurepoint("Buffered Image erzeugt");
 
 		
 		bThumb.createGraphics().drawImage(thumbnailed, 0, 0, null);
 		measurepoint("Skalierte Instanz in Buffered Image geschrieben");
-
-		return bThumb;
+		*/
+		return thumbnailed;
 	}
 	static void measurepoint(String comment){
 		zstNachher = System.currentTimeMillis();
