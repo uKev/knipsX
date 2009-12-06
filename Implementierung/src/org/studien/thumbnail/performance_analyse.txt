@@ -140,3 +140,8 @@ Das BufferedImage Format nach der Transformierung verschlingt viel zu viel Zeit 
 Falls das wirklich für die Anzeige notwendig ist, wird das erst bei Bedarf von einem Bild erzeugt, oder bei "Langeweile", jedoch auf keinen Fall bereits beim ersten Einlesen.
 
 Dann besteht bei optimaler Pralellität die realistische Chance der Anforderung recht zu werden.
+
+weitere Probleme:
+getScaledInstance() verhält sich ungewöhnlich.
+Laut JavaDoc rendert es die Skalierung asynchron, auch wenn das Originalbild bereits zur Verfügung steht.
+Des weiteren benötigt nur der erste Aufruf von getScaledInstance() Zeit, auch wenn andere Parameter, wie z.b. ein anderer Algorithmus oder andere Auflösung angegeben sind. Dadurch ist unklar, wann das Thumnail wirklich gerendert wird und es lässt sich sehr schwer die dafür benötigte Zeit bestimmen bzw. es ist auch unklar, ob das Bild überhaupt fertig skaliert wurde, wenn das Programm beendet wird und das Bild weder angezeigt noch gespeichert wird.
