@@ -1,0 +1,29 @@
+10 Meg Test Bild inkl. Einlesen und Schreiben des Thumbnail auf Festplatte
+
+SCALE_DEFAULT (SD):
+Zeit benötigt: 7336 milisec
+Zeit benötigt: 7 sec
+
+SCALE_FAST (SF):
+Zeit benötigt: 6224 milisec
+Zeit benötigt: 6 sec
+
+SCALE_SMOOTH (SS):
+Zeit benötigt: 9258 milisec
+Zeit benötigt: 9 sec
+
+Das reine Einlesen benötigte:
+Zeit benötigt: 2120 milisec
+Zeit benötigt: 2 sec
+
+Das reine Schreiben des Thumnail auf Festplatte benötigte:
+Zeit benötigt: 39 milisec
+Zeit benötigt: 0 sec
+
+Die Tests wurden mit einem extrem langsamen Prozessor (Atom 1,6 Ghz) und einer extrem langsamen Festplatte durchgeführt und bilden somit eine obere Schranke der Laufzeit.
+
+Anhand der vorgegebenen, nicht funktionalen, Anforderung von maximal 25 Minuten für 10 000 Bilder ergibt sich:
+25 * 60 / 10 000 = 0.14999
+Ein Bild darf maximal 150 Millisekunden zum Einlesen und skalieren benötigen.
+
+Schlussfolgerung: Ein Test mit der maximal zur Verfügung stehenden Hardware ist unbedingt erforderlich. Die bisherige Performance auf dem Testsystem reicht bei Weitem nicht für die Anforderungen aus.

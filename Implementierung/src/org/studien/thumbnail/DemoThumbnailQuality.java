@@ -14,8 +14,8 @@ public class DemoThumbnailQuality{
 	 * @param args
 	 * @throws IOException 
 	 */
+	public static String tPath = "Implementierung/src/org/studien/thumbnail/";
 	public static void main(String[] args) throws IOException {
-		String tPath = "Implementierung/src/org/studien/thumbnail/";
 		BufferedImage rawImage = ImageIO.read( new File(tPath + "schwarzwald-Urlaub.jpg") ); 
 		// save the thumbnail
 		ImageIO.write(getThumbOf(rawImage, 200, Image.SCALE_DEFAULT), "jpg", new File(tPath + "schwarzwald-Urlaub_thumb_default.jpg"));
