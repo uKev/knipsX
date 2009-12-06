@@ -8,7 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 
-public class DemoThumbnail{
+public class DemoThumbnailQuality{
 	
 	/**
 	 * @param args
