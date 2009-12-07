@@ -1,0 +1,3 @@
+* Gibt es ReportModel oder eine potentielle ReportModel Unterklasse für jeden Report-Typ oder ist das immer die Gleiche?
+* Können Gemeinsamkeiten von verschiedenen Report-Typen (View) zu einer gemeinsamen Oberklasse abstrahiert werden?
+* Was passiert, wenn man bei einem Report(Model) den Report-Typ wechselt - welche Daten können erhalten bleiben? Wie funktioniert dieser Mechanismus?
