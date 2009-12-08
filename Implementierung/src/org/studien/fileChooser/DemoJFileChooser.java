@@ -1,4 +1,4 @@
-package org.studien.fileChoser;
+package org.studien.fileChooser;
 
 import javax.swing.*;
 import java.awt.event.*;
