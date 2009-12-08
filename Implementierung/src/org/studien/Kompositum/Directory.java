@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Directory extends PictureContainer {
+public class Directory implements PictureContainer {
 
 	
 	public List<Picture> pictures = new ArrayList<Picture>();

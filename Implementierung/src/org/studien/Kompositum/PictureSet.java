@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PictureSet extends PictureContainer {
+public class PictureSet implements PictureContainer {
 
 	private List<PictureContainer> childs = new ArrayList<PictureContainer>();	
 		

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Picture extends PictureContainer {
+public class Picture implements PictureContainer {
 
 	@Override
 	public ArrayList<?> getItems() {		
