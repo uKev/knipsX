@@ -2,30 +2,38 @@ package org.knipsX.view.projectmanagement;
 
 import java.awt.Component;
 import java.util.Observable;
-import java.util.Observer;
 
-import javax.swing.*;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.ListCellRenderer;
 
 import org.knipsX.controller.projectmanagement.CopyProject;
 import org.knipsX.controller.projectmanagement.CreateProject;
 import org.knipsX.controller.projectmanagement.DeleteProject;
 import org.knipsX.controller.projectmanagement.OpenProject;
+
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectmanagement.ProjectEntry;
+import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.projectmanagement.ProjectListModel;
 
-import org.knipsX.view.AbstractViewPanel;
+import org.knipsX.view.JAbstractView;
 
-public class ProjectAdministration extends AbstractViewPanel implements Observer {
+public class JProjectAdministration extends JAbstractView {
 	
 	private static final long serialVersionUID = 1L;
+	
 	private JButton copyProject;
 	private JButton createProject;
 	private JButton deleteProject;
 	private JButton openProject;	
+	
 	private JList projectList;
 	
-	public ProjectAdministration(AbstractModel model) {
+	public JProjectAdministration(AbstractModel model) {
 		
 		model.addObserver(this);
 		
@@ -85,7 +93,7 @@ class ComplexCellRenderer implements ListCellRenderer {
 	 
 	    if (value instanceof ProjectEntry) {
 	      ProjectEntry projectEntry = (ProjectEntry) value;
-	      theText = projectEntry.getName() + " " + projectEntry.getDate();
+	      theText = projectEntry.getName() + " " + projectEntry.getCreationDate();
 	    } else {
 	     
 	    }

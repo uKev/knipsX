@@ -3,19 +3,19 @@ package org.knipsX.controller.projectmanagement;
 import java.awt.event.ActionEvent;
 
 import org.knipsX.controller.AbstractController;
-import org.knipsX.view.projectmanagement.CreateNewProject;
+import org.knipsX.view.projectmanagement.JProjectNew;
 
 public class Cancel extends AbstractController {
 	
-	private CreateNewProject createNewProject;
+	private JProjectNew jProjectNew;
 
-	public Cancel(CreateNewProject createNewProject) {
-		this.createNewProject = createNewProject;
+	public Cancel(JProjectNew jProjectNew) {
+		this.jProjectNew = jProjectNew;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		createNewProject.dispose();		
+		jProjectNew.dispose();		
 	}
 
 }

@@ -1,12 +1,14 @@
 package org.knipsX;
 
 import java.io.File;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
-import org.knipsX.model.projectmanagement.ProjectEntry;
+
+import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.projectmanagement.ProjectListModel;
-import org.knipsX.view.projectmanagement.ProjectAdministration;
-import org.knipsX.view.projectview.JProjectView;
+import org.knipsX.view.JAbstractView;
+import org.knipsX.view.projectmanagement.JProjectAdministration;
 
 public class Programm {
 
@@ -23,7 +25,7 @@ public class Programm {
 
 	public static void main(String[] args) {
 		ProjectListModel projectListModel = new ProjectListModel(scanProjectListFile());
-		ProjectAdministration firstWindow = new ProjectAdministration(projectListModel);
+		JAbstractView firstWindow = new JProjectAdministration(projectListModel);
 	}
 
 	/**************************************************************************
@@ -34,8 +36,8 @@ public class Programm {
 	 *************************************************************************/
 	public static List<ProjectEntry> scanProjectListFile() {
 		List<ProjectEntry> projectList = new LinkedList<ProjectEntry>();
-		projectList.add(new ProjectEntry("1", "Schwarzwald", "05.05.2009 01:42:42", ""));
-		projectList.add(new ProjectEntry("2", "Der Ehhhhhhhmer", "04.04.2009 22:42:42", ""));
+		projectList.add(new ProjectEntry(1, "Schwarzwald", new GregorianCalendar(2009, 11, 12, 1, 2, 3), ""));
+		projectList.add(new ProjectEntry(2, "Der Ehhhhhhhmer", new GregorianCalendar(2009, 11, 12, 1, 2, 3), ""));
 		return projectList;
 	}
 	

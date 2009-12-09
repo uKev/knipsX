@@ -7,10 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import org.knipsX.view.AbstractViewPanel;
+import org.knipsX.view.JAbstractView;
 
 
-public class ReportConfig extends AbstractViewPanel {
+public class ReportConfig extends JAbstractView {
 
 	/**
 	 * 

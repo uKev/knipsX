@@ -1,22 +1,22 @@
 package org.knipsX.controller.projectmanagement;
 
 import java.awt.event.ActionEvent;
-import java.text.DateFormat;
-import java.util.Date;
+import java.util.GregorianCalendar;
+
 import org.knipsX.controller.AbstractController;
-import org.knipsX.model.projectmanagement.ProjectEntry;
+import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.projectmanagement.ProjectListModel;
-import org.knipsX.view.AbstractViewPanel;
-import org.knipsX.view.projectmanagement.CreateNewProject;
+import org.knipsX.view.JAbstractView;
+import org.knipsX.view.projectmanagement.JProjectNew;
 
 public class Ok extends AbstractController {
 	
-	private CreateNewProject newProjectView;
-	private AbstractViewPanel administrationView;
+	private JProjectNew newProjectView;
+	private JAbstractView administrationView;
 	private ProjectListModel model;
 
-	public Ok(CreateNewProject createNewProject, AbstractViewPanel view, ProjectListModel model) {
-		this.newProjectView = createNewProject;
+	public Ok(JProjectNew jProjectNew, JAbstractView view, ProjectListModel model) {
+		this.newProjectView = jProjectNew;
 		this.model = model;
 		this.administrationView = view;
 	}
@@ -25,13 +25,11 @@ public class Ok extends AbstractController {
 	public void actionPerformed(ActionEvent arg0) {
 		String text = newProjectView.gettextfield();
 		if ((text.equals("")) || (text.equals("xxx"))){
-			System.out.println("Kann nicht hinzugefügt werden");									
+			System.out.println("Kann nicht hinzugefï¿½gt werden");									
 		} else {
-			String id = model.generateFreeProjectID();
+			int id = model.generateFreeProjectID();
 			String path = model.generatePathforID(id);			
-			DateFormat dateFormat = DateFormat.getDateTimeInstance();
-		    Date date = new Date();
-			model.addToList(new ProjectEntry(id, text, dateFormat.format(date), path));	
+			model.addToList(new ProjectEntry(id, text, new GregorianCalendar(), path));	
 			newProjectView.dispose();
 			administrationView.setVisible(true);
 			model.updateViews();		

@@ -10,9 +10,9 @@ import org.knipsX.controller.projectmanagement.Cancel;
 import org.knipsX.controller.projectmanagement.Ok;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectListModel;
-import org.knipsX.view.AbstractViewPanel;
+import org.knipsX.view.JAbstractView;
 
-public class CreateNewProject extends AbstractViewPanel implements Observer {
+public class JProjectNew extends JAbstractView implements Observer {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -20,7 +20,7 @@ public class CreateNewProject extends AbstractViewPanel implements Observer {
 	private JButton oK;
 	private JButton cancel;
 	
-	public CreateNewProject(AbstractModel model, AbstractViewPanel view) {
+	public JProjectNew(AbstractModel model, JAbstractView view) {
 		
 		setTitle("Neues Projekt");
 		
@@ -46,7 +46,7 @@ public class CreateNewProject extends AbstractViewPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		//Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind für einen namen.		
+		//Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind fï¿½r einen namen.		
 	}
 	
 	public String gettextfield() {

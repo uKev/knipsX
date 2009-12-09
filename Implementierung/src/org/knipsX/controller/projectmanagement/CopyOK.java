@@ -1,24 +1,23 @@
 package org.knipsX.controller.projectmanagement;
 
 import java.awt.event.ActionEvent;
-import java.text.DateFormat;
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.knipsX.controller.AbstractController;
-import org.knipsX.model.projectmanagement.ProjectEntry;
+import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.projectmanagement.ProjectListModel;
-import org.knipsX.view.AbstractViewPanel;
-import org.knipsX.view.projectmanagement.CopyProjectView;
+import org.knipsX.view.JAbstractView;
+import org.knipsX.view.projectmanagement.JProjectCopy;
 
 public class CopyOK extends AbstractController {
 
-	private CopyProjectView copyProjectView;
-	private AbstractViewPanel administrationView;
+	private JProjectCopy jProjectCopy;
+	private JAbstractView administrationView;
 	private ProjectListModel model;
 
-	public CopyOK(CopyProjectView copyProjectView, AbstractViewPanel view,
+	public CopyOK(JProjectCopy jProjectCopy, JAbstractView view,
 			ProjectListModel model) {
-		this.copyProjectView = copyProjectView;
+		this.jProjectCopy = jProjectCopy;
 		this.model = model;
 		this.administrationView = view;
 	}
@@ -26,17 +25,14 @@ public class CopyOK extends AbstractController {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		String text = copyProjectView.gettextfield();
+		String text = jProjectCopy.gettextfield();
 		if ((text.equals("")) || (text.equals("xxx"))) {
-			System.out.println("Kann nicht hinzugefügt werden");
+			System.out.println("Kann nicht hinzugefï¿½gt werden");
 		} else {
-			String id = model.generateFreeProjectID();
+			int id = model.generateFreeProjectID();
 			String path = model.generatePathforID(id);
-			DateFormat dateFormat = DateFormat.getDateTimeInstance();
-			Date date = new Date();
-			model.addToList(new ProjectEntry(id, text, dateFormat.format(date),
-					path));
-			copyProjectView.dispose();
+			model.addToList(new ProjectEntry(id, text, new GregorianCalendar(), path));
+			jProjectCopy.dispose();
 			administrationView.setVisible(true);
 			model.updateViews();
 		}

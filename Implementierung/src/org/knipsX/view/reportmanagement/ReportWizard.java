@@ -8,9 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import org.knipsX.view.AbstractViewPanel;
+import org.knipsX.view.JAbstractView;
 
-public class ReportWizard extends AbstractViewPanel {
+public class ReportWizard extends JAbstractView {
 	
 	private AbstractReportConfig reportconfig;
 	private int wizardcounter = 0;

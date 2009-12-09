@@ -5,18 +5,18 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectListModel;
-import org.knipsX.view.AbstractViewPanel;
-import org.knipsX.view.projectmanagement.ProjectAdministration;
+import org.knipsX.view.JAbstractView;
+import org.knipsX.view.projectmanagement.JProjectAdministration;
 
 
 public class DeleteProject extends AbstractController {
 	
-	private ProjectAdministration view;
+	private JProjectAdministration view;
 	private ProjectListModel model;
 
-	public DeleteProject(AbstractViewPanel projectAdministration,
+	public DeleteProject(JAbstractView projectAdministration,
 			AbstractModel model) {
-		this.view = (ProjectAdministration) projectAdministration;
+		this.view = (JProjectAdministration) projectAdministration;
 		this.model = (ProjectListModel) model;
 	}
 

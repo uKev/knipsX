@@ -4,14 +4,12 @@ import java.awt.BorderLayout;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
-import javax.swing.JFrame;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
@@ -21,9 +19,10 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JTable;
 
-import org.knipsX.view.AbstractViewPanel;
+import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.view.JAbstractView;
 
-public class JProjectView extends AbstractViewPanel implements Observer {
+public class JProjectView extends JAbstractView {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -61,11 +60,17 @@ public class JProjectView extends AbstractViewPanel implements Observer {
 	
 	private JTable jTableExif = null;
 
+	/* Die Repräsentation des aktuellen Projekts */
+	private ProjectViewModel model;
+	
     /**
 	 * This is the default constructor
 	 */
-	public JProjectView() {
+	public JProjectView(ProjectViewModel model) {
 		super();
+		
+		this.model = model;
+		this.model.addObserver(this);
 		initialize();
 	}
 
@@ -76,7 +81,6 @@ public class JProjectView extends AbstractViewPanel implements Observer {
 	 */
 	private void initialize() {
 		this.setContentPane(getJContentPane());
-		this.setTitle("Projektansicht");
 		this.setVisible(true);
 		this.pack();
 	}
@@ -650,8 +654,8 @@ public class JProjectView extends AbstractViewPanel implements Observer {
 	}
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+	public void update(Observable o, Object arg) {
+		this.setTitle("Projektansicht für " + ((ProjectViewModel)o).getProjectName());
+		repaint();			
 	}
 }

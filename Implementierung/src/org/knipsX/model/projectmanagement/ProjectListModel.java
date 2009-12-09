@@ -2,6 +2,7 @@ package org.knipsX.model.projectmanagement;
 
 import java.util.List;
 import org.knipsX.model.AbstractModel;
+import org.knipsX.model.common.ProjectEntry;
 
 public class ProjectListModel extends AbstractModel {
 
@@ -27,12 +28,11 @@ public class ProjectListModel extends AbstractModel {
 		this.projectList = projectlist;
 	}
 
-
-	public String generateFreeProjectID() {
-		return null;
+	public int generateFreeProjectID() {
+		return 0;
 	}
 
-	public String generatePathforID(String id) {
+	public String generatePathforID(int id) {
 		return "path";
 	}
 }

@@ -9,11 +9,11 @@ import javax.swing.JTextField;
 import org.knipsX.controller.projectmanagement.CopyCancel;
 import org.knipsX.controller.projectmanagement.CopyOK;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectmanagement.ProjectEntry;
+import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.projectmanagement.ProjectListModel;
-import org.knipsX.view.AbstractViewPanel;
+import org.knipsX.view.JAbstractView;
 
-public class CopyProjectView extends AbstractViewPanel implements Observer {
+public class JProjectCopy extends JAbstractView implements Observer {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,7 +21,7 @@ public class CopyProjectView extends AbstractViewPanel implements Observer {
 	private JButton oK;
 	private JButton cancel;
 
-	public CopyProjectView(AbstractModel model, ProjectEntry toCopy, AbstractViewPanel view) {
+	public JProjectCopy(AbstractModel model, ProjectEntry toCopy, JAbstractView view) {
 
 		setTitle("Projekt kopieren");
 
@@ -46,7 +46,7 @@ public class CopyProjectView extends AbstractViewPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		//Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind für einen namen.
+		//Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind fï¿½r einen namen.
 	}
 	
 	public String gettextfield() {
