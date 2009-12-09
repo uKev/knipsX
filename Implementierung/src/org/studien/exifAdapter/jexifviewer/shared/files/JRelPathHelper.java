@@ -21,7 +21,7 @@
  */
 
 
-package org.studien.exifAdapter.jExifViewer.shared.files;
+package org.studien.exifAdapter.jexifviewer.shared.files;
 
 import java.io.File;
 

@@ -21,7 +21,7 @@
  */
 
 
-package org.studien.exifAdapter.jExifViewer;
+package org.studien.exifAdapter.jexifviewer;
 
 import java.io.RandomAccessFile;
 import java.io.IOException;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.studien.exifAdapter.jExifViewer.shared.dataformathelper.JDataFormatHelper;
+import org.studien.exifAdapter.jexifviewer.shared.dataformathelper.JDataFormatHelper;
 
 
 /**
@@ -236,9 +236,9 @@ public class JIfd
     }
 
     /**
-     * returns the exposure time in µ sec
+     * returns the exposure time in ï¿½ sec
      * @param str string representation
-     * @return exposure time in µ sec
+     * @return exposure time in ï¿½ sec
      */
     public int getExposureTime(String[] str)
     {

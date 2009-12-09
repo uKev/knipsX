@@ -21,7 +21,7 @@
  */
 
 
-package org.studien.exifAdapter.jExifViewer.shared.dataformathelper;
+package org.studien.exifAdapter.jexifviewer.shared.dataformathelper;
 
 /**
  *

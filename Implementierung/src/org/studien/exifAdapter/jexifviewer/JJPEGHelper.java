@@ -21,7 +21,7 @@
  */
 
 
-package org.studien.exifAdapter.jExifViewer;
+package org.studien.exifAdapter.jexifviewer;
 
 
 /**
@@ -39,7 +39,7 @@ package org.studien.exifAdapter.jExifViewer;
 import java.io.RandomAccessFile;
 import java.io.IOException;
 
-import org.studien.exifAdapter.jExifViewer.shared.dataformathelper.JDataFormatHelper;
+import org.studien.exifAdapter.jexifviewer.shared.dataformathelper.JDataFormatHelper;
 
 
 /**

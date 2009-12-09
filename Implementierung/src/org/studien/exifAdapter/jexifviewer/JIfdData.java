@@ -21,7 +21,7 @@
  */
 
 
-package org.studien.exifAdapter.jExifViewer;
+package org.studien.exifAdapter.jexifviewer;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +30,7 @@ import java.io.RandomAccessFile;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.studien.exifAdapter.jExifViewer.shared.files.JPathHelper;
+import org.studien.exifAdapter.jexifviewer.shared.files.JPathHelper;
 
 
 /**

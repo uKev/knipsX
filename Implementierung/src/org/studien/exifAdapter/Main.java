@@ -3,7 +3,7 @@ package org.studien.exifAdapter;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.studien.exifAdapter.jExifViewer.*;
+import org.studien.exifAdapter.jexifviewer.ExifAdapter;
 
 public class Main {
 
@@ -30,8 +30,8 @@ public class Main {
 		zstNachher = System.currentTimeMillis();
 		
 		System.out.println("Anzahl Dateien: " + files);
-		System.out.println("Zeit benötigt: " + ((zstNachher - zstVorher)) + " milisec");
-		System.out.println("Zeit benötigt: " + ((zstNachher - zstVorher)/1000) + " sec");
+		System.out.println("Zeit benï¿½tigt: " + ((zstNachher - zstVorher)) + " milisec");
+		System.out.println("Zeit benï¿½tigt: " + ((zstNachher - zstVorher)/1000) + " sec");
 	}
 	
 	static void treeWalk(File file) {
