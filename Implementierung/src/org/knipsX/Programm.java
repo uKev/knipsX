@@ -6,6 +6,7 @@ import java.util.List;
 import org.knipsX.model.projectmanagement.ProjectEntry;
 import org.knipsX.model.projectmanagement.ProjectListModel;
 import org.knipsX.view.projectmanagement.ProjectAdministration;
+import org.knipsX.view.projectview.JProjectView;
 
 public class Programm {
 
