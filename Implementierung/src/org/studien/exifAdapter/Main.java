@@ -1,9 +1,9 @@
-package pse;
+package org.studien.exifAdapter;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import jexifviewer.*;
+import org.studien.exifAdapter.jExifViewer.*;
 
 public class Main {
 

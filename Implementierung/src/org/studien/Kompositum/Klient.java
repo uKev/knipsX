@@ -1,3 +1,4 @@
+package org.studien.kompositum;
 
 public class Klient {
 

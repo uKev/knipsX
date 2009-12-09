@@ -1,4 +1,4 @@
-package jexifviewer;
+package org.studien.exifAdapter.jExifViewer;
 
 import java.io.File;
 

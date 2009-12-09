@@ -1,6 +1,7 @@
+package org.studien.kompositum;
+
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class Directory implements PictureContainer {
 
