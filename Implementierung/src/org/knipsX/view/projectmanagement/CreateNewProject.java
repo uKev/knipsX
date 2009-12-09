@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 import org.knipsX.controller.projectmanagement.Cancel;
 import org.knipsX.controller.projectmanagement.Ok;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectmanagement.ProjectList;
+import org.knipsX.model.projectmanagement.ProjectListModel;
 import org.knipsX.view.AbstractViewPanel;
 
 public class CreateNewProject extends AbstractViewPanel implements Observer {
@@ -25,12 +25,11 @@ public class CreateNewProject extends AbstractViewPanel implements Observer {
 		setTitle("Neues Projekt");
 		
 		JPanel panel = new JPanel();
-		
-		
+			
 		projectName = new JTextField(20);
 		
 		oK = new JButton("OK");
-        oK.addActionListener(new Ok (this, view, (ProjectList) model));
+        oK.addActionListener(new Ok (this, view, (ProjectListModel) model));
         
         cancel = new JButton("Abbrechen");
         cancel.addActionListener(new Cancel(this));
@@ -47,7 +46,7 @@ public class CreateNewProject extends AbstractViewPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub		
+		//Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind für einen namen.		
 	}
 	
 	public String gettextfield() {

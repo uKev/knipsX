@@ -6,16 +6,16 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.view.AbstractViewPanel;
 import org.knipsX.view.projectmanagement.CreateNewProject;
-import org.knipsX.view.projectmanagement.Projectadministration;
+import org.knipsX.view.projectmanagement.ProjectAdministration;
 
 public class CreateProject extends AbstractController {
 	
 	private AbstractViewPanel view;
 	private AbstractModel model;
 	
-	public CreateProject(Projectadministration projectadministration,
+	public CreateProject(ProjectAdministration projectAdministration,
 			AbstractModel model) {
-		this.view = projectadministration;
+		this.view = projectAdministration;
 		this.model = model;
 	}
 
