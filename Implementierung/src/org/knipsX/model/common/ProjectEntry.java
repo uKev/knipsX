@@ -2,7 +2,6 @@ package org.knipsX.model.common;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
 import org.knipsX.model.AbstractModel;
 
 public class ProjectEntry extends AbstractModel {

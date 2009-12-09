@@ -1,23 +1,24 @@
 package org.knipsX.controller.projectmanagement;
 
 import java.awt.event.ActionEvent;
+
 import org.knipsX.controller.AbstractController;
 import org.knipsX.view.JAbstractView;
-import org.knipsX.view.projectmanagement.JProjectCopy;
+import org.knipsX.view.projectmanagement.JProjectNew;
 
-public class CopyCancel extends AbstractController {
+public class CreateCancel extends AbstractController {
 	
-	private JProjectCopy jProjectCopy;
+	private JProjectNew jProjectNew;
 	private JAbstractView administrationView;
 
-	public CopyCancel(JProjectCopy jProjectCopy, JAbstractView view) {
-		this.jProjectCopy = jProjectCopy;
+	public CreateCancel(JProjectNew jProjectNew, JAbstractView view) {
+		this.jProjectNew = jProjectNew;
 		this.administrationView = view;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		jProjectCopy.dispose();
+		jProjectNew.dispose();
 		administrationView.setVisible(true);
 	}
 

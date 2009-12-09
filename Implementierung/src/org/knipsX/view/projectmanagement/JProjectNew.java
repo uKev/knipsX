@@ -6,8 +6,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import org.knipsX.controller.projectmanagement.Cancel;
-import org.knipsX.controller.projectmanagement.Ok;
+import org.knipsX.controller.projectmanagement.CreateCancel;
+import org.knipsX.controller.projectmanagement.CreateOk;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectListModel;
 import org.knipsX.view.JAbstractView;
@@ -29,10 +29,10 @@ public class JProjectNew extends JAbstractView implements Observer {
 		projectName = new JTextField(20);
 		
 		oK = new JButton("OK");
-        oK.addActionListener(new Ok (this, view, (ProjectListModel) model));
+        oK.addActionListener(new CreateOk (this, view, (ProjectListModel) model));
         
         cancel = new JButton("Abbrechen");
-        cancel.addActionListener(new Cancel(this));
+        cancel.addActionListener(new CreateCancel(this, view));
                
         panel.add(projectName);
         panel.add(oK);

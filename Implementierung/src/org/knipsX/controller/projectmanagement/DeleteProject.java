@@ -6,11 +6,11 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectListModel;
 import org.knipsX.view.JAbstractView;
+import org.knipsX.view.projectmanagement.JDeletionValidation;
 import org.knipsX.view.projectmanagement.JProjectAdministration;
 
-
 public class DeleteProject extends AbstractController {
-	
+
 	private JProjectAdministration view;
 	private ProjectListModel model;
 
@@ -23,13 +23,12 @@ public class DeleteProject extends AbstractController {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int[] toDelete = view.getListPosis();
-		for (int n = 0; n < toDelete.length; ++n) {
-			model.removeFromList(toDelete[n]);
-			
-			for (int j = 0; j < toDelete.length; ++j) {
-				toDelete[j] -= 1;
-			}
-		}	
-		model.updateViews();		
+		if ((toDelete.length == 0) || (toDelete == null)) {
+			System.out
+					.println("Bitte mindestens ein Element zum löschen auswählen");
+		} else {
+			view.setVisible(false);
+			new JDeletionValidation(model, view);
+		}
 	}
 }

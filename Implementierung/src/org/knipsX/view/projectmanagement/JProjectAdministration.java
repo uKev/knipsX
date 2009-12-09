@@ -52,10 +52,10 @@ public class JProjectAdministration extends JAbstractView {
         createProject = new JButton("Projekt erstellen");
         createProject.addActionListener(new CreateProject(this,model));
         
-        deleteProject = new JButton("Projekt lÃ¶schen");
+        deleteProject = new JButton("Projekt löschen");
         deleteProject.addActionListener(new DeleteProject(this,model));
         
-        openProject = new JButton("Projekt Ã¶ffnen");
+        openProject = new JButton("Projekt öffnen");
         openProject.addActionListener(new OpenProject(this,model));
         
         administrationView.add(createProject);

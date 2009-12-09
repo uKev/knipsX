@@ -32,7 +32,7 @@ public class JProjectCopy extends JAbstractView implements Observer {
 		oK.addActionListener(new CopyOK(this, view, (ProjectListModel) model));
 
 		cancel = new JButton("Abbrechen");
-		cancel.addActionListener(new CopyCancel(this));
+		cancel.addActionListener(new CopyCancel(this, view));
 
 		panel.add(projectName);
 		panel.add(oK);

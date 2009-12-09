@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.projectmanagement.ProjectListModel;
 import org.knipsX.view.JAbstractView;
@@ -36,8 +35,8 @@ public class Programm {
 	 *************************************************************************/
 	public static List<ProjectEntry> scanProjectListFile() {
 		List<ProjectEntry> projectList = new LinkedList<ProjectEntry>();
-		projectList.add(new ProjectEntry(1, "Schwarzwald", new GregorianCalendar(2009, 11, 12, 1, 2, 3), ""));
-		projectList.add(new ProjectEntry(2, "Der Ehhhhhhhmer", new GregorianCalendar(2009, 11, 12, 1, 2, 3), ""));
+		projectList.add(new ProjectEntry(1, "Schwarzwald", new GregorianCalendar(2009, 11, 12, 13, 42, 43), ""));
+		projectList.add(new ProjectEntry(2, "Der Ehhhhhhhmer", new GregorianCalendar(2009, 11, 12, 12, 42, 43), ""));
 		return projectList;
 	}
 	
