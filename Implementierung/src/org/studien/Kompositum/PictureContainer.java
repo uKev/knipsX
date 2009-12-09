@@ -1,4 +1,4 @@
-package org.studien.kompositum;
+package org.studien.Kompositum;
 
 import java.util.ArrayList;
 import java.util.Iterator;

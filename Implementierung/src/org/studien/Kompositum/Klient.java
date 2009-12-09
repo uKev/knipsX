@@ -1,4 +1,4 @@
-package org.studien.kompositum;
+package org.studien.Kompositum;
 
 public class Klient {
 
