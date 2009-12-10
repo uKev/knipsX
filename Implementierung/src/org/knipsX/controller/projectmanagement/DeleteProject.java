@@ -25,10 +25,11 @@ public class DeleteProject extends AbstractController {
 		int[] toDelete = view.getListPosis();
 		if ((toDelete.length == 0) || (toDelete == null)) {
 			System.out
-					.println("Bitte mindestens ein Element zum löschen auswählen");
+					.println("Bitte mindestens ein Element zum lÃ¶schen auswÃ¤hlen");
 		} else {
-			view.setVisible(false);
-			new JDeletionValidation(model, view);
+			model.setModelStatus(ProjectListModel.DELETE);
+			new JDeletionValidation(model);
+			model.updateViews();
 		}
 	}
 }

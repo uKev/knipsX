@@ -10,18 +10,16 @@ import org.knipsX.view.projectmanagement.JProjectNew;
 public class CreateOk extends AbstractController {
 	
 	private JProjectNew jProjectNew;
-	private JAbstractView jProjectAdministration;
+	
 	
 	private ProjectListModel model;
 
-	public CreateOk(AbstractModel model, JAbstractView jProjectNew, JAbstractView jProjectAdministration) {
+	public CreateOk(AbstractModel model, JAbstractView jProjectNew) {
 		
 		if(jProjectNew instanceof JAbstractView ) {
 			this.jProjectNew = (JProjectNew) jProjectNew;
 		}
-		
-		this.jProjectAdministration = jProjectAdministration;
-		
+				
 		if(model instanceof ProjectListModel ) {
 			this.model = (ProjectListModel) model;	
 		} else {
@@ -41,14 +39,7 @@ public class CreateOk extends AbstractController {
 			
 			/* Füge neues Projekt dem Model hinzu */
 			model.addNewProject(text);
-
-			/* Lösche Fenster */
-			jProjectNew.dispose();
-			
-			/* Zeige Verwaltung an */
-			jProjectAdministration.setVisible(true);
-			
-			/* Aktualisiere Ansicht */
+			model.setModelStatus(ProjectListModel.SELECT);
 			model.updateViews();
 		}	   
 	}

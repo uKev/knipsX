@@ -4,23 +4,19 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectListModel;
-import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectCopy;
 
 public class CopyOk extends AbstractController {
 	
-	private JProjectCopy jProjectCopy;
-	private JAbstractView jProjectAdministration;
-	
+	private JProjectCopy jProjectCopy;	
 	private ProjectListModel model;
 
-	public CopyOk(AbstractModel model, JProjectCopy jProjectCopy, JAbstractView jProjectAdministration) {
+	public CopyOk(AbstractModel model, JProjectCopy jProjectCopy) {
 		
 		if(jProjectCopy instanceof JProjectCopy ) {
 			this.jProjectCopy = (JProjectCopy) jProjectCopy;
 		}
 		
-		this.jProjectAdministration = jProjectAdministration;
 		
 		if(model instanceof ProjectListModel ) {
 			this.model = (ProjectListModel) model;	
@@ -41,14 +37,7 @@ public class CopyOk extends AbstractController {
 			
 			/* Füge neues Projekt dem Model hinzu */
 			model.addNewProject(jProjectCopy.getProjectToCopy(), text);
-
-			/* Lösche Fenster */
-			jProjectCopy.dispose();
-			
-			/* Zeige Verwaltung an */
-			jProjectAdministration.setVisible(true);
-			
-			/* Aktualisiere Ansicht */
+			model.setModelStatus(ProjectListModel.SELECT);
 			model.updateViews();
 		}	   
 	}

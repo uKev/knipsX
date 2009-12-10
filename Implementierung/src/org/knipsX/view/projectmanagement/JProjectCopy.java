@@ -9,6 +9,7 @@ import org.knipsX.controller.projectmanagement.CopyCancel;
 import org.knipsX.controller.projectmanagement.CopyOk;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.common.ProjectEntry;
+import org.knipsX.model.projectmanagement.ProjectListModel;
 import org.knipsX.view.JAbstractView;
 
 public class JProjectCopy extends JAbstractView {
@@ -22,19 +23,12 @@ public class JProjectCopy extends JAbstractView {
 	private JButton jButtonConfirm;
 	private JButton jButtonCancel;
 	
-	private JProjectAdministration jProjectAdministration = null;
-	
 	private ProjectEntry toCopy;
 	
-	public JProjectCopy(AbstractModel model, JAbstractView view, ProjectEntry toCopy) {
+	public JProjectCopy(AbstractModel model, ProjectEntry toCopy) {
 		
 		/* Rufe Konstruktor der Elternklasse auf */
 		super(model);
-		
-		/* Setze Verwaltungsansicht */
-		if(view instanceof JProjectAdministration) {
-			this.jProjectAdministration = (JProjectAdministration) view;
-		}
 		
 		/* Der Projekteintrag, der kopiert werden soll */
 		this.toCopy = toCopy;
@@ -88,7 +82,7 @@ public class JProjectCopy extends JAbstractView {
 		if (this.jButtonConfirm == null) {
 			this.jButtonConfirm = new JButton("Ok");
 			
-			this.jButtonConfirm.addActionListener(new CopyOk(this.model, this, this.jProjectAdministration));
+			this.jButtonConfirm.addActionListener(new CopyOk(this.model, this));
 		}
 		return this.jButtonConfirm;
 	}
@@ -97,14 +91,20 @@ public class JProjectCopy extends JAbstractView {
 		if (this.jButtonCancel == null) {
 			this.jButtonCancel = new JButton("Abbrechen");
 			
-			this.jButtonCancel.addActionListener(new CopyCancel(this, this.jProjectAdministration));
+			this.jButtonCancel.addActionListener(new CopyCancel(this.model));
 		}
 		return this.jButtonCancel;
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		//Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind für einen namen.		
+		//Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind für einen namen.
+		ProjectListModel model = (ProjectListModel) o;
+		if (model.getModelStatus() == ProjectListModel.COPY){			
+			this.setAlwaysOnTop(true);
+		} else {
+			this.dispose();
+		}
 	}
 	
 	public String getProjectName() {

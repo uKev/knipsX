@@ -8,43 +8,106 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.knipsX.controller.projectmanagement.DeletionValidationNo;
 import org.knipsX.controller.projectmanagement.DeletionValidationYes;
-import org.knipsX.model.AbstractModel;
+import org.knipsX.model.projectmanagement.ProjectListModel;
 import org.knipsX.view.JAbstractView;
 
 public class JDeletionValidation extends JAbstractView implements Observer {
 
 	private static final long serialVersionUID = 1L;
 
-	private JLabel validationText;
-	private JButton yes;
-	private JButton no;
+	private JAbstractView jProjectAdministration;
 
-	public JDeletionValidation(AbstractModel model, JAbstractView view) {
+	private JPanel jContentPane = null;
+
+	private JLabel jLabelValidationText = null;
+
+	private JButton jButtonYes = null;
+	private JButton jButtonNo = null;
+
+	public JDeletionValidation(ProjectListModel model) {
 		super(model);
-		setTitle("Bestätigen");
+		initialize();
+		setContentPane(getJContentPane());
+	}
 
-		JPanel panel = new JPanel();
+	/**
+	 * This method initializes this
+	 * 
+	 * @return void
+	 */
+	private void initialize() {
+		this.setTitle("Bestätigen");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
+		this.pack();
+	}
 
-		validationText = new JLabel("Möchten Sie ... wirklich löschen?");
+	/**
+	 * This method initializes jContentPane
+	 * 
+	 * @return javax.swing.JPanel
+	 */
+	private JPanel getJContentPane() {
+		if (jContentPane == null) {
+			jContentPane = new JPanel();
+		}
+		jContentPane.add(getjLabelValidationText());
+		jContentPane.add(getjButtonYes());
+		jContentPane.add(getjButtonNo());
+		return jContentPane;
+	}
 
-		yes = new JButton("Ja");
-		yes.addActionListener(new DeletionValidationYes(view, this, model));
+	/**
+	 * This method initializes jLabelValidationText
+	 * 
+	 * @return javax.swing.JButton
+	 */
+	private JLabel getjLabelValidationText() {
+		if (jLabelValidationText == null) {
+			jLabelValidationText = new JLabel();
+			jLabelValidationText.setText("Möchten Sie ... wirklich löschen?");
 
-		no = new JButton("Nein");
-		no.addActionListener(new DeletionValidationNo(view, this));
+		}
+		return jLabelValidationText;
+	}
 
-		panel.add(validationText);
-		panel.add(yes);
-		panel.add(no);
-		this.add(panel);
-		pack();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
-		setVisible(true);
+	/**
+	 * This method initializes jButtonYes
+	 * 
+	 * @return javax.swing.JButton
+	 */
+	private JButton getjButtonYes() {
+		if (jButtonYes == null) {
+			jButtonYes = new JButton();
+			jButtonYes.setText("Ja");
+			jButtonYes.addActionListener(new DeletionValidationYes(
+					jProjectAdministration, model));
+		}
+		return jButtonYes;
+	}
+
+	/**
+	 * This method initializes jButtonNo
+	 * 
+	 * @return javax.swing.JButton
+	 */
+	private JButton getjButtonNo() {
+		if (jButtonNo == null) {
+			jButtonNo = new JButton();
+			jButtonNo.setText("Nein");
+			jButtonNo.addActionListener(new DeletionValidationNo(model));
+		}
+		return jButtonNo;
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		//Do nothing
+		ProjectListModel model = (ProjectListModel) o;
+		if (model.getModelStatus() == ProjectListModel.DELETE){			
+			this.setAlwaysOnTop(true);
+		} else {
+			this.dispose();
+		}
 	}
 }

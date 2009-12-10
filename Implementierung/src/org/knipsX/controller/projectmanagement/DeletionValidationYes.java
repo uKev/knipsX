@@ -5,19 +5,16 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectListModel;
 import org.knipsX.view.JAbstractView;
-import org.knipsX.view.projectmanagement.JDeletionValidation;
 import org.knipsX.view.projectmanagement.JProjectAdministration;
 
 public class DeletionValidationYes extends AbstractController {
 
 	private JProjectAdministration projectAdministration;
-	private JDeletionValidation deletionValidation;
 	private ProjectListModel model;
 
 	public DeletionValidationYes(JAbstractView projectAdministration,
-			JAbstractView deletionValidation, AbstractModel model) {
+			AbstractModel model) {
 		this.projectAdministration = (JProjectAdministration) projectAdministration;
-		this.deletionValidation = (JDeletionValidation) deletionValidation;
 		this.model = (ProjectListModel) model;
 	}
 
@@ -31,8 +28,7 @@ public class DeletionValidationYes extends AbstractController {
 				toDelete[j] -= 1;
 			}
 		}
-		deletionValidation.dispose();
-		projectAdministration.setVisible(true);
+		model.setModelStatus(ProjectListModel.SELECT);
 		model.updateViews();
 	}
 }
