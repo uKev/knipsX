@@ -80,6 +80,8 @@ public class JProjectAdministration extends JAbstractView {
 	public int[] getListPosis(){
 		return projectList.getSelectedIndices();		
 	}
+	
+	/* TODO Methode get model */
 }
 
 class ComplexCellRenderer implements ListCellRenderer {
