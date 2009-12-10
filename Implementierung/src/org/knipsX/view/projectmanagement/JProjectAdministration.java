@@ -104,8 +104,7 @@ public class JProjectAdministration extends JAbstractView {
 		if (jButtonDeleteProject == null) {
 			jButtonDeleteProject = new JButton();
 			jButtonDeleteProject.setText("Projekt löschen");
-			jButtonDeleteProject.addActionListener(new DeleteProject(this,
-					model));
+			jButtonDeleteProject.addActionListener(new DeleteProject(model, this));
 		}
 		return jButtonDeleteProject;
 	}
@@ -140,6 +139,7 @@ public class JProjectAdministration extends JAbstractView {
 		repaint();
 		if (model.getModelStatus() == ProjectListModel.SELECT){
 			this.setEnabled(true);
+			this.setVisible(true);
 		} else if (model.getModelStatus() == ProjectListModel.OPEN) {
 			this.dispose();
 		} else {

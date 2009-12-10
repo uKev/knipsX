@@ -101,7 +101,6 @@ public class JProjectCopy extends JAbstractView {
 		//Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind für einen namen.
 		ProjectListModel model = (ProjectListModel) o;
 		if (model.getModelStatus() == ProjectListModel.COPY){			
-			this.setAlwaysOnTop(true);
 		} else {
 			this.dispose();
 		}

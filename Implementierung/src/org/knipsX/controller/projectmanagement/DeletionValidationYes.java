@@ -4,23 +4,19 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectListModel;
-import org.knipsX.view.JAbstractView;
-import org.knipsX.view.projectmanagement.JProjectAdministration;
 
 public class DeletionValidationYes extends AbstractController {
 
-	private JProjectAdministration projectAdministration;
 	private ProjectListModel model;
+	private int[] toDelete;
 
-	public DeletionValidationYes(JAbstractView projectAdministration,
-			AbstractModel model) {
-		this.projectAdministration = (JProjectAdministration) projectAdministration;
+	public DeletionValidationYes(AbstractModel model, int[] toDelete) {
 		this.model = (ProjectListModel) model;
+		this.toDelete = toDelete;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		int[] toDelete = projectAdministration.getListPosis();
 		for (int n = 0; n < toDelete.length; ++n) {
 			model.removeFromList(toDelete[n]);
 

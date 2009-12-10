@@ -15,8 +15,6 @@ public class JDeletionValidation extends JAbstractView implements Observer {
 
 	private static final long serialVersionUID = 1L;
 
-	private JAbstractView jProjectAdministration;
-
 	private JPanel jContentPane = null;
 
 	private JLabel jLabelValidationText = null;
@@ -24,8 +22,11 @@ public class JDeletionValidation extends JAbstractView implements Observer {
 	private JButton jButtonYes = null;
 	private JButton jButtonNo = null;
 
-	public JDeletionValidation(ProjectListModel model) {
+	private int[] toDelete;
+
+	public JDeletionValidation(ProjectListModel model, int[] toDelete) {
 		super(model);
+		this.toDelete = toDelete;
 		initialize();
 		setContentPane(getJContentPane());
 	}
@@ -66,7 +67,8 @@ public class JDeletionValidation extends JAbstractView implements Observer {
 	private JLabel getjLabelValidationText() {
 		if (jLabelValidationText == null) {
 			jLabelValidationText = new JLabel();
-			jLabelValidationText.setText("Möchten Sie ... wirklich löschen?");
+			jLabelValidationText.setText("Möchten Sie : "
+					+ generateToDeleteText() + " wirklich löschen?");
 
 		}
 		return jLabelValidationText;
@@ -81,8 +83,8 @@ public class JDeletionValidation extends JAbstractView implements Observer {
 		if (jButtonYes == null) {
 			jButtonYes = new JButton();
 			jButtonYes.setText("Ja");
-			jButtonYes.addActionListener(new DeletionValidationYes(
-					jProjectAdministration, model));
+			jButtonYes.addActionListener(new DeletionValidationYes(model,
+					toDelete));
 		}
 		return jButtonYes;
 	}
@@ -104,10 +106,17 @@ public class JDeletionValidation extends JAbstractView implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		ProjectListModel model = (ProjectListModel) o;
-		if (model.getModelStatus() == ProjectListModel.DELETE){			
-			this.setAlwaysOnTop(true);
+		if (model.getModelStatus() == ProjectListModel.DELETE) {
 		} else {
 			this.dispose();
 		}
+	}
+
+	private String generateToDeleteText() {
+		String deleteText = "";
+		for (int n = 0; n < toDelete.length; ++n) {
+			deleteText += ((ProjectListModel) model).getProjectlist().get(toDelete[n]).getName()+";";
+		}
+		return deleteText;
 	}
 }

@@ -96,7 +96,6 @@ public class JProjectNew extends JAbstractView {
 		// Methode muss das unsichtbare Panel aktualisieren wenn zb falsche
 		// eingaben da sind für einen namen.
 		if (model.getModelStatus() == ProjectListModel.NEW) {
-			this.setAlwaysOnTop(true);
 		} else {
 			this.dispose();
 		}
