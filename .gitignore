@@ -1,13 +1,13 @@
 # Pflichtenheft
-Pflichtenheft.glo
-Pflichtenheft.gls
-Pflichtenheft.ist
-Pflichtenheft.log
-Pflichtenheft.toc
-Pflichtenheft.glg
-Pflichtenheft.aux
-Pflichtenheft.ps
-Pflichtenheft.dvi
+*.glo
+*.gls
+*.ist
+*.log
+*.toc
+*.glg
+*.aux
+*.ps
+*.dvi
 
 # Implementierung
 *.class
