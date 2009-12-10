@@ -5,7 +5,7 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectListModel;
 import org.knipsX.view.JAbstractView;
-import org.knipsX.view.projectmanagement.JDeletionValidation;
+import org.knipsX.view.projectmanagement.JProjectDelete;
 import org.knipsX.view.projectmanagement.JProjectAdministration;
 
 public class DeleteProject extends AbstractController {
@@ -27,7 +27,7 @@ public class DeleteProject extends AbstractController {
 					.println("Bitte mindestens ein Element zum löschen auswählen");
 		} else {
 			model.setModelStatus(ProjectListModel.DELETE);
-			new JDeletionValidation(model, toDelete);
+			new JProjectDelete(model, toDelete);
 			model.updateViews();
 		}
 	}
