@@ -34,7 +34,7 @@ public class PictureSet implements PictureContainer {
 	}
 
 	@Override
-	public Object next() {
+	public Picture next() {
 		// TODO Auto-generated method stub
 		return null;
 	}

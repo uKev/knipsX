@@ -12,6 +12,11 @@ public class Directory implements PictureContainer {
 	
 	
 	public Directory() {
+		/**************************************************************************
+		 * Dummy Picture Objekte werden hier dem Directory hinzugefügt
+		 * 
+		 *************************************************************************/
+		
 		this.pictures.add(new Picture());
 		this.pictures.add(new Picture());
 		this.pictures.add(new Picture());
@@ -38,7 +43,7 @@ public class Directory implements PictureContainer {
 
 
 	@Override
-	public Object next() {
+	public Picture next() {
 		// TODO Auto-generated method stub
 		return null;
 	}

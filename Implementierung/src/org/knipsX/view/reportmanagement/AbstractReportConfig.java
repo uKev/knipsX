@@ -5,21 +5,21 @@ import javax.swing.JTabbedPane;
 
 public abstract class AbstractReportConfig {
 	
-	protected ArrayList<AbstractSinglePanel> registeredPanels = new ArrayList<AbstractSinglePanel>();
+	protected ArrayList<JAbstractSinglePanel> registeredPanels = new ArrayList<JAbstractSinglePanel>();
 
 	
-    protected void addPanel(AbstractSinglePanel component) {
+    protected void addPanel(JAbstractSinglePanel component) {
     	this.registeredPanels.add(component);
     }   
     
-    public ArrayList<AbstractSinglePanel> getregisteredPanels() {
+    public ArrayList<JAbstractSinglePanel> getregisteredPanels() {
     	return this.registeredPanels;
     }
     
     public JTabbedPane getJTabbedPane() {
     	JTabbedPane tabbedpane = new JTabbedPane();
     	
-    	for(AbstractSinglePanel item : this.registeredPanels) {
+    	for(JAbstractSinglePanel item : this.registeredPanels) {
     		tabbedpane.addTab(item.title, item.icon, item, item.tip);
     	}
     	

@@ -5,12 +5,13 @@ import java.util.LinkedList;
 import java.util.List;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
-import org.knipsX.model.reportmanagement.Report;
+import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.model.reportmanagement.Boxplot;
 
 public class Project extends ProjectEntry {
 	
 	private List<PictureContainer> pictureSets;	
-	private List<Report> reports;	
+	private List<AbstractReportModel> reports;	
 	
 	public Project(int id, String name, GregorianCalendar creationDate, String path) {
 		super(id, name, creationDate, path);
@@ -25,11 +26,11 @@ public class Project extends ProjectEntry {
 		this.pictureSets = pictureSets;
 	}
 
-	public List<Report> getReports() {
+	public List<AbstractReportModel> getReports() {
 		return reports;
 	}
 
-	public void setReports(List<Report> reports) {
+	public void setReports(List<AbstractReportModel> reports) {
 		this.reports = reports;
 	}
 
@@ -38,8 +39,8 @@ public class Project extends ProjectEntry {
 		PictureContainer dummyPictureSet = new PictureSet();
 		dummyPictureSetList.add(dummyPictureSet);
 		setPictureSets(dummyPictureSetList);
-		List<Report> dummyReportsList = new LinkedList<Report>();
-		Report dummyReport = new Report();
+		List<AbstractReportModel> dummyReportsList = new LinkedList<AbstractReportModel>();
+		Boxplot dummyReport = new Boxplot();
 		dummyReportsList.add(dummyReport);
 		setReports(dummyReportsList);		
 	}
