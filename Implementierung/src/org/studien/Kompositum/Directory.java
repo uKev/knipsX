@@ -19,7 +19,7 @@ public class Directory implements PictureContainer {
 
 
 
-	@Override
+
 	public ArrayList<?> getItems() {
 		ArrayList<PictureContainer> temp = new ArrayList<PictureContainer>();
 		temp.add(this);
@@ -28,7 +28,7 @@ public class Directory implements PictureContainer {
 
 
 
-	@Override
+
 	public boolean hasNext() {
 		// TODO Auto-generated method stub
 		return false;
@@ -36,7 +36,7 @@ public class Directory implements PictureContainer {
 
 
 
-	@Override
+
 	public Object next() {
 		// TODO Auto-generated method stub
 		return null;
@@ -44,7 +44,7 @@ public class Directory implements PictureContainer {
 
 
 
-	@Override
+
 	public void remove() {
 		// TODO Auto-generated method stub
 		

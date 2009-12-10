@@ -6,7 +6,7 @@ import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectCopy;
 
 public class CopyCancel extends AbstractController {
-	
+
 	private JProjectCopy jProjectCopy;
 	private JAbstractView administrationView;
 

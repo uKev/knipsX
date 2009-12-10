@@ -17,7 +17,6 @@ public class PictureSet implements PictureContainer {
 	}
 
 
-	@Override
 	public ArrayList<?> getItems() {
 		List<PictureContainer> temp = new ArrayList<PictureContainer>();
 		for(PictureContainer element : childs) {
@@ -26,19 +25,16 @@ public class PictureSet implements PictureContainer {
 		return (ArrayList<?>) temp;
 	}
 
-	@Override
 	public boolean hasNext() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public Object next() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void remove() {
 		// TODO Auto-generated method stub
 		

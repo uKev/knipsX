@@ -12,9 +12,7 @@ public class JAbstractView extends JFrame implements Observer {
 	 */
 	private static final long serialVersionUID = -5981384605515636896L;
 
-	@Override
 	public void update(Observable arg0, Object arg1) {
 		/* Does nothing */
 	}
-
 }

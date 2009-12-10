@@ -15,8 +15,7 @@ public class CopyOK extends AbstractController {
 	private JAbstractView administrationView;
 	private ProjectListModel model;
 
-	public CopyOK(JProjectCopy jProjectCopy, JAbstractView view,
-			ProjectEntry toCopy, ProjectListModel model) {
+	public CopyOK(JProjectCopy jProjectCopy, JAbstractView view, ProjectListModel model) {
 		this.jProjectCopy = jProjectCopy;
 		this.model = model;
 		this.administrationView = view;
