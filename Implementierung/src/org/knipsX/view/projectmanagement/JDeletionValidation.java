@@ -29,6 +29,7 @@ public class JDeletionValidation extends JAbstractView implements Observer {
 		this.toDelete = toDelete;
 		initialize();
 		setContentPane(getJContentPane());
+		this.pack();
 	}
 
 	/**
@@ -40,8 +41,7 @@ public class JDeletionValidation extends JAbstractView implements Observer {
 		this.setTitle("Bestätigen");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setVisible(true);
-		this.pack();
+		this.setVisible(true);		
 	}
 
 	/**

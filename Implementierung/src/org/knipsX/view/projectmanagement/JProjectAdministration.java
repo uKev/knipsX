@@ -37,6 +37,7 @@ public class JProjectAdministration extends JAbstractView {
 		super(model);
 		initialize();
 		setContentPane(getJContentPane());
+		this.pack();
 	}
 
 	/**
@@ -48,8 +49,7 @@ public class JProjectAdministration extends JAbstractView {
 		this.setTitle("Projekt Ansicht");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setVisible(true);
-		this.pack();
+		this.setVisible(true);		
 	}
 
 	/**
