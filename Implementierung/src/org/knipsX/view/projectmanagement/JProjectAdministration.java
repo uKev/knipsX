@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import org.knipsX.controller.projectmanagement.CopyProject;
 import org.knipsX.controller.projectmanagement.CreateProject;
@@ -29,6 +30,8 @@ public class JProjectAdministration extends JAbstractView {
 	private JButton jButtonOpenProject = null;
 
 	private JList projectList = null;
+	
+	private JScrollPane jScrollPaneProjectList = null;
 
 	public JProjectAdministration(ProjectListModel model) {
 		super(model);
@@ -62,7 +65,7 @@ public class JProjectAdministration extends JAbstractView {
 		jContentPane.add(getjButtonOpenProject());
 		jContentPane.add(getjButtonDeleteProject());
 		jContentPane.add(getjButtonCopyProject());
-		jContentPane.add(getjListProject());
+		jContentPane.add(getJScrollPaneProjectList());
 
 		return jContentPane;
 	}
@@ -121,6 +124,19 @@ public class JProjectAdministration extends JAbstractView {
 			jButtonOpenProject.addActionListener(new OpenProject(model, this));
 		}
 		return jButtonOpenProject;
+	}
+	
+	/**
+	 * This method initializes jScrollPaneProjectList
+	 * 
+	 * @return javax.swing.JScrollPane
+	 */
+	private JScrollPane getJScrollPaneProjectList() {
+		if (jScrollPaneProjectList == null) {
+			jScrollPaneProjectList = new JScrollPane();
+			jScrollPaneProjectList.setViewportView(getjListProject());
+		}
+		return jScrollPaneProjectList;
 	}
 
 	private JList getjListProject() {

@@ -1,17 +1,14 @@
 package org.knipsX.view.projectview;
 
 import java.awt.BorderLayout;
-
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
-
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.Observable;
-
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JEditorPane;
@@ -19,7 +16,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JTable;
-
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
