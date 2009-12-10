@@ -12,8 +12,6 @@ public class ProjectListModel extends AbstractModel {
 	public static final int COPY = 2;
 	public static final int DELETE = 3;
 	public static final int OPEN = 4;
-				
-	private int modelStatus = SELECT;
 	
 	private List<ProjectEntry> projectList;
 
@@ -82,13 +80,5 @@ public class ProjectListModel extends AbstractModel {
 
 	private String generatePathforID(int id) {
 		return "path";
-	}
-
-	public void setModelStatus(int modelStatus) {
-		this.modelStatus = modelStatus;
-	}
-
-	public int getModelStatus() {
-		return modelStatus;
-	}
+	}	
 }
