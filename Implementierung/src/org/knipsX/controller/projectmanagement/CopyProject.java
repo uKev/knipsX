@@ -21,11 +21,11 @@ public class CopyProject extends AbstractController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		int[] toDelete = view.getListPosis();
-		if (toDelete.length == 1) {
-			ProjectEntry toCopy = this.model.getProjectlist().get(toDelete[0]);
+		int[] toCopy = view.getListPosis();
+		if (toCopy.length == 1) {
+			ProjectEntry projectToCopy = this.model.getProjectlist().get(toCopy[0]);
 			view.setVisible(false);
-			new JProjectCopy(model, toCopy, view);
+			new JProjectCopy(model, projectToCopy, view);
 		} else {
 			System.out.println("FEHLER");
 		}
