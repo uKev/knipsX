@@ -1,0 +1,16 @@
+# Pflichtenheft
+Pflichtenheft.glo
+Pflichtenheft.gls
+Pflichtenheft.ist
+Pflichtenheft.log
+Pflichtenheft.toc
+Pflichtenheft.glg
+Pflichtenheft.aux
+Pflichtenheft.ps
+Pflichtenheft.dvi
+
+# Implementierung
+*.class
+*.classpath
+*.project
+.settings
