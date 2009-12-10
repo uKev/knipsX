@@ -1,39 +1,55 @@
 package org.knipsX.controller.projectmanagement;
 
 import java.awt.event.ActionEvent;
-import java.util.GregorianCalendar;
-
 import org.knipsX.controller.AbstractController;
-import org.knipsX.model.common.ProjectEntry;
+import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectListModel;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectCopy;
 
-public class CopyOK extends AbstractController {
-
+public class CopyOk extends AbstractController {
+	
 	private JProjectCopy jProjectCopy;
-	private JAbstractView administrationView;
+	private JAbstractView jProjectAdministration;
+	
 	private ProjectListModel model;
 
-	public CopyOK(JProjectCopy jProjectCopy, JAbstractView view, ProjectListModel model) {
-		this.jProjectCopy = jProjectCopy;
-		this.model = model;
-		this.administrationView = view;
+	public CopyOk(AbstractModel model, JProjectCopy jProjectCopy, JAbstractView jProjectAdministration) {
+		
+		if(jProjectCopy instanceof JProjectCopy ) {
+			this.jProjectCopy = (JProjectCopy) jProjectCopy;
+		}
+		
+		this.jProjectAdministration = jProjectAdministration;
+		
+		if(model instanceof ProjectListModel ) {
+			this.model = (ProjectListModel) model;	
+		} else {
+			System.out.println("ERROR in CreateOk");
+		}
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent event) {
 		
-		String text = jProjectCopy.gettextfield();
+		String text = jProjectCopy.getProjectName();
+		
 		if ((text.equals("")) || (text.equals("xxx"))) {
-			System.out.println("Kann nicht hinzugef�gt werden");
+			
+			System.out.println("Kann nicht kopiert werden.");	
 		} else {
-			int id = model.generateFreeProjectID();
-			String path = model.generatePathforID(id);
-			model.addToList(new ProjectEntry(id, text, new GregorianCalendar(), path));
+			
+			/* Füge neues Projekt dem Model hinzu */
+			model.addNewProject(jProjectCopy.getProjectToCopy(), text);
+
+			/* Lösche Fenster */
 			jProjectCopy.dispose();
-			administrationView.setVisible(true);
+			
+			/* Zeige Verwaltung an */
+			jProjectAdministration.setVisible(true);
+			
+			/* Aktualisiere Ansicht */
 			model.updateViews();
-		}
+		}	   
 	}
 }

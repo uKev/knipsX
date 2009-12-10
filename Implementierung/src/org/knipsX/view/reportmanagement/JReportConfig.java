@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+
+import org.knipsX.model.reportmanagement.DummyModel;
 import org.knipsX.view.JAbstractView;
 
 
@@ -29,6 +31,7 @@ public class JReportConfig extends JAbstractView {
 	
 	
     public JReportConfig(JAbstractReportConfig reportconfig) {
+    	super(new DummyModel());
     	setPreferredSize(new Dimension(200,200));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);

@@ -20,12 +20,12 @@ public class JDeletionValidation extends JAbstractView implements Observer {
 	private JButton no;
 
 	public JDeletionValidation(AbstractModel model, JAbstractView view) {
-
-		setTitle("Bestätigen");
+		super(model);
+		setTitle("BestÃ¤tigen");
 
 		JPanel panel = new JPanel();
 
-		validationText = new JLabel("Möchten Sie ... wirklich löschen?");
+		validationText = new JLabel("MÃ¶chten Sie ... wirklich lÃ¶schen?");
 
 		yes = new JButton("Ja");
 		yes.addActionListener(new DeletionValidationYes(view, this, model));

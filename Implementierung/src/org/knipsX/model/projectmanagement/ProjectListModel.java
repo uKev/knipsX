@@ -1,5 +1,6 @@
 package org.knipsX.model.projectmanagement;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.common.ProjectEntry;
@@ -28,11 +29,50 @@ public class ProjectListModel extends AbstractModel {
 		this.projectList = projectlist;
 	}
 
-	public int generateFreeProjectID() {
+	/**
+	 * Erstelle komplett neues Projekt.
+	 * 
+	 * @param projectName Der Projektname.
+	 */
+	public void addNewProject(String projectName) {
+		
+		/* Generiere neue ID */
+		int id = this.generateFreeProjectID();
+		
+		/* Generiere neuen Pfad  */
+		String path = this.generatePathforID(id);			
+		
+		/* Füge hinzu */
+		this.projectList.add(0, new ProjectEntry(id, projectName, new GregorianCalendar(), path));	
+		
+		/* TODO Hier fehlen die Routinen zum Schreiben! */
+	}
+	
+	/**
+	 * Erstelle neues Projekt, basierend auf einem alten Projekt. 
+	 * 
+	 * @param projectEntry Das alte Projekt.
+	 * @param projectName Der Projektname.
+	 */
+	public void addNewProject(ProjectEntry projectEntry, String projectName) {
+		
+		/* Generiere neue ID */
+		int id = this.generateFreeProjectID();
+		
+		/* Generiere neuen Pfad  */
+		String path = this.generatePathforID(id);
+		
+		/* Füge hinzu */
+		this.projectList.add(0, new ProjectEntry(id, projectName, new GregorianCalendar(), path));
+		
+		/* TODO Hier fehlen die Routinen zum Kopieren! */
+	}
+	
+	private int generateFreeProjectID() {
 		return 0;
 	}
 
-	public String generatePathforID(int id) {
+	private String generatePathforID(int id) {
 		return "path";
 	}
 }

@@ -3,14 +3,19 @@ package org.knipsX.model.common;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
+
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
+
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.Boxplot;
 
 public class Project extends ProjectEntry {
 	
-	private List<PictureContainer> pictureSets;	
+	/* Die Bildmengen */
+	private List<PictureContainer> pictureSets;
+	
+	/* Die Reports */
 	private List<AbstractReportModel> reports;	
 	
 	public Project(int id, String name, GregorianCalendar creationDate, String path) {

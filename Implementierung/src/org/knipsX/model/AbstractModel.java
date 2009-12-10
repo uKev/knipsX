@@ -8,5 +8,4 @@ public abstract class AbstractModel extends Observable {
 	    setChanged(); 
 	    notifyObservers();		
 	}
-
 }

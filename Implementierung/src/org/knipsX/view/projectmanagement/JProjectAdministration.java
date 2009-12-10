@@ -35,7 +35,7 @@ public class JProjectAdministration extends JAbstractView {
 	
 	public JProjectAdministration(AbstractModel model) {
 		
-		model.addObserver(this);
+		super(model);
 		
 		setTitle("Projekt Ansicht");
 		
@@ -47,16 +47,16 @@ public class JProjectAdministration extends JAbstractView {
 		projectList.setCellRenderer(new ComplexCellRenderer());
 		
 		copyProject = new JButton("Projekt kopieren");
-		copyProject.addActionListener(new CopyProject(this,model));
+		copyProject.addActionListener(new CopyProject(this, model));
         
         createProject = new JButton("Projekt erstellen");
-        createProject.addActionListener(new CreateProject(this,model));
+        createProject.addActionListener(new CreateProject(this, model));
         
         deleteProject = new JButton("Projekt löschen");
-        deleteProject.addActionListener(new DeleteProject(this,model));
+        deleteProject.addActionListener(new DeleteProject(this, model));
         
         openProject = new JButton("Projekt öffnen");
-        openProject.addActionListener(new OpenProject(this,model));
+        openProject.addActionListener(new OpenProject(this, model));
         
         administrationView.add(createProject);
         administrationView.add(openProject);

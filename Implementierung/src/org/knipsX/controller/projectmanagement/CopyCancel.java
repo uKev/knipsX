@@ -8,17 +8,25 @@ import org.knipsX.view.projectmanagement.JProjectCopy;
 public class CopyCancel extends AbstractController {
 
 	private JProjectCopy jProjectCopy;
-	private JAbstractView administrationView;
+	private JAbstractView jProjectAdministration;
 
-	public CopyCancel(JProjectCopy jProjectCopy, JAbstractView view) {
-		this.jProjectCopy = jProjectCopy;
-		this.administrationView = view;
+	public CopyCancel(JAbstractView jProjectCopy, JAbstractView jProjectAdministration) {
+		
+		if(jProjectCopy instanceof JProjectCopy ) {
+			this.jProjectCopy = (JProjectCopy) jProjectCopy;
+		}
+		
+		this.jProjectAdministration = jProjectAdministration;	
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		jProjectCopy.dispose();
-		administrationView.setVisible(true);
+		
+		/* Altes Fenster löschen */
+		this.jProjectCopy.dispose();
+		
+		/* Verwaltung anzeigen */
+		this.jProjectAdministration.setVisible(true);
 	}
 
 }

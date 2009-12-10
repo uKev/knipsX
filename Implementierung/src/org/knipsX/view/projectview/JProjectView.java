@@ -67,10 +67,7 @@ public class JProjectView extends JAbstractView {
 	 * This is the default constructor
 	 */
 	public JProjectView(ProjectViewModel model) {
-		super();
-		
-		this.model = model;
-		this.model.addObserver(this);
+		super(model);
 		initialize();
 	}
 

@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import org.knipsX.model.reportmanagement.DummyModel;
 import org.knipsX.view.JAbstractView;
 
 public class JReportWizard extends JAbstractView {
@@ -22,6 +23,7 @@ public class JReportWizard extends JAbstractView {
 	
 	
 	public JReportWizard(JAbstractReportConfig reportconfig) {
+		super(new DummyModel());
 		this.reportconfig = reportconfig;
 		initialize();
 	}
