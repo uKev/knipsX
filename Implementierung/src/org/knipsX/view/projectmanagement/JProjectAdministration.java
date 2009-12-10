@@ -79,7 +79,7 @@ public class JProjectAdministration extends JAbstractView {
      */
     private void initialize() {
 	
-	/* */
+	/* Setze Titel */
 	this.setTitle("Projekt Ansicht");
 	
 	/* Setze das Hauptpanel */
@@ -88,14 +88,14 @@ public class JProjectAdministration extends JAbstractView {
 	/* Setze Standardschließaktion */
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
+	/* Ändere Größe */
+	this.pack();
+	
 	/* Setze Lokation */
 	this.setLocationRelativeTo(null);
 	
 	/* Zeige Fensert an */
-	this.setVisible(true);
-	
-	/* Ändere Größe */
-	this.pack();
+	this.setVisible(true);	
     }
 
     /**
