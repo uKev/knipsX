@@ -8,6 +8,9 @@ public class ExifAdapter {
 	
 	private String strFilePath;
 	
+	public static enum ExifParameter { Kameramodell, Blitz, Blende, Verschlusszeit, ISO_Wert, Brennweite, 
+		Datum, Wochentag, Uhrzeit, Objektivname }
+	
 	public ExifAdapter() {
 		this.exifData = new JIfdData();
 		this.strFilePath = "";
@@ -91,5 +94,32 @@ public class ExifAdapter {
 	
 	public String getObjective() {
 		return "";
+	}
+	
+	public String getExifParameter(ExifParameter e){
+		switch (e)
+		{
+		case Kameramodell:
+			break;
+		case Blitz:
+			break;
+		case Blende:
+			break;
+		case Verschlusszeit:
+			break;
+		case ISO_Wert:
+			break;
+		case Brennweite:
+			break;
+		case Datum:
+			break;
+		case Wochentag:
+			break;
+		case Uhrzeit:
+			break;
+		case Objektivname:
+			break;
+		}
+		return null;
 	}
 }
