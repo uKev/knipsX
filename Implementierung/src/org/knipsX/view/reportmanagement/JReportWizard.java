@@ -16,12 +16,12 @@ public class JReportWizard extends JAbstractView {
 	 * 
 	 */
 	private static final long serialVersionUID = -7846052667877784072L;
-	private AbstractReportConfig reportconfig;
+	private JAbstractReportConfig reportconfig;
 	private int wizardcounter = 0;
 	private JComponent basic;
 	
 	
-	public JReportWizard(AbstractReportConfig reportconfig) {
+	public JReportWizard(JAbstractReportConfig reportconfig) {
 		this.reportconfig = reportconfig;
 		initialize();
 	}
@@ -50,7 +50,7 @@ public class JReportWizard extends JAbstractView {
         setVisible(true);
 	}
 	
-	public void setReportConfig(AbstractReportConfig reportconfig) {
+	public void setReportConfig(JAbstractReportConfig reportconfig) {
 		remove(this.basic);
 		this.reportconfig = reportconfig;
 		initialize();		

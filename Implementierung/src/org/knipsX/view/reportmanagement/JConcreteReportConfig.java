@@ -1,6 +1,6 @@
 package org.knipsX.view.reportmanagement;
 
-public class JConcreteReportConfig extends AbstractReportConfig {		
+public class JConcreteReportConfig extends JAbstractReportConfig {		
 	
     public JConcreteReportConfig () {    	
     	addPanel(new JConcreteSinglePanel1("Deine", null, "Tooltip Fenster 1"));

@@ -28,7 +28,7 @@ public class JReportConfig extends JAbstractView {
     }   
 	
 	
-    public JReportConfig(AbstractReportConfig reportconfig) {
+    public JReportConfig(JAbstractReportConfig reportconfig) {
     	setPreferredSize(new Dimension(200,200));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -39,7 +39,7 @@ public class JReportConfig extends JAbstractView {
     }	
 
 	
-	public void setReportConfig(AbstractReportConfig reportconfig) {
+	public void setReportConfig(JAbstractReportConfig reportconfig) {
 		this.getContentPane().remove(this.tabbedpane);
 		this.tabbedpane = reportconfig.getJTabbedPane();
 		this.getContentPane().add(this.tabbedpane);
