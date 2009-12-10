@@ -22,13 +22,13 @@ public class OpenProject extends AbstractController{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		int[] toOpen = ((JProjectAdministration)projectAdministration).getListPosis();
+		int[] toOpen = ((JProjectAdministration)projectAdministration).getSelectedIndices();
 		
 		if(toOpen.length == 1) {
 			model.setModelStatus(ProjectListModel.OPEN);
-			System.out.println("Projekt mit ID: " + this.model.getProjectlist().get(toOpen[0]).getId());
-			System.out.println("Projekt mit PATH: " + this.model.getProjectlist().get(toOpen[0]).getPath());
-			ProjectViewModel projectViewModel = new ProjectViewModel(this.model.getProjectlist().get(toOpen[0])); 
+			System.out.println("Projekt mit ID: " + this.model.getProjectList().get(toOpen[0]).getId());
+			System.out.println("Projekt mit PATH: " + this.model.getProjectList().get(toOpen[0]).getPath());
+			ProjectViewModel projectViewModel = new ProjectViewModel(this.model.getProjectList().get(toOpen[0])); 
 			model.updateViews();
 			JAbstractView projectView = new JProjectView(projectViewModel);
 			projectViewModel.updateViews();			

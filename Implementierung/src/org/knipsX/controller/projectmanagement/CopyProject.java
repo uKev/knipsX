@@ -21,9 +21,9 @@ public class CopyProject extends AbstractController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		int[] toCopy = view.getListPosis();
+		int[] toCopy = view.getSelectedIndices();
 		if (toCopy.length == 1) {
-			ProjectEntry projectToCopy = this.model.getProjectlist().get(toCopy[0]);
+			ProjectEntry projectToCopy = this.model.getProjectList().get(toCopy[0]);
 			model.setModelStatus(ProjectListModel.COPY);
 			new JProjectCopy(model, projectToCopy);
 			model.updateViews();

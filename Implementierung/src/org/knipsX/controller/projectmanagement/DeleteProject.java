@@ -21,7 +21,7 @@ public class DeleteProject extends AbstractController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		int[] toDelete = view.getListPosis();
+		int[] toDelete = view.getSelectedIndices();
 		if ((toDelete.length == 0) || (toDelete == null)) {
 			System.out
 					.println("Bitte mindestens ein Element zum löschen auswählen");

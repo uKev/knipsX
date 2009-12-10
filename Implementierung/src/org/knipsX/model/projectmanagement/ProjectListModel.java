@@ -29,7 +29,7 @@ public class ProjectListModel extends AbstractModel {
 		projectList.add(0, projectEntry);		
 	}
 
-	public List<ProjectEntry> getProjectlist() {
+	public List<ProjectEntry> getProjectList() {
 		return projectList;
 	}
 

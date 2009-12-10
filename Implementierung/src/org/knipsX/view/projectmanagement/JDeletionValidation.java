@@ -115,7 +115,7 @@ public class JDeletionValidation extends JAbstractView implements Observer {
 	private String generateToDeleteText() {
 		String deleteText = "";
 		for (int n = 0; n < toDelete.length; ++n) {
-			deleteText += ((ProjectListModel) model).getProjectlist().get(toDelete[n]).getName()+";";
+			deleteText += ((ProjectListModel) model).getProjectList().get(toDelete[n]).getName()+";";
 		}
 		return deleteText;
 	}
