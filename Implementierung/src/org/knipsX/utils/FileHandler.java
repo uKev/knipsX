@@ -21,6 +21,10 @@ public class FileHandler {
      * Determines the path to the directory where all projects of the program are stored.
      */
     public static final String projectFilePath = System.getProperty("user.home") + File.separator + ".knipsX";
+    
+    /* utility class - no constructor allowed! */
+    private FileHandler() {
+    }
 
     /**
      * Scans a the directory where all projects of the program are stored an creates for each project configuration file
@@ -42,7 +46,5 @@ public class FileHandler {
 	return projectList;
     }
 
-    /* utility class - no constructor allowed! */
-    private FileHandler() {
-    }
+    
 }
