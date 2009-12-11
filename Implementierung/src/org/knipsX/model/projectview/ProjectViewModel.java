@@ -12,14 +12,23 @@ public class ProjectViewModel extends ProjectEntry {
 	
 	public static final int USERSELECT = 0;
 	public static final int SWITCHPROJECT = 1;
-					
+	public static final int SAVEPROJECT = 2;
+	public static final int CREATEPICTURESET = 3;
+	public static final int DELETEPICTURESET = 4;
+	public static final int COPYPICTURESET = 5;
+	public static final int CREATEREPORT = 6;
+	public static final int DELETEREPORT = 7;
+	public static final int ADDTOPICTURESET = 8;
+						
 	private int modelStatus = USERSELECT;
 	
 	/* Die Bildmengen */
 	private List<PictureContainer> pictureSets;
 	
 	/* Die Reports */
-	private List<AbstractReportModel> reports;	
+	private List<AbstractReportModel> reports;
+	
+	private String projectDescription;
 	
 	public ProjectViewModel(ProjectEntry projectEntry) {
 		super(projectEntry);
@@ -67,5 +76,13 @@ public class ProjectViewModel extends ProjectEntry {
 	
 	public String getProjectName() {
 		return this.getName();
+	}
+
+	public void setProjectDescription(String projectDescription) {
+		this.projectDescription = projectDescription;
+	}
+
+	public String getProjectDescription() {
+		return projectDescription;
 	}	
 }
