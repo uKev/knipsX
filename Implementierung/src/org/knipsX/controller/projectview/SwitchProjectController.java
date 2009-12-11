@@ -10,11 +10,11 @@ import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectAdministration;
 
-public class SwitchProject extends AbstractController {
+public class SwitchProjectController extends AbstractController {
 	
 	private ProjectViewModel model;
 			
-	public SwitchProject(AbstractModel model) {
+	public SwitchProjectController(AbstractModel model) {
 		this.model = (ProjectViewModel) model;
 	}
 

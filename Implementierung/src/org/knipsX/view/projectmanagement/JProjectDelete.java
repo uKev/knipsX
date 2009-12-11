@@ -8,8 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.knipsX.controller.projectmanagement.DeletionValidationNo;
-import org.knipsX.controller.projectmanagement.DeletionValidationYes;
+import org.knipsX.controller.projectmanagement.DeletionValidationNoController;
+import org.knipsX.controller.projectmanagement.DeletionValidationYesController;
 import org.knipsX.model.projectmanagement.ProjectListModel;
 import org.knipsX.view.JAbstractView;
 
@@ -89,7 +89,7 @@ public class JProjectDelete extends JAbstractView implements Observer {
 		if (this.jButtonNo == null) {
 			this.jButtonNo = new JButton();
 			this.jButtonNo.setText("Nein");
-			this.jButtonNo.addActionListener(new DeletionValidationNo(this.model));
+			this.jButtonNo.addActionListener(new DeletionValidationNoController(this.model));
 		}
 		return this.jButtonNo;
 	}
@@ -103,7 +103,7 @@ public class JProjectDelete extends JAbstractView implements Observer {
 		if (this.jButtonYes == null) {
 			this.jButtonYes = new JButton();
 			this.jButtonYes.setText("Ja");
-			this.jButtonYes.addActionListener(new DeletionValidationYes(this.model, this.toDelete));
+			this.jButtonYes.addActionListener(new DeletionValidationYesController(this.model, this.toDelete));
 		}
 		return this.jButtonYes;
 	}
