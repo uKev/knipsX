@@ -107,8 +107,8 @@ public class JProjectNew extends JAbstractView {
     @Override
     public void update(final Observable o, final Object arg) {
 	
-	/* Bekomme das Modell geliefert */
-	final ProjectListModel model = (ProjectListModel) o;
+		/* Bekomme das Modell geliefert */
+		final ProjectListModel model = (ProjectListModel) o;
 	
 	/* Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind für einen namen. */
 	if (model.getModelStatus() == ProjectListModel.NEW) {
