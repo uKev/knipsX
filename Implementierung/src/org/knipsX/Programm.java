@@ -42,7 +42,7 @@ public class Programm {
 	final List<ProjectEntry> projectList = new LinkedList<ProjectEntry>();
 
 	/* Füge Projekte hinzu */
-	projectList.add(new ProjectEntry(1, "Schwarzwald", new GregorianCalendar(2009, 11, 12, 13, 42, 43), ""));
+	projectList.add(new ProjectEntry(1, "Schwarzwald", new GregorianCalendar(2009, 11, 12, 7, 9, 3), ""));
 	projectList.add(new ProjectEntry(2, "Der Ehhhhhhhmer", new GregorianCalendar(2009, 11, 12, 12, 42, 43), ""));
 
 	/* Gib Liste zurück */

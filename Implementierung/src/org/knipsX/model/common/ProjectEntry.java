@@ -1,5 +1,6 @@
 package org.knipsX.model.common;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import org.knipsX.model.AbstractModel;
@@ -66,12 +67,14 @@ public class ProjectEntry extends AbstractModel {
 	
 	public String calendarToString () {
 		int year	= creationDate.get(Calendar.YEAR);
-		int month	= creationDate.get(Calendar.MONTH);
+		int month	= creationDate.get(Calendar.MONTH) + 1;
 		int day		= creationDate.get(Calendar.DAY_OF_MONTH);
 		int hour	= creationDate.get(Calendar.HOUR_OF_DAY);
 		int minute	= creationDate.get(Calendar.MINUTE);
 		int second	= creationDate.get(Calendar.SECOND);
-		String dateAndTime = day+"."+month+"."+year+" - "+hour+":"+minute+":"+second;		
-		return dateAndTime;		
+		
+		DecimalFormat df = new DecimalFormat("00");
+			
+		return day+"."+month+"."+year+" - "+df.format(hour)+":"+df.format(minute)+":"+df.format(second);		
 	}
 }

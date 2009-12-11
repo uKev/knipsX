@@ -26,7 +26,6 @@ class ComplexCellRenderer implements ListCellRenderer {
     /* Definiere Standardrenderer */
     protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-    @Override
     public Component getListCellRendererComponent(final JList list, final Object value, final int index,
 	    final boolean isSelected, final boolean cellHasFocus) {
 	String theText = null;
