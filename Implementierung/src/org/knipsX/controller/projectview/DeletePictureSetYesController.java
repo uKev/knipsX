@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 
-public class DeleteFromPictureSetNoController extends AbstractController {
-
-	public DeleteFromPictureSetNoController(AbstractModel model) {
+public class DeletePictureSetYesController extends AbstractController {
+	
+	public DeletePictureSetYesController(AbstractModel model, int[] toDelete) {
 		super(model);
 	}
 

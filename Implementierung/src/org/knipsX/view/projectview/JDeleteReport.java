@@ -5,11 +5,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import org.knipsX.controller.projectview.DeleteFromPictureSetNoController;
-import org.knipsX.controller.projectview.DeleteFromPictureSetYesController;
 import org.knipsX.controller.projectview.DeleteReportNoController;
 import org.knipsX.controller.projectview.DeleteReportOkController;
-import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.model.AbstractModel;
 import org.knipsX.view.JAbstractView;
 
 public class JDeleteReport extends JAbstractView{
@@ -25,7 +23,7 @@ public class JDeleteReport extends JAbstractView{
 
 	private final int[] toDelete;
 
-	public JDeleteReport(final ProjectListModel model, final int[] toDelete) {
+	public JDeleteReport(final AbstractModel model, final int[] toDelete) {
 
 		/* Setze Modell */
 		super(model);

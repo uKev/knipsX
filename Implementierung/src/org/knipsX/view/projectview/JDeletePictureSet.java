@@ -5,8 +5,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import org.knipsX.controller.projectview.DeleteFromPictureSetNoController;
-import org.knipsX.controller.projectview.DeleteFromPictureSetYesController;
+import org.knipsX.controller.projectview.DeletePictureSetNoController;
+import org.knipsX.controller.projectview.DeletePictureSetYesController;
 import org.knipsX.model.projectmanagement.ProjectListModel;
 import org.knipsX.view.JAbstractView;
 
@@ -86,7 +86,7 @@ public class JDeletePictureSet extends JAbstractView {
 		if (this.jButtonNo == null) {
 			this.jButtonNo = new JButton();
 			this.jButtonNo.setText("Nein");
-			this.jButtonNo.addActionListener(new DeleteFromPictureSetNoController(this.model));
+			this.jButtonNo.addActionListener(new DeletePictureSetNoController(this.model));
 		}
 		return this.jButtonNo;
 	}
@@ -100,7 +100,7 @@ public class JDeletePictureSet extends JAbstractView {
 		if (this.jButtonYes == null) {
 			this.jButtonYes = new JButton();
 			this.jButtonYes.setText("Ja");
-			this.jButtonYes.addActionListener(new DeleteFromPictureSetYesController(this.model, this.toDelete));
+			this.jButtonYes.addActionListener(new DeletePictureSetYesController(this.model, this.toDelete));
 		}
 		return this.jButtonYes;
 	}
