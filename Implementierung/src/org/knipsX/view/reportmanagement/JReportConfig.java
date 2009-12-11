@@ -2,6 +2,8 @@ package org.knipsX.view.reportmanagement;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.Observable;
+
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -47,6 +49,13 @@ public class JReportConfig extends JAbstractView {
 		this.tabbedpane = reportconfig.getJTabbedPane();
 		this.getContentPane().add(this.tabbedpane);
 		repaint();
+	}
+
+
+	@Override
+	public void update(Observable model, Object argument) {
+	    // TODO Auto-generated method stub
+	    
 	}	
 	
 	
