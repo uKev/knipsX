@@ -1,26 +1,25 @@
 package org.knipsX.controller.projectmanagement;
 
 import java.awt.event.ActionEvent;
-
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.view.projectmanagement.JProjectNew;
 
-public class CreateCancel extends AbstractController {
+public class CreateProjectController extends AbstractController {
 	
 	private ProjectListModel model;
-
-	public CreateCancel(AbstractModel projectlistModel) {
-		
-		if(projectlistModel instanceof ProjectListModel ) {
-			this.model = (ProjectListModel) projectlistModel;
-		}	
+	
+	public CreateProjectController(AbstractModel model) {
+		this.model = (ProjectListModel) model;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		model.setModelStatus(ProjectListModel.SELECT);
+		
+		/*  Aktuelle View unsichtbar machen */
+		model.setModelStatus(ProjectListModel.NEW);
+		new JProjectNew(model);
 		model.updateViews();
 	}
-
 }

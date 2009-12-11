@@ -10,7 +10,7 @@ import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectAdministration;
 import org.knipsX.view.projectmanagement.JProjectCopy;
 
-public class CopyProject extends AbstractController {
+public class CopyProjectController extends AbstractController {
 
     /* Die View */
     private JProjectAdministration view;
@@ -18,7 +18,7 @@ public class CopyProject extends AbstractController {
     /* Das Modell */
     private ProjectListModel model;
 
-    public CopyProject(final JAbstractView jProjectAdministration, final AbstractModel abstractModel) {
+    public CopyProjectController(final JAbstractView jProjectAdministration, final AbstractModel abstractModel) {
 
 	/* Cast View */
 	if (jProjectAdministration instanceof JProjectAdministration) {

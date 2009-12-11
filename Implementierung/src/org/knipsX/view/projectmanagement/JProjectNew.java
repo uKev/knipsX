@@ -5,8 +5,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import org.knipsX.controller.projectmanagement.CreateCancel;
-import org.knipsX.controller.projectmanagement.CreateOk;
+import org.knipsX.controller.projectmanagement.CreateCancelController;
+import org.knipsX.controller.projectmanagement.CreateOkController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectListModel;
 import org.knipsX.view.JAbstractView;
@@ -76,7 +76,7 @@ public class JProjectNew extends JAbstractView {
 		if (this.jButtonConfirm == null) {
 			this.jButtonConfirm = new JButton("Ok");
 
-			this.jButtonConfirm.addActionListener(new CreateOk(this.model, this));
+			this.jButtonConfirm.addActionListener(new CreateOkController(this.model, this));
 		}
 		return this.jButtonConfirm;
 	}
@@ -86,7 +86,7 @@ public class JProjectNew extends JAbstractView {
 		if (this.jButtonCancel == null) {
 			this.jButtonCancel = new JButton("Abbrechen");
 
-			this.jButtonCancel.addActionListener(new CreateCancel(this.model));
+			this.jButtonCancel.addActionListener(new CreateCancelController(this.model));
 		}
 		return this.jButtonCancel;
 	}

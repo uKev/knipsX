@@ -9,12 +9,12 @@ import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectAdministration;
 import org.knipsX.view.projectview.JProjectView;
 
-public class OpenProject extends AbstractController{
+public class OpenProjectController extends AbstractController{
 
 	private ProjectListModel model;
 	private JProjectAdministration projectAdministration;
 	
-	public OpenProject(AbstractModel model, JAbstractView view) {
+	public OpenProjectController(AbstractModel model, JAbstractView view) {
 		this.model = (ProjectListModel) model;
 		this.projectAdministration = (JProjectAdministration) view;
 	}
