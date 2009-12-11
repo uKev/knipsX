@@ -31,6 +31,7 @@ import org.knipsX.controller.projectview.DeletePictureSetController;
 import org.knipsX.controller.projectview.RefreshProjectViewController;
 import org.knipsX.controller.projectview.SaveProjectController;
 import org.knipsX.controller.projectview.SwitchProjectController;
+import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
@@ -128,9 +129,11 @@ public class JProjectView extends JAbstractView {
     /**
      * Creates a project view connected with an appropriate model.
      */
-    public JProjectView(final ProjectViewModel projectViewModel) {
+<<<<<<< .mine    public JProjectView(final AbstractModel model) {
+	
+=======    public JProjectView(final ProjectViewModel projectViewModel) {
 
-	/* sets the model */
+>>>>>>> .theirs	/* sets the model */
 	super(projectViewModel);
 
 	/* renders the view */

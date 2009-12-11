@@ -12,6 +12,6 @@ public class DropToPictureSetContentController extends AbstractController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		model.updateViews();
 	}
 }

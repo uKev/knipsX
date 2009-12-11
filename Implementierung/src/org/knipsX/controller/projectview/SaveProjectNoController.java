@@ -5,9 +5,9 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 
-public class DeleteReportOkController extends AbstractController {
+public class SaveProjectNoController extends AbstractController {
 
-	public DeleteReportOkController(AbstractModel model, int[] toDelete) {
+	public SaveProjectNoController(AbstractModel model) {
 		super(model);
 	}
 

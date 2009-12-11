@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.view.projectview.JReportNew;
-
 public class CreateReportOkController extends AbstractController {
 
 	public CreateReportOkController(AbstractModel model, JReportNew jReportNew) {
@@ -13,6 +12,7 @@ public class CreateReportOkController extends AbstractController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		//TODO Hier wird der Assisten aufgerufen
+		model.updateViews();
 	}
 }
