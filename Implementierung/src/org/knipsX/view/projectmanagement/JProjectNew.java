@@ -1,12 +1,10 @@
 package org.knipsX.view.projectmanagement;
 
 import java.util.Observable;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import org.knipsX.controller.projectmanagement.CreateCancel;
 import org.knipsX.controller.projectmanagement.CreateOk;
 import org.knipsX.model.AbstractModel;

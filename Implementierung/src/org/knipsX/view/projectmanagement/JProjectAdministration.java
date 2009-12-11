@@ -38,7 +38,7 @@ class ComplexCellRenderer implements ListCellRenderer {
 	/* Wenn ein Projekt vorliegt, setze Text */
 	if (value instanceof ProjectEntry) {
 	    final ProjectEntry projectEntry = (ProjectEntry) value;
-	    theText = projectEntry.getName() + " " + projectEntry.getCreationDate();
+	    theText = projectEntry.getName() + " " + projectEntry.calendarToString();
 	}
 	renderer.setText(theText);
 
