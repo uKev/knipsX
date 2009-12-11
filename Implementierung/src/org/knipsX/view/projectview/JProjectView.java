@@ -1,817 +1,701 @@
+/**
+ * This package is the root of all files regarding the "project view".
+ */
 package org.knipsX.view.projectview;
 
+/* import things from the java sdk */
 import java.awt.BorderLayout;
-import javax.swing.BorderFactory;
-import javax.swing.GroupLayout;
-import javax.swing.JPanel;
-import javax.swing.LayoutStyle;
-import javax.swing.ListSelectionModel;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.Observable;
-import javax.swing.JTextField;
-import javax.swing.JScrollPane;
-import javax.swing.JEditorPane;
-import javax.swing.border.TitledBorder;
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.TitledBorder;
+
+/* import things from our program */
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
 public class JProjectView extends JAbstractView {
 
-	private static final long serialVersionUID = 1L;
+    /** Only for serialisation */
+    private static final long serialVersionUID = 6747507429332590686L;
+    
+    /* represents the main pane for the view */
+    private JPanel jContentPane = null;
+    
+    /* represents the main pane for the project options */
+    private JPanel jPanelProjectOptions = null;
+    
+    /* represents the main pane for the project description */
+    private JPanel jPanelProjectDescription = null;
+    
+    /* represents the main pane for the picture set */
+    private JPanel jPanelPictureSet = null;
+    
+    /* represents the main pane for the picture set options */
+    private JPanel jPanelPictureSetOptions = null;
+    
+    /* represents the main pane for the picture set content */
+    private JPanel jPanelPictureSetContent = null;
+    
+    /* represents the main pane for the picture set content options */
+    private JPanel jPanelPictureSetContentOptions = null;
+    
+    /* represents the main pane for the image view of the active project */
+    private JPanel jPanelPictureSetActive = null;
+    
+    /* represents the main pane for the reports */
+    private JPanel jPanelReport = null;
+    
+    /* represents the main pane for the exif data of an active image */
+    private JPanel jPanelExif = null;
 
-	private JPanel jContentPane = null;
-	private JPanel jPanelProjectOptions = null;
-	private JPanel jPanelProjectDescription = null;
-	private JPanel jPanelPictureSet = null;
-	private JPanel jPanelPictureSetOptions = null;
-	private JPanel jPanelPictureSetContent = null;
-	private JPanel jPanelPictureSetContentOptions = null;
-	private JPanel jPanelPictureSetActive = null;
-	private JPanel jPanelReport = null;
-	private JPanel jPanelExif = null;
+    /* adds scrollbars to the project description */
+    private JScrollPane jScrollPaneProjectDescription = null;
+    
+    /* adds scrollbars to the exif data */
+    private JScrollPane jScrollPaneExif = null;
 
-	private JScrollPane jScrollPaneProjectDescription = null;
-	private JScrollPane jScrollPaneExif = null;
+    /* represents the project description field */
+    private JEditorPane jEditorPaneProjectDescription = null;
 
-	private JEditorPane jEditorPaneProjectDescription = null;
+    /* represents the project name field */
+    private JTextField jTextFieldProjectName = null;
 
-	private JTextField jTextFieldProjectDescription = null;
+    /* represents the button which handles the project save action */
+    private JButton jButtonProjectSave = null;
+    
+    /* represents the button which handles the project change action */
+    private JButton jButtonProjectChange = null;
+    
+    /* represents the button which handles the picture set create action */
+    private JButton jButtonPictureSetCreate = null;
+    
+    /* represents the button which handles the picture set delete action */
+    private JButton jButtonPictureSetDelete = null;
+    
+    /* represents the button which handles the picture set copy action */
+    private JButton jButtonPictureSetCopy = null;
+    
+    /* represents the button which handles the picture set content add action */
+    private JButton jButtonPictureSetContentAdd = null;
+    
+    /* represents the button which handles the picture set content delete action */
+    private JButton jButtonPictureSetContentDelete = null;
+    
+    /* represents the button which handles the picture set content refresh action */
+    private JButton jButtonPictureSetContentRefresh = null;
 
-	private JButton jButtonProjectSave = null;
-	private JButton jButtonProjectChange = null;
-	private JButton jButtonPictureSetCreate = null;
-	private JButton jButtonPictureSetDelete = null;
-	private JButton jButtonPictureSetCopy = null;
-	private JButton jButtonPictureSetContentAdd = null;
-	private JButton jButtonPictureSetContentDelete = null;
-	private JButton jButtonPictureSetContentRefresh = null;
+    /* represents the list which contains all picture sets of a project */
+    private JList jListPictureSet = null;
+    
+    /* represents the list which contains all picture containers of an active picture set */
+    private JList jListPictureSetContent = null;
+    
+    /* represents the list which contains all images of an active picture container */
+    private JList jListPictureSetActive = null;
+    
+    /* represents the list which contains all reports of a project */
+    private JList jListReport = null;
+    
+    /* represents the table which contains all exif parameters of an active image */
+    private JTable jTableExif = null;
 
-	private JList jListPictureSet = null;
-	private JList jListPictureSetContent = null;
-	private JList jListPictureSetActive = null;
-	private JList jListReport = null;
+    /**
+     * Creates a project view connected with an appropriate model.
+     */
+    public JProjectView(final ProjectViewModel model) {
+	
+	/* sets the model */
+	super(model);
+	
+	/* renders the view */
+	this.initialize();
+    }
 
-	private JTable jTableExif = null;
-
-	/* Die Repräsentation des aktuellen Projekts */
-	private ProjectViewModel model;
-
-	/**
-	 * This is the default constructor
-	 */
-	public JProjectView(ProjectViewModel model) {
-		super(model);
-		initialize();
+    /**
+     * This method initializes jButtonPictureSetContentAdd
+     * 
+     * @return javax.swing.JButton
+     */
+    private JButton getJButtonPictureSetContentAdd() {
+	if (this.jButtonPictureSetContentAdd == null) {
+	    this.jButtonPictureSetContentAdd = new JButton();
+	    this.jButtonPictureSetContentAdd.setText("Hinzufügen");
 	}
+	return this.jButtonPictureSetContentAdd;
+    }
 
-	/**
-	 * This method initializes this
-	 * 
-	 * @return void
-	 */
-	private void initialize() {
-		this.setContentPane(getJContentPane());
-		this.setVisible(true);
-		this.pack();
+    /**
+     * This method initializes jButtonPictureSetContentDelete
+     * 
+     * @return javax.swing.JButton
+     */
+    private JButton getJButtonPictureSetContentDelete() {
+	if (this.jButtonPictureSetContentDelete == null) {
+	    this.jButtonPictureSetContentDelete = new JButton();
+	    this.jButtonPictureSetContentDelete.setText("Entfernen");
 	}
+	return this.jButtonPictureSetContentDelete;
+    }
 
-	/**
-	 * This method initializes jContentPane
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJContentPane() {
-		if (jContentPane == null) {
-			jContentPane = new JPanel();
-
-			GroupLayout jContentPaneLayout = new GroupLayout(jContentPane);
-
-			jContentPaneLayout
-					.setHorizontalGroup(jContentPaneLayout
-							.createParallelGroup(GroupLayout.Alignment.LEADING)
-							.addGroup(
-									jContentPaneLayout
-											.createSequentialGroup()
-											.addGroup(
-													jContentPaneLayout
-															.createParallelGroup(
-																	GroupLayout.Alignment.TRAILING)
-															.addComponent(
-																	this
-																			.getJPanelProjectOptions(),
-																	GroupLayout.Alignment.LEADING,
-																	GroupLayout.DEFAULT_SIZE,
-																	272,
-																	Short.MAX_VALUE)
-															.addComponent(
-																	this
-																			.getJPanelProjectDescription(),
-																	GroupLayout.Alignment.LEADING,
-																	GroupLayout.DEFAULT_SIZE,
-																	272,
-																	Short.MAX_VALUE)
-															.addComponent(
-																	this
-																			.getJPanelPictureSet(),
-																	GroupLayout.Alignment.LEADING,
-																	GroupLayout.DEFAULT_SIZE,
-																	272,
-																	Short.MAX_VALUE)
-															.addComponent(
-																	this
-																			.getJPanelPictureSetContent(),
-																	GroupLayout.Alignment.LEADING,
-																	GroupLayout.DEFAULT_SIZE,
-																	272,
-																	Short.MAX_VALUE))
-											.addPreferredGap(
-													LayoutStyle.ComponentPlacement.RELATED)
-											.addComponent(
-													this
-															.getJPanelPictureSetActive(),
-													GroupLayout.DEFAULT_SIZE,
-													GroupLayout.DEFAULT_SIZE,
-													Short.MAX_VALUE)
-											.addGap(6, 6, 6)
-											.addGroup(
-													jContentPaneLayout
-															.createParallelGroup(
-																	GroupLayout.Alignment.LEADING)
-															.addComponent(
-																	this
-																			.getJPanelReport(),
-																	GroupLayout.PREFERRED_SIZE,
-																	240,
-																	Short.MAX_VALUE)
-															.addComponent(
-																	this
-																			.getJPanelExif(),
-																	0,
-																	240,
-																	Short.MAX_VALUE))
-											.addGap(0, 0, 0)));
-			jContentPaneLayout
-					.setVerticalGroup(jContentPaneLayout
-							.createParallelGroup(GroupLayout.Alignment.LEADING)
-							.addGroup(
-									GroupLayout.Alignment.TRAILING,
-									jContentPaneLayout
-											.createSequentialGroup()
-											.addComponent(
-													this
-															.getJPanelProjectOptions(),
-													GroupLayout.DEFAULT_SIZE,
-													77, Short.MAX_VALUE)
-											.addPreferredGap(
-													LayoutStyle.ComponentPlacement.RELATED)
-											.addComponent(
-													this
-															.getJPanelProjectDescription(),
-													GroupLayout.DEFAULT_SIZE,
-													GroupLayout.DEFAULT_SIZE,
-													Short.MAX_VALUE)
-											.addPreferredGap(
-													LayoutStyle.ComponentPlacement.RELATED)
-											.addComponent(
-													this.getJPanelPictureSet(),
-													GroupLayout.DEFAULT_SIZE,
-													GroupLayout.DEFAULT_SIZE,
-													Short.MAX_VALUE)
-											.addPreferredGap(
-													LayoutStyle.ComponentPlacement.RELATED)
-											.addComponent(
-													this
-															.getJPanelPictureSetContent(),
-													GroupLayout.DEFAULT_SIZE,
-													GroupLayout.DEFAULT_SIZE,
-													Short.MAX_VALUE))
-							.addGroup(
-									jContentPaneLayout
-											.createSequentialGroup()
-											.addComponent(
-													this.getJPanelReport(),
-													GroupLayout.DEFAULT_SIZE,
-													GroupLayout.DEFAULT_SIZE,
-													Short.MAX_VALUE)
-											.addPreferredGap(
-													LayoutStyle.ComponentPlacement.RELATED)
-											.addComponent(this.getJPanelExif(),
-													GroupLayout.DEFAULT_SIZE,
-													249, Short.MAX_VALUE))
-							.addComponent(this.getJPanelPictureSetActive(),
-									GroupLayout.DEFAULT_SIZE,
-									GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-
-			jContentPane.setLayout(jContentPaneLayout);
-
-			jContentPane.add(getJPanelProjectOptions(), null);
-			jContentPane.add(getJPanelProjectDescription(), null);
-			jContentPane.add(getJPanelPictureSet(), null);
-			jContentPane.add(getJPanelPictureSetContent(), null);
-			jContentPane.add(getJPanelPictureSetActive(), null);
-			jContentPane.add(getJPanelReport(), null);
-			jContentPane.add(getJPanelExif(), null);
-		}
-		return jContentPane;
+    /**
+     * This method initializes jButtonPictureSetContentRefresh
+     * 
+     * @return javax.swing.JButton
+     */
+    private JButton getJButtonPictureSetContentRefresh() {
+	if (this.jButtonPictureSetContentRefresh == null) {
+	    this.jButtonPictureSetContentRefresh = new JButton();
+	    this.jButtonPictureSetContentRefresh.setText("Aktualisieren");
 	}
+	return this.jButtonPictureSetContentRefresh;
+    }
 
-	/**
-	 * This method initializes jPanelPictureSet
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJPanelPictureSet() {
-		if (jPanelPictureSet == null) {
-			jPanelPictureSet = new JPanel();
-			TitledBorder title = BorderFactory.createTitledBorder(BorderFactory
-					.createEmptyBorder(), "Bildmengen");
-			jPanelPictureSet.setBorder(title);
-			jPanelPictureSet.setLayout(new BorderLayout());
-			jPanelPictureSet.add(getJListPictureSet(), BorderLayout.NORTH);
-			jPanelPictureSet.add(getJPanelPictureSetOptions(),
-					BorderLayout.CENTER);
-
-			jPanelPictureSet.setMinimumSize(new Dimension(250, 135));
-			jPanelPictureSet.setPreferredSize(new Dimension(250, 135));
-		}
-		return jPanelPictureSet;
+    /**
+     * This method initializes jButtonPictureSetCopy
+     * 
+     * @return javax.swing.JButton
+     */
+    private JButton getJButtonPictureSetCopy() {
+	if (this.jButtonPictureSetCopy == null) {
+	    this.jButtonPictureSetCopy = new JButton();
+	    this.jButtonPictureSetCopy.setText("Kopieren");
 	}
+	return this.jButtonPictureSetCopy;
+    }
 
-	/**
-	 * This method initializes jTextFieldProjectDescription
-	 * 
-	 * @return javax.swing.JTextField
-	 */
-	private JTextField getJTextFieldProjectDescription() {
-		if (jTextFieldProjectDescription == null) {
-			jTextFieldProjectDescription = new JTextField();
-		}
-		return jTextFieldProjectDescription;
+    /**
+     * This method initializes jButtonPictureSetCreate
+     * 
+     * @return javax.swing.JButton
+     */
+    private JButton getJButtonPictureSetCreate() {
+	if (this.jButtonPictureSetCreate == null) {
+	    this.jButtonPictureSetCreate = new JButton();
+	    this.jButtonPictureSetCreate.setText("Erstellen");
 	}
+	return this.jButtonPictureSetCreate;
+    }
 
-	/**
-	 * This method initializes jPanelProjectOptions
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJPanelProjectOptions() {
-		if (jPanelProjectOptions == null) {
-			jPanelProjectOptions = new JPanel();
-
-			GroupLayout jPanelProjectOptionsLayout = new GroupLayout(
-					jPanelProjectOptions);
-
-			jPanelProjectOptionsLayout
-					.setHorizontalGroup(jPanelProjectOptionsLayout
-							.createParallelGroup(GroupLayout.Alignment.LEADING)
-							.addGroup(
-									GroupLayout.Alignment.TRAILING,
-									jPanelProjectOptionsLayout
-											.createSequentialGroup()
-											.addContainerGap()
-											.addGroup(
-													jPanelProjectOptionsLayout
-															.createParallelGroup(
-																	GroupLayout.Alignment.TRAILING)
-															.addComponent(
-																	getJTextFieldProjectDescription(),
-																	GroupLayout.DEFAULT_SIZE,
-																	240,
-																	Short.MAX_VALUE)
-															.addGroup(
-																	jPanelProjectOptionsLayout
-																			.createSequentialGroup()
-																			.addComponent(
-																					getJButtonProjectChange())
-																			.addPreferredGap(
-																					LayoutStyle.ComponentPlacement.RELATED)
-																			.addComponent(
-																					getJButtonProjectSave())))
-											.addContainerGap()));
-			jPanelProjectOptionsLayout
-					.setVerticalGroup(jPanelProjectOptionsLayout
-							.createParallelGroup(GroupLayout.Alignment.LEADING)
-							.addGroup(
-									jPanelProjectOptionsLayout
-											.createSequentialGroup()
-											.addGroup(
-													jPanelProjectOptionsLayout
-															.createParallelGroup(
-																	GroupLayout.Alignment.BASELINE)
-															.addComponent(
-																	getJButtonProjectSave())
-															.addComponent(
-																	getJButtonProjectChange()))
-											.addPreferredGap(
-													LayoutStyle.ComponentPlacement.RELATED,
-													7, Short.MAX_VALUE)
-											.addComponent(
-													getJTextFieldProjectDescription(),
-													GroupLayout.PREFERRED_SIZE,
-													GroupLayout.DEFAULT_SIZE,
-													GroupLayout.PREFERRED_SIZE)));
-
-			TitledBorder title = BorderFactory.createTitledBorder(BorderFactory
-					.createEmptyBorder(), "Projekt");
-			jPanelProjectOptions.setBorder(title);
-
-			jPanelProjectOptions.setLayout(jPanelProjectOptionsLayout);
-
-			jPanelProjectOptions.add(getJTextFieldProjectDescription());
-			jPanelProjectOptions.add(getJButtonProjectSave());
-			jPanelProjectOptions.add(getJButtonProjectChange());
-
-			jPanelProjectOptions.setMinimumSize(new Dimension(250, 60));
-			jPanelProjectOptions.setPreferredSize(new Dimension(250, 60));
-		}
-		return jPanelProjectOptions;
+    /**
+     * This method initializes jButtonPictureSetDelete
+     * 
+     * @return javax.swing.JButton
+     */
+    private JButton getJButtonPictureSetDelete() {
+	if (this.jButtonPictureSetDelete == null) {
+	    this.jButtonPictureSetDelete = new JButton();
+	    this.jButtonPictureSetDelete.setText("Entfernen");
 	}
+	return this.jButtonPictureSetDelete;
+    }
 
-	/**
-	 * This method initializes jPanelProjectDescription
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJPanelProjectDescription() {
-		if (jPanelProjectDescription == null) {
-			jPanelProjectDescription = new JPanel();
-
-			GroupLayout jPanelProjectDescriptionLayout = new GroupLayout(
-					jPanelProjectDescription);
-
-			jPanelProjectDescriptionLayout
-					.setHorizontalGroup(jPanelProjectDescriptionLayout
-							.createParallelGroup(GroupLayout.Alignment.LEADING)
-							.addGroup(
-									GroupLayout.Alignment.TRAILING,
-									jPanelProjectDescriptionLayout
-											.createSequentialGroup()
-											.addContainerGap()
-											.addComponent(
-													this
-															.getJScrollPaneProjectDescription(),
-													GroupLayout.DEFAULT_SIZE,
-													240, Short.MAX_VALUE)
-											.addContainerGap()));
-			jPanelProjectDescriptionLayout
-					.setVerticalGroup(jPanelProjectDescriptionLayout
-							.createParallelGroup(GroupLayout.Alignment.LEADING)
-							.addGroup(
-									jPanelProjectDescriptionLayout
-											.createSequentialGroup()
-											.addContainerGap()
-											.addComponent(
-													this
-															.getJScrollPaneProjectDescription(),
-													GroupLayout.DEFAULT_SIZE,
-													86, Short.MAX_VALUE)
-											.addContainerGap()));
-
-			jPanelProjectDescription.setLayout(jPanelProjectDescriptionLayout);
-
-			TitledBorder title = BorderFactory.createTitledBorder(BorderFactory
-					.createEmptyBorder(), "Projektbeschreibung");
-			jPanelProjectDescription.setBorder(title);
-
-			jPanelProjectDescription.add(this
-					.getJScrollPaneProjectDescription());
-
-			jPanelProjectDescription.setMinimumSize(new Dimension(250, 135));
-			jPanelProjectDescription.setPreferredSize(new Dimension(250, 135));
-		}
-		return jPanelProjectDescription;
+    /**
+     * This method initializes jButtonProjectChange
+     * 
+     * @return javax.swing.JButton
+     */
+    private JButton getJButtonProjectChange() {
+	if (this.jButtonProjectChange == null) {
+	    this.jButtonProjectChange = new JButton();
+	    this.jButtonProjectChange.setText("Wechseln");
 	}
+	return this.jButtonProjectChange;
+    }
 
-	/**
-	 * This method initializes jScrollPaneProjectDescription
-	 * 
-	 * @return javax.swing.JScrollPane
-	 */
-	private JScrollPane getJScrollPaneProjectDescription() {
-		if (jScrollPaneProjectDescription == null) {
-			jScrollPaneProjectDescription = new JScrollPane();
-			jScrollPaneProjectDescription
-					.setViewportView(getJEditorPaneProjectDescription());
-		}
-		return jScrollPaneProjectDescription;
+    /**
+     * This method initializes jButtonProjectSave
+     * 
+     * @return javax.swing.JButton
+     */
+    private JButton getJButtonProjectSave() {
+	if (this.jButtonProjectSave == null) {
+	    this.jButtonProjectSave = new JButton();
+	    this.jButtonProjectSave.setText("Speichern");
 	}
+	return this.jButtonProjectSave;
+    }
 
-	/**
-	 * This method initializes jEditorPaneProjectDescription
-	 * 
-	 * @return javax.swing.JEditorPane
-	 */
-	private JEditorPane getJEditorPaneProjectDescription() {
-		if (jEditorPaneProjectDescription == null) {
-			jEditorPaneProjectDescription = new JEditorPane();
-		}
-		return jEditorPaneProjectDescription;
+    /**
+     * This method initializes jContentPane
+     * 
+     * @return javax.swing.JPanel
+     */
+    private JPanel getJContentPane() {
+	if (this.jContentPane == null) {
+	    this.jContentPane = new JPanel();
+
+	    final GroupLayout jContentPaneLayout = new GroupLayout(this.jContentPane);
+
+	    jContentPaneLayout.setHorizontalGroup(jContentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+		    .addGroup(
+			    jContentPaneLayout.createSequentialGroup().addGroup(
+				    jContentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+					    .addComponent(this.getJPanelProjectOptions(),
+						    GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 272,
+						    Short.MAX_VALUE).addComponent(this.getJPanelProjectDescription(),
+						    GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 272,
+						    Short.MAX_VALUE).addComponent(this.getJPanelPictureSet(),
+						    GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 272,
+						    Short.MAX_VALUE).addComponent(this.getJPanelPictureSetContent(),
+						    GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 272,
+						    Short.MAX_VALUE)).addPreferredGap(
+				    LayoutStyle.ComponentPlacement.RELATED).addComponent(
+				    this.getJPanelPictureSetActive(), GroupLayout.DEFAULT_SIZE,
+				    GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addGap(6, 6, 6).addGroup(
+				    jContentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(
+					    this.getJPanelReport(), GroupLayout.PREFERRED_SIZE, 240, Short.MAX_VALUE)
+					    .addComponent(this.getJPanelExif(), 0, 240, Short.MAX_VALUE)).addGap(0, 0,
+				    0)));
+	    jContentPaneLayout.setVerticalGroup(jContentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+		    .addGroup(
+			    GroupLayout.Alignment.TRAILING,
+			    jContentPaneLayout.createSequentialGroup().addComponent(this.getJPanelProjectOptions(),
+				    GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE).addPreferredGap(
+				    LayoutStyle.ComponentPlacement.RELATED).addComponent(
+				    this.getJPanelProjectDescription(), GroupLayout.DEFAULT_SIZE,
+				    GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addPreferredGap(
+				    LayoutStyle.ComponentPlacement.RELATED).addComponent(this.getJPanelPictureSet(),
+				    GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(
+					    this.getJPanelPictureSetContent(), GroupLayout.DEFAULT_SIZE,
+					    GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)).addGroup(
+			    jContentPaneLayout.createSequentialGroup().addComponent(this.getJPanelReport(),
+				    GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(
+					    this.getJPanelExif(), GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+		    .addComponent(this.getJPanelPictureSetActive(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+			    Short.MAX_VALUE));
+
+	    this.jContentPane.setLayout(jContentPaneLayout);
+
+	    this.jContentPane.add(this.getJPanelProjectOptions(), null);
+	    this.jContentPane.add(this.getJPanelProjectDescription(), null);
+	    this.jContentPane.add(this.getJPanelPictureSet(), null);
+	    this.jContentPane.add(this.getJPanelPictureSetContent(), null);
+	    this.jContentPane.add(this.getJPanelPictureSetActive(), null);
+	    this.jContentPane.add(this.getJPanelReport(), null);
+	    this.jContentPane.add(this.getJPanelExif(), null);
 	}
+	return this.jContentPane;
+    }
 
-	/**
-	 * This method initializes jButtonProjectSave
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getJButtonProjectSave() {
-		if (jButtonProjectSave == null) {
-			jButtonProjectSave = new JButton();
-			jButtonProjectSave.setText("Speichern");
-		}
-		return jButtonProjectSave;
+    /**
+     * This method initializes jEditorPaneProjectDescription
+     * 
+     * @return javax.swing.JEditorPane
+     */
+    private JEditorPane getJEditorPaneProjectDescription() {
+	if (this.jEditorPaneProjectDescription == null) {
+	    this.jEditorPaneProjectDescription = new JEditorPane();
 	}
+	return this.jEditorPaneProjectDescription;
+    }
 
-	/**
-	 * This method initializes jButtonProjectChange
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getJButtonProjectChange() {
-		if (jButtonProjectChange == null) {
-			jButtonProjectChange = new JButton();
-			jButtonProjectChange.setText("Wechseln");
-		}
-		return jButtonProjectChange;
+    /**
+     * This method initializes jListPictureSet
+     * 
+     * @return javax.swing.JList
+     */
+    private JList getJListPictureSet() {
+	if (this.jListPictureSet == null) {
+	    this.jListPictureSet = new JList(new Object[] { "Apfel", "Kürbis", "Paprika", "Tomate" });
+	    this.jListPictureSet.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    this.jListPictureSet.setLayoutOrientation(JList.VERTICAL);
 	}
+	return this.jListPictureSet;
+    }
 
-	/**
-	 * This method initializes jListPictureSet
-	 * 
-	 * @return javax.swing.JList
-	 */
-	private JList getJListPictureSet() {
-		if (jListPictureSet == null) {
-			jListPictureSet = new JList(new Object[] { "Apfel", "Kürbis",
-					"Paprika", "Tomate" });
-			jListPictureSet
-					.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			jListPictureSet.setLayoutOrientation(JList.VERTICAL);
-		}
-		return jListPictureSet;
+    /**
+     * This method initializes jListPictureSetActive
+     * 
+     * @return javax.swing.JList
+     */
+    private JList getJListPictureSetActive() {
+	if (this.jListPictureSetActive == null) {
+	    this.jListPictureSetActive = new JList(new Object[] { "Apfel", "Kürbis", "Paprika", "Tomate" });
+	    this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    this.jListPictureSetActive.setLayoutOrientation(JList.VERTICAL);
 	}
+	return this.jListPictureSetActive;
+    }
 
-	/**
-	 * This method initializes jPanelPictureSetOptions
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJPanelPictureSetOptions() {
-		if (jPanelPictureSetOptions == null) {
-			jPanelPictureSetOptions = new JPanel();
-			jPanelPictureSetOptions.setLayout(new FlowLayout());
-			jPanelPictureSetOptions.add(getJButtonPictureSetCreate(), null);
-			jPanelPictureSetOptions.add(getJButtonPictureSetDelete(), null);
-			jPanelPictureSetOptions.add(getJButtonPictureSetCopy(), null);
-		}
-		return jPanelPictureSetOptions;
+    /**
+     * This method initializes jListPictureSetContent
+     * 
+     * @return javax.swing.JList
+     */
+    private JList getJListPictureSetContent() {
+	if (this.jListPictureSetContent == null) {
+	    this.jListPictureSetContent = new JList(new Object[] { "Apfel", "Kürbis", "Paprika", "Tomate" });
+	    this.jListPictureSetContent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    this.jListPictureSetContent.setLayoutOrientation(JList.VERTICAL);
 	}
+	return this.jListPictureSetContent;
+    }
 
-	/**
-	 * This method initializes jButtonPictureSetCreate
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getJButtonPictureSetCreate() {
-		if (jButtonPictureSetCreate == null) {
-			jButtonPictureSetCreate = new JButton();
-			jButtonPictureSetCreate.setText("Erstellen");
-		}
-		return jButtonPictureSetCreate;
+    /**
+     * This method initializes jListReport
+     * 
+     * @return javax.swing.JList
+     */
+    private JList getJListReport() {
+	if (this.jListReport == null) {
+	    this.jListReport = new JList(new Object[] { "Apfel", "Kürbis", "Paprika", "Tomate" });
+	    this.jListReport.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    this.jListReport.setLayoutOrientation(JList.VERTICAL);
 	}
+	return this.jListReport;
+    }
 
-	/**
-	 * This method initializes jButtonPictureSetDelete
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getJButtonPictureSetDelete() {
-		if (jButtonPictureSetDelete == null) {
-			jButtonPictureSetDelete = new JButton();
-			jButtonPictureSetDelete.setText("Entfernen");
-		}
-		return jButtonPictureSetDelete;
+    /**
+     * This method initializes jPanelExif
+     * 
+     * @return javax.swing.JPanel
+     */
+    private JPanel getJPanelExif() {
+	if (this.jPanelExif == null) {
+	    this.jPanelExif = new JPanel();
+
+	    final GroupLayout jPanelExifLayout = new GroupLayout(this.jPanelExif);
+
+	    jPanelExifLayout.setHorizontalGroup(jPanelExifLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+		    .addGap(0, 228, Short.MAX_VALUE).addGroup(
+			    jPanelExifLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+				    GroupLayout.Alignment.TRAILING,
+				    jPanelExifLayout.createSequentialGroup().addContainerGap().addComponent(
+					    this.getJScrollPaneExif(), GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+					    .addContainerGap())));
+	    jPanelExifLayout.setVerticalGroup(jPanelExifLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+		    .addGap(0, 222, Short.MAX_VALUE).addGroup(
+			    jPanelExifLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+				    jPanelExifLayout.createSequentialGroup().addContainerGap().addComponent(
+					    this.getJScrollPaneExif(), GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+					    .addContainerGap())));
+
+	    this.jPanelExif.setLayout(jPanelExifLayout);
+
+	    final TitledBorder title = BorderFactory
+		    .createTitledBorder(BorderFactory.createEmptyBorder(), "Exif-Daten");
+	    this.jPanelExif.setBorder(title);
+
+	    this.jPanelExif.add(this.getJScrollPaneExif());
+
+	    this.jPanelReport.setMinimumSize(new Dimension(250, 245));
+	    this.jPanelReport.setPreferredSize(new Dimension(250, 245));
 	}
+	return this.jPanelExif;
+    }
 
-	/**
-	 * This method initializes jButtonPictureSetCopy
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getJButtonPictureSetCopy() {
-		if (jButtonPictureSetCopy == null) {
-			jButtonPictureSetCopy = new JButton();
-			jButtonPictureSetCopy.setText("Kopieren");
-		}
-		return jButtonPictureSetCopy;
+    /**
+     * This method initializes jPanelPictureSet
+     * 
+     * @return javax.swing.JPanel
+     */
+    private JPanel getJPanelPictureSet() {
+	if (this.jPanelPictureSet == null) {
+	    this.jPanelPictureSet = new JPanel();
+	    final TitledBorder title = BorderFactory
+		    .createTitledBorder(BorderFactory.createEmptyBorder(), "Bildmengen");
+	    this.jPanelPictureSet.setBorder(title);
+	    this.jPanelPictureSet.setLayout(new BorderLayout());
+	    this.jPanelPictureSet.add(this.getJListPictureSet(), BorderLayout.NORTH);
+	    this.jPanelPictureSet.add(this.getJPanelPictureSetOptions(), BorderLayout.CENTER);
+
+	    this.jPanelPictureSet.setMinimumSize(new Dimension(250, 135));
+	    this.jPanelPictureSet.setPreferredSize(new Dimension(250, 135));
 	}
+	return this.jPanelPictureSet;
+    }
 
-	/**
-	 * This method initializes jPanelPictureSetContent
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJPanelPictureSetContent() {
-		if (jPanelPictureSetContent == null) {
-			jPanelPictureSetContent = new JPanel();
-			TitledBorder title = BorderFactory.createTitledBorder(BorderFactory
-					.createEmptyBorder(), "Inhalt");
-			jPanelPictureSetContent.setBorder(title);
-			jPanelPictureSetContent.setLayout(new BorderLayout());
-			jPanelPictureSetContent.add(getJListPictureSetContent(),
-					BorderLayout.NORTH);
-			jPanelPictureSetContent.add(getJPanelPictureSetContentOptions(),
-					BorderLayout.CENTER);
+    /**
+     * This method initializes jPanelPictureSetActive
+     * 
+     * @return javax.swing.JPanel
+     */
+    private JPanel getJPanelPictureSetActive() {
+	if (this.jPanelPictureSetActive == null) {
+	    this.jPanelPictureSetActive = new JPanel();
 
-			jPanelPictureSetContent.setMinimumSize(new Dimension(250, 135));
-			jPanelPictureSetContent.setPreferredSize(new Dimension(250, 135));
-		}
-		return jPanelPictureSetContent;
+	    final GroupLayout jPanelPictureSetActiveLayout = new GroupLayout(this.jPanelPictureSetActive);
+
+	    jPanelPictureSetActiveLayout.setHorizontalGroup(jPanelPictureSetActiveLayout.createParallelGroup(
+		    GroupLayout.Alignment.LEADING).addGroup(
+		    jPanelPictureSetActiveLayout.createSequentialGroup().addContainerGap().addComponent(
+			    this.getJListPictureSetActive(), GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+			    .addContainerGap()));
+	    jPanelPictureSetActiveLayout.setVerticalGroup(jPanelPictureSetActiveLayout.createParallelGroup(
+		    GroupLayout.Alignment.LEADING).addGroup(
+		    jPanelPictureSetActiveLayout.createSequentialGroup().addContainerGap().addComponent(
+			    this.getJListPictureSetActive(), GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+			    .addContainerGap()));
+
+	    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
+		    "Bildmenge: Bla");
+	    this.jPanelPictureSetActive.setBorder(title);
+
+	    this.jPanelPictureSetActive.setLayout(jPanelPictureSetActiveLayout);
+
+	    this.jPanelPictureSetActive.add(this.getJListPictureSetActive());
+
+	    this.jPanelPictureSetActive.setMinimumSize(new Dimension(220, 500));
+	    this.jPanelPictureSetActive.setPreferredSize(new Dimension(220, 500));
 	}
+	return this.jPanelPictureSetActive;
+    }
 
-	/**
-	 * This method initializes jListPictureSetContent
-	 * 
-	 * @return javax.swing.JList
-	 */
-	private JList getJListPictureSetContent() {
-		if (jListPictureSetContent == null) {
-			jListPictureSetContent = new JList(new Object[] { "Apfel",
-					"Kürbis", "Paprika", "Tomate" });
-			jListPictureSetContent
-					.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			jListPictureSetContent.setLayoutOrientation(JList.VERTICAL);
-		}
-		return jListPictureSetContent;
+    /**
+     * This method initializes jPanelPictureSetContent
+     * 
+     * @return javax.swing.JPanel
+     */
+    private JPanel getJPanelPictureSetContent() {
+	if (this.jPanelPictureSetContent == null) {
+	    this.jPanelPictureSetContent = new JPanel();
+	    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "Inhalt");
+	    this.jPanelPictureSetContent.setBorder(title);
+	    this.jPanelPictureSetContent.setLayout(new BorderLayout());
+	    this.jPanelPictureSetContent.add(this.getJListPictureSetContent(), BorderLayout.NORTH);
+	    this.jPanelPictureSetContent.add(this.getJPanelPictureSetContentOptions(), BorderLayout.CENTER);
+
+	    this.jPanelPictureSetContent.setMinimumSize(new Dimension(250, 135));
+	    this.jPanelPictureSetContent.setPreferredSize(new Dimension(250, 135));
 	}
+	return this.jPanelPictureSetContent;
+    }
 
-	/**
-	 * This method initializes jPanelPictureSetContentOptions
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJPanelPictureSetContentOptions() {
-		if (jPanelPictureSetContentOptions == null) {
-			jPanelPictureSetContentOptions = new JPanel();
-			jPanelPictureSetContentOptions.setLayout(new FlowLayout());
-			jPanelPictureSetContentOptions.add(
-					getJButtonPictureSetContentAdd(), null);
-			jPanelPictureSetContentOptions.add(
-					getJButtonPictureSetContentDelete(), null);
-			jPanelPictureSetContentOptions.add(
-					getJButtonPictureSetContentRefresh(), null);
-		}
-		return jPanelPictureSetContentOptions;
+    /**
+     * This method initializes jPanelPictureSetContentOptions
+     * 
+     * @return javax.swing.JPanel
+     */
+    private JPanel getJPanelPictureSetContentOptions() {
+	if (this.jPanelPictureSetContentOptions == null) {
+	    this.jPanelPictureSetContentOptions = new JPanel();
+	    this.jPanelPictureSetContentOptions.setLayout(new FlowLayout());
+	    this.jPanelPictureSetContentOptions.add(this.getJButtonPictureSetContentAdd(), null);
+	    this.jPanelPictureSetContentOptions.add(this.getJButtonPictureSetContentDelete(), null);
+	    this.jPanelPictureSetContentOptions.add(this.getJButtonPictureSetContentRefresh(), null);
 	}
+	return this.jPanelPictureSetContentOptions;
+    }
 
-	/**
-	 * This method initializes jButtonPictureSetContentAdd
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getJButtonPictureSetContentAdd() {
-		if (jButtonPictureSetContentAdd == null) {
-			jButtonPictureSetContentAdd = new JButton();
-			jButtonPictureSetContentAdd.setText("Hinzufügen");
-		}
-		return jButtonPictureSetContentAdd;
+    /**
+     * This method initializes jPanelPictureSetOptions
+     * 
+     * @return javax.swing.JPanel
+     */
+    private JPanel getJPanelPictureSetOptions() {
+	if (this.jPanelPictureSetOptions == null) {
+	    this.jPanelPictureSetOptions = new JPanel();
+	    this.jPanelPictureSetOptions.setLayout(new FlowLayout());
+	    this.jPanelPictureSetOptions.add(this.getJButtonPictureSetCreate(), null);
+	    this.jPanelPictureSetOptions.add(this.getJButtonPictureSetDelete(), null);
+	    this.jPanelPictureSetOptions.add(this.getJButtonPictureSetCopy(), null);
 	}
+	return this.jPanelPictureSetOptions;
+    }
 
-	/**
-	 * This method initializes jButtonPictureSetContentDelete
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getJButtonPictureSetContentDelete() {
-		if (jButtonPictureSetContentDelete == null) {
-			jButtonPictureSetContentDelete = new JButton();
-			jButtonPictureSetContentDelete.setText("Entfernen");
-		}
-		return jButtonPictureSetContentDelete;
+    /**
+     * This method initializes jPanelProjectDescription
+     * 
+     * @return javax.swing.JPanel
+     */
+    private JPanel getJPanelProjectDescription() {
+	if (this.jPanelProjectDescription == null) {
+	    this.jPanelProjectDescription = new JPanel();
+
+	    final GroupLayout jPanelProjectDescriptionLayout = new GroupLayout(this.jPanelProjectDescription);
+
+	    jPanelProjectDescriptionLayout.setHorizontalGroup(jPanelProjectDescriptionLayout.createParallelGroup(
+		    GroupLayout.Alignment.LEADING).addGroup(
+		    GroupLayout.Alignment.TRAILING,
+		    jPanelProjectDescriptionLayout.createSequentialGroup().addContainerGap().addComponent(
+			    this.getJScrollPaneProjectDescription(), GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+			    .addContainerGap()));
+	    jPanelProjectDescriptionLayout.setVerticalGroup(jPanelProjectDescriptionLayout.createParallelGroup(
+		    GroupLayout.Alignment.LEADING).addGroup(
+		    jPanelProjectDescriptionLayout.createSequentialGroup().addContainerGap().addComponent(
+			    this.getJScrollPaneProjectDescription(), GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+			    .addContainerGap()));
+
+	    this.jPanelProjectDescription.setLayout(jPanelProjectDescriptionLayout);
+
+	    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
+		    "Projektbeschreibung");
+	    this.jPanelProjectDescription.setBorder(title);
+
+	    this.jPanelProjectDescription.add(this.getJScrollPaneProjectDescription());
+
+	    this.jPanelProjectDescription.setMinimumSize(new Dimension(250, 135));
+	    this.jPanelProjectDescription.setPreferredSize(new Dimension(250, 135));
 	}
+	return this.jPanelProjectDescription;
+    }
 
-	/**
-	 * This method initializes jButtonPictureSetContentRefresh
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getJButtonPictureSetContentRefresh() {
-		if (jButtonPictureSetContentRefresh == null) {
-			jButtonPictureSetContentRefresh = new JButton();
-			jButtonPictureSetContentRefresh.setText("Aktualisieren");
-		}
-		return jButtonPictureSetContentRefresh;
+    /**
+     * This method initializes jPanelProjectOptions
+     * 
+     * @return javax.swing.JPanel
+     */
+    private JPanel getJPanelProjectOptions() {
+	if (this.jPanelProjectOptions == null) {
+	    this.jPanelProjectOptions = new JPanel();
+
+	    final GroupLayout jPanelProjectOptionsLayout = new GroupLayout(this.jPanelProjectOptions);
+
+	    jPanelProjectOptionsLayout.setHorizontalGroup(jPanelProjectOptionsLayout.createParallelGroup(
+		    GroupLayout.Alignment.LEADING).addGroup(
+		    GroupLayout.Alignment.TRAILING,
+		    jPanelProjectOptionsLayout.createSequentialGroup().addContainerGap().addGroup(
+			    jPanelProjectOptionsLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+				    .addComponent(this.getJTextFieldProjectName(), GroupLayout.DEFAULT_SIZE,
+					    240, Short.MAX_VALUE).addGroup(
+					    jPanelProjectOptionsLayout.createSequentialGroup().addComponent(
+						    this.getJButtonProjectChange()).addPreferredGap(
+						    LayoutStyle.ComponentPlacement.RELATED).addComponent(
+						    this.getJButtonProjectSave()))).addContainerGap()));
+	    jPanelProjectOptionsLayout.setVerticalGroup(jPanelProjectOptionsLayout.createParallelGroup(
+		    GroupLayout.Alignment.LEADING).addGroup(
+		    jPanelProjectOptionsLayout.createSequentialGroup().addGroup(
+			    jPanelProjectOptionsLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+				    .addComponent(this.getJButtonProjectSave()).addComponent(
+					    this.getJButtonProjectChange())).addPreferredGap(
+			    LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE).addComponent(
+			    this.getJTextFieldProjectName(), GroupLayout.PREFERRED_SIZE,
+			    GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)));
+
+	    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "Projekt");
+	    this.jPanelProjectOptions.setBorder(title);
+
+	    this.jPanelProjectOptions.setLayout(jPanelProjectOptionsLayout);
+
+	    this.jPanelProjectOptions.add(this.getJTextFieldProjectName());
+	    this.jPanelProjectOptions.add(this.getJButtonProjectSave());
+	    this.jPanelProjectOptions.add(this.getJButtonProjectChange());
+
+	    this.jPanelProjectOptions.setMinimumSize(new Dimension(250, 60));
+	    this.jPanelProjectOptions.setPreferredSize(new Dimension(250, 60));
 	}
+	return this.jPanelProjectOptions;
+    }
 
-	/**
-	 * This method initializes jPanelPictureSetActive
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJPanelPictureSetActive() {
-		if (jPanelPictureSetActive == null) {
-			jPanelPictureSetActive = new JPanel();
+    /**
+     * This method initializes jPanelReport
+     * 
+     * @return javax.swing.JPanel
+     */
+    private JPanel getJPanelReport() {
+	if (this.jPanelReport == null) {
+	    this.jPanelReport = new JPanel();
 
-			GroupLayout jPanelPictureSetActiveLayout = new GroupLayout(
-					jPanelPictureSetActive);
+	    final GroupLayout jPanelReportLayout = new GroupLayout(this.jPanelReport);
 
-			jPanelPictureSetActiveLayout
-					.setHorizontalGroup(jPanelPictureSetActiveLayout
-							.createParallelGroup(GroupLayout.Alignment.LEADING)
-							.addGroup(
-									jPanelPictureSetActiveLayout
-											.createSequentialGroup()
-											.addContainerGap().addComponent(
-													getJListPictureSetActive(),
-													GroupLayout.DEFAULT_SIZE,
-													528, Short.MAX_VALUE)
-											.addContainerGap()));
-			jPanelPictureSetActiveLayout
-					.setVerticalGroup(jPanelPictureSetActiveLayout
-							.createParallelGroup(GroupLayout.Alignment.LEADING)
-							.addGroup(
-									jPanelPictureSetActiveLayout
-											.createSequentialGroup()
-											.addContainerGap().addComponent(
-													getJListPictureSetActive(),
-													GroupLayout.DEFAULT_SIZE,
-													451, Short.MAX_VALUE)
-											.addContainerGap()));
+	    jPanelReportLayout.setHorizontalGroup(jPanelReportLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+		    .addGroup(
+			    jPanelReportLayout.createSequentialGroup().addContainerGap().addComponent(
+				    this.getJListReport(), GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+				    .addContainerGap()));
+	    jPanelReportLayout.setVerticalGroup(jPanelReportLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+		    .addGroup(
+			    GroupLayout.Alignment.TRAILING,
+			    jPanelReportLayout.createSequentialGroup().addContainerGap().addComponent(
+				    this.getJListReport(), GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+				    .addContainerGap()));
 
-			TitledBorder title = BorderFactory.createTitledBorder(BorderFactory
-					.createEmptyBorder(), "Bildmenge: Bla");
-			jPanelPictureSetActive.setBorder(title);
+	    final TitledBorder title = BorderFactory
+		    .createTitledBorder(BorderFactory.createEmptyBorder(), "Auswertung");
+	    this.jPanelReport.setBorder(title);
 
-			jPanelPictureSetActive.setLayout(jPanelPictureSetActiveLayout);
+	    this.jPanelReport.setLayout(jPanelReportLayout);
 
-			jPanelPictureSetActive.add(getJListPictureSetActive());
+	    this.jPanelReport.add(this.getJListReport());
 
-			jPanelPictureSetActive.setMinimumSize(new Dimension(220, 500));
-			jPanelPictureSetActive.setPreferredSize(new Dimension(220, 500));
-		}
-		return jPanelPictureSetActive;
+	    this.jPanelReport.setMinimumSize(new Dimension(250, 245));
+	    this.jPanelReport.setPreferredSize(new Dimension(250, 245));
 	}
+	return this.jPanelReport;
+    }
 
-	/**
-	 * This method initializes jListPictureSetActive
-	 * 
-	 * @return javax.swing.JList
-	 */
-	private JList getJListPictureSetActive() {
-		if (jListPictureSetActive == null) {
-			jListPictureSetActive = new JList(new Object[] { "Apfel", "Kürbis",
-					"Paprika", "Tomate" });
-			jListPictureSetActive
-					.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			jListPictureSetActive.setLayoutOrientation(JList.VERTICAL);
-		}
-		return jListPictureSetActive;
+    /**
+     * This method initializes jScrollPaneExif
+     * 
+     * @return javax.swing.JScrollPane
+     */
+    private JScrollPane getJScrollPaneExif() {
+	if (this.jScrollPaneExif == null) {
+	    this.jScrollPaneExif = new JScrollPane();
+	    this.jScrollPaneExif.setViewportView(this.getJTableExif());
 	}
+	return this.jScrollPaneExif;
+    }
 
-	/**
-	 * This method initializes jPanelReport
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJPanelReport() {
-		if (jPanelReport == null) {
-			jPanelReport = new JPanel();
-
-			GroupLayout jPanelReportLayout = new GroupLayout(jPanelReport);
-
-			jPanelReportLayout
-					.setHorizontalGroup(jPanelReportLayout.createParallelGroup(
-							GroupLayout.Alignment.LEADING).addGroup(
-							jPanelReportLayout.createSequentialGroup()
-									.addContainerGap().addComponent(
-											getJListReport(),
-											GroupLayout.DEFAULT_SIZE, 208,
-											Short.MAX_VALUE).addContainerGap()));
-			jPanelReportLayout
-					.setVerticalGroup(jPanelReportLayout.createParallelGroup(
-							GroupLayout.Alignment.LEADING).addGroup(
-							GroupLayout.Alignment.TRAILING,
-							jPanelReportLayout.createSequentialGroup()
-									.addContainerGap().addComponent(
-											getJListReport(),
-											GroupLayout.DEFAULT_SIZE, 196,
-											Short.MAX_VALUE).addContainerGap()));
-
-			TitledBorder title = BorderFactory.createTitledBorder(BorderFactory
-					.createEmptyBorder(), "Auswertung");
-			jPanelReport.setBorder(title);
-
-			jPanelReport.setLayout(jPanelReportLayout);
-
-			jPanelReport.add(getJListReport());
-
-			jPanelReport.setMinimumSize(new Dimension(250, 245));
-			jPanelReport.setPreferredSize(new Dimension(250, 245));
-		}
-		return jPanelReport;
+    /**
+     * This method initializes jScrollPaneProjectDescription
+     * 
+     * @return javax.swing.JScrollPane
+     */
+    private JScrollPane getJScrollPaneProjectDescription() {
+	if (this.jScrollPaneProjectDescription == null) {
+	    this.jScrollPaneProjectDescription = new JScrollPane();
+	    this.jScrollPaneProjectDescription.setViewportView(this.getJEditorPaneProjectDescription());
 	}
+	return this.jScrollPaneProjectDescription;
+    }
 
-	/**
-	 * This method initializes jListReport
-	 * 
-	 * @return javax.swing.JList
-	 */
-	private JList getJListReport() {
-		if (jListReport == null) {
-			jListReport = new JList(new Object[] { "Apfel", "Kürbis",
-					"Paprika", "Tomate" });
-			jListReport.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			jListReport.setLayoutOrientation(JList.VERTICAL);
-		}
-		return jListReport;
+    /**
+     * This method initializes jTableExif
+     * 
+     * @return javax.swing.JTable
+     */
+    private JTable getJTableExif() {
+	if (this.jTableExif == null) {
+	    final String[] columnNames = { "First Name", "Last Name" };
+	    final Object[][] data = { { "Mary", "Campione" }, { "Alison", "Huml" }, { "Kathy", "Walrath" },
+		    { "Sharon", "Zakhour" }, { "Philip", "Milne" } };
+
+	    this.jTableExif = new JTable(data, columnNames);
 	}
+	return this.jTableExif;
+    }
 
-	/**
-	 * This method initializes jPanelExif
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJPanelExif() {
-		if (jPanelExif == null) {
-			jPanelExif = new JPanel();
-
-			GroupLayout jPanelExifLayout = new GroupLayout(jPanelExif);
-
-			jPanelExifLayout.setHorizontalGroup(jPanelExifLayout
-					.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(
-							0, 228, Short.MAX_VALUE).addGroup(
-							jPanelExifLayout.createParallelGroup(
-									GroupLayout.Alignment.LEADING).addGroup(
-									GroupLayout.Alignment.TRAILING,
-									jPanelExifLayout.createSequentialGroup()
-											.addContainerGap().addComponent(
-													this.getJScrollPaneExif(),
-													GroupLayout.DEFAULT_SIZE,
-													208, Short.MAX_VALUE)
-											.addContainerGap())));
-			jPanelExifLayout.setVerticalGroup(jPanelExifLayout
-					.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(
-							0, 222, Short.MAX_VALUE).addGroup(
-							jPanelExifLayout.createParallelGroup(
-									GroupLayout.Alignment.LEADING).addGroup(
-									jPanelExifLayout.createSequentialGroup()
-											.addContainerGap().addComponent(
-													this.getJScrollPaneExif(),
-													GroupLayout.DEFAULT_SIZE,
-													200, Short.MAX_VALUE)
-											.addContainerGap())));
-
-			jPanelExif.setLayout(jPanelExifLayout);
-
-			TitledBorder title = BorderFactory.createTitledBorder(BorderFactory
-					.createEmptyBorder(), "Exif-Daten");
-			jPanelExif.setBorder(title);
-
-			jPanelExif.add(this.getJScrollPaneExif());
-
-			jPanelReport.setMinimumSize(new Dimension(250, 245));
-			jPanelReport.setPreferredSize(new Dimension(250, 245));
-		}
-		return jPanelExif;
+    /**
+     * This method initializes jTextFieldProjectDescription
+     * 
+     * @return javax.swing.JTextField
+     */
+    private JTextField getJTextFieldProjectName() {
+	if (this.jTextFieldProjectName == null) {
+	    this.jTextFieldProjectName = new JTextField();
 	}
+	return this.jTextFieldProjectName;
+    }
 
-	/**
-	 * This method initializes jScrollPaneExif
-	 * 
-	 * @return javax.swing.JScrollPane
-	 */
-	private JScrollPane getJScrollPaneExif() {
-		if (jScrollPaneExif == null) {
-			jScrollPaneExif = new JScrollPane();
-			jScrollPaneExif.setViewportView(getJTableExif());
-		}
-		return jScrollPaneExif;
-	}
+    /**
+     * This method initializes this
+     * 
+     * @return void
+     */
+    private void initialize() {
+	this.setContentPane(this.getJContentPane());
+	this.setVisible(true);
+	this.pack();
+    }
 
-	/**
-	 * This method initializes jTableExif
-	 * 
-	 * @return javax.swing.JTable
-	 */
-	private JTable getJTableExif() {
-		if (jTableExif == null) {
-			String[] columnNames = { "First Name", "Last Name" };
-			Object[][] data = { { "Mary", "Campione" }, { "Alison", "Huml" },
-					{ "Kathy", "Walrath" }, { "Sharon", "Zakhour" },
-					{ "Philip", "Milne" } };
-
-			jTableExif = new JTable(data, columnNames);
-		}
-		return jTableExif;
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		this.setTitle("Projektansicht für "
-				+ ((ProjectViewModel) o).getProjectName());
-		repaint();
-	}
+    @Override
+    public void update(final Observable o, final Object arg) {
+	this.setTitle("Projektansicht für " + ((ProjectViewModel) o).getProjectName());
+	this.repaint();
+    }
 }
