@@ -1,11 +1,15 @@
 package org.knipsX.model.reportmanagement;
 
+import java.util.ArrayList;
+
+import org.knipsX.model.picturemanagement.PictureContainer;
+
 
 public class Cluster3DModel extends AbstractDoubleAxesModel{
 	private Axis yAxis;
 
-	public Cluster3DModel(Axis yAxis) {
-		super();
+	public Cluster3DModel(ArrayList<PictureContainer> pictureContainer, Axis yAxis) {
+		super(pictureContainer, yAxis, yAxis);
 		this.yAxis = yAxis;
 	}
 
