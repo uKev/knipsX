@@ -1,6 +1,7 @@
 package org.knipsX.view.reportmanagement;
 
 import java.awt.Dimension;
+import java.util.Observable;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -57,5 +58,11 @@ public class JReportWizard extends JAbstractView {
 		this.reportconfig = reportconfig;
 		initialize();		
 		repaint();
+	}
+
+	@Override
+	public void update(Observable model, Object argument) {
+	    // TODO Auto-generated method stub
+	    
 	}	
 }
