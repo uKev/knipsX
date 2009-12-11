@@ -1,8 +1,6 @@
 package org.knipsX.view.reportmanagement;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -13,13 +11,11 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextPane;
 
+import org.knipsX.controller.reportmanagement.SaveReportController;
 import org.knipsX.model.reportmanagement.DummyModel;
 import org.knipsX.view.JAbstractView;
 
@@ -33,6 +29,7 @@ public class JReportConfig extends JAbstractView {
 	private JAbstractReportConfig reportconfig;
 	private JTabbedPane tabbedpane;
 	private JPanel basic;
+	private Report currentReport;
     
     protected JComponent makeTextPanel(String text) {
         JPanel panel = new JPanel(false);
@@ -74,7 +71,9 @@ public class JReportConfig extends JAbstractView {
 
         JButton close = new JButton("Schließen");
         JButton apply = new JButton("Übernehmen");
-        JButton show = new JButton("Anzeigen");
+        JButton show = new JButton("Anzeigen");       
+        show.addActionListener(new SaveReportController(this.reportconfig.getCurrentModel(), this.reportconfig));
+        
 
         bottom.add(close);
         bottom.add(apply);
