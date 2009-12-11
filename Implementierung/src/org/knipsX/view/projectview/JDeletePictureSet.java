@@ -1,14 +1,16 @@
-package org.knipsX.view.common;
+package org.knipsX.view.projectview;
 
 import java.util.Observable;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import org.knipsX.controller.projectview.DeleteFromPictureSetNoController;
+import org.knipsX.controller.projectview.DeleteFromPictureSetYesController;
 import org.knipsX.model.projectmanagement.ProjectListModel;
 import org.knipsX.view.JAbstractView;
 
-public class JWantToSave extends JAbstractView {
+public class JDeletePictureSet extends JAbstractView {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -18,13 +20,16 @@ public class JWantToSave extends JAbstractView {
 
 	private JButton jButtonYes = null;
 	private JButton jButtonNo = null;
-	private JButton jButtonCancel = null;
 
+	private final int[] toDelete;
 
-	public JWantToSave(final ProjectListModel model, final int[] toDelete) {
+	public JDeletePictureSet(final ProjectListModel model, final int[] toDelete) {
 
 		/* Setze Modell */
 		super(model);
+
+		/* Setze Indizes, die gelöscht werden sollen */
+		this.toDelete = toDelete;
 
 		/* Zeichne Fenster */
 		this.initialize();
@@ -38,7 +43,7 @@ public class JWantToSave extends JAbstractView {
 	private void initialize() {
 
 		/* Setze Titel */
-		this.setTitle("Wirklich beenden?");
+		this.setTitle("Bestätigen");
 
 		/* Setze das Hauptpanel */
 		this.setContentPane(this.getJContentPane());
@@ -68,7 +73,6 @@ public class JWantToSave extends JAbstractView {
 		}
 		this.jContentPane.add(this.getjLabelValidationText());
 		this.jContentPane.add(this.getjButtonYes());
-		this.jContentPane.add(this.getjButtonCancel());
 		this.jContentPane.add(this.getjButtonNo());
 		return this.jContentPane;
 	}
@@ -82,7 +86,7 @@ public class JWantToSave extends JAbstractView {
 		if (this.jButtonNo == null) {
 			this.jButtonNo = new JButton();
 			this.jButtonNo.setText("Nein");
-			//this.jButtonNo.addActionListener(new DeletionValidationNoController(this.model));
+			this.jButtonNo.addActionListener(new DeleteFromPictureSetNoController(this.model));
 		}
 		return this.jButtonNo;
 	}
@@ -92,25 +96,11 @@ public class JWantToSave extends JAbstractView {
 	 * 
 	 * @return javax.swing.JButton
 	 */
-	private JButton getjButtonCancel() {
-		if (this.jButtonCancel == null) {
-			this.jButtonCancel = new JButton();
-			this.jButtonCancel.setText("Abbrechen");
-			//this.jButtonCancel.addActionListener(new DeletionValidationYesController(this.model, this.toDelete));
-		}
-		return this.jButtonYes;
-		
-	}
-	/**
-	 * This method initializes jButtonYes
-	 * 
-	 * @return javax.swing.JButton
-	 */
 	private JButton getjButtonYes() {
 		if (this.jButtonYes == null) {
 			this.jButtonYes = new JButton();
 			this.jButtonYes.setText("Ja");
-			//this.jButtonYes.addActionListener(new DeletionValidationYesController(this.model, this.toDelete));
+			this.jButtonYes.addActionListener(new DeleteFromPictureSetYesController(this.model, this.toDelete));
 		}
 		return this.jButtonYes;
 	}
@@ -123,12 +113,20 @@ public class JWantToSave extends JAbstractView {
 	private JLabel getjLabelValidationText() {
 		if (this.jLabelValidationText == null) {
 			this.jLabelValidationText = new JLabel();
-			this.jLabelValidationText.setText("Möchten Sie beenden ohne zu speichern?");
+			this.jLabelValidationText.setText("Möchten Sie : " + this.generateToDeleteText() + " wirklich löschen?");
 
 		}
 		return this.jLabelValidationText;
 	}
 
+	/* Generiert den Text, der im Panel angezeigt wird */
+	private String generateToDeleteText() {
+		String deleteText = "";
+		for (int n = 0; n < this.toDelete.length; ++n) {
+			deleteText += ""; //TODO((ProjectListModel) this.model).getProjectList().get(this.toDelete[n]).getName() + ";";
+		}
+		return deleteText;
+	}
 
 	@Override
 	public void update(final Observable o, final Object arg) {
