@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import org.knipsX.controller.projectview.CreatePictureSetCancelController;
 import org.knipsX.controller.projectview.CreatePictureSetOkController;
 import org.knipsX.model.AbstractModel;
+import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
 public class JNewPictureSet extends JAbstractView {
@@ -105,6 +106,15 @@ public class JNewPictureSet extends JAbstractView {
 
 	@Override
 	public void update(final Observable o, final Object arg) {
+		/* Bekomme das Modell geliefert */
+		final ProjectViewModel model = (ProjectViewModel) o;
+
+		/* Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind für einen namen. */
+		if (model.getModelStatus() != ProjectViewModel.CREATEPICTURESET) {
+
+			/* Lösche Fenster */
+			this.dispose();
+		}
 
 	}
 

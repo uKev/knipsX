@@ -23,6 +23,14 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 
 /* import things from our program */
+import org.knipsX.controller.projectview.AddToPictureSetContentController;
+import org.knipsX.controller.projectview.CopyPictureSetController;
+import org.knipsX.controller.projectview.CreatePictureSetController;
+import org.knipsX.controller.projectview.DeleteFromPictureSetContentController;
+import org.knipsX.controller.projectview.DeletePictureSetController;
+import org.knipsX.controller.projectview.RefreshProjectViewController;
+import org.knipsX.controller.projectview.SaveProjectController;
+import org.knipsX.controller.projectview.SwitchProjectController;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
@@ -164,6 +172,7 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetContentAdd.setText("Hinzufügen");
+	    this.jButtonPictureSetContentAdd.addActionListener(new AddToPictureSetContentController(model));
 	}
 	
 	/* return the button */
@@ -186,6 +195,8 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetContentDelete.setText("Entfernen");
+	    this.jButtonPictureSetContentDelete.addActionListener(new DeleteFromPictureSetContentController (model));
+	    //TODO Hier muss noch die getmarket items methode aufgerufen werden und dem konstruktor mitgegen werden
 	}
 	
 	/* return the button */
@@ -208,6 +219,7 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetContentRefresh.setText("Aktualisieren");
+	    this.jButtonPictureSetContentRefresh.addActionListener(new RefreshProjectViewController(model));
 	}
 	
 	/* return the button */
@@ -230,6 +242,7 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetCopy.setText("Kopieren");
+	    this.jButtonPictureSetCopy.addActionListener(new CopyPictureSetController(model));
 	}
 	
 	/* return the button */
@@ -252,6 +265,7 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetCreate.setText("Erstellen");
+	    this.jButtonPictureSetCreate.addActionListener(new CreatePictureSetController(model));
 	}
 	
 	/* return the button */
@@ -274,6 +288,7 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetDelete.setText("Entfernen");
+	    this.jButtonPictureSetDelete.addActionListener(new DeletePictureSetController(model, ));
 	}
 	
 	/* return the button */
@@ -296,6 +311,7 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonProjectChange.setText("Wechseln");
+	    this.jButtonProjectChange.addActionListener(new SwitchProjectController(model));
 	}
 	
 	/* return the button */
@@ -318,6 +334,7 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonProjectSave.setText("Speichern");
+	    this.jButtonProjectSave.addActionListener(new SaveProjectController(model));
 	}
 	
 	/* return the button */

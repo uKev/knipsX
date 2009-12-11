@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import org.knipsX.controller.projectview.DeletePictureSetNoController;
 import org.knipsX.controller.projectview.DeletePictureSetYesController;
 import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
 public class JDeletePictureSet extends JAbstractView {
@@ -130,6 +131,15 @@ public class JDeletePictureSet extends JAbstractView {
 
 	@Override
 	public void update(final Observable o, final Object arg) {
+		/* Bekomme das Modell geliefert */
+		final ProjectViewModel model = (ProjectViewModel) o;
+
+		/* Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind für einen namen. */
+		if (model.getModelStatus() != ProjectViewModel.DELETEPICTURESET) {
+
+			/* Lösche Fenster */
+			this.dispose();
+		}
 	}
 }
 

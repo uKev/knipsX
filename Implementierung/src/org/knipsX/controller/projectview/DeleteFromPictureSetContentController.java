@@ -4,15 +4,14 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 
-public class AddToPictureSetController extends AbstractController {
+public class DeleteFromPictureSetContentController extends AbstractController {
 
-	public AddToPictureSetController(AbstractModel model) {
+	public DeleteFromPictureSetContentController(AbstractModel model) {
 		super(model);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//new file Dialog//
 
 	}
 }
