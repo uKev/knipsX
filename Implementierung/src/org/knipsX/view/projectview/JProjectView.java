@@ -22,6 +22,14 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 
 /* import things from our program */
+import org.knipsX.controller.projectview.AddToPictureSetContentController;
+import org.knipsX.controller.projectview.CopyPictureSetController;
+import org.knipsX.controller.projectview.CreatePictureSetController;
+import org.knipsX.controller.projectview.DeleteFromPictureSetContentController;
+import org.knipsX.controller.projectview.DeletePictureSetController;
+import org.knipsX.controller.projectview.RefreshProjectViewController;
+import org.knipsX.controller.projectview.SaveProjectController;
+import org.knipsX.controller.projectview.SwitchProjectController;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
@@ -132,6 +140,7 @@ public class JProjectView extends JAbstractView {
 	if (this.jButtonPictureSetContentAdd == null) {
 	    this.jButtonPictureSetContentAdd = new JButton();
 	    this.jButtonPictureSetContentAdd.setText("Hinzufügen");
+	    this.jButtonPictureSetContentAdd.addActionListener(new AddToPictureSetContentController(model));
 	}
 	return this.jButtonPictureSetContentAdd;
     }
@@ -145,6 +154,8 @@ public class JProjectView extends JAbstractView {
 	if (this.jButtonPictureSetContentDelete == null) {
 	    this.jButtonPictureSetContentDelete = new JButton();
 	    this.jButtonPictureSetContentDelete.setText("Entfernen");
+	    this.jButtonPictureSetContentDelete.addActionListener(new DeleteFromPictureSetContentController (model));
+	    //TODO Hier muss noch die getmarket items methode aufgerufen werden und dem konstruktor mitgegen werden
 	}
 	return this.jButtonPictureSetContentDelete;
     }
@@ -158,6 +169,7 @@ public class JProjectView extends JAbstractView {
 	if (this.jButtonPictureSetContentRefresh == null) {
 	    this.jButtonPictureSetContentRefresh = new JButton();
 	    this.jButtonPictureSetContentRefresh.setText("Aktualisieren");
+	    this.jButtonPictureSetContentRefresh.addActionListener(new RefreshProjectViewController(model));
 	}
 	return this.jButtonPictureSetContentRefresh;
     }
@@ -171,6 +183,7 @@ public class JProjectView extends JAbstractView {
 	if (this.jButtonPictureSetCopy == null) {
 	    this.jButtonPictureSetCopy = new JButton();
 	    this.jButtonPictureSetCopy.setText("Kopieren");
+	    this.jButtonPictureSetCopy.addActionListener(new CopyPictureSetController(model));
 	}
 	return this.jButtonPictureSetCopy;
     }
@@ -184,6 +197,7 @@ public class JProjectView extends JAbstractView {
 	if (this.jButtonPictureSetCreate == null) {
 	    this.jButtonPictureSetCreate = new JButton();
 	    this.jButtonPictureSetCreate.setText("Erstellen");
+	    this.jButtonPictureSetCreate.addActionListener(new CreatePictureSetController(model));
 	}
 	return this.jButtonPictureSetCreate;
     }
@@ -197,6 +211,7 @@ public class JProjectView extends JAbstractView {
 	if (this.jButtonPictureSetDelete == null) {
 	    this.jButtonPictureSetDelete = new JButton();
 	    this.jButtonPictureSetDelete.setText("Entfernen");
+	    this.jButtonPictureSetDelete.addActionListener(new DeletePictureSetController(model, ));
 	}
 	return this.jButtonPictureSetDelete;
     }
@@ -210,6 +225,7 @@ public class JProjectView extends JAbstractView {
 	if (this.jButtonProjectChange == null) {
 	    this.jButtonProjectChange = new JButton();
 	    this.jButtonProjectChange.setText("Wechseln");
+	    this.jButtonProjectChange.addActionListener(new SwitchProjectController(model));
 	}
 	return this.jButtonProjectChange;
     }
@@ -223,6 +239,7 @@ public class JProjectView extends JAbstractView {
 	if (this.jButtonProjectSave == null) {
 	    this.jButtonProjectSave = new JButton();
 	    this.jButtonProjectSave.setText("Speichern");
+	    this.jButtonProjectSave.addActionListener(new SaveProjectController(model));
 	}
 	return this.jButtonProjectSave;
     }

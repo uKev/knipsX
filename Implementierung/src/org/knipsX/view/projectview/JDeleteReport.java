@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import org.knipsX.controller.projectview.DeleteReportNoController;
 import org.knipsX.controller.projectview.DeleteReportOkController;
 import org.knipsX.model.AbstractModel;
+import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
 public class JDeleteReport extends JAbstractView{
@@ -130,5 +131,14 @@ public class JDeleteReport extends JAbstractView{
 
 	@Override
 	public void update(final Observable o, final Object arg) {
+		/* Bekomme das Modell geliefert */
+		final ProjectViewModel model = (ProjectViewModel) o;
+
+		/* Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind für einen namen. */
+		if (model.getModelStatus() != ProjectViewModel.DELETEREPORT) {
+
+			/* Lösche Fenster */
+			this.dispose();
+		}
 	}
 }
