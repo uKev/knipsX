@@ -1,5 +1,7 @@
 package org.knipsX.view.reportmanagement;
 
+import java.util.Observable;
+
 import org.knipsX.model.reportmanagement.BoxplotModel;
 
 public class JBoxplotConfig extends JAbstractReportConfig {		
@@ -17,6 +19,7 @@ public class JBoxplotConfig extends JAbstractReportConfig {
     	addPanel(new JPictureSet("", null, "", boxplotmodel));
     	addPanel(new JWilcoxon("", null, "", boxplotmodel));
     }
+
     
 }
 

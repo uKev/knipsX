@@ -1,12 +1,10 @@
 package org.knipsX.view.reportmanagement;
 
 import java.util.ArrayList;
-import javax.swing.JTabbedPane;
 
 import org.knipsX.model.AbstractModel;
-import org.knipsX.view.JAbstractView;
 
-public abstract class JAbstractReportConfig extends JAbstractView {
+public abstract class JAbstractReportConfig {
 	
 	/**
 	 * 
@@ -15,8 +13,7 @@ public abstract class JAbstractReportConfig extends JAbstractView {
 
 
 	public JAbstractReportConfig(AbstractModel abstractModel) {
-		super(abstractModel);
-		// TODO Auto-generated constructor stub
+
 	}
 
 	protected ArrayList<JAbstractSinglePanel> registeredPanels = new ArrayList<JAbstractSinglePanel>();
