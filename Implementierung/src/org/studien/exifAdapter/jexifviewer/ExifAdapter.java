@@ -8,8 +8,63 @@ public class ExifAdapter {
 	
 	private String strFilePath;
 	
-	public static enum ExifParameter { Kameramodell, Blitz, Blende, Verschlusszeit, ISO_Wert, Brennweite, 
-		Datum, Wochentag, Uhrzeit, Objektivname }
+	public static enum ExifParameter {	
+		Kameramodell (false), 
+		Blitz (false),
+		Blende (true),
+		Verschlusszeit (true),
+		ISO_Wert (true),
+		Brennweite (true),		
+		Datum (true),
+		Wochentag (true),
+		Uhrzeit (true),
+		Objektivname (false);
+	
+		private boolean ordinal;		
+		
+		ExifParameter(boolean ordinal) {
+			this.ordinal = ordinal;
+		}
+
+		public void setOrdinal(boolean ordinal) {
+			this.ordinal = ordinal;
+		}
+
+		public boolean isOrdinal() {
+			return ordinal;
+		}
+
+	}
+	
+	
+	public Object getExifParameter(ExifParameter e){
+		switch (e)
+		{
+		case Kameramodell:
+			return getCameraModel();
+		case Blitz:
+			return getFlash();
+		case Blende:
+			return getFNumber();
+		case Verschlusszeit:
+			return getExposureTime();
+		case ISO_Wert:
+			return getISOSpeedRatings();
+		case Brennweite:
+			return getFocalLength();
+		case Datum:
+			return getOriginalDate();
+		case Wochentag:
+			return getOriginalDayOfWeek();
+		case Uhrzeit:
+			return getOriginalTime();
+		case Objektivname:
+			return getObjective();
+		default:
+			assert false;
+		}
+		return null;		
+	}
 	
 	public ExifAdapter() {
 		this.exifData = new JIfdData();
@@ -30,96 +85,70 @@ public class ExifAdapter {
 		this.strFilePath = imageFile;
 	}
 	
-	public String getCameraModel() {
+	private String getCameraModel() {
 		assert this.exifData != null;
 		return this.exifData.getModel();
 	}
 	
-	public int getFlash() {
+	private int getFlash() {
 		assert this.exifData != null;
 		return this.exifData.getFlash();
 	}
 	
-	public float getFNumber() {
+	private float getFNumber() {
 		assert this.exifData != null;
 		return this.exifData.getFNumber(new String[1]);
 	}
 	
-	public String getFNumberAsFormattedString() {
+	private String getFNumberAsFormattedString() {
 		assert this.exifData != null;
 		String[] strBack = new String[1];
 		this.exifData.getFNumber(strBack);
 		return strBack[0];
 	}
 	
-	public int getExposureTime() {
+	private int getExposureTime() {
 		assert this.exifData != null;
 		return this.exifData.getExposureTime(new String[1]);
 	}
 	
-	public String getExposureTimeAsFormattedString() {
+	private String getExposureTimeAsFormattedString() {
 		assert this.exifData != null;
 		String[] strBack = new String[1];
 		this.exifData.getExposureTime(strBack);
 		return strBack[0];
 	}
 	
-	public int getISOSpeedRatings() {
+	private int getISOSpeedRatings() {
 		assert this.exifData != null;
 		return this.exifData.getISOSpeedRatings();
 	}
 	
-	public float getFocalLength() {
+	private float getFocalLength() {
 		assert this.exifData != null;
 		return this.exifData.getFocalLength();
 	}
 	
-	public float getFocalLength35mm() {
+	private float getFocalLength35mm() {
 		assert this.exifData != null;
 		return this.exifData.getFocalLength35mm();
 	}
 	
-	public String getOriginalDate() {
+	private String getOriginalDate() {
 		assert this.exifData != null;
 		return this.exifData.getOriginalDateTime();
 	}
 	
-	public String getOriginalDayOfWeek() {
+	private String getOriginalDayOfWeek() {
 		return "";
 	}
 	
-	public String getOriginalTime() {
+	private String getOriginalTime() {
 		return "";
 	}
 	
-	public String getObjective() {
+	private String getObjective() {
 		return "";
 	}
-	
-	public String getExifParameter(ExifParameter e){
-		switch (e)
-		{
-		case Kameramodell:
-			break;
-		case Blitz:
-			break;
-		case Blende:
-			break;
-		case Verschlusszeit:
-			break;
-		case ISO_Wert:
-			break;
-		case Brennweite:
-			break;
-		case Datum:
-			break;
-		case Wochentag:
-			break;
-		case Uhrzeit:
-			break;
-		case Objektivname:
-			break;
-		}
-		return null;
-	}
+
 }
