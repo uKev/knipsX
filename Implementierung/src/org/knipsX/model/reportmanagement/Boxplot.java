@@ -1,6 +1,7 @@
 package org.knipsX.model.reportmanagement;
 
 public class Boxplot {
+
 	double mean;
 	double median;
 	double upperQuartile;
@@ -10,6 +11,27 @@ public class Boxplot {
 	double outlier[];
 	double maxValue;
 	double minValue;
+	
+	public Boxplot() {
+		
+	}
+	
+	public Boxplot(double mean, double median, double upperQuartile,
+			double lowerQuartile, double upperWhisker, double lowerWhisker,
+			double[] outlier, double maxValue, double minValue,
+			String pictureSetName) {
+		super();
+		this.mean = mean;
+		this.median = median;
+		this.upperQuartile = upperQuartile;
+		this.lowerQuartile = lowerQuartile;
+		this.upperWhisker = upperWhisker;
+		this.lowerWhisker = lowerWhisker;
+		this.outlier = outlier;
+		this.maxValue = maxValue;
+		this.minValue = minValue;
+		PictureSetName = pictureSetName;
+	}
 	
 	public double getMaxValue() {
 		return maxValue;

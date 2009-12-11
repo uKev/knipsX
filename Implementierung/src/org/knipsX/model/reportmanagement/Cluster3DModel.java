@@ -6,6 +6,7 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 
 
 public class Cluster3DModel extends AbstractDoubleAxesModel{
+	// can be private because there is no subclass
 	private Axis yAxis;
 
 	public Cluster3DModel(ArrayList<PictureContainer> pictureContainer, Axis yAxis) {

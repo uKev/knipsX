@@ -6,7 +6,8 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 
 
 public class AbstractDoubleAxesModel extends AbstractSingleAxisModel{
-	private Axis zAxis;
+	// need to be protected because will be used in subclass
+	protected Axis zAxis;
 
 	public AbstractDoubleAxesModel(
 			ArrayList<PictureContainer> pictureContainer, Axis xAxis, Axis zAxis) {

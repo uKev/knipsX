@@ -6,7 +6,8 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 
 
 public abstract class AbstractSingleAxisModel extends AbstractReportModel{
-	private Axis xAxis;
+	// needs to be protected because it's used in subclass
+	protected Axis xAxis;
 
 	public AbstractSingleAxisModel(
 			ArrayList<PictureContainer> pictureContainer, Axis xAxis) {
