@@ -792,7 +792,30 @@ public class JProjectView extends JAbstractView {
 
     @Override
     public void update(final Observable o, final Object arg) {
-	this.setTitle("Projektansicht für " + ((ProjectViewModel) o).getProjectName());
-	this.repaint();
+    	
+    	final ProjectViewModel model = (ProjectViewModel) o;
+    	
+    	this.setTitle("Projektansicht für " + model.getProjectName());
+    	
+    	/* Fenster aktualisieren */
+    	this.repaint();
+
+		/* Je nach Programmstatus */
+		if (model.getModelStatus() == ProjectViewModel.USERSELECT) {
+	
+		    /* Setze Fenster auf aktiv */
+		    this.setEnabled(true);
+	
+		    /* Zeige Fenster an */
+		    this.setVisible(true);
+		} else if (model.getModelStatus() == ProjectViewModel.SWITCHPROJECT) {
+	
+		    /* Lösche Fenster */
+		    this.dispose();
+		} else {
+			
+	    /* Setze Fenster auf inaktiv */
+		this.setEnabled(false);
+		}
     }
 }

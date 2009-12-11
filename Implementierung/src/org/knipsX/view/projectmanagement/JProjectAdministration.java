@@ -103,16 +103,16 @@ public class JProjectAdministration extends JAbstractView {
      * @return javax.swing.JPanel
      */
     private JPanel getJContentPane() {
-	if (this.jContentPane == null) {
-	    this.jContentPane = new JPanel();
-	}
-	this.jContentPane.add(this.getjButtonCreateProject());
-	this.jContentPane.add(this.getjButtonOpenProject());
-	this.jContentPane.add(this.getjButtonDeleteProject());
-	this.jContentPane.add(this.getjButtonCopyProject());
-	this.jContentPane.add(this.getJScrollPaneProjectList());
-
-	return this.jContentPane;
+		if (this.jContentPane == null) {
+		    this.jContentPane = new JPanel();
+		}
+		this.jContentPane.add(this.getjButtonCreateProject());
+		this.jContentPane.add(this.getjButtonOpenProject());
+		this.jContentPane.add(this.getjButtonDeleteProject());
+		this.jContentPane.add(this.getjButtonCopyProject());
+		this.jContentPane.add(this.getJScrollPaneProjectList());
+	
+		return this.jContentPane;
     }
 
     /**
@@ -121,12 +121,12 @@ public class JProjectAdministration extends JAbstractView {
      * @return javax.swing.JButton
      */
     private JButton getjButtonCopyProject() {
-	if (this.jButtonCopyProject == null) {
-	    this.jButtonCopyProject = new JButton();
-	    this.jButtonCopyProject.setText("Projekt kopieren");
-	    this.jButtonCopyProject.addActionListener(new CopyProjectController(this, this.model));
-	}
-	return this.jButtonCopyProject;
+		if (this.jButtonCopyProject == null) {
+		    this.jButtonCopyProject = new JButton();
+		    this.jButtonCopyProject.setText("Projekt kopieren");
+		    this.jButtonCopyProject.addActionListener(new CopyProjectController(this, this.model));
+		}
+		return this.jButtonCopyProject;
     }
 
     /**
@@ -135,11 +135,11 @@ public class JProjectAdministration extends JAbstractView {
      * @return javax.swing.JButton
      */
     private JButton getjButtonCreateProject() {
-	if (this.jButtonCreateProject == null) {
-	    this.jButtonCreateProject = new JButton();
-	    this.jButtonCreateProject.setText("Projekt erstellen");
-	    this.jButtonCreateProject.addActionListener(new CreateProjectController(this.model));
-	}
+		if (this.jButtonCreateProject == null) {
+		    this.jButtonCreateProject = new JButton();
+		    this.jButtonCreateProject.setText("Projekt erstellen");
+		    this.jButtonCreateProject.addActionListener(new CreateProjectController(this.model));
+		}
 	return this.jButtonCreateProject;
     }
 
@@ -149,12 +149,12 @@ public class JProjectAdministration extends JAbstractView {
      * @return javax.swing.JButton
      */
     private JButton getjButtonDeleteProject() {
-	if (this.jButtonDeleteProject == null) {
-	    this.jButtonDeleteProject = new JButton();
-	    this.jButtonDeleteProject.setText("Projekt löschen");
-	    this.jButtonDeleteProject.addActionListener(new DeleteProjectController(this.model, this));
-	}
-	return this.jButtonDeleteProject;
+		if (this.jButtonDeleteProject == null) {
+		    this.jButtonDeleteProject = new JButton();
+		    this.jButtonDeleteProject.setText("Projekt löschen");
+		    this.jButtonDeleteProject.addActionListener(new DeleteProjectController(this.model, this));
+		}
+		return this.jButtonDeleteProject;
     }
 
     /**
@@ -163,12 +163,12 @@ public class JProjectAdministration extends JAbstractView {
      * @return javax.swing.JButton
      */
     private JButton getjButtonOpenProject() {
-	if (this.jButtonOpenProject == null) {
-	    this.jButtonOpenProject = new JButton();
-	    this.jButtonOpenProject.setText("Projekt öffnen");
-	    this.jButtonOpenProject.addActionListener(new OpenProjectController(this.model, this));
-	}
-	return this.jButtonOpenProject;
+		if (this.jButtonOpenProject == null) {
+		    this.jButtonOpenProject = new JButton();
+		    this.jButtonOpenProject.setText("Projekt öffnen");
+		    this.jButtonOpenProject.addActionListener(new OpenProjectController(this.model, this));
+		}
+		return this.jButtonOpenProject;
     }
 
     /**
@@ -177,11 +177,11 @@ public class JProjectAdministration extends JAbstractView {
      * @return
      */
     private JList getjListProject() {
-	if (this.jListProject == null) {
-	    this.jListProject = new JList(((ProjectListModel) this.model).getProjectList().toArray());
-	    this.jListProject.setCellRenderer(new ComplexCellRenderer());
-	}
-	return this.jListProject;
+		if (this.jListProject == null) {
+		    this.jListProject = new JList(((ProjectListModel) this.model).getProjectList().toArray());
+		    this.jListProject.setCellRenderer(new ComplexCellRenderer());
+		}
+		return this.jListProject;
 
     }
 
@@ -191,11 +191,11 @@ public class JProjectAdministration extends JAbstractView {
      * @return javax.swing.JScrollPane
      */
     private JScrollPane getJScrollPaneProjectList() {
-	if (this.jScrollPaneProjectList == null) {
-	    this.jScrollPaneProjectList = new JScrollPane();
-	    this.jScrollPaneProjectList.setViewportView(this.getjListProject());
-	}
-	return this.jScrollPaneProjectList;
+		if (this.jScrollPaneProjectList == null) {
+		    this.jScrollPaneProjectList = new JScrollPane();
+		    this.jScrollPaneProjectList.setViewportView(this.getjListProject());
+		}
+		return this.jScrollPaneProjectList;
     }
 
     /**
@@ -204,37 +204,37 @@ public class JProjectAdministration extends JAbstractView {
      * @return die Indizes.
      */
     public int[] getSelectedIndices() {
-	return this.jListProject.getSelectedIndices();
+    	return this.jListProject.getSelectedIndices();
     }
 
     @Override
     public void update(final Observable o, final Object arg) {
 
-	/* Bekomme das Modell geliefert */
-	final ProjectListModel model = (ProjectListModel) o;
-
-	/* Setze die Daten der Projektliste */
-	this.jListProject.setListData(model.getProjectList().toArray());
-
-	/* Fenster aktualisieren */
-	this.repaint();
-
-	/* Je nach Programmstatus */
-	if (model.getModelStatus() == ProjectListModel.SELECT) {
-
-	    /* Setze Fenster auf aktiv */
-	    this.setEnabled(true);
-
-	    /* Zeige Fenster an */
-	    this.setVisible(true);
-	} else if (model.getModelStatus() == ProjectListModel.OPEN) {
-
-	    /* Lösche Fenster */
-	    this.dispose();
-	} else {
-
-	    /* Setze Fenster auf inaktiv */
-	    this.setEnabled(false);
-	}
+		/* Bekomme das Modell geliefert */
+		final ProjectListModel model = (ProjectListModel) o;
+	
+		/* Setze die Daten der Projektliste */
+		this.jListProject.setListData(model.getProjectList().toArray());
+	
+		/* Fenster aktualisieren */
+		this.repaint();
+	
+		/* Je nach Programmstatus */
+		if (model.getModelStatus() == ProjectListModel.SELECT) {
+	
+		    /* Setze Fenster auf aktiv */
+		    this.setEnabled(true);
+	
+		    /* Zeige Fenster an */
+		    this.setVisible(true);
+		} else if (model.getModelStatus() == ProjectListModel.OPEN) {
+	
+		    /* Lösche Fenster */
+		    this.dispose();
+		} else {
+				
+		    /* Setze Fenster auf inaktiv */
+			this.setEnabled(false);
+		}
     }
 }
