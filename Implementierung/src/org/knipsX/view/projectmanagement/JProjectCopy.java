@@ -7,8 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.knipsX.controller.projectmanagement.CopyCancel;
-import org.knipsX.controller.projectmanagement.CopyOk;
+import org.knipsX.controller.projectmanagement.CopyCancelController;
+import org.knipsX.controller.projectmanagement.CopyOkController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.projectmanagement.ProjectListModel;
@@ -84,7 +84,7 @@ public class JProjectCopy extends JAbstractView {
 		if (this.jButtonConfirm == null) {
 			this.jButtonConfirm = new JButton("Ok");
 
-			this.jButtonConfirm.addActionListener(new CopyOk(this.model, this));
+			this.jButtonConfirm.addActionListener(new CopyOkController(this.model, this));
 		}
 		return this.jButtonConfirm;
 	}
@@ -94,7 +94,7 @@ public class JProjectCopy extends JAbstractView {
 		if (this.jButtonCancel == null) {
 			this.jButtonCancel = new JButton("Abbrechen");
 
-			this.jButtonCancel.addActionListener(new CopyCancel(this.model));
+			this.jButtonCancel.addActionListener(new CopyCancelController(this.model));
 		}
 		return this.jButtonCancel;
 	}
