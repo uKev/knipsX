@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
-import org.knipsX.view.projectview.JNewPictureSet;
+import org.knipsX.view.projectview.JPictureSetNew;
 
 public class CreatePictureSetController extends AbstractController {
 	
@@ -15,7 +15,7 @@ public class CreatePictureSetController extends AbstractController {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		model.setModelStatus(ProjectViewModel.CREATEPICTURESET);
-		new JNewPictureSet(model);
+		new JPictureSetNew(model);
 		model.updateViews();
 	}
 }

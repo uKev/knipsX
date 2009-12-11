@@ -11,7 +11,7 @@ import org.knipsX.model.projectmanagement.ProjectListModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
-public class JDeletePictureSet extends JAbstractView {
+public class JPictureSetDelete extends JAbstractView {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +24,7 @@ public class JDeletePictureSet extends JAbstractView {
 
 	private final int[] toDelete;
 
-	public JDeletePictureSet(final ProjectListModel model, final int[] toDelete) {
+	public JPictureSetDelete(final ProjectListModel model, final int[] toDelete) {
 
 		/* Setze Modell */
 		super(model);
