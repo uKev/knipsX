@@ -1,6 +1,8 @@
 package org.knipsX.view.diagrams;
 
 
+import javax.vecmath.Vector3d;
+
 import org.knipsX.model.AbstractModel;
 
 
@@ -18,6 +20,6 @@ public class JCluster3D extends JAbstract3DDiagram{
 
 	@Override
 	public void generateContent() {
-		// TODO Auto-generated method stub
+		createCube(new Vector3d(5,5,10), new Vector3d(1,1,1), basicMaterial(0, 1, 0));		
 	}
 }

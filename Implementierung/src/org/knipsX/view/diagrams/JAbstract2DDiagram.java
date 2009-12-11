@@ -24,18 +24,14 @@ public abstract class JAbstract2DDiagram extends JAbstract3DEngine {
 	@Override
 	public void preinitialize() {
 		this.canvas3D.getView().setProjectionPolicy(View.PARALLEL_PROJECTION);
-		this.canvas3D.getView().setScreenScale(0.035);
+		this.canvas3D.getView().setScreenScale(0.03);
 		this.canvas3D.getView().setScreenScalePolicy(View.SCALE_EXPLICIT);
 		this.canvas3D.getView().setBackClipDistance(20);		 
-		this.canvas3D.getView().setFrontClipDistance(-2);
-		
-		
-		this.simpleU.getViewingPlatform().setNominalViewingTransform();
+		this.canvas3D.getView().setFrontClipDistance(-2);		
 		this.textautorotate = false;
 		createGrid();
 		createAxis(2);
 		changeCamtoFaceYXPlane();
-		
 		
 		
         // Make Interactive for 2D View
@@ -45,10 +41,10 @@ public abstract class JAbstract2DDiagram extends JAbstract3DEngine {
 				OrbitBehavior.REVERSE_ALL);
     	orbit.setRotateEnable(false);
     	orbit.setZoomEnable(false);
+    	orbit.setTranslateEnable(false);
     	BoundingSphere bounds =
     	    new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
     	orbit.setSchedulingBounds(bounds);
-    	//orbit.setZoomFactor(3);
     	viewingPlatform.setViewPlatformBehavior(orbit);
     	
 	}
