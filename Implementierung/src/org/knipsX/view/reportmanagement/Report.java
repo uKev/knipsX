@@ -9,11 +9,11 @@ import org.knipsX.model.reportmanagement.TableModel;
 
 public enum Report {	
 	
-	Boxplot {JAbstractReportConfig getReportConfig() {return new JBoxplotConfig(new BoxplotModel());} },
-	Histogram2D {JAbstractReportConfig getReportConfig() {return new JHistogram2DConfig(new Histogram2DModel());} },
-	Histogram3D { JAbstractReportConfig getReportConfig() {return new JHistogram3DConfig(new Histogram3DModel());} },
-	Cluster3D {JAbstractReportConfig getReportConfig() {return new JCluster3DConfig(new Cluster3DModel());} },
-	Table {JAbstractReportConfig getReportConfig() {return new JTableConfig( new TableModel());} };
+	Boxplot {JAbstractReportConfig getReportConfig() {return new JBoxplotConfig(null);} },
+	Histogram2D {JAbstractReportConfig getReportConfig() {return new JHistogram2DConfig(null);} },
+	Histogram3D { JAbstractReportConfig getReportConfig() {return new JHistogram3DConfig(new Histogram3DModel(null, null, null));} },
+	Cluster3D {JAbstractReportConfig getReportConfig() {return new JCluster3DConfig(new Cluster3DModel(null, null));} },
+	Table {JAbstractReportConfig getReportConfig() {return new JTableConfig( new TableModel(null));} };
 	
 	abstract JAbstractReportConfig getReportConfig();
 }
