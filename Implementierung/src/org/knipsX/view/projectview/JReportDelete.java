@@ -1,144 +1,212 @@
+/**
+ * This package is the root of all files regarding the "project view".
+ */
 package org.knipsX.view.projectview;
 
+/* import things from the java sdk */
 import java.util.Observable;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+/* import things from our program */
 import org.knipsX.controller.projectview.DeleteReportNoController;
 import org.knipsX.controller.projectview.DeleteReportOkController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
-public class JReportDelete extends JAbstractView{
-	
-	private static final long serialVersionUID = 1L;
+public class JReportDelete extends JAbstractView {
 
-	private JPanel jContentPane = null;
+    /** Only for serialisation */
+    private static final long serialVersionUID = -4483378105829070757L;
 
-	private JLabel jLabelValidationText = null;
+    /* represents the panel for the view */
+    private JPanel jContentPane = null;
 
-	private JButton jButtonYes = null;
-	private JButton jButtonNo = null;
+    /* represents the validation text */
+    private JLabel jLabelValidationText = null;
 
-	private final int[] toDelete;
+    /* represents the button for confirmation */
+    private JButton jButtonConfirm = null;
 
-	public JReportDelete(final AbstractModel model, final int[] toDelete) {
+    /* represents the button for canceling */
+    private JButton jButtonCancel = null;
 
-		/* Setze Modell */
-		super(model);
+    /* stores the indices of the reports which should be deleted */
+    private final int[] toDelete;
 
-		/* Setze Indizes, die gelöscht werden sollen */
-		this.toDelete = toDelete;
+    public JReportDelete(final AbstractModel abstractModel, final int[] toDelete) {
 
-		/* Zeichne Fenster */
-		this.initialize();
+	/* sets the model */
+	super(abstractModel);
+
+	/* set the indices of the reports which should be deleted */
+	this.toDelete = toDelete;
+
+	/* renders the view */
+	this.initialize();
+    }
+
+    /**
+     * This method initializes this
+     * 
+     * @return void
+     */
+    private void initialize() {
+
+	/* set the title for the view */
+	/* TODO change to internationalisation */
+	this.setTitle("Bestätigen");
+
+	/* show main panel */
+	this.setContentPane(this.getJContentPane());
+
+	/* set standard close action */
+	/* TODO We have to edit the close action! */
+	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	/* change size to preferred size */
+	this.pack();
+
+	/* set location to the center of the screen */
+	this.setLocationRelativeTo(null);
+
+	/* show view */
+	this.setVisible(true);
+    }
+
+    /**
+     * This method initializes jContentPane.
+     * 
+     * @return javax.swing.JPanel the content panel.
+     */
+    private JPanel getJContentPane() {
+
+	/* create if not set */
+	if (this.jContentPane == null) {
+
+	    /* create new panel */
+	    this.jContentPane = new JPanel();
+
+	    /* add the label with the validation text */
+	    this.jContentPane.add(this.getJLabelValidationText());
+
+	    /* add the confirm button */
+	    this.jContentPane.add(this.getJButtonConfirm());
+
+	    /* add the cancel button */
+	    this.jContentPane.add(this.getJButtonCancel());
 	}
 
-	/**
-	 * This method initializes this
-	 * 
-	 * @return void
-	 */
-	private void initialize() {
+	/* return the panel */
+	return this.jContentPane;
+    }
 
-		/* Setze Titel */
-		this.setTitle("Bestätigen");
+    /**
+     * This method initializes jButtonCancel.
+     * 
+     * @return javax.swing.JButton the button.
+     */
+    private JButton getJButtonCancel() {
 
-		/* Setze das Hauptpanel */
-		this.setContentPane(this.getJContentPane());
+	/* create if not set */
+	if (this.jButtonCancel == null) {
 
-		/* Setze Standardschließaktion */
-		/* TODO Schließaktion anpassen! */
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    /* create new button */
+	    /* TODO change to internationalisation */
+	    this.jButtonCancel = new JButton("Nein");
 
-		/* Ändere Größe */
-		this.pack();
-
-		/* Setze Lokation */
-		this.setLocationRelativeTo(null);
-
-		/* Zeige Fensert an */
-		this.setVisible(true);
+	    /* create an action listener (which knows the model) to the button */
+	    this.jButtonCancel.addActionListener(new DeleteReportNoController(this.model));
 	}
 
-	/**
-	 * This method initializes jContentPane
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJContentPane() {
-		if (this.jContentPane == null) {
-			this.jContentPane = new JPanel();
-		}
-		this.jContentPane.add(this.getjLabelValidationText());
-		this.jContentPane.add(this.getjButtonYes());
-		this.jContentPane.add(this.getjButtonNo());
-		return this.jContentPane;
+	/* return the button */
+	return this.jButtonCancel;
+    }
+
+    /**
+     * This method initializes jButtonConfirm.
+     * 
+     * @return javax.swing.JButton the button.
+     */
+    private JButton getJButtonConfirm() {
+
+	/* create if not set */
+	if (this.jButtonConfirm == null) {
+
+	    /* create new button */
+	    /* TODO change to internationalisation */
+	    this.jButtonConfirm = new JButton("Ja");
+
+	    /* create an action listener (which knows the model and the indices to delete) to the button */
+	    this.jButtonConfirm.addActionListener(new DeleteReportOkController(this.model, this.toDelete));
 	}
 
-	/**
-	 * This method initializes jButtonNo
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getjButtonNo() {
-		if (this.jButtonNo == null) {
-			this.jButtonNo = new JButton();
-			this.jButtonNo.setText("Nein");
-			this.jButtonNo.addActionListener(new DeleteReportNoController(this.model));
-		}
-		return this.jButtonNo;
+	/* return the button */
+	return this.jButtonConfirm;
+    }
+
+    /**
+     * This method initializes jLabelValidationText.
+     * 
+     * @return javax.swing.JLabel the label.
+     */
+    private JLabel getJLabelValidationText() {
+
+	/* create if not set */
+	if (this.jLabelValidationText == null) {
+
+	    /* create new label */
+	    this.jLabelValidationText = new JLabel();
+
+	    /* set the text */
+	    /* TODO change to internationalisation */
+	    this.jLabelValidationText.setText("Möchten Sie : " + this.generateToDeleteText() + " wirklich löschen?");
+
 	}
 
-	/**
-	 * This method initializes jButtonYes
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getjButtonYes() {
-		if (this.jButtonYes == null) {
-			this.jButtonYes = new JButton();
-			this.jButtonYes.setText("Ja");
-			this.jButtonYes.addActionListener(new DeleteReportOkController(this.model, this.toDelete));
-		}
-		return this.jButtonYes;
+	/* return the label */
+	return this.jLabelValidationText;
+    }
+
+    /**
+     * Generates the text for the validation label.
+     * 
+     * The text enumerates all report names.
+     * 
+     * @return the generated text.
+     */
+    private String generateToDeleteText() {
+
+	/* the variable for the text */
+	String deleteText = "";
+
+	/* go through all indices */
+	for (int n = 0; n < this.toDelete.length; ++n) {
+
+	    /* add project name to text */
+	    deleteText += ""; // TODO((ProjectListModel) this.model).getProjectList().get(this.toDelete[n]).getName() +
+	    // ";";
 	}
 
-	/**
-	 * This method initializes jLabelValidationText
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JLabel getjLabelValidationText() {
-		if (this.jLabelValidationText == null) {
-			this.jLabelValidationText = new JLabel();
-			this.jLabelValidationText.setText("Möchten Sie : " + this.generateToDeleteText() + " wirklich löschen?");
+	/* return the generated text */
+	return deleteText;
+    }
 
-		}
-		return this.jLabelValidationText;
+    @Override
+    public void update(final Observable o, final Object arg) {
+
+	/* cast to model */
+	final ProjectViewModel model = (ProjectViewModel) o;
+
+	/* react to program state */
+	/* TODO add a status and error panel! */
+	if (model.getModelStatus() != ProjectViewModel.DELETEREPORT) {
+
+	    /* delete view */
+	    this.dispose();
 	}
-
-	/* Generiert den Text, der im Panel angezeigt wird */
-	private String generateToDeleteText() {
-		String deleteText = "";
-		for (int n = 0; n < this.toDelete.length; ++n) {
-			deleteText += ""; //TODO((ProjectListModel) this.model).getProjectList().get(this.toDelete[n]).getName() + ";";
-		}
-		return deleteText;
-	}
-
-	@Override
-	public void update(final Observable o, final Object arg) {
-		/* Bekomme das Modell geliefert */
-		final ProjectViewModel model = (ProjectViewModel) o;
-
-		/* Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind für einen namen. */
-		if (model.getModelStatus() != ProjectViewModel.DELETEREPORT) {
-
-			/* Lösche Fenster */
-			this.dispose();
-		}
-	}
+    }
 }

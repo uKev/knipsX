@@ -34,6 +34,11 @@ import org.knipsX.controller.projectview.SwitchProjectController;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
+/**
+ * Represents the view for an active project.
+ * 
+ * Sets all GUI Elements which are described in our Pflichtenheft.
+ */
 public class JProjectView extends JAbstractView {
 
     /** Only for serialisation */
@@ -1113,7 +1118,7 @@ public class JProjectView extends JAbstractView {
 	    this.dispose();
 	} else {
 
-	    /* set the iew inactive */
+	    /* set the view inactive */
 	    this.setEnabled(false);
 	}
     }
