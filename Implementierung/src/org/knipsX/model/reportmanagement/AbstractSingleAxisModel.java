@@ -14,6 +14,11 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel{
 		this.xAxis = xAxis;
 	}
 
+	public AbstractSingleAxisModel() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Axis getxAxis() {
 		return xAxis;
 	}

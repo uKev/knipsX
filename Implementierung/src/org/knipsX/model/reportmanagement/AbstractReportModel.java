@@ -13,6 +13,10 @@ public abstract class AbstractReportModel extends AbstractModel {
 		this.pictureContainer = pictureContainer;
 	}
 
+	public AbstractReportModel() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public ArrayList<PictureContainer> getPictureContainer() {
 		return pictureContainer;
 	}
