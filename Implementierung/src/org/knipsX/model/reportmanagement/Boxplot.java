@@ -1,5 +1,10 @@
 package org.knipsX.model.reportmanagement;
 
+/**
+ * Boxplot.. TODO:
+ * @author Kevin Zuber
+ *
+ */
 public class Boxplot {
 
 	double mean;
