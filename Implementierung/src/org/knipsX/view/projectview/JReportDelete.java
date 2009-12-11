@@ -11,12 +11,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /* import things from our program */
-import org.knipsX.controller.projectview.DeleteReportNoController;
-import org.knipsX.controller.projectview.DeleteReportOkController;
+import org.knipsX.controller.projectview.DeleteReportRefuseController;
+import org.knipsX.controller.projectview.DeleteReportConfirmController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
+/**
+ * Represents the view for a dialog which gives the user the possibility to delete a report.
+ */
 public class JReportDelete extends JAbstractView {
 
     /** Only for serialisation */
@@ -31,8 +34,8 @@ public class JReportDelete extends JAbstractView {
     /* represents the button for confirmation */
     private JButton jButtonConfirm = null;
 
-    /* represents the button for canceling */
-    private JButton jButtonCancel = null;
+    /* represents the button for refusing */
+    private JButton jButtonRefuse = null;
 
     /* stores the indices of the reports which should be deleted */
     private final int[] toDelete;
@@ -97,7 +100,7 @@ public class JReportDelete extends JAbstractView {
 	    this.jContentPane.add(this.getJButtonConfirm());
 
 	    /* add the cancel button */
-	    this.jContentPane.add(this.getJButtonCancel());
+	    this.jContentPane.add(this.getJButtonRefuse());
 	}
 
 	/* return the panel */
@@ -105,25 +108,25 @@ public class JReportDelete extends JAbstractView {
     }
 
     /**
-     * This method initializes jButtonCancel.
+     * This method initializes jButtonRefuse.
      * 
      * @return javax.swing.JButton the button.
      */
-    private JButton getJButtonCancel() {
+    private JButton getJButtonRefuse() {
 
 	/* create if not set */
-	if (this.jButtonCancel == null) {
+	if (this.jButtonRefuse == null) {
 
 	    /* create new button */
 	    /* TODO change to internationalisation */
-	    this.jButtonCancel = new JButton("Nein");
+	    this.jButtonRefuse = new JButton("Nein");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonCancel.addActionListener(new DeleteReportNoController(this.model));
+	    this.jButtonRefuse.addActionListener(new DeleteReportRefuseController(this.model));
 	}
 
 	/* return the button */
-	return this.jButtonCancel;
+	return this.jButtonRefuse;
     }
 
     /**
@@ -141,7 +144,7 @@ public class JReportDelete extends JAbstractView {
 	    this.jButtonConfirm = new JButton("Ja");
 
 	    /* create an action listener (which knows the model and the indices to delete) to the button */
-	    this.jButtonConfirm.addActionListener(new DeleteReportOkController(this.model, this.toDelete));
+	    this.jButtonConfirm.addActionListener(new DeleteReportConfirmController(this.model, this.toDelete));
 	}
 
 	/* return the button */

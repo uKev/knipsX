@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.knipsX.controller.projectview.SaveProjectCancelController;
-import org.knipsX.controller.projectview.SaveProjectNoController;
-import org.knipsX.controller.projectview.SaveProjectYesController;
+import org.knipsX.controller.projectview.SaveProjectConfirmController;
+import org.knipsX.controller.projectview.SaveProjectRefuseController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
@@ -86,7 +86,7 @@ public class JSwitchSaveProject extends JAbstractView {
 		if (this.jButtonNo == null) {
 			this.jButtonNo = new JButton();
 			this.jButtonNo.setText("Nein");
-			this.jButtonNo.addActionListener(new SaveProjectNoController(this.model));
+			this.jButtonNo.addActionListener(new SaveProjectRefuseController(this.model));
 		}
 		return this.jButtonNo;
 	}
@@ -114,7 +114,7 @@ public class JSwitchSaveProject extends JAbstractView {
 		if (this.jButtonYes == null) {
 			this.jButtonYes = new JButton();
 			this.jButtonYes.setText("Ja");
-			this.jButtonYes.addActionListener(new SaveProjectYesController(this.model));
+			this.jButtonYes.addActionListener(new SaveProjectConfirmController(this.model));
 		}
 		return this.jButtonYes;
 	}
