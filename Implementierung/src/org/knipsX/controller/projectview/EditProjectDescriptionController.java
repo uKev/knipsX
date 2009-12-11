@@ -12,6 +12,6 @@ public class EditProjectDescriptionController extends AbstractController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		model.updateViews();
 	}
 }

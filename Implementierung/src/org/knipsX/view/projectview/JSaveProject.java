@@ -1,17 +1,19 @@
-package org.knipsX.view.common;
+package org.knipsX.view.projectview;
 
 import java.util.Observable;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import org.knipsX.controller.common.WantToSaveNoController;
-import org.knipsX.controller.common.WantToSaveYesController;
-import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.controller.projectview.SaveProjectCancelController;
+import org.knipsX.controller.projectview.SaveProjectNoController;
+import org.knipsX.controller.projectview.SaveProjectYesController;
+import org.knipsX.model.AbstractModel;
+import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
-public class JWantToSave extends JAbstractView {
+public class JSaveProject extends JAbstractView {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +26,7 @@ public class JWantToSave extends JAbstractView {
 	private JButton jButtonCancel = null;
 
 
-	public JWantToSave(final ProjectListModel model, final int[] toDelete) {
+	public JSaveProject(final AbstractModel model) {
 
 		/* Setze Modell */
 		super(model);
@@ -41,7 +43,7 @@ public class JWantToSave extends JAbstractView {
 	private void initialize() {
 
 		/* Setze Titel */
-		this.setTitle("Wirklich beenden?");
+		this.setTitle("Speichern?");
 
 		/* Setze das Hauptpanel */
 		this.setContentPane(this.getJContentPane());
@@ -85,7 +87,7 @@ public class JWantToSave extends JAbstractView {
 		if (this.jButtonNo == null) {
 			this.jButtonNo = new JButton();
 			this.jButtonNo.setText("Nein");
-			this.jButtonNo.addActionListener(new WantToSaveNoController(this.model));
+			this.jButtonNo.addActionListener(new SaveProjectNoController(this.model));
 		}
 		return this.jButtonNo;
 	}
@@ -99,7 +101,7 @@ public class JWantToSave extends JAbstractView {
 		if (this.jButtonCancel == null) {
 			this.jButtonCancel = new JButton();
 			this.jButtonCancel.setText("Abbrechen");
-			this.jButtonCancel.addActionListener(new WantToSaveYesController(this.model));
+			this.jButtonCancel.addActionListener(new SaveProjectCancelController(this.model));
 		}
 		return this.jButtonYes;
 		
@@ -113,7 +115,7 @@ public class JWantToSave extends JAbstractView {
 		if (this.jButtonYes == null) {
 			this.jButtonYes = new JButton();
 			this.jButtonYes.setText("Ja");
-			this.jButtonYes.addActionListener(new WantToSaveYesController(this.model));
+			this.jButtonYes.addActionListener(new SaveProjectYesController(this.model));
 		}
 		return this.jButtonYes;
 	}
@@ -126,7 +128,7 @@ public class JWantToSave extends JAbstractView {
 	private JLabel getjLabelValidationText() {
 		if (this.jLabelValidationText == null) {
 			this.jLabelValidationText = new JLabel();
-			this.jLabelValidationText.setText("Möchten Sie beenden ohne zu speichern?");
+			this.jLabelValidationText.setText("Möchten Sie das Projekt speichern?");
 
 		}
 		return this.jLabelValidationText;
@@ -135,6 +137,14 @@ public class JWantToSave extends JAbstractView {
 
 	@Override
 	public void update(final Observable o, final Object arg) {
+		/* Bekomme das Modell geliefert */
+		final ProjectViewModel model = (ProjectViewModel) o;
+
+		/* Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind für einen namen. */
+		if (model.getModelStatus() != ProjectViewModel.SAVEPROJECT) {
+
+			/* Lösche Fenster */
+			this.dispose();
+		}
 	}
 }
-
