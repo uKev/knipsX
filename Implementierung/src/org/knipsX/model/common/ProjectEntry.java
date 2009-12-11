@@ -25,6 +25,13 @@ public class ProjectEntry extends AbstractModel {
 		this.path = path;
 	}
 
+	public ProjectEntry(ProjectEntry projectEntry) {
+		this.id = projectEntry.getId();
+		this.name = projectEntry.getName();
+		this.creationDate = projectEntry.getCreationDate();
+		this.path = projectEntry.getPath();
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -41,15 +48,8 @@ public class ProjectEntry extends AbstractModel {
 		this.name = name;
 	}
 
-	public String getCreationDate() {
-		int year	= creationDate.get(Calendar.YEAR);
-		int month	= creationDate.get(Calendar.MONTH);
-		int day		= creationDate.get(Calendar.DAY_OF_MONTH);
-		int hour	= creationDate.get(Calendar.HOUR_OF_DAY);
-		int minute	= creationDate.get(Calendar.MINUTE);
-		int second	= creationDate.get(Calendar.SECOND);
-				
-		return year + "." + month + "." + day + " " + hour + ":" + minute + ":" + second;
+	public GregorianCalendar getCreationDate() {			
+		return creationDate;
 	}
 
 	public void setCreationDate(GregorianCalendar creationDate) {
@@ -63,4 +63,15 @@ public class ProjectEntry extends AbstractModel {
 	public void setPath(String path) {
 		this.path = path;
 	}	
+	
+	public String calendarToString () {
+		int year	= creationDate.get(Calendar.YEAR);
+		int month	= creationDate.get(Calendar.MONTH);
+		int day		= creationDate.get(Calendar.DAY_OF_MONTH);
+		int hour	= creationDate.get(Calendar.HOUR_OF_DAY);
+		int minute	= creationDate.get(Calendar.MINUTE);
+		int second	= creationDate.get(Calendar.SECOND);
+		String dateAndTime = day+"."+month+"."+year+" - "+hour+":"+minute+":"+second;		
+		return dateAndTime;		
+	}
 }
