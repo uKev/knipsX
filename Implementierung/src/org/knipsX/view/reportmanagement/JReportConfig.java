@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.Observable;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -99,7 +100,13 @@ public class JReportConfig extends JAbstractView {
     	}
     	
     	return tabbedpane;
-    } 
+    }
+
+
+	@Override
+	public void update(Observable model, Object argument) {
+		// Do nothing		
+	} 
 	
 	
 }
