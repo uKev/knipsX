@@ -4,7 +4,14 @@ import java.util.ArrayList;
 
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.PictureContainer;
-
+/**
+ * AbstractReportModel is the superclass of all ReportModels. 
+ * It saves report name, description and the tags with will be used
+ * to filter the picture sets.  
+ * 
+ * @author Kevin Zuber
+ *
+ */
 public abstract class AbstractReportModel extends AbstractModel {
 
 	private ArrayList<PictureContainer> pictureContainer;
