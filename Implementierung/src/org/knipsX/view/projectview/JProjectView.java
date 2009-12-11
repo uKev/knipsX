@@ -12,6 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -124,102 +125,169 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jButtonPictureSetContentAdd
+     * This method initializes this.
      * 
-     * @return javax.swing.JButton
+     * @return void
+     */
+    private void initialize() {
+	
+	/* show main panel */
+	this.setContentPane(this.getJContentPane());
+
+	/* set standard close action */
+	/* TODO We have to edit the close action! */
+	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	/* change size to preferred size */
+	this.pack();
+
+	/* set location to the center of the screen */
+	this.setLocationRelativeTo(null);
+
+	/* show view */
+	this.setVisible(true);
+    }
+    
+    /**
+     * This method initializes jButtonPictureSetContentAdd.
+     * 
+     * @return javax.swing.JButton the appropriate JButton.
      */
     private JButton getJButtonPictureSetContentAdd() {
+	
+	/* create if not set */
 	if (this.jButtonPictureSetContentAdd == null) {
+	    
+	    /* create new button */
 	    this.jButtonPictureSetContentAdd = new JButton();
+	    
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetContentAdd.setText("Hinzufügen");
 	}
+	
+	/* return the button */
 	return this.jButtonPictureSetContentAdd;
     }
 
     /**
-     * This method initializes jButtonPictureSetContentDelete
+     * This method initializes jButtonPictureSetContentDelete.
      * 
-     * @return javax.swing.JButton
+     * @return javax.swing.JButton the appropriate JButton.
      */
     private JButton getJButtonPictureSetContentDelete() {
+	
+	/* create if not set */
 	if (this.jButtonPictureSetContentDelete == null) {
+	    
+	    /* create new button */
 	    this.jButtonPictureSetContentDelete = new JButton();
+	    
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetContentDelete.setText("Entfernen");
 	}
 	return this.jButtonPictureSetContentDelete;
     }
 
     /**
-     * This method initializes jButtonPictureSetContentRefresh
+     * This method initializes jButtonPictureSetContentRefresh.
      * 
-     * @return javax.swing.JButton
+     * @return javax.swing.JButton the appropriate JButton.
      */
     private JButton getJButtonPictureSetContentRefresh() {
+
+	/* create if not set */
 	if (this.jButtonPictureSetContentRefresh == null) {
 	    this.jButtonPictureSetContentRefresh = new JButton();
+	    
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetContentRefresh.setText("Aktualisieren");
 	}
 	return this.jButtonPictureSetContentRefresh;
     }
 
     /**
-     * This method initializes jButtonPictureSetCopy
+     * This method initializes jButtonPictureSetCopy.
      * 
-     * @return javax.swing.JButton
+     * @return javax.swing.JButton the appropriate JButton.
      */
     private JButton getJButtonPictureSetCopy() {
+
+	/* create if not set */
 	if (this.jButtonPictureSetCopy == null) {
 	    this.jButtonPictureSetCopy = new JButton();
+	    
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetCopy.setText("Kopieren");
 	}
 	return this.jButtonPictureSetCopy;
     }
 
     /**
-     * This method initializes jButtonPictureSetCreate
+     * This method initializes jButtonPictureSetCreate.
      * 
-     * @return javax.swing.JButton
+     * @return javax.swing.JButton the appropriate JButton.
      */
     private JButton getJButtonPictureSetCreate() {
+
+	/* create if not set */
 	if (this.jButtonPictureSetCreate == null) {
 	    this.jButtonPictureSetCreate = new JButton();
+	    
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetCreate.setText("Erstellen");
 	}
 	return this.jButtonPictureSetCreate;
     }
 
     /**
-     * This method initializes jButtonPictureSetDelete
+     * This method initializes jButtonPictureSetDelete.
      * 
-     * @return javax.swing.JButton
+     * @return javax.swing.JButton the appropriate JButton.
      */
     private JButton getJButtonPictureSetDelete() {
+
+	/* create if not set */
 	if (this.jButtonPictureSetDelete == null) {
 	    this.jButtonPictureSetDelete = new JButton();
+	    
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetDelete.setText("Entfernen");
 	}
 	return this.jButtonPictureSetDelete;
     }
 
     /**
-     * This method initializes jButtonProjectChange
+     * This method initializes jButtonProjectChange.
      * 
-     * @return javax.swing.JButton
+     * @return javax.swing.JButton the appropriate JButton.
      */
     private JButton getJButtonProjectChange() {
+
+	/* create if not set */
 	if (this.jButtonProjectChange == null) {
 	    this.jButtonProjectChange = new JButton();
+	    
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
 	    this.jButtonProjectChange.setText("Wechseln");
 	}
 	return this.jButtonProjectChange;
     }
 
     /**
-     * This method initializes jButtonProjectSave
+     * This method initializes jButtonProjectSave.
      * 
-     * @return javax.swing.JButton
+     * @return javax.swing.JButton the appropriate JButton.
      */
     private JButton getJButtonProjectSave() {
+
+	/* create if not set */
 	if (this.jButtonProjectSave == null) {
 	    this.jButtonProjectSave = new JButton();
 	    this.jButtonProjectSave.setText("Speichern");
@@ -228,11 +296,13 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jContentPane
+     * This method initializes jContentPane.
      * 
-     * @return javax.swing.JPanel
+     * @return javax.swing.JPanel the pane.
      */
     private JPanel getJContentPane() {
+
+	/* create if not set */
 	if (this.jContentPane == null) {
 	    this.jContentPane = new JPanel();
 
@@ -294,9 +364,11 @@ public class JProjectView extends JAbstractView {
     /**
      * This method initializes jEditorPaneProjectDescription
      * 
-     * @return javax.swing.JEditorPane
+     * @return javax.swing.JEditorPane the editor pane.
      */
     private JEditorPane getJEditorPaneProjectDescription() {
+
+	/* create if not set */
 	if (this.jEditorPaneProjectDescription == null) {
 	    this.jEditorPaneProjectDescription = new JEditorPane();
 	}
@@ -306,9 +378,11 @@ public class JProjectView extends JAbstractView {
     /**
      * This method initializes jListPictureSet
      * 
-     * @return javax.swing.JList
+     * @return javax.swing.JList the list.
      */
     private JList getJListPictureSet() {
+
+	/* create if not set */
 	if (this.jListPictureSet == null) {
 	    this.jListPictureSet = new JList(new Object[] { "Apfel", "Kürbis", "Paprika", "Tomate" });
 	    this.jListPictureSet.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -318,11 +392,13 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jListPictureSetActive
+     * This method initializes jListPictureSetActive.
      * 
-     * @return javax.swing.JList
+     * @return javax.swing.JList the list.
      */
     private JList getJListPictureSetActive() {
+
+	/* create if not set */
 	if (this.jListPictureSetActive == null) {
 	    this.jListPictureSetActive = new JList(new Object[] { "Apfel", "Kürbis", "Paprika", "Tomate" });
 	    this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -332,11 +408,13 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jListPictureSetContent
+     * This method initializes jListPictureSetContent.
      * 
-     * @return javax.swing.JList
+     * @return javax.swing.JList the list.
      */
     private JList getJListPictureSetContent() {
+
+	/* create if not set */
 	if (this.jListPictureSetContent == null) {
 	    this.jListPictureSetContent = new JList(new Object[] { "Apfel", "Kürbis", "Paprika", "Tomate" });
 	    this.jListPictureSetContent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -346,11 +424,13 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jListReport
+     * This method initializes jListReport.
      * 
-     * @return javax.swing.JList
+     * @return javax.swing.JList the list.
      */
     private JList getJListReport() {
+
+	/* create if not set */
 	if (this.jListReport == null) {
 	    this.jListReport = new JList(new Object[] { "Apfel", "Kürbis", "Paprika", "Tomate" });
 	    this.jListReport.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -360,11 +440,13 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jPanelExif
+     * This method initializes jPanelExif.
      * 
-     * @return javax.swing.JPanel
+     * @return javax.swing.JPanel the panel.
      */
     private JPanel getJPanelExif() {
+
+	/* create if not set */
 	if (this.jPanelExif == null) {
 	    this.jPanelExif = new JPanel();
 
@@ -399,11 +481,13 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jPanelPictureSet
+     * This method initializes jPanelPictureSet.
      * 
-     * @return javax.swing.JPanel
+     * @return javax.swing.JPanel the panel.
      */
     private JPanel getJPanelPictureSet() {
+
+	/* create if not set */
 	if (this.jPanelPictureSet == null) {
 	    this.jPanelPictureSet = new JPanel();
 	    final TitledBorder title = BorderFactory
@@ -420,11 +504,13 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jPanelPictureSetActive
+     * This method initializes jPanelPictureSetActive.
      * 
-     * @return javax.swing.JPanel
+     * @return javax.swing.JPanel the panel.
      */
     private JPanel getJPanelPictureSetActive() {
+
+	/* create if not set */
 	if (this.jPanelPictureSetActive == null) {
 	    this.jPanelPictureSetActive = new JPanel();
 
@@ -456,11 +542,13 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jPanelPictureSetContent
+     * This method initializes jPanelPictureSetContent.
      * 
-     * @return javax.swing.JPanel
+     * @return javax.swing.JPanel the panel.
      */
     private JPanel getJPanelPictureSetContent() {
+
+	/* create if not set */
 	if (this.jPanelPictureSetContent == null) {
 	    this.jPanelPictureSetContent = new JPanel();
 	    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "Inhalt");
@@ -476,11 +564,13 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jPanelPictureSetContentOptions
+     * This method initializes jPanelPictureSetContentOptions.
      * 
-     * @return javax.swing.JPanel
+     * @return javax.swing.JPanel the panel.
      */
     private JPanel getJPanelPictureSetContentOptions() {
+
+	/* create if not set */
 	if (this.jPanelPictureSetContentOptions == null) {
 	    this.jPanelPictureSetContentOptions = new JPanel();
 	    this.jPanelPictureSetContentOptions.setLayout(new FlowLayout());
@@ -492,11 +582,13 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jPanelPictureSetOptions
+     * This method initializes jPanelPictureSetOptions.
      * 
-     * @return javax.swing.JPanel
+     * @return javax.swing.JPanel the panel.
      */
     private JPanel getJPanelPictureSetOptions() {
+
+	/* create if not set */
 	if (this.jPanelPictureSetOptions == null) {
 	    this.jPanelPictureSetOptions = new JPanel();
 	    this.jPanelPictureSetOptions.setLayout(new FlowLayout());
@@ -508,11 +600,13 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jPanelProjectDescription
+     * This method initializes jPanelProjectDescription.
      * 
-     * @return javax.swing.JPanel
+     * @return javax.swing.JPanel the panel.
      */
     private JPanel getJPanelProjectDescription() {
+
+	/* create if not set */
 	if (this.jPanelProjectDescription == null) {
 	    this.jPanelProjectDescription = new JPanel();
 
@@ -545,11 +639,13 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jPanelProjectOptions
+     * This method initializes jPanelProjectOptions.
      * 
-     * @return javax.swing.JPanel
+     * @return javax.swing.JPanel the panel.
      */
     private JPanel getJPanelProjectOptions() {
+
+	/* create if not set */
 	if (this.jPanelProjectOptions == null) {
 	    this.jPanelProjectOptions = new JPanel();
 
@@ -592,11 +688,13 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jPanelReport
+     * This method initializes jPanelReport.
      * 
-     * @return javax.swing.JPanel
+     * @return javax.swing.JPanel the panel.
      */
     private JPanel getJPanelReport() {
+
+	/* create if not set */
 	if (this.jPanelReport == null) {
 	    this.jPanelReport = new JPanel();
 
@@ -629,11 +727,13 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jScrollPaneExif
+     * This method initializes jScrollPaneExif.
      * 
-     * @return javax.swing.JScrollPane
+     * @return javax.swing.JScrollPane the scrollpane.
      */
     private JScrollPane getJScrollPaneExif() {
+
+	/* create if not set */
 	if (this.jScrollPaneExif == null) {
 	    this.jScrollPaneExif = new JScrollPane();
 	    this.jScrollPaneExif.setViewportView(this.getJTableExif());
@@ -642,11 +742,13 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jScrollPaneProjectDescription
+     * This method initializes jScrollPaneProjectDescription.
      * 
-     * @return javax.swing.JScrollPane
+     * @return javax.swing.JScrollPane the scrollpane.
      */
     private JScrollPane getJScrollPaneProjectDescription() {
+
+	/* create if not set */
 	if (this.jScrollPaneProjectDescription == null) {
 	    this.jScrollPaneProjectDescription = new JScrollPane();
 	    this.jScrollPaneProjectDescription.setViewportView(this.getJEditorPaneProjectDescription());
@@ -655,11 +757,13 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jTableExif
+     * This method initializes jTableExif.
      * 
-     * @return javax.swing.JTable
+     * @return javax.swing.JTable the table.
      */
     private JTable getJTableExif() {
+
+	/* create if not set */
 	if (this.jTableExif == null) {
 	    final String[] columnNames = { "First Name", "Last Name" };
 	    final Object[][] data = { { "Mary", "Campione" }, { "Alison", "Huml" }, { "Kathy", "Walrath" },
@@ -671,27 +775,20 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method initializes jTextFieldProjectDescription
+     * This method initializes jTextFieldProjectDescription.
      * 
-     * @return javax.swing.JTextField
+     * @return javax.swing.JTextField the textfield.
      */
     private JTextField getJTextFieldProjectName() {
+
+	/* create if not set */
 	if (this.jTextFieldProjectName == null) {
 	    this.jTextFieldProjectName = new JTextField();
 	}
 	return this.jTextFieldProjectName;
     }
 
-    /**
-     * This method initializes this
-     * 
-     * @return void
-     */
-    private void initialize() {
-	this.setContentPane(this.getJContentPane());
-	this.setVisible(true);
-	this.pack();
-    }
+   
 
     @Override
     public void update(final Observable o, final Object arg) {
