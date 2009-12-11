@@ -1,4 +1,3 @@
-# Pflichtenheft
 *.glo
 *.gls
 *.ist
@@ -8,9 +7,10 @@
 *.aux
 *.ps
 *.dvi
-
-# Implementierung
 *.class
 */.classpath
 */.project
 */.settings/*
+.classpath
+.project
+bin
