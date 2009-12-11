@@ -2,6 +2,8 @@ package org.knipsX.view.reportmanagement;
 import javax.swing.Icon;
 import javax.swing.JComponent;
 
+import org.knipsX.model.AbstractModel;
+
 
 public abstract class JAbstractSinglePanel extends JComponent {
 
@@ -14,6 +16,7 @@ public abstract class JAbstractSinglePanel extends JComponent {
 	protected String title;
 	protected Icon icon;
 	protected String tip;
+	protected AbstractModel model;
 	
 	public String getTitle() {
 		return title;

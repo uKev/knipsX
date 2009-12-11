@@ -3,8 +3,22 @@ package org.knipsX.view.reportmanagement;
 import java.util.ArrayList;
 import javax.swing.JTabbedPane;
 
-public abstract class JAbstractReportConfig {
+import org.knipsX.model.AbstractModel;
+import org.knipsX.view.JAbstractView;
+
+public abstract class JAbstractReportConfig extends JAbstractView {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	public JAbstractReportConfig(AbstractModel abstractModel) {
+		super(abstractModel);
+		// TODO Auto-generated constructor stub
+	}
+
 	protected ArrayList<JAbstractSinglePanel> registeredPanels = new ArrayList<JAbstractSinglePanel>();
 
 	
@@ -16,17 +30,6 @@ public abstract class JAbstractReportConfig {
     	return this.registeredPanels;
     }
     
-    public JTabbedPane getJTabbedPane() {
-    	JTabbedPane tabbedpane = new JTabbedPane();
-    	
-    	for(JAbstractSinglePanel item : this.registeredPanels) {
-    		tabbedpane.addTab(item.title, item.icon, item, item.tip);
-    	}
-    	
-    	return tabbedpane;
-    }
-    
-
-    
+   
     
 }
