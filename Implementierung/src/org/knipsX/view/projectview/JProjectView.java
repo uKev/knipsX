@@ -272,7 +272,7 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetDelete.setText("Entfernen");
-	    this.jButtonPictureSetDelete.addActionListener(new DeletePictureSetController(model, ));
+	    this.jButtonPictureSetDelete.addActionListener(new DeletePictureSetController(model, getSelectedIndicesFromPictureSetList()));
 	}
 	return this.jButtonPictureSetDelete;
     }
@@ -803,6 +803,46 @@ public class JProjectView extends JAbstractView {
 	    this.jTextFieldProjectName = new JTextField();
 	}
 	return this.jTextFieldProjectName;
+    }
+    
+    /**
+     * This method checks which entrys are marked in the
+     * PicturesetContentList and gives them back as indices
+     * 
+     * @return Array of Inices.
+     */
+    public int[] getSelectedIndicesFromPictureSetContentList() {
+    	return this.jListPictureSetContent.getSelectedIndices();
+    }
+    
+    /**
+     * This method checks which entrys are marked in the
+     * PicturesetList and gives them back as indices
+     * 
+     * @return Array of Inices.
+     */
+    public int[] getSelectedIndicesFromPictureSetList() {
+    	return this.jListPictureSet.getSelectedIndices();
+    }
+    
+    /**
+     * This method checks which entrys are marked in the
+     * ReportList and gives them back as indices
+     * 
+     * @return Array of Inices.
+     */
+    public int[] getSelectedIndicesFromReportList() {
+    	return this.jListReport.getSelectedIndices();
+    }
+    
+    /**
+     * This method checks which entrys are marked in the
+     * PictureList of a PictureSet and gives them back as indices
+     * 
+     * @return Array of Inices.
+     */
+    public int[] getSelectedIndicesFromPictureList() {
+    	return this.jListPictureSetActive.getSelectedIndices();
     }
 
    
