@@ -19,6 +19,7 @@ public class ProjectViewModel extends ProjectEntry {
 	public static final int CREATEREPORT = 6;
 	public static final int DELETEREPORT = 7;
 	public static final int ADDTOPICTURESET = 8;
+	public static final int SWITCHSAVE = 9;
 						
 	private int modelStatus = USERSELECT;
 	
