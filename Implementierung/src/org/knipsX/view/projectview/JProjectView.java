@@ -123,10 +123,10 @@ public class JProjectView extends JAbstractView {
     /**
      * Creates a project view connected with an appropriate model.
      */
-    public JProjectView(final ProjectViewModel model) {
+    public JProjectView(final ProjectViewModel projectViewModel) {
 
 	/* sets the model */
-	super(model);
+	super(projectViewModel);
 
 	/* renders the view */
 	this.initialize();
