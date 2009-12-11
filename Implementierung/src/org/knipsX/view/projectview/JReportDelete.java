@@ -17,6 +17,9 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
+/**
+ * Represents the view for a dialog which gives the user the possibility to delete a report.
+ */
 public class JReportDelete extends JAbstractView {
 
     /** Only for serialisation */

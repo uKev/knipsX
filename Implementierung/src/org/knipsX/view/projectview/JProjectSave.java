@@ -18,6 +18,9 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
+/**
+ * Represents the view for a dialog which gives the user the possibility to save a project.
+ */
 public class JProjectSave extends JAbstractView {
 
     /** Only for serialisation */
@@ -29,93 +32,20 @@ public class JProjectSave extends JAbstractView {
 
     /* represents the button for confirmation */
     private JButton jButtonConfirm = null;
-    
+
     /* represents the button for refusing */
     private JButton jButtonRefuse = null;
-    
+
     /* represents the button for canceling */
     private JButton jButtonCancel = null;
 
-    public JProjectSave(final AbstractModel model) {
+    public JProjectSave(final AbstractModel abstractModel) {
 
-	/* Setze Modell */
-	super(model);
+	/* sets the model */
+	super(abstractModel);
 
-	/* Zeichne Fenster */
+	/* renders the view */
 	this.initialize();
-    }
-
-    /**
-     * This method initializes jButtonCancel
-     * 
-     * @return javax.swing.JButton
-     */
-    private JButton getjButtonCancel() {
-	if (this.jButtonCancel == null) {
-	    this.jButtonCancel = new JButton();
-	    this.jButtonCancel.setText("Abbrechen");
-	    this.jButtonCancel.addActionListener(new SaveProjectCancelController(this.model));
-	}
-	return this.jButtonCancel;
-
-    }
-
-    /**
-     * This method initializes jButtonRefuse
-     * 
-     * @return javax.swing.JButton
-     */
-    private JButton getJButtonRefuse() {
-	if (this.jButtonRefuse == null) {
-	    this.jButtonRefuse = new JButton();
-	    this.jButtonRefuse.setText("Nein");
-	    this.jButtonRefuse.addActionListener(new SaveProjectRefuseController(this.model));
-	}
-	return this.jButtonRefuse;
-    }
-
-    /**
-     * This method initializes jButtonConfirm
-     * 
-     * @return javax.swing.JButton
-     */
-    private JButton getJButtonConfirm() {
-	if (this.jButtonConfirm == null) {
-	    this.jButtonConfirm = new JButton();
-	    this.jButtonConfirm.setText("Ja");
-	    this.jButtonConfirm.addActionListener(new SaveProjectConfirmController(this.model));
-	}
-	return this.jButtonConfirm;
-    }
-
-    /**
-     * This method initializes jContentPane
-     * 
-     * @return javax.swing.JPanel
-     */
-    private JPanel getJContentPane() {
-	if (this.jContentPane == null) {
-	    this.jContentPane = new JPanel();
-	}
-	this.jContentPane.add(this.getjLabelValidationText());
-	this.jContentPane.add(this.getJButtonConfirm());
-	this.jContentPane.add(this.getjButtonCancel());
-	this.jContentPane.add(this.getJButtonRefuse());
-	return this.jContentPane;
-    }
-
-    /**
-     * This method initializes jLabelValidationText
-     * 
-     * @return javax.swing.JButton
-     */
-    private JLabel getjLabelValidationText() {
-	if (this.jLabelValidationText == null) {
-	    this.jLabelValidationText = new JLabel();
-	    this.jLabelValidationText.setText("Möchten Sie das Projekt speichern?");
-
-	}
-	return this.jLabelValidationText;
     }
 
     /**
@@ -125,35 +55,154 @@ public class JProjectSave extends JAbstractView {
      */
     private void initialize() {
 
-	/* Setze Titel */
+	/* set the title for the view */
+	/* TODO change to internationalisation */
 	this.setTitle("Speichern?");
 
-	/* Setze das Hauptpanel */
+	/* show main panel */
 	this.setContentPane(this.getJContentPane());
 
-	/* Setze Standardschließaktion */
-	/* TODO Schließaktion anpassen! */
+	/* set standard close action */
+	/* TODO We have to edit the close action! */
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	/* Ändere Größe */
+	/* change size to preferred size */
 	this.pack();
 
-	/* Setze Lokation */
+	/* set location to the center of the screen */
 	this.setLocationRelativeTo(null);
 
-	/* Zeige Fensert an */
+	/* show view */
 	this.setVisible(true);
+    }
+
+    /**
+     * This method initializes jContentPane
+     * 
+     * @return javax.swing.JPanel
+     */
+    private JPanel getJContentPane() {
+
+	/* create if not set */
+	if (this.jContentPane == null) {
+
+	    /* create new label */
+	    this.jContentPane = new JPanel();
+
+	    /* add label with the validation text */
+	    this.jContentPane.add(this.getJLabelValidationText());
+
+	    /* add confirm button */
+	    this.jContentPane.add(this.getJButtonConfirm());
+
+	    /* add cancel button */
+	    this.jContentPane.add(this.getJButtonCancel());
+
+	    /* add refuse button */
+	    this.jContentPane.add(this.getJButtonRefuse());
+	}
+
+	/* return the panel */
+	return this.jContentPane;
+    }
+
+    /**
+     * This method initializes jButtonCancel
+     * 
+     * @return javax.swing.JButton
+     */
+    private JButton getJButtonCancel() {
+
+	/* create if not set */
+	if (this.jButtonCancel == null) {
+
+	    /* create new button */
+	    /* TODO change to internationalisation */
+	    this.jButtonCancel = new JButton("Abbrechen");
+
+	    /* create an action listener (which knows the model) to the button */
+	    this.jButtonCancel.addActionListener(new SaveProjectCancelController(this.model));
+	}
+
+	/* return the button */
+	return this.jButtonCancel;
+
+    }
+
+    /**
+     * This method initializes jButtonRefuse.
+     * 
+     * @return javax.swing.JButton the button.
+     */
+    private JButton getJButtonRefuse() {
+
+	/* create if not set */
+	if (this.jButtonRefuse == null) {
+
+	    /* create new button */
+	    /* TODO change to internationalisation */
+	    this.jButtonRefuse = new JButton("Nein");
+
+	    /* create an action listener (which knows the model) to the button */
+	    this.jButtonRefuse.addActionListener(new SaveProjectRefuseController(this.model));
+	}
+
+	/* return the button */
+	return this.jButtonRefuse;
+    }
+
+    /**
+     * This method initializes jButtonConfirm.
+     * 
+     * @return javax.swing.JButton the button.
+     */
+    private JButton getJButtonConfirm() {
+
+	/* create if not set */
+	if (this.jButtonConfirm == null) {
+
+	    /* create new button */
+	    /* TODO change to internationalisation */
+	    this.jButtonConfirm = new JButton("Ja");
+
+	    /* create an action listener (which knows the model) to the button */
+	    this.jButtonConfirm.addActionListener(new SaveProjectConfirmController(this.model));
+	}
+
+	/* return the button */
+	return this.jButtonConfirm;
+    }
+
+    /**
+     * This method initializes jLabelValidationText.
+     * 
+     * @return javax.swing.JLabel the button.
+     */
+    private JLabel getJLabelValidationText() {
+
+	/* create if not set */
+	if (this.jLabelValidationText == null) {
+
+	    /* create new label */
+	    /* TODO change to internationalisation */
+	    this.jLabelValidationText = new JLabel("Möchten Sie das Projekt speichern?");
+	}
+
+	/* return the label */
+	return this.jLabelValidationText;
     }
 
     @Override
     public void update(final Observable o, final Object arg) {
-	/* Bekomme das Modell geliefert */
+
+	/* cast to model */
 	final ProjectViewModel model = (ProjectViewModel) o;
 
-	/* Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind für einen namen. */
+	/* react to program state */
+	/* TODO add a status and error panel! */
 	if (model.getModelStatus() != ProjectViewModel.SAVEPROJECT) {
 
-	    /* Lösche Fenster */
+	    /* delete view */
 	    this.dispose();
 	}
     }
