@@ -14,6 +14,7 @@ public class CreatePictureSetOkController extends AbstractController {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		model.setModelStatus(ProjectViewModel.USERSELECT);
+		//TODO der liste in model ein eintrag hinzufügen mit namen aus jPictureSetNew
 		model.updateViews();
 	}
 }

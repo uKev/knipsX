@@ -31,7 +31,6 @@ import org.knipsX.controller.projectview.DeletePictureSetController;
 import org.knipsX.controller.projectview.RefreshProjectViewController;
 import org.knipsX.controller.projectview.SaveProjectController;
 import org.knipsX.controller.projectview.SwitchProjectController;
-import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
@@ -84,10 +83,10 @@ public class JProjectView extends JAbstractView {
     /* represents the project description field */
     private JEditorPane jEditorPaneProjectDescription = null;
 
-    /* represents the project name field */
+	/* represents the project name field */
     private JTextField jTextFieldProjectName = null;
 
-    /* represents the button which handles the project save action */
+	/* represents the button which handles the project save action */
     private JButton jButtonProjectSave = null;
 
     /* represents the button which handles the project change action */
@@ -201,7 +200,7 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetContentDelete.setText("Entfernen");
-	    this.jButtonPictureSetContentDelete.addActionListener(new DeleteFromPictureSetContentController(model));
+	    this.jButtonPictureSetContentDelete.addActionListener(new DeleteFromPictureSetContentController(model, this.getSelectedIndicesFromPictureSetContentList()));
 	}
 
 	/* return the button */
@@ -1091,6 +1090,22 @@ public class JProjectView extends JAbstractView {
     public int[] getSelectedIndicesFromPictureList() {
 	return this.jListPictureSetActive.getSelectedIndices();
     }
+    
+    public String getjTextFieldProjectNameToString() {
+		return jTextFieldProjectName.getText();
+	}
+
+	public void setjTextFieldProjectNameText(String text) {
+		this.jTextFieldProjectName.setText(text);
+	}
+	
+	public String getjEditorPaneProjectDescriptionToString() {
+		return jEditorPaneProjectDescription.getText();
+	}
+
+	public void setjEditorPaneProjectDescription(String text) {
+		this.jEditorPaneProjectDescription.setText(text);
+	}
 
     @Override
     public void update(final Observable o, final Object arg) {

@@ -4,20 +4,18 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.view.JAbstractView;
 
-public class DeleteReportOkController extends AbstractController {
-	
-	private int[] toDelete;
+public class CopyPictureSetOkController extends AbstractController {
 
-	public DeleteReportOkController(AbstractModel model, int[] toDelete) {
+	public CopyPictureSetOkController(AbstractModel model, JAbstractView jCopyPictureSet) {
 		super(model);
-		this.toDelete = toDelete;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		model.setModelStatus(ProjectViewModel.USERSELECT);
-		//TODO toDelete verwerten und im model aus der liste löschen;
+		//TODO COPY Pictureset mit neuem namen aus jCopyPictureSet;
 		model.updateViews();
 	}
 }
