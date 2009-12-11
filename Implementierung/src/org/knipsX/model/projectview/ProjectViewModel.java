@@ -6,7 +6,7 @@ import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
-import org.knipsX.model.reportmanagement.Boxplot;
+import org.knipsX.model.reportmanagement.BoxplotModel;
 
 public class ProjectViewModel extends ProjectEntry {
 	
@@ -48,7 +48,7 @@ public class ProjectViewModel extends ProjectEntry {
 		dummyPictureSetList.add(dummyPictureSet);
 		setPictureSets(dummyPictureSetList);
 		List<AbstractReportModel> dummyReportsList = new LinkedList<AbstractReportModel>();
-		Boxplot dummyReport = new Boxplot();
+		BoxplotModel dummyReport = new BoxplotModel();
 		dummyReportsList.add(dummyReport);
 		setReports(dummyReportsList);		
 	}

@@ -23,8 +23,10 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 import org.knipsX.model.AbstractModel;
+
 import com.sun.j3d.utils.geometry.Box;
 import com.sun.j3d.utils.geometry.Cylinder;
+import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 
@@ -59,10 +61,17 @@ public abstract class JAbstract3DEngine extends JAbstractDiagram{
 	public abstract void preinitialize();
 	
 	public void createCube(Vector3d position, Vector3d scale, Appearance material){
-		// TODO add implementation
+		TransformGroup objMove = createTransformGroup(position, scale);
+		Box myBox = new Box(1, 1, 1, material);
+		objMove.addChild(myBox);
+		this.objRoot.addChild(objMove);
 	}
+	
 	public void createSphere(Vector3d position, Vector3d scale, Appearance material){
-		// TODO add implementation
+		TransformGroup objMove = createTransformGroup(position, scale);
+		Sphere mySphere = new Sphere(1,Sphere.GENERATE_NORMALS,this.GEODETAIL,material);
+		objMove.addChild(mySphere);
+		this.objRoot.addChild(objMove);
 	}
 	
 	protected void createText(Vector3d position, Vector3d scale, Appearance material, String text){	
@@ -284,7 +293,7 @@ public abstract class JAbstract3DEngine extends JAbstractDiagram{
         this.simpleU.getViewingPlatform().getViewPlatform();
         Transform3D T3D = new Transform3D();
         T3D.rotY(-90 * Math.PI / 180.0);
-        T3D.setTranslation(new Vector3d(0,0,-2));
+        T3D.setTranslation(new Vector3d(0,this.AXISSIZE/2.0,this.AXISSIZE/2.0));
         vpTrans.setTransform(T3D);
 	}
 	

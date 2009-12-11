@@ -1,6 +1,6 @@
 package org.knipsX.model.reportmanagement;
 
 
-public class Cluster3D extends AbstractDoubleAxes{
+public class Cluster3DModel extends AbstractDoubleAxesModel{
 	protected Axis yAxis;
 }

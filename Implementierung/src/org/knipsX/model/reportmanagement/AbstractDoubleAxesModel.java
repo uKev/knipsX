@@ -1,6 +1,6 @@
 package org.knipsX.model.reportmanagement;
 
 
-public class AbstractDoubleAxes extends AbstractSingleAxis{
+public class AbstractDoubleAxesModel extends AbstractSingleAxisModel{
 	protected Axis zAxis;
 }
