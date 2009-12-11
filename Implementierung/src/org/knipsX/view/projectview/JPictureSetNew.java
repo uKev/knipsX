@@ -5,16 +5,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import org.knipsX.controller.projectview.CreateReportCancelController;
-import org.knipsX.controller.projectview.CreateReportOkController;
+import org.knipsX.controller.projectview.CreatePictureSetCancelController;
+import org.knipsX.controller.projectview.CreatePictureSetOkController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
-public class JNewReport extends JAbstractView {
-	
-	private static final long serialVersionUID = 1L;
+public class JPictureSetNew extends JAbstractView {
 
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel jContentPane = null;
 
 	private JTextField jTextFieldProjectName;
@@ -22,7 +22,7 @@ public class JNewReport extends JAbstractView {
 	private JButton jButtonConfirm;
 	private JButton jButtonCancel;
 
-	public JNewReport(AbstractModel abstractModel) {
+	public JPictureSetNew(AbstractModel abstractModel) {
 		
 		/* Setze Modell */
 		super(abstractModel);
@@ -40,7 +40,7 @@ public class JNewReport extends JAbstractView {
 	private void initialize() {
 
 		/* Fenstertitel setzen */
-		this.setTitle("Neue Auswertung");
+		this.setTitle("Neue Bildmenge");
 
 		/* Setze das Hauptpanel */
 		this.setContentPane(this.getJContentPane());
@@ -76,7 +76,7 @@ public class JNewReport extends JAbstractView {
 		if (this.jButtonConfirm == null) {
 			this.jButtonConfirm = new JButton("Ok");
 
-			this.jButtonConfirm.addActionListener(new CreateReportOkController(this.model, this));
+			this.jButtonConfirm.addActionListener(new CreatePictureSetOkController(this.model, this));
 		}
 		return this.jButtonConfirm;
 	}
@@ -86,7 +86,7 @@ public class JNewReport extends JAbstractView {
 		if (this.jButtonCancel == null) {
 			this.jButtonCancel = new JButton("Abbrechen");
 
-			this.jButtonCancel.addActionListener(new CreateReportCancelController(this.model));
+			this.jButtonCancel.addActionListener(new CreatePictureSetCancelController(this.model));
 		}
 		return this.jButtonCancel;
 	}
@@ -110,10 +110,12 @@ public class JNewReport extends JAbstractView {
 		final ProjectViewModel model = (ProjectViewModel) o;
 
 		/* Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind für einen namen. */
-		if (model.getModelStatus() != ProjectViewModel.DELETEREPORT) {
+		if (model.getModelStatus() != ProjectViewModel.CREATEPICTURESET) {
 
 			/* Lösche Fenster */
 			this.dispose();
 		}
+
 	}
+
 }

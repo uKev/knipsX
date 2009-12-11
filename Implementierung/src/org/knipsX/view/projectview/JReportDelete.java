@@ -11,7 +11,7 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
-public class JDeleteReport extends JAbstractView{
+public class JReportDelete extends JAbstractView{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +24,7 @@ public class JDeleteReport extends JAbstractView{
 
 	private final int[] toDelete;
 
-	public JDeleteReport(final AbstractModel model, final int[] toDelete) {
+	public JReportDelete(final AbstractModel model, final int[] toDelete) {
 
 		/* Setze Modell */
 		super(model);

@@ -4,19 +4,46 @@ import java.util.ArrayList;
 
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.PictureContainer;
-
+/**
+ * AbstractReportModel is the superclass of all ReportModels. 
+ * It saves report name, description and the tags with will be used
+ * to filter the picture sets.  
+ * 
+ * @author Kevin Zuber
+ *
+ */
 public abstract class AbstractReportModel extends AbstractModel {
+
 	private ArrayList<PictureContainer> pictureContainer;
 	private String reportName;
 	private String reportDescription;
-
+	// Tags of pictures that will be filtered
+	private String [] exifFilterTags;
+	
+	public AbstractReportModel() {
+		// TODO Auto-generated constructor stub
+	}	
+	
 	public AbstractReportModel(ArrayList<PictureContainer> pictureContainer) {
 		super();
 		this.pictureContainer = pictureContainer;
-	}
-
-	public AbstractReportModel() {
-		// TODO Auto-generated constructor stub
+	}	
+	
+	public AbstractReportModel(ArrayList<PictureContainer> pictureContainer,
+			String reportName, String reportDescription) {
+		super();
+		this.pictureContainer = pictureContainer;
+		this.reportName = reportName;
+		this.reportDescription = reportDescription;
+	}	
+	
+	public AbstractReportModel(ArrayList<PictureContainer> pictureContainer,
+			String reportName, String reportDescription, String [] exifFilterTags) {
+		super();
+		this.pictureContainer = pictureContainer;
+		this.reportName = reportName;
+		this.reportDescription = reportDescription;
+		this.exifFilterTags = exifFilterTags;
 	}	
 	
 	public String getReportName() {
@@ -42,5 +69,13 @@ public abstract class AbstractReportModel extends AbstractModel {
 
 	public void setPictureContainer(ArrayList<PictureContainer> pictureContainer) {
 		this.pictureContainer = pictureContainer;
+	}
+
+	public void setExifFilterTags(String [] exifFilterTags) {
+		this.exifFilterTags = exifFilterTags;
+	}
+
+	public String [] getExifFilterTags() {
+		return exifFilterTags;
 	}
 }

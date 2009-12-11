@@ -12,4 +12,12 @@ public class Histogram2DModel extends AbstractSingleAxisModel{
 		super(pictureContainer, xAxis);
 		// TODO Auto-generated constructor stub
 	}
+	
+	/*
+	 * Berechnet die Statistik-Klassen und liefert die entsprechenden Objekte zurück
+	 */
+	public Category [] getCategories(){
+		return null;
+		
+	}
 }

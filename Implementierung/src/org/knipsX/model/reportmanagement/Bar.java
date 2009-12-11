@@ -3,9 +3,9 @@ package org.knipsX.model.reportmanagement;
 import org.knipsX.model.picturemanagement.PictureContainer;
 
 /**
+ * Represents a bar which belongs to a picture category.
  * 
  * @author Kevin Zuber
- * Die Klasse repräsentiert einen Balken, der zu einem bestimmten Picturecontainer gehört.
  *
  *
  */
