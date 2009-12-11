@@ -3,17 +3,16 @@ package org.knipsX.controller.projectview;
 import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.view.projectview.JReportNew;
+public class CreateReportConfirmController extends AbstractController {
 
-public class DeleteReportOkController extends AbstractController {
-
-	public DeleteReportOkController(AbstractModel model, int[] toDelete) {
+	public CreateReportConfirmController(AbstractModel model, JReportNew jReportNew) {
 		super(model);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		model.setModelStatus(ProjectViewModel.USERSELECT);
+		//TODO Hier wird der Assisten aufgerufen
 		model.updateViews();
 	}
 }

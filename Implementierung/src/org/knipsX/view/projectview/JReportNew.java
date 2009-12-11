@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /* import things from our program */
-import org.knipsX.controller.projectview.CreateReportCancelController;
-import org.knipsX.controller.projectview.CreateReportOkController;
+import org.knipsX.controller.projectview.CreateReportRefuseController;
+import org.knipsX.controller.projectview.CreateReportConfirmController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
@@ -34,8 +34,8 @@ public class JReportNew extends JAbstractView {
     /* represents the button for confirmation */
     private JButton jButtonConfirm = null;
 
-    /* represents the button for canceling */
-    private JButton jButtonCancel = null;
+    /* represents the button for refusing */
+    private JButton jButtonRefuse = null;
 
     /**
      * Creates a view where a new report can be created.
@@ -103,7 +103,7 @@ public class JReportNew extends JAbstractView {
 	    this.jContentPane.add(this.getJButtonConfirm());
 
 	    /* add the cancel button */
-	    this.jContentPane.add(this.jButtonCancel());
+	    this.jContentPane.add(this.getJButtonRefuse());
 	}
 
 	/* return the panel */
@@ -125,7 +125,7 @@ public class JReportNew extends JAbstractView {
 	    this.jButtonConfirm = new JButton("Ok");
 
 	    /* create an action listener (which knows the model and the view) to the button */
-	    this.jButtonConfirm.addActionListener(new CreateReportOkController(this.model, this));
+	    this.jButtonConfirm.addActionListener(new CreateReportConfirmController(this.model, this));
 	}
 
 	/* return the button */
@@ -151,25 +151,25 @@ public class JReportNew extends JAbstractView {
     }
 
     /**
-     * This method initializes jButtonCancel.
+     * This method initializes jButtonRefuse.
      * 
      * @return javax.swing.JButton the appropriate JButton.
      */
-    private JButton jButtonCancel() {
+    private JButton getJButtonRefuse() {
 
 	/* create if not set */
-	if (this.jButtonCancel == null) {
+	if (this.jButtonRefuse == null) {
 
 	    /* create new button */
 	    /* TODO change to internationalisation */
-	    this.jButtonCancel = new JButton("Abbrechen");
+	    this.jButtonRefuse = new JButton("Abbrechen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonCancel.addActionListener(new CreateReportCancelController(this.model));
+	    this.jButtonRefuse.addActionListener(new CreateReportRefuseController(this.model));
 	}
 
 	/* return the button */
-	return this.jButtonCancel;
+	return this.jButtonRefuse;
     }
 
     /**

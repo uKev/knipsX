@@ -31,7 +31,6 @@ import org.knipsX.controller.projectview.DeletePictureSetController;
 import org.knipsX.controller.projectview.RefreshProjectViewController;
 import org.knipsX.controller.projectview.SaveProjectController;
 import org.knipsX.controller.projectview.SwitchProjectController;
-import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 

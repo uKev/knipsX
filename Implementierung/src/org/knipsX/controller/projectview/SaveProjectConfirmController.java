@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 
-public class SaveProjectYesController extends AbstractController {
+public class SaveProjectConfirmController extends AbstractController {
 
-	public SaveProjectYesController(AbstractModel model) {
+	public SaveProjectConfirmController(AbstractModel model) {
 		super(model);
 	}
 
