@@ -31,34 +31,34 @@ public class JProjectView extends JAbstractView {
     /** Only for serialisation */
     private static final long serialVersionUID = 6747507429332590686L;
     
-    /* represents the main pane for the view */
+    /* represents the panel for the view */
     private JPanel jContentPane = null;
     
-    /* represents the main pane for the project options */
+    /* represents the panel for the project options */
     private JPanel jPanelProjectOptions = null;
     
-    /* represents the main pane for the project description */
+    /* represents the panel for the project description */
     private JPanel jPanelProjectDescription = null;
     
-    /* represents the main pane for the picture set */
+    /* represents the panel for the picture set */
     private JPanel jPanelPictureSet = null;
     
-    /* represents the main pane for the picture set options */
+    /* represents the panel for the picture set options */
     private JPanel jPanelPictureSetOptions = null;
     
-    /* represents the main pane for the picture set content */
+    /* represents the panel for the picture set content */
     private JPanel jPanelPictureSetContent = null;
     
-    /* represents the main pane for the picture set content options */
+    /* represents the panel for the picture set content options */
     private JPanel jPanelPictureSetContentOptions = null;
     
-    /* represents the main pane for the image view of the active project */
+    /* represents the panel for the image view of the active project */
     private JPanel jPanelPictureSetActive = null;
     
-    /* represents the main pane for the reports */
+    /* represents the panel for the reports */
     private JPanel jPanelReport = null;
     
-    /* represents the main pane for the exif data of an active image */
+    /* represents the panel for the exif data of an active image */
     private JPanel jPanelExif = null;
 
     /* adds scrollbars to the project description */
@@ -187,6 +187,8 @@ public class JProjectView extends JAbstractView {
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetContentDelete.setText("Entfernen");
 	}
+	
+	/* return the button */
 	return this.jButtonPictureSetContentDelete;
     }
 
@@ -199,12 +201,16 @@ public class JProjectView extends JAbstractView {
 
 	/* create if not set */
 	if (this.jButtonPictureSetContentRefresh == null) {
+	    
+	    /* create new button */
 	    this.jButtonPictureSetContentRefresh = new JButton();
 	    
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetContentRefresh.setText("Aktualisieren");
 	}
+	
+	/* return the button */
 	return this.jButtonPictureSetContentRefresh;
     }
 
@@ -217,12 +223,16 @@ public class JProjectView extends JAbstractView {
 
 	/* create if not set */
 	if (this.jButtonPictureSetCopy == null) {
+	    
+	    /* create new button */
 	    this.jButtonPictureSetCopy = new JButton();
 	    
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetCopy.setText("Kopieren");
 	}
+	
+	/* return the button */
 	return this.jButtonPictureSetCopy;
     }
 
@@ -235,12 +245,16 @@ public class JProjectView extends JAbstractView {
 
 	/* create if not set */
 	if (this.jButtonPictureSetCreate == null) {
+	    
+	    /* create new button */
 	    this.jButtonPictureSetCreate = new JButton();
 	    
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetCreate.setText("Erstellen");
 	}
+	
+	/* return the button */
 	return this.jButtonPictureSetCreate;
     }
 
@@ -253,12 +267,16 @@ public class JProjectView extends JAbstractView {
 
 	/* create if not set */
 	if (this.jButtonPictureSetDelete == null) {
+	    
+	    /* create new button */
 	    this.jButtonPictureSetDelete = new JButton();
 	    
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetDelete.setText("Entfernen");
 	}
+	
+	/* return the button */
 	return this.jButtonPictureSetDelete;
     }
 
@@ -271,12 +289,16 @@ public class JProjectView extends JAbstractView {
 
 	/* create if not set */
 	if (this.jButtonProjectChange == null) {
+	    
+	    /* create new button */
 	    this.jButtonProjectChange = new JButton();
 	    
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonProjectChange.setText("Wechseln");
 	}
+	
+	/* return the button */
 	return this.jButtonProjectChange;
     }
 
@@ -289,25 +311,36 @@ public class JProjectView extends JAbstractView {
 
 	/* create if not set */
 	if (this.jButtonProjectSave == null) {
+	    
+	    /* create new button */
 	    this.jButtonProjectSave = new JButton();
+	    
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
 	    this.jButtonProjectSave.setText("Speichern");
 	}
+	
+	/* return the button */
 	return this.jButtonProjectSave;
     }
 
     /**
      * This method initializes jContentPane.
      * 
-     * @return javax.swing.JPanel the pane.
+     * @return javax.swing.JPanel the panel.
      */
     private JPanel getJContentPane() {
 
 	/* create if not set */
 	if (this.jContentPane == null) {
+	    
+	    /* create new panel */
 	    this.jContentPane = new JPanel();
 
+	    /* create new layout for this panel */
 	    final GroupLayout jContentPaneLayout = new GroupLayout(this.jContentPane);
 
+	    /* set the horizontal assignment */
 	    jContentPaneLayout.setHorizontalGroup(jContentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 		    .addGroup(
 			    jContentPaneLayout.createSequentialGroup().addGroup(
@@ -328,6 +361,8 @@ public class JProjectView extends JAbstractView {
 					    this.getJPanelReport(), GroupLayout.PREFERRED_SIZE, 240, Short.MAX_VALUE)
 					    .addComponent(this.getJPanelExif(), 0, 240, Short.MAX_VALUE)).addGap(0, 0,
 				    0)));
+	    
+	    /* set the vertical assignment */
 	    jContentPaneLayout.setVerticalGroup(jContentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 		    .addGroup(
 			    GroupLayout.Alignment.TRAILING,
@@ -348,16 +383,32 @@ public class JProjectView extends JAbstractView {
 		    .addComponent(this.getJPanelPictureSetActive(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
 			    Short.MAX_VALUE));
 
+	    /* set the layout to the panel */
 	    this.jContentPane.setLayout(jContentPaneLayout);
 
+	    /* add the panel for the project options */
 	    this.jContentPane.add(this.getJPanelProjectOptions(), null);
+	    
+	    /* add the panel for the project description */
 	    this.jContentPane.add(this.getJPanelProjectDescription(), null);
+	    
+	    /* add the panel for the picture sets of a project */
 	    this.jContentPane.add(this.getJPanelPictureSet(), null);
+	    
+	    /* add the panel for the content of an active picture set */
 	    this.jContentPane.add(this.getJPanelPictureSetContent(), null);
+	    
+	    /* add the panel for the images of an active picture container */
 	    this.jContentPane.add(this.getJPanelPictureSetActive(), null);
+	    
+	    /* add the panel for the reports of a project */
 	    this.jContentPane.add(this.getJPanelReport(), null);
+	    
+	    /* add the panel for the exif parameters of an active project */
 	    this.jContentPane.add(this.getJPanelExif(), null);
 	}
+	
+	/* return the panel */
 	return this.jContentPane;
     }
 
@@ -370,8 +421,12 @@ public class JProjectView extends JAbstractView {
 
 	/* create if not set */
 	if (this.jEditorPaneProjectDescription == null) {
+	    
+	    /* cretae a new editor pane for the project description */
 	    this.jEditorPaneProjectDescription = new JEditorPane();
 	}
+	
+	/* return the editor pane */
 	return this.jEditorPaneProjectDescription;
     }
 
@@ -384,10 +439,19 @@ public class JProjectView extends JAbstractView {
 
 	/* create if not set */
 	if (this.jListPictureSet == null) {
+	    
+	    /* creates a new list with options */
+	    /* TODO method for this list content */
 	    this.jListPictureSet = new JList(new Object[] { "Apfel", "Kürbis", "Paprika", "Tomate" });
+	    
+	    /* allow to select only one row at once */
 	    this.jListPictureSet.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    
+	    /* set ordering layout to vertical (see java api for more information) */
 	    this.jListPictureSet.setLayoutOrientation(JList.VERTICAL);
 	}
+	
+	/* return the list */
 	return this.jListPictureSet;
     }
 
@@ -400,10 +464,19 @@ public class JProjectView extends JAbstractView {
 
 	/* create if not set */
 	if (this.jListPictureSetActive == null) {
+	    
+	    /* creates a new list with options */
+	    /* TODO method for this list content */
 	    this.jListPictureSetActive = new JList(new Object[] { "Apfel", "Kürbis", "Paprika", "Tomate" });
+	    
+	    /* allow to select only one row at once */
 	    this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    
+	    /* set ordering layout to vertical (see java api for more information) */
 	    this.jListPictureSetActive.setLayoutOrientation(JList.VERTICAL);
 	}
+	
+	/* return the list */
 	return this.jListPictureSetActive;
     }
 
@@ -416,10 +489,19 @@ public class JProjectView extends JAbstractView {
 
 	/* create if not set */
 	if (this.jListPictureSetContent == null) {
+	    
+	    /* creates a new list with options */
+	    /* TODO method for this list content */
 	    this.jListPictureSetContent = new JList(new Object[] { "Apfel", "Kürbis", "Paprika", "Tomate" });
+	    
+	    /* allow to select only one row at once */
 	    this.jListPictureSetContent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    
+	    /* set ordering layout to vertical (see java api for more information) */
 	    this.jListPictureSetContent.setLayoutOrientation(JList.VERTICAL);
 	}
+	
+	/* return the list */
 	return this.jListPictureSetContent;
     }
 
@@ -432,10 +514,19 @@ public class JProjectView extends JAbstractView {
 
 	/* create if not set */
 	if (this.jListReport == null) {
+	    
+	    /* creates a new list with options */
+	    /* TODO method for this list content */
 	    this.jListReport = new JList(new Object[] { "Apfel", "Kürbis", "Paprika", "Tomate" });
+	    
+	    /* allow to select only one row at once */
 	    this.jListReport.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    
+	    /* set ordering layout to vertical (see java api for more information) */
 	    this.jListReport.setLayoutOrientation(JList.VERTICAL);
 	}
+	
+	/* return the list */
 	return this.jListReport;
     }
 
@@ -448,10 +539,14 @@ public class JProjectView extends JAbstractView {
 
 	/* create if not set */
 	if (this.jPanelExif == null) {
+	    
+	    /* create new panel */
 	    this.jPanelExif = new JPanel();
 
+	    /* create new layout for this panel */
 	    final GroupLayout jPanelExifLayout = new GroupLayout(this.jPanelExif);
 
+	    /* set the horizontal assignment */
 	    jPanelExifLayout.setHorizontalGroup(jPanelExifLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 		    .addGap(0, 228, Short.MAX_VALUE).addGroup(
 			    jPanelExifLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
@@ -459,6 +554,8 @@ public class JProjectView extends JAbstractView {
 				    jPanelExifLayout.createSequentialGroup().addContainerGap().addComponent(
 					    this.getJScrollPaneExif(), GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
 					    .addContainerGap())));
+	    
+	    /* set the vertical assignment */
 	    jPanelExifLayout.setVerticalGroup(jPanelExifLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 		    .addGap(0, 222, Short.MAX_VALUE).addGroup(
 			    jPanelExifLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
@@ -466,17 +563,26 @@ public class JProjectView extends JAbstractView {
 					    this.getJScrollPaneExif(), GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
 					    .addContainerGap())));
 
+	    /* set the layout to the pane */
 	    this.jPanelExif.setLayout(jPanelExifLayout);
 
+	    /* add a border to the panel */
+	    /* TODO change to internationalisation */
 	    final TitledBorder title = BorderFactory
 		    .createTitledBorder(BorderFactory.createEmptyBorder(), "Exif-Daten");
 	    this.jPanelExif.setBorder(title);
 
+	    /* add the scroll pane for the exif parameters */
 	    this.jPanelExif.add(this.getJScrollPaneExif());
 
+	    /* set minimum size of the panel */
 	    this.jPanelReport.setMinimumSize(new Dimension(250, 245));
+	    
+	    /* set preferred size of the panel */
 	    this.jPanelReport.setPreferredSize(new Dimension(250, 245));
 	}
+	
+	/* return the panel */
 	return this.jPanelExif;
     }
 
@@ -489,17 +595,33 @@ public class JProjectView extends JAbstractView {
 
 	/* create if not set */
 	if (this.jPanelPictureSet == null) {
+	    
+	    /* create new panel */
 	    this.jPanelPictureSet = new JPanel();
+	    
+	    /* set the layout to the pane */
+	    this.jPanelPictureSet.setLayout(new BorderLayout());
+	    
+	    /* add a border to the panel */
+	    /* TODO change to internationalisation */
 	    final TitledBorder title = BorderFactory
 		    .createTitledBorder(BorderFactory.createEmptyBorder(), "Bildmengen");
 	    this.jPanelPictureSet.setBorder(title);
-	    this.jPanelPictureSet.setLayout(new BorderLayout());
+	    
+	    /* add a list for picture sets */
 	    this.jPanelPictureSet.add(this.getJListPictureSet(), BorderLayout.NORTH);
+	    
+	    /* add a pane for picture set options */
 	    this.jPanelPictureSet.add(this.getJPanelPictureSetOptions(), BorderLayout.CENTER);
 
+	    /* set minimum size of the panel */
 	    this.jPanelPictureSet.setMinimumSize(new Dimension(250, 135));
+	    
+	    /* set preferred size of the panel */
 	    this.jPanelPictureSet.setPreferredSize(new Dimension(250, 135));
 	}
+	
+	/* return the panel */
 	return this.jPanelPictureSet;
     }
 
