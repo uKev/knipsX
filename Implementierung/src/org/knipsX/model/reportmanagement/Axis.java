@@ -1,5 +1,7 @@
 package org.knipsX.model.reportmanagement;
 
+import org.knipsX.utils.ExifParameter;
+
 
 public class Axis{
 

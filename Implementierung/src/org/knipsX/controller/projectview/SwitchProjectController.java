@@ -11,11 +11,14 @@ import org.knipsX.view.projectmanagement.JProjectAdministration;
 
 public class SwitchProjectController extends AbstractController {
 
-	public SwitchProjectController(final AbstractModel model) {
+<<<<<<< .mine	public SwitchProjectController(final AbstractModel model) {
 		super(model);
 	}
-
-	@Override
+=======    public SwitchProjectController(final AbstractModel model) {
+	super(model);
+    }
+>>>>>>> .theirs
+<<<<<<< .mine	@Override
 	public void actionPerformed(final ActionEvent e) {
 		this.model.setModelStatus(ProjectViewModel.SWITCHPROJECT);
 		this.model.updateViews();
@@ -23,4 +26,11 @@ public class SwitchProjectController extends AbstractController {
 				FileHandler.scanProjectDirectory());
 		new JProjectAdministration(projectListModel);
 	}
-}
+=======    @Override
+    public void actionPerformed(final ActionEvent e) {
+	this.model.setModelStatus(ProjectViewModel.SWITCHPROJECT);
+	this.model.updateViews();
+	final ProjectListModel projectListModel = new ProjectListModel(FileHandler.scanProjectDirectory());
+	new JProjectAdministration(projectListModel);
+    }
+>>>>>>> .theirs}
