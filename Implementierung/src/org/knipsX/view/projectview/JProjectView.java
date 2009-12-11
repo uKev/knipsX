@@ -35,6 +35,11 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
+/**
+ * Represents the view for an active project.
+ * 
+ * Sets all GUI Elements which are described in our Pflichtenheft.
+ */
 public class JProjectView extends JAbstractView {
 
     /** Only for serialisation */
@@ -124,17 +129,13 @@ public class JProjectView extends JAbstractView {
     /**
      * Creates a project view connected with an appropriate model.
      */
-    public JProjectView(final AbstractModel model) {
-    	
-	    super(model);
-		
-	    public JProjectView(final ProjectViewModel projectViewModel) {
-	
-		/* sets the model */
-		super(projectViewModel);
-	
-		/* renders the view */
-		this.initialize();
+    public JProjectView(final ProjectViewModel projectViewModel) {
+
+	/* sets the model */
+	super(projectViewModel);
+
+	/* renders the view */
+	this.initialize();
     }
 
     /**
@@ -1118,7 +1119,7 @@ public class JProjectView extends JAbstractView {
 	    this.dispose();
 	} else {
 
-	    /* set the iew inactive */
+	    /* set the view inactive */
 	    this.setEnabled(false);
 	}
     }

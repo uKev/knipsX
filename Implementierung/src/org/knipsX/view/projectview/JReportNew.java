@@ -17,6 +17,9 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
+/**
+ * Represents the view for a dialog which gives the user the possibility to add a new report.
+ */
 public class JReportNew extends JAbstractView {
 
     /** Only for serialisation */
@@ -26,13 +29,13 @@ public class JReportNew extends JAbstractView {
     private JPanel jContentPane = null;
 
     /* represents the project name field */
-    private JTextField jTextFieldProjectName;
+    private JTextField jTextFieldProjectName = null;
 
     /* represents the button for confirmation */
-    private JButton jButtonConfirm;
+    private JButton jButtonConfirm = null;
 
     /* represents the button for canceling */
-    private JButton jButtonCancel;
+    private JButton jButtonCancel = null;
 
     /**
      * Creates a view where a new report can be created.
