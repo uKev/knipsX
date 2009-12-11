@@ -196,7 +196,6 @@ public class JProjectView extends JAbstractView {
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetContentDelete.setText("Entfernen");
 	    this.jButtonPictureSetContentDelete.addActionListener(new DeleteFromPictureSetContentController (model));
-	    //TODO Hier muss noch die getmarket items methode aufgerufen werden und dem konstruktor mitgegen werden
 	}
 	return this.jButtonPictureSetContentDelete;
     }
