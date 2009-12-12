@@ -3,19 +3,19 @@ package org.knipsX.controller.projectmanagement;
 import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.model.projectmanagement.ProjectManagementModel;
 
 public class DeletionValidationNoController extends AbstractController {
 	
-	private ProjectListModel model;
+	private ProjectManagementModel model;
 
 	public DeletionValidationNoController(AbstractModel projectListModel) {
-		this.model = (ProjectListModel) projectListModel;	
+		this.model = (ProjectManagementModel) projectListModel;	
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		model.setModelStatus(ProjectListModel.SELECT);
+		model.setModelStatus(ProjectManagementModel.SELECT);
 		model.updateViews();
 	}
 }

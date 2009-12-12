@@ -4,22 +4,22 @@ import java.awt.event.ActionEvent;
 
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.model.projectmanagement.ProjectManagementModel;
 
 public class CreateCancelController extends AbstractController {
 	
-	private ProjectListModel model;
+	private ProjectManagementModel model;
 
 	public CreateCancelController(AbstractModel projectlistModel) {
 		
-		if(projectlistModel instanceof ProjectListModel ) {
-			this.model = (ProjectListModel) projectlistModel;
+		if(projectlistModel instanceof ProjectManagementModel ) {
+			this.model = (ProjectManagementModel) projectlistModel;
 		}	
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		model.setModelStatus(ProjectListModel.SELECT);
+		model.setModelStatus(ProjectManagementModel.SELECT);
 		model.updateViews();
 	}
 

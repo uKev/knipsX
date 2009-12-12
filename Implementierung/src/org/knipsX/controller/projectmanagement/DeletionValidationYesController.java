@@ -3,15 +3,15 @@ package org.knipsX.controller.projectmanagement;
 import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.model.projectmanagement.ProjectManagementModel;
 
 public class DeletionValidationYesController extends AbstractController {
 
-	private ProjectListModel model;
+	private ProjectManagementModel model;
 	private int[] toDelete;
 
 	public DeletionValidationYesController(AbstractModel model, int[] toDelete) {
-		this.model = (ProjectListModel) model;
+		this.model = (ProjectManagementModel) model;
 		this.toDelete = toDelete;
 	}
 
@@ -24,7 +24,7 @@ public class DeletionValidationYesController extends AbstractController {
 				toDelete[j] -= 1;
 			}
 		}
-		model.setModelStatus(ProjectListModel.SELECT);
+		model.setModelStatus(ProjectManagementModel.SELECT);
 		model.updateViews();
 	}
 }

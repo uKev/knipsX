@@ -3,20 +3,20 @@ package org.knipsX.controller.projectmanagement;
 import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectDelete;
-import org.knipsX.view.projectmanagement.JProjectAdministration;
+import org.knipsX.view.projectmanagement.JProjectManagement;
 
 public class DeleteProjectController extends AbstractController {
 
-	private JProjectAdministration view;
-	private ProjectListModel model;
+	private JProjectManagement view;
+	private ProjectManagementModel model;
 
 	public DeleteProjectController(AbstractModel model,
-			JAbstractView projectAdministration) {
-		this.view = (JProjectAdministration) projectAdministration;
-		this.model = (ProjectListModel) model;
+			JAbstractView jProjectManagement) {
+	this.view = (JProjectManagement) jProjectManagement;
+		this.model = (ProjectManagementModel) model;
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class DeleteProjectController extends AbstractController {
 			System.out
 					.println("Bitte mindestens ein Element zum löschen auswählen");
 		} else {
-			model.setModelStatus(ProjectListModel.DELETE);
+			model.setModelStatus(ProjectManagementModel.DELETE);
 			new JProjectDelete(model, toDelete);
 			model.updateViews();
 		}

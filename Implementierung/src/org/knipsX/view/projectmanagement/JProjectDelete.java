@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 import org.knipsX.controller.projectmanagement.DeletionValidationNoController;
 import org.knipsX.controller.projectmanagement.DeletionValidationYesController;
-import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractView;
 
 public class JProjectDelete extends JAbstractView implements Observer {
@@ -26,7 +26,7 @@ public class JProjectDelete extends JAbstractView implements Observer {
 
 	private final int[] toDelete;
 
-	public JProjectDelete(final ProjectListModel model, final int[] toDelete) {
+	public JProjectDelete(final ProjectManagementModel model, final int[] toDelete) {
 
 		/* Setze Modell */
 		super(model);
@@ -126,7 +126,7 @@ public class JProjectDelete extends JAbstractView implements Observer {
 	private String generateToDeleteText() {
 		String deleteText = "";
 		for (int n = 0; n < this.toDelete.length; ++n) {
-			deleteText += ((ProjectListModel) this.model).getProjectList().get(this.toDelete[n]).getName() + ";";
+			deleteText += ((ProjectManagementModel) this.model).getProjectList().get(this.toDelete[n]).getName() + ";";
 		}
 		return deleteText;
 	}
@@ -135,9 +135,9 @@ public class JProjectDelete extends JAbstractView implements Observer {
 	public void update(final Observable o, final Object arg) {
 
 		/* Bekomme das Modell geliefert */
-		final ProjectListModel model = (ProjectListModel) o;
+		final ProjectManagementModel model = (ProjectManagementModel) o;
 
-		if (model.getModelStatus() != ProjectListModel.DELETE) {
+		if (model.getModelStatus() != ProjectManagementModel.DELETE) {
 
 			/* Lösche Fenster */
 			this.dispose();

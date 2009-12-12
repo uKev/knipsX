@@ -5,29 +5,29 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.common.ProjectEntry;
-import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractView;
-import org.knipsX.view.projectmanagement.JProjectAdministration;
+import org.knipsX.view.projectmanagement.JProjectManagement;
 import org.knipsX.view.projectmanagement.JProjectCopy;
 
 public class CopyProjectController extends AbstractController {
 
     /* Die View */
-    private JProjectAdministration view;
+    private JProjectManagement view;
     
     /* Das Modell */
-    private ProjectListModel model;
+    private ProjectManagementModel model;
 
-    public CopyProjectController(final JAbstractView jProjectAdministration, final AbstractModel abstractModel) {
+    public CopyProjectController(final JAbstractView jProjectManagement, final AbstractModel abstractModel) {
 
 	/* Cast View */
-	if (jProjectAdministration instanceof JProjectAdministration) {
-	    this.view = (JProjectAdministration) jProjectAdministration;
+	if (jProjectManagement instanceof JProjectManagement) {
+	    this.view = (JProjectManagement) jProjectManagement;
 	}
 
 	/* Cast Modell */
-	if (abstractModel instanceof ProjectListModel) {
-	    this.model = (ProjectListModel) abstractModel;
+	if (abstractModel instanceof ProjectManagementModel) {
+	    this.model = (ProjectManagementModel) abstractModel;
 	}
     }
 
@@ -44,7 +44,7 @@ public class CopyProjectController extends AbstractController {
 	    final ProjectEntry projectToCopy = this.model.getProjectList().get(toCopy[0]);
 
 	    /* Setze Modellstatus */
-	    this.model.setModelStatus(ProjectListModel.COPY);
+	    this.model.setModelStatus(ProjectManagementModel.COPY);
 
 	    /* Erstelle neues Fenster */
 	    new JProjectCopy(this.model, projectToCopy);

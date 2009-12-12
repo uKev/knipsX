@@ -1,8 +1,11 @@
+/**
+ * This package is the root of all files regarding the "project management".
+ */
 package org.knipsX.view.projectmanagement;
 
+/* import things from the java sdk */
 import java.awt.Component;
 import java.util.Observable;
-
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,36 +15,52 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 
+/* import things from our program */
 import org.knipsX.controller.projectmanagement.CopyProjectController;
 import org.knipsX.controller.projectmanagement.CreateProjectController;
 import org.knipsX.controller.projectmanagement.DeleteProjectController;
 import org.knipsX.controller.projectmanagement.OpenProjectController;
 import org.knipsX.model.common.ProjectEntry;
-import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractView;
 
-public class JProjectAdministration extends JAbstractView {
+public class JProjectManagement extends JAbstractView {
 
-    /* Für Serialisierung */
+    /** Only for serialisation */
     private static final long serialVersionUID = 2746903025575471227L;
 
+    /* represents the panel for the view */
     private JPanel jContentPane = null;
 
+    /* represents the button for the project copy action */
     private JButton jButtonCopyProject = null;
+    
+    /* represents the button for the project create action */
     private JButton jButtonCreateProject = null;
+    
+    /* represents the button for the project delete action */
     private JButton jButtonDeleteProject = null;
+    
+    /* represents the button for the project open action */
     private JButton jButtonOpenProject = null;
 
+    /* represents the list with all projects */
     private JList jListProject = null;
 
+    /* add scrollbars to the list */
     private JScrollPane jScrollPaneProjectList = null;
 
-    public JProjectAdministration(final ProjectListModel model) {
+    /**
+     * Create a new project management view which is connected to a model.
+     * 
+     * @param model the model which is connected to the view.
+     */
+    public JProjectManagement(final ProjectManagementModel model) {
 
-	/* Setze Modell */
+	/* sets the model */
 	super(model);
 
-	/* Zeichne Fenster */
+	/* renders the view */
 	this.initialize();
     }
 
@@ -152,7 +171,7 @@ public class JProjectAdministration extends JAbstractView {
      */
     private JList getjListProject() {
 	if (this.jListProject == null) {
-	    this.jListProject = new JList(((ProjectListModel) this.model).getProjectList().toArray());
+	    this.jListProject = new JList(((ProjectManagementModel) this.model).getProjectList().toArray());
 	    this.jListProject.setCellRenderer(new MyProjectListCellRenderer());
 	}
 	return this.jListProject;
@@ -185,7 +204,7 @@ public class JProjectAdministration extends JAbstractView {
     public void update(final Observable o, final Object arg) {
 
 	/* cast to model */
-	final ProjectListModel model = (ProjectListModel) o;
+	final ProjectManagementModel model = (ProjectManagementModel) o;
 
 	/* set the data for the project list */
 	this.jListProject.setListData(model.getProjectList().toArray());
@@ -194,14 +213,14 @@ public class JProjectAdministration extends JAbstractView {
 	this.repaint();
 
 	/* react to program state */
-	if (model.getModelStatus() == ProjectListModel.SELECT) {
+	if (model.getModelStatus() == ProjectManagementModel.SELECT) {
 
 	    /* set view active */
 	    this.setEnabled(true);
 
 	    /* show view */
 	    this.setVisible(true);
-	} else if (model.getModelStatus() == ProjectListModel.OPEN) {
+	} else if (model.getModelStatus() == ProjectManagementModel.OPEN) {
 
 	    /* delete view */
 	    this.dispose();

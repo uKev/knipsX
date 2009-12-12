@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.projectmanagement.JProjectCopy;
 
 public class CopyOkController extends AbstractController {
@@ -13,7 +13,7 @@ public class CopyOkController extends AbstractController {
     private JProjectCopy view;
 
     /* Das Modell */
-    private ProjectListModel model;
+    private ProjectManagementModel model;
 
     public CopyOkController(final AbstractModel abstractModel, final JProjectCopy jProjectCopy) {
 
@@ -23,8 +23,8 @@ public class CopyOkController extends AbstractController {
 	}
 
 	/* Cast Modell */
-	if (abstractModel instanceof ProjectListModel) {
-	    this.model = (ProjectListModel) abstractModel;
+	if (abstractModel instanceof ProjectManagementModel) {
+	    this.model = (ProjectManagementModel) abstractModel;
 	}
     }
 
@@ -45,7 +45,7 @@ public class CopyOkController extends AbstractController {
 	    this.model.addNewProject(this.view.getProjectToCopy(), projectName);
 
 	    /* Setze Modellstatus */
-	    this.model.setModelStatus(ProjectListModel.SELECT);
+	    this.model.setModelStatus(ProjectManagementModel.SELECT);
 
 	    /* Aktualisiere Views */
 	    this.model.updateViews();
