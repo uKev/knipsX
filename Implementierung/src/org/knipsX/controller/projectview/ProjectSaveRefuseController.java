@@ -5,9 +5,9 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 
-public class CreateReportRefuseController extends AbstractController {
+public class ProjectSaveRefuseController extends AbstractController {
 
-	public CreateReportRefuseController(AbstractModel model) {
+	public ProjectSaveRefuseController(AbstractModel model) {
 		super(model);
 	}
 

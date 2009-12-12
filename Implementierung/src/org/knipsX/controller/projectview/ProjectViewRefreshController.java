@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 
-public class OpenReportController extends AbstractController {
+public class ProjectViewRefreshController extends AbstractController {
 
-	public OpenReportController(AbstractModel model) {
+	public ProjectViewRefreshController(AbstractModel model) {
 		super(model);
 	}
 

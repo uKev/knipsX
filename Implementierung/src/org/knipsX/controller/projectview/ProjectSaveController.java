@@ -6,9 +6,9 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.projectview.JProjectSave;
 
-public class SaveProjectController extends AbstractController {
+public class ProjectSaveController extends AbstractController {
 	
-	public SaveProjectController(AbstractModel model) {
+	public ProjectSaveController(AbstractModel model) {
 		super(model);
 	}
 
