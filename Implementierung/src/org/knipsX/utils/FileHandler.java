@@ -15,6 +15,7 @@ import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.model.reportmanagement.AbstractReportModel;
 
 /**
  * Has functions that can handle with the filesystem.

@@ -117,4 +117,13 @@ public class ProjectViewModel extends ProjectEntry {
 	public void setExifParameter(Object[][] exifParameter) {
 		this.exifParameter = exifParameter;
 	}
+	
+	public void sortProjectSetList() {	
+	}
+	
+	public void sortProjectSetContentList() {		
+	}
+	
+	public void sortReportList () {		
+	}
 }
