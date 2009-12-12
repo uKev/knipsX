@@ -22,7 +22,6 @@ public class ProjectViewModel extends ProjectEntry {
 	public static final int SELECTIONPICTURESETLIST = 10;
 	public static final int SELECTIONPICTURESETCONTENTLIST = 11;
 	public static final int SELECTIONPICTURELIST = 12;
-	public static final int SELECTIONREPORTLIST = 13;
 
 	private int modelStatus = USERSELECT;
 

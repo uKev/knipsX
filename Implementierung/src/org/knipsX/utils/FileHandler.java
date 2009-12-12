@@ -64,7 +64,7 @@ public class FileHandler {
 	}
 
 	public static ProjectViewModel scanProjectFile(int projectID) {
-		ProjectEntry dummyEntry = new ProjectEntry(1, "Schwarzwald",
+		ProjectEntry dummyEntry = new ProjectEntry(1, "Name leider Fest geht nur wenn xml da is",
 				new GregorianCalendar(2009, 11, 12, 7, 9, 3), "");
 		List<PictureSet> dummyPictureSetList = new LinkedList<PictureSet>();
 		PictureSet dummyPictureSet = new PictureSet();
