@@ -1,120 +1,121 @@
 package org.knipsX.model.projectview;
 
 import java.util.List;
+
 import org.knipsX.model.common.ProjectEntry;
+import org.knipsX.model.common.ReportEntry;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
-import org.knipsX.model.reportmanagement.AbstractReportModel;
 
 public class ProjectViewModel extends ProjectEntry {
 
-	public static final int USERSELECT = 0;
-	public static final int SWITCHPROJECT = 1;
-	public static final int SAVEPROJECT = 2;
-	public static final int CREATEPICTURESET = 3;
-	public static final int DELETEPICTURESET = 4;
-	public static final int COPYPICTURESET = 5;
-	public static final int CREATEREPORT = 6;
-	public static final int DELETEREPORT = 7;
-	public static final int ADDTOPICTURESET = 8;
-	public static final int SWITCHSAVE = 9;
-	public static final int SELECTIONPICTURESETLIST = 10;
-	public static final int SELECTIONPICTURESETCONTENTLIST = 11;
-	public static final int SELECTIONPICTURELIST = 12;
+    public static final int USERSELECT = 0;
+    public static final int SWITCHPROJECT = 1;
+    public static final int SAVEPROJECT = 2;
+    public static final int CREATEPICTURESET = 3;
+    public static final int DELETEPICTURESET = 4;
+    public static final int COPYPICTURESET = 5;
+    public static final int CREATEREPORT = 6;
+    public static final int DELETEREPORT = 7;
+    public static final int ADDTOPICTURESET = 8;
+    public static final int SWITCHSAVE = 9;
+    public static final int SELECTIONPICTURESETLIST = 10;
+    public static final int SELECTIONPICTURESETCONTENTLIST = 11;
+    public static final int SELECTIONPICTURELIST = 12;
 
-	private int modelStatus = USERSELECT;
+    private int modelStatus = ProjectViewModel.USERSELECT;
 
-	private List<PictureSet> pictureSetList;
+    private List<PictureSet> pictureSetList;
 
-	private List<PictureContainer> pictureSetContentList;
+    private List<PictureContainer> pictureSetContentList;
 
-	private List<Picture> allPicturesOfSetList;
+    private List<Picture> allPicturesOfSetList;
 
-	private List<AbstractReportModel> reportList;
-	
-	private Object[][] exifParameter;
+    private List<ReportEntry> reportList;
 
-	private String projectDescriptionList;
+    private Object[][] exifParameter;
 
-	public ProjectViewModel(ProjectEntry projectEntry) {
-		super(projectEntry);
-	}
+    private String projectDescriptionList;
 
-	public ProjectViewModel(ProjectEntry projectEntry,
-			List<PictureSet> pictureSetList,
-			List<PictureContainer> pictureSetContentList,
-			List<Picture> allPicturesOfSetList, List<AbstractReportModel> reportList) {
-		super(projectEntry);
-		this.pictureSetList = pictureSetList;
-		this.reportList = reportList;
-		this.allPicturesOfSetList = allPicturesOfSetList;
-		this.pictureSetContentList = pictureSetContentList;
-		this.exifParameter = new Picture().getAllExifParameter();
-	}
+    public ProjectViewModel(final ProjectEntry projectEntry) {
+	super(projectEntry);
+    }
 
-	public int getModelStatus() {
-		return modelStatus;
-	}
+    public ProjectViewModel(final ProjectEntry projectEntry, final List<PictureSet> pictureSetList,
+	    final List<PictureContainer> pictureSetContentList, final List<Picture> allPicturesOfSetList,
+	    final List<ReportEntry> reportList) {
+	super(projectEntry);
+	this.pictureSetList = pictureSetList;
+	this.reportList = reportList;
+	this.allPicturesOfSetList = allPicturesOfSetList;
+	this.pictureSetContentList = pictureSetContentList;
+	this.exifParameter = new Picture().getAllExifParameter();
+    }
 
-	public void setModelStatus(int modelStatus) {
-		this.modelStatus = modelStatus;
-	}
+    public int generateFreePictureSetID() {
+	return 0;
+    }
 
-	public List<PictureSet> getPictureSetList() {
-		return pictureSetList;
-	}
+    public int generateFreeReportID() {
+	return 0;
+    }
 
-	public void setPictureSetsList(List<PictureSet> pictureSetList) {
-		this.pictureSetList = pictureSetList;
-	}
+    public List<Picture> getAllPicturesOfSetList() {
+	return this.allPicturesOfSetList;
+    }
 
-	public List<PictureContainer> getPictureSetContentList() {
-		return pictureSetContentList;
-	}
+    public Object[][] getExifParameter() {
+	return this.exifParameter;
+    }
 
-	public void setPictureSetContentList(
-			List<PictureContainer> pictureSetContentList) {
-		this.pictureSetContentList = pictureSetContentList;
-	}
+    @Override
+    public int getModelStatus() {
+	return this.modelStatus;
+    }
 
-	public List<Picture> getAllPicturesOfSetList() {
-		return allPicturesOfSetList;
-	}
+    public List<PictureContainer> getPictureSetContentList() {
+	return this.pictureSetContentList;
+    }
 
-	public void setAllPicturesOfSetList(List<Picture> allPicturesOfSetList) {
-		this.allPicturesOfSetList = allPicturesOfSetList;
-	}
+    public List<PictureSet> getPictureSetList() {
+	return this.pictureSetList;
+    }
 
-	public List<AbstractReportModel> getReportList() {
-		return reportList;
-	}
+    public String getProjectDescriptionList() {
+	return this.projectDescriptionList;
+    }
 
-	public void setReportsList(List<AbstractReportModel> reportList) {
-		this.reportList = reportList;
-	}
+    public List<ReportEntry> getReportList() {
+	return this.reportList;
+    }
 
-	public String getProjectDescriptionList() {
-		return projectDescriptionList;
-	}
+    public void setAllPicturesOfSetList(final List<Picture> allPicturesOfSetList) {
+	this.allPicturesOfSetList = allPicturesOfSetList;
+    }
 
-	public void setProjectDescriptionList(String projectDescriptionList) {
-		this.projectDescriptionList = projectDescriptionList;
-	}
-	
-	public  int generateFreePictureSetID() {
-		return 0;
-	}
+    public void setExifParameter(final Object[][] exifParameter) {
+	this.exifParameter = exifParameter;
+    }
 
-	public int generateFreeReportID() {
-		return 0;
-	}
-	
-	public Object[][] getExifParameter() {
-		return exifParameter;
-	}
+    @Override
+    public void setModelStatus(final int modelStatus) {
+	this.modelStatus = modelStatus;
+    }
 
-	public void setExifParameter(Object[][] exifParameter) {
-		this.exifParameter = exifParameter;
-	}
+    public void setPictureSetContentList(final List<PictureContainer> pictureSetContentList) {
+	this.pictureSetContentList = pictureSetContentList;
+    }
+
+    public void setPictureSetsList(final List<PictureSet> pictureSetList) {
+	this.pictureSetList = pictureSetList;
+    }
+
+    public void setProjectDescriptionList(final String projectDescriptionList) {
+	this.projectDescriptionList = projectDescriptionList;
+    }
+
+    public void setReportsList(final List<ReportEntry> reportList) {
+	this.reportList = reportList;
+    }
 }

@@ -26,8 +26,6 @@ import javax.swing.LayoutStyle;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.CellEditorListener;
-import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
@@ -40,6 +38,8 @@ import org.knipsX.controller.projectview.PictureSetDeleteController;
 import org.knipsX.controller.projectview.ProjectViewRefreshController;
 import org.knipsX.controller.projectview.ProjectSaveController;
 import org.knipsX.controller.projectview.ProjectSwitchController;
+import org.knipsX.model.common.ReportEntry;
+import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
@@ -1267,9 +1267,17 @@ class MyPictureSetContentListCellRenderer implements ListCellRenderer {
 	/* if the selected item is a "Picture" -> set the name */
 	/* TODO different colors */
 	if (value instanceof Picture) {
-	    final PictureContainer picturecontainer = (PictureContainer) value;
-	    theText = picturecontainer.getName();
+	    final PictureContainer pictureContainer = (PictureContainer) value;
+	    theText = pictureContainer.getName();
 	    theColor = Color.GREEN;
+	} else if (value instanceof Directory) {
+	    final PictureContainer pictureContainer = (PictureContainer) value;
+	    theText = pictureContainer.getName();
+	    theColor = Color.RED;
+	} else if (value instanceof PictureSet) {
+	    final PictureContainer pictureContainer = (PictureContainer) value;
+	    theText = pictureContainer.getName();
+	    theColor = Color.BLUE;
 	}
 	renderer.setText(theText);
 	renderer.setForeground(theColor);
@@ -1330,9 +1338,9 @@ class MyReportListCellRenderer implements ListCellRenderer {
 		isSelected, cellHasFocus);
 
 	/* if the selected item is a "ReportEntry" -> set the name */
-	if (value instanceof AbstractReportModel) {
-	    final AbstractReportModel reportEntry = (AbstractReportModel) value;
-	    theText = reportEntry.getReportDescription();
+	if (value instanceof ReportEntry) {
+	    final ReportEntry reportEntry = (ReportEntry) value;
+	    theText = reportEntry.getName();
 	}
 	renderer.setText(theText);
 

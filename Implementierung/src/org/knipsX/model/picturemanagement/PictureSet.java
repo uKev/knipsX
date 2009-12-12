@@ -30,7 +30,7 @@ public class PictureSet implements PictureContainer {
 		childs.remove(container);
 	}
 
-	public List<?> getItems() {
+	public List<PictureContainer> getItems() {
 		List<PictureContainer> temp = new ArrayList<PictureContainer>();
 		for(PictureContainer element : childs) {
 			temp.add(element);
