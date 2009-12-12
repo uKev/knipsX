@@ -3,7 +3,6 @@ package org.knipsX.model.picturemanagement;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class Directory implements PictureContainer {
 	
 	public List<Picture> pictures = new LinkedList<Picture>();

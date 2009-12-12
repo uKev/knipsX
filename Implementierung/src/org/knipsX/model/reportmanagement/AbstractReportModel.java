@@ -12,7 +12,7 @@ import org.knipsX.model.picturemanagement.PictureContainer;
  * @author Kevin Zuber
  *
  */
-public abstract class AbstractReportModel extends AbstractModel {
+public class AbstractReportModel extends AbstractModel {
 
 	private ArrayList<PictureContainer> pictureContainer;
 	private String reportName;

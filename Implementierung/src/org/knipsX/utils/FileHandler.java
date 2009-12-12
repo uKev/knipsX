@@ -11,7 +11,6 @@ import java.util.List;
 
 /* import things from our programm */
 import org.knipsX.model.common.ProjectEntry;
-import org.knipsX.model.common.ReportEntry;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
@@ -64,22 +63,22 @@ public class FileHandler {
 	}
 
 	public static ProjectViewModel scanProjectFile(int projectID) {
-		ProjectEntry dummyEntry = new ProjectEntry(1, "Name leider Fest geht nur wenn xml da is",
+		ProjectEntry dummyEntry = new ProjectEntry(1, "XML",
 				new GregorianCalendar(2009, 11, 12, 7, 9, 3), "");
 		List<PictureSet> dummyPictureSetList = new LinkedList<PictureSet>();
 		PictureSet dummyPictureSet = new PictureSet("Goldfische", 4);
 		dummyPictureSetList.add(dummyPictureSet);
-		List<ReportEntry> dummyReportEntryList = new LinkedList<ReportEntry>();
-		ReportEntry dummyReportEntry = new ReportEntry();
-		dummyReportEntry.setReportName("Blendenanalyse");
-		dummyReportEntryList.add(dummyReportEntry);
+		List<AbstractReportModel> dummyReportList = new LinkedList<AbstractReportModel>();
+		AbstractReportModel dummyReport = new AbstractReportModel();
+		dummyReport.setReportName("Blendenanalyse");
+		dummyReportList.add(dummyReport);
 		List<PictureContainer> dummyContainer = new LinkedList<PictureContainer>();
 		Picture dummyPicture = new Picture();
 		dummyPicture.setName("Nemo");
 		dummyContainer.add(dummyPicture);
 		List<Picture> dummyPictureList = new LinkedList<Picture>();		
 		dummyPictureList.add(dummyPicture);
-		ProjectViewModel dummyModel = new ProjectViewModel(dummyEntry, dummyPictureSetList, dummyContainer, dummyPictureList, dummyReportEntryList);
+		ProjectViewModel dummyModel = new ProjectViewModel(dummyEntry, dummyPictureSetList, dummyContainer, dummyPictureList, dummyReportList);
 		return dummyModel;
 	}
 

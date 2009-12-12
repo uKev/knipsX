@@ -41,6 +41,7 @@ public class DemoJFileChooser extends JAbstractView {
 				System.out.println("Pfad: " + file.getAbsolutePath() + " dir? "
 						+ file.isDirectory() + " file? " + file.isFile());
 			}
+			model.setModelStatus(ProjectViewModel.USERSELECT);
 		} else {
 			model.setModelStatus(ProjectViewModel.USERSELECT);
 			System.out.println("No Selection ");

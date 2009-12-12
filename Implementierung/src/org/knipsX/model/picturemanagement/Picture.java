@@ -3,29 +3,44 @@ package org.knipsX.model.picturemanagement;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.knipsX.utils.ExifParameter;
-
+import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
 
 public class Picture implements PictureContainer {
-	
-	private String path;
+
 	private String pictureName;
-	
-	
-	
-	public Picture(String path) {
+	private String path;
+	private Object[][] allExifParameter = new Object[10][2];
+	private boolean isActive = true;
+
+	public Picture(String fileName, String path) {
 		super();
+		this.pictureName = fileName;
 		this.path = path;
-		// TODO: implement
-		// TODO: read exif data etc. 
+		ExifAdapter exifAdapter = new ExifAdapter();
+		exifAdapter.setFilePath(path);
+		// dummymaesig:
+		Object[] parameter = new Object[] { ExifParameter.Kameramodell,
+				ExifParameter.Blitz, ExifParameter.Blende,
+				ExifParameter.Verschlusszeit, ExifParameter.ISO_Wert,
+				ExifParameter.Brennweite, ExifParameter.Datum,
+				ExifParameter.Wochentag, ExifParameter.Uhrzeit,
+				ExifParameter.Objektivname };
+		for (int n = 0; n < allExifParameter.length; n++) {
+			allExifParameter[n][0] = parameter[n].toString();
+		}
+		for (int n = 0; n < allExifParameter.length; n++) {
+			allExifParameter[n][1] = n;
+			// das unter ist das was man verwenden muss ohne dummies...
+			// exifAdapter.getExifParameter((ExifParameter) parameter[n]);
+		}
+
 	}
-	
+
 	public Picture() {
-		
 	}
-	
-	public List<?> getItems() {		
+
+	public List<?> getItems() {
 		List<PictureContainer> temp = new ArrayList<PictureContainer>();
 		temp.add(this);
 		return temp;
@@ -45,14 +60,15 @@ public class Picture implements PictureContainer {
 	public void remove() {
 		// TODO: implement
 		// TODO Auto-generated method stub
-		
+
 	}
-	public Image getBigThumbnail(){
+
+	public Image getBigThumbnail() {
 		// TODO: implement
 		return null;
 	}
-	
-	public Image getSmallThumbnail(){
+
+	public Image getSmallThumbnail() {
 		// TODO: implement
 		return null;
 	}
@@ -67,27 +83,43 @@ public class Picture implements PictureContainer {
 
 	@Override
 	public void setName(String name) {
-		this.pictureName = name;		
-	}	
-	
+		this.pictureName = name;
+	}
+
 	// wird für die statistischen Auswertungen benötigt
-	public Object getExifParameter(ExifParameter exifParameter){
+	public Object getExifParameter(ExifParameter exifParameter) {
 		// TODO: implement
 		return null;
 	}
-	
-	public boolean hasExifKeyword(String keyword){
+
+	public boolean hasExifKeyword(String keyword) {
 		// TODO: implement
 		return true;
 	}
-	
-	public boolean hasMinOneKeywordOf(String [] keywords){
+
+	public boolean hasMinOneKeywordOf(String[] keywords) {
 		// TODO: implement
 		return true;
 	}
-	
-	public boolean hasAllKeywords(String [] keywords){
+
+	public boolean hasAllKeywords(String[] keywords) {
 		// TODO: implement
 		return false;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public Object[][] getAllExifParameter() {
+		return allExifParameter;
+	}
+
+	public void setAllExifParameter(Object[][] allExifParameter) {
+		this.allExifParameter = allExifParameter;
 	}
 }

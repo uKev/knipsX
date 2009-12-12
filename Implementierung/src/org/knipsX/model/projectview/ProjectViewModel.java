@@ -2,10 +2,10 @@ package org.knipsX.model.projectview;
 
 import java.util.List;
 import org.knipsX.model.common.ProjectEntry;
-import org.knipsX.model.common.ReportEntry;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
+import org.knipsX.model.reportmanagement.AbstractReportModel;
 
 public class ProjectViewModel extends ProjectEntry {
 
@@ -31,7 +31,9 @@ public class ProjectViewModel extends ProjectEntry {
 
 	private List<Picture> allPicturesOfSetList;
 
-	private List<ReportEntry> reportList;
+	private List<AbstractReportModel> reportList;
+	
+	private Object[][] exifParameter;
 
 	private String projectDescriptionList;
 
@@ -42,12 +44,13 @@ public class ProjectViewModel extends ProjectEntry {
 	public ProjectViewModel(ProjectEntry projectEntry,
 			List<PictureSet> pictureSetList,
 			List<PictureContainer> pictureSetContentList,
-			List<Picture> allPicturesOfSetList, List<ReportEntry> reportList) {
+			List<Picture> allPicturesOfSetList, List<AbstractReportModel> reportList) {
 		super(projectEntry);
 		this.pictureSetList = pictureSetList;
 		this.reportList = reportList;
 		this.allPicturesOfSetList = allPicturesOfSetList;
 		this.pictureSetContentList = pictureSetContentList;
+		this.exifParameter = new Picture().getAllExifParameter();
 	}
 
 	public int getModelStatus() {
@@ -83,11 +86,11 @@ public class ProjectViewModel extends ProjectEntry {
 		this.allPicturesOfSetList = allPicturesOfSetList;
 	}
 
-	public List<ReportEntry> getReportList() {
+	public List<AbstractReportModel> getReportList() {
 		return reportList;
 	}
 
-	public void setReportsList(List<ReportEntry> reportList) {
+	public void setReportsList(List<AbstractReportModel> reportList) {
 		this.reportList = reportList;
 	}
 
@@ -105,5 +108,13 @@ public class ProjectViewModel extends ProjectEntry {
 
 	public int generateFreeReportID() {
 		return 0;
+	}
+	
+	public Object[][] getExifParameter() {
+		return exifParameter;
+	}
+
+	public void setExifParameter(Object[][] exifParameter) {
+		this.exifParameter = exifParameter;
 	}
 }

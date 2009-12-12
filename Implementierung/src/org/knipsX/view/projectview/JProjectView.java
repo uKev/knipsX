@@ -26,6 +26,10 @@ import javax.swing.LayoutStyle;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.CellEditorListener;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /* import things from our program */
 import org.knipsX.controller.projectview.AddToPictureSetContentController;
@@ -36,11 +40,11 @@ import org.knipsX.controller.projectview.DeletePictureSetController;
 import org.knipsX.controller.projectview.RefreshProjectViewController;
 import org.knipsX.controller.projectview.SaveProjectController;
 import org.knipsX.controller.projectview.SwitchProjectController;
-import org.knipsX.model.common.ReportEntry;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.view.JAbstractView;
 
 /**
@@ -743,7 +747,7 @@ public class JProjectView extends JAbstractView {
 	    /* add a border to the panel */
 	    /* TODO change to internationalisation */
 	    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-		    "Bildmenge: Bla");
+		    "Bilder:");
 	    this.jPanelPictureSetActive.setBorder(title);
 
 	    /* add a list with images of an active picture container */
@@ -1088,11 +1092,14 @@ public class JProjectView extends JAbstractView {
 
 	    /* TODO set from model */
 	    final String[] columnNames = { "Parameter", "Wert" };
-	    final Object[][] data = { { "Mary", "Campione" }, { "Alison", "Huml" }, { "Kathy", "Walrath" },
-		    { "Sharon", "Zakhour" }, { "Philip", "Milne" } };
+	    Object[][] data = ((ProjectViewModel) model).getExifParameter();
 
 	    /* create new table for the exif parameters of an active image */
 	    this.jTableExif = new JTable(data, columnNames);
+	    TableColumn para = this.jTableExif.getColumnModel().getColumn(0);
+	    TableColumn value = this.jTableExif.getColumnModel().getColumn(1);
+	    para.setCellRenderer(new MyTableCellRenderer());
+	    value.setCellRenderer(new MyTableCellRenderer());
 	}
 
 	/* return the table */
@@ -1111,7 +1118,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* create new textfield */
 	    this.jTextFieldProjectName = new JTextField();
-	    this.jTextFieldProjectName.setText(((ProjectViewModel) model).getProjectDescriptionList());
+	    this.jTextFieldProjectName.setText(((ProjectViewModel) model).getName());
 	}
 	return this.jTextFieldProjectName;
     }
@@ -1323,13 +1330,50 @@ class MyReportListCellRenderer implements ListCellRenderer {
 		isSelected, cellHasFocus);
 
 	/* if the selected item is a "ReportEntry" -> set the name */
-	if (value instanceof ReportEntry) {
-	    final ReportEntry reportEntry = (ReportEntry) value;
-	    theText = reportEntry.getReportName();
+	if (value instanceof AbstractReportModel) {
+	    final AbstractReportModel reportEntry = (AbstractReportModel) value;
+	    theText = reportEntry.getReportDescription();
 	}
 	renderer.setText(theText);
 
 	/* return the label */
 	return renderer;
     }
+}
+
+class MyTableCellRenderer extends JLabel implements TableCellRenderer {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	// This method is called each time a cell in a column
+    // using this renderer needs to be rendered.
+    public Component getTableCellRendererComponent(JTable table, Object value,
+            boolean isSelected, boolean hasFocus, int rowIndex, int vColIndex) {
+        // 'value' is value contained in the cell located at
+        // (rowIndex, vColIndex)
+
+        if (isSelected) {
+            // cell (and perhaps other cells) are selected
+        }
+
+        if (hasFocus) {
+            // this cell is the anchor and the table has the focus
+        }
+
+        // Configure the component with the specified value
+        setText(((String)value));
+
+        // Set tool tip if desired
+        setToolTipText((String)value);
+
+        // Since the renderer is a component, return itself
+        return this;
+    }
+
+    // The following methods override the defaults for performance reasons
+    public void validate() {}
+    public void revalidate() {}
+    protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {}
+    public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {}
 }
