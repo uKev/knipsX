@@ -1101,8 +1101,7 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method checks which entries are marked in the PictureSetContentList
-     * and gives them back as indices.
+     * This method checks which entries are marked in the PictureSetContentList and gives them back as indices.
      * 
      * @return array of indices.
      */
@@ -1111,8 +1110,7 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method checks which entries are marked in the PictureSetList and
-     * gives them back as indices.
+     * This method checks which entries are marked in the PictureSetList and gives them back as indices.
      * 
      * @return array of indices.
      */
@@ -1121,8 +1119,7 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method checks which entries are marked in the ReportList and gives
-     * them back as indices.
+     * This method checks which entries are marked in the ReportList and gives them back as indices.
      * 
      * @return array of indices.
      */
@@ -1131,8 +1128,7 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
-     * This method checks which entries are marked in the PictureList of a
-     * PictureSet and gives them back as indices.
+     * This method checks which entries are marked in the PictureList of a PictureSet and gives them back as indices.
      * 
      * @return array of indices.
      */
@@ -1140,22 +1136,24 @@ public class JProjectView extends JAbstractView {
 	return this.jListPictureSetActive.getSelectedIndices();
     }
 
-    public String getjTextFieldProjectNameToString() {
+    /**
+     * Returns the project name.
+     * 
+     * @return
+     */
+    public String getProjectName() {
 	return jTextFieldProjectName.getText();
     }
 
-    public void setjTextFieldProjectNameText(String text) {
-	this.jTextFieldProjectName.setText(text);
-    }
-
-    public String getjEditorPaneProjectDescriptionToString() {
+    /**
+     * Returns the project description.
+     * 
+     * @return
+     */
+    public String getProjectDescription() {
 	return jEditorPaneProjectDescription.getText();
     }
-
-    public void setjEditorPaneProjectDescription(String text) {
-	this.jEditorPaneProjectDescription.setText(text);
-    }
-
+    
     @Override
     public void update(final Observable o, final Object arg) {
 
