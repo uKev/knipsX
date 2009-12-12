@@ -14,8 +14,8 @@ public class Cluster3DModel extends AbstractDoubleAxesModel{
 	// can be private because there is no subclass
 	private Axis yAxis;
 
-	public Cluster3DModel(ArrayList<PictureContainer> pictureContainer, Axis yAxis) {
-		super(pictureContainer, yAxis, yAxis);
+	public Cluster3DModel(ArrayList<PictureContainer> pictureContainer, Axis xAxis, Axis zAxis, Axis yAxis) {
+		super(pictureContainer, xAxis, zAxis);
 		this.yAxis = yAxis;
 	}
 
