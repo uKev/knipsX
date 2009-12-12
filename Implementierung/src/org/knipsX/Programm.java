@@ -6,7 +6,7 @@ package org.knipsX;
 /* import things from our programm */
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.utils.FileHandler;
-import org.knipsX.view.projectmanagement.JProjectAdministration;
+import org.knipsX.view.projectmanagement.JProjectManagement;
 
 /**
  * This class is the entry to our program.
@@ -27,6 +27,6 @@ public class Programm {
 	final ProjectManagementModel projectManagementModel = new ProjectManagementModel(FileHandler.scanProjectDirectory());
 
 	/* creates a new JProjectAdministration window, which is connected to a model */
-	new JProjectAdministration(projectManagementModel);
+	new JProjectManagement(projectManagementModel);
     }
 }
