@@ -98,4 +98,12 @@ public class ProjectViewModel extends ProjectEntry {
 	public void setProjectDescriptionList(String projectDescriptionList) {
 		this.projectDescriptionList = projectDescriptionList;
 	}
+	
+	public  int generateFreePictureSetID() {
+		return 0;
+	}
+
+	public int generateFreeReportID() {
+		return 0;
+	}
 }
