@@ -30,7 +30,7 @@ public enum Report {
 			},
 	Cluster3D {
 			public JAbstractReport getReportType() {return new JCluster3DConfig(null);} 
-			public AbstractReportModel createReportModel() {return new Cluster3DModel(null, null);}	
+			public AbstractReportModel createReportModel() {return new Cluster3DModel(null, null, null, null);}	
 			public int getNumberofAxis() {return 3;}
 				
 			},

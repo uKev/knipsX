@@ -40,7 +40,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
     
     public WilcoxonTestType getTestType() {
     	//TODO
-    	return WilcoxonTestType.Left;
+    	return WilcoxonTestType.LEFT;
     }
     
     public float getStatisticatSignificance() {
