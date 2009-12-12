@@ -8,8 +8,8 @@ import java.util.Observable;
 import javax.swing.JFrame;
 
 /* import things from our program */
-import org.knipsX.controller.projectview.DeletePictureSetRefuseController;
-import org.knipsX.controller.projectview.DeletePictureSetConfirmController;
+import org.knipsX.controller.projectview.PictureSetDeleteRefuseController;
+import org.knipsX.controller.projectview.PictureSetDeleteConfirmController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractDialog;
@@ -76,14 +76,14 @@ public class JPictureSetDelete extends JAbstractDialog {
 	this.jButtonConfirm.setText("Ok");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonConfirm.addActionListener(new DeletePictureSetConfirmController(this.model, this.toDelete));
+	this.jButtonConfirm.addActionListener(new PictureSetDeleteConfirmController(this.model, this.toDelete));
 
 	/* set button text */
 	/* TODO change to internationalisation */
 	this.jButtonRefuse.setText("Abbrechen");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonRefuse.addActionListener(new DeletePictureSetRefuseController(this.model));
+	this.jButtonRefuse.addActionListener(new PictureSetDeleteRefuseController(this.model));
 
 	/* set label text */
 	/* TODO change to internationalisation */

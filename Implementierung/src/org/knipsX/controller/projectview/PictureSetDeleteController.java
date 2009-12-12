@@ -6,11 +6,11 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.projectview.JReportDelete;
 
-public class DeletePictureSetController extends AbstractController {
+public class PictureSetDeleteController extends AbstractController {
 	
 	private int[] toDelete;
 
-	public DeletePictureSetController(AbstractModel model, int[] toDelete) {
+	public PictureSetDeleteController(AbstractModel model, int[] toDelete) {
 		super(model);
 		this.toDelete = toDelete;
 	}

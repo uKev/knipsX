@@ -29,10 +29,10 @@ import javax.swing.border.TitledBorder;
 
 /* import things from our program */
 import org.knipsX.controller.projectview.AddToPictureSetContentController;
-import org.knipsX.controller.projectview.CopyPictureSetController;
-import org.knipsX.controller.projectview.CreatePictureSetController;
+import org.knipsX.controller.projectview.PictureSetCopyController;
+import org.knipsX.controller.projectview.PictureSetCreateController;
 import org.knipsX.controller.projectview.DeleteFromPictureSetContentController;
-import org.knipsX.controller.projectview.DeletePictureSetController;
+import org.knipsX.controller.projectview.PictureSetDeleteController;
 import org.knipsX.controller.projectview.RefreshProjectViewController;
 import org.knipsX.controller.projectview.SaveProjectController;
 import org.knipsX.controller.projectview.SwitchProjectController;
@@ -276,7 +276,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonPictureSetCopy.setText("Kopieren");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetCopy.addActionListener(new CopyPictureSetController(this.model));
+	    this.jButtonPictureSetCopy.addActionListener(new PictureSetCopyController(this.model));
 	}
 
 	/* return the button */
@@ -301,7 +301,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonPictureSetCreate.setText("Erstellen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetCreate.addActionListener(new CreatePictureSetController(this.model));
+	    this.jButtonPictureSetCreate.addActionListener(new PictureSetCreateController(this.model));
 	}
 
 	/* return the button */
@@ -326,7 +326,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonPictureSetDelete.setText("Entfernen");
 
 	    /* create an action listener (which knows the model and the selected picture sets) to the button */
-	    this.jButtonPictureSetDelete.addActionListener(new DeletePictureSetController(this.model,
+	    this.jButtonPictureSetDelete.addActionListener(new PictureSetDeleteController(this.model,
 		    getSelectedIndicesFromPictureSetList()));
 	}
 
