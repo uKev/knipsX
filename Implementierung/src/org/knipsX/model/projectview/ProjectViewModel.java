@@ -1,14 +1,11 @@
 package org.knipsX.model.projectview;
 
-import java.util.LinkedList;
 import java.util.List;
 import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.common.ReportEntry;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
-import org.knipsX.model.reportmanagement.AbstractReportModel;
-import org.knipsX.model.reportmanagement.BoxplotModel;
 
 public class ProjectViewModel extends ProjectEntry {
 
@@ -22,6 +19,9 @@ public class ProjectViewModel extends ProjectEntry {
 	public static final int DELETEREPORT = 7;
 	public static final int ADDTOPICTURESET = 8;
 	public static final int SWITCHSAVE = 9;
+	public static final int SELECTIONPICTURESETLIST = 10;
+	public static final int SELECTIONPICTURESETCONTENTLIST = 11;
+	public static final int SELECTIONPICTURELIST = 12;
 
 	private int modelStatus = USERSELECT;
 
@@ -31,13 +31,23 @@ public class ProjectViewModel extends ProjectEntry {
 
 	private List<Picture> allPicturesOfSetList;
 
-	private List<ReportEntry> reportsList;
+	private List<ReportEntry> reportList;
 
 	private String projectDescriptionList;
 
 	public ProjectViewModel(ProjectEntry projectEntry) {
 		super(projectEntry);
-		readFromProjectFile(projectEntry.getPath());
+	}
+
+	public ProjectViewModel(ProjectEntry projectEntry,
+			List<PictureSet> pictureSetList,
+			List<PictureContainer> pictureSetContentList,
+			List<Picture> allPicturesOfSetList, List<ReportEntry> reportList) {
+		super(projectEntry);
+		this.pictureSetList = pictureSetList;
+		this.reportList = reportList;
+		this.allPicturesOfSetList = allPicturesOfSetList;
+		this.pictureSetContentList = pictureSetContentList;
 	}
 
 	public int getModelStatus() {
@@ -73,12 +83,12 @@ public class ProjectViewModel extends ProjectEntry {
 		this.allPicturesOfSetList = allPicturesOfSetList;
 	}
 
-	public List<ReportEntry> getReportsList() {
-		return reportsList;
+	public List<ReportEntry> getReportList() {
+		return reportList;
 	}
 
-	public void setReportsList(List<ReportEntry> reportsList) {
-		this.reportsList = reportsList;
+	public void setReportsList(List<ReportEntry> reportList) {
+		this.reportList = reportList;
 	}
 
 	public String getProjectDescriptionList() {
@@ -87,16 +97,5 @@ public class ProjectViewModel extends ProjectEntry {
 
 	public void setProjectDescriptionList(String projectDescriptionList) {
 		this.projectDescriptionList = projectDescriptionList;
-	}
-
-	public void readFromProjectFile(String path) {
-		List<PictureContainer> dummyPictureSetList = new LinkedList<PictureContainer>();
-		PictureContainer dummyPictureSet = new PictureSet();
-		dummyPictureSetList.add(dummyPictureSet);
-		setPictureSetContentList(dummyPictureSetList);
-		List<ReportEntry> dummyReportsList = new LinkedList<ReportEntry>();
-		//BoxplotModel dummyReport = new BoxplotModel();
-		//dummyReportsList.add(dummyReport);
-		setReportsList(dummyReportsList);
 	}
 }

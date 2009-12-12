@@ -5,6 +5,7 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectListModel;
 import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.utils.FileHandler;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectAdministration;
 import org.knipsX.view.projectview.JProjectView;
@@ -26,9 +27,7 @@ public class OpenProjectController extends AbstractController{
 		
 		if(toOpen.length == 1) {
 			model.setModelStatus(ProjectListModel.OPEN);
-			System.out.println("Projekt mit ID: " + this.model.getProjectList().get(toOpen[0]).getId());
-			System.out.println("Projekt mit PATH: " + this.model.getProjectList().get(toOpen[0]).getPath());
-			ProjectViewModel projectViewModel = new ProjectViewModel(this.model.getProjectList().get(toOpen[0])); 
+			ProjectViewModel projectViewModel = FileHandler.scanProjectFile(this.model.getProjectList().get(toOpen[0]).getId());			 
 			model.updateViews();
 			JAbstractView projectView = new JProjectView(projectViewModel);
 			projectViewModel.updateViews();			
