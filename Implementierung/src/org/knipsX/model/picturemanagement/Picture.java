@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.knipsX.utils.ExifParameter;
+
 
 public class Picture implements PictureContainer {
 	
@@ -62,4 +64,9 @@ public class Picture implements PictureContainer {
 	public void setName(String name) {
 		this.pictureName = name;		
 	}	
+	
+	// wird für die statistischen Auswertungen benötigt
+	public Object getExifParameter(ExifParameter exifParameter){
+		return null;
+	}
 }
