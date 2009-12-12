@@ -8,8 +8,8 @@ import java.util.Observable;
 import javax.swing.JFrame;
 
 /* import things from our program */
-import org.knipsX.controller.projectview.CopyPictureSetRefuseController;
-import org.knipsX.controller.projectview.CopyPictureSetConfirmController;
+import org.knipsX.controller.projectview.PictureSetCopyRefuseController;
+import org.knipsX.controller.projectview.PictureSetCopyConfirmController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractDialog;
@@ -69,14 +69,14 @@ public class JPictureSetCopy extends JAbstractDialog {
 	this.jButtonConfirm.setText("Ok");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonConfirm.addActionListener(new CopyPictureSetConfirmController(this.model, this));
+	this.jButtonConfirm.addActionListener(new PictureSetCopyConfirmController(this.model, this));
 
 	/* set button text */
 	/* TODO change to internationalisation */
 	this.jButtonRefuse.setText("Abbrechen");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonRefuse.addActionListener(new CopyPictureSetRefuseController(this.model));
+	this.jButtonRefuse.addActionListener(new PictureSetCopyRefuseController(this.model));
 
 	/* set the size of the textfield */
 	this.jTextFieldText.setColumns(20);

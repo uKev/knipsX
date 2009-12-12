@@ -8,11 +8,13 @@ import org.knipsX.model.AbstractModel;
 
 public class JCluster3D extends JAbstract3DDiagram{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructor
+	 * @param abstractModel the model from which the drawing information is taken
+	 */
 	public JCluster3D(AbstractModel abstractModel) {
 		super(abstractModel);
 		// TODO Auto-generated constructor stub

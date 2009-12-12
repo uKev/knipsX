@@ -5,9 +5,9 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 
-public class SwitchProjectCancelController extends AbstractController {
+public class ProjectSaveCancelController extends AbstractController {
 
-	public SwitchProjectCancelController(AbstractModel model) {
+	public ProjectSaveCancelController(AbstractModel model) {
 		super(model);
 	}
 

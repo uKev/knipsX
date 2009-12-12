@@ -8,9 +8,9 @@ import java.util.Observable;
 import javax.swing.JFrame;
 
 /* import things from our program */
-import org.knipsX.controller.projectview.SwitchProjectCancelController;
-import org.knipsX.controller.projectview.SwitchProjectConfirmController;
-import org.knipsX.controller.projectview.SwitchProjectRefuseController;
+import org.knipsX.controller.projectview.ProjectSwitchCancelController;
+import org.knipsX.controller.projectview.ProjectSwitchConfirmController;
+import org.knipsX.controller.projectview.ProjectSwitchRefuseController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractDialog;
@@ -70,21 +70,21 @@ public class JProjectSwitch extends JAbstractDialog {
 	this.jButtonConfirm.setText("Ja");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonConfirm.addActionListener(new SwitchProjectConfirmController(this.model));
+	this.jButtonConfirm.addActionListener(new ProjectSwitchConfirmController(this.model));
 
 	/* set button text */
 	/* TODO change to internationalisation */
 	this.jButtonRefuse.setText("Nein");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonRefuse.addActionListener(new SwitchProjectRefuseController(this.model));
+	this.jButtonRefuse.addActionListener(new ProjectSwitchRefuseController(this.model));
 
 	/* set button text */
 	/* TODO change to internationalisation */
 	this.jButtonCancel.setText("Abbrechen");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonCancel.addActionListener(new SwitchProjectCancelController(this.model));
+	this.jButtonCancel.addActionListener(new ProjectSwitchCancelController(this.model));
 
 	/* set the label text */
 	/* TODO change to internationalisation */

@@ -4,16 +4,18 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.view.projectview.JReportCreate;
 
-public class CreateReportRefuseController extends AbstractController {
+public class ReportCreateController extends AbstractController {
 
-	public CreateReportRefuseController(AbstractModel model) {
+	public ReportCreateController(AbstractModel model) {
 		super(model);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		model.setModelStatus(ProjectViewModel.USERSELECT);
+		model.setModelStatus(ProjectViewModel.CREATEREPORT);
+		new JReportCreate(model);
 		model.updateViews();
 	}
 }

@@ -8,9 +8,9 @@ import java.util.Observable;
 import javax.swing.JFrame;
 
 /* import things from our program */
-import org.knipsX.controller.projectview.SaveProjectCancelController;
-import org.knipsX.controller.projectview.SaveProjectRefuseController;
-import org.knipsX.controller.projectview.SaveProjectConfirmController;
+import org.knipsX.controller.projectview.ProjectSaveCancelController;
+import org.knipsX.controller.projectview.ProjectSaveRefuseController;
+import org.knipsX.controller.projectview.ProjectSaveConfirmController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractDialog;
@@ -70,21 +70,21 @@ public class JProjectSave extends JAbstractDialog {
 	this.jButtonConfirm.setText("Ja");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonConfirm.addActionListener(new SaveProjectConfirmController(this.model));
+	this.jButtonConfirm.addActionListener(new ProjectSaveConfirmController(this.model));
 
 	/* set button text */
 	/* TODO change to internationalisation */
 	this.jButtonRefuse.setText("Nein");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonRefuse.addActionListener(new SaveProjectRefuseController(this.model));
+	this.jButtonRefuse.addActionListener(new ProjectSaveRefuseController(this.model));
 
 	/* set button text */
 	/* TODO change to internationalisation */
 	this.jButtonCancel.setText("Abbrechen");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonCancel.addActionListener(new SaveProjectCancelController(this.model));
+	this.jButtonCancel.addActionListener(new ProjectSaveCancelController(this.model));
 
 	/* set button text */
 	/* TODO change to internationalisation */

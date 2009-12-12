@@ -32,14 +32,14 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 /* import things from our program */
-import org.knipsX.controller.projectview.AddToPictureSetContentController;
-import org.knipsX.controller.projectview.CopyPictureSetController;
-import org.knipsX.controller.projectview.CreatePictureSetController;
-import org.knipsX.controller.projectview.DeleteFromPictureSetContentController;
-import org.knipsX.controller.projectview.DeletePictureSetController;
-import org.knipsX.controller.projectview.RefreshProjectViewController;
-import org.knipsX.controller.projectview.SaveProjectController;
-import org.knipsX.controller.projectview.SwitchProjectController;
+import org.knipsX.controller.projectview.PictureSetContentAddController;
+import org.knipsX.controller.projectview.PictureSetCopyController;
+import org.knipsX.controller.projectview.PictureSetCreateController;
+import org.knipsX.controller.projectview.PictureSetContentDeleteController;
+import org.knipsX.controller.projectview.PictureSetDeleteController;
+import org.knipsX.controller.projectview.ProjectViewRefreshController;
+import org.knipsX.controller.projectview.ProjectSaveController;
+import org.knipsX.controller.projectview.ProjectSwitchController;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
@@ -204,7 +204,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonPictureSetContentAdd.setText("Hinzufügen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetContentAdd.addActionListener(new AddToPictureSetContentController(this.model));
+	    this.jButtonPictureSetContentAdd.addActionListener(new PictureSetContentAddController(this.model));
 	}
 
 	/* return the button */
@@ -229,7 +229,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonPictureSetContentDelete.setText("Entfernen");
 
 	    /* create an action listener (which knows the model and the selected contents) to the button */
-	    this.jButtonPictureSetContentDelete.addActionListener(new DeleteFromPictureSetContentController(this.model,
+	    this.jButtonPictureSetContentDelete.addActionListener(new PictureSetContentDeleteController(this.model,
 		    this.getSelectedIndicesFromPictureSetContentList()));
 	}
 
@@ -255,7 +255,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonPictureSetContentRefresh.setText("Aktualisieren");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetContentRefresh.addActionListener(new RefreshProjectViewController(this.model));
+	    this.jButtonPictureSetContentRefresh.addActionListener(new ProjectViewRefreshController(this.model));
 	}
 
 	/* return the button */
@@ -280,7 +280,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonPictureSetCopy.setText("Kopieren");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetCopy.addActionListener(new CopyPictureSetController(this.model));
+	    this.jButtonPictureSetCopy.addActionListener(new PictureSetCopyController(this.model));
 	}
 
 	/* return the button */
@@ -305,7 +305,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonPictureSetCreate.setText("Erstellen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetCreate.addActionListener(new CreatePictureSetController(this.model));
+	    this.jButtonPictureSetCreate.addActionListener(new PictureSetCreateController(this.model));
 	}
 
 	/* return the button */
@@ -330,7 +330,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonPictureSetDelete.setText("Entfernen");
 
 	    /* create an action listener (which knows the model and the selected picture sets) to the button */
-	    this.jButtonPictureSetDelete.addActionListener(new DeletePictureSetController(this.model,
+	    this.jButtonPictureSetDelete.addActionListener(new PictureSetDeleteController(this.model,
 		    getSelectedIndicesFromPictureSetList()));
 	}
 
@@ -356,7 +356,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonProjectChange.setText("Wechseln");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonProjectChange.addActionListener(new SwitchProjectController(this.model));
+	    this.jButtonProjectChange.addActionListener(new ProjectSwitchController(this.model));
 	}
 
 	/* return the button */
@@ -381,7 +381,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonProjectSave.setText("Speichern");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonProjectSave.addActionListener(new SaveProjectController(this.model));
+	    this.jButtonProjectSave.addActionListener(new ProjectSaveController(this.model));
 	}
 
 	/* return the button */

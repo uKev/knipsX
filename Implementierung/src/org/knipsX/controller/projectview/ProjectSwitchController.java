@@ -7,9 +7,9 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.projectview.JProjectSwitch;
 
-public class SwitchProjectController extends AbstractController {
+public class ProjectSwitchController extends AbstractController {
 
-	public SwitchProjectController(final AbstractModel model) {
+	public ProjectSwitchController(final AbstractModel model) {
 		super(model);
 	}
 

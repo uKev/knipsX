@@ -13,7 +13,7 @@ import org.knipsX.controller.reportmanagement.NextWizardPanelController;
 import org.knipsX.controller.reportmanagement.PreviousWizardPanelController;
 import org.knipsX.model.reportmanagement.DummyModel;
 
-public class JReportWizard extends JAbstractReportConfig {
+public class JReportWizard extends JAbstractReportType {
 	
 	/**
 	 * 
@@ -23,11 +23,14 @@ public class JReportWizard extends JAbstractReportConfig {
 	private int wizardcounter = 0;
 	private JComponent basic;
 	
-	
-	public JReportWizard(JAbstractReport reportconfig) {
+	/**
+	 * Starts the wizard utilty on a specified reportconfiguraton
+	 * @param reportconfig the report configuration to operate on
+	 */
+	public JReportWizard() {
 		super(new DummyModel());
-		this.reportconfig = reportconfig;
 		Report.myconfig = this;
+		this.reportconfig = Report.currentReport.getReportType();
 		initialize();
 	}
 	
@@ -59,7 +62,7 @@ public class JReportWizard extends JAbstractReportConfig {
         setVisible(true);
 	}
 	
-	public void setReportConfig(JAbstractReport reportconfig) {
+	public void setReportType(JAbstractReport reportconfig) {
 		remove(this.basic);
 		this.reportconfig = reportconfig;
 		Report.myconfig = this;
@@ -67,10 +70,17 @@ public class JReportWizard extends JAbstractReportConfig {
 		repaint();
 	}
 	
+	
+	/**
+	 * Switches the current panel to the next panel if possible
+	 */
 	public void nextPanel() {
 		// TODO
 	}
 	
+	/**
+	 * Switches the current panel to the previous panel if possible
+	 */
 	public void previousPanel() {
 		// TODO
 	}

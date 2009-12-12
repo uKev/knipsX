@@ -5,13 +5,21 @@ import javax.swing.JComponent;
 
 public abstract class JAbstractSinglePanel extends JComponent {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * The title which is registered with this panel.
+	 */
 	protected String title;
+	
+	/**
+	 * The icon which is registered with this panel.
+	 */
 	protected Icon icon;
+	
+	/**
+	 * The tooltip which is registered with this panel.
+	 */
 	protected String tip;
 	
 	public String getTitle() {

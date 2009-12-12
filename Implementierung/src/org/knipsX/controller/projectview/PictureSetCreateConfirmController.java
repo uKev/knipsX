@@ -7,21 +7,21 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectViewModel;
-import org.knipsX.view.projectview.JPictureSetNew;
-public class CreatePictureSetConfirmController extends AbstractController {
+import org.knipsX.view.projectview.JPictureSetCreate;
+public class PictureSetCreateConfirmController extends AbstractController {
 	
-	private JPictureSetNew jPictureSetNew;
+	private JPictureSetCreate jPictureSetCreate;
 
-	public CreatePictureSetConfirmController(AbstractModel model, JPictureSetNew jPictureSetNew) {
+	public PictureSetCreateConfirmController(AbstractModel model, JPictureSetCreate jPictureSetCreate) {
 		super(model);
-		this.jPictureSetNew = jPictureSetNew;
+		this.jPictureSetCreate = jPictureSetCreate;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		model.setModelStatus(ProjectViewModel.USERSELECT);
 		ProjectViewModel projectViewModel = ((ProjectViewModel)model);
-		projectViewModel.getPictureSetList().add(new PictureSet(jPictureSetNew.getProjectName(), projectViewModel.generateFreePictureSetID()));
+		projectViewModel.getPictureSetList().add(new PictureSet(jPictureSetCreate.getProjectName(), projectViewModel.generateFreePictureSetID()));
 		model.updateViews();
 	}
 }

@@ -9,9 +9,9 @@ import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.utils.FileHandler;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
-public class SaveProjectConfirmController extends AbstractController {
+public class ProjectSaveConfirmController extends AbstractController {
 
-    public SaveProjectConfirmController(final AbstractModel model) {
+    public ProjectSaveConfirmController(final AbstractModel model) {
 	super(model);
     }
 

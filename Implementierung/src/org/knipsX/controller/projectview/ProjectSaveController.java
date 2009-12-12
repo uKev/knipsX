@@ -4,18 +4,18 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
-import org.knipsX.view.projectview.JPictureSetNew;
+import org.knipsX.view.projectview.JProjectSave;
 
-public class CreatePictureSetController extends AbstractController {
+public class ProjectSaveController extends AbstractController {
 	
-	public CreatePictureSetController(AbstractModel model) {
+	public ProjectSaveController(AbstractModel model) {
 		super(model);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		model.setModelStatus(ProjectViewModel.CREATEPICTURESET);
-		new JPictureSetNew(model);
+		model.setModelStatus(ProjectViewModel.SAVEPROJECT);
+		new JProjectSave(model);
 		model.updateViews();
 	}
 }

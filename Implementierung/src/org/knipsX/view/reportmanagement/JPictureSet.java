@@ -1,8 +1,4 @@
 package org.knipsX.view.reportmanagement;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
@@ -22,10 +18,15 @@ public class JPictureSet extends JAbstractSinglePanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Toolkit toolkit;
 	private ArrayList<PictureContainer> pictureContainer;
 	private String [] exifFilterTags;
 
+	/**
+	 * Constructor which initialized this picture set and the exifkeyword panel
+	 * @param titel The title which is registered with this panel.
+	 * @param icon The icon which is registered with this panel.
+	 * @param tip The tooltip which is registered with this panel.
+	 */
     public JPictureSet(String titel, Icon icon, String tip) {
 		this.title = titel;
 		this.icon = icon;
@@ -37,13 +38,7 @@ public class JPictureSet extends JAbstractSinglePanel {
 		
         setSize(300, 200);
 
-        toolkit = getToolkit();
-        Dimension size = toolkit.getScreenSize();
-        setLocation((size.width - getWidth())/2, (size.height - getHeight())/2);
-
-
-        setLayout(null);
-        
+        setLayout(null);        
         
         // Alle verwendeten Controller hier mal hingeschrieben
         new AddPictureSetToReportController(this);
@@ -54,25 +49,18 @@ public class JPictureSet extends JAbstractSinglePanel {
 
         JButton beep = new JButton(">>");
         beep.setBounds(150, 60, 80, 30);
-        beep.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                toolkit.beep();
-            }
-        });
+
 
        JButton close = new JButton("<<");
        close.setBounds(50, 60, 80, 30);
-       close.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent event) {
-               System.exit(0);
-          }
-       });
 
         add(beep);
         add(close);
 
     }
 
+    
+    
 	public void setPictureContainer(ArrayList<PictureContainer> pictureContainer) {
 		this.pictureContainer = pictureContainer;
 	}

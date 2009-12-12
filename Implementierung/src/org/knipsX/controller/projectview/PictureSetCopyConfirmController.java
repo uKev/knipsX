@@ -6,9 +6,9 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
-public class CopyPictureSetConfirmController extends AbstractController {
+public class PictureSetCopyConfirmController extends AbstractController {
 
-	public CopyPictureSetConfirmController(AbstractModel model, JAbstractView jCopyPictureSet) {
+	public PictureSetCopyConfirmController(AbstractModel model, JAbstractView jCopyPictureSet) {
 		super(model);
 	}
 

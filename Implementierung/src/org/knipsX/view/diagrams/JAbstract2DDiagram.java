@@ -10,18 +10,22 @@ import org.knipsX.model.AbstractModel;
 import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
 import com.sun.j3d.utils.universe.ViewingPlatform;
 
-public abstract class JAbstract2DDiagram extends JAbstract3DEngine {
+public abstract class JAbstract2DDiagram extends JAbstract3DView {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructor
+	 * @param abstractModel the model from which the drawing information is taken
+	 */
 	public JAbstract2DDiagram(AbstractModel abstractModel) {
 		super(abstractModel);
 	}
 	
 	@Override
+	/**
+	 * 2D specific preinitialization routine
+	 */
 	public void preinitialize() {
 		this.canvas3D.getView().setProjectionPolicy(View.PARALLEL_PROJECTION);
 		this.canvas3D.getView().setScreenScale(0.03);

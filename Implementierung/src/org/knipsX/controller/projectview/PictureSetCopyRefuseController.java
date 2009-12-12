@@ -4,18 +4,16 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
-import org.knipsX.view.projectview.JPictureSetCopy;
 
-public class CopyPictureSetController extends AbstractController {
-	
-	public CopyPictureSetController(AbstractModel model) {
+public class PictureSetCopyRefuseController extends AbstractController {
+
+	public PictureSetCopyRefuseController(AbstractModel model) {
 		super(model);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		model.setModelStatus(ProjectViewModel.COPYPICTURESET);
-		new JPictureSetCopy (model);
+		model.setModelStatus(ProjectViewModel.USERSELECT);
 		model.updateViews();
 	}
 }
