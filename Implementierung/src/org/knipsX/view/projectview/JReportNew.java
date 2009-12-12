@@ -15,7 +15,7 @@ import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractDialog;
 
 /**
- * Represents the view for a dialog which gives the user the possibility to add a new report.
+ * Represents the view for a dialog which gives the user the possibility to create a new report.
  */
 public class JReportNew extends JAbstractDialog {
 
@@ -55,6 +55,9 @@ public class JReportNew extends JAbstractDialog {
 	this.setVisible(true);
     }
 
+    /**
+     * Configures the elements.
+     */
     private void configure() {
 
 	/* set the title for the view */

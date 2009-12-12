@@ -35,7 +35,7 @@ public class CopyProjectController extends AbstractController {
     public void actionPerformed(final ActionEvent e) {
 
 	/* Erhalte selektierte Einträge */
-	final int[] toCopy = this.view.getSelectedIndices();
+	final int[] toCopy = this.view.getSelectedIndicesFromProjectList();
 
 	/* Prüfe ob eine Eintrag selektiert ist */
 	if (toCopy.length == 1) {

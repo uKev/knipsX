@@ -38,7 +38,7 @@ public class JReportDelete extends JAbstractDialog {
     }
 
     /**
-     * This method initializes this
+     * This method initializes this.
      * 
      * @return void
      */
@@ -61,6 +61,9 @@ public class JReportDelete extends JAbstractDialog {
 	this.setVisible(true);
     }
 
+    /**
+     * Configures the elements.
+     */
     private void configure() {
 
 	/* set the title for the view */

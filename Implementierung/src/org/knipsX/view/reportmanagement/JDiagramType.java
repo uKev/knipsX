@@ -43,7 +43,8 @@ public class JDiagramType extends JAbstractSinglePanel {
 			myreports[i] = Report.values()[i];
 		}
         
-        this.reportname = new JTextField("bla"); 
+        // Report.currentModel.getReportName()
+        this.reportname = new JTextField(); 
         this.reportname.setBounds(0, 0, 250, 25);
         add(this.reportname);
        

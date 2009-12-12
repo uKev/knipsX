@@ -48,7 +48,7 @@ public class JProjectCopy extends JAbstractView {
 	private void initialize() {
 
 		/* Fenstertitel setzen */
-		this.setTitle("Neues Projekt");
+		this.setTitle("Projekt kopieren");
 
 		/* Setze das Hauptpanel */
 		this.setContentPane(this.getJContentPane());

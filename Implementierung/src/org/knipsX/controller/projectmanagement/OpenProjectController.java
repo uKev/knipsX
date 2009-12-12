@@ -23,7 +23,7 @@ public class OpenProjectController extends AbstractController{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		int[] toOpen = ((JProjectAdministration)projectAdministration).getSelectedIndices();
+		int[] toOpen = ((JProjectAdministration)projectAdministration).getSelectedIndicesFromProjectList();
 		
 		if(toOpen.length == 1) {
 			model.setModelStatus(ProjectListModel.OPEN);

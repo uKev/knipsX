@@ -15,7 +15,7 @@ import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractDialog;
 
 /**
- * Represents the view for a dialog which gives the user the possibility to save a project.
+ * Represents the view for a dialog which gives the user the possibility to copy a picture set.
  */
 public class JPictureSetCopy extends JAbstractDialog {
 
@@ -32,7 +32,7 @@ public class JPictureSetCopy extends JAbstractDialog {
     }
 
     /**
-     * This method initializes this
+     * This method initializes this.
      * 
      * @return void
      */
@@ -57,7 +57,6 @@ public class JPictureSetCopy extends JAbstractDialog {
 
     /**
      * Configures the elements.
-     * 
      */
     private void configure() {
 

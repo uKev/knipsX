@@ -7,10 +7,21 @@ public class PictureSet implements PictureContainer {
 
 	private List<PictureContainer> childs = new ArrayList<PictureContainer>();	
 	
-	private int id;
-	
 	private String name;
 	
+	private int iD;
+	
+	public PictureSet(String pictureSetName, int freePictureSetID) {
+		this.name = pictureSetName;
+		this.iD = freePictureSetID;
+	}
+	
+	public PictureSet(PictureSet pictureSetToCopy, String pictureSetName, int freePictureSetID) {
+		this.name = pictureSetName;
+		this.iD = freePictureSetID;
+		this.childs = pictureSetToCopy.getChilds();
+	}
+
 	public void add(PictureContainer container) {
 		childs.add(container);
 	}
@@ -51,11 +62,11 @@ public class PictureSet implements PictureContainer {
 	}
 
 	public int getId() {
-		return id;
+		return iD;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.iD = id;
 	}
 
 	public String getName() {

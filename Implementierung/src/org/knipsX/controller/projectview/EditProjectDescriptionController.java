@@ -18,7 +18,7 @@ public class EditProjectDescriptionController extends AbstractController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		((ProjectViewModel) model).setProjectDescriptionList(projectView.getjEditorPaneProjectDescriptionToString());	
+		((ProjectViewModel) model).setProjectDescriptionList(projectView.getProjectDescription());	
 		model.updateViews();
 	}
 }
