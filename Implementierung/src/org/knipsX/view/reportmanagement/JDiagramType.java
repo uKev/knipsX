@@ -1,24 +1,31 @@
 package org.knipsX.view.reportmanagement;
 
+import java.awt.Component;
 import java.awt.Dimension;
+
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
-import org.knipsX.model.reportmanagement.AbstractReportModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 
 
 public class JDiagramType extends JAbstractSinglePanel {
 
 
-	private JTextField reportname; 
+	private JTextField reportname;
 	private static final long serialVersionUID = 1L;
+	private JList meineliste;
 
-    public JDiagramType(String titel, Icon icon, String tip, AbstractReportModel model) {
+    public JDiagramType(String titel, Icon icon, String tip) {
 		this.title = titel;
 		this.icon = icon;
 		this.tip = tip;
-		this.model = model;
     	
 		
 		if(this.title == null || this.title == "") {
@@ -39,16 +46,25 @@ public class JDiagramType extends JAbstractSinglePanel {
         this.reportname = new JTextField("bla"); 
         this.reportname.setBounds(0, 0, 250, 25);
         add(this.reportname);
+       
         
-        JList list = new JList(myreports); //data has type Object[]
-        list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-        list.setPreferredSize(new Dimension(100, 100));
-        list.setBounds(0, 30, 250, 250);
+       
         
-        add(list);
-
+        this.meineliste = new JList(myreports); //data has type Object[]
+        this.meineliste .addListSelectionListener(new SharedListSelectionHandler(this.meineliste));
+        this.meineliste .setCellRenderer(new ComplexCellRenderer());
+        this.meineliste .setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        this.meineliste .setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        this.meineliste .setPreferredSize(new Dimension(100, 100));
+        this.meineliste .setBounds(0, 60, 250, 250);
+        
+        add(this.meineliste);
+        
+       
+        
     }
+    
+    
     
     
     public String getReportName() {
@@ -57,9 +73,54 @@ public class JDiagramType extends JAbstractSinglePanel {
     
     
     public void write() {
-    	this.model.setReportName(this.getReportName());
-    	
+    	Report.currentModel.setReportName(this.getReportName());    	
     }
-    
 
 }
+
+
+class ComplexCellRenderer implements ListCellRenderer {
+
+    /* Definiere Standardrenderer */
+    protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+
+    public Component getListCellRendererComponent(final JList list, final Object value, final int index,
+	    final boolean isSelected, final boolean cellHasFocus) {
+	String theText = null;
+
+	/* Generiert einen Renderer */
+	final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
+		isSelected, cellHasFocus);
+
+	/* Wenn ein Projekt vorliegt, setze Text */
+	if (value instanceof Report) {
+	    final Report myReport = (Report) value;
+	    theText = myReport.toString();
+	}
+	renderer.setText(theText);
+
+	/* Gib Renderer zurück */
+	return renderer;
+    }
+}
+
+class SharedListSelectionHandler implements ListSelectionListener {
+	
+	private JList meineliste;
+	
+	public SharedListSelectionHandler(JList meineliste) {
+		this.meineliste = meineliste;
+	}
+	
+    public void valueChanged(ListSelectionEvent e) {
+    	 
+    	 System.out.println(this.meineliste.getSelectedIndex());   	 
+    	 
+    	 Report.setReport(Report.values()[this.meineliste.getSelectedIndex()]);
+    	 
+    	 System.out.println(Report.currentReport.toString());
+    	 
+    	 
+    }
+}
+

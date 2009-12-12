@@ -6,9 +6,6 @@ import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
-import org.knipsX.model.reportmanagement.AbstractReportModel;
-import org.knipsX.model.reportmanagement.BoxplotModel;
-
 
 public class JWilcoxon extends JAbstractSinglePanel {
 
@@ -18,11 +15,10 @@ public class JWilcoxon extends JAbstractSinglePanel {
 	private static final long serialVersionUID = 1L;
 	private Toolkit toolkit;
 
-    public JWilcoxon(String titel, Icon icon, String tip, AbstractReportModel model) {
+    public JWilcoxon(String titel, Icon icon, String tip) {
 		this.title = titel;
 		this.icon = icon;
 		this.tip = tip;
-		this.model = model;
     	
 		if(this.title == null || this.title == "") {
 			this.title = "Wilcoxon Test";
@@ -58,12 +54,5 @@ public class JWilcoxon extends JAbstractSinglePanel {
 
     }
 
-	@Override
-	public void write() {
-		if(this.model instanceof BoxplotModel) {
-			System.out.println("ES IST EIN BOXPLOT Herzlichen Glückwunsch!");
-		}
-		
-	}
 
 }

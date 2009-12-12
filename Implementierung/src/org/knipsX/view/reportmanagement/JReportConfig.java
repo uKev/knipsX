@@ -19,7 +19,6 @@ import org.knipsX.controller.reportmanagement.SaveReportController;
 import org.knipsX.model.reportmanagement.DummyModel;
 import org.knipsX.view.JAbstractView;
 
-
 public class JReportConfig extends JAbstractView {
 
 	/**
@@ -29,8 +28,9 @@ public class JReportConfig extends JAbstractView {
 	private JAbstractReportConfig reportconfig;
 	private JTabbedPane tabbedpane;
 	private JPanel basic;
-	private Report currentReport;
-    
+	private int[] mysize = new int[2];
+	private JPanel mainpanel;
+	
     protected JComponent makeTextPanel(String text) {
         JPanel panel = new JPanel(false);
         JLabel filler = new JLabel(text);
@@ -45,26 +45,31 @@ public class JReportConfig extends JAbstractView {
     	super(new DummyModel());
     	this.reportconfig = reportconfig;
     	this.tabbedpane = getJTabbedPane();
-
+    	Report.myconfig = this;
+    	mysize[0] = 800;
+    	mysize[1] = 600;
+ 
         setTitle("Auswertung Konfigurieren");
-
+ 
         initialize();
-
-        setSize(new Dimension(450, 350));        
+ 
+        setSize(new Dimension(mysize[0], mysize[1]));        
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
     }	
 
-	
     private void initialize() {
     	this.basic = new JPanel();
         this.basic.setLayout(new BoxLayout(basic, BoxLayout.Y_AXIS));
         add(basic);
 
-        JPanel mainpanel = new JPanel(new BorderLayout());
+        this.mainpanel = new JPanel(new BorderLayout());
         mainpanel.setBorder(BorderFactory.createEmptyBorder(15, 25, 15, 25));
         mainpanel.add(this.tabbedpane);
+        mainpanel.setPreferredSize(new Dimension(mysize[0],mysize[1]));
+
+        
         basic.add(mainpanel);
 
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -81,14 +86,20 @@ public class JReportConfig extends JAbstractView {
         basic.add(bottom);
 
         bottom.setMaximumSize(new Dimension(450, 0));
+        pack();
     }
     
 	public void setReportConfig(JAbstractReportConfig reportconfig) {
+		this.mysize[1] = this.mainpanel.getBounds().height;
+		this.mysize[0] = this.mainpanel.getBounds().width;
+		
 		remove(this.basic);		
 		this.reportconfig = reportconfig;
 		this.tabbedpane = this.getJTabbedPane();
+		Report.myconfig = this;
 		initialize();	
-		repaint();
+		pack();	
+		
 	}	
 	
     private JTabbedPane getJTabbedPane() {
@@ -104,7 +115,8 @@ public class JReportConfig extends JAbstractView {
 
 	@Override
 	public void update(Observable model, Object argument) {
-		// Do nothing		
+		// TODO Auto-generated method stub
+		
 	} 
 	
 	
