@@ -6,14 +6,15 @@ import org.knipsX.model.AbstractModel;
 
 public class JBoxplot extends JAbstract2DDiagram {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
+	
+	/**
+	 * Constructor
+	 * @param abstractModel the model from which the drawing information is taken
+	 */
 	public JBoxplot(AbstractModel abstractModel) {
 		super(abstractModel);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
