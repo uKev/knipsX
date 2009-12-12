@@ -65,28 +65,29 @@ public class JProjectManagement extends JAbstractView {
     }
 
     /**
-     * This method initializes this
+     * This method initializes this.
      * 
      * @return void
      */
     private void initialize() {
 
 	/* Setze Titel */
-	this.setTitle("Projekt Ansicht");
+	this.setTitle("Projektübersicht");
 
-	/* Setze das Hauptpanel */
+	/* show main panel */
 	this.setContentPane(this.getJContentPane());
-
-	/* Setze Standardschließaktion */
+	
+	/* set standard close action */
+	/* TODO We have to edit the close action! */
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	/* Ändere Größe */
+	/* change size to preferred size */
 	this.pack();
 
-	/* Setze Lokation */
+	/* set location to the center of the screen */
 	this.setLocationRelativeTo(null);
 
-	/* Zeige Fensert an */
+	/* show view */
 	this.setVisible(true);
     }
 
