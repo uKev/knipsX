@@ -11,7 +11,11 @@ import org.knipsX.model.picturemanagement.PictureContainer;
  */
 public class BoxplotModel extends AbstractSingleAxisModel{
 
-	Boxplot [] boxplots;
+	private Boxplot [] boxplots;
+	private boolean wilcoxonTestActive;
+	private WilcoxonTestType wilcoxonTestType;
+	private float wilcoxonSignificance;
+	
 	
 	public BoxplotModel() {
 		super();
@@ -25,6 +29,37 @@ public class BoxplotModel extends AbstractSingleAxisModel{
 
 	public Boxplot[] getBoxplots() {
 		return boxplots;
+	}
+	
+	/**
+	 * @return the result of the Wilcoxon test
+	 */
+	public boolean isWilcoxonSignificant() {
+		return true;
+	}
+
+	public boolean isWilcoxonTestActive() {
+		return wilcoxonTestActive;
+	}
+
+	public void setWilcoxonTestActive(boolean wilcoxonTestActive) {
+		this.wilcoxonTestActive = wilcoxonTestActive;
+	}
+
+	public WilcoxonTestType getWilcoxonTestType() {
+		return wilcoxonTestType;
+	}
+
+	public void setWilcoxonTestType(WilcoxonTestType wilcoxonTestType) {
+		this.wilcoxonTestType = wilcoxonTestType;
+	}
+
+	public float getWilcoxonSignificance() {
+		return wilcoxonSignificance;
+	}
+
+	public void setWilcoxonSignificance(float wilcoxonSignificance) {
+		this.wilcoxonSignificance = wilcoxonSignificance;
 	}
 	
 	
