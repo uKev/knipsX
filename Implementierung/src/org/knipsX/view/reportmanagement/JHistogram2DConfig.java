@@ -11,9 +11,9 @@ public class JHistogram2DConfig extends JAbstractReportConfig {
 
 	public JHistogram2DConfig (Histogram2DModel histogram2dmodel) {
     	super(histogram2dmodel);
-    	addPanel(new JDiagramType("", null, "", histogram2dmodel));
-    	addPanel(new JParameters("", null, "", histogram2dmodel));
-    	addPanel(new JPictureSet("", null, "", histogram2dmodel));
+    	addPanel(new JDiagramType("", null, ""));
+    	addPanel(new JParameters("", null, ""));
+    	addPanel(new JPictureSet("", null, ""));
     }
     
 }

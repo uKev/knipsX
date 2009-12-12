@@ -12,14 +12,12 @@ public class JBoxplotConfig extends JAbstractReportConfig {
 	public JBoxplotConfig(BoxplotModel boxplotmodel) {
     	super(boxplotmodel);
     	
-    	addPanel(new JDiagramType("", null, "", boxplotmodel));
-    	addPanel(new JParameters("", null, "", boxplotmodel));
-    	addPanel(new JPictureSet("", null, "", boxplotmodel));
-    	addPanel(new JWilcoxon("", null, "", boxplotmodel));    	
+    	addPanel(new JDiagramType("", null, ""));
+    	addPanel(new JParameters("", null, ""));
+    	addPanel(new JPictureSet("", null, ""));
+    	addPanel(new JWilcoxon("", null, ""));    	
     	
     }
-	
-	
 
     
 }

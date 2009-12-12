@@ -12,8 +12,8 @@ public class JTableConfig extends JAbstractReportConfig {
 	public JTableConfig (TableModel tablemodel) {    
     	super(tablemodel);
     	
-    	addPanel(new JDiagramType("", null, "",tablemodel));
-    	addPanel(new JPictureSet("", null, "",tablemodel));
+    	addPanel(new JDiagramType("", null, ""));
+    	addPanel(new JPictureSet("", null, ""));
     }
     
 }
