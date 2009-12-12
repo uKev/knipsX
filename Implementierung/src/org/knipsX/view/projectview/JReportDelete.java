@@ -65,7 +65,7 @@ public class JReportDelete extends JAbstractDialog {
 
 	/* set the title for the view */
 	/* TODO change to internationalisation */
-	this.setTitle("Speichern?");
+	this.setTitle("Auswertung entfernen");
 
 	/* set button text */
 	/* TODO change to internationalisation */

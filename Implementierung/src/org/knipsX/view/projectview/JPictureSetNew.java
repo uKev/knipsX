@@ -63,7 +63,7 @@ public class JPictureSetNew extends JAbstractDialog {
 
 	/* set the title for the view */
 	/* TODO change to internationalisation */
-	this.setTitle("Speichern?");
+	this.setTitle("Bildmenge erstellen");
 	
 	/* set button text */
 	/* TODO change to internationalisation */

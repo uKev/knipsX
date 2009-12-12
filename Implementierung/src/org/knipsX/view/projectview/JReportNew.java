@@ -10,8 +10,6 @@ import javax.swing.JFrame;
 /* import things from our program */
 import org.knipsX.controller.projectview.CreateReportConfirmController;
 import org.knipsX.controller.projectview.CreateReportRefuseController;
-import org.knipsX.controller.projectview.DeleteReportConfirmController;
-import org.knipsX.controller.projectview.DeleteReportRefuseController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractDialog;
@@ -61,7 +59,7 @@ public class JReportNew extends JAbstractDialog {
 
 	/* set the title for the view */
 	/* TODO change to internationalisation */
-	this.setTitle("Speichern?");
+	this.setTitle("Auswertung erstellen");
 
 	/* set button text */
 	/* TODO change to internationalisation */

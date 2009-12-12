@@ -8,15 +8,16 @@ import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.utils.FileHandler;
 import org.knipsX.view.projectmanagement.JProjectAdministration;
 
-public class SwitchProjectSaveNoController extends AbstractController {
-
-	public SwitchProjectSaveNoController(AbstractModel model) {
+public class SwitchProjectConfirmController extends AbstractController {
+	
+	public SwitchProjectConfirmController(AbstractModel model) {
 		super(model);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		this.model.setModelStatus(ProjectViewModel.SWITCHPROJECT);
+		//TODO saveToProjectFile(model); in filehandel;
 		model.updateViews();
 		final ProjectListModel projectListModel = new ProjectListModel(FileHandler.scanProjectDirectory());
 		new JProjectAdministration(projectListModel);

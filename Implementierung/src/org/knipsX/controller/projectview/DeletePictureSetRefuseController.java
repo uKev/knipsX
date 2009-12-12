@@ -5,9 +5,9 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 
-public class CopyPictureSetCancelController extends AbstractController {
+public class DeletePictureSetRefuseController extends AbstractController {
 
-	public CopyPictureSetCancelController(AbstractModel model) {
+	public DeletePictureSetRefuseController(AbstractModel model) {
 		super(model);
 	}
 
