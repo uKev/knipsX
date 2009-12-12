@@ -5,20 +5,24 @@ package org.knipsX.view.projectview;
 
 /* import things from the java sdk */
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.Observable;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 
@@ -31,6 +35,10 @@ import org.knipsX.controller.projectview.DeletePictureSetController;
 import org.knipsX.controller.projectview.RefreshProjectViewController;
 import org.knipsX.controller.projectview.SaveProjectController;
 import org.knipsX.controller.projectview.SwitchProjectController;
+import org.knipsX.model.common.ReportEntry;
+import org.knipsX.model.picturemanagement.Picture;
+import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
@@ -464,13 +472,15 @@ public class JProjectView extends JAbstractView {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListPictureSet = new JList(new Object[] { "Apfel", "Kürbis", "Paprika", "Tomate" });
+	    this.jListPictureSet = new JList(((ProjectViewModel) this.model).getPictureSetList().toArray());
 
 	    /* allow to select only one row at once */
 	    this.jListPictureSet.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 	    /* set ordering layout to vertical (see java api for more information) */
 	    this.jListPictureSet.setLayoutOrientation(JList.VERTICAL);
+	    
+	    this.jListPictureSet.setCellRenderer(new MyPictureSetListCellRenderer());
 	}
 
 	/* return the list */
@@ -489,13 +499,16 @@ public class JProjectView extends JAbstractView {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListPictureSetActive = new JList(new Object[] { "Apfel", "Kürbis", "Paprika", "Tomate" });
+	    this.jListPictureSetActive = new JList(((ProjectViewModel) this.model).getAllPicturesOfSetList().toArray());
 
 	    /* allow to select only one row at once */
 	    this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 	    /* set ordering layout to vertical (see java api for more information) */
 	    this.jListPictureSetActive.setLayoutOrientation(JList.VERTICAL);
+	    
+	    this.jListPictureSetActive.setCellRenderer(new MyPictureListCellRenderer());
+	    
 	}
 
 	/* return the list */
@@ -1115,7 +1128,7 @@ public class JProjectView extends JAbstractView {
 
 	/* set the title for the view */
 	/* TODO change to internationalisation */
-	this.setTitle("Projektansicht für " + model.getProjectName());
+	this.setTitle("Projektansicht für " + model.getName());
 
 	/* refresh view */
 	this.repaint();
@@ -1137,5 +1150,108 @@ public class JProjectView extends JAbstractView {
 	    /* set the view inactive */
 	    this.setEnabled(false);
 	}
+    }
+}
+/* Kümmert sich um das Render eines Listeneintrages */
+class MyPictureSetListCellRenderer implements ListCellRenderer {
+
+    /* Definiere Standardrenderer */
+    protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+
+    public Component getListCellRendererComponent(final JList list, final Object value, final int index,
+	    final boolean isSelected, final boolean cellHasFocus) {
+	String theText = null;
+
+	/* Generiert einen Renderer */
+	final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
+		isSelected, cellHasFocus);
+
+	/* Wenn ein Projekt vorliegt, setze Text */
+	if (value instanceof PictureSet) {
+	    final PictureSet pictureSet = (PictureSet) value;
+	    theText = pictureSet.getName();
+	}
+	renderer.setText(theText);
+
+	/* Gib Renderer zurück */
+	return renderer;
+    }
+}
+
+/* Kümmert sich um das Render eines Listeneintrages */
+class MyPictureSetContentListCellRenderer implements ListCellRenderer {
+
+    /* Definiere Standardrenderer */
+    protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+
+    public Component getListCellRendererComponent(final JList list, final Object value, final int index,
+	    final boolean isSelected, final boolean cellHasFocus) {
+	String theText = null;
+
+	/* Generiert einen Renderer */
+	final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
+		isSelected, cellHasFocus);
+
+	/* Wenn ein Projekt vorliegt, setze Text */
+	if (value instanceof PictureContainer) {
+	    final PictureContainer picturecontainer = (PictureContainer) value;
+	    theText = picturecontainer.getName();
+	}
+	renderer.setText(theText);
+
+	/* Gib Renderer zurück */
+	return renderer;
+    }
+}
+
+/* Kümmert sich um das Render eines Listeneintrages */
+class MyPictureListCellRenderer implements ListCellRenderer {
+
+    /* Definiere Standardrenderer */
+    protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+
+    public Component getListCellRendererComponent(final JList list, final Object value, final int index,
+	    final boolean isSelected, final boolean cellHasFocus) {
+	String theText = null;
+
+	/* Generiert einen Renderer */
+	final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
+		isSelected, cellHasFocus);
+
+	/* Wenn ein Projekt vorliegt, setze Text */
+	if (value instanceof Picture) {
+	    final Picture picture = (Picture) value;
+	    theText = picture.getName();
+	}
+	renderer.setText(theText);
+
+	/* Gib Renderer zurück */
+	return renderer;
+    }
+}
+
+/* Kümmert sich um das Render eines Listeneintrages */
+class MyReportListCellRenderer implements ListCellRenderer {
+
+    /* Definiere Standardrenderer */
+    protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+
+    public Component getListCellRendererComponent(final JList list, final Object value, final int index,
+	    final boolean isSelected, final boolean cellHasFocus) {
+	String theText = null;
+
+	/* Generiert einen Renderer */
+	final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
+		isSelected, cellHasFocus);
+
+	/* Wenn ein Projekt vorliegt, setze Text */
+	if (value instanceof ReportEntry) {
+	    final ReportEntry reportEntry = (ReportEntry) value;
+	    theText = reportEntry.getReportName();
+	}
+	renderer.setText(theText);
+
+	/* Gib Renderer zurück */
+	return renderer;
     }
 }

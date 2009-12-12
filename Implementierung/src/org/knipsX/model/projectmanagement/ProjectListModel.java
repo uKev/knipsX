@@ -21,14 +21,6 @@ public class ProjectListModel extends AbstractModel {
 		this.projectList = linkedList;
 	}
 
-	public void removeFromList(int position) {
-		projectList.remove(position);
-	}
-	
-	public void addToList(ProjectEntry projectEntry) {
-		projectList.add(0, projectEntry);		
-	}
-
 	public List<ProjectEntry> getProjectList() {
 		return projectList;
 	}
@@ -90,5 +82,13 @@ public class ProjectListModel extends AbstractModel {
 
 	public int getModelStatus() {
 		return modelStatus;
+	}
+	
+	public void removeFromList(int position) {
+		projectList.remove(position);
+	}
+	
+	public void addToList(ProjectEntry projectEntry) {
+		projectList.add(0, projectEntry);		
 	}
 }

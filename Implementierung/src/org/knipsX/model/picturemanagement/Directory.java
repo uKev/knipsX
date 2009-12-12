@@ -40,4 +40,10 @@ public class Directory implements PictureContainer {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

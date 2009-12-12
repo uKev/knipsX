@@ -5,4 +5,6 @@ import java.util.List;
 
 public interface PictureContainer extends Iterator<Picture> {
 	public abstract List<?> getItems();
+
+	public abstract String getName();
 }

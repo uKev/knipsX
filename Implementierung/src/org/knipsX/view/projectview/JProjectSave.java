@@ -85,7 +85,7 @@ public class JProjectSave extends JAbstractDialog {
 
 	/* set button text */
 	/* TODO change to internationalisation */
-	this.jLabelValidationText.setText("Möchten Sie das Projekt speichern?");
+	this.jLabelValidationText.setText("Möchten Sie das Projekt zuvor speichern?");
     }
 
     @Override

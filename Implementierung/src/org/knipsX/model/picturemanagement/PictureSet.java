@@ -3,10 +3,13 @@ package org.knipsX.model.picturemanagement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class PictureSet implements PictureContainer {
 
 	private List<PictureContainer> childs = new ArrayList<PictureContainer>();	
+	
+	private int id;
+	
+	private String name;
 	
 	public void add(PictureContainer container) {
 		childs.add(container);
@@ -37,5 +40,30 @@ public class PictureSet implements PictureContainer {
 	public void remove() {
 		// TODO Auto-generated method stub
 		
-	}	
+	}
+
+	public List<PictureContainer> getChilds() {
+		return childs;
+	}
+
+	public void setChilds(List<PictureContainer> childs) {
+		this.childs = childs;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 }
