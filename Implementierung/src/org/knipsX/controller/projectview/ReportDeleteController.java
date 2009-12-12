@@ -10,11 +10,11 @@ import org.knipsX.view.projectview.JReportDelete;
  * Represents the Actions which are done by klicking on the delete report.
  * Acts in harmony with a JProjectview.
  */
-public class DeleteReportController extends AbstractController {
+public class ReportDeleteController extends AbstractController {
 	
 	private int[] toDelete;
 
-	public DeleteReportController(AbstractModel model, int[] toDelete) {
+	public ReportDeleteController(AbstractModel model, int[] toDelete) {
 		super(model);
 		this.toDelete = toDelete;
 	}

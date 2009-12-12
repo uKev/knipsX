@@ -38,6 +38,9 @@ import org.knipsX.controller.projectview.PictureSetDeleteController;
 import org.knipsX.controller.projectview.ProjectViewRefreshController;
 import org.knipsX.controller.projectview.ProjectSaveController;
 import org.knipsX.controller.projectview.ProjectSwitchController;
+import org.knipsX.controller.projectview.ReportCreateController;
+import org.knipsX.controller.projectview.ReportDeleteController;
+import org.knipsX.controller.projectview.ReportOpenController;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
@@ -82,6 +85,9 @@ public class JProjectView extends JAbstractView {
 
     /* represents the panel for the reports */
     private JPanel jPanelReport = null;
+    
+    /* represents the panel for the report options */
+    private JPanel jPanelReportOptions = null;
 
     /* represents the panel for the exif data of an active image */
     private JPanel jPanelExif = null;
@@ -119,11 +125,17 @@ public class JProjectView extends JAbstractView {
     /* represents the button which handles the picture set content delete action */
     private JButton jButtonPictureSetContentDelete = null;
 
-    /*
-     * represents the button which handles the picture set content refresh
-     * action
-     */
+    /* represents the button which handles the picture set content refresh action */
     private JButton jButtonPictureSetContentRefresh = null;
+
+    /* represents the button which handles the report create action */
+    private JButton jButtonReportCreate = null;
+
+    /* represents the button which handles the report open action */
+    private JButton jButtonReportOpen = null;
+
+    /* represents the button which handles the report delete action */
+    private JButton jButtonReportDelete = null;
 
     /* represents the list which contains all picture sets of a project */
     private JList jListPictureSet = null;
@@ -388,6 +400,82 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
+     * This method initializes jButtonReportCreate.
+     * 
+     * @return javax.swing.JButton the appropriate JButton.
+     */
+    private JButton getJButtonReportCreate() {
+
+	/* create if not set */
+	if (this.jButtonReportCreate == null) {
+
+	    /* create new button */
+	    this.jButtonReportCreate = new JButton();
+
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
+	    this.jButtonReportCreate.setText("Erstellen");
+
+	    /* create an action listener (which knows the model) to the button */
+	    this.jButtonReportCreate.addActionListener(new ReportCreateController(this.model));
+	}
+
+	/* return the button */
+	return this.jButtonReportCreate;
+    }
+
+    /**
+     * This method initializes jButtonReportOpen.
+     * 
+     * @return javax.swing.JButton the appropriate JButton.
+     */
+    private JButton getJButtonReportOpen() {
+
+	/* create if not set */
+	if (this.jButtonReportOpen == null) {
+
+	    /* create new button */
+	    this.jButtonReportOpen = new JButton();
+
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
+	    this.jButtonReportOpen.setText("Öffnen");
+
+	    /* create an action listener (which knows the model) to the button */
+	    this.jButtonReportOpen.addActionListener(new ReportOpenController(this.model));
+	}
+
+	/* return the button */
+	return this.jButtonReportOpen;
+    }
+
+    /**
+     * This method initializes jButtonReportDelete.
+     * 
+     * @return javax.swing.JButton the appropriate JButton.
+     */
+    private JButton getJButtonReportDelete() {
+
+	/* create if not set */
+	if (this.jButtonReportDelete == null) {
+
+	    /* create new button */
+	    this.jButtonReportDelete = new JButton();
+
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
+	    this.jButtonReportDelete.setText("Entfernen");
+
+	    /* create an action listener (which knows the model) to the button */
+	    this.jButtonReportDelete.addActionListener(new ReportDeleteController(this.model, this
+		    .getSelectedIndicesFromReportList()));
+	}
+
+	/* return the button */
+	return this.jButtonReportDelete;
+    }
+
+    /**
      * This method initializes jContentPane.
      * 
      * @return javax.swing.JPanel the panel.
@@ -566,8 +654,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListPictureSetContent = new JList(((ProjectModel) this.model).getPictureSetContentList()
-		    .toArray());
+	    this.jListPictureSetContent = new JList(((ProjectModel) this.model).getPictureSetContentList().toArray());
 
 	    /* allow to select only one row at once */
 	    this.jListPictureSetContent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -995,26 +1082,8 @@ public class JProjectView extends JAbstractView {
 	    /* create new panel */
 	    this.jPanelReport = new JPanel();
 
-	    /* create new layout for this panel */
-	    final GroupLayout jPanelReportLayout = new GroupLayout(this.jPanelReport);
-
-	    /* set the horizontal assignment */
-	    jPanelReportLayout.setHorizontalGroup(jPanelReportLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-		    .addGroup(
-			    jPanelReportLayout.createSequentialGroup().addContainerGap().addComponent(
-				    this.getJListReport(), GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-				    .addContainerGap()));
-
-	    /* set the vertical assignment */
-	    jPanelReportLayout.setVerticalGroup(jPanelReportLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-		    .addGroup(
-			    GroupLayout.Alignment.TRAILING,
-			    jPanelReportLayout.createSequentialGroup().addContainerGap().addComponent(
-				    this.getJListReport(), GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-				    .addContainerGap()));
-
 	    /* set the layout to the panel */
-	    this.jPanelReport.setLayout(jPanelReportLayout);
+	    this.jPanelReport.setLayout(new BorderLayout());
 
 	    /* add a border to the panel */
 	    /* TODO change to internationalisation */
@@ -1023,7 +1092,10 @@ public class JProjectView extends JAbstractView {
 	    this.jPanelReport.setBorder(title);
 
 	    /* add the list with the reports for the project */
-	    this.jPanelReport.add(this.getJListReport());
+	    this.jPanelReport.add(this.getJListReport(), BorderLayout.NORTH);
+	    
+	    /* add the list with the reportoptions for the project */
+	    this.jPanelReport.add(this.getJPanelReportOptions(), BorderLayout.CENTER);
 
 	    /* set minimum size of the panel */
 	    this.jPanelReport.setMinimumSize(new Dimension(250, 245));
@@ -1036,6 +1108,36 @@ public class JProjectView extends JAbstractView {
 	return this.jPanelReport;
     }
 
+    /**
+     * This method initializes jPanelPictureSetContentOptions.
+     * 
+     * @return javax.swing.JPanel the panel.
+     */
+    private JPanel getJPanelReportOptions() {
+
+	/* create if not set */
+	if (this.jPanelReportOptions == null) {
+
+	    /* create new panel */
+	    this.jPanelReportOptions = new JPanel();
+
+	    /* set the layout to the panel */
+	    this.jPanelReportOptions.setLayout(new FlowLayout());
+
+	    /* add the button for creating a report */
+	    this.jPanelReportOptions.add(this.getJButtonReportCreate(), null);
+
+	    /* add the button for open a report */
+	    this.jPanelReportOptions.add(this.getJButtonReportOpen(), null);
+
+	    /* add the button for deleting a report */
+	    this.jPanelReportOptions.add(this.getJButtonReportDelete(), null);
+	}
+
+	/* return the panel */
+	return this.jPanelReportOptions;
+    }
+    
     /**
      * This method initializes jScrollPaneExif.
      * 
@@ -1186,7 +1288,7 @@ public class JProjectView extends JAbstractView {
 	this.setTitle("Projektansicht für " + model.getProjectName());
 
 	this.jEditorPaneProjectDescription.setText(model.getProjectDescription());
-	
+
 	/* refresh view */
 	this.repaint();
 

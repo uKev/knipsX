@@ -8,8 +8,8 @@ import java.util.Observable;
 import javax.swing.JFrame;
 
 /* import things from our program */
-import org.knipsX.controller.projectview.DeleteReportConfirmController;
-import org.knipsX.controller.projectview.DeleteReportRefuseController;
+import org.knipsX.controller.projectview.ReportDeleteConfirmController;
+import org.knipsX.controller.projectview.ReportDeleteRefuseController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.JAbstractDialog;
@@ -75,14 +75,14 @@ public class JReportDelete extends JAbstractDialog {
 	this.jButtonConfirm.setText("Ja");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonConfirm.addActionListener(new DeleteReportConfirmController(this.model, this.toDelete));
+	this.jButtonConfirm.addActionListener(new ReportDeleteConfirmController(this.model, this.toDelete));
 
 	/* set button text */
 	/* TODO change to internationalisation */
 	this.jButtonRefuse.setText("Nein");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonRefuse.addActionListener(new DeleteReportRefuseController(this.model));
+	this.jButtonRefuse.addActionListener(new ReportDeleteRefuseController(this.model));
 
 	/* set the text */
 	/* TODO change to internationalisation */

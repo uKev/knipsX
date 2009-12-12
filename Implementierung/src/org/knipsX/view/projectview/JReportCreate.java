@@ -77,6 +77,9 @@ public class JReportCreate extends JAbstractDialog {
 
 	/* create an action listener (which knows the model) to the button */
 	this.jButtonRefuse.addActionListener(new ReportCreateRefuseController(this.model));
+	
+	/* set the size of the textfield */
+	this.jTextFieldText.setColumns(20);
     }
 
     /**

@@ -9,9 +9,9 @@ import org.knipsX.model.projectview.ProjectModel;
  * Represents the Actions which are done by klicking on the cancel button when
  * you want to delete a report. Acts in harmony with a JDialog.
  */
-public class DeleteReportRefuseController extends AbstractController {
+public class ReportDeleteRefuseController extends AbstractController {
 
-	public DeleteReportRefuseController(AbstractModel model) {
+	public ReportDeleteRefuseController(AbstractModel model) {
 		super(model);
 	}
 
