@@ -7,8 +7,6 @@ import org.knipsX.model.common.ReportEntry;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
-import org.knipsX.model.reportmanagement.AbstractReportModel;
-import org.knipsX.model.reportmanagement.BoxplotModel;
 
 public class ProjectViewModel extends ProjectEntry {
 
@@ -31,13 +29,23 @@ public class ProjectViewModel extends ProjectEntry {
 
 	private List<Picture> allPicturesOfSetList;
 
-	private List<ReportEntry> reportsList;
+	private List<ReportEntry> reportList;
 
 	private String projectDescriptionList;
 
 	public ProjectViewModel(ProjectEntry projectEntry) {
 		super(projectEntry);
-		readFromProjectFile(projectEntry.getPath());
+	}
+
+	public ProjectViewModel(ProjectEntry projectEntry,
+			List<PictureSet> pictureSetList,
+			List<PictureContainer> pictureSetContentList,
+			List<Picture> allPicturesOfSetList, List<ReportEntry> reportList) {
+		super(projectEntry);
+		this.pictureSetList = pictureSetList;
+		this.reportList = reportList;
+		this.allPicturesOfSetList = allPicturesOfSetList;
+		this.pictureSetContentList = pictureSetContentList;
 	}
 
 	public int getModelStatus() {
@@ -73,12 +81,12 @@ public class ProjectViewModel extends ProjectEntry {
 		this.allPicturesOfSetList = allPicturesOfSetList;
 	}
 
-	public List<ReportEntry> getReportsList() {
-		return reportsList;
+	public List<ReportEntry> getReportList() {
+		return reportList;
 	}
 
-	public void setReportsList(List<ReportEntry> reportsList) {
-		this.reportsList = reportsList;
+	public void setReportsList(List<ReportEntry> reportList) {
+		this.reportList = reportList;
 	}
 
 	public String getProjectDescriptionList() {
@@ -95,8 +103,8 @@ public class ProjectViewModel extends ProjectEntry {
 		dummyPictureSetList.add(dummyPictureSet);
 		setPictureSetContentList(dummyPictureSetList);
 		List<ReportEntry> dummyReportsList = new LinkedList<ReportEntry>();
-		//BoxplotModel dummyReport = new BoxplotModel();
-		//dummyReportsList.add(dummyReport);
+		// BoxplotModel dummyReport = new BoxplotModel();
+		// dummyReportsList.add(dummyReport);
 		setReportsList(dummyReportsList);
 	}
 }

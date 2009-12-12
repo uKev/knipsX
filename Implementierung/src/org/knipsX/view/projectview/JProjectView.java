@@ -527,13 +527,15 @@ public class JProjectView extends JAbstractView {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListPictureSetContent = new JList(new Object[] { "Apfel", "Kürbis", "Paprika", "Tomate" });
+	    this.jListPictureSetContent = new JList(((ProjectViewModel) this.model).getPictureSetContentList().toArray());
 
 	    /* allow to select only one row at once */
 	    this.jListPictureSetContent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 	    /* set ordering layout to vertical (see java api for more information) */
 	    this.jListPictureSetContent.setLayoutOrientation(JList.VERTICAL);
+	    
+	    this.jListPictureSetContent.setCellRenderer(new MyPictureSetContentListCellRenderer());
 	}
 
 	/* return the list */
@@ -552,13 +554,15 @@ public class JProjectView extends JAbstractView {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListReport = new JList(new Object[] { "Apfel", "Kürbis", "Paprika", "Tomate" });
+	    this.jListReport = new JList(((ProjectViewModel) this.model).getReportList().toArray());
 
 	    /* allow to select only one row at once */
 	    this.jListReport.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 	    /* set ordering layout to vertical (see java api for more information) */
 	    this.jListReport.setLayoutOrientation(JList.VERTICAL);
+	    
+	    this.jListPictureSetContent.setCellRenderer(new MyReportListCellRenderer());
 	}
 
 	/* return the list */
