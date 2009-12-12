@@ -26,7 +26,7 @@ public class JProjectSave extends JAbstractDialog {
     public JProjectSave(final AbstractModel abstractModel) {
 
 	/* sets the model */
-	super(abstractModel, JAbstractDialog.CONFIRM_REFUSE_CANCEL);
+	super(abstractModel, JAbstractDialog.CONFIRM_REFUSE_CANCEL, JAbstractDialog.LABEL);
 
 	/* renders the view */
 	this.initialize();
@@ -41,7 +41,7 @@ public class JProjectSave extends JAbstractDialog {
 
 	/* configure the view */
 	this.configure();
-	
+
 	/* set standard close action */
 	/* TODO We have to edit the close action! */
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,21 +60,7 @@ public class JProjectSave extends JAbstractDialog {
 
 	/* set the title for the view */
 	/* TODO change to internationalisation */
-	this.setTitle("Speichern?");
-	
-	/* set button text */
-	/* TODO change to internationalisation */
-	this.jButtonCancel.setText("Abbrechen");
-
-	/* create an action listener (which knows the model) to the button */
-	this.jButtonCancel.addActionListener(new SaveProjectCancelController(this.model));
-
-	/* set button text */
-	/* TODO change to internationalisation */
-	this.jButtonRefuse.setText("Nein");
-
-	/* create an action listener (which knows the model) to the button */
-	this.jButtonRefuse.addActionListener(new SaveProjectRefuseController(this.model));
+	this.setTitle("Auswertung übernehmen");
 
 	/* set button text */
 	/* TODO change to internationalisation */
@@ -85,7 +71,21 @@ public class JProjectSave extends JAbstractDialog {
 
 	/* set button text */
 	/* TODO change to internationalisation */
-	this.jLabelValidationText.setText("Möchten Sie das Projekt speichern?");
+	this.jButtonRefuse.setText("Nein");
+
+	/* create an action listener (which knows the model) to the button */
+	this.jButtonRefuse.addActionListener(new SaveProjectRefuseController(this.model));
+
+	/* set button text */
+	/* TODO change to internationalisation */
+	this.jButtonCancel.setText("Abbrechen");
+
+	/* create an action listener (which knows the model) to the button */
+	this.jButtonCancel.addActionListener(new SaveProjectCancelController(this.model));
+
+	/* set button text */
+	/* TODO change to internationalisation */
+	this.jLabelText.setText("Möchten Sie das Projekt speichern?");
     }
 
     @Override

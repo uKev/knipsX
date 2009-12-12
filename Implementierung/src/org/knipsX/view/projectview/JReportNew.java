@@ -5,69 +5,41 @@ package org.knipsX.view.projectview;
 
 /* import things from the java sdk */
 import java.util.Observable;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /* import things from our program */
-import org.knipsX.controller.projectview.CreateReportRefuseController;
 import org.knipsX.controller.projectview.CreateReportConfirmController;
+import org.knipsX.controller.projectview.CreateReportRefuseController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
-import org.knipsX.view.JAbstractView;
+import org.knipsX.view.JAbstractDialog;
 
 /**
  * Represents the view for a dialog which gives the user the possibility to add a new report.
  */
-public class JReportNew extends JAbstractView {
+public class JReportNew extends JAbstractDialog {
 
     /** Only for serialisation */
-    private static final long serialVersionUID = 5320795297728002808L;
+    private static final long serialVersionUID = 1833755969083155368L;
 
-    /* represents the panel for the view */
-    private JPanel jContentPane = null;
-
-    /* represents the project name field */
-    private JTextField jTextFieldProjectName = null;
-
-    /* represents the button for confirmation */
-    private JButton jButtonConfirm = null;
-
-    /* represents the button for refusing */
-    private JButton jButtonRefuse = null;
-
-    /**
-     * Creates a view where a new report can be created.
-     * 
-     * The view is connected to the model which is passed by.
-     * 
-     * @param abstractModel
-     *            the model which the view should connect to.
-     */
     public JReportNew(final AbstractModel abstractModel) {
 
 	/* sets the model */
-	super(abstractModel);
+	super(abstractModel, JAbstractDialog.CONFIRM_REFUSE, JAbstractDialog.TEXTFIELD);
 
 	/* renders the view */
 	this.initialize();
-
     }
 
     /**
-     * This method initializes this.
+     * This method initializes this
      * 
      * @return void
      */
     private void initialize() {
 
-	/* set the title for the view */
-	/* TODO change to internationalisation */
-	this.setTitle("Neue Auswertung");
-
-	/* show main panel */
-	this.setContentPane(this.getJContentPane());
+	/* configure the view */
+	this.configure();
 
 	/* set standard close action */
 	/* TODO We have to edit the close action! */
@@ -83,93 +55,25 @@ public class JReportNew extends JAbstractView {
 	this.setVisible(true);
     }
 
-    /**
-     * This method initializes jContentPane.
-     * 
-     * @return javax.swing.JButton the appropriate JButton.
-     */
-    private JPanel getJContentPane() {
+    private void configure() {
 
-	/* create if not set */
-	if (this.jContentPane == null) {
+	/* set the title for the view */
+	/* TODO change to internationalisation */
+	this.setTitle("Auswertung erstellen");
 
-	    /* create new panel */
-	    this.jContentPane = new JPanel();
+	/* set button text */
+	/* TODO change to internationalisation */
+	this.jButtonConfirm.setText("Ok");
 
-	    /* add the textfield */
-	    this.jContentPane.add(this.getJTextFieldProjectName());
+	/* create an action listener (which knows the model) to the button */
+	this.jButtonConfirm.addActionListener(new CreateReportConfirmController(this.model, this));
 
-	    /* add the confirm button */
-	    this.jContentPane.add(this.getJButtonConfirm());
+	/* set button text */
+	/* TODO change to internationalisation */
+	this.jButtonRefuse.setText("Abbrechen");
 
-	    /* add the cancel button */
-	    this.jContentPane.add(this.getJButtonRefuse());
-	}
-
-	/* return the panel */
-	return this.jContentPane;
-    }
-
-    /**
-     * This method initializes jButtonConfirm.
-     * 
-     * @return javax.swing.JButton the appropriate JButton.
-     */
-    private JButton getJButtonConfirm() {
-
-	/* create if not set */
-	if (this.jButtonConfirm == null) {
-
-	    /* create new button */
-	    /* TODO change to internationalisation */
-	    this.jButtonConfirm = new JButton("Ok");
-
-	    /* create an action listener (which knows the model and the view) to the button */
-	    this.jButtonConfirm.addActionListener(new CreateReportConfirmController(this.model, this));
-	}
-
-	/* return the button */
-	return this.jButtonConfirm;
-    }
-
-    /**
-     * This method initializes jTextFieldProjectName.
-     * 
-     * @return javax.swing.JButton the appropriate JButton.
-     */
-    private JTextField getJTextFieldProjectName() {
-
-	/* create if not set */
-	if (this.jTextFieldProjectName == null) {
-
-	    /* create new textfield */
-	    this.jTextFieldProjectName = new JTextField(20);
-	}
-
-	/* return the button */
-	return this.jTextFieldProjectName;
-    }
-
-    /**
-     * This method initializes jButtonRefuse.
-     * 
-     * @return javax.swing.JButton the appropriate JButton.
-     */
-    private JButton getJButtonRefuse() {
-
-	/* create if not set */
-	if (this.jButtonRefuse == null) {
-
-	    /* create new button */
-	    /* TODO change to internationalisation */
-	    this.jButtonRefuse = new JButton("Abbrechen");
-
-	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonRefuse.addActionListener(new CreateReportRefuseController(this.model));
-	}
-
-	/* return the button */
-	return this.jButtonRefuse;
+	/* create an action listener (which knows the model) to the button */
+	this.jButtonRefuse.addActionListener(new CreateReportRefuseController(this.model));
     }
 
     /**
@@ -178,7 +82,7 @@ public class JReportNew extends JAbstractView {
      * @return the project name.
      */
     public String getProjectName() {
-	return this.jTextFieldProjectName.getText();
+	return this.jTextFieldText.getText();
     }
 
     @Override
@@ -189,7 +93,7 @@ public class JReportNew extends JAbstractView {
 
 	/* react to program state */
 	/* TODO add a status and error panel! */
-	if (model.getModelStatus() != ProjectViewModel.DELETEREPORT) {
+	if (model.getModelStatus() != ProjectViewModel.CREATEREPORT) {
 
 	    /* delete view */
 	    this.dispose();

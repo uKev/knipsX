@@ -4,18 +4,16 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
-import org.knipsX.view.JAbstractView;
 
-public class CopyPictureSetOkController extends AbstractController {
+public class SwitchProjectCancelController extends AbstractController {
 
-	public CopyPictureSetOkController(AbstractModel model, JAbstractView jCopyPictureSet) {
+	public SwitchProjectCancelController(AbstractModel model) {
 		super(model);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		model.setModelStatus(ProjectViewModel.USERSELECT);
-		//TODO COPY Pictureset mit neuem namen aus jCopyPictureSet;
 		model.updateViews();
 	}
 }
