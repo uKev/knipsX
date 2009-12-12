@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import org.knipsX.model.picturemanagement.PictureContainer;
 
+/**
+ * The model auf the Histogram2D which calculate the statistic categories and allocate the axes to the Data.
+ * @author Kevin Zuber
+ *
+ */
 
 public class Histogram2DModel extends AbstractSingleAxisModel{
 

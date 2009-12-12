@@ -3,7 +3,7 @@ package org.knipsX.model.reportmanagement;
 import org.knipsX.model.picturemanagement.PictureContainer;
 
 /**
- * Represents a bar which belongs to a picture category.
+ * Represents a bar which belongs to a picture category and PictureContainer.
  * 
  * @author Kevin Zuber
  *
