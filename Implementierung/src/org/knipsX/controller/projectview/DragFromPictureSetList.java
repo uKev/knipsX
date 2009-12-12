@@ -4,6 +4,10 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 
+/**
+ * Represents the Actions which are done by klicking on the ok button when
+ * you want to delete a report. Acts in harmony with a JDialog.
+ */
 public class DragFromPictureSetList extends AbstractController {
 	
 	private int[] toDrag;

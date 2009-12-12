@@ -7,6 +7,10 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectview.JProjectView;
 
+/**
+ * Represents the Actions which are done by editing the projectdescription.
+ * Acts in harmony with a JProjectView.
+ */
 public class EditProjectDescriptionController extends AbstractController {
 	
 	private JProjectView projectView;

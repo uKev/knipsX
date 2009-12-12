@@ -10,6 +10,10 @@ import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 import org.knipsX.view.projectview.JProjectView;
 
+/**
+ * Represents the Actions which are done by pushing the project open button.
+ * Acts in harmony with JProjectManagement.
+ */
 public class ProjectOpenController extends AbstractController{
 
 	private ProjectManagementModel model;

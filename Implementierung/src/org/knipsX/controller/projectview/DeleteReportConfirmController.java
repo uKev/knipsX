@@ -5,6 +5,10 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectModel;
 
+/**
+ * Represents the Actions which are done by klicking on the ok button when
+ * you want to delete a report. Acts in harmony with a JDialog.
+ */
 public class DeleteReportConfirmController extends AbstractController {
 	
 	private int[] toDelete;
@@ -16,8 +20,8 @@ public class DeleteReportConfirmController extends AbstractController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		model.setModelStatus(ProjectModel.USERSELECT);
-		//TODO toDelete verwerten und im model aus der liste lï¿½schen;
+		model.setModelStatus(ProjectViewModel.USERSELECT);
+		//TODO toDelete verwerten und im model aus der liste löschen;
 		model.updateViews();
 	}
 }

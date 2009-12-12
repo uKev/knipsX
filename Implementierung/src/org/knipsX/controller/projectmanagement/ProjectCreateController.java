@@ -6,6 +6,10 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.projectmanagement.JProjectCreate;
 
+/**
+ * Represents the Actions which are done by pushing the project create button.
+ * Acts in harmony with JProjectManagement.
+ */
 public class ProjectCreateController extends AbstractController {
 	
 	private ProjectManagementModel model;

@@ -7,10 +7,13 @@ import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectCreate;
 
+/**
+ * Represents the Actions which are done by pushing the ok button when you
+ * want to copy a project. Acts with a JDialog.
+ */
 public class ProjectCreateConfirmController extends AbstractController {
 	
 	private JProjectCreate jProjectCreate;
-	
 	
 	private ProjectManagementModel model;
 

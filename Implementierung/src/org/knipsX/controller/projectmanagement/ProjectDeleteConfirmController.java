@@ -5,6 +5,10 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 
+/**
+ * Represents the Actions which are done by pushing the Ok button when you
+ * want to delete a project. Acts with a JDialog.
+ */
 public class ProjectDeleteConfirmController extends AbstractController {
 
 	private ProjectManagementModel model;

@@ -8,6 +8,10 @@ import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectDelete;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
+/**
+ * Represents the Actions which are done by pushing the project delete button.
+ * Acts in harmony with JProjectManagement.
+ */
 public class ProjectDeleteController extends AbstractController {
 
 	private JProjectManagement view;

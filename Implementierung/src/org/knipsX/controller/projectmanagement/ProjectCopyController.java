@@ -9,6 +9,10 @@ import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 import org.knipsX.view.projectmanagement.JProjectCopy;
 
+/**
+ * Represents the Actions which are done by pushing the project copy button.
+ * Acts in harmony with JProjectManagement.
+ */
 public class ProjectCopyController extends AbstractController {
 
     /* Die View */

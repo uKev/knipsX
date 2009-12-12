@@ -6,6 +6,10 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JReportDelete;
 
+/**
+ * Represents the Actions which are done by klicking on the delete report.
+ * Acts in harmony with a JProjectview.
+ */
 public class DeleteReportController extends AbstractController {
 	
 	private int[] toDelete;
