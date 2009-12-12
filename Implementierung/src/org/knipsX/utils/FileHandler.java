@@ -76,7 +76,7 @@ public class FileHandler {
 		dummyReportEntryList.add(dummyReportEntry);
 		List<PictureContainer> dummyContainer = new LinkedList<PictureContainer>();
 		Picture dummyPicture = new Picture();
-		dummyPicture.getName();
+		dummyPicture.setName("Nemo");
 		dummyContainer.add(dummyPicture);
 		List<Picture> dummyPictureList = new LinkedList<Picture>();		
 		dummyPictureList.add(dummyPicture);

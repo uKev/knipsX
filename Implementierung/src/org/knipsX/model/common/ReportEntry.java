@@ -3,12 +3,12 @@ package org.knipsX.model.common;
 import org.knipsX.model.AbstractModel;
 
 public class ReportEntry extends AbstractModel {
-	
+
 	private int reportID;
-	
+
 	private String reportName;
-	
-	private String reportPath;
+
+	private int projectID;
 
 	public int getReportID() {
 		return reportID;
@@ -26,12 +26,11 @@ public class ReportEntry extends AbstractModel {
 		this.reportName = reportName;
 	}
 
-	public String getReportPath() {
-		return reportPath;
+	public int getProjectID() {
+		return projectID;
 	}
 
-	public void setReportPath(String reportPath) {
-		this.reportPath = reportPath;
+	public void setProjectID(int projectID) {
+		this.projectID = projectID;
 	}
-	 
 }

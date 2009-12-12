@@ -7,4 +7,6 @@ public interface PictureContainer extends Iterator<Picture> {
 	public abstract List<?> getItems();
 
 	public abstract String getName();
+	
+	public abstract void setName(String name);
 }

@@ -562,7 +562,7 @@ public class JProjectView extends JAbstractView {
 	    /* set ordering layout to vertical (see java api for more information) */
 	    this.jListReport.setLayoutOrientation(JList.VERTICAL);
 	    
-	    this.jListPictureSetContent.setCellRenderer(new MyReportListCellRenderer());
+	    this.jListReport.setCellRenderer(new MyReportListCellRenderer());
 	}
 
 	/* return the list */
@@ -1044,7 +1044,7 @@ public class JProjectView extends JAbstractView {
 	if (this.jTableExif == null) {
 
 	    /* TODO set from model */
-	    final String[] columnNames = { "First Name", "Last Name" };
+	    final String[] columnNames = { "Parameter", "Wert" };
 	    final Object[][] data = { { "Mary", "Campione" }, { "Alison", "Huml" }, { "Kathy", "Walrath" },
 		    { "Sharon", "Zakhour" }, { "Philip", "Milne" } };
 
@@ -1068,6 +1068,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* create new textfield */
 	    this.jTextFieldProjectName = new JTextField();
+	    this.jTextFieldProjectName.setText(((ProjectViewModel)model).getProjectDescriptionList());
 	}
 	return this.jTextFieldProjectName;
     }

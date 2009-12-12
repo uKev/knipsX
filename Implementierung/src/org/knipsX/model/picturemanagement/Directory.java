@@ -1,12 +1,16 @@
 package org.knipsX.model.picturemanagement;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
 public class Directory implements PictureContainer {
 	
-	public List<Picture> pictures = new ArrayList<Picture>();
+	public List<Picture> pictures = new LinkedList<Picture>();
+	
+	public String directoryName;
+	
+	public String path;
 	
 	public Directory() {
 		/**************************************************************************
@@ -21,7 +25,7 @@ public class Directory implements PictureContainer {
 	}
 
 	public List<?> getItems() {
-		List<PictureContainer> temp = new ArrayList<PictureContainer>();
+		List<PictureContainer> temp = new LinkedList<PictureContainer>();
 		temp.add(this);
 		return temp;
 	}
@@ -43,7 +47,11 @@ public class Directory implements PictureContainer {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return directoryName;
 	}
+
+	@Override
+	public void setName(String name) {
+		this.directoryName = name;		
+	}	
 }

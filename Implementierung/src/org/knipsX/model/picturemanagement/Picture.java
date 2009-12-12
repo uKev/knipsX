@@ -8,7 +8,9 @@ import java.util.List;
 public class Picture implements PictureContainer {
 	
 	private String path;
-	// TODO: Exifkram hier integrieren und getter dazu erzeugen!
+	private String pictureName;
+	
+	
 	
 	public Picture(String path) {
 		super();
@@ -53,7 +55,11 @@ public class Picture implements PictureContainer {
 	}
 
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return pictureName;
+	}
+
+	@Override
+	public void setName(String name) {
+		this.pictureName = name;		
 	}	
 }
