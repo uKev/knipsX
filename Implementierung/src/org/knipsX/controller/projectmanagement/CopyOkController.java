@@ -42,7 +42,7 @@ public class CopyOkController extends AbstractController {
 	} else {
 
 	    /* Füge neues Projekt dem Model hinzu */
-	    this.model.addNewProject(this.view.getProjectToCopy(), projectName);
+	    this.model.copyProject(this.view.getProjectToCopy(), projectName);
 
 	    /* Setze Modellstatus */
 	    this.model.setModelStatus(ProjectManagementModel.SELECT);
