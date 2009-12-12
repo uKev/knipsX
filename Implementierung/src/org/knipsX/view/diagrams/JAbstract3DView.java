@@ -23,6 +23,7 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 import org.knipsX.model.AbstractModel;
+import org.knipsX.model.picturemanagement.Picture;
 
 import com.sun.j3d.utils.geometry.Box;
 import com.sun.j3d.utils.geometry.Cylinder;
@@ -71,7 +72,7 @@ public abstract class JAbstract3DView extends JAbstractDiagram{
 	 * Specifies if the text in the current view should point to the camera
 	 */
 	protected boolean textautorotate = true;
-	
+		
 	/**
 	 * Constructor initialized the canvas3D
 	 * @param abstractModel the model from which the drawing information is taken
@@ -418,5 +419,14 @@ public abstract class JAbstract3DView extends JAbstractDiagram{
         add(this.canvas3D);   
         pack();
         setVisible(true);
+	}
+	
+	
+	/**
+	 * Sets the current picture which is displayed outside of the 3D View
+	 * @param pic
+	 */
+	public void setCurrentImage(Picture pic) {
+		//TODO
 	}
 }

@@ -7,7 +7,6 @@ import org.knipsX.model.reportmanagement.Histogram2DModel;
 import org.knipsX.model.reportmanagement.Histogram3DModel;
 import org.knipsX.model.reportmanagement.TableModel;
 
-
 public enum Report {	
 	
 	Boxplot {
@@ -60,34 +59,34 @@ public enum Report {
 	 * @return 0 if no axis is used otherwise returns the number of axis
 	 * a report enum uses
 	 */
-	public abstract int getNumberofAxis();
+	public abstract int getNumberofAxis();	
 	
 	/**
 	 * The current report of the current report configuration run
 	 */
+	// public because controller needs acces
 	public static Report currentReport = Report.Boxplot;
 	
 	/**
 	 * The current configuration utility of the current report configuration run
 	 */
-	public static JAbstractReportType myconfig;
+	protected static JAbstractReportType myconfig;
 	
 	/**
 	 * The current model of the current report configuration run
+	 * 
 	 */
+	// public because controller needs acces
 	public static AbstractReportModel currentModel;
 
 	
 	/**
 	 * Sets the current report and updates the configuration utility
+	 * Use this method if you want explicitly update the configuration utility
 	 * @param myreport
 	 */
 	public static void setReport(Report myreport) {
 		currentReport = myreport;
-		UpdateWizard();
-	}
-
-	private static void UpdateWizard() {
 		myconfig.setReportType(currentReport.getReportType());
 	}
 
