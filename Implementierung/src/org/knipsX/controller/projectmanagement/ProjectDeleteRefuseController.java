@@ -5,11 +5,11 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 
-public class DeletionValidationNoController extends AbstractController {
+public class ProjectDeleteRefuseController extends AbstractController {
 	
 	private ProjectManagementModel model;
 
-	public DeletionValidationNoController(AbstractModel projectListModel) {
+	public ProjectDeleteRefuseController(AbstractModel projectListModel) {
 		this.model = (ProjectManagementModel) projectListModel;	
 	}
 

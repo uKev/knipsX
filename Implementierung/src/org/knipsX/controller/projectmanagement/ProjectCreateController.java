@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
-import org.knipsX.view.projectmanagement.JProjectNew;
+import org.knipsX.view.projectmanagement.JProjectCreate;
 
 public class ProjectCreateController extends AbstractController {
 	
@@ -19,7 +19,7 @@ public class ProjectCreateController extends AbstractController {
 		
 		/*  Aktuelle View unsichtbar machen */
 		model.setModelStatus(ProjectManagementModel.NEW);
-		new JProjectNew(model);
+		new JProjectCreate(model);
 		model.updateViews();
 	}
 }

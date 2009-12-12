@@ -5,12 +5,12 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 
-public class DeletionValidationYesController extends AbstractController {
+public class ProjectDeleteConfirmController extends AbstractController {
 
 	private ProjectManagementModel model;
 	private int[] toDelete;
 
-	public DeletionValidationYesController(AbstractModel model, int[] toDelete) {
+	public ProjectDeleteConfirmController(AbstractModel model, int[] toDelete) {
 		this.model = (ProjectManagementModel) model;
 		this.toDelete = toDelete;
 	}

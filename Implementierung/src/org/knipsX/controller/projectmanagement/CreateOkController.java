@@ -5,11 +5,11 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractView;
-import org.knipsX.view.projectmanagement.JProjectNew;
+import org.knipsX.view.projectmanagement.JProjectCreate;
 
 public class CreateOkController extends AbstractController {
 	
-	private JProjectNew jProjectNew;
+	private JProjectCreate jProjectCreate;
 	
 	
 	private ProjectManagementModel model;
@@ -17,7 +17,7 @@ public class CreateOkController extends AbstractController {
 	public CreateOkController(AbstractModel model, JAbstractView jProjectNew) {
 		
 		if(jProjectNew instanceof JAbstractView ) {
-			this.jProjectNew = (JProjectNew) jProjectNew;
+			this.jProjectCreate = (JProjectCreate) jProjectNew;
 		}
 				
 		if(model instanceof ProjectManagementModel ) {
@@ -30,7 +30,7 @@ public class CreateOkController extends AbstractController {
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		
-		String text = jProjectNew.getProjectName();
+		String text = jProjectCreate.getProjectName();
 		
 		if ((text.equals("")) || (text.equals("xxx"))) {
 			

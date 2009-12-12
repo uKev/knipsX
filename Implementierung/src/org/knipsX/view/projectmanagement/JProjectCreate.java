@@ -11,7 +11,7 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractView;
 
-public class JProjectNew extends JAbstractView {
+public class JProjectCreate extends JAbstractView {
 
 	/* Für Serialisierung */
 	private static final long serialVersionUID = -8500379427744689824L;
@@ -23,7 +23,7 @@ public class JProjectNew extends JAbstractView {
 	private JButton jButtonConfirm;
 	private JButton jButtonCancel;
 
-	public JProjectNew(final AbstractModel model) {
+	public JProjectCreate(final AbstractModel model) {
 
 		/* Setze Modell */
 		super(model);
