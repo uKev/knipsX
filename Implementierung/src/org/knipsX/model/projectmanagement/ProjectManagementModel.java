@@ -43,7 +43,7 @@ public class ProjectManagementModel extends AbstractModel {
 		String path = this.generatePathforID(id);			
 		
 		/* Füge hinzu */
-		this.projectList.add(0, new ProjectEntry(id, projectName, new GregorianCalendar(), path));	
+		this.projectList.add(0, new ProjectEntry(id, projectName, "", new GregorianCalendar(), path));	
 		
 		/* TODO Hier fehlen die Routinen zum Schreiben! */
 	}
@@ -63,7 +63,7 @@ public class ProjectManagementModel extends AbstractModel {
 		String path = this.generatePathforID(id);
 		
 		/* Füge hinzu */
-		this.projectList.add(0, new ProjectEntry(id, projectName, new GregorianCalendar(), path));
+		this.projectList.add(0, new ProjectEntry(id, projectName, "", new GregorianCalendar(), path));
 		
 		/* TODO Hier fehlen die Routinen zum Kopieren! */
 	}

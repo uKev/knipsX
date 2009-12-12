@@ -12,7 +12,7 @@ import org.knipsX.controller.projectview.ProjectSwitchCancelController;
 import org.knipsX.controller.projectview.ProjectSwitchConfirmController;
 import org.knipsX.controller.projectview.ProjectSwitchRefuseController;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.JAbstractDialog;
 
 /**
@@ -95,11 +95,11 @@ public class JProjectSwitch extends JAbstractDialog {
     public void update(final Observable o, final Object arg) {
 
 	/* cast to model */
-	final ProjectViewModel model = (ProjectViewModel) o;
+	final ProjectModel model = (ProjectModel) o;
 
 	/* react to program state */
 	/* TODO add a status and error panel! */
-	if (model.getModelStatus() != ProjectViewModel.SWITCHSAVE) {
+	if (model.getModelStatus() != ProjectModel.SWITCHSAVE) {
 
 	    /* delete view */
 	    this.dispose();

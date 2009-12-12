@@ -6,7 +6,7 @@ import java.util.logging.FileHandler;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.PictureSet;
-import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JPictureSetCreate;
 public class PictureSetCreateConfirmController extends AbstractController {
 	
@@ -19,9 +19,9 @@ public class PictureSetCreateConfirmController extends AbstractController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		model.setModelStatus(ProjectViewModel.USERSELECT);
-		ProjectViewModel projectViewModel = ((ProjectViewModel)model);
-		projectViewModel.getPictureSetList().add(new PictureSet(jPictureSetCreate.getProjectName(), projectViewModel.generateFreePictureSetID()));
+		model.setModelStatus(ProjectModel.USERSELECT);
+		ProjectModel projectModel = ((ProjectModel)model);
+		projectModel.getPictureSetList().add(new PictureSet(jPictureSetCreate.getProjectName(), projectModel.generateFreePictureSetID()));
 		model.updateViews();
 	}
 }

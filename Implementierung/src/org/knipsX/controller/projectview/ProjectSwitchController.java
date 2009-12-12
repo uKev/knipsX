@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectSwitch;
 
 public class ProjectSwitchController extends AbstractController {
@@ -15,7 +15,7 @@ public class ProjectSwitchController extends AbstractController {
 
 	@Override
     public void actionPerformed(final ActionEvent e) {
-		this.model.setModelStatus(ProjectViewModel.SWITCHSAVE);
+		this.model.setModelStatus(ProjectModel.SWITCHSAVE);
 		new JProjectSwitch(this.model);
 		this.model.updateViews();
     }

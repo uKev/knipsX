@@ -38,12 +38,11 @@ import org.knipsX.controller.projectview.PictureSetDeleteController;
 import org.knipsX.controller.projectview.ProjectViewRefreshController;
 import org.knipsX.controller.projectview.ProjectSaveController;
 import org.knipsX.controller.projectview.ProjectSwitchController;
-import org.knipsX.model.common.ReportEntry;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
-import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.view.JAbstractView;
 
@@ -153,10 +152,10 @@ public class JProjectView extends JAbstractView {
     /**
      * Creates a project view connected with an appropriate model.
      */
-    public JProjectView(final ProjectViewModel projectViewModel) {
+    public JProjectView(final ProjectModel projectModel) {
 
 	/* sets the model */
-	super(projectViewModel);
+	super(projectModel);
 
 	/* renders the view */
 	this.initialize();
@@ -506,7 +505,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListPictureSet = new JList(((ProjectViewModel) this.model).getPictureSetList().toArray());
+	    this.jListPictureSet = new JList(((ProjectModel) this.model).getPictureSetList().toArray());
 
 	    /* allow to select only one row at once */
 	    this.jListPictureSet.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -536,7 +535,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListPictureSetActive = new JList(((ProjectViewModel) this.model).getAllPicturesOfSetList().toArray());
+	    this.jListPictureSetActive = new JList(((ProjectModel) this.model).getAllPicturesOfSetList().toArray());
 
 	    /* allow to select only one row at once */
 	    this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -567,7 +566,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListPictureSetContent = new JList(((ProjectViewModel) this.model).getPictureSetContentList()
+	    this.jListPictureSetContent = new JList(((ProjectModel) this.model).getPictureSetContentList()
 		    .toArray());
 
 	    /* allow to select only one row at once */
@@ -598,7 +597,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListReport = new JList(((ProjectViewModel) this.model).getReportList().toArray());
+	    this.jListReport = new JList(((ProjectModel) this.model).getReportList().toArray());
 
 	    /* allow to select only one row at once */
 	    this.jListReport.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -746,8 +745,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* add a border to the panel */
 	    /* TODO change to internationalisation */
-	    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-		    "Bilder:");
+	    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "Bilder:");
 	    this.jPanelPictureSetActive.setBorder(title);
 
 	    /* add a list with images of an active picture container */
@@ -1092,7 +1090,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* TODO set from model */
 	    final String[] columnNames = { "Parameter", "Wert" };
-	    Object[][] data = ((ProjectViewModel) model).getExifParameter();
+	    Object[][] data = ((ProjectModel) model).getExifParameter();
 
 	    /* create new table for the exif parameters of an active image */
 	    this.jTableExif = new JTable(data, columnNames);
@@ -1118,7 +1116,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* create new textfield */
 	    this.jTextFieldProjectName = new JTextField();
-	    this.jTextFieldProjectName.setText(((ProjectViewModel) model).getName());
+	    this.jTextFieldProjectName.setText(((ProjectModel) model).getProjectName());
 	}
 	return this.jTextFieldProjectName;
     }
@@ -1181,24 +1179,26 @@ public class JProjectView extends JAbstractView {
     public void update(final Observable o, final Object arg) {
 
 	/* cast to model */
-	final ProjectViewModel model = (ProjectViewModel) o;
+	final ProjectModel model = (ProjectModel) o;
 
 	/* set the title for the view */
 	/* TODO change to internationalisation */
-	this.setTitle("Projektansicht für " + model.getName());
+	this.setTitle("Projektansicht für " + model.getProjectName());
 
+	this.jEditorPaneProjectDescription.setText(model.getProjectDescription());
+	
 	/* refresh view */
 	this.repaint();
 
 	/* react to program state */
-	if (model.getModelStatus() == ProjectViewModel.USERSELECT) {
+	if (model.getModelStatus() == ProjectModel.USERSELECT) {
 
 	    /* set view active */
 	    this.setEnabled(true);
 
 	    /* show view */
 	    this.setVisible(true);
-	} else if (model.getModelStatus() == ProjectViewModel.SWITCHPROJECT) {
+	} else if (model.getModelStatus() == ProjectModel.SWITCHPROJECT) {
 
 	    /* delete view */
 	    this.dispose();
@@ -1338,9 +1338,9 @@ class MyReportListCellRenderer implements ListCellRenderer {
 		isSelected, cellHasFocus);
 
 	/* if the selected item is a "ReportEntry" -> set the name */
-	if (value instanceof ReportEntry) {
-	    final ReportEntry reportEntry = (ReportEntry) value;
-	    theText = reportEntry.getName();
+	if (value instanceof AbstractReportModel) {
+	    final AbstractReportModel reportEntry = (AbstractReportModel) value;
+	    theText = reportEntry.getReportName();
 	}
 	renderer.setText(theText);
 
@@ -1353,35 +1353,43 @@ class MyTableCellRenderer extends JLabel implements TableCellRenderer {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	// This method is called each time a cell in a column
+    private static final long serialVersionUID = 1L;
+
+    // This method is called each time a cell in a column
     // using this renderer needs to be rendered.
-    public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int rowIndex, int vColIndex) {
-        // 'value' is value contained in the cell located at
-        // (rowIndex, vColIndex)
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+	    int rowIndex, int vColIndex) {
+	// 'value' is value contained in the cell located at
+	// (rowIndex, vColIndex)
 
-        if (isSelected) {
-            // cell (and perhaps other cells) are selected
-        }
+	if (isSelected) {
+	    // cell (and perhaps other cells) are selected
+	}
 
-        if (hasFocus) {
-            // this cell is the anchor and the table has the focus
-        }
+	if (hasFocus) {
+	    // this cell is the anchor and the table has the focus
+	}
 
-        // Configure the component with the specified value
-        setText(((String)value));
+	// Configure the component with the specified value
+	setText(((String) value));
 
-        // Set tool tip if desired
-        setToolTipText((String)value);
+	// Set tool tip if desired
+	setToolTipText((String) value);
 
-        // Since the renderer is a component, return itself
-        return this;
+	// Since the renderer is a component, return itself
+	return this;
     }
 
     // The following methods override the defaults for performance reasons
-    public void validate() {}
-    public void revalidate() {}
-    protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {}
-    public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {}
+    public void validate() {
+    }
+
+    public void revalidate() {
+    }
+
+    protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
+    }
+
+    public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {
+    }
 }

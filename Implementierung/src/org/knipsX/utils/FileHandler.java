@@ -11,12 +11,11 @@ import java.util.List;
 
 /* import things from our programm */
 import org.knipsX.model.common.ProjectEntry;
-import org.knipsX.model.common.ReportEntry;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
-import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 
 /**
@@ -65,8 +64,8 @@ public class FileHandler {
 	final List<ProjectEntry> projectList = new LinkedList<ProjectEntry>();
 
 	/* add some dummy projects */
-	projectList.add(new ProjectEntry(1, "Schwarzwald", new GregorianCalendar(2009, 11, 12, 7, 9, 3), ""));
-	projectList.add(new ProjectEntry(2, "Der Ehhhhhhhmer", new GregorianCalendar(2009, 11, 12, 12, 42, 43), ""));
+	projectList.add(new ProjectEntry(1, "Schwarzwald", "", new GregorianCalendar(2009, 11, 12, 7, 9, 3), ""));
+	projectList.add(new ProjectEntry(2, "Der Ehhhhhhhmer", "", new GregorianCalendar(2009, 11, 12, 12, 42, 43), ""));
 
 	/* returns the list */
 	return projectList;
@@ -79,8 +78,10 @@ public class FileHandler {
      * 
      * @return a model which contains all data for a project.
      */
-    public static ProjectViewModel scanProjectFile(int projectId) {
+    public static ProjectModel scanProjectFile(int projectId) {
 
+	/* TODO create private methods for the whole shit! */
+	
 	/* create a list of picture sets */
 	List<PictureSet> pictureSetList = new LinkedList<PictureSet>();
 	
@@ -91,10 +92,10 @@ public class FileHandler {
 	List<Picture> pictureList = new LinkedList<Picture>();
 	
 	/* create a list of reports */
-	List<ReportEntry> reportList = new LinkedList<ReportEntry>();
+	List<AbstractReportModel> reportList = new LinkedList<AbstractReportModel>();
 	
 	/* create the project */
-	ProjectEntry project = new ProjectEntry(1, "XML", new GregorianCalendar(2009, 11, 12, 7, 9, 3), "");
+	ProjectEntry project = new ProjectEntry(1, "XML", "Desc", new GregorianCalendar(2009, 11, 12, 7, 9, 3), "");
 
 	/* create the first picture set an some picture containers */
 	PictureSet dummyPictureSet = new PictureSet("Goldfische", 1);
@@ -134,15 +135,31 @@ public class FileHandler {
 	}
 	
 	/* create some dummy reports */
-	reportList.add(new ReportEntry(1, "Blendenanalyse", "Analyse über Blenden"));
-	reportList.add(new ReportEntry(2, "neue Blendenanalyse", "Analyse über Blenden - neu"));
+	AbstractReportModel dummyReportOne = new AbstractReportModel();
+	dummyReportOne.setReportName("Blendenanalyse");
+	dummyReportOne.setReportDescription("Analyse über Blenden");
 	
-	ProjectViewModel projectViewModel = new ProjectViewModel(project, pictureSetList, pictureSetContentList,
+	AbstractReportModel dummyReportTwo = new AbstractReportModel();
+	dummyReportTwo.setReportName("neue Blendenanalyse");
+	dummyReportTwo.setReportDescription("Analyse über Blenden - neu");
+	
+	reportList.add(dummyReportOne);
+	reportList.add(dummyReportTwo);
+	
+	/* create the model */
+	ProjectModel projectModel = new ProjectModel(project, pictureSetList, pictureSetContentList,
 		pictureList, reportList);
-	return projectViewModel;
+	
+	/* return the model */
+	return projectModel;
     }
 
-    public static void writeProjectToFile(ProjectViewModel project) {
+    /**
+     * Writes the project to a project configuration file.
+     * 
+     * @param project
+     */
+    public static void writeProjectToFile(ProjectModel project) {
     }
 
 }

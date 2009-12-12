@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
-import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.utils.FileHandler;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectManagement;
@@ -27,10 +27,10 @@ public class ProjectOpenController extends AbstractController{
 		
 		if(toOpen.length == 1) {
 			model.setModelStatus(ProjectManagementModel.OPEN);
-			ProjectViewModel projectViewModel = FileHandler.scanProjectFile(this.model.getProjectList().get(toOpen[0]).getId());			 
+			ProjectModel projectModel = FileHandler.scanProjectFile(this.model.getProjectList().get(toOpen[0]).getId());			 
 			model.updateViews();
-			new JProjectView(projectViewModel);
-			projectViewModel.updateViews();			
+			new JProjectView(projectModel);
+			projectModel.updateViews();			
 		}
 		else {
 			System.out.println("FEHLER");	
