@@ -8,8 +8,8 @@ import java.util.Observable;
 import javax.swing.JFrame;
 
 /* import things from our program */
-import org.knipsX.controller.projectview.CreateReportConfirmController;
-import org.knipsX.controller.projectview.CreateReportRefuseController;
+import org.knipsX.controller.projectview.ReportCreateConfirmController;
+import org.knipsX.controller.projectview.ReportCreateRefuseController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractDialog;
@@ -17,12 +17,12 @@ import org.knipsX.view.JAbstractDialog;
 /**
  * Represents the view for a dialog which gives the user the possibility to create a new report.
  */
-public class JReportNew extends JAbstractDialog {
+public class JReportCreate extends JAbstractDialog {
 
     /** Only for serialisation */
     private static final long serialVersionUID = 1833755969083155368L;
 
-    public JReportNew(final AbstractModel abstractModel) {
+    public JReportCreate(final AbstractModel abstractModel) {
 
 	/* sets the model */
 	super(abstractModel, JAbstractDialog.CONFIRM_REFUSE, JAbstractDialog.TEXTFIELD);
@@ -69,14 +69,14 @@ public class JReportNew extends JAbstractDialog {
 	this.jButtonConfirm.setText("Ok");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonConfirm.addActionListener(new CreateReportConfirmController(this.model, this));
+	this.jButtonConfirm.addActionListener(new ReportCreateConfirmController(this.model, this));
 
 	/* set button text */
 	/* TODO change to internationalisation */
 	this.jButtonRefuse.setText("Abbrechen");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonRefuse.addActionListener(new CreateReportRefuseController(this.model));
+	this.jButtonRefuse.addActionListener(new ReportCreateRefuseController(this.model));
     }
 
     /**

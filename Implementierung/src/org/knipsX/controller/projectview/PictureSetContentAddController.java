@@ -12,9 +12,9 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.utils.FileChooser.DemoJFileChooser;
 
-public class AddToPictureSetContentController extends AbstractController {
+public class PictureSetContentAddController extends AbstractController {
 
-	public AddToPictureSetContentController(AbstractModel model) {
+	public PictureSetContentAddController(AbstractModel model) {
 		super(model);
 	}
 

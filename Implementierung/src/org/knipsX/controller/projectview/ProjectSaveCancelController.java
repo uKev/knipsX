@@ -5,19 +5,15 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 
-public class DeleteFromPictureSetContentController extends AbstractController {
-	
-	private int[] toDelete;
+public class ProjectSaveCancelController extends AbstractController {
 
-	public DeleteFromPictureSetContentController(AbstractModel model, int[] toDelete) {
+	public ProjectSaveCancelController(AbstractModel model) {
 		super(model);
-		this.toDelete = toDelete;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		model.setModelStatus(ProjectViewModel.USERSELECT);
-		//TODO toDelete verwerten mit der liste im model;
 		model.updateViews();
 	}
 }
