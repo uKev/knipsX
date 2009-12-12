@@ -12,9 +12,9 @@ public class JCluster3DConfig extends JAbstractReportConfig {
 	public JCluster3DConfig (Cluster3DModel cluster3Dmodel) {
     	super(cluster3Dmodel);
     	
-    	addPanel(new JDiagramType("", null, "", cluster3Dmodel));
-    	addPanel(new JParameters("", null, "",cluster3Dmodel));
-    	addPanel(new JPictureSet("", null, "", cluster3Dmodel));
+    	addPanel(new JDiagramType("", null, ""));
+    	addPanel(new JParameters("", null, ""));
+    	addPanel(new JPictureSet("", null, ""));
     }
     
 }

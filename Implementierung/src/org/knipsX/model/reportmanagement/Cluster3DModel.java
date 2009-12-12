@@ -4,7 +4,12 @@ import java.util.ArrayList;
 
 import org.knipsX.model.picturemanagement.PictureContainer;
 
-
+/**
+ * Represents the 3D-cluser and allocate the axes to it.
+ * 
+ * @author Kevin Zuber
+ *
+ */
 public class Cluster3DModel extends AbstractDoubleAxesModel{
 	// can be private because there is no subclass
 	private Axis yAxis;
@@ -20,5 +25,9 @@ public class Cluster3DModel extends AbstractDoubleAxesModel{
 
 	public void setyAxis(Axis yAxis) {
 		this.yAxis = yAxis;
+	}
+	
+	public Frequency3DPoint [] getFrequency3DPoints (){
+		return null;
 	}
 }

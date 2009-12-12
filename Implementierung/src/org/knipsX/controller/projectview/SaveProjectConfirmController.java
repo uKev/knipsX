@@ -1,17 +1,32 @@
 package org.knipsX.controller.projectview;
 
 import java.awt.event.ActionEvent;
+
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
+import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.utils.FileHandler;
+import org.knipsX.view.projectmanagement.JProjectAdministration;
 
 public class SaveProjectConfirmController extends AbstractController {
 
-	public SaveProjectConfirmController(AbstractModel model) {
-		super(model);
-	}
+    public SaveProjectConfirmController(final AbstractModel model) {
+	super(model);
+    }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
+    @Override
+    public void actionPerformed(final ActionEvent e) {
+	
+	this.model.setModelStatus(ProjectViewModel.SWITCHPROJECT);
+	
+	this.model.updateViews();
+	
+	
+	/* create a model for the ProjectAdministration */
+	final ProjectListModel projectListModel = new ProjectListModel(FileHandler.scanProjectDirectory());
 
-	}
+	/* creates a new JProjectAdministration window, which is connected to a model */
+	new JProjectAdministration(projectListModel);
+    }
 }

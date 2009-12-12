@@ -5,37 +5,22 @@ package org.knipsX.view.projectview;
 
 /* import things from the java sdk */
 import java.util.Observable;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /* import things from our program */
-import org.knipsX.controller.projectview.DeleteReportRefuseController;
 import org.knipsX.controller.projectview.DeleteReportConfirmController;
+import org.knipsX.controller.projectview.DeleteReportRefuseController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
-import org.knipsX.view.JAbstractView;
+import org.knipsX.view.JAbstractDialog;
 
 /**
  * Represents the view for a dialog which gives the user the possibility to delete a report.
  */
-public class JReportDelete extends JAbstractView {
+public class JReportDelete extends JAbstractDialog {
 
     /** Only for serialisation */
-    private static final long serialVersionUID = -4483378105829070757L;
-
-    /* represents the panel for the view */
-    private JPanel jContentPane = null;
-
-    /* represents the validation text */
-    private JLabel jLabelValidationText = null;
-
-    /* represents the button for confirmation */
-    private JButton jButtonConfirm = null;
-
-    /* represents the button for refusing */
-    private JButton jButtonRefuse = null;
+    private static final long serialVersionUID = 1833755969083155368L;
 
     /* stores the indices of the reports which should be deleted */
     private final int[] toDelete;
@@ -43,7 +28,7 @@ public class JReportDelete extends JAbstractView {
     public JReportDelete(final AbstractModel abstractModel, final int[] toDelete) {
 
 	/* sets the model */
-	super(abstractModel);
+	super(abstractModel, JAbstractDialog.CONFIRM_REFUSE, JAbstractDialog.LABEL);
 
 	/* set the indices of the reports which should be deleted */
 	this.toDelete = toDelete;
@@ -59,12 +44,8 @@ public class JReportDelete extends JAbstractView {
      */
     private void initialize() {
 
-	/* set the title for the view */
-	/* TODO change to internationalisation */
-	this.setTitle("Bestätigen");
-
-	/* show main panel */
-	this.setContentPane(this.getJContentPane());
+	/* configure the view */
+	this.configure();
 
 	/* set standard close action */
 	/* TODO We have to edit the close action! */
@@ -80,98 +61,29 @@ public class JReportDelete extends JAbstractView {
 	this.setVisible(true);
     }
 
-    /**
-     * This method initializes jContentPane.
-     * 
-     * @return javax.swing.JPanel the content panel.
-     */
-    private JPanel getJContentPane() {
+    private void configure() {
 
-	/* create if not set */
-	if (this.jContentPane == null) {
+	/* set the title for the view */
+	/* TODO change to internationalisation */
+	this.setTitle("Auswertung entfernen");
 
-	    /* create new panel */
-	    this.jContentPane = new JPanel();
+	/* set button text */
+	/* TODO change to internationalisation */
+	this.jButtonConfirm.setText("Ja");
 
-	    /* add the label with the validation text */
-	    this.jContentPane.add(this.getJLabelValidationText());
+	/* create an action listener (which knows the model) to the button */
+	this.jButtonConfirm.addActionListener(new DeleteReportConfirmController(this.model, this.toDelete));
 
-	    /* add the confirm button */
-	    this.jContentPane.add(this.getJButtonConfirm());
+	/* set button text */
+	/* TODO change to internationalisation */
+	this.jButtonRefuse.setText("Nein");
 
-	    /* add the cancel button */
-	    this.jContentPane.add(this.getJButtonRefuse());
-	}
+	/* create an action listener (which knows the model) to the button */
+	this.jButtonRefuse.addActionListener(new DeleteReportRefuseController(this.model));
 
-	/* return the panel */
-	return this.jContentPane;
-    }
-
-    /**
-     * This method initializes jButtonRefuse.
-     * 
-     * @return javax.swing.JButton the button.
-     */
-    private JButton getJButtonRefuse() {
-
-	/* create if not set */
-	if (this.jButtonRefuse == null) {
-
-	    /* create new button */
-	    /* TODO change to internationalisation */
-	    this.jButtonRefuse = new JButton("Nein");
-
-	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonRefuse.addActionListener(new DeleteReportRefuseController(this.model));
-	}
-
-	/* return the button */
-	return this.jButtonRefuse;
-    }
-
-    /**
-     * This method initializes jButtonConfirm.
-     * 
-     * @return javax.swing.JButton the button.
-     */
-    private JButton getJButtonConfirm() {
-
-	/* create if not set */
-	if (this.jButtonConfirm == null) {
-
-	    /* create new button */
-	    /* TODO change to internationalisation */
-	    this.jButtonConfirm = new JButton("Ja");
-
-	    /* create an action listener (which knows the model and the indices to delete) to the button */
-	    this.jButtonConfirm.addActionListener(new DeleteReportConfirmController(this.model, this.toDelete));
-	}
-
-	/* return the button */
-	return this.jButtonConfirm;
-    }
-
-    /**
-     * This method initializes jLabelValidationText.
-     * 
-     * @return javax.swing.JLabel the label.
-     */
-    private JLabel getJLabelValidationText() {
-
-	/* create if not set */
-	if (this.jLabelValidationText == null) {
-
-	    /* create new label */
-	    this.jLabelValidationText = new JLabel();
-
-	    /* set the text */
-	    /* TODO change to internationalisation */
-	    this.jLabelValidationText.setText("Möchten Sie : " + this.generateToDeleteText() + " wirklich löschen?");
-
-	}
-
-	/* return the label */
-	return this.jLabelValidationText;
+	/* set the text */
+	/* TODO change to internationalisation */
+	this.jLabelText.setText("Möchten Sie : " + this.generateToDeleteText() + " wirklich löschen?");
     }
 
     /**

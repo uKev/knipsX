@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
-import org.knipsX.model.reportmanagement.AbstractReportModel;
 
 
 public class JPictureSet extends JAbstractSinglePanel {
@@ -17,11 +16,10 @@ public class JPictureSet extends JAbstractSinglePanel {
 	private static final long serialVersionUID = 1L;
 	private Toolkit toolkit;
 
-    public JPictureSet(String titel, Icon icon, String tip,  AbstractReportModel model) {
+    public JPictureSet(String titel, Icon icon, String tip) {
 		this.title = titel;
 		this.icon = icon;
 		this.tip = tip;
-		this.model = model;
     	
 		if(this.title == null || this.title == "") {
 			this.title = "Bildmenge";
@@ -57,10 +55,5 @@ public class JPictureSet extends JAbstractSinglePanel {
 
     }
 
-	@Override
-	public void write() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

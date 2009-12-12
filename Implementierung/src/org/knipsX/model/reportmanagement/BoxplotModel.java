@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 import org.knipsX.model.picturemanagement.PictureContainer;
 
-
+/**
+ * Model which contain the Boxplots and name them with an Axis.
+ * @author Kevin Zuber
+ *
+ */
 public class BoxplotModel extends AbstractSingleAxisModel{
 
 	Boxplot [] boxplots;

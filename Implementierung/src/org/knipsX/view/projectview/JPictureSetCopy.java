@@ -8,8 +8,8 @@ import java.util.Observable;
 import javax.swing.JFrame;
 
 /* import things from our program */
-import org.knipsX.controller.projectview.DeletePictureSetRefuseController;
-import org.knipsX.controller.projectview.DeletePictureSetConfirmController;
+import org.knipsX.controller.projectview.CopyPictureSetRefuseController;
+import org.knipsX.controller.projectview.CopyPictureSetConfirmController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractDialog;
@@ -17,21 +17,15 @@ import org.knipsX.view.JAbstractDialog;
 /**
  * Represents the view for a dialog which gives the user the possibility to save a project.
  */
-public class JPictureSetDelete extends JAbstractDialog {
+public class JPictureSetCopy extends JAbstractDialog {
 
     /** Only for serialisation */
     private static final long serialVersionUID = 1833755969083155368L;
 
-    /* stores the indices of the reports which should be deleted */
-    private final int[] toDelete;
-
-    public JPictureSetDelete(final AbstractModel abstractModel, final int[] toDelete) {
+    public JPictureSetCopy(final AbstractModel abstractModel) {
 
 	/* sets the model */
-	super(abstractModel, JAbstractDialog.CONFIRM_REFUSE, JAbstractDialog.LABEL);
-
-	/* set the indices of the reports which should be deleted */
-	this.toDelete = toDelete;
+	super(abstractModel, JAbstractDialog.CONFIRM_REFUSE, JAbstractDialog.TEXTFIELD);
 
 	/* renders the view */
 	this.initialize();
@@ -69,35 +63,33 @@ public class JPictureSetDelete extends JAbstractDialog {
 
 	/* set the title for the view */
 	/* TODO change to internationalisation */
-	this.setTitle("Bildmenge entfernen");
+	this.setTitle("Bildmenge kopieren");
 
 	/* set button text */
 	/* TODO change to internationalisation */
 	this.jButtonConfirm.setText("Ok");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonConfirm.addActionListener(new DeletePictureSetConfirmController(this.model, this.toDelete));
+	this.jButtonConfirm.addActionListener(new CopyPictureSetConfirmController(this.model, this));
 
 	/* set button text */
 	/* TODO change to internationalisation */
 	this.jButtonRefuse.setText("Abbrechen");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonRefuse.addActionListener(new DeletePictureSetRefuseController(this.model));
+	this.jButtonRefuse.addActionListener(new CopyPictureSetRefuseController(this.model));
 
-	/* set label text */
-	/* TODO change to internationalisation */
-	this.jLabelText.setText("Möchten Sie : " + this.generateToDeleteText() + " wirklich löschen?");
+	/* set the size of the textfield */
+	this.jTextFieldText.setColumns(20);
     }
 
-    /* Generiert den Text, der im Panel angezeigt wird */
-    private String generateToDeleteText() {
-	String deleteText = "";
-	for (int n = 0; n < this.toDelete.length; ++n) {
-	    deleteText += ""; // TODO((ProjectListModel) this.model).getProjectList().get(this.toDelete[n]).getName() +
-			      // ";";
-	}
-	return deleteText;
+    /**
+     * Get the project name.
+     * 
+     * @return the project name.
+     */
+    public String getProjectName() {
+	return this.jTextFieldText.getText();
     }
 
     @Override
@@ -108,7 +100,7 @@ public class JPictureSetDelete extends JAbstractDialog {
 
 	/* react to program state */
 	/* TODO add a status and error panel! */
-	if (model.getModelStatus() != ProjectViewModel.DELETEPICTURESET) {
+	if (model.getModelStatus() != ProjectViewModel.COPYPICTURESET) {
 
 	    /* delete view */
 	    this.dispose();

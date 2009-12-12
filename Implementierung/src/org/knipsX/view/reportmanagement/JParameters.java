@@ -6,8 +6,6 @@ import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
-import org.knipsX.model.reportmanagement.AbstractReportModel;
-
 
 public class JParameters extends JAbstractSinglePanel {
 
@@ -17,11 +15,10 @@ public class JParameters extends JAbstractSinglePanel {
 	private static final long serialVersionUID = 1L;
 	private Toolkit toolkit;
 
-    public JParameters(String titel, Icon icon, String tip,  AbstractReportModel model) {
+    public JParameters(String titel, Icon icon, String tip) {
 		this.title = titel;
 		this.icon = icon;
 		this.tip = tip;
-		this.model = model;
     	
 		if(this.title == null || this.title == "") {
 			this.title = "Parameter";
@@ -56,11 +53,5 @@ public class JParameters extends JAbstractSinglePanel {
         add(close);
 
     }
-
-	@Override
-	public void write() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

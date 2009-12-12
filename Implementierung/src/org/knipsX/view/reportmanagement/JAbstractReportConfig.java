@@ -32,5 +32,4 @@ public abstract class JAbstractReportConfig {
     }
     
     
-    
 }
