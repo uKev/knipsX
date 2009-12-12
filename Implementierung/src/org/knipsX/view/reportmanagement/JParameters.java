@@ -1,10 +1,10 @@
 package org.knipsX.view.reportmanagement;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.Icon;
 import javax.swing.JButton;
+
+import org.knipsX.model.reportmanagement.Axis;
 
 
 public class JParameters extends JAbstractSinglePanel {
@@ -13,8 +13,13 @@ public class JParameters extends JAbstractSinglePanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Toolkit toolkit;
 
+	/**
+	 * Constructor which initialized this parameter panel
+	 * @param titel The title which is registered with this panel.
+	 * @param icon The icon which is registered with this panel.
+	 * @param tip The tooltip which is registered with this panel.
+	 */
     public JParameters(String titel, Icon icon, String tip) {
 		this.title = titel;
 		this.icon = icon;
@@ -25,33 +30,27 @@ public class JParameters extends JAbstractSinglePanel {
 		}
 
         setSize(300, 200);
-
-        toolkit = getToolkit();
-        Dimension size = toolkit.getScreenSize();
-        setLocation((size.width - getWidth())/2, (size.height - getHeight())/2);
-
-
+        
         setLayout(null);
 
-        JButton beep = new JButton("Beep");
+        JButton beep = new JButton( String.valueOf(Report.currentReport.getNumberofAxis()));
         beep.setBounds(150, 60, 80, 30);
-        beep.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                toolkit.beep();
-            }
-        });
 
        JButton close = new JButton("Close");
        close.setBounds(50, 60, 80, 30);
-       close.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent event) {
-               System.exit(0);
-          }
-       });
 
         add(beep);
         add(close);
 
+    }
+    
+    /**
+     * Returns the Exif-parameters and axes desription specified
+     * @return the Exif-parameters and axes desription 
+     */
+    public ArrayList<Axis> getAxes() {
+    	//TODO
+		return null;    	
     }
 
 }
