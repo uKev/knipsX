@@ -18,8 +18,13 @@ public abstract class AbstractReportModel extends AbstractModel {
 	private String reportName;
 	private String reportDescription;
 	// Tags of pictures that will be filtered
-	private String [] exifFilterTags;
+	private String [] exifFilterKeywords;
+	private int reportID;
 	
+	public int getReportID() {
+		return reportID;
+	}
+
 	public AbstractReportModel() {
 		// TODO Auto-generated constructor stub
 	}	
@@ -38,12 +43,12 @@ public abstract class AbstractReportModel extends AbstractModel {
 	}	
 	
 	public AbstractReportModel(ArrayList<PictureContainer> pictureContainer,
-			String reportName, String reportDescription, String [] exifFilterTags) {
+			String reportName, String reportDescription, String [] exifFilterKeywords) {
 		super();
 		this.pictureContainer = pictureContainer;
 		this.reportName = reportName;
 		this.reportDescription = reportDescription;
-		this.exifFilterTags = exifFilterTags;
+		this.exifFilterKeywords = exifFilterKeywords;
 	}	
 	
 	public String getReportName() {
@@ -71,11 +76,11 @@ public abstract class AbstractReportModel extends AbstractModel {
 		this.pictureContainer = pictureContainer;
 	}
 
-	public void setExifFilterTags(String [] exifFilterTags) {
-		this.exifFilterTags = exifFilterTags;
+	public void setExifFilterKeywords(String [] exifFilterKeywords) {
+		this.exifFilterKeywords = exifFilterKeywords;
 	}
 
-	public String [] getExifFilterTags() {
-		return exifFilterTags;
+	public String [] getExifFilterKeywords() {
+		return exifFilterKeywords;
 	}
 }
