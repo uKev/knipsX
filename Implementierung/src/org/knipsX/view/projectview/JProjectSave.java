@@ -26,7 +26,7 @@ public class JProjectSave extends JAbstractDialog {
     public JProjectSave(final AbstractModel abstractModel) {
 
 	/* sets the model */
-	super(abstractModel, JAbstractDialog.CONFIRM_REFUSE_CANCEL);
+	super(abstractModel, JAbstractDialog.CONFIRM_REFUSE_CANCEL, JAbstractDialog.LABEL);
 
 	/* renders the view */
 	this.initialize();
@@ -61,6 +61,20 @@ public class JProjectSave extends JAbstractDialog {
 	/* set the title for the view */
 	/* TODO change to internationalisation */
 	this.setTitle("Speichern?");
+
+	/* set button text */
+	/* TODO change to internationalisation */
+	this.jButtonConfirm.setText("Ja");
+
+	/* create an action listener (which knows the model) to the button */
+	this.jButtonConfirm.addActionListener(new SaveProjectConfirmController(this.model));
+	
+	/* set button text */
+	/* TODO change to internationalisation */
+	this.jButtonRefuse.setText("Nein");
+
+	/* create an action listener (which knows the model) to the button */
+	this.jButtonRefuse.addActionListener(new SaveProjectRefuseController(this.model));
 	
 	/* set button text */
 	/* TODO change to internationalisation */
@@ -71,21 +85,7 @@ public class JProjectSave extends JAbstractDialog {
 
 	/* set button text */
 	/* TODO change to internationalisation */
-	this.jButtonRefuse.setText("Nein");
-
-	/* create an action listener (which knows the model) to the button */
-	this.jButtonRefuse.addActionListener(new SaveProjectRefuseController(this.model));
-
-	/* set button text */
-	/* TODO change to internationalisation */
-	this.jButtonConfirm.setText("Ja");
-
-	/* create an action listener (which knows the model) to the button */
-	this.jButtonConfirm.addActionListener(new SaveProjectConfirmController(this.model));
-
-	/* set button text */
-	/* TODO change to internationalisation */
-	this.jLabelValidationText.setText("Möchten Sie das Projekt speichern?");
+	this.jLabelText.setText("Möchten Sie das Projekt speichern?");
     }
 
     @Override

@@ -5,72 +5,30 @@ package org.knipsX.view.projectview;
 
 /* import things from the java sdk */
 import java.util.Observable;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /* import things from our program */
-import org.knipsX.controller.projectview.CreatePictureSetCancelController;
-import org.knipsX.controller.projectview.CreatePictureSetOkController;
+import org.knipsX.controller.projectview.CreatePictureSetRefuseController;
+import org.knipsX.controller.projectview.CreatePictureSetConfirmController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
-import org.knipsX.view.JAbstractView;
+import org.knipsX.view.JAbstractDialog;
 
-public class JPictureSetNew extends JAbstractView {
+/**
+ * Represents the view for a dialog which gives the user the possibility to save a project.
+ */
+public class JPictureSetNew extends JAbstractDialog {
 
-    private static final long serialVersionUID = 1L;
-
-    private JPanel jContentPane = null;
-
-    private JTextField jTextFieldProjectName;
-
-    private JButton jButtonConfirm;
-    private JButton jButtonCancel;
+    /** Only for serialisation */
+    private static final long serialVersionUID = 1833755969083155368L;
 
     public JPictureSetNew(final AbstractModel abstractModel) {
 
-	/* Setze Modell */
-	super(abstractModel);
+	/* sets the model */
+	super(abstractModel, JAbstractDialog.CONFIRM_REFUSE, JAbstractDialog.TEXTFIELD);
 
-	/* Zeichne Fenster */
+	/* renders the view */
 	this.initialize();
-
-    }
-
-    /* Initialisiert den Ok Button */
-    private JButton getJButtonConfirm() {
-	if (this.jButtonConfirm == null) {
-	    this.jButtonConfirm = new JButton("Ok");
-
-	    this.jButtonConfirm.addActionListener(new CreatePictureSetOkController(this.model, this));
-	}
-	return this.jButtonConfirm;
-    }
-
-    /* Initialisiert das Hauptpanel */
-    private JPanel getJContentPane() {
-	if (this.jContentPane == null) {
-	    this.jContentPane = new JPanel();
-
-	    this.jContentPane.add(this.getJTextFieldProjectName());
-	    this.jContentPane.add(this.getJButtonConfirm());
-	    this.jContentPane.add(this.jButtonCancel());
-	}
-	return this.jContentPane;
-    }
-
-    /* Initialisiert das Textfeld */
-    private JTextField getJTextFieldProjectName() {
-	if (this.jTextFieldProjectName == null) {
-	    this.jTextFieldProjectName = new JTextField(20);
-	}
-	return this.jTextFieldProjectName;
-    }
-
-    /* Gibt den Projektnamen zurück */
-    public String getProjectName() {
-	return this.jTextFieldProjectName.getText();
     }
 
     /**
@@ -80,48 +38,72 @@ public class JPictureSetNew extends JAbstractView {
      */
     private void initialize() {
 
-	/* Fenstertitel setzen */
-	this.setTitle("Neue Bildmenge");
-
-	/* Setze das Hauptpanel */
-	this.setContentPane(this.getJContentPane());
-
-	/* Setze Standardschließaktion */
-	/* TODO Schließaktion anpassen! */
+	/* configure the view */
+	this.configure();
+	
+	/* set standard close action */
+	/* TODO We have to edit the close action! */
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	/* Ändere Größe */
+	/* change size to preferred size */
 	this.pack();
 
-	/* Setze Lokation */
+	/* set location to the center of the screen */
 	this.setLocationRelativeTo(null);
 
-	/* Zeige Fensert an */
+	/* show view */
 	this.setVisible(true);
     }
 
-    /* Initialisiert den Abbrechen Button */
-    private JButton jButtonCancel() {
-	if (this.jButtonCancel == null) {
-	    this.jButtonCancel = new JButton("Abbrechen");
+    /**
+     * Configures the elements.
+     * 
+     */
+    private void configure() {
 
-	    this.jButtonCancel.addActionListener(new CreatePictureSetCancelController(this.model));
-	}
-	return this.jButtonCancel;
+	/* set the title for the view */
+	/* TODO change to internationalisation */
+	this.setTitle("Speichern?");
+	
+	/* set button text */
+	/* TODO change to internationalisation */
+	this.jButtonConfirm.setText("Ok");
+
+	/* create an action listener (which knows the model) to the button */
+	this.jButtonConfirm.addActionListener(new CreatePictureSetConfirmController(this.model, this));
+
+	/* set button text */
+	/* TODO change to internationalisation */
+	this.jButtonRefuse.setText("Abbrechen");
+
+	/* create an action listener (which knows the model) to the button */
+	this.jButtonRefuse.addActionListener(new CreatePictureSetRefuseController(this.model));
+	
+	/* set the size of the textfield */
+	this.jTextFieldText.setColumns(20);
     }
 
+    /**
+     * Get the project name.
+     * 
+     * @return the project name.
+     */
+    public String getProjectName() {
+	return this.jTextFieldText.getText();
+    }
+    
     @Override
     public void update(final Observable o, final Object arg) {
-	/* Bekomme das Modell geliefert */
+
+	/* cast to model */
 	final ProjectViewModel model = (ProjectViewModel) o;
 
-	/* Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind für einen namen. */
+	/* react to program state */
+	/* TODO add a status and error panel! */
 	if (model.getModelStatus() != ProjectViewModel.CREATEPICTURESET) {
 
-	    /* Lösche Fenster */
+	    /* delete view */
 	    this.dispose();
 	}
-
     }
-
 }

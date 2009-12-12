@@ -5,6 +5,7 @@ import java.util.Observable;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import org.knipsX.model.AbstractModel;
 
@@ -13,17 +14,26 @@ public abstract class JAbstractDialog extends JAbstractView {
     /** Only for serialisation */
     private static final long serialVersionUID = 1833755969083155368L;
 
-    /** represents the type confirm and refuse */
+    /** represents the button type confirm and refuse */
     public static final int CONFIRM_REFUSE = 1;
 
-    /** represents the type confirm, refuse and cancel */
+    /** represents the button type confirm, refuse and cancel */
     public static final int CONFIRM_REFUSE_CANCEL = 2;
+
+    /** represents the field type label */
+    public static final int LABEL = 1;
+
+    /** represents the field type textfield */
+    public static final int TEXTFIELD = 2;
 
     /* represents the panel for the view */
     protected JPanel jContentPane = null;
 
-    /* represents the validation text */
-    protected JLabel jLabelValidationText = null;
+    /* represents the labelish text */
+    protected JLabel jLabelText = null;
+
+    /* represents the textfieldish text */
+    protected JTextField jTextFieldText = null;
 
     /* represents the button for confirmation */
     protected JButton jButtonConfirm = null;
@@ -34,9 +44,6 @@ public abstract class JAbstractDialog extends JAbstractView {
     /* represents the button for canceling */
     protected JButton jButtonCancel = null;
 
-    /* represents the type of the dialog */
-    private int type = JAbstractDialog.CONFIRM_REFUSE;
-
     /**
      * Creates a dialog depending on the type.
      * 
@@ -44,126 +51,65 @@ public abstract class JAbstractDialog extends JAbstractView {
      * 
      * @param abstractModel
      *            the model.
-     * @param type
-     *            the type of the dialog.
+     * @param buttonType
+     *            the type of the button config.
+     * @param fieldType
+     *            the type of the field config.
      * 
      * @see #CONFIRM_REFUSE
      * @see #CONFIRM_REFUSE_CANCEL
+     * 
+     * @see #LABEL
+     * @see #TEXTFIELD
      */
-    public JAbstractDialog(final AbstractModel abstractModel, int type) {
+    public JAbstractDialog(final AbstractModel abstractModel, final int buttonType, final int fieldType) {
+
+	/* set the model */
 	super(abstractModel);
 
-	/* sets the type */
-	this.type = type;
+	/* create the main panel */
+	this.jContentPane = new JPanel();
 
-	/* sets the main panel */
-	this.setContentPane(this.getJContentPane());
-    }
+	/* add depends on field type */
+	if (fieldType == JAbstractDialog.LABEL) {
 
-    /**
-     * This method initializes jContentPane.
-     * 
-     * @return javax.swing.JPanel the content panel.
-     */
-    private JPanel getJContentPane() {
+	    /* add the label */
+	    this.jLabelText = new JLabel();
+	    this.jContentPane.add(this.jLabelText);
+	} else if (fieldType == JAbstractDialog.TEXTFIELD) {
 
-	/* create if not set */
-	if (this.jContentPane == null) {
-
-	    /* create new panel */
-	    this.jContentPane = new JPanel();
-
-	    /* add the label with the validation text */
-	    this.jContentPane.add(this.getJLabelValidationText());
-
-	    /* add the confirm button */
-	    this.jContentPane.add(this.getJButtonConfirm());
-
-	    /* add the refuse button */
-	    this.jContentPane.add(this.getJButtonRefuse());
-
-	    /* add depends on type */
-	    if (this.type == JAbstractDialog.CONFIRM_REFUSE_CANCEL) {
-
-		/* add the cancel button */
-		this.jContentPane.add(this.getJButtonCancel());
-	    }
+	    /* add the textfield */
+	    this.jTextFieldText = new JTextField();
+	    this.jContentPane.add(this.jTextFieldText);
 	}
 
-	/* return the panel */
-	return this.jContentPane;
-    }
+	/* add depends on button type */
+	if (buttonType == JAbstractDialog.CONFIRM_REFUSE) {
 
-    /**
-     * This method initializes jButtonConfirm.
-     * 
-     * @return javax.swing.JButton the button.
-     */
-    private JButton getJButtonConfirm() {
-
-	/* create if not set */
-	if (this.jButtonConfirm == null) {
-
-	    /* create new button */
+	    /* set confirm button */
 	    this.jButtonConfirm = new JButton();
-	}
+	    this.jContentPane.add(this.jButtonConfirm);
 
-	/* return the button */
-	return this.jButtonConfirm;
-    }
-
-    /**
-     * This method initializes jButtonRefuse.
-     * 
-     * @return javax.swing.JButton the button.
-     */
-    private JButton getJButtonRefuse() {
-
-	/* create if not set */
-	if (this.jButtonRefuse == null) {
-
-	    /* create new button */
+	    /* set refuse button */
 	    this.jButtonRefuse = new JButton();
-	}
+	    this.jContentPane.add(this.jButtonRefuse);
+	} else if (buttonType == JAbstractDialog.CONFIRM_REFUSE_CANCEL) {
 
-	/* return the button */
-	return this.jButtonRefuse;
-    }
+	    /* set confirm button */
+	    this.jButtonConfirm = new JButton();
+	    this.jContentPane.add(this.jButtonConfirm);
 
-    /**
-     * This method initializes jButtonCancel.
-     * 
-     * @return javax.swing.JButton the button.
-     */
-    private JButton getJButtonCancel() {
+	    /* set refuse button */
+	    this.jButtonRefuse = new JButton();
+	    this.jContentPane.add(this.jButtonRefuse);
 
-	/* create if not set */
-	if (this.jButtonCancel == null) {
-
-	    /* create new button */
+	    /* set cancel button */
 	    this.jButtonCancel = new JButton();
+	    this.jContentPane.add(this.jButtonCancel);
 	}
 
-	/* return the button */
-	return this.jButtonCancel;
-    }
-
-    /**
-     * This method initializes jLabelValidationText.
-     * 
-     * @return javax.swing.JLabel the label.
-     */
-    private JLabel getJLabelValidationText() {
-
-	/* create if not set */
-	if (this.jLabelValidationText == null) {
-
-	    /* create new label */
-	    this.jLabelValidationText = new JLabel();
-	}
-
-	/* return the label */
-	return this.jLabelValidationText;
+	/* show main panel */
+	this.setContentPane(this.jContentPane);
     }
 
     @Override
