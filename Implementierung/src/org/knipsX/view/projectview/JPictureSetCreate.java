@@ -8,32 +8,31 @@ import java.util.Observable;
 import javax.swing.JFrame;
 
 /* import things from our program */
-import org.knipsX.controller.projectview.SaveProjectCancelController;
-import org.knipsX.controller.projectview.SaveProjectRefuseController;
-import org.knipsX.controller.projectview.SaveProjectConfirmController;
+import org.knipsX.controller.projectview.PictureSetCreateRefuseController;
+import org.knipsX.controller.projectview.PictureSetCreateConfirmController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractDialog;
 
 /**
- * Represents the view for a dialog which gives the user the possibility to save a project.
+ * Represents the view for a dialog which gives the user the possibility to create a new picture set.
  */
-public class JProjectSave extends JAbstractDialog {
+public class JPictureSetCreate extends JAbstractDialog {
 
     /** Only for serialisation */
     private static final long serialVersionUID = 1833755969083155368L;
 
-    public JProjectSave(final AbstractModel abstractModel) {
+    public JPictureSetCreate(final AbstractModel abstractModel) {
 
 	/* sets the model */
-	super(abstractModel, JAbstractDialog.CONFIRM_REFUSE_CANCEL, JAbstractDialog.LABEL);
+	super(abstractModel, JAbstractDialog.CONFIRM_REFUSE, JAbstractDialog.TEXTFIELD);
 
 	/* renders the view */
 	this.initialize();
     }
 
     /**
-     * This method initializes this.
+     * This method initializes this
      * 
      * @return void
      */
@@ -58,37 +57,39 @@ public class JProjectSave extends JAbstractDialog {
 
     /**
      * Configures the elements.
+     * 
      */
     private void configure() {
 
 	/* set the title for the view */
 	/* TODO change to internationalisation */
-	this.setTitle("Auswertung übernehmen");
+	this.setTitle("Bildmenge erstellen");
 
 	/* set button text */
 	/* TODO change to internationalisation */
-	this.jButtonConfirm.setText("Ja");
+	this.jButtonConfirm.setText("Ok");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonConfirm.addActionListener(new SaveProjectConfirmController(this.model));
+	this.jButtonConfirm.addActionListener(new PictureSetCreateConfirmController(this.model, this));
 
 	/* set button text */
 	/* TODO change to internationalisation */
-	this.jButtonRefuse.setText("Nein");
+	this.jButtonRefuse.setText("Abbrechen");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonRefuse.addActionListener(new SaveProjectRefuseController(this.model));
+	this.jButtonRefuse.addActionListener(new PictureSetCreateRefuseController(this.model));
 
-	/* set button text */
-	/* TODO change to internationalisation */
-	this.jButtonCancel.setText("Abbrechen");
+	/* set the size of the textfield */
+	this.jTextFieldText.setColumns(20);
+    }
 
-	/* create an action listener (which knows the model) to the button */
-	this.jButtonCancel.addActionListener(new SaveProjectCancelController(this.model));
-
-	/* set button text */
-	/* TODO change to internationalisation */
-	this.jLabelText.setText("Möchten Sie das Projekt zuvor speichern?");
+    /**
+     * Get the project name.
+     * 
+     * @return the project name.
+     */
+    public String getProjectName() {
+	return this.jTextFieldText.getText();
     }
 
     @Override
@@ -99,7 +100,7 @@ public class JProjectSave extends JAbstractDialog {
 
 	/* react to program state */
 	/* TODO add a status and error panel! */
-	if (model.getModelStatus() != ProjectViewModel.SAVEPROJECT) {
+	if (model.getModelStatus() != ProjectViewModel.CREATEPICTURESET) {
 
 	    /* delete view */
 	    this.dispose();

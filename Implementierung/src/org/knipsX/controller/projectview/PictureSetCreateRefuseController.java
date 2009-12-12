@@ -1,13 +1,14 @@
 package org.knipsX.controller.projectview;
 
 import java.awt.event.ActionEvent;
+
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 
-public class CopyPictureSetRefuseController extends AbstractController {
+public class PictureSetCreateRefuseController extends AbstractController {
 
-	public CopyPictureSetRefuseController(AbstractModel model) {
+	public PictureSetCreateRefuseController(AbstractModel model) {
 		super(model);
 	}
 

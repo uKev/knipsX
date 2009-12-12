@@ -3,25 +3,25 @@ package org.knipsX.controller.projectmanagement;
 import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractView;
-import org.knipsX.view.projectmanagement.JProjectNew;
+import org.knipsX.view.projectmanagement.JProjectCreate;
 
-public class CreateOkController extends AbstractController {
+public class ProjectCreateConfirmController extends AbstractController {
 	
-	private JProjectNew jProjectNew;
+	private JProjectCreate jProjectCreate;
 	
 	
-	private ProjectListModel model;
+	private ProjectManagementModel model;
 
-	public CreateOkController(AbstractModel model, JAbstractView jProjectNew) {
+	public ProjectCreateConfirmController(AbstractModel model, JAbstractView jProjectNew) {
 		
 		if(jProjectNew instanceof JAbstractView ) {
-			this.jProjectNew = (JProjectNew) jProjectNew;
+			this.jProjectCreate = (JProjectCreate) jProjectNew;
 		}
 				
-		if(model instanceof ProjectListModel ) {
-			this.model = (ProjectListModel) model;	
+		if(model instanceof ProjectManagementModel ) {
+			this.model = (ProjectManagementModel) model;	
 		} else {
 			System.out.println("ERROR in CreateOk");
 		}		
@@ -30,7 +30,7 @@ public class CreateOkController extends AbstractController {
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		
-		String text = jProjectNew.getProjectName();
+		String text = jProjectCreate.getProjectName();
 		
 		if ((text.equals("")) || (text.equals("xxx"))) {
 			
@@ -39,7 +39,7 @@ public class CreateOkController extends AbstractController {
 			
 			/* Füge neues Projekt dem Model hinzu */
 			model.addNewProject(text);
-			model.setModelStatus(ProjectListModel.SELECT);
+			model.setModelStatus(ProjectManagementModel.SELECT);
 			model.updateViews();
 		}	   
 	}

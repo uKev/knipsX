@@ -8,31 +8,24 @@ import java.util.Observable;
 import javax.swing.JFrame;
 
 /* import things from our program */
-import org.knipsX.controller.projectmanagement.ProjectCopyRefuseController;
-import org.knipsX.controller.projectmanagement.ProjectCopyConfirmController;
+import org.knipsX.controller.projectmanagement.ProjectCreateRefuseController;
+import org.knipsX.controller.projectmanagement.ProjectCreateConfirmController;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractDialog;
 
 /**
- * Represents the view for a dialog which gives the user the possibility to copy a project.
+ * Represents the view for a dialog which gives the user the possibility to create a project.
  */
-public class JProjectCopy extends JAbstractDialog {
+public class JProjectCreate extends JAbstractDialog {
 
     /** Only for serialisation */
     private static final long serialVersionUID = 1833755969083155368L;
 
-    /* the project to copy */
-    private final ProjectEntry projectToCopy;
-
-    public JProjectCopy(final AbstractModel abstractModel, final ProjectEntry projectToCopy) {
+    public JProjectCreate(final AbstractModel abstractModel) {
 
 	/* sets the model */
 	super(abstractModel, JAbstractDialog.CONFIRM_REFUSE, JAbstractDialog.TEXTFIELD);
-
-	/* set the project to copy */
-	this.projectToCopy = projectToCopy;
 
 	/* renders the view */
 	this.initialize();
@@ -69,22 +62,22 @@ public class JProjectCopy extends JAbstractDialog {
 
 	/* set the title for the view */
 	/* TODO change to internationalisation */
-	this.setTitle("Projekt kopieren");
+	this.setTitle("Projekt erstellen");
 
 	/* set button text */
 	/* TODO change to internationalisation */
 	this.jButtonConfirm.setText("Ok");
 
-	/* create an action listener (which knows the model) to the button */
-	this.jButtonConfirm.addActionListener(new ProjectCopyConfirmController(this.model, this));
+	/* create an action listener (which knows the model and the indices) to the button */
+	this.jButtonConfirm.addActionListener(new ProjectCreateConfirmController(this.model, this));
 
 	/* set button text */
 	/* TODO change to internationalisation */
 	this.jButtonRefuse.setText("Abbrechen");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonRefuse.addActionListener(new ProjectCopyRefuseController(this.model));
-
+	this.jButtonRefuse.addActionListener(new ProjectCreateRefuseController(this.model));
+	
 	/* set the size of the textfield */
 	this.jTextFieldText.setColumns(20);
     }
@@ -98,15 +91,6 @@ public class JProjectCopy extends JAbstractDialog {
 	return this.jTextFieldText.getText();
     }
 
-    /**
-     * Returns the project to copy.
-     * 
-     * @return the project to copy.
-     */
-    public ProjectEntry getProjectToCopy() {
-	return this.projectToCopy;
-    }
-
     @Override
     public void update(final Observable o, final Object arg) {
 
@@ -115,7 +99,7 @@ public class JProjectCopy extends JAbstractDialog {
 
 	/* react to program state */
 	/* TODO add a status and error panel! */
-	if (model.getModelStatus() != ProjectManagementModel.COPY) {
+	if (model.getModelStatus() != ProjectManagementModel.NEW) {
 
 	    /* delete view */
 	    this.dispose();

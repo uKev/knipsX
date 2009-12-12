@@ -5,7 +5,7 @@ import java.util.List;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.common.ProjectEntry;
 
-public class ProjectListModel extends AbstractModel {
+public class ProjectManagementModel extends AbstractModel {
 	
 	public static final int SELECT = 0;
 	public static final int NEW = 1;
@@ -17,7 +17,7 @@ public class ProjectListModel extends AbstractModel {
 	
 	private List<ProjectEntry> projectList;
 
-	public ProjectListModel(List<ProjectEntry> linkedList) {
+	public ProjectManagementModel(List<ProjectEntry> linkedList) {
 		this.projectList = linkedList;
 	}
 

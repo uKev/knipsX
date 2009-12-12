@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.knipsX.utils.ExifParameter;
+
 
 public class Picture implements PictureContainer {
 	
@@ -15,6 +17,7 @@ public class Picture implements PictureContainer {
 	public Picture(String path) {
 		super();
 		this.path = path;
+		// TODO: implement
 		// TODO: read exif data etc. 
 	}
 	
@@ -34,19 +37,23 @@ public class Picture implements PictureContainer {
 	}
 
 	public Picture next() {
+		// TODO: implement
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public void remove() {
+		// TODO: implement
 		// TODO Auto-generated method stub
 		
 	}
 	public Image getBigThumbnail(){
+		// TODO: implement
 		return null;
 	}
 	
 	public Image getSmallThumbnail(){
+		// TODO: implement
 		return null;
 	}
 
@@ -62,4 +69,25 @@ public class Picture implements PictureContainer {
 	public void setName(String name) {
 		this.pictureName = name;		
 	}	
+	
+	// wird für die statistischen Auswertungen benötigt
+	public Object getExifParameter(ExifParameter exifParameter){
+		// TODO: implement
+		return null;
+	}
+	
+	public boolean hasExifKeyword(String keyword){
+		// TODO: implement
+		return true;
+	}
+	
+	public boolean hasMinOneKeywordOf(String [] keywords){
+		// TODO: implement
+		return true;
+	}
+	
+	public boolean hasAllKeywords(String [] keywords){
+		// TODO: implement
+		return false;
+	}
 }
