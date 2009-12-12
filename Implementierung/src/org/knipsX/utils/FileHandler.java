@@ -22,68 +22,63 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
  */
 public class FileHandler {
 
-	/**
-	 * Determines the path to the directory where all projects of the program
-	 * are stored.
-	 */
-	public static final String projectFilePath = System
-			.getProperty("user.home")
-			+ File.separator + ".knipsX";
+    /**
+     * Determines the path to the directory where all projects of the program
+     * are stored.
+     */
+    public static final String projectFilePath = System.getProperty("user.home") + File.separator + ".knipsX";
 
-	/* utility class - no constructor allowed! */
-	private FileHandler() {
-	}
+    /* utility class - no constructor allowed! */
+    private FileHandler() {
+    }
 
-	public static void createNewProejectFile(ProjectEntry newProject) {
-	}
+    public static void createNewProejectFile(ProjectEntry newProject) {
+    }
 
-	public static void deleteProjectFile(ProjectEntry newProject) {
-	}
+    public static void deleteProjectFile(ProjectEntry newProject) {
+    }
 
-	/**
-	 * Scans a the directory where all projects of the program are stored an
-	 * creates for each project configuration file a ProjectEntry.
-	 * 
-	 * @return a list of ProjectEntry objects.
-	 * @see org.knipsX.model.common.ProjectEntry
-	 */
-	public static List<ProjectEntry> scanProjectDirectory() {
+    /**
+     * Scans a the directory where all projects of the program are stored an
+     * creates for each project configuration file a ProjectEntry.
+     * 
+     * @return a list of ProjectEntry objects.
+     * @see org.knipsX.model.common.ProjectEntry
+     */
+    public static List<ProjectEntry> scanProjectDirectory() {
 
-		/* the list */
-		final List<ProjectEntry> projectList = new LinkedList<ProjectEntry>();
+	/* the list */
+	final List<ProjectEntry> projectList = new LinkedList<ProjectEntry>();
 
-		/* add some dummy projects */
-		projectList.add(new ProjectEntry(1, "Schwarzwald",
-				new GregorianCalendar(2009, 11, 12, 7, 9, 3), ""));
-		projectList.add(new ProjectEntry(2, "Der Ehhhhhhhmer",
-				new GregorianCalendar(2009, 11, 12, 12, 42, 43), ""));
+	/* add some dummy projects */
+	projectList.add(new ProjectEntry(1, "Schwarzwald", new GregorianCalendar(2009, 11, 12, 7, 9, 3), ""));
+	projectList.add(new ProjectEntry(2, "Der Ehhhhhhhmer", new GregorianCalendar(2009, 11, 12, 12, 42, 43), ""));
 
-		/* returns the list */
-		return projectList;
-	}
+	/* returns the list */
+	return projectList;
+    }
 
-	public static ProjectViewModel scanProjectFile(int projectID) {
-		ProjectEntry dummyEntry = new ProjectEntry(1, "XML",
-				new GregorianCalendar(2009, 11, 12, 7, 9, 3), "");
-		List<PictureSet> dummyPictureSetList = new LinkedList<PictureSet>();
-		PictureSet dummyPictureSet = new PictureSet("Goldfische", 4);
-		dummyPictureSetList.add(dummyPictureSet);
-		List<AbstractReportModel> dummyReportList = new LinkedList<AbstractReportModel>();
-		AbstractReportModel dummyReport = new AbstractReportModel();
-		dummyReport.setReportName("Blendenanalyse");
-		dummyReportList.add(dummyReport);
-		List<PictureContainer> dummyContainer = new LinkedList<PictureContainer>();
-		Picture dummyPicture = new Picture();
-		dummyPicture.setName("Nemo");
-		dummyContainer.add(dummyPicture);
-		List<Picture> dummyPictureList = new LinkedList<Picture>();		
-		dummyPictureList.add(dummyPicture);
-		ProjectViewModel dummyModel = new ProjectViewModel(dummyEntry, dummyPictureSetList, dummyContainer, dummyPictureList, dummyReportList);
-		return dummyModel;
-	}
+    public static ProjectViewModel scanProjectFile(int projectID) {
+	ProjectEntry dummyEntry = new ProjectEntry(1, "XML", new GregorianCalendar(2009, 11, 12, 7, 9, 3), "");
+	List<PictureSet> dummyPictureSetList = new LinkedList<PictureSet>();
+	PictureSet dummyPictureSet = new PictureSet("Goldfische", 4);
+	dummyPictureSetList.add(dummyPictureSet);
+	List<AbstractReportModel> dummyReportList = new LinkedList<AbstractReportModel>();
+	AbstractReportModel dummyReport = new AbstractReportModel();
+	dummyReport.setReportName("Blendenanalyse");
+	dummyReportList.add(dummyReport);
+	List<PictureContainer> dummyContainer = new LinkedList<PictureContainer>();
+	Picture dummyPicture = new Picture();
+	dummyPicture.setName("Nemo");
+	dummyContainer.add(dummyPicture);
+	List<Picture> dummyPictureList = new LinkedList<Picture>();
+	dummyPictureList.add(dummyPicture);
+	ProjectViewModel dummyModel = new ProjectViewModel(dummyEntry, dummyPictureSetList, dummyContainer,
+		dummyPictureList, dummyReportList);
+	return dummyModel;
+    }
 
-
-	public static void writeProjectToFile(ProjectViewModel project) {
-	}
+    public static void writeProjectToFile(ProjectViewModel project) {
+    }
 
 }
