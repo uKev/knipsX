@@ -25,7 +25,7 @@ public class JProjectCopy extends JAbstractDialog {
 
     /* the project to copy */
     private final ProjectEntry projectToCopy;
-    
+
     public JProjectCopy(final AbstractModel abstractModel, final ProjectEntry projectToCopy) {
 
 	/* sets the model */
@@ -33,7 +33,7 @@ public class JProjectCopy extends JAbstractDialog {
 
 	/* set the project to copy */
 	this.projectToCopy = projectToCopy;
-	
+
 	/* renders the view */
 	this.initialize();
     }
@@ -98,11 +98,15 @@ public class JProjectCopy extends JAbstractDialog {
 	return this.jTextFieldText.getText();
     }
 
-    /* Gib das Projekt zurück, das kopiert werden soll */
+    /**
+     * Returns the project to copy.
+     * 
+     * @return the project to copy.
+     */
     public ProjectEntry getProjectToCopy() {
 	return this.projectToCopy;
     }
-    
+
     @Override
     public void update(final Observable o, final Object arg) {
 
