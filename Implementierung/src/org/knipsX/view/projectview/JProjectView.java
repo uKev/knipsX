@@ -5,6 +5,7 @@ package org.knipsX.view.projectview;
 
 /* import things from the java sdk */
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -49,1463 +50,1272 @@ import org.knipsX.view.JAbstractView;
  */
 public class JProjectView extends JAbstractView {
 
-	/** Only for serialisation */
-	private static final long serialVersionUID = 6747507429332590686L;
+    /** Only for serialisation */
+    private static final long serialVersionUID = 6747507429332590686L;
 
-	/* represents the panel for the view */
-	private JPanel jContentPane = null;
+    /* represents the panel for the view */
+    private JPanel jContentPane = null;
 
-	/* represents the panel for the project options */
-	private JPanel jPanelProjectOptions = null;
+    /* represents the panel for the project options */
+    private JPanel jPanelProjectOptions = null;
 
-	/* represents the panel for the project description */
-	private JPanel jPanelProjectDescription = null;
+    /* represents the panel for the project description */
+    private JPanel jPanelProjectDescription = null;
 
-	/* represents the panel for the picture set */
-	private JPanel jPanelPictureSet = null;
+    /* represents the panel for the picture set */
+    private JPanel jPanelPictureSet = null;
 
-	/* represents the panel for the picture set options */
-	private JPanel jPanelPictureSetOptions = null;
+    /* represents the panel for the picture set options */
+    private JPanel jPanelPictureSetOptions = null;
 
-	/* represents the panel for the picture set content */
-	private JPanel jPanelPictureSetContent = null;
+    /* represents the panel for the picture set content */
+    private JPanel jPanelPictureSetContent = null;
 
-	/* represents the panel for the picture set content options */
-	private JPanel jPanelPictureSetContentOptions = null;
+    /* represents the panel for the picture set content options */
+    private JPanel jPanelPictureSetContentOptions = null;
 
-	/* represents the panel for the image view of the active project */
-	private JPanel jPanelPictureSetActive = null;
+    /* represents the panel for the image view of the active project */
+    private JPanel jPanelPictureSetActive = null;
 
-	/* represents the panel for the reports */
-	private JPanel jPanelReport = null;
+    /* represents the panel for the reports */
+    private JPanel jPanelReport = null;
 
-	/* represents the panel for the exif data of an active image */
-	private JPanel jPanelExif = null;
+    /* represents the panel for the exif data of an active image */
+    private JPanel jPanelExif = null;
 
-	/* adds scrollbars to the project description */
-	private JScrollPane jScrollPaneProjectDescription = null;
+    /* adds scrollbars to the project description */
+    private JScrollPane jScrollPaneProjectDescription = null;
 
-	/* adds scrollbars to the exif data */
-	private JScrollPane jScrollPaneExif = null;
+    /* adds scrollbars to the exif data */
+    private JScrollPane jScrollPaneExif = null;
 
-	/* represents the project description field */
-	private JEditorPane jEditorPaneProjectDescription = null;
+    /* represents the project description field */
+    private JEditorPane jEditorPaneProjectDescription = null;
 
-	/* represents the project name field */
-	private JTextField jTextFieldProjectName = null;
+    /* represents the project name field */
+    private JTextField jTextFieldProjectName = null;
 
-	/* represents the button which handles the project save action */
-	private JButton jButtonProjectSave = null;
+    /* represents the button which handles the project save action */
+    private JButton jButtonProjectSave = null;
 
-	/* represents the button which handles the project change action */
-	private JButton jButtonProjectChange = null;
+    /* represents the button which handles the project change action */
+    private JButton jButtonProjectChange = null;
 
-	/* represents the button which handles the picture set create action */
-	private JButton jButtonPictureSetCreate = null;
+    /* represents the button which handles the picture set create action */
+    private JButton jButtonPictureSetCreate = null;
 
-	/* represents the button which handles the picture set delete action */
-	private JButton jButtonPictureSetDelete = null;
+    /* represents the button which handles the picture set delete action */
+    private JButton jButtonPictureSetDelete = null;
 
-	/* represents the button which handles the picture set copy action */
-	private JButton jButtonPictureSetCopy = null;
+    /* represents the button which handles the picture set copy action */
+    private JButton jButtonPictureSetCopy = null;
 
-	/* represents the button which handles the picture set content add action */
-	private JButton jButtonPictureSetContentAdd = null;
+    /* represents the button which handles the picture set content add action */
+    private JButton jButtonPictureSetContentAdd = null;
 
-	/* represents the button which handles the picture set content delete action */
-	private JButton jButtonPictureSetContentDelete = null;
+    /* represents the button which handles the picture set content delete action */
+    private JButton jButtonPictureSetContentDelete = null;
 
-	/*
-	 * represents the button which handles the picture set content refresh
-	 * action
-	 */
-	private JButton jButtonPictureSetContentRefresh = null;
+    /*
+     * represents the button which handles the picture set content refresh
+     * action
+     */
+    private JButton jButtonPictureSetContentRefresh = null;
 
-	/* represents the list which contains all picture sets of a project */
-	private JList jListPictureSet = null;
+    /* represents the list which contains all picture sets of a project */
+    private JList jListPictureSet = null;
 
-	/*
-	 * represents the list which contains all picture containers of an active
-	 * picture set
-	 */
-	private JList jListPictureSetContent = null;
+    /*
+     * represents the list which contains all picture containers of an active
+     * picture set
+     */
+    private JList jListPictureSetContent = null;
 
-	/*
-	 * represents the list which contains all images of an active picture
-	 * container
-	 */
-	private JList jListPictureSetActive = null;
+    /*
+     * represents the list which contains all images of an active picture
+     * container
+     */
+    private JList jListPictureSetActive = null;
 
-	/* represents the list which contains all reports of a project */
-	private JList jListReport = null;
+    /* represents the list which contains all reports of a project */
+    private JList jListReport = null;
 
-	/*
-	 * represents the table which contains all exif parameters of an active
-	 * image
-	 */
-	private JTable jTableExif = null;
+    /*
+     * represents the table which contains all exif parameters of an active
+     * image
+     */
+    private JTable jTableExif = null;
 
-	/**
-	 * Creates a project view connected with an appropriate model.
-	 */
-	public JProjectView(final ProjectViewModel projectViewModel) {
+    /**
+     * Creates a project view connected with an appropriate model.
+     */
+    public JProjectView(final ProjectViewModel projectViewModel) {
 
-		/* sets the model */
-		super(projectViewModel);
+	/* sets the model */
+	super(projectViewModel);
 
-		/* renders the view */
-		this.initialize();
+	/* renders the view */
+	this.initialize();
+    }
+
+    /**
+     * This method initializes this.
+     * 
+     * @return void
+     */
+    private void initialize() {
+
+	/* show main panel */
+	this.setContentPane(this.getJContentPane());
+
+	/* set standard close action */
+	/* TODO We have to edit the close action! */
+	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	/* change size to preferred size */
+	this.pack();
+
+	/* set location to the center of the screen */
+	this.setLocationRelativeTo(null);
+
+	/* show view */
+	this.setVisible(true);
+    }
+
+    /**
+     * This method initializes jButtonPictureSetContentAdd.
+     * 
+     * @return javax.swing.JButton the appropriate JButton.
+     */
+    private JButton getJButtonPictureSetContentAdd() {
+
+	/* create if not set */
+	if (this.jButtonPictureSetContentAdd == null) {
+
+	    /* create new button */
+	    this.jButtonPictureSetContentAdd = new JButton();
+
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
+	    this.jButtonPictureSetContentAdd.setText("Hinzufügen");
+	    this.jButtonPictureSetContentAdd.addActionListener(new AddToPictureSetContentController(model));
 	}
 
-	/**
-	 * This method initializes this.
-	 * 
-	 * @return void
-	 */
-	private void initialize() {
+	/* return the button */
+	return this.jButtonPictureSetContentAdd;
+    }
 
-		/* show main panel */
-		this.setContentPane(this.getJContentPane());
+    /**
+     * This method initializes jButtonPictureSetContentDelete.
+     * 
+     * @return javax.swing.JButton the appropriate JButton.
+     */
+    private JButton getJButtonPictureSetContentDelete() {
 
-		/* set standard close action */
-		/* TODO We have to edit the close action! */
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	/* create if not set */
+	if (this.jButtonPictureSetContentDelete == null) {
 
-		/* change size to preferred size */
-		this.pack();
+	    /* create new button */
+	    this.jButtonPictureSetContentDelete = new JButton();
 
-		/* set location to the center of the screen */
-		this.setLocationRelativeTo(null);
-
-		/* show view */
-		this.setVisible(true);
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
+	    this.jButtonPictureSetContentDelete.setText("Entfernen");
+	    this.jButtonPictureSetContentDelete.addActionListener(new DeleteFromPictureSetContentController(model, this
+		    .getSelectedIndicesFromPictureSetContentList()));
 	}
 
-	/**
-	 * This method initializes jButtonPictureSetContentAdd.
-	 * 
-	 * @return javax.swing.JButton the appropriate JButton.
-	 */
-	private JButton getJButtonPictureSetContentAdd() {
+	/* return the button */
+	return this.jButtonPictureSetContentDelete;
+    }
 
-		/* create if not set */
-		if (this.jButtonPictureSetContentAdd == null) {
+    /**
+     * This method initializes jButtonPictureSetContentRefresh.
+     * 
+     * @return javax.swing.JButton the appropriate JButton.
+     */
+    private JButton getJButtonPictureSetContentRefresh() {
 
-			/* create new button */
-			this.jButtonPictureSetContentAdd = new JButton();
+	/* create if not set */
+	if (this.jButtonPictureSetContentRefresh == null) {
 
-			/* set the text of the button */
-			/* TODO change to internationalisation */
-			this.jButtonPictureSetContentAdd.setText("Hinzufügen");
-			this.jButtonPictureSetContentAdd
-					.addActionListener(new AddToPictureSetContentController(
-							model));
-		}
+	    /* create new button */
+	    this.jButtonPictureSetContentRefresh = new JButton();
 
-		/* return the button */
-		return this.jButtonPictureSetContentAdd;
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
+	    this.jButtonPictureSetContentRefresh.setText("Aktualisieren");
+	    this.jButtonPictureSetContentRefresh.addActionListener(new RefreshProjectViewController(model));
 	}
 
-	/**
-	 * This method initializes jButtonPictureSetContentDelete.
-	 * 
-	 * @return javax.swing.JButton the appropriate JButton.
-	 */
-	private JButton getJButtonPictureSetContentDelete() {
+	/* return the button */
+	return this.jButtonPictureSetContentRefresh;
+    }
 
-		/* create if not set */
-		if (this.jButtonPictureSetContentDelete == null) {
+    /**
+     * This method initializes jButtonPictureSetCopy.
+     * 
+     * @return javax.swing.JButton the appropriate JButton.
+     */
+    private JButton getJButtonPictureSetCopy() {
 
-			/* create new button */
-			this.jButtonPictureSetContentDelete = new JButton();
+	/* create if not set */
+	if (this.jButtonPictureSetCopy == null) {
 
-			/* set the text of the button */
-			/* TODO change to internationalisation */
-			this.jButtonPictureSetContentDelete.setText("Entfernen");
-			this.jButtonPictureSetContentDelete
-					.addActionListener(new DeleteFromPictureSetContentController(
-							model,
-							this.getSelectedIndicesFromPictureSetContentList()));
-		}
+	    /* create new button */
+	    this.jButtonPictureSetCopy = new JButton();
 
-		/* return the button */
-		return this.jButtonPictureSetContentDelete;
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
+	    this.jButtonPictureSetCopy.setText("Kopieren");
+	    this.jButtonPictureSetCopy.addActionListener(new CopyPictureSetController(model));
 	}
 
-	/**
-	 * This method initializes jButtonPictureSetContentRefresh.
-	 * 
-	 * @return javax.swing.JButton the appropriate JButton.
-	 */
-	private JButton getJButtonPictureSetContentRefresh() {
+	/* return the button */
+	return this.jButtonPictureSetCopy;
+    }
 
-		/* create if not set */
-		if (this.jButtonPictureSetContentRefresh == null) {
+    /**
+     * This method initializes jButtonPictureSetCreate.
+     * 
+     * @return javax.swing.JButton the appropriate JButton.
+     */
+    private JButton getJButtonPictureSetCreate() {
 
-			/* create new button */
-			this.jButtonPictureSetContentRefresh = new JButton();
+	/* create if not set */
+	if (this.jButtonPictureSetCreate == null) {
 
-			/* set the text of the button */
-			/* TODO change to internationalisation */
-			this.jButtonPictureSetContentRefresh.setText("Aktualisieren");
-			this.jButtonPictureSetContentRefresh
-					.addActionListener(new RefreshProjectViewController(model));
-		}
+	    /* create new button */
+	    this.jButtonPictureSetCreate = new JButton();
 
-		/* return the button */
-		return this.jButtonPictureSetContentRefresh;
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
+	    this.jButtonPictureSetCreate.setText("Erstellen");
+	    this.jButtonPictureSetCreate.addActionListener(new CreatePictureSetController(model));
 	}
 
-	/**
-	 * This method initializes jButtonPictureSetCopy.
-	 * 
-	 * @return javax.swing.JButton the appropriate JButton.
-	 */
-	private JButton getJButtonPictureSetCopy() {
+	/* return the button */
+	return this.jButtonPictureSetCreate;
+    }
 
-		/* create if not set */
-		if (this.jButtonPictureSetCopy == null) {
+    /**
+     * This method initializes jButtonPictureSetDelete.
+     * 
+     * @return javax.swing.JButton the appropriate JButton.
+     */
+    private JButton getJButtonPictureSetDelete() {
 
-			/* create new button */
-			this.jButtonPictureSetCopy = new JButton();
+	/* create if not set */
+	if (this.jButtonPictureSetDelete == null) {
 
-			/* set the text of the button */
-			/* TODO change to internationalisation */
-			this.jButtonPictureSetCopy.setText("Kopieren");
-			this.jButtonPictureSetCopy
-					.addActionListener(new CopyPictureSetController(model));
-		}
+	    /* create new button */
+	    this.jButtonPictureSetDelete = new JButton();
 
-		/* return the button */
-		return this.jButtonPictureSetCopy;
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
+	    this.jButtonPictureSetDelete.setText("Entfernen");
+	    this.jButtonPictureSetDelete.addActionListener(new DeletePictureSetController(model,
+		    getSelectedIndicesFromPictureSetList()));
 	}
 
-	/**
-	 * This method initializes jButtonPictureSetCreate.
-	 * 
-	 * @return javax.swing.JButton the appropriate JButton.
-	 */
-	private JButton getJButtonPictureSetCreate() {
+	/* return the button */
+	return this.jButtonPictureSetDelete;
+    }
 
-		/* create if not set */
-		if (this.jButtonPictureSetCreate == null) {
+    /**
+     * This method initializes jButtonProjectChange.
+     * 
+     * @return javax.swing.JButton the appropriate JButton.
+     */
+    private JButton getJButtonProjectChange() {
 
-			/* create new button */
-			this.jButtonPictureSetCreate = new JButton();
+	/* create if not set */
+	if (this.jButtonProjectChange == null) {
 
-			/* set the text of the button */
-			/* TODO change to internationalisation */
-			this.jButtonPictureSetCreate.setText("Erstellen");
-			this.jButtonPictureSetCreate
-					.addActionListener(new CreatePictureSetController(model));
-		}
+	    /* create new button */
+	    this.jButtonProjectChange = new JButton();
 
-		/* return the button */
-		return this.jButtonPictureSetCreate;
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
+	    this.jButtonProjectChange.setText("Wechseln");
+	    this.jButtonProjectChange.addActionListener(new SwitchProjectController(model));
 	}
 
-	/**
-	 * This method initializes jButtonPictureSetDelete.
-	 * 
-	 * @return javax.swing.JButton the appropriate JButton.
-	 */
-	private JButton getJButtonPictureSetDelete() {
+	/* return the button */
+	return this.jButtonProjectChange;
+    }
 
-		/* create if not set */
-		if (this.jButtonPictureSetDelete == null) {
+    /**
+     * This method initializes jButtonProjectSave.
+     * 
+     * @return javax.swing.JButton the appropriate JButton.
+     */
+    private JButton getJButtonProjectSave() {
 
-			/* create new button */
-			this.jButtonPictureSetDelete = new JButton();
+	/* create if not set */
+	if (this.jButtonProjectSave == null) {
 
-			/* set the text of the button */
-			/* TODO change to internationalisation */
-			this.jButtonPictureSetDelete.setText("Entfernen");
-			this.jButtonPictureSetDelete
-					.addActionListener(new DeletePictureSetController(model,
-							getSelectedIndicesFromPictureSetList()));
-		}
+	    /* create new button */
+	    this.jButtonProjectSave = new JButton();
 
-		/* return the button */
-		return this.jButtonPictureSetDelete;
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
+	    this.jButtonProjectSave.setText("Speichern");
+	    this.jButtonProjectSave.addActionListener(new SaveProjectController(model));
 	}
 
-	/**
-	 * This method initializes jButtonProjectChange.
-	 * 
-	 * @return javax.swing.JButton the appropriate JButton.
-	 */
-	private JButton getJButtonProjectChange() {
+	/* return the button */
+	return this.jButtonProjectSave;
+    }
 
-		/* create if not set */
-		if (this.jButtonProjectChange == null) {
+    /**
+     * This method initializes jContentPane.
+     * 
+     * @return javax.swing.JPanel the panel.
+     */
+    private JPanel getJContentPane() {
 
-			/* create new button */
-			this.jButtonProjectChange = new JButton();
+	/* create if not set */
+	if (this.jContentPane == null) {
 
-			/* set the text of the button */
-			/* TODO change to internationalisation */
-			this.jButtonProjectChange.setText("Wechseln");
-			this.jButtonProjectChange
-					.addActionListener(new SwitchProjectController(model));
-		}
+	    /* create new panel */
+	    this.jContentPane = new JPanel();
 
-		/* return the button */
-		return this.jButtonProjectChange;
+	    /* create new layout for this panel */
+	    final GroupLayout jContentPaneLayout = new GroupLayout(this.jContentPane);
+
+	    /* set the horizontal assignment */
+	    jContentPaneLayout.setHorizontalGroup(jContentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+		    .addGroup(
+			    jContentPaneLayout.createSequentialGroup().addGroup(
+				    jContentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+					    .addComponent(this.getJPanelProjectOptions(),
+						    GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 272,
+						    Short.MAX_VALUE).addComponent(this.getJPanelProjectDescription(),
+						    GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 272,
+						    Short.MAX_VALUE).addComponent(this.getJPanelPictureSet(),
+						    GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 272,
+						    Short.MAX_VALUE).addComponent(this.getJPanelPictureSetContent(),
+						    GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 272,
+						    Short.MAX_VALUE)).addPreferredGap(
+				    LayoutStyle.ComponentPlacement.RELATED).addComponent(
+				    this.getJPanelPictureSetActive(), GroupLayout.DEFAULT_SIZE,
+				    GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addGap(6, 6, 6).addGroup(
+				    jContentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(
+					    this.getJPanelReport(), GroupLayout.PREFERRED_SIZE, 240, Short.MAX_VALUE)
+					    .addComponent(this.getJPanelExif(), 0, 240, Short.MAX_VALUE)).addGap(0, 0,
+				    0)));
+
+	    /* set the vertical assignment */
+	    jContentPaneLayout.setVerticalGroup(jContentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+		    .addGroup(
+			    GroupLayout.Alignment.TRAILING,
+			    jContentPaneLayout.createSequentialGroup().addComponent(this.getJPanelProjectOptions(),
+				    GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE).addPreferredGap(
+				    LayoutStyle.ComponentPlacement.RELATED).addComponent(
+				    this.getJPanelProjectDescription(), GroupLayout.DEFAULT_SIZE,
+				    GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addPreferredGap(
+				    LayoutStyle.ComponentPlacement.RELATED).addComponent(this.getJPanelPictureSet(),
+				    GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(
+					    this.getJPanelPictureSetContent(), GroupLayout.DEFAULT_SIZE,
+					    GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)).addGroup(
+			    jContentPaneLayout.createSequentialGroup().addComponent(this.getJPanelReport(),
+				    GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(
+					    this.getJPanelExif(), GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+		    .addComponent(this.getJPanelPictureSetActive(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+			    Short.MAX_VALUE));
+
+	    /* set the layout to the panel */
+	    this.jContentPane.setLayout(jContentPaneLayout);
+
+	    /* add the panel for the project options */
+	    this.jContentPane.add(this.getJPanelProjectOptions(), null);
+
+	    /* add the panel for the project description */
+	    this.jContentPane.add(this.getJPanelProjectDescription(), null);
+
+	    /* add the panel for the picture sets of a project */
+	    this.jContentPane.add(this.getJPanelPictureSet(), null);
+
+	    /* add the panel for the content of an active picture set */
+	    this.jContentPane.add(this.getJPanelPictureSetContent(), null);
+
+	    /* add the panel for the images of an active picture container */
+	    this.jContentPane.add(this.getJPanelPictureSetActive(), null);
+
+	    /* add the panel for the reports of a project */
+	    this.jContentPane.add(this.getJPanelReport(), null);
+
+	    /* add the panel for the exif parameters of an active project */
+	    this.jContentPane.add(this.getJPanelExif(), null);
 	}
 
-	/**
-	 * This method initializes jButtonProjectSave.
-	 * 
-	 * @return javax.swing.JButton the appropriate JButton.
-	 */
-	private JButton getJButtonProjectSave() {
+	/* return the panel */
+	return this.jContentPane;
+    }
 
-		/* create if not set */
-		if (this.jButtonProjectSave == null) {
+    /**
+     * This method initializes jEditorPaneProjectDescription
+     * 
+     * @return javax.swing.JEditorPane the editor pane.
+     */
+    private JEditorPane getJEditorPaneProjectDescription() {
 
-			/* create new button */
-			this.jButtonProjectSave = new JButton();
+	/* create if not set */
+	if (this.jEditorPaneProjectDescription == null) {
 
-			/* set the text of the button */
-			/* TODO change to internationalisation */
-			this.jButtonProjectSave.setText("Speichern");
-			this.jButtonProjectSave
-					.addActionListener(new SaveProjectController(model));
-		}
-
-		/* return the button */
-		return this.jButtonProjectSave;
+	    /* cretae a new editor pane for the project description */
+	    this.jEditorPaneProjectDescription = new JEditorPane();
 	}
 
-	/**
-	 * This method initializes jContentPane.
-	 * 
-	 * @return javax.swing.JPanel the panel.
-	 */
-	private JPanel getJContentPane() {
+	/* return the editor pane */
+	return this.jEditorPaneProjectDescription;
+    }
 
-		/* create if not set */
-		if (this.jContentPane == null) {
+    /**
+     * This method initializes jListPictureSet
+     * 
+     * @return javax.swing.JList the list.
+     */
+    private JList getJListPictureSet() {
 
-			/* create new panel */
-			this.jContentPane = new JPanel();
+	/* create if not set */
+	if (this.jListPictureSet == null) {
 
-			/* create new layout for this panel */
-			final GroupLayout jContentPaneLayout = new GroupLayout(
-					this.jContentPane);
+	    /* creates a new list with options */
+	    /* TODO method for this list content */
+	    this.jListPictureSet = new JList(((ProjectViewModel) this.model).getPictureSetList().toArray());
 
-			/* set the horizontal assignment */
-			jContentPaneLayout
-					.setHorizontalGroup(jContentPaneLayout
-							.createParallelGroup(GroupLayout.Alignment.LEADING)
-							.addGroup(
-									jContentPaneLayout
-											.createSequentialGroup()
-											.addGroup(
-													jContentPaneLayout
-															.createParallelGroup(
-																	GroupLayout.Alignment.TRAILING)
-															.addComponent(
-																	this
-																			.getJPanelProjectOptions(),
-																	GroupLayout.Alignment.LEADING,
-																	GroupLayout.DEFAULT_SIZE,
-																	272,
-																	Short.MAX_VALUE)
-															.addComponent(
-																	this
-																			.getJPanelProjectDescription(),
-																	GroupLayout.Alignment.LEADING,
-																	GroupLayout.DEFAULT_SIZE,
-																	272,
-																	Short.MAX_VALUE)
-															.addComponent(
-																	this
-																			.getJPanelPictureSet(),
-																	GroupLayout.Alignment.LEADING,
-																	GroupLayout.DEFAULT_SIZE,
-																	272,
-																	Short.MAX_VALUE)
-															.addComponent(
-																	this
-																			.getJPanelPictureSetContent(),
-																	GroupLayout.Alignment.LEADING,
-																	GroupLayout.DEFAULT_SIZE,
-																	272,
-																	Short.MAX_VALUE))
-											.addPreferredGap(
-													LayoutStyle.ComponentPlacement.RELATED)
-											.addComponent(
-													this
-															.getJPanelPictureSetActive(),
-													GroupLayout.DEFAULT_SIZE,
-													GroupLayout.DEFAULT_SIZE,
-													Short.MAX_VALUE)
-											.addGap(6, 6, 6)
-											.addGroup(
-													jContentPaneLayout
-															.createParallelGroup(
-																	GroupLayout.Alignment.LEADING)
-															.addComponent(
-																	this
-																			.getJPanelReport(),
-																	GroupLayout.PREFERRED_SIZE,
-																	240,
-																	Short.MAX_VALUE)
-															.addComponent(
-																	this
-																			.getJPanelExif(),
-																	0,
-																	240,
-																	Short.MAX_VALUE))
-											.addGap(0, 0, 0)));
+	    /* allow to select only one row at once */
+	    this.jListPictureSet.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-			/* set the vertical assignment */
-			jContentPaneLayout
-					.setVerticalGroup(jContentPaneLayout
-							.createParallelGroup(GroupLayout.Alignment.LEADING)
-							.addGroup(
-									GroupLayout.Alignment.TRAILING,
-									jContentPaneLayout
-											.createSequentialGroup()
-											.addComponent(
-													this
-															.getJPanelProjectOptions(),
-													GroupLayout.DEFAULT_SIZE,
-													77, Short.MAX_VALUE)
-											.addPreferredGap(
-													LayoutStyle.ComponentPlacement.RELATED)
-											.addComponent(
-													this
-															.getJPanelProjectDescription(),
-													GroupLayout.DEFAULT_SIZE,
-													GroupLayout.DEFAULT_SIZE,
-													Short.MAX_VALUE)
-											.addPreferredGap(
-													LayoutStyle.ComponentPlacement.RELATED)
-											.addComponent(
-													this.getJPanelPictureSet(),
-													GroupLayout.DEFAULT_SIZE,
-													GroupLayout.DEFAULT_SIZE,
-													Short.MAX_VALUE)
-											.addPreferredGap(
-													LayoutStyle.ComponentPlacement.RELATED)
-											.addComponent(
-													this
-															.getJPanelPictureSetContent(),
-													GroupLayout.DEFAULT_SIZE,
-													GroupLayout.DEFAULT_SIZE,
-													Short.MAX_VALUE))
-							.addGroup(
-									jContentPaneLayout
-											.createSequentialGroup()
-											.addComponent(
-													this.getJPanelReport(),
-													GroupLayout.DEFAULT_SIZE,
-													GroupLayout.DEFAULT_SIZE,
-													Short.MAX_VALUE)
-											.addPreferredGap(
-													LayoutStyle.ComponentPlacement.RELATED)
-											.addComponent(this.getJPanelExif(),
-													GroupLayout.DEFAULT_SIZE,
-													249, Short.MAX_VALUE))
-							.addComponent(this.getJPanelPictureSetActive(),
-									GroupLayout.DEFAULT_SIZE,
-									GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+	    /*
+	     * set ordering layout to vertical (see java api for more
+	     * information)
+	     */
+	    this.jListPictureSet.setLayoutOrientation(JList.VERTICAL);
 
-			/* set the layout to the panel */
-			this.jContentPane.setLayout(jContentPaneLayout);
-
-			/* add the panel for the project options */
-			this.jContentPane.add(this.getJPanelProjectOptions(), null);
-
-			/* add the panel for the project description */
-			this.jContentPane.add(this.getJPanelProjectDescription(), null);
-
-			/* add the panel for the picture sets of a project */
-			this.jContentPane.add(this.getJPanelPictureSet(), null);
-
-			/* add the panel for the content of an active picture set */
-			this.jContentPane.add(this.getJPanelPictureSetContent(), null);
-
-			/* add the panel for the images of an active picture container */
-			this.jContentPane.add(this.getJPanelPictureSetActive(), null);
-
-			/* add the panel for the reports of a project */
-			this.jContentPane.add(this.getJPanelReport(), null);
-
-			/* add the panel for the exif parameters of an active project */
-			this.jContentPane.add(this.getJPanelExif(), null);
-		}
-
-		/* return the panel */
-		return this.jContentPane;
+	    this.jListPictureSet.setCellRenderer(new MyPictureSetListCellRenderer());
 	}
 
-	/**
-	 * This method initializes jEditorPaneProjectDescription
-	 * 
-	 * @return javax.swing.JEditorPane the editor pane.
-	 */
-	private JEditorPane getJEditorPaneProjectDescription() {
+	/* return the list */
+	return this.jListPictureSet;
+    }
 
-		/* create if not set */
-		if (this.jEditorPaneProjectDescription == null) {
+    /**
+     * This method initializes jListPictureSetActive.
+     * 
+     * @return javax.swing.JList the list.
+     */
+    private JList getJListPictureSetActive() {
 
-			/* cretae a new editor pane for the project description */
-			this.jEditorPaneProjectDescription = new JEditorPane();
-		}
+	/* create if not set */
+	if (this.jListPictureSetActive == null) {
 
-		/* return the editor pane */
-		return this.jEditorPaneProjectDescription;
+	    /* creates a new list with options */
+	    /* TODO method for this list content */
+	    this.jListPictureSetActive = new JList(((ProjectViewModel) this.model).getAllPicturesOfSetList().toArray());
+
+	    /* allow to select only one row at once */
+	    this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+	    /*
+	     * set ordering layout to vertical (see java api for more
+	     * information)
+	     */
+	    this.jListPictureSetActive.setLayoutOrientation(JList.VERTICAL);
+
+	    this.jListPictureSetActive.setCellRenderer(new MyPictureListCellRenderer());
+
 	}
 
-	/**
-	 * This method initializes jListPictureSet
-	 * 
-	 * @return javax.swing.JList the list.
-	 */
-	private JList getJListPictureSet() {
+	/* return the list */
+	return this.jListPictureSetActive;
+    }
 
-		/* create if not set */
-		if (this.jListPictureSet == null) {
+    /**
+     * This method initializes jListPictureSetContent.
+     * 
+     * @return javax.swing.JList the list.
+     */
+    private JList getJListPictureSetContent() {
 
-			/* creates a new list with options */
-			/* TODO method for this list content */
-			this.jListPictureSet = new JList(((ProjectViewModel) this.model)
-					.getPictureSetList().toArray());
+	/* create if not set */
+	if (this.jListPictureSetContent == null) {
 
-			/* allow to select only one row at once */
-			this.jListPictureSet
-					.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    /* creates a new list with options */
+	    /* TODO method for this list content */
+	    this.jListPictureSetContent = new JList(((ProjectViewModel) this.model).getPictureSetContentList()
+		    .toArray());
 
-			/*
-			 * set ordering layout to vertical (see java api for more
-			 * information)
-			 */
-			this.jListPictureSet.setLayoutOrientation(JList.VERTICAL);
+	    /* allow to select only one row at once */
+	    this.jListPictureSetContent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-			this.jListPictureSet
-					.setCellRenderer(new MyPictureSetListCellRenderer());
-		}
+	    /*
+	     * set ordering layout to vertical (see java api for more
+	     * information)
+	     */
+	    this.jListPictureSetContent.setLayoutOrientation(JList.VERTICAL);
 
-		/* return the list */
-		return this.jListPictureSet;
+	    this.jListPictureSetContent.setCellRenderer(new MyPictureSetContentListCellRenderer());
 	}
 
-	/**
-	 * This method initializes jListPictureSetActive.
-	 * 
-	 * @return javax.swing.JList the list.
-	 */
-	private JList getJListPictureSetActive() {
+	/* return the list */
+	return this.jListPictureSetContent;
+    }
 
-		/* create if not set */
-		if (this.jListPictureSetActive == null) {
+    /**
+     * This method initializes jListReport.
+     * 
+     * @return javax.swing.JList the list.
+     */
+    private JList getJListReport() {
 
-			/* creates a new list with options */
-			/* TODO method for this list content */
-			this.jListPictureSetActive = new JList(
-					((ProjectViewModel) this.model).getAllPicturesOfSetList()
-							.toArray());
+	/* create if not set */
+	if (this.jListReport == null) {
 
-			/* allow to select only one row at once */
-			this.jListPictureSetActive
-					.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    /* creates a new list with options */
+	    /* TODO method for this list content */
+	    this.jListReport = new JList(((ProjectViewModel) this.model).getReportList().toArray());
 
-			/*
-			 * set ordering layout to vertical (see java api for more
-			 * information)
-			 */
-			this.jListPictureSetActive.setLayoutOrientation(JList.VERTICAL);
+	    /* allow to select only one row at once */
+	    this.jListReport.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-			this.jListPictureSetActive
-					.setCellRenderer(new MyPictureListCellRenderer());
+	    /*
+	     * set ordering layout to vertical (see java api for more
+	     * information)
+	     */
+	    this.jListReport.setLayoutOrientation(JList.VERTICAL);
 
-		}
-
-		/* return the list */
-		return this.jListPictureSetActive;
+	    this.jListReport.setCellRenderer(new MyReportListCellRenderer());
 	}
 
-	/**
-	 * This method initializes jListPictureSetContent.
-	 * 
-	 * @return javax.swing.JList the list.
-	 */
-	private JList getJListPictureSetContent() {
+	/* return the list */
+	return this.jListReport;
+    }
 
-		/* create if not set */
-		if (this.jListPictureSetContent == null) {
+    /**
+     * This method initializes jPanelExif.
+     * 
+     * @return javax.swing.JPanel the panel.
+     */
+    private JPanel getJPanelExif() {
 
-			/* creates a new list with options */
-			/* TODO method for this list content */
-			this.jListPictureSetContent = new JList(
-					((ProjectViewModel) this.model).getPictureSetContentList()
-							.toArray());
+	/* create if not set */
+	if (this.jPanelExif == null) {
 
-			/* allow to select only one row at once */
-			this.jListPictureSetContent
-					.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    /* create new panel */
+	    this.jPanelExif = new JPanel();
 
-			/*
-			 * set ordering layout to vertical (see java api for more
-			 * information)
-			 */
-			this.jListPictureSetContent.setLayoutOrientation(JList.VERTICAL);
+	    /* create new layout for this panel */
+	    final GroupLayout jPanelExifLayout = new GroupLayout(this.jPanelExif);
 
-			this.jListPictureSetContent
-					.setCellRenderer(new MyPictureSetContentListCellRenderer());
-		}
+	    /* set the horizontal assignment */
+	    jPanelExifLayout.setHorizontalGroup(jPanelExifLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+		    .addGap(0, 228, Short.MAX_VALUE).addGroup(
+			    jPanelExifLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+				    GroupLayout.Alignment.TRAILING,
+				    jPanelExifLayout.createSequentialGroup().addContainerGap().addComponent(
+					    this.getJScrollPaneExif(), GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+					    .addContainerGap())));
 
-		/* return the list */
-		return this.jListPictureSetContent;
+	    /* set the vertical assignment */
+	    jPanelExifLayout.setVerticalGroup(jPanelExifLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+		    .addGap(0, 222, Short.MAX_VALUE).addGroup(
+			    jPanelExifLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+				    jPanelExifLayout.createSequentialGroup().addContainerGap().addComponent(
+					    this.getJScrollPaneExif(), GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+					    .addContainerGap())));
+
+	    /* set the layout to the panel */
+	    this.jPanelExif.setLayout(jPanelExifLayout);
+
+	    /* add a border to the panel */
+	    /* TODO change to internationalisation */
+	    final TitledBorder title = BorderFactory
+		    .createTitledBorder(BorderFactory.createEmptyBorder(), "Exif-Daten");
+	    this.jPanelExif.setBorder(title);
+
+	    /* add the scroll pane for the exif parameters */
+	    this.jPanelExif.add(this.getJScrollPaneExif());
+
+	    /* set minimum size of the panel */
+	    this.jPanelReport.setMinimumSize(new Dimension(250, 245));
+
+	    /* set preferred size of the panel */
+	    this.jPanelReport.setPreferredSize(new Dimension(250, 245));
 	}
 
-	/**
-	 * This method initializes jListReport.
-	 * 
-	 * @return javax.swing.JList the list.
-	 */
-	private JList getJListReport() {
+	/* return the panel */
+	return this.jPanelExif;
+    }
 
-		/* create if not set */
-		if (this.jListReport == null) {
+    /**
+     * This method initializes jPanelPictureSet.
+     * 
+     * @return javax.swing.JPanel the panel.
+     */
+    private JPanel getJPanelPictureSet() {
 
-			/* creates a new list with options */
-			/* TODO method for this list content */
-			this.jListReport = new JList(((ProjectViewModel) this.model)
-					.getReportList().toArray());
+	/* create if not set */
+	if (this.jPanelPictureSet == null) {
 
-			/* allow to select only one row at once */
-			this.jListReport
-					.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    /* create new panel */
+	    this.jPanelPictureSet = new JPanel();
 
-			/*
-			 * set ordering layout to vertical (see java api for more
-			 * information)
-			 */
-			this.jListReport.setLayoutOrientation(JList.VERTICAL);
+	    /* set the layout to the panel */
+	    this.jPanelPictureSet.setLayout(new BorderLayout());
 
-			this.jListReport.setCellRenderer(new MyReportListCellRenderer());
-		}
+	    /* add a border to the panel */
+	    /* TODO change to internationalisation */
+	    final TitledBorder title = BorderFactory
+		    .createTitledBorder(BorderFactory.createEmptyBorder(), "Bildmengen");
+	    this.jPanelPictureSet.setBorder(title);
 
-		/* return the list */
-		return this.jListReport;
+	    /* add a list for picture sets */
+	    this.jPanelPictureSet.add(this.getJListPictureSet(), BorderLayout.NORTH);
+
+	    /* add a pane for picture set options */
+	    this.jPanelPictureSet.add(this.getJPanelPictureSetOptions(), BorderLayout.CENTER);
+
+	    /* set minimum size of the panel */
+	    this.jPanelPictureSet.setMinimumSize(new Dimension(250, 135));
+
+	    /* set preferred size of the panel */
+	    this.jPanelPictureSet.setPreferredSize(new Dimension(250, 135));
 	}
 
-	/**
-	 * This method initializes jPanelExif.
-	 * 
-	 * @return javax.swing.JPanel the panel.
-	 */
-	private JPanel getJPanelExif() {
+	/* return the panel */
+	return this.jPanelPictureSet;
+    }
 
-		/* create if not set */
-		if (this.jPanelExif == null) {
+    /**
+     * This method initializes jPanelPictureSetActive.
+     * 
+     * @return javax.swing.JPanel the panel.
+     */
+    private JPanel getJPanelPictureSetActive() {
 
-			/* create new panel */
-			this.jPanelExif = new JPanel();
+	/* create if not set */
+	if (this.jPanelPictureSetActive == null) {
 
-			/* create new layout for this panel */
-			final GroupLayout jPanelExifLayout = new GroupLayout(
-					this.jPanelExif);
+	    /* create new panel */
+	    this.jPanelPictureSetActive = new JPanel();
 
-			/* set the horizontal assignment */
-			jPanelExifLayout.setHorizontalGroup(jPanelExifLayout
-					.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(
-							0, 228, Short.MAX_VALUE).addGroup(
-							jPanelExifLayout.createParallelGroup(
-									GroupLayout.Alignment.LEADING).addGroup(
-									GroupLayout.Alignment.TRAILING,
-									jPanelExifLayout.createSequentialGroup()
-											.addContainerGap().addComponent(
-													this.getJScrollPaneExif(),
-													GroupLayout.DEFAULT_SIZE,
-													208, Short.MAX_VALUE)
-											.addContainerGap())));
+	    /* create new layout for this panel */
+	    final GroupLayout jPanelPictureSetActiveLayout = new GroupLayout(this.jPanelPictureSetActive);
 
-			/* set the vertical assignment */
-			jPanelExifLayout.setVerticalGroup(jPanelExifLayout
-					.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(
-							0, 222, Short.MAX_VALUE).addGroup(
-							jPanelExifLayout.createParallelGroup(
-									GroupLayout.Alignment.LEADING).addGroup(
-									jPanelExifLayout.createSequentialGroup()
-											.addContainerGap().addComponent(
-													this.getJScrollPaneExif(),
-													GroupLayout.DEFAULT_SIZE,
-													200, Short.MAX_VALUE)
-											.addContainerGap())));
+	    /* set the horizontal assignment */
+	    jPanelPictureSetActiveLayout.setHorizontalGroup(jPanelPictureSetActiveLayout.createParallelGroup(
+		    GroupLayout.Alignment.LEADING).addGroup(
+		    jPanelPictureSetActiveLayout.createSequentialGroup().addContainerGap().addComponent(
+			    this.getJListPictureSetActive(), GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+			    .addContainerGap()));
 
-			/* set the layout to the panel */
-			this.jPanelExif.setLayout(jPanelExifLayout);
+	    /* set the vertical assignment */
+	    jPanelPictureSetActiveLayout.setVerticalGroup(jPanelPictureSetActiveLayout.createParallelGroup(
+		    GroupLayout.Alignment.LEADING).addGroup(
+		    jPanelPictureSetActiveLayout.createSequentialGroup().addContainerGap().addComponent(
+			    this.getJListPictureSetActive(), GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+			    .addContainerGap()));
 
-			/* add a border to the panel */
-			/* TODO change to internationalisation */
-			final TitledBorder title = BorderFactory.createTitledBorder(
-					BorderFactory.createEmptyBorder(), "Exif-Daten");
-			this.jPanelExif.setBorder(title);
+	    /* set the layout to the panel */
+	    this.jPanelPictureSetActive.setLayout(jPanelPictureSetActiveLayout);
 
-			/* add the scroll pane for the exif parameters */
-			this.jPanelExif.add(this.getJScrollPaneExif());
+	    /* add a border to the panel */
+	    /* TODO change to internationalisation */
+	    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
+		    "Bildmenge: Bla");
+	    this.jPanelPictureSetActive.setBorder(title);
 
-			/* set minimum size of the panel */
-			this.jPanelReport.setMinimumSize(new Dimension(250, 245));
+	    /* add a list with images of an active picture container */
+	    this.jPanelPictureSetActive.add(this.getJListPictureSetActive());
 
-			/* set preferred size of the panel */
-			this.jPanelReport.setPreferredSize(new Dimension(250, 245));
-		}
+	    /* set minimum size of the panel */
+	    this.jPanelPictureSetActive.setMinimumSize(new Dimension(220, 500));
 
-		/* return the panel */
-		return this.jPanelExif;
+	    /* set preferred size of the panel */
+	    this.jPanelPictureSetActive.setPreferredSize(new Dimension(220, 500));
 	}
 
-	/**
-	 * This method initializes jPanelPictureSet.
-	 * 
-	 * @return javax.swing.JPanel the panel.
-	 */
-	private JPanel getJPanelPictureSet() {
+	/* return the panel */
+	return this.jPanelPictureSetActive;
+    }
 
-		/* create if not set */
-		if (this.jPanelPictureSet == null) {
+    /**
+     * This method initializes jPanelPictureSetContent.
+     * 
+     * @return javax.swing.JPanel the panel.
+     */
+    private JPanel getJPanelPictureSetContent() {
 
-			/* create new panel */
-			this.jPanelPictureSet = new JPanel();
+	/* create if not set */
+	if (this.jPanelPictureSetContent == null) {
 
-			/* set the layout to the panel */
-			this.jPanelPictureSet.setLayout(new BorderLayout());
+	    /* create new panel */
+	    this.jPanelPictureSetContent = new JPanel();
 
-			/* add a border to the panel */
-			/* TODO change to internationalisation */
-			final TitledBorder title = BorderFactory.createTitledBorder(
-					BorderFactory.createEmptyBorder(), "Bildmengen");
-			this.jPanelPictureSet.setBorder(title);
+	    /* set the layout to the panel */
+	    this.jPanelPictureSetContent.setLayout(new BorderLayout());
 
-			/* add a list for picture sets */
-			this.jPanelPictureSet.add(this.getJListPictureSet(),
-					BorderLayout.NORTH);
+	    /* add a border to the panel */
+	    /* TODO change to internationalisation */
+	    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "Inhalt");
+	    this.jPanelPictureSetContent.setBorder(title);
 
-			/* add a pane for picture set options */
-			this.jPanelPictureSet.add(this.getJPanelPictureSetOptions(),
-					BorderLayout.CENTER);
+	    /* add a list with contents of a picture set */
+	    this.jPanelPictureSetContent.add(this.getJListPictureSetContent(), BorderLayout.NORTH);
 
-			/* set minimum size of the panel */
-			this.jPanelPictureSet.setMinimumSize(new Dimension(250, 135));
+	    /* add a panel with options for the picture set contents */
+	    this.jPanelPictureSetContent.add(this.getJPanelPictureSetContentOptions(), BorderLayout.CENTER);
 
-			/* set preferred size of the panel */
-			this.jPanelPictureSet.setPreferredSize(new Dimension(250, 135));
-		}
+	    /* set minimum size of the panel */
+	    this.jPanelPictureSetContent.setMinimumSize(new Dimension(250, 135));
 
-		/* return the panel */
-		return this.jPanelPictureSet;
+	    /* set preferred size of the panel */
+	    this.jPanelPictureSetContent.setPreferredSize(new Dimension(250, 135));
 	}
 
-	/**
-	 * This method initializes jPanelPictureSetActive.
-	 * 
-	 * @return javax.swing.JPanel the panel.
-	 */
-	private JPanel getJPanelPictureSetActive() {
+	/* return the panel */
+	return this.jPanelPictureSetContent;
+    }
 
-		/* create if not set */
-		if (this.jPanelPictureSetActive == null) {
+    /**
+     * This method initializes jPanelPictureSetContentOptions.
+     * 
+     * @return javax.swing.JPanel the panel.
+     */
+    private JPanel getJPanelPictureSetContentOptions() {
 
-			/* create new panel */
-			this.jPanelPictureSetActive = new JPanel();
+	/* create if not set */
+	if (this.jPanelPictureSetContentOptions == null) {
 
-			/* create new layout for this panel */
-			final GroupLayout jPanelPictureSetActiveLayout = new GroupLayout(
-					this.jPanelPictureSetActive);
+	    /* create new panel */
+	    this.jPanelPictureSetContentOptions = new JPanel();
 
-			/* set the horizontal assignment */
-			jPanelPictureSetActiveLayout
-					.setHorizontalGroup(jPanelPictureSetActiveLayout
-							.createParallelGroup(GroupLayout.Alignment.LEADING)
-							.addGroup(
-									jPanelPictureSetActiveLayout
-											.createSequentialGroup()
-											.addContainerGap()
-											.addComponent(
-													this
-															.getJListPictureSetActive(),
-													GroupLayout.DEFAULT_SIZE,
-													528, Short.MAX_VALUE)
-											.addContainerGap()));
+	    /* set the layout to the panel */
+	    this.jPanelPictureSetContentOptions.setLayout(new FlowLayout());
 
-			/* set the vertical assignment */
-			jPanelPictureSetActiveLayout
-					.setVerticalGroup(jPanelPictureSetActiveLayout
-							.createParallelGroup(GroupLayout.Alignment.LEADING)
-							.addGroup(
-									jPanelPictureSetActiveLayout
-											.createSequentialGroup()
-											.addContainerGap()
-											.addComponent(
-													this
-															.getJListPictureSetActive(),
-													GroupLayout.DEFAULT_SIZE,
-													451, Short.MAX_VALUE)
-											.addContainerGap()));
+	    /* add the button for adding a picture set content */
+	    this.jPanelPictureSetContentOptions.add(this.getJButtonPictureSetContentAdd(), null);
 
-			/* set the layout to the panel */
-			this.jPanelPictureSetActive.setLayout(jPanelPictureSetActiveLayout);
+	    /* add the button for deleting a picture set content */
+	    this.jPanelPictureSetContentOptions.add(this.getJButtonPictureSetContentDelete(), null);
 
-			/* add a border to the panel */
-			/* TODO change to internationalisation */
-			final TitledBorder title = BorderFactory.createTitledBorder(
-					BorderFactory.createEmptyBorder(), "Bildmenge: Bla");
-			this.jPanelPictureSetActive.setBorder(title);
-
-			/* add a list with images of an active picture container */
-			this.jPanelPictureSetActive.add(this.getJListPictureSetActive());
-
-			/* set minimum size of the panel */
-			this.jPanelPictureSetActive.setMinimumSize(new Dimension(220, 500));
-
-			/* set preferred size of the panel */
-			this.jPanelPictureSetActive
-					.setPreferredSize(new Dimension(220, 500));
-		}
-
-		/* return the panel */
-		return this.jPanelPictureSetActive;
+	    /* add the button for refreshing a picture set content */
+	    this.jPanelPictureSetContentOptions.add(this.getJButtonPictureSetContentRefresh(), null);
 	}
 
-	/**
-	 * This method initializes jPanelPictureSetContent.
-	 * 
-	 * @return javax.swing.JPanel the panel.
-	 */
-	private JPanel getJPanelPictureSetContent() {
+	/* return the panel */
+	return this.jPanelPictureSetContentOptions;
+    }
 
-		/* create if not set */
-		if (this.jPanelPictureSetContent == null) {
+    /**
+     * This method initializes jPanelPictureSetOptions.
+     * 
+     * @return javax.swing.JPanel the panel.
+     */
+    private JPanel getJPanelPictureSetOptions() {
 
-			/* create new panel */
-			this.jPanelPictureSetContent = new JPanel();
+	/* create if not set */
+	if (this.jPanelPictureSetOptions == null) {
 
-			/* set the layout to the panel */
-			this.jPanelPictureSetContent.setLayout(new BorderLayout());
+	    /* create new panel */
+	    this.jPanelPictureSetOptions = new JPanel();
 
-			/* add a border to the panel */
-			/* TODO change to internationalisation */
-			final TitledBorder title = BorderFactory.createTitledBorder(
-					BorderFactory.createEmptyBorder(), "Inhalt");
-			this.jPanelPictureSetContent.setBorder(title);
+	    /* set the layout to the panel */
+	    this.jPanelPictureSetOptions.setLayout(new FlowLayout());
 
-			/* add a list with contents of a picture set */
-			this.jPanelPictureSetContent.add(this.getJListPictureSetContent(),
-					BorderLayout.NORTH);
+	    /* add the button for creating a picture set */
+	    this.jPanelPictureSetOptions.add(this.getJButtonPictureSetCreate(), null);
 
-			/* add a panel with options for the picture set contents */
-			this.jPanelPictureSetContent.add(this
-					.getJPanelPictureSetContentOptions(), BorderLayout.CENTER);
+	    /* add the button for deleting a picture set */
+	    this.jPanelPictureSetOptions.add(this.getJButtonPictureSetDelete(), null);
 
-			/* set minimum size of the panel */
-			this.jPanelPictureSetContent
-					.setMinimumSize(new Dimension(250, 135));
-
-			/* set preferred size of the panel */
-			this.jPanelPictureSetContent.setPreferredSize(new Dimension(250,
-					135));
-		}
-
-		/* return the panel */
-		return this.jPanelPictureSetContent;
+	    /* add the button for copying a picture set */
+	    this.jPanelPictureSetOptions.add(this.getJButtonPictureSetCopy(), null);
 	}
 
-	/**
-	 * This method initializes jPanelPictureSetContentOptions.
-	 * 
-	 * @return javax.swing.JPanel the panel.
-	 */
-	private JPanel getJPanelPictureSetContentOptions() {
+	/* return the panel */
+	return this.jPanelPictureSetOptions;
+    }
 
-		/* create if not set */
-		if (this.jPanelPictureSetContentOptions == null) {
+    /**
+     * This method initializes jPanelProjectDescription.
+     * 
+     * @return javax.swing.JPanel the panel.
+     */
+    private JPanel getJPanelProjectDescription() {
 
-			/* create new panel */
-			this.jPanelPictureSetContentOptions = new JPanel();
+	/* create if not set */
+	if (this.jPanelProjectDescription == null) {
 
-			/* set the layout to the panel */
-			this.jPanelPictureSetContentOptions.setLayout(new FlowLayout());
+	    /* create new panel */
+	    this.jPanelProjectDescription = new JPanel();
 
-			/* add the button for adding a picture set content */
-			this.jPanelPictureSetContentOptions.add(this
-					.getJButtonPictureSetContentAdd(), null);
+	    /* create new layout for this panel */
+	    final GroupLayout jPanelProjectDescriptionLayout = new GroupLayout(this.jPanelProjectDescription);
 
-			/* add the button for deleting a picture set content */
-			this.jPanelPictureSetContentOptions.add(this
-					.getJButtonPictureSetContentDelete(), null);
+	    /* set the horizontal assignment */
+	    jPanelProjectDescriptionLayout.setHorizontalGroup(jPanelProjectDescriptionLayout.createParallelGroup(
+		    GroupLayout.Alignment.LEADING).addGroup(
+		    GroupLayout.Alignment.TRAILING,
+		    jPanelProjectDescriptionLayout.createSequentialGroup().addContainerGap().addComponent(
+			    this.getJScrollPaneProjectDescription(), GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+			    .addContainerGap()));
 
-			/* add the button for refreshing a picture set content */
-			this.jPanelPictureSetContentOptions.add(this
-					.getJButtonPictureSetContentRefresh(), null);
-		}
+	    /* set the vertical assignment */
+	    jPanelProjectDescriptionLayout.setVerticalGroup(jPanelProjectDescriptionLayout.createParallelGroup(
+		    GroupLayout.Alignment.LEADING).addGroup(
+		    jPanelProjectDescriptionLayout.createSequentialGroup().addContainerGap().addComponent(
+			    this.getJScrollPaneProjectDescription(), GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+			    .addContainerGap()));
 
-		/* return the panel */
-		return this.jPanelPictureSetContentOptions;
+	    /* set the layout to the panel */
+	    this.jPanelProjectDescription.setLayout(jPanelProjectDescriptionLayout);
+
+	    /* add a border to the panel */
+	    /* TODO change to internationalisation */
+	    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
+		    "Projektbeschreibung");
+	    this.jPanelProjectDescription.setBorder(title);
+
+	    /* add scrollbars for the project description */
+	    this.jPanelProjectDescription.add(this.getJScrollPaneProjectDescription());
+
+	    /* set minimum size of the panel */
+	    this.jPanelProjectDescription.setMinimumSize(new Dimension(250, 135));
+
+	    /* set preferred size of the panel */
+	    this.jPanelProjectDescription.setPreferredSize(new Dimension(250, 135));
 	}
 
-	/**
-	 * This method initializes jPanelPictureSetOptions.
-	 * 
-	 * @return javax.swing.JPanel the panel.
-	 */
-	private JPanel getJPanelPictureSetOptions() {
+	/* return the panel */
+	return this.jPanelProjectDescription;
+    }
 
-		/* create if not set */
-		if (this.jPanelPictureSetOptions == null) {
+    /**
+     * This method initializes jPanelProjectOptions.
+     * 
+     * @return javax.swing.JPanel the panel.
+     */
+    private JPanel getJPanelProjectOptions() {
 
-			/* create new panel */
-			this.jPanelPictureSetOptions = new JPanel();
+	/* create if not set */
+	if (this.jPanelProjectOptions == null) {
 
-			/* set the layout to the panel */
-			this.jPanelPictureSetOptions.setLayout(new FlowLayout());
+	    /* create new panel */
+	    this.jPanelProjectOptions = new JPanel();
 
-			/* add the button for creating a picture set */
-			this.jPanelPictureSetOptions.add(this.getJButtonPictureSetCreate(),
-					null);
+	    /* create new layout for this panel */
+	    final GroupLayout jPanelProjectOptionsLayout = new GroupLayout(this.jPanelProjectOptions);
 
-			/* add the button for deleting a picture set */
-			this.jPanelPictureSetOptions.add(this.getJButtonPictureSetDelete(),
-					null);
+	    /* set the horizontal assignment */
+	    jPanelProjectOptionsLayout.setHorizontalGroup(jPanelProjectOptionsLayout.createParallelGroup(
+		    GroupLayout.Alignment.LEADING).addGroup(
+		    GroupLayout.Alignment.TRAILING,
+		    jPanelProjectOptionsLayout.createSequentialGroup().addContainerGap().addGroup(
+			    jPanelProjectOptionsLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+				    .addComponent(this.getJTextFieldProjectName(), GroupLayout.DEFAULT_SIZE, 240,
+					    Short.MAX_VALUE).addGroup(
+					    jPanelProjectOptionsLayout.createSequentialGroup().addComponent(
+						    this.getJButtonProjectChange()).addPreferredGap(
+						    LayoutStyle.ComponentPlacement.RELATED).addComponent(
+						    this.getJButtonProjectSave()))).addContainerGap()));
 
-			/* add the button for copying a picture set */
-			this.jPanelPictureSetOptions.add(this.getJButtonPictureSetCopy(),
-					null);
-		}
+	    /* set the vertical assignment */
+	    jPanelProjectOptionsLayout.setVerticalGroup(jPanelProjectOptionsLayout.createParallelGroup(
+		    GroupLayout.Alignment.LEADING).addGroup(
+		    jPanelProjectOptionsLayout.createSequentialGroup().addGroup(
+			    jPanelProjectOptionsLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+				    .addComponent(this.getJButtonProjectSave()).addComponent(
+					    this.getJButtonProjectChange())).addPreferredGap(
+			    LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE).addComponent(
+			    this.getJTextFieldProjectName(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+			    GroupLayout.PREFERRED_SIZE)));
 
-		/* return the panel */
-		return this.jPanelPictureSetOptions;
+	    /* set the layout to the panel */
+	    this.jPanelProjectOptions.setLayout(jPanelProjectOptionsLayout);
+
+	    /* add a border to the panel */
+	    /* TODO change to internationalisation */
+	    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "Projekt");
+	    this.jPanelProjectOptions.setBorder(title);
+
+	    /* add the textfield with the project name */
+	    this.jPanelProjectOptions.add(this.getJTextFieldProjectName());
+
+	    /* add the button for the project save action */
+	    this.jPanelProjectOptions.add(this.getJButtonProjectSave());
+
+	    /* add the button for the project change action */
+	    this.jPanelProjectOptions.add(this.getJButtonProjectChange());
+
+	    /* set minimum size of the panel */
+	    this.jPanelProjectOptions.setMinimumSize(new Dimension(250, 60));
+
+	    /* set preferred size of the panel */
+	    this.jPanelProjectOptions.setPreferredSize(new Dimension(250, 60));
 	}
 
-	/**
-	 * This method initializes jPanelProjectDescription.
-	 * 
-	 * @return javax.swing.JPanel the panel.
-	 */
-	private JPanel getJPanelProjectDescription() {
+	/* return the panel */
+	return this.jPanelProjectOptions;
+    }
 
-		/* create if not set */
-		if (this.jPanelProjectDescription == null) {
+    /**
+     * This method initializes jPanelReport.
+     * 
+     * @return javax.swing.JPanel the panel.
+     */
+    private JPanel getJPanelReport() {
 
-			/* create new panel */
-			this.jPanelProjectDescription = new JPanel();
+	/* create if not set */
+	if (this.jPanelReport == null) {
 
-			/* create new layout for this panel */
-			final GroupLayout jPanelProjectDescriptionLayout = new GroupLayout(
-					this.jPanelProjectDescription);
+	    /* create new panel */
+	    this.jPanelReport = new JPanel();
 
-			/* set the horizontal assignment */
-			jPanelProjectDescriptionLayout
-					.setHorizontalGroup(jPanelProjectDescriptionLayout
-							.createParallelGroup(GroupLayout.Alignment.LEADING)
-							.addGroup(
-									GroupLayout.Alignment.TRAILING,
-									jPanelProjectDescriptionLayout
-											.createSequentialGroup()
-											.addContainerGap()
-											.addComponent(
-													this
-															.getJScrollPaneProjectDescription(),
-													GroupLayout.DEFAULT_SIZE,
-													240, Short.MAX_VALUE)
-											.addContainerGap()));
+	    /* create new layout for this panel */
+	    final GroupLayout jPanelReportLayout = new GroupLayout(this.jPanelReport);
 
-			/* set the vertical assignment */
-			jPanelProjectDescriptionLayout
-					.setVerticalGroup(jPanelProjectDescriptionLayout
-							.createParallelGroup(GroupLayout.Alignment.LEADING)
-							.addGroup(
-									jPanelProjectDescriptionLayout
-											.createSequentialGroup()
-											.addContainerGap()
-											.addComponent(
-													this
-															.getJScrollPaneProjectDescription(),
-													GroupLayout.DEFAULT_SIZE,
-													86, Short.MAX_VALUE)
-											.addContainerGap()));
+	    /* set the horizontal assignment */
+	    jPanelReportLayout.setHorizontalGroup(jPanelReportLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+		    .addGroup(
+			    jPanelReportLayout.createSequentialGroup().addContainerGap().addComponent(
+				    this.getJListReport(), GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+				    .addContainerGap()));
 
-			/* set the layout to the panel */
-			this.jPanelProjectDescription
-					.setLayout(jPanelProjectDescriptionLayout);
+	    /* set the vertical assignment */
+	    jPanelReportLayout.setVerticalGroup(jPanelReportLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+		    .addGroup(
+			    GroupLayout.Alignment.TRAILING,
+			    jPanelReportLayout.createSequentialGroup().addContainerGap().addComponent(
+				    this.getJListReport(), GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+				    .addContainerGap()));
 
-			/* add a border to the panel */
-			/* TODO change to internationalisation */
-			final TitledBorder title = BorderFactory.createTitledBorder(
-					BorderFactory.createEmptyBorder(), "Projektbeschreibung");
-			this.jPanelProjectDescription.setBorder(title);
+	    /* set the layout to the panel */
+	    this.jPanelReport.setLayout(jPanelReportLayout);
 
-			/* add scrollbars for the project description */
-			this.jPanelProjectDescription.add(this
-					.getJScrollPaneProjectDescription());
+	    /* add a border to the panel */
+	    /* TODO change to internationalisation */
+	    final TitledBorder title = BorderFactory
+		    .createTitledBorder(BorderFactory.createEmptyBorder(), "Auswertung");
+	    this.jPanelReport.setBorder(title);
 
-			/* set minimum size of the panel */
-			this.jPanelProjectDescription
-					.setMinimumSize(new Dimension(250, 135));
+	    /* add the list with the reports for the project */
+	    this.jPanelReport.add(this.getJListReport());
 
-			/* set preferred size of the panel */
-			this.jPanelProjectDescription.setPreferredSize(new Dimension(250,
-					135));
-		}
+	    /* set minimum size of the panel */
+	    this.jPanelReport.setMinimumSize(new Dimension(250, 245));
 
-		/* return the panel */
-		return this.jPanelProjectDescription;
+	    /* set preferred size of the panel */
+	    this.jPanelReport.setPreferredSize(new Dimension(250, 245));
 	}
 
-	/**
-	 * This method initializes jPanelProjectOptions.
-	 * 
-	 * @return javax.swing.JPanel the panel.
-	 */
-	private JPanel getJPanelProjectOptions() {
+	/* return the panel */
+	return this.jPanelReport;
+    }
 
-		/* create if not set */
-		if (this.jPanelProjectOptions == null) {
+    /**
+     * This method initializes jScrollPaneExif.
+     * 
+     * @return javax.swing.JScrollPane the scrollpane.
+     */
+    private JScrollPane getJScrollPaneExif() {
 
-			/* create new panel */
-			this.jPanelProjectOptions = new JPanel();
+	/* create if not set */
+	if (this.jScrollPaneExif == null) {
 
-			/* create new layout for this panel */
-			final GroupLayout jPanelProjectOptionsLayout = new GroupLayout(
-					this.jPanelProjectOptions);
+	    /* create new scrollpane */
+	    this.jScrollPaneExif = new JScrollPane();
 
-			/* set the horizontal assignment */
-			jPanelProjectOptionsLayout
-					.setHorizontalGroup(jPanelProjectOptionsLayout
-							.createParallelGroup(GroupLayout.Alignment.LEADING)
-							.addGroup(
-									GroupLayout.Alignment.TRAILING,
-									jPanelProjectOptionsLayout
-											.createSequentialGroup()
-											.addContainerGap()
-											.addGroup(
-													jPanelProjectOptionsLayout
-															.createParallelGroup(
-																	GroupLayout.Alignment.TRAILING)
-															.addComponent(
-																	this
-																			.getJTextFieldProjectName(),
-																	GroupLayout.DEFAULT_SIZE,
-																	240,
-																	Short.MAX_VALUE)
-															.addGroup(
-																	jPanelProjectOptionsLayout
-																			.createSequentialGroup()
-																			.addComponent(
-																					this
-																							.getJButtonProjectChange())
-																			.addPreferredGap(
-																					LayoutStyle.ComponentPlacement.RELATED)
-																			.addComponent(
-																					this
-																							.getJButtonProjectSave())))
-											.addContainerGap()));
-
-			/* set the vertical assignment */
-			jPanelProjectOptionsLayout
-					.setVerticalGroup(jPanelProjectOptionsLayout
-							.createParallelGroup(GroupLayout.Alignment.LEADING)
-							.addGroup(
-									jPanelProjectOptionsLayout
-											.createSequentialGroup()
-											.addGroup(
-													jPanelProjectOptionsLayout
-															.createParallelGroup(
-																	GroupLayout.Alignment.BASELINE)
-															.addComponent(
-																	this
-																			.getJButtonProjectSave())
-															.addComponent(
-																	this
-																			.getJButtonProjectChange()))
-											.addPreferredGap(
-													LayoutStyle.ComponentPlacement.RELATED,
-													7, Short.MAX_VALUE)
-											.addComponent(
-													this
-															.getJTextFieldProjectName(),
-													GroupLayout.PREFERRED_SIZE,
-													GroupLayout.DEFAULT_SIZE,
-													GroupLayout.PREFERRED_SIZE)));
-
-			/* set the layout to the panel */
-			this.jPanelProjectOptions.setLayout(jPanelProjectOptionsLayout);
-
-			/* add a border to the panel */
-			/* TODO change to internationalisation */
-			final TitledBorder title = BorderFactory.createTitledBorder(
-					BorderFactory.createEmptyBorder(), "Projekt");
-			this.jPanelProjectOptions.setBorder(title);
-
-			/* add the textfield with the project name */
-			this.jPanelProjectOptions.add(this.getJTextFieldProjectName());
-
-			/* add the button for the project save action */
-			this.jPanelProjectOptions.add(this.getJButtonProjectSave());
-
-			/* add the button for the project change action */
-			this.jPanelProjectOptions.add(this.getJButtonProjectChange());
-
-			/* set minimum size of the panel */
-			this.jPanelProjectOptions.setMinimumSize(new Dimension(250, 60));
-
-			/* set preferred size of the panel */
-			this.jPanelProjectOptions.setPreferredSize(new Dimension(250, 60));
-		}
-
-		/* return the panel */
-		return this.jPanelProjectOptions;
+	    /* add the exif parameter table to the pane */
+	    this.jScrollPaneExif.setViewportView(this.getJTableExif());
 	}
 
-	/**
-	 * This method initializes jPanelReport.
-	 * 
-	 * @return javax.swing.JPanel the panel.
-	 */
-	private JPanel getJPanelReport() {
+	/* return the scrollpane */
+	return this.jScrollPaneExif;
+    }
 
-		/* create if not set */
-		if (this.jPanelReport == null) {
+    /**
+     * This method initializes jScrollPaneProjectDescription.
+     * 
+     * @return javax.swing.JScrollPane the scrollpane.
+     */
+    private JScrollPane getJScrollPaneProjectDescription() {
 
-			/* create new panel */
-			this.jPanelReport = new JPanel();
+	/* create if not set */
+	if (this.jScrollPaneProjectDescription == null) {
 
-			/* create new layout for this panel */
-			final GroupLayout jPanelReportLayout = new GroupLayout(
-					this.jPanelReport);
+	    /* create new scrollpane */
+	    this.jScrollPaneProjectDescription = new JScrollPane();
 
-			/* set the horizontal assignment */
-			jPanelReportLayout
-					.setHorizontalGroup(jPanelReportLayout.createParallelGroup(
-							GroupLayout.Alignment.LEADING).addGroup(
-							jPanelReportLayout.createSequentialGroup()
-									.addContainerGap().addComponent(
-											this.getJListReport(),
-											GroupLayout.DEFAULT_SIZE, 208,
-											Short.MAX_VALUE).addContainerGap()));
-
-			/* set the vertical assignment */
-			jPanelReportLayout
-					.setVerticalGroup(jPanelReportLayout.createParallelGroup(
-							GroupLayout.Alignment.LEADING).addGroup(
-							GroupLayout.Alignment.TRAILING,
-							jPanelReportLayout.createSequentialGroup()
-									.addContainerGap().addComponent(
-											this.getJListReport(),
-											GroupLayout.DEFAULT_SIZE, 196,
-											Short.MAX_VALUE).addContainerGap()));
-
-			/* set the layout to the panel */
-			this.jPanelReport.setLayout(jPanelReportLayout);
-
-			/* add a border to the panel */
-			/* TODO change to internationalisation */
-			final TitledBorder title = BorderFactory.createTitledBorder(
-					BorderFactory.createEmptyBorder(), "Auswertung");
-			this.jPanelReport.setBorder(title);
-
-			/* add the list with the reports for the project */
-			this.jPanelReport.add(this.getJListReport());
-
-			/* set minimum size of the panel */
-			this.jPanelReport.setMinimumSize(new Dimension(250, 245));
-
-			/* set preferred size of the panel */
-			this.jPanelReport.setPreferredSize(new Dimension(250, 245));
-		}
-
-		/* return the panel */
-		return this.jPanelReport;
+	    /* add the project description to the pane */
+	    this.jScrollPaneProjectDescription.setViewportView(this.getJEditorPaneProjectDescription());
 	}
 
-	/**
-	 * This method initializes jScrollPaneExif.
-	 * 
-	 * @return javax.swing.JScrollPane the scrollpane.
-	 */
-	private JScrollPane getJScrollPaneExif() {
+	/* return the scrollpane */
+	return this.jScrollPaneProjectDescription;
+    }
 
-		/* create if not set */
-		if (this.jScrollPaneExif == null) {
+    /**
+     * This method initializes jTableExif.
+     * 
+     * @return javax.swing.JTable the table.
+     */
+    private JTable getJTableExif() {
 
-			/* create new scrollpane */
-			this.jScrollPaneExif = new JScrollPane();
+	/* create if not set */
+	if (this.jTableExif == null) {
 
-			/* add the exif parameter table to the pane */
-			this.jScrollPaneExif.setViewportView(this.getJTableExif());
-		}
+	    /* TODO set from model */
+	    final String[] columnNames = { "Parameter", "Wert" };
+	    final Object[][] data = { { "Mary", "Campione" }, { "Alison", "Huml" }, { "Kathy", "Walrath" },
+		    { "Sharon", "Zakhour" }, { "Philip", "Milne" } };
 
-		/* return the scrollpane */
-		return this.jScrollPaneExif;
+	    /* create new table for the exif parameters of an active image */
+	    this.jTableExif = new JTable(data, columnNames);
 	}
 
-	/**
-	 * This method initializes jScrollPaneProjectDescription.
-	 * 
-	 * @return javax.swing.JScrollPane the scrollpane.
-	 */
-	private JScrollPane getJScrollPaneProjectDescription() {
+	/* return the table */
+	return this.jTableExif;
+    }
 
-		/* create if not set */
-		if (this.jScrollPaneProjectDescription == null) {
+    /**
+     * This method initializes jTextFieldProjectDescription.
+     * 
+     * @return javax.swing.JTextField the textfield.
+     */
+    private JTextField getJTextFieldProjectName() {
 
-			/* create new scrollpane */
-			this.jScrollPaneProjectDescription = new JScrollPane();
+	/* create if not set */
+	if (this.jTextFieldProjectName == null) {
 
-			/* add the project description to the pane */
-			this.jScrollPaneProjectDescription.setViewportView(this
-					.getJEditorPaneProjectDescription());
-		}
-
-		/* return the scrollpane */
-		return this.jScrollPaneProjectDescription;
+	    /* create new textfield */
+	    this.jTextFieldProjectName = new JTextField();
+	    this.jTextFieldProjectName.setText(((ProjectViewModel) model).getProjectDescriptionList());
 	}
+	return this.jTextFieldProjectName;
+    }
 
-	/**
-	 * This method initializes jTableExif.
-	 * 
-	 * @return javax.swing.JTable the table.
-	 */
-	private JTable getJTableExif() {
+    /**
+     * This method checks which entries are marked in the PictureSetContentList
+     * and gives them back as indices.
+     * 
+     * @return array of indices.
+     */
+    public int[] getSelectedIndicesFromPictureSetContentList() {
+	return this.jListPictureSetContent.getSelectedIndices();
+    }
 
-		/* create if not set */
-		if (this.jTableExif == null) {
+    /**
+     * This method checks which entries are marked in the PictureSetList and
+     * gives them back as indices.
+     * 
+     * @return array of indices.
+     */
+    public int[] getSelectedIndicesFromPictureSetList() {
+	return this.jListPictureSet.getSelectedIndices();
+    }
 
-			/* TODO set from model */
-			final String[] columnNames = { "Parameter", "Wert" };
-			final Object[][] data = { { "Mary", "Campione" },
-					{ "Alison", "Huml" }, { "Kathy", "Walrath" },
-					{ "Sharon", "Zakhour" }, { "Philip", "Milne" } };
+    /**
+     * This method checks which entries are marked in the ReportList and gives
+     * them back as indices.
+     * 
+     * @return array of indices.
+     */
+    public int[] getSelectedIndicesFromReportList() {
+	return this.jListReport.getSelectedIndices();
+    }
 
-			/* create new table for the exif parameters of an active image */
-			this.jTableExif = new JTable(data, columnNames);
-		}
+    /**
+     * This method checks which entries are marked in the PictureList of a
+     * PictureSet and gives them back as indices.
+     * 
+     * @return array of indices.
+     */
+    public int[] getSelectedIndicesFromPictureList() {
+	return this.jListPictureSetActive.getSelectedIndices();
+    }
 
-		/* return the table */
-		return this.jTableExif;
+    public String getjTextFieldProjectNameToString() {
+	return jTextFieldProjectName.getText();
+    }
+
+    public void setjTextFieldProjectNameText(String text) {
+	this.jTextFieldProjectName.setText(text);
+    }
+
+    public String getjEditorPaneProjectDescriptionToString() {
+	return jEditorPaneProjectDescription.getText();
+    }
+
+    public void setjEditorPaneProjectDescription(String text) {
+	this.jEditorPaneProjectDescription.setText(text);
+    }
+
+    @Override
+    public void update(final Observable o, final Object arg) {
+
+	/* cast to model */
+	final ProjectViewModel model = (ProjectViewModel) o;
+
+	/* set the title for the view */
+	/* TODO change to internationalisation */
+	this.setTitle("Projektansicht für " + model.getName());
+
+	/* refresh view */
+	this.repaint();
+
+	/* react to program state */
+	if (model.getModelStatus() == ProjectViewModel.USERSELECT) {
+
+	    /* set view active */
+	    this.setEnabled(true);
+
+	    /* show view */
+	    this.setVisible(true);
+	} else if (model.getModelStatus() == ProjectViewModel.SWITCHPROJECT) {
+
+	    /* delete view */
+	    this.dispose();
+
+	} else {
+
+	    /* set the view inactive */
+	    this.setEnabled(false);
 	}
-
-	/**
-	 * This method initializes jTextFieldProjectDescription.
-	 * 
-	 * @return javax.swing.JTextField the textfield.
-	 */
-	private JTextField getJTextFieldProjectName() {
-
-		/* create if not set */
-		if (this.jTextFieldProjectName == null) {
-
-			/* create new textfield */
-			this.jTextFieldProjectName = new JTextField();
-			this.jTextFieldProjectName.setText(((ProjectViewModel) model)
-					.getProjectDescriptionList());
-		}
-		return this.jTextFieldProjectName;
-	}
-
-	/**
-	 * This method checks which entries are marked in the PictureSetContentList
-	 * and gives them back as indices.
-	 * 
-	 * @return array of indices.
-	 */
-	public int[] getSelectedIndicesFromPictureSetContentList() {
-		return this.jListPictureSetContent.getSelectedIndices();
-	}
-
-	/**
-	 * This method checks which entries are marked in the PictureSetList and
-	 * gives them back as indices.
-	 * 
-	 * @return array of indices.
-	 */
-	public int[] getSelectedIndicesFromPictureSetList() {
-		return this.jListPictureSet.getSelectedIndices();
-	}
-
-	/**
-	 * This method checks which entries are marked in the ReportList and gives
-	 * them back as indices.
-	 * 
-	 * @return array of indices.
-	 */
-	public int[] getSelectedIndicesFromReportList() {
-		return this.jListReport.getSelectedIndices();
-	}
-
-	/**
-	 * This method checks which entries are marked in the PictureList of a
-	 * PictureSet and gives them back as indices.
-	 * 
-	 * @return array of indices.
-	 */
-	public int[] getSelectedIndicesFromPictureList() {
-		return this.jListPictureSetActive.getSelectedIndices();
-	}
-
-	public String getjTextFieldProjectNameToString() {
-		return jTextFieldProjectName.getText();
-	}
-
-	public void setjTextFieldProjectNameText(String text) {
-		this.jTextFieldProjectName.setText(text);
-	}
-
-	public String getjEditorPaneProjectDescriptionToString() {
-		return jEditorPaneProjectDescription.getText();
-	}
-
-	public void setjEditorPaneProjectDescription(String text) {
-		this.jEditorPaneProjectDescription.setText(text);
-	}
-
-	@Override
-	public void update(final Observable o, final Object arg) {
-
-		/* cast to model */
-		final ProjectViewModel model = (ProjectViewModel) o;
-
-		/* set the title for the view */
-		/* TODO change to internationalisation */
-		this.setTitle("Projektansicht für " + model.getName());
-
-		/* refresh view */
-		this.repaint();
-
-		/* react to program state */
-		if (model.getModelStatus() == ProjectViewModel.USERSELECT) {
-
-			/* set view active */
-			this.setEnabled(true);
-
-			/* show view */
-			this.setVisible(true);
-		} else if (model.getModelStatus() == ProjectViewModel.SWITCHPROJECT) {
-
-			/* delete view */
-			this.dispose();
-
-		} else {
-
-			/* set the view inactive */
-			this.setEnabled(false);
-		}
-	}
+    }
 }
 
-/* Kümmert sich um das Render eines Listeneintrages */
+/**
+ * This nested class renders a picture set cell for the picture set list.
+ */
 class MyPictureSetListCellRenderer implements ListCellRenderer {
 
-	/* Definiere Standardrenderer */
-	protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+    /* defines the default renderer */
+    protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-	public Component getListCellRendererComponent(final JList list,
-			final Object value, final int index, final boolean isSelected,
-			final boolean cellHasFocus) {
-		String theText = null;
+    @Override
+    public Component getListCellRendererComponent(final JList list, final Object value, final int index,
+	    final boolean isSelected, final boolean cellHasFocus) {
+	
+	/* the text for the cell */
+	String theText = null;
 
-		/* Generiert einen Renderer */
-		final JLabel renderer = (JLabel) this.defaultRenderer
-				.getListCellRendererComponent(list, value, index, isSelected,
-						cellHasFocus);
+	/* generate the label which represents the cell */
+	final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
+		isSelected, cellHasFocus);
 
-		/* Wenn ein Projekt vorliegt, setze Text */
-		if (value instanceof PictureSet) {
-			final PictureSet pictureSet = (PictureSet) value;
-			theText = pictureSet.getName();
-		}
-		renderer.setText(theText);
+	/* if the selected item is a "PictureSet" -> set the name */
+	if (value instanceof PictureSet) {
+	    final PictureSet pictureSet = (PictureSet) value;
+	    theText = pictureSet.getName();
+	}	
+	renderer.setText(theText);
 
-		/* Gib Renderer zurück */
-		return renderer;
-	}
+	/* return the label */
+	return renderer;
+    }
 }
 
-/* Kümmert sich um das Render eines Listeneintrages */
+/**
+ * This nested class renders a picture set content cell for the picture set content list of an active project.
+ */
 class MyPictureSetContentListCellRenderer implements ListCellRenderer {
 
-	/* Definiere Standardrenderer */
-	protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+    /* defines the default renderer */
+    protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-	public Component getListCellRendererComponent(final JList list,
-			final Object value, final int index, final boolean isSelected,
-			final boolean cellHasFocus) {
-		String theText = null;
+    @Override
+    public Component getListCellRendererComponent(final JList list, final Object value, final int index,
+	    final boolean isSelected, final boolean cellHasFocus) {
+	
+	/* the text for the cell */
+	String theText = null;
 
-		/* Generiert einen Renderer */
-		final JLabel renderer = (JLabel) this.defaultRenderer
-				.getListCellRendererComponent(list, value, index, isSelected,
-						cellHasFocus);
+	/* the color for the cell text */
+	Color theColor = null;
+	
+	/* generate the label which represents the cell */
+	final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
+		isSelected, cellHasFocus);
 
-		/* Wenn ein Projekt vorliegt, setze Text */
-		if (value instanceof PictureContainer) {
-			final PictureContainer picturecontainer = (PictureContainer) value;
-			theText = picturecontainer.getName();
-		}
-		renderer.setText(theText);
-
-		/* Gib Renderer zurück */
-		return renderer;
+	/* if the selected item is a "Picture" -> set the name */
+	/* TODO different colors */
+	if (value instanceof Picture) {
+	    final PictureContainer picturecontainer = (PictureContainer) value;
+	    theText = picturecontainer.getName();
+	    theColor = Color.GREEN;
 	}
+	renderer.setText(theText);
+	renderer.setForeground(theColor);
+	
+	/* return the label */
+	return renderer;
+    }
 }
 
-/* Kümmert sich um das Render eines Listeneintrages */
+/**
+ * This nested class renders a picture cell for the picture list of an active picture container.
+ */
 class MyPictureListCellRenderer implements ListCellRenderer {
 
-	/* Definiere Standardrenderer */
-	protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+    /* defines the default renderer */
+    protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-	public Component getListCellRendererComponent(final JList list,
-			final Object value, final int index, final boolean isSelected,
-			final boolean cellHasFocus) {
-		String theText = null;
+    @Override
+    public Component getListCellRendererComponent(final JList list, final Object value, final int index,
+	    final boolean isSelected, final boolean cellHasFocus) {
+	
+	/* the text for the cell */
+	String theText = null;
 
-		/* Generiert einen Renderer */
-		final JLabel renderer = (JLabel) this.defaultRenderer
-				.getListCellRendererComponent(list, value, index, isSelected,
-						cellHasFocus);
+	/* generate the label which represents the cell */
+	final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
+		isSelected, cellHasFocus);
 
-		/* Wenn ein Projekt vorliegt, setze Text */
-		if (value instanceof Picture) {
-			final Picture picture = (Picture) value;
-			theText = picture.getName();
-		}
-		renderer.setText(theText);
-
-		/* Gib Renderer zurück */
-		return renderer;
+	/* if the selected item is a "Picture" -> set the name */
+	if (value instanceof Picture) {
+	    final Picture picture = (Picture) value;
+	    theText = picture.getName();
 	}
+	renderer.setText(theText);
+
+	/* return the label */
+	return renderer;
+    }
 }
 
-/* Kümmert sich um das Render eines Listeneintrages */
+/**
+ * This nested class renders a report cell for the report list of an active project.
+ */
 class MyReportListCellRenderer implements ListCellRenderer {
 
-	/* Definiere Standardrenderer */
-	protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+    /* defines the default renderer */
+    protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-	public Component getListCellRendererComponent(final JList list,
-			final Object value, final int index, final boolean isSelected,
-			final boolean cellHasFocus) {
-		String theText = null;
+    @Override
+    public Component getListCellRendererComponent(final JList list, final Object value, final int index,
+	    final boolean isSelected, final boolean cellHasFocus) {
+	
+	/* the text for the cell */
+	String theText = null;
 
-		/* Generiert einen Renderer */
-		final JLabel renderer = (JLabel) this.defaultRenderer
-				.getListCellRendererComponent(list, value, index, isSelected,
-						cellHasFocus);
+	/* generate the label which represents the cell */
+	final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
+		isSelected, cellHasFocus);
 
-		/* Wenn ein Projekt vorliegt, setze Text */
-		if (value instanceof ReportEntry) {
-			final ReportEntry reportEntry = (ReportEntry) value;
-			theText = reportEntry.getReportName();
-		}
-		renderer.setText(theText);
-
-		/* Gib Renderer zurück */
-		return renderer;
+	/* if the selected item is a "ReportEntry" -> set the name */
+	if (value instanceof ReportEntry) {
+	    final ReportEntry reportEntry = (ReportEntry) value;
+	    theText = reportEntry.getReportName();
 	}
+	renderer.setText(theText);
+
+	/* return the label */
+	return renderer;
+    }
 }

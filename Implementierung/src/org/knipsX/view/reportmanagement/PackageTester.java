@@ -1,4 +1,4 @@
-package org.knipsX.view.reportmanagement;
+ package org.knipsX.view.reportmanagement;
 
 import org.knipsX.model.reportmanagement.BoxplotModel;
 

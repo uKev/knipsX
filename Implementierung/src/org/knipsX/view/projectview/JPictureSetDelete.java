@@ -15,7 +15,7 @@ import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractDialog;
 
 /**
- * Represents the view for a dialog which gives the user the possibility to save a project.
+ * Represents the view for a dialog which gives the user the possibility to delete a picture set.
  */
 public class JPictureSetDelete extends JAbstractDialog {
 
@@ -95,7 +95,7 @@ public class JPictureSetDelete extends JAbstractDialog {
 	String deleteText = "";
 	for (int n = 0; n < this.toDelete.length; ++n) {
 	    deleteText += ""; // TODO((ProjectListModel) this.model).getProjectList().get(this.toDelete[n]).getName() +
-			      // ";";
+	    // ";";
 	}
 	return deleteText;
     }

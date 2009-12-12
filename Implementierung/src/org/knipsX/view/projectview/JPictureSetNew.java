@@ -15,7 +15,7 @@ import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractDialog;
 
 /**
- * Represents the view for a dialog which gives the user the possibility to save a project.
+ * Represents the view for a dialog which gives the user the possibility to create a new picture set.
  */
 public class JPictureSetNew extends JAbstractDialog {
 
@@ -40,7 +40,7 @@ public class JPictureSetNew extends JAbstractDialog {
 
 	/* configure the view */
 	this.configure();
-	
+
 	/* set standard close action */
 	/* TODO We have to edit the close action! */
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,7 +64,7 @@ public class JPictureSetNew extends JAbstractDialog {
 	/* set the title for the view */
 	/* TODO change to internationalisation */
 	this.setTitle("Bildmenge erstellen");
-	
+
 	/* set button text */
 	/* TODO change to internationalisation */
 	this.jButtonConfirm.setText("Ok");
@@ -78,7 +78,7 @@ public class JPictureSetNew extends JAbstractDialog {
 
 	/* create an action listener (which knows the model) to the button */
 	this.jButtonRefuse.addActionListener(new CreatePictureSetRefuseController(this.model));
-	
+
 	/* set the size of the textfield */
 	this.jTextFieldText.setColumns(20);
     }
@@ -91,7 +91,7 @@ public class JPictureSetNew extends JAbstractDialog {
     public String getProjectName() {
 	return this.jTextFieldText.getText();
     }
-    
+
     @Override
     public void update(final Observable o, final Object arg) {
 
