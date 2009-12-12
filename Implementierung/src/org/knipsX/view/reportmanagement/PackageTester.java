@@ -10,7 +10,7 @@ public class PackageTester {
 	public static void main(String[] args) {
 		BoxplotModel model = new BoxplotModel();
 		model.setReportName("TEST");
-//		new JReportConfig(new JBoxplotConfig(model));
+		//new JReportConfig(new JBoxplotConfig(model));
 		new JReportWizard();
 	}
 }

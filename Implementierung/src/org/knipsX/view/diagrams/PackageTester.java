@@ -9,7 +9,7 @@ public class PackageTester {
 	 */
 	public static void main(String[] args) {
 		BoxplotModel myboxplotmodel = new BoxplotModel();
-		JBoxplot myboxplot = new JBoxplot(myboxplotmodel);
+		JBoxplot myboxplot = new JBoxplot(myboxplotmodel);		
 	}
 
 }
