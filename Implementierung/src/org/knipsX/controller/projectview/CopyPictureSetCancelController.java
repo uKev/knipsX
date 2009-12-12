@@ -3,19 +3,17 @@ package org.knipsX.controller.projectview;
 import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
+import org.knipsX.model.projectview.ProjectViewModel;
 
-public class DragFromPictureSetList extends AbstractController {
-	
-	private int[] toDrag;
+public class CopyPictureSetCancelController extends AbstractController {
 
-	public DragFromPictureSetList(AbstractModel model, int[] toDrag) {
+	public CopyPictureSetCancelController(AbstractModel model) {
 		super(model);
-		this.toDrag = toDrag;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//TODO toDrag im model verwerten
+		model.setModelStatus(ProjectViewModel.USERSELECT);
 		model.updateViews();
 	}
 }
