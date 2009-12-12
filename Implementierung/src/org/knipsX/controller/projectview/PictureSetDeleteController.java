@@ -6,6 +6,10 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.projectview.JReportDelete;
 
+/**
+ * Represents the Actions which are done by klicking on delete pictureset.
+ * Acts in harmony with a JProjectView.
+ */
 public class PictureSetDeleteController extends AbstractController {
 	
 	private int[] toDelete;

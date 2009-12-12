@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 
 /* import things from our program */
 import org.knipsX.controller.projectview.ReportCreateConfirmController;
-import org.knipsX.controller.projectview.ReportCreateRefuseController;
+import org.knipsX.controller.projectview.ReportCreateCancelController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractDialog;
@@ -76,7 +76,7 @@ public class JReportCreate extends JAbstractDialog {
 	this.jButtonRefuse.setText("Abbrechen");
 
 	/* create an action listener (which knows the model) to the button */
-	this.jButtonRefuse.addActionListener(new ReportCreateRefuseController(this.model));
+	this.jButtonRefuse.addActionListener(new ReportCreateCancelController(this.model));
     }
 
     /**

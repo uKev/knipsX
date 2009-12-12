@@ -6,6 +6,10 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.projectview.JPictureSetCopy;
 
+/**
+ * Represents the Actions which are done by klicking on copy pictureset.
+ * Acts in harmony with a JProjectView.
+ */
 public class PictureSetCopyController extends AbstractController {
 	
 	public PictureSetCopyController(AbstractModel model) {

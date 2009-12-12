@@ -8,6 +8,10 @@ import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.utils.FileHandler;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
+/**
+ * Represents the Actions which are done by klicking on refuse when
+ * you have clicked switch project before. Acts in harmony with a JDialog.
+ */
 public class ProjectSwitchRefuseController extends AbstractController {
 
 	public ProjectSwitchRefuseController(AbstractModel model) {

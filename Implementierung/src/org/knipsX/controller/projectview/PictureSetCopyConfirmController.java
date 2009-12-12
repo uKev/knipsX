@@ -6,6 +6,10 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.JAbstractView;
 
+/**
+ * Represents the Actions which are done by klicking on ok when you want to copy a pictureset.
+ * Acts in harmony with a JDialog.
+ */
 public class PictureSetCopyConfirmController extends AbstractController {
 
 	public PictureSetCopyConfirmController(AbstractModel model, JAbstractView jCopyPictureSet) {

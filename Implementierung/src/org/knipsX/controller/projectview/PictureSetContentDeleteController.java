@@ -5,6 +5,10 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 
+/**
+ * Represents the Actions which are done by klicking on delete nearby the picturesetcontent.
+ * Acts in harmony with a JProjectView.
+ */
 public class PictureSetContentDeleteController extends AbstractController {
 	
 	private int[] toDelete;

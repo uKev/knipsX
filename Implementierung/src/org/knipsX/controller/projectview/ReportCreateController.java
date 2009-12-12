@@ -6,6 +6,10 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.projectview.JReportCreate;
 
+/**
+ * Represents the Actions which are done by klicking on create report.
+ * Acts in harmony with JProjectView.
+ */
 public class ReportCreateController extends AbstractController {
 
 	public ReportCreateController(AbstractModel model) {

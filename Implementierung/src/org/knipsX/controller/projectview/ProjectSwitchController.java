@@ -7,6 +7,10 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.projectview.JProjectSwitch;
 
+/**
+ * Represents the Actions which are done by klicking switch project.
+ * Acts in harmony with JProjectView.
+ */
 public class ProjectSwitchController extends AbstractController {
 
 	public ProjectSwitchController(final AbstractModel model) {

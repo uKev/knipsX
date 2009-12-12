@@ -6,6 +6,10 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.projectview.JProjectSave;
 
+/**
+ * Represents the Actions which are done by klicking save project.
+ * Acts in harmony with a JProjectView.
+ */
 public class ProjectSaveController extends AbstractController {
 	
 	public ProjectSaveController(AbstractModel model) {

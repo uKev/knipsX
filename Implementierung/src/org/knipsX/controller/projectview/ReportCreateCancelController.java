@@ -5,9 +5,13 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 
-public class ReportCreateRefuseController extends AbstractController {
+/**
+ * Represents the Actions which are done by klicking on cancel when
+ * you have clicked create report before. Acts in harmony with a JDialog.
+ */
+public class ReportCreateCancelController extends AbstractController {
 
-	public ReportCreateRefuseController(AbstractModel model) {
+	public ReportCreateCancelController(AbstractModel model) {
 		super(model);
 	}
 

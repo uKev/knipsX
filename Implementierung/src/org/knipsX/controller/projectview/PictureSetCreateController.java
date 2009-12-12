@@ -6,6 +6,10 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.view.projectview.JPictureSetCreate;
 
+/**
+ * Represents the Actions which are done by klicking on create pictureset.
+ * Acts in harmony with a JProjectView.
+ */
 public class PictureSetCreateController extends AbstractController {
 	
 	public PictureSetCreateController(AbstractModel model) {

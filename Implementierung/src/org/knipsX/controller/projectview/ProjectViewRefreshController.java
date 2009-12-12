@@ -8,6 +8,10 @@ import org.knipsX.model.projectview.ProjectViewModel;
 import org.knipsX.utils.FileHandler;
 import org.knipsX.view.projectview.JProjectView;
 
+/**
+ * Represents the Actions which are done by klicking on refresh.
+ * Acts in harmony with JProjectView.
+ */
 public class ProjectViewRefreshController extends AbstractController {
 
 	public ProjectViewRefreshController(AbstractModel model) {
