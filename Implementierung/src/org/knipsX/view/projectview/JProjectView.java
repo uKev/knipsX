@@ -38,12 +38,14 @@ import org.knipsX.controller.projectview.PictureSetDeleteController;
 import org.knipsX.controller.projectview.ProjectViewRefreshController;
 import org.knipsX.controller.projectview.ProjectSaveController;
 import org.knipsX.controller.projectview.ProjectSwitchController;
-import org.knipsX.model.common.ReportEntry;
+import org.knipsX.controller.projectview.ReportCreateController;
+import org.knipsX.controller.projectview.ReportDeleteController;
+import org.knipsX.controller.projectview.ReportOpenController;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
-import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.view.JAbstractView;
 
@@ -83,6 +85,9 @@ public class JProjectView extends JAbstractView {
 
     /* represents the panel for the reports */
     private JPanel jPanelReport = null;
+    
+    /* represents the panel for the report options */
+    private JPanel jPanelReportOptions = null;
 
     /* represents the panel for the exif data of an active image */
     private JPanel jPanelExif = null;
@@ -120,11 +125,17 @@ public class JProjectView extends JAbstractView {
     /* represents the button which handles the picture set content delete action */
     private JButton jButtonPictureSetContentDelete = null;
 
-    /*
-     * represents the button which handles the picture set content refresh
-     * action
-     */
+    /* represents the button which handles the picture set content refresh action */
     private JButton jButtonPictureSetContentRefresh = null;
+
+    /* represents the button which handles the report create action */
+    private JButton jButtonReportCreate = null;
+
+    /* represents the button which handles the report open action */
+    private JButton jButtonReportOpen = null;
+
+    /* represents the button which handles the report delete action */
+    private JButton jButtonReportDelete = null;
 
     /* represents the list which contains all picture sets of a project */
     private JList jListPictureSet = null;
@@ -153,10 +164,10 @@ public class JProjectView extends JAbstractView {
     /**
      * Creates a project view connected with an appropriate model.
      */
-    public JProjectView(final ProjectViewModel projectViewModel) {
+    public JProjectView(final ProjectModel projectModel) {
 
 	/* sets the model */
-	super(projectViewModel);
+	super(projectModel);
 
 	/* renders the view */
 	this.initialize();
@@ -389,6 +400,82 @@ public class JProjectView extends JAbstractView {
     }
 
     /**
+     * This method initializes jButtonReportCreate.
+     * 
+     * @return javax.swing.JButton the appropriate JButton.
+     */
+    private JButton getJButtonReportCreate() {
+
+	/* create if not set */
+	if (this.jButtonReportCreate == null) {
+
+	    /* create new button */
+	    this.jButtonReportCreate = new JButton();
+
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
+	    this.jButtonReportCreate.setText("Erstellen");
+
+	    /* create an action listener (which knows the model) to the button */
+	    this.jButtonReportCreate.addActionListener(new ReportCreateController(this.model));
+	}
+
+	/* return the button */
+	return this.jButtonReportCreate;
+    }
+
+    /**
+     * This method initializes jButtonReportOpen.
+     * 
+     * @return javax.swing.JButton the appropriate JButton.
+     */
+    private JButton getJButtonReportOpen() {
+
+	/* create if not set */
+	if (this.jButtonReportOpen == null) {
+
+	    /* create new button */
+	    this.jButtonReportOpen = new JButton();
+
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
+	    this.jButtonReportOpen.setText("Öffnen");
+
+	    /* create an action listener (which knows the model) to the button */
+	    this.jButtonReportOpen.addActionListener(new ReportOpenController(this.model));
+	}
+
+	/* return the button */
+	return this.jButtonReportOpen;
+    }
+
+    /**
+     * This method initializes jButtonReportDelete.
+     * 
+     * @return javax.swing.JButton the appropriate JButton.
+     */
+    private JButton getJButtonReportDelete() {
+
+	/* create if not set */
+	if (this.jButtonReportDelete == null) {
+
+	    /* create new button */
+	    this.jButtonReportDelete = new JButton();
+
+	    /* set the text of the button */
+	    /* TODO change to internationalisation */
+	    this.jButtonReportDelete.setText("Entfernen");
+
+	    /* create an action listener (which knows the model) to the button */
+	    this.jButtonReportDelete.addActionListener(new ReportDeleteController(this.model, this
+		    .getSelectedIndicesFromReportList()));
+	}
+
+	/* return the button */
+	return this.jButtonReportDelete;
+    }
+
+    /**
      * This method initializes jContentPane.
      * 
      * @return javax.swing.JPanel the panel.
@@ -506,7 +593,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListPictureSet = new JList(((ProjectViewModel) this.model).getPictureSetList().toArray());
+	    this.jListPictureSet = new JList(((ProjectModel) this.model).getPictureSetList().toArray());
 
 	    /* allow to select only one row at once */
 	    this.jListPictureSet.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -536,7 +623,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListPictureSetActive = new JList(((ProjectViewModel) this.model).getAllPicturesOfSetList().toArray());
+	    this.jListPictureSetActive = new JList(((ProjectModel) this.model).getAllPicturesOfSetList().toArray());
 
 	    /* allow to select only one row at once */
 	    this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -567,8 +654,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListPictureSetContent = new JList(((ProjectViewModel) this.model).getPictureSetContentList()
-		    .toArray());
+	    this.jListPictureSetContent = new JList(((ProjectModel) this.model).getPictureSetContentList().toArray());
 
 	    /* allow to select only one row at once */
 	    this.jListPictureSetContent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -598,7 +684,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListReport = new JList(((ProjectViewModel) this.model).getReportList().toArray());
+	    this.jListReport = new JList(((ProjectModel) this.model).getReportList().toArray());
 
 	    /* allow to select only one row at once */
 	    this.jListReport.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -746,8 +832,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* add a border to the panel */
 	    /* TODO change to internationalisation */
-	    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-		    "Bilder:");
+	    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "Bilder:");
 	    this.jPanelPictureSetActive.setBorder(title);
 
 	    /* add a list with images of an active picture container */
@@ -997,26 +1082,8 @@ public class JProjectView extends JAbstractView {
 	    /* create new panel */
 	    this.jPanelReport = new JPanel();
 
-	    /* create new layout for this panel */
-	    final GroupLayout jPanelReportLayout = new GroupLayout(this.jPanelReport);
-
-	    /* set the horizontal assignment */
-	    jPanelReportLayout.setHorizontalGroup(jPanelReportLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-		    .addGroup(
-			    jPanelReportLayout.createSequentialGroup().addContainerGap().addComponent(
-				    this.getJListReport(), GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-				    .addContainerGap()));
-
-	    /* set the vertical assignment */
-	    jPanelReportLayout.setVerticalGroup(jPanelReportLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-		    .addGroup(
-			    GroupLayout.Alignment.TRAILING,
-			    jPanelReportLayout.createSequentialGroup().addContainerGap().addComponent(
-				    this.getJListReport(), GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-				    .addContainerGap()));
-
 	    /* set the layout to the panel */
-	    this.jPanelReport.setLayout(jPanelReportLayout);
+	    this.jPanelReport.setLayout(new BorderLayout());
 
 	    /* add a border to the panel */
 	    /* TODO change to internationalisation */
@@ -1025,7 +1092,10 @@ public class JProjectView extends JAbstractView {
 	    this.jPanelReport.setBorder(title);
 
 	    /* add the list with the reports for the project */
-	    this.jPanelReport.add(this.getJListReport());
+	    this.jPanelReport.add(this.getJListReport(), BorderLayout.NORTH);
+	    
+	    /* add the list with the reportoptions for the project */
+	    this.jPanelReport.add(this.getJPanelReportOptions(), BorderLayout.CENTER);
 
 	    /* set minimum size of the panel */
 	    this.jPanelReport.setMinimumSize(new Dimension(250, 245));
@@ -1038,6 +1108,36 @@ public class JProjectView extends JAbstractView {
 	return this.jPanelReport;
     }
 
+    /**
+     * This method initializes jPanelPictureSetContentOptions.
+     * 
+     * @return javax.swing.JPanel the panel.
+     */
+    private JPanel getJPanelReportOptions() {
+
+	/* create if not set */
+	if (this.jPanelReportOptions == null) {
+
+	    /* create new panel */
+	    this.jPanelReportOptions = new JPanel();
+
+	    /* set the layout to the panel */
+	    this.jPanelReportOptions.setLayout(new FlowLayout());
+
+	    /* add the button for creating a report */
+	    this.jPanelReportOptions.add(this.getJButtonReportCreate(), null);
+
+	    /* add the button for open a report */
+	    this.jPanelReportOptions.add(this.getJButtonReportOpen(), null);
+
+	    /* add the button for deleting a report */
+	    this.jPanelReportOptions.add(this.getJButtonReportDelete(), null);
+	}
+
+	/* return the panel */
+	return this.jPanelReportOptions;
+    }
+    
     /**
      * This method initializes jScrollPaneExif.
      * 
@@ -1092,7 +1192,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* TODO set from model */
 	    final String[] columnNames = { "Parameter", "Wert" };
-	    Object[][] data = ((ProjectViewModel) model).getExifParameter();
+	    Object[][] data = ((ProjectModel) model).getExifParameter();
 
 	    /* create new table for the exif parameters of an active image */
 	    this.jTableExif = new JTable(data, columnNames);
@@ -1118,7 +1218,7 @@ public class JProjectView extends JAbstractView {
 
 	    /* create new textfield */
 	    this.jTextFieldProjectName = new JTextField();
-	    this.jTextFieldProjectName.setText(((ProjectViewModel) model).getName());
+	    this.jTextFieldProjectName.setText(((ProjectModel) model).getProjectName());
 	}
 	return this.jTextFieldProjectName;
     }
@@ -1181,24 +1281,26 @@ public class JProjectView extends JAbstractView {
     public void update(final Observable o, final Object arg) {
 
 	/* cast to model */
-	final ProjectViewModel model = (ProjectViewModel) o;
+	final ProjectModel model = (ProjectModel) o;
 
 	/* set the title for the view */
 	/* TODO change to internationalisation */
-	this.setTitle("Projektansicht für " + model.getName());
+	this.setTitle("Projektansicht für " + model.getProjectName());
+
+	this.jEditorPaneProjectDescription.setText(model.getProjectDescription());
 
 	/* refresh view */
 	this.repaint();
 
 	/* react to program state */
-	if (model.getModelStatus() == ProjectViewModel.USERSELECT) {
+	if (model.getModelStatus() == ProjectModel.USERSELECT) {
 
 	    /* set view active */
 	    this.setEnabled(true);
 
 	    /* show view */
 	    this.setVisible(true);
-	} else if (model.getModelStatus() == ProjectViewModel.SWITCHPROJECT) {
+	} else if (model.getModelStatus() == ProjectModel.SWITCHPROJECT) {
 
 	    /* delete view */
 	    this.dispose();
@@ -1338,9 +1440,9 @@ class MyReportListCellRenderer implements ListCellRenderer {
 		isSelected, cellHasFocus);
 
 	/* if the selected item is a "ReportEntry" -> set the name */
-	if (value instanceof ReportEntry) {
-	    final ReportEntry reportEntry = (ReportEntry) value;
-	    theText = reportEntry.getName();
+	if (value instanceof AbstractReportModel) {
+	    final AbstractReportModel reportEntry = (AbstractReportModel) value;
+	    theText = reportEntry.getReportName();
 	}
 	renderer.setText(theText);
 
@@ -1353,35 +1455,43 @@ class MyTableCellRenderer extends JLabel implements TableCellRenderer {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	// This method is called each time a cell in a column
+    private static final long serialVersionUID = 1L;
+
+    // This method is called each time a cell in a column
     // using this renderer needs to be rendered.
-    public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int rowIndex, int vColIndex) {
-        // 'value' is value contained in the cell located at
-        // (rowIndex, vColIndex)
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+	    int rowIndex, int vColIndex) {
+	// 'value' is value contained in the cell located at
+	// (rowIndex, vColIndex)
 
-        if (isSelected) {
-            // cell (and perhaps other cells) are selected
-        }
+	if (isSelected) {
+	    // cell (and perhaps other cells) are selected
+	}
 
-        if (hasFocus) {
-            // this cell is the anchor and the table has the focus
-        }
+	if (hasFocus) {
+	    // this cell is the anchor and the table has the focus
+	}
 
-        // Configure the component with the specified value
-        setText(((String)value));
+	// Configure the component with the specified value
+	setText(((String) value));
 
-        // Set tool tip if desired
-        setToolTipText((String)value);
+	// Set tool tip if desired
+	setToolTipText((String) value);
 
-        // Since the renderer is a component, return itself
-        return this;
+	// Since the renderer is a component, return itself
+	return this;
     }
 
     // The following methods override the defaults for performance reasons
-    public void validate() {}
-    public void revalidate() {}
-    protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {}
-    public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {}
+    public void validate() {
+    }
+
+    public void revalidate() {
+    }
+
+    protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
+    }
+
+    public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {
+    }
 }

@@ -100,7 +100,8 @@ public class JProjectDelete extends JAbstractDialog {
 
 	/* add all names */
 	for (int n = 0; n < this.toDelete.length; ++n) {
-	    deleteText += ((ProjectManagementModel) this.model).getProjectList().get(this.toDelete[n]).getName() + ";";
+	    deleteText += ((ProjectManagementModel) this.model).getProjectList().get(this.toDelete[n]).getProjectName()
+		    + ";";
 	}
 
 	/* return the text */

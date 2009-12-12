@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import org.knipsX.controller.projectview.PictureSetCopyRefuseController;
 import org.knipsX.controller.projectview.PictureSetCopyConfirmController;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.JAbstractDialog;
 
 /**
@@ -95,11 +95,11 @@ public class JPictureSetCopy extends JAbstractDialog {
     public void update(final Observable o, final Object arg) {
 
 	/* cast to model */
-	final ProjectViewModel model = (ProjectViewModel) o;
+	final ProjectModel model = (ProjectModel) o;
 
 	/* react to program state */
 	/* TODO add a status and error panel! */
-	if (model.getModelStatus() != ProjectViewModel.COPYPICTURESET) {
+	if (model.getModelStatus() != ProjectModel.COPYPICTURESET) {
 
 	    /* delete view */
 	    this.dispose();

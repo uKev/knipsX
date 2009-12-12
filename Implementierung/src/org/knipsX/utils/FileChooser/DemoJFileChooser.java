@@ -2,7 +2,7 @@ package org.knipsX.utils.FileChooser;
 
 import javax.swing.*;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectview.ProjectViewModel;
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.JAbstractView;
 import java.awt.*;
 import java.io.*;
@@ -41,9 +41,9 @@ public class DemoJFileChooser extends JAbstractView {
 				System.out.println("Pfad: " + file.getAbsolutePath() + " dir? "
 						+ file.isDirectory() + " file? " + file.isFile());
 			}
-			model.setModelStatus(ProjectViewModel.USERSELECT);
+			model.setModelStatus(ProjectModel.USERSELECT);
 		} else {
-			model.setModelStatus(ProjectViewModel.USERSELECT);
+			model.setModelStatus(ProjectModel.USERSELECT);
 			System.out.println("No Selection ");
 		}
 	}
@@ -56,9 +56,9 @@ public class DemoJFileChooser extends JAbstractView {
 	public void update(Observable model, Object argument) {
 		
 		/* cast to model */
-		final ProjectViewModel projectViewModel = (ProjectViewModel) model;
+		final ProjectModel projectModel = (ProjectModel) model;
 		
-		if (projectViewModel.getModelStatus() != ProjectViewModel.ADDTOPICTURESET) {
+		if (projectModel.getModelStatus() != ProjectModel.ADDTOPICTURESET) {
 
 		    /* delete view */
 		    this.dispose();
