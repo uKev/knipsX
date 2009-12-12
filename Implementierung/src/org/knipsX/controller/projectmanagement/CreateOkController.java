@@ -3,7 +3,7 @@ package org.knipsX.controller.projectmanagement;
 import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectNew;
 
@@ -12,7 +12,7 @@ public class CreateOkController extends AbstractController {
 	private JProjectNew jProjectNew;
 	
 	
-	private ProjectListModel model;
+	private ProjectManagementModel model;
 
 	public CreateOkController(AbstractModel model, JAbstractView jProjectNew) {
 		
@@ -20,8 +20,8 @@ public class CreateOkController extends AbstractController {
 			this.jProjectNew = (JProjectNew) jProjectNew;
 		}
 				
-		if(model instanceof ProjectListModel ) {
-			this.model = (ProjectListModel) model;	
+		if(model instanceof ProjectManagementModel ) {
+			this.model = (ProjectManagementModel) model;	
 		} else {
 			System.out.println("ERROR in CreateOk");
 		}		
@@ -39,7 +39,7 @@ public class CreateOkController extends AbstractController {
 			
 			/* Füge neues Projekt dem Model hinzu */
 			model.addNewProject(text);
-			model.setModelStatus(ProjectListModel.SELECT);
+			model.setModelStatus(ProjectManagementModel.SELECT);
 			model.updateViews();
 		}	   
 	}

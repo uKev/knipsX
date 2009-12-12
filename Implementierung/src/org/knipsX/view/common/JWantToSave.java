@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import org.knipsX.controller.common.WantToSaveNoController;
 import org.knipsX.controller.common.WantToSaveYesController;
-import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractView;
 
 public class JWantToSave extends JAbstractView {
@@ -24,7 +24,7 @@ public class JWantToSave extends JAbstractView {
 	private JButton jButtonCancel = null;
 
 
-	public JWantToSave(final ProjectListModel model, final int[] toDelete) {
+	public JWantToSave(final ProjectManagementModel model, final int[] toDelete) {
 
 		/* Setze Modell */
 		super(model);

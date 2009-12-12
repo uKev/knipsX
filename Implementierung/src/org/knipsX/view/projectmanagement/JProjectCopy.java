@@ -11,7 +11,7 @@ import org.knipsX.controller.projectmanagement.CopyCancelController;
 import org.knipsX.controller.projectmanagement.CopyOkController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.common.ProjectEntry;
-import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractView;
 
 public class JProjectCopy extends JAbstractView {
@@ -121,10 +121,10 @@ public class JProjectCopy extends JAbstractView {
 	public void update(final Observable o, final Object arg) {
 
 		/* Bekomme das Modell geliefert */
-		final ProjectListModel model = (ProjectListModel) o;
+		final ProjectManagementModel model = (ProjectManagementModel) o;
 
 		/* Methode muss das unsichtbare Panel aktualisieren wenn zb falsche eingaben da sind für einen namen. */
-		if (model.getModelStatus() != ProjectListModel.COPY) {
+		if (model.getModelStatus() != ProjectManagementModel.COPY) {
 
 			/* Lösche Fenster */
 			this.dispose();

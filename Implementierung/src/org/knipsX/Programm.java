@@ -4,7 +4,7 @@
 package org.knipsX;
 
 /* import things from our programm */
-import org.knipsX.model.projectmanagement.ProjectListModel;
+import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.utils.FileHandler;
 import org.knipsX.view.projectmanagement.JProjectAdministration;
 
@@ -24,9 +24,9 @@ public class Programm {
     public static void main(final String[] args) {
 
 	/* create a model for the ProjectAdministration */
-	final ProjectListModel projectListModel = new ProjectListModel(FileHandler.scanProjectDirectory());
+	final ProjectManagementModel projectManagementModel = new ProjectManagementModel(FileHandler.scanProjectDirectory());
 
 	/* creates a new JProjectAdministration window, which is connected to a model */
-	new JProjectAdministration(projectListModel);
+	new JProjectAdministration(projectManagementModel);
     }
 }
