@@ -18,7 +18,7 @@ public class CopyProjectController extends AbstractController {
     /* Das Modell */
     private ProjectManagementModel model;
 
-    public CopyProjectController(final JAbstractView jProjectManagement, final AbstractModel abstractModel) {
+    public CopyProjectController(final AbstractModel abstractModel, final JAbstractView jProjectManagement) {
 
 	/* Cast View */
 	if (jProjectManagement instanceof JProjectManagement) {

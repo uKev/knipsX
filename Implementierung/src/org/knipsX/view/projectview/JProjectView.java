@@ -198,7 +198,9 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetContentAdd.setText("Hinzufügen");
-	    this.jButtonPictureSetContentAdd.addActionListener(new AddToPictureSetContentController(model));
+
+	    /* create an action listener (which knows the model) to the button */
+	    this.jButtonPictureSetContentAdd.addActionListener(new AddToPictureSetContentController(this.model));
 	}
 
 	/* return the button */
@@ -221,8 +223,10 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetContentDelete.setText("Entfernen");
-	    this.jButtonPictureSetContentDelete.addActionListener(new DeleteFromPictureSetContentController(model, this
-		    .getSelectedIndicesFromPictureSetContentList()));
+
+	    /* create an action listener (which knows the model and the selected contents) to the button */
+	    this.jButtonPictureSetContentDelete.addActionListener(new DeleteFromPictureSetContentController(this.model,
+		    this.getSelectedIndicesFromPictureSetContentList()));
 	}
 
 	/* return the button */
@@ -245,7 +249,9 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetContentRefresh.setText("Aktualisieren");
-	    this.jButtonPictureSetContentRefresh.addActionListener(new RefreshProjectViewController(model));
+
+	    /* create an action listener (which knows the model) to the button */
+	    this.jButtonPictureSetContentRefresh.addActionListener(new RefreshProjectViewController(this.model));
 	}
 
 	/* return the button */
@@ -268,7 +274,9 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetCopy.setText("Kopieren");
-	    this.jButtonPictureSetCopy.addActionListener(new CopyPictureSetController(model));
+
+	    /* create an action listener (which knows the model) to the button */
+	    this.jButtonPictureSetCopy.addActionListener(new CopyPictureSetController(this.model));
 	}
 
 	/* return the button */
@@ -291,7 +299,9 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetCreate.setText("Erstellen");
-	    this.jButtonPictureSetCreate.addActionListener(new CreatePictureSetController(model));
+
+	    /* create an action listener (which knows the model) to the button */
+	    this.jButtonPictureSetCreate.addActionListener(new CreatePictureSetController(this.model));
 	}
 
 	/* return the button */
@@ -314,7 +324,9 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonPictureSetDelete.setText("Entfernen");
-	    this.jButtonPictureSetDelete.addActionListener(new DeletePictureSetController(model,
+
+	    /* create an action listener (which knows the model and the selected picture sets) to the button */
+	    this.jButtonPictureSetDelete.addActionListener(new DeletePictureSetController(this.model,
 		    getSelectedIndicesFromPictureSetList()));
 	}
 
@@ -338,7 +350,9 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonProjectChange.setText("Wechseln");
-	    this.jButtonProjectChange.addActionListener(new SwitchProjectController(model));
+
+	    /* create an action listener (which knows the model) to the button */
+	    this.jButtonProjectChange.addActionListener(new SwitchProjectController(this.model));
 	}
 
 	/* return the button */
@@ -361,7 +375,9 @@ public class JProjectView extends JAbstractView {
 	    /* set the text of the button */
 	    /* TODO change to internationalisation */
 	    this.jButtonProjectSave.setText("Speichern");
-	    this.jButtonProjectSave.addActionListener(new SaveProjectController(model));
+
+	    /* create an action listener (which knows the model) to the button */
+	    this.jButtonProjectSave.addActionListener(new SaveProjectController(this.model));
 	}
 
 	/* return the button */
@@ -1153,7 +1169,7 @@ public class JProjectView extends JAbstractView {
     public String getProjectDescription() {
 	return jEditorPaneProjectDescription.getText();
     }
-    
+
     @Override
     public void update(final Observable o, final Object arg) {
 
@@ -1199,7 +1215,7 @@ class MyPictureSetListCellRenderer implements ListCellRenderer {
     @Override
     public Component getListCellRendererComponent(final JList list, final Object value, final int index,
 	    final boolean isSelected, final boolean cellHasFocus) {
-	
+
 	/* the text for the cell */
 	String theText = null;
 
@@ -1211,7 +1227,7 @@ class MyPictureSetListCellRenderer implements ListCellRenderer {
 	if (value instanceof PictureSet) {
 	    final PictureSet pictureSet = (PictureSet) value;
 	    theText = pictureSet.getName();
-	}	
+	}
 	renderer.setText(theText);
 
 	/* return the label */
@@ -1230,13 +1246,13 @@ class MyPictureSetContentListCellRenderer implements ListCellRenderer {
     @Override
     public Component getListCellRendererComponent(final JList list, final Object value, final int index,
 	    final boolean isSelected, final boolean cellHasFocus) {
-	
+
 	/* the text for the cell */
 	String theText = null;
 
 	/* the color for the cell text */
 	Color theColor = null;
-	
+
 	/* generate the label which represents the cell */
 	final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
 		isSelected, cellHasFocus);
@@ -1250,7 +1266,7 @@ class MyPictureSetContentListCellRenderer implements ListCellRenderer {
 	}
 	renderer.setText(theText);
 	renderer.setForeground(theColor);
-	
+
 	/* return the label */
 	return renderer;
     }
@@ -1267,7 +1283,7 @@ class MyPictureListCellRenderer implements ListCellRenderer {
     @Override
     public Component getListCellRendererComponent(final JList list, final Object value, final int index,
 	    final boolean isSelected, final boolean cellHasFocus) {
-	
+
 	/* the text for the cell */
 	String theText = null;
 
@@ -1298,7 +1314,7 @@ class MyReportListCellRenderer implements ListCellRenderer {
     @Override
     public Component getListCellRendererComponent(final JList list, final Object value, final int index,
 	    final boolean isSelected, final boolean cellHasFocus) {
-	
+
 	/* the text for the cell */
 	String theText = null;
 

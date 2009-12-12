@@ -34,13 +34,13 @@ public class JProjectManagement extends JAbstractView {
 
     /* represents the button for the project copy action */
     private JButton jButtonCopyProject = null;
-    
+
     /* represents the button for the project create action */
     private JButton jButtonCreateProject = null;
-    
+
     /* represents the button for the project delete action */
     private JButton jButtonDeleteProject = null;
-    
+
     /* represents the button for the project open action */
     private JButton jButtonOpenProject = null;
 
@@ -53,7 +53,8 @@ public class JProjectManagement extends JAbstractView {
     /**
      * Create a new project management view which is connected to a model.
      * 
-     * @param model the model which is connected to the view.
+     * @param model
+     *            the model which is connected to the view.
      */
     public JProjectManagement(final ProjectManagementModel model) {
 
@@ -76,7 +77,7 @@ public class JProjectManagement extends JAbstractView {
 
 	/* show main panel */
 	this.setContentPane(this.getJContentPane());
-	
+
 	/* set standard close action */
 	/* TODO We have to edit the close action! */
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,15 +98,30 @@ public class JProjectManagement extends JAbstractView {
      * @return javax.swing.JPanel
      */
     private JPanel getJContentPane() {
-	if (this.jContentPane == null) {
-	    this.jContentPane = new JPanel();
-	}
-	this.jContentPane.add(this.getjButtonCreateProject());
-	this.jContentPane.add(this.getjButtonOpenProject());
-	this.jContentPane.add(this.getjButtonDeleteProject());
-	this.jContentPane.add(this.getjButtonCopyProject());
-	this.jContentPane.add(this.getJScrollPaneProjectList());
 
+	/* create if not set */
+	if (this.jContentPane == null) {
+
+	    /* create a new panel */
+	    this.jContentPane = new JPanel();
+
+	    /* add the button for project creation */
+	    this.jContentPane.add(this.getJButtonCreateProject());
+
+	    /* add the button for project opening */
+	    this.jContentPane.add(this.getJButtonOpenProject());
+
+	    /* add the button for project deletion */
+	    this.jContentPane.add(this.getJButtonDeleteProject());
+
+	    /* add the button for project copying */
+	    this.jContentPane.add(this.getJButtonCopyProject());
+
+	    /* add the scrollbars for the list */
+	    this.jContentPane.add(this.getJScrollPaneProjectList());
+	}
+	
+	/* return the panel */
 	return this.jContentPane;
     }
 
@@ -114,12 +130,19 @@ public class JProjectManagement extends JAbstractView {
      * 
      * @return javax.swing.JButton
      */
-    private JButton getjButtonCopyProject() {
+    private JButton getJButtonCopyProject() {
+
+	/* create if not set */
 	if (this.jButtonCopyProject == null) {
-	    this.jButtonCopyProject = new JButton();
-	    this.jButtonCopyProject.setText("Projekt kopieren");
-	    this.jButtonCopyProject.addActionListener(new CopyProjectController(this, this.model));
+
+	    /* create new button */
+	    this.jButtonCopyProject = new JButton("Projekt kopieren");
+
+	    /* create an action listener (which knows the model and the view) to the button */
+	    this.jButtonCopyProject.addActionListener(new CopyProjectController(this.model, this));
 	}
+	
+	/* return the button */
 	return this.jButtonCopyProject;
     }
 
@@ -128,12 +151,19 @@ public class JProjectManagement extends JAbstractView {
      * 
      * @return javax.swing.JButton
      */
-    private JButton getjButtonCreateProject() {
+    private JButton getJButtonCreateProject() {
+
+	/* create if not set */
 	if (this.jButtonCreateProject == null) {
-	    this.jButtonCreateProject = new JButton();
-	    this.jButtonCreateProject.setText("Projekt erstellen");
+
+	    /* create new button */
+	    this.jButtonCreateProject = new JButton("Projekt erstellen");
+
+	    /* create an action listener (which knows the model) to the button */
 	    this.jButtonCreateProject.addActionListener(new CreateProjectController(this.model));
 	}
+
+	/* return the button */
 	return this.jButtonCreateProject;
     }
 
@@ -142,12 +172,19 @@ public class JProjectManagement extends JAbstractView {
      * 
      * @return javax.swing.JButton
      */
-    private JButton getjButtonDeleteProject() {
+    private JButton getJButtonDeleteProject() {
+
+	/* create if not set */
 	if (this.jButtonDeleteProject == null) {
-	    this.jButtonDeleteProject = new JButton();
-	    this.jButtonDeleteProject.setText("Projekt löschen");
+
+	    /* create new button */
+	    this.jButtonDeleteProject = new JButton("Projekt löschen");
+
+	    /* create an action listener (which knows the model and the view) to the button */
 	    this.jButtonDeleteProject.addActionListener(new DeleteProjectController(this.model, this));
 	}
+
+	/* return the button */
 	return this.jButtonDeleteProject;
     }
 
@@ -156,12 +193,19 @@ public class JProjectManagement extends JAbstractView {
      * 
      * @return javax.swing.JButton
      */
-    private JButton getjButtonOpenProject() {
+    private JButton getJButtonOpenProject() {
+
+	/* create if not set */
 	if (this.jButtonOpenProject == null) {
-	    this.jButtonOpenProject = new JButton();
-	    this.jButtonOpenProject.setText("Projekt öffnen");
+
+	    /* create new button */
+	    this.jButtonOpenProject = new JButton("Projekt öffnen");
+
+	    /* create an action listener (which knows the model an the view) to the button */
 	    this.jButtonOpenProject.addActionListener(new OpenProjectController(this.model, this));
 	}
+
+	/* return the button */
 	return this.jButtonOpenProject;
     }
 
@@ -170,11 +214,19 @@ public class JProjectManagement extends JAbstractView {
      * 
      * @return
      */
-    private JList getjListProject() {
+    private JList getJListProject() {
+
+	/* create if not set */
 	if (this.jListProject == null) {
+
+	    /* create new list */
 	    this.jListProject = new JList(((ProjectManagementModel) this.model).getProjectList().toArray());
+
+	    /* set a custom cell renderer */
 	    this.jListProject.setCellRenderer(new MyProjectListCellRenderer());
 	}
+
+	/* return the list */
 	return this.jListProject;
 
     }
@@ -185,10 +237,18 @@ public class JProjectManagement extends JAbstractView {
      * @return javax.swing.JScrollPane
      */
     private JScrollPane getJScrollPaneProjectList() {
+
+	/* create if not set */
 	if (this.jScrollPaneProjectList == null) {
+
+	    /* create new scrollpane */
 	    this.jScrollPaneProjectList = new JScrollPane();
-	    this.jScrollPaneProjectList.setViewportView(this.getjListProject());
+
+	    /* add the list to the scrollpane */
+	    this.jScrollPaneProjectList.setViewportView(this.getJListProject());
 	}
+
+	/* return the scrollpane */
 	return this.jScrollPaneProjectList;
     }
 
