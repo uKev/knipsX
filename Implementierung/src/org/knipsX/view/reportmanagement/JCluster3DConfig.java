@@ -2,7 +2,7 @@ package org.knipsX.view.reportmanagement;
 
 import org.knipsX.model.reportmanagement.Cluster3DModel;
 
-public class JCluster3DConfig extends JAbstractReportConfig {		
+public class JCluster3DConfig extends JAbstractReport {		
 	
     /**
 	 * 

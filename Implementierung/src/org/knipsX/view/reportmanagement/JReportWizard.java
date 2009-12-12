@@ -9,28 +9,30 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import org.knipsX.controller.reportmanagement.NextWizardPanelController;
+import org.knipsX.controller.reportmanagement.PreviousWizardPanelController;
 import org.knipsX.model.reportmanagement.DummyModel;
-import org.knipsX.view.JAbstractView;
 
-public class JReportWizard extends JAbstractView {
+public class JReportWizard extends JAbstractReportConfig {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7846052667877784072L;
-	private JAbstractReportConfig reportconfig;
+	private JAbstractReport reportconfig;
 	private int wizardcounter = 0;
 	private JComponent basic;
 	
 	
-	public JReportWizard(JAbstractReportConfig reportconfig) {
+	public JReportWizard(JAbstractReport reportconfig) {
 		super(new DummyModel());
 		this.reportconfig = reportconfig;
+		Report.myconfig = this;
 		initialize();
 	}
 	
 	private void initialize() {
-				
+	
 		JAbstractSinglePanel currentpanel = this.reportconfig.getregisteredPanels().get(wizardcounter);		
         setTitle(currentpanel.title);
         this.basic = currentpanel;
@@ -43,6 +45,10 @@ public class JReportWizard extends JAbstractView {
         JButton ok = new JButton("OK");
         ok.setToolTipText(currentpanel.tip);
         JButton next = new JButton("Next");
+        next.addActionListener(new NextWizardPanelController(this));
+        JButton previous = new JButton("Previous");
+        next.addActionListener(new PreviousWizardPanelController(this));
+        bottom.add(previous);
         bottom.add(ok);
         bottom.add(Box.createRigidArea(new Dimension(5, 0)));
         bottom.add(next);
@@ -53,16 +59,24 @@ public class JReportWizard extends JAbstractView {
         setVisible(true);
 	}
 	
-	public void setReportConfig(JAbstractReportConfig reportconfig) {
+	public void setReportConfig(JAbstractReport reportconfig) {
 		remove(this.basic);
 		this.reportconfig = reportconfig;
+		Report.myconfig = this;
 		initialize();		
 		repaint();
+	}
+	
+	public void nextPanel() {
+		// TODO
+	}
+	
+	public void previousPanel() {
+		// TODO
 	}
 
 	@Override
 	public void update(Observable model, Object argument) {
-	    // TODO Auto-generated method stub
-	    
+		// Do nothing	    
 	}	
 }

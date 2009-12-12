@@ -2,7 +2,7 @@ package org.knipsX.view.reportmanagement;
 
 import org.knipsX.model.reportmanagement.Histogram2DModel;
 
-public class JHistogram2DConfig extends JAbstractReportConfig {		
+public class JHistogram2DConfig extends JAbstractReport {		
 	
     /**
 	 * 

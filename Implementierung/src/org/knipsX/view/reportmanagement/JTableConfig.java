@@ -2,7 +2,7 @@ package org.knipsX.view.reportmanagement;
 
 import org.knipsX.model.reportmanagement.TableModel;
 
-public class JTableConfig extends JAbstractReportConfig {		
+public class JTableConfig extends JAbstractReport {		
 	
     /**
 	 * 
