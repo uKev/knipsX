@@ -53,6 +53,20 @@ public class JWilcoxon extends JAbstractSinglePanel {
         add(close);
 
     }
-
+    
+    public boolean getStatus() {
+    	//TODO
+    	return true;
+    }
+    
+    public Object getTestType() {
+    	//TODO
+    	return true;
+    }
+    
+    public int getStatisticatSignificance() {
+    	//TODO
+    	return 1;
+    }
 
 }

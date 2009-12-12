@@ -17,15 +17,14 @@ import javax.swing.JTabbedPane;
 
 import org.knipsX.controller.reportmanagement.SaveReportController;
 import org.knipsX.model.reportmanagement.DummyModel;
-import org.knipsX.view.JAbstractView;
 
-public class JReportConfig extends JAbstractView {
+public class JReportConfig extends JAbstractReportConfig {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JAbstractReportConfig reportconfig;
+	private JAbstractReport reportconfig;
 	private JTabbedPane tabbedpane;
 	private JPanel basic;
 	private int[] mysize = new int[2];
@@ -41,11 +40,11 @@ public class JReportConfig extends JAbstractView {
     }   
 	
 	
-    public JReportConfig(JAbstractReportConfig reportconfig) {
+    public JReportConfig(JAbstractReport reportconfig) {
     	super(new DummyModel());
     	this.reportconfig = reportconfig;
     	this.tabbedpane = getJTabbedPane();
-    	Report.myconfig = this;
+    	Report.myconfig = this;    	
     	mysize[0] = 800;
     	mysize[1] = 600;
  
@@ -89,7 +88,7 @@ public class JReportConfig extends JAbstractView {
         pack();
     }
     
-	public void setReportConfig(JAbstractReportConfig reportconfig) {
+	public void setReportConfig(JAbstractReport reportconfig) {
 		this.mysize[1] = this.mainpanel.getBounds().height;
 		this.mysize[0] = this.mainpanel.getBounds().width;
 		
@@ -115,8 +114,7 @@ public class JReportConfig extends JAbstractView {
 
 	@Override
 	public void update(Observable model, Object argument) {
-		// TODO Auto-generated method stub
-		
+		// Do nothing		
 	} 
 	
 	

@@ -2,7 +2,7 @@ package org.knipsX.view.reportmanagement;
 
 import org.knipsX.model.reportmanagement.Histogram3DModel;
 
-public class JHistogram3DConfig extends JAbstractReportConfig {		
+public class JHistogram3DConfig extends JAbstractReport {		
 	
     /**
 	 * 
