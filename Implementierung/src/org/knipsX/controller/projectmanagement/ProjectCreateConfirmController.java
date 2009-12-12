@@ -7,14 +7,14 @@ import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectCreate;
 
-public class CreateOkController extends AbstractController {
+public class ProjectCreateConfirmController extends AbstractController {
 	
 	private JProjectCreate jProjectCreate;
 	
 	
 	private ProjectManagementModel model;
 
-	public CreateOkController(AbstractModel model, JAbstractView jProjectNew) {
+	public ProjectCreateConfirmController(AbstractModel model, JAbstractView jProjectNew) {
 		
 		if(jProjectNew instanceof JAbstractView ) {
 			this.jProjectCreate = (JProjectCreate) jProjectNew;

@@ -6,11 +6,11 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 
-public class CreateCancelController extends AbstractController {
+public class ProjectCreateRefuseController extends AbstractController {
 	
 	private ProjectManagementModel model;
 
-	public CreateCancelController(AbstractModel projectlistModel) {
+	public ProjectCreateRefuseController(AbstractModel projectlistModel) {
 		
 		if(projectlistModel instanceof ProjectManagementModel ) {
 			this.model = (ProjectManagementModel) projectlistModel;

@@ -15,7 +15,7 @@ import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractDialog;
 
 /**
- * Represents the view for a dialog which gives the user the possibility to copy a project.
+ * Represents the view for a dialog which gives the user the possibility to delete a project.
  */
 public class JProjectDelete extends JAbstractDialog {
 
