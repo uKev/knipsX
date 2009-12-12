@@ -21,7 +21,13 @@ public class JDiagramType extends JAbstractSinglePanel {
 	private JTextField reportname;
 	private static final long serialVersionUID = 1L;
 	private JList meineliste;
-
+	
+	/**
+	 * Constructor which initialized this diagramm selection panel
+	 * @param titel The title which is registered with this panel.
+	 * @param icon The icon which is registered with this panel.
+	 * @param tip The tooltip which is registered with this panel.
+	 */
     public JDiagramType(String titel, Icon icon, String tip) {
 		this.title = titel;
 		this.icon = icon;
@@ -47,9 +53,7 @@ public class JDiagramType extends JAbstractSinglePanel {
         this.reportname = new JTextField(); 
         this.reportname.setBounds(0, 0, 250, 25);
         add(this.reportname);
-       
-        
-       
+              
         
         this.meineliste = new JList(myreports); //data has type Object[]
         this.meineliste .addListSelectionListener(new SharedListSelectionHandler(this.meineliste));
@@ -72,9 +76,9 @@ public class JDiagramType extends JAbstractSinglePanel {
     	return this.reportname.getText();
     }
     
-    
-    public void write() {
-    	Report.currentModel.setReportName(this.getReportName());    	
+    public String getReportDescription() {
+    	//TODO
+    	return "";
     }
 
 }
