@@ -13,6 +13,11 @@ public class Picture implements PictureContainer {
 	public Picture(String path) {
 		super();
 		this.path = path;
+		// TODO: read exif data etc. 
+	}
+	
+	public Picture() {
+		
 	}
 	
 	public List<?> getItems() {		
