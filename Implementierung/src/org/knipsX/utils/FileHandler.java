@@ -67,8 +67,7 @@ public class FileHandler {
 		ProjectEntry dummyEntry = new ProjectEntry(1, "Name leider Fest geht nur wenn xml da is",
 				new GregorianCalendar(2009, 11, 12, 7, 9, 3), "");
 		List<PictureSet> dummyPictureSetList = new LinkedList<PictureSet>();
-		PictureSet dummyPictureSet = new PictureSet();
-		dummyPictureSet.setName("Goldfische");
+		PictureSet dummyPictureSet = new PictureSet("Goldfische", 4);
 		dummyPictureSetList.add(dummyPictureSet);
 		List<ReportEntry> dummyReportEntryList = new LinkedList<ReportEntry>();
 		ReportEntry dummyReportEntry = new ReportEntry();
@@ -84,43 +83,8 @@ public class FileHandler {
 		return dummyModel;
 	}
 
-	public static List<PictureSet> scanPicturerSet(int projectID) {
-		return null;
-	}
-
-	public static List<PictureContainer> scanpictureSetContent(int projectID,
-			int pictureSetID) {
-		return null;
-	}
-
-	public static void writeToFilepictureSetContentContent(int projectID,
-			String pictureSetID, PictureContainer content) {
-	}
-
-	public static List<ReportEntry> scanAvailableReports() {
-		return null;
-	}
 
 	public static void writeProjectToFile(ProjectViewModel project) {
 	}
 
-	public static void writePictureSetToFile(String projectID,
-			PictureContainer pictureset) {
-	}
-
-	public static void writeReportToFile(String projectID,
-			AbstractReportModel report) {
-	}
-
-	private static int generateFreeProjectID() {
-		return 0;
-	}
-
-	private static int generateFreePictureSetID() {
-		return 0;
-	}
-
-	private static int generateFreeReportID() {
-		return 0;
-	}
 }

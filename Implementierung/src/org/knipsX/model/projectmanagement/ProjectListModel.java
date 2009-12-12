@@ -54,7 +54,7 @@ public class ProjectListModel extends AbstractModel {
 	 * @param projectEntry Das alte Projekt.
 	 * @param projectName Der Projektname.
 	 */
-	public void addNewProject(ProjectEntry projectEntry, String projectName) {
+	public void copyProject(ProjectEntry projectEntry, String projectName) {
 		
 		/* Generiere neue ID */
 		int id = this.generateFreeProjectID();
@@ -91,4 +91,5 @@ public class ProjectListModel extends AbstractModel {
 	public void addToList(ProjectEntry projectEntry) {
 		projectList.add(0, projectEntry);		
 	}
+	
 }
