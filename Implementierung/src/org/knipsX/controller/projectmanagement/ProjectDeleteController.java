@@ -8,12 +8,12 @@ import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectDelete;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
-public class DeleteProjectController extends AbstractController {
+public class ProjectDeleteController extends AbstractController {
 
 	private JProjectManagement view;
 	private ProjectManagementModel model;
 
-	public DeleteProjectController(AbstractModel model,
+	public ProjectDeleteController(AbstractModel model,
 			JAbstractView jProjectManagement) {
 	this.view = (JProjectManagement) jProjectManagement;
 		this.model = (ProjectManagementModel) model;

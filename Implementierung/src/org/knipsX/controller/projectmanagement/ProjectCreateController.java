@@ -6,11 +6,11 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.projectmanagement.JProjectNew;
 
-public class CreateProjectController extends AbstractController {
+public class ProjectCreateController extends AbstractController {
 	
 	private ProjectManagementModel model;
 	
-	public CreateProjectController(AbstractModel model) {
+	public ProjectCreateController(AbstractModel model) {
 		this.model = (ProjectManagementModel) model;
 	}
 

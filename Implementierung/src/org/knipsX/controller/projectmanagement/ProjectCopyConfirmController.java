@@ -7,7 +7,7 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.projectmanagement.JProjectCopy;
 
-public class CopyOkController extends AbstractController {
+public class ProjectCopyConfirmController extends AbstractController {
 
     /* Die View */
     private JProjectCopy view;
@@ -15,7 +15,7 @@ public class CopyOkController extends AbstractController {
     /* Das Modell */
     private ProjectManagementModel model;
 
-    public CopyOkController(final AbstractModel abstractModel, final JProjectCopy jProjectCopy) {
+    public ProjectCopyConfirmController(final AbstractModel abstractModel, final JProjectCopy jProjectCopy) {
 
 	/* Cast View */
 	if (jProjectCopy instanceof JProjectCopy) {

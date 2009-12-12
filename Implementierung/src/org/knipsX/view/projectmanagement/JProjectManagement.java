@@ -16,10 +16,10 @@ import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 
 /* import things from our program */
-import org.knipsX.controller.projectmanagement.CopyProjectController;
-import org.knipsX.controller.projectmanagement.CreateProjectController;
-import org.knipsX.controller.projectmanagement.DeleteProjectController;
-import org.knipsX.controller.projectmanagement.OpenProjectController;
+import org.knipsX.controller.projectmanagement.ProjectCopyController;
+import org.knipsX.controller.projectmanagement.ProjectCreateController;
+import org.knipsX.controller.projectmanagement.ProjectDeleteController;
+import org.knipsX.controller.projectmanagement.ProjectOpenController;
 import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractView;
@@ -139,7 +139,7 @@ public class JProjectManagement extends JAbstractView {
 	    this.jButtonCopyProject = new JButton("Projekt kopieren");
 
 	    /* create an action listener (which knows the model and the view) to the button */
-	    this.jButtonCopyProject.addActionListener(new CopyProjectController(this.model, this));
+	    this.jButtonCopyProject.addActionListener(new ProjectCopyController(this.model, this));
 	}
 	
 	/* return the button */
@@ -160,7 +160,7 @@ public class JProjectManagement extends JAbstractView {
 	    this.jButtonCreateProject = new JButton("Projekt erstellen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonCreateProject.addActionListener(new CreateProjectController(this.model));
+	    this.jButtonCreateProject.addActionListener(new ProjectCreateController(this.model));
 	}
 
 	/* return the button */
@@ -181,7 +181,7 @@ public class JProjectManagement extends JAbstractView {
 	    this.jButtonDeleteProject = new JButton("Projekt löschen");
 
 	    /* create an action listener (which knows the model and the view) to the button */
-	    this.jButtonDeleteProject.addActionListener(new DeleteProjectController(this.model, this));
+	    this.jButtonDeleteProject.addActionListener(new ProjectDeleteController(this.model, this));
 	}
 
 	/* return the button */
@@ -202,7 +202,7 @@ public class JProjectManagement extends JAbstractView {
 	    this.jButtonOpenProject = new JButton("Projekt öffnen");
 
 	    /* create an action listener (which knows the model an the view) to the button */
-	    this.jButtonOpenProject.addActionListener(new OpenProjectController(this.model, this));
+	    this.jButtonOpenProject.addActionListener(new ProjectOpenController(this.model, this));
 	}
 
 	/* return the button */
