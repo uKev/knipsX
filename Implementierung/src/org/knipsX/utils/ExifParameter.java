@@ -10,6 +10,6 @@ public enum ExifParameter {
 	DATE,
 	DAYOFWEEK,
 	TIME,
-	OBJECTIVE;
+	OBJECTIVENAME;
 	
 }

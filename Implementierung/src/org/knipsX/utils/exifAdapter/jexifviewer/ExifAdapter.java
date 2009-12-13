@@ -31,7 +31,7 @@ public class ExifAdapter {
 			return getOriginalDayOfWeek();
 		case TIME:
 			return getOriginalTime();
-		case OBJECTIVE:
+		case OBJECTIVENAME:
 			return getObjective();
 		default:
 			assert false;

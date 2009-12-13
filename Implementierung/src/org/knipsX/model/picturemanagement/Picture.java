@@ -20,12 +20,12 @@ public class Picture implements PictureContainer {
 		ExifAdapter exifAdapter = new ExifAdapter();
 		exifAdapter.setFilePath(path);
 		// dummymaesig:
-		Object[] parameter = new Object[] { ExifParameter.Kameramodell,
-				ExifParameter.Blitz, ExifParameter.Blende,
-				ExifParameter.Verschlusszeit, ExifParameter.ISO_Wert,
-				ExifParameter.Brennweite, ExifParameter.Datum,
-				ExifParameter.Wochentag, ExifParameter.Uhrzeit,
-				ExifParameter.Objektivname };
+		Object[] parameter = new Object[] { ExifParameter.CAMERAMODEL,
+				ExifParameter.FLASH, ExifParameter.FNUMBER,
+				ExifParameter.EXPOSURETIME, ExifParameter.ISO,
+				ExifParameter.FOCALLENGTH, ExifParameter.DATE,
+				ExifParameter.DAYOFWEEK, ExifParameter.TIME,
+				ExifParameter.OBJECTIVENAME };
 		for (int n = 0; n < allExifParameter.length; n++) {
 			allExifParameter[n][0] = parameter[n].toString();
 		}
