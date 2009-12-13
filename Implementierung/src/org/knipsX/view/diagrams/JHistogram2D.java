@@ -1,6 +1,8 @@
 package org.knipsX.view.diagrams;
 
 
+import java.awt.image.BufferedImage;
+
 import org.knipsX.model.AbstractModel;
 
 
@@ -21,4 +23,5 @@ public class JHistogram2D extends JAbstract2DDiagram{
 	public void generateContent() {
 		// TODO Auto-generated method stub
 	}
+
 }

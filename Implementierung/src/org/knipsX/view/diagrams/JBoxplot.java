@@ -1,4 +1,6 @@
 package org.knipsX.view.diagrams;
+import java.awt.image.BufferedImage;
+
 import javax.vecmath.Vector3d;
 
 import org.knipsX.model.AbstractModel;
@@ -24,4 +26,5 @@ public class JBoxplot extends JAbstract2DDiagram {
 		createSphere(new Vector3d(5,5,5), new Vector3d(1,1,1), basicMaterial(1, 0, 1));
 		createCube(new Vector3d(5,5,10), new Vector3d(1,1,1), basicMaterial(0, 1, 0));
 	}
+
 }

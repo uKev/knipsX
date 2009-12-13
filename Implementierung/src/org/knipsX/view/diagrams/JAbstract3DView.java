@@ -1,6 +1,7 @@
 package org.knipsX.view.diagrams;
 
 import java.awt.Font;
+import java.awt.image.BufferedImage;
 
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
@@ -122,7 +123,7 @@ public abstract class JAbstract3DView extends JAbstractDiagram{
 	 */
 	public void createSphere(Vector3d position, Vector3d scale, Appearance material){
 		TransformGroup objMove = createTransformGroup(position, scale);
-		Sphere mySphere = new Sphere(1,Sphere.GENERATE_NORMALS,this.GEODETAIL,material);
+		Sphere mySphere = new Sphere(1,Sphere.GENERATE_NORMALS,JAbstract3DView.GEODETAIL,material);
 		objMove.addChild(mySphere);
 		this.objRoot.addChild(objMove);
 	}
@@ -426,7 +427,13 @@ public abstract class JAbstract3DView extends JAbstractDiagram{
 	 * Sets the current picture which is displayed outside of the 3D View
 	 * @param pic
 	 */
-	public void setCurrentImage(Picture pic) {
+	public void setCurrentPicture(Picture pic) {
 		//TODO
+	}
+	
+	@Override
+	BufferedImage getDiagramScreenshot() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
