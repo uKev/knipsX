@@ -13,25 +13,25 @@ public class ExifAdapter {
 	public Object getExifParameter(ExifParameter e){
 		switch (e)
 		{
-		case Kameramodell:
+		case CAMERAMODEL:
 			return getCameraModel();
-		case Blitz:
+		case FLASH:
 			return getFlash();
-		case Blende:
+		case FNUMBER:
 			return getFNumber();
-		case Verschlusszeit:
+		case EXPOSURETIME:
 			return getExposureTime();
-		case ISO_Wert:
+		case ISO:
 			return getISOSpeedRatings();
-		case Brennweite:
+		case FOCALLENGTH:
 			return getFocalLength();
-		case Datum:
+		case DATE:
 			return getOriginalDate();
-		case Wochentag:
+		case DAYOFWEEK:
 			return getOriginalDayOfWeek();
-		case Uhrzeit:
+		case TIME:
 			return getOriginalTime();
-		case Objektivname:
+		case OBJECTIVE:
 			return getObjective();
 		default:
 			assert false;
