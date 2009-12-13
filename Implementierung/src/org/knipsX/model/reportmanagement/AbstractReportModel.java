@@ -67,7 +67,6 @@ public class AbstractReportModel extends AbstractModel {
 		this.reportDescription = reportDescription;
 	}
 
-
 	public ArrayList<PictureContainer> getPictureContainer() {
 		return pictureContainer;
 	}
@@ -82,5 +81,13 @@ public class AbstractReportModel extends AbstractModel {
 
 	public String [] getExifFilterKeywords() {
 		return exifFilterKeywords;
+	}
+	
+	/**
+	 * Returns an array of PictureParameter objects with each a pair of a picture and 
+	 * the missing exif parameter inside the picture.
+	 */
+	public PictureParameter [] getPicturesWithMissingExifParameter(){
+		return null;
 	}
 }
