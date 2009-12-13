@@ -66,7 +66,7 @@ public abstract class JAbstract3DView extends JAbstractDiagram{
 	/**
 	 * Specifies at which detail level the geometry is to be drawn
 	 */
-	protected final int GEODETAIL = 10;
+	protected final static int GEODETAIL = 10;
 	
 	/**
 	 * Specifies if the text in the current view should point to the camera
