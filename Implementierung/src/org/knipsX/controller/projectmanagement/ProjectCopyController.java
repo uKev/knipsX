@@ -5,32 +5,19 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
 import org.knipsX.controller.AbstractController;
-import org.knipsX.model.AbstractModel;
 import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
-import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
 /**
- * Represents the Actions which are done by pushing the project copy button.
+ * Represents the actions which are done by pushing the project copy button.
+ * 
  * Acts in harmony with JProjectManagement.
  */
-public class ProjectCopyController extends AbstractController {
+public class ProjectCopyController<M extends ProjectManagementModel, V extends JProjectManagement<?>> extends AbstractController<M, V> {
 
-    private JProjectManagement view;
-    private ProjectManagementModel model;
-
-    public ProjectCopyController(final AbstractModel abstractModel, final JAbstractView jProjectManagement) {
-
-	/* Cast View */
-	if (jProjectManagement instanceof JProjectManagement) {
-	    this.view = (JProjectManagement) jProjectManagement;
-	}
-
-	/* Cast Modell */
-	if (abstractModel instanceof ProjectManagementModel) {
-	    this.model = (ProjectManagementModel) abstractModel;
-	}
+    public ProjectCopyController(M model, V view) {
+	super(model, view);
     }
 
     @Override

@@ -5,25 +5,20 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
 import org.knipsX.controller.AbstractController;
-import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
-import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
 /**
- * Represents the Actions which are done by pushing the project delete button.
+ * Represents the actions which are done by pushing the project delete button.
+ * 
  * Acts in harmony with JProjectManagement.
  */
-public class ProjectDeleteController extends AbstractController {
+public class ProjectDeleteController<M extends ProjectManagementModel, V extends JProjectManagement<M>> extends AbstractController<M, V> {
 
-    private final JProjectManagement view;
-    private final ProjectManagementModel model;
-
-    public ProjectDeleteController(final AbstractModel model, final JAbstractView jProjectManagement) {
-	this.view = (JProjectManagement) jProjectManagement;
-	this.model = (ProjectManagementModel) model;
+    public ProjectDeleteController(M model, V view) {
+	super(model, view);
     }
-
+    
     @Override
     public void actionPerformed(final ActionEvent e) {
 	final int[] toDelete = this.view.getSelectedIndicesFromProjectList();

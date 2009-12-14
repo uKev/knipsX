@@ -1,25 +1,44 @@
 package org.knipsX.controller.projectview;
 
 import java.awt.event.ActionEvent;
+
+import javax.swing.JOptionPane;
+
 import org.knipsX.controller.AbstractController;
-import org.knipsX.model.AbstractModel;
+import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
-import org.knipsX.view.projectview.JPictureSetCreate;
+import org.knipsX.view.projectview.JProjectView;
 
 /**
  * Represents the Actions which are done by klicking on create pictureset.
  * Acts in harmony with a JProjectView.
  */
-public class PictureSetCreateController extends AbstractController {
+public class PictureSetCreateController<M extends ProjectModel, V extends JProjectView<M>> extends
+	AbstractController<M, V> {
+
+    public PictureSetCreateController(M model, V view) {
+	super(model, view);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
 	
-	public PictureSetCreateController(AbstractModel model) {
-		super(model);
+	/* try to get a picture set name */
+	String pictureSetName = JOptionPane.showInputDialog(null, "Geben Sie einen Bildmengennamen ein.",
+		"Bildmenge erstellen", JOptionPane.INFORMATION_MESSAGE);
+
+	/* while user is not pressing cancel and no text is given */
+	while ((pictureSetName != null) && pictureSetName.equals("")) {
+
+	    /* try to get a project name */
+	    pictureSetName = JOptionPane.showInputDialog(null, "Bildmengennamen darf nicht leer sein!",
+		    "Bildmenge erstellen - Fehler", JOptionPane.ERROR_MESSAGE);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		model.setModelStatus(ProjectModel.CREATEPICTURESET);
-		new JPictureSetCreate(model);
-		model.updateViews();
+	/* has user give in a project name? */
+	if (pictureSetName != null) {
+	    this.model.addPictureSet(new PictureSet(pictureSetName, 0));
+	    this.model.updateViews();
 	}
+    }
 }
