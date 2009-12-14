@@ -1,13 +1,15 @@
 package org.knipsX.controller.projectmanagement;
 
 import java.awt.event.ActionEvent;
+
+import javax.swing.JOptionPane;
+
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.projectmanagement.JProjectManagement;
-import org.knipsX.view.projectmanagement.JProjectCopy;
 
 /**
  * Represents the Actions which are done by pushing the project copy button.
@@ -15,10 +17,7 @@ import org.knipsX.view.projectmanagement.JProjectCopy;
  */
 public class ProjectCopyController extends AbstractController {
 
-    /* Die View */
     private JProjectManagement view;
-    
-    /* Das Modell */
     private ProjectManagementModel model;
 
     public ProjectCopyController(final AbstractModel abstractModel, final JAbstractView jProjectManagement) {
@@ -37,27 +36,51 @@ public class ProjectCopyController extends AbstractController {
     @Override
     public void actionPerformed(final ActionEvent e) {
 
-	/* Erhalte selektierte Einträge */
 	final int[] toCopy = this.view.getSelectedIndicesFromProjectList();
 
-	/* Prüfe ob eine Eintrag selektiert ist */
+	/* only one project can copied at once */
 	if (toCopy.length == 1) {
 
-	    /* Extrahiere Projekt, das kopiert werden soll */
+	    /* get the selected project */
 	    final ProjectEntry projectToCopy = this.model.getProjectList().get(toCopy[0]);
 
-	    /* Setze Modellstatus */
-	    this.model.setModelStatus(ProjectManagementModel.COPY);
+	    final int decision = JOptionPane.showConfirmDialog(null, "Soll das ausgewählte Projekt \""
+		    + projectToCopy.getProjectName() + "\" kopiert werden?", "Projekt kopieren",
+		    JOptionPane.YES_NO_OPTION);
 
-	    /* Erstelle neues Fenster */
-	    new JProjectCopy(this.model, projectToCopy);
+	    /* if user pressed "yes" */
+	    if (decision == 0) {
 
-	    /* Aktualisiere Views */
-	    this.model.updateViews();
+		/* try to get a project name */
+		String projectName = JOptionPane.showInputDialog(null, "Geben Sie einen Projektnamen ein.",
+			"Projekt kopieren", JOptionPane.INFORMATION_MESSAGE);
+
+		/* while user is not pressing cancel and no text is given */
+		while ((projectName != null) && projectName.equals("")) {
+
+		    /* try to get a project name */
+		    projectName = JOptionPane.showInputDialog(null, "Projektname darf nicht leer sein!",
+			    "Projekt kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
+		}
+
+		/* has user give in a project name? */
+		if (projectName != null) {
+		    this.model.addNewProject(projectName);
+		    this.model.updateViews();
+		}
+	    }
+
+	} else if (toCopy.length == 0) {
+
+	    /* gives the user a hint, that he has selected too much projects */
+	    JOptionPane.showMessageDialog(null, "Selektieren Sie ein Projekt, um es zu kopieren.",
+		    "Projekt kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
 	} else {
 
-	    /* Gib Fehler aus */
-	    System.out.println("FEHLER");
+	    /* gives the user a hint, that he has selected too little projects */
+	    JOptionPane.showMessageDialog(null, "Selektieren Sie nur ein Projekt, um es zu kopieren.",
+		    "Projekt kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
+
 	}
     }
 }
