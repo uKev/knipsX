@@ -18,10 +18,10 @@ public class ProjectCreateConfirmController extends AbstractController {
 	private ProjectManagementModel model;
 
 	public ProjectCreateConfirmController(AbstractModel model, JAbstractView jProjectNew) {
-		
-		if(jProjectNew instanceof JAbstractView ) {
-			this.jProjectCreate = (JProjectCreate) jProjectNew;
-		}
+//		
+//		if(jProjectNew instanceof JAbstractView ) {
+//			this.jProjectCreate = (JProjectCreate) jProjectNew;
+//		}
 				
 		if(model instanceof ProjectManagementModel ) {
 			this.model = (ProjectManagementModel) model;	

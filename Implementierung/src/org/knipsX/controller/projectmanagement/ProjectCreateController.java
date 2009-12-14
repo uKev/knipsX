@@ -1,6 +1,9 @@
 package org.knipsX.controller.projectmanagement;
 
 import java.awt.event.ActionEvent;
+
+import javax.swing.JOptionPane;
+
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
@@ -20,10 +23,44 @@ public class ProjectCreateController extends AbstractController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+	
+		String text  = (String) JOptionPane.showInputDialog(
+		                    null,
+		                    "Geben Sie einen Projektnamen ein.",
+		                    "Projekt erstellen",
+		                    JOptionPane.INFORMATION_MESSAGE,
+		                    null,
+		                    null,
+		                    "ham");
+		while (text != null && text.equals("")) {
+			
+			
+			JOptionPane.showMessageDialog(null,
+				    "Darf nicht leer sein!",
+				    "Fehler",
+				    JOptionPane.ERROR_MESSAGE);
+			
+			text  = (String) JOptionPane.showInputDialog(
+                    null,
+                    "Geben Sie einen Projektnamen ein.",
+                    "Projekt erstellen",
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    null,
+                    "ham");
+		}
+
+		if ( text == null || text.equals("") || text.equals("xxx") ) {
+			
+			System.out.println("Kann nicht hinzugefügt werden.");	
+		} else {
+			
+			/* Füge neues Projekt dem Model hinzu */
+			model.addNewProject(text);
+//			model.setModelStatus(ProjectManagementModel.SELECT);
+			model.updateViews();
+		}	
 		
-		/*  Aktuelle View unsichtbar machen */
-		model.setModelStatus(ProjectManagementModel.NEW);
-		new JProjectCreate(model);
 		model.updateViews();
 	}
 }
