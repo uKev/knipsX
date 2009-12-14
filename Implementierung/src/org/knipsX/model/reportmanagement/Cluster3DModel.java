@@ -10,21 +10,10 @@ import org.knipsX.model.picturemanagement.PictureContainer;
  * @author Kevin Zuber
  *
  */
-public class Cluster3DModel extends AbstractDoubleAxesModel{
-	// can be private because there is no subclass
-	private Axis yAxis;
+public class Cluster3DModel extends AbstractTrippleAxesModel{
 
 	public Cluster3DModel(ArrayList<PictureContainer> pictureContainer, Axis xAxis, Axis zAxis, Axis yAxis) {
-		super(pictureContainer, xAxis, zAxis);
-		this.yAxis = yAxis;
-	}
-
-	public Axis getyAxis() {
-		return yAxis;
-	}
-
-	public void setyAxis(Axis yAxis) {
-		this.yAxis = yAxis;
+		super(pictureContainer, xAxis, zAxis, yAxis);
 	}
 	
 	public Frequency3DPoint [] getFrequency3DPoints (){
