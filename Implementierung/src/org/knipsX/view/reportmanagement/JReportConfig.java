@@ -81,6 +81,26 @@ public class JReportConfig extends JAbstractReportType {
     }	
     
     
+    public JReportConfig(BoxplotModel model) {
+    	super(model);
+    }
+    
+    public JReportConfig(Cluster3DModel model) {
+    	super(model);
+    }
+    
+    public JReportConfig(Histogram3DModel model) {
+    	super(model);
+    }
+  
+    public JReportConfig(Histogram2DModel model) {
+    	super(model);
+    }
+    
+    public JReportConfig(TableModel model) {
+    	super(model);
+    }
+    
 	private void initialize() {
     	this.basic = new JPanel();
         this.basic.setLayout(new BoxLayout(basic, BoxLayout.Y_AXIS));

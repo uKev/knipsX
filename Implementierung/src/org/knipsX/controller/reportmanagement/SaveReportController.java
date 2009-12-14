@@ -47,7 +47,7 @@ public class SaveReportController extends AbstractController {
 				} else if (singlepanel instanceof JPictureSet) {
 					System.out.println("Bildmenegn");					
 				} else if (singlepanel instanceof JWilcoxon) {
-					System.out.println("Wilcoxon");					
+					System.out.println("Wilcoxon");
 				}
 			}	
 			

@@ -17,6 +17,7 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.model.reportmanagement.BoxplotModel;
 
 /**
  * Has functions that can handle with the filesystem.
@@ -135,11 +136,11 @@ public class FileHandler {
 	}
 	
 	/* create some dummy reports */
-	AbstractReportModel dummyReportOne = new AbstractReportModel();
+	AbstractReportModel dummyReportOne = new BoxplotModel();
 	dummyReportOne.setReportName("Blendenanalyse");
 	dummyReportOne.setReportDescription("Analyse über Blenden");
 	
-	AbstractReportModel dummyReportTwo = new AbstractReportModel();
+	AbstractReportModel dummyReportTwo = new BoxplotModel();
 	dummyReportTwo.setReportName("neue Blendenanalyse");
 	dummyReportTwo.setReportDescription("Analyse über Blenden - neu");
 	
