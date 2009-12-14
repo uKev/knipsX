@@ -8,10 +8,11 @@ import org.knipsX.view.reportmanagement.JPictureSet;
 public class RemoveExifKeywordOfReportController extends AbstractController {
 
 	
-	private JPictureSet pictureSet;
+	private JPictureSet pictureSetView;
 	
-	public RemoveExifKeywordOfReportController(JPictureSet pictureSet) {
-		this.pictureSet = pictureSet;		
+	public RemoveExifKeywordOfReportController(JPictureSet pictureSetView) {
+		this.pictureSetView = pictureSetView;	
+				
 	}
 	
 	@Override

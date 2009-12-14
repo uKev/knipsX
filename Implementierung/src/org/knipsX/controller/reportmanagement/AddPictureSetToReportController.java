@@ -8,15 +8,17 @@ import org.knipsX.view.reportmanagement.JPictureSet;
 public class AddPictureSetToReportController extends AbstractController {
 
 	
-	private JPictureSet pictureSet;
+	private JPictureSet pictureSetView;
 	
-	public AddPictureSetToReportController(JPictureSet pictureSet) {
-		this.pictureSet = pictureSet;		
+	public AddPictureSetToReportController(JPictureSet pictureSetView) {
+		this.pictureSetView = pictureSetView;		
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		this.pictureSetView.getPictureContainer();
+		this.pictureSetView.setPictureContainer(this.pictureSetView.getPictureContainer());
 		
 	}
 

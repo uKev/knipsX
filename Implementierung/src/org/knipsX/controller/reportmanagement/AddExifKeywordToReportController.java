@@ -6,10 +6,11 @@ import org.knipsX.view.reportmanagement.JPictureSet;
 
 public class AddExifKeywordToReportController extends AbstractController {
 	
-	private JPictureSet pictureSet;
+	private JPictureSet pictureSetView;
 	
-	public AddExifKeywordToReportController(JPictureSet pictureSet) {
-		this.pictureSet = pictureSet;		
+	public AddExifKeywordToReportController(JPictureSet pictureSetView) {
+		this.pictureSetView = pictureSetView;
+		
 	}
 	
 	

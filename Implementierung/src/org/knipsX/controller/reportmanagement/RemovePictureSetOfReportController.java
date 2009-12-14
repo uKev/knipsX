@@ -7,12 +7,14 @@ import org.knipsX.view.reportmanagement.JPictureSet;
 
 public class RemovePictureSetOfReportController extends AbstractController {
 
+	private JPictureSet pictureSetView;
 	
-	private JPictureSet pictureSet;
 	
-	public RemovePictureSetOfReportController(JPictureSet pictureSet) {
-		this.pictureSet = pictureSet;		
+	public RemovePictureSetOfReportController(JPictureSet pictureSetView) {
+		this.pictureSetView = pictureSetView;	
+		
 	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

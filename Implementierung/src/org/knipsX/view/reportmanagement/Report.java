@@ -11,39 +11,49 @@ import org.knipsX.view.diagrams.JAbstractDiagram;
 public enum Report {	
 	
 	Boxplot {
+			@Override
 			public JAbstractReport getReportType() {return new JBoxplotConfig(null);} 
+			@Override
 			public AbstractReportModel createReportModel() {return new BoxplotModel();}
-			public JAbstractDiagram getDiagram(AbstractReportModel model) {return null;}
-			public int getNumberofAxis() {return 1;}
+			@Override
+			public JAbstractDiagram getDiagram(AbstractReportModel model) {return null;}			
 			},
 			
 	Histogram2D {
+			@Override
 			public JAbstractReport getReportType() {return new JHistogram2DConfig(null);}
+			@Override
 			public AbstractReportModel createReportModel() {return new Histogram2DModel(null, null);}	
-			public JAbstractDiagram getDiagram(AbstractReportModel model) {return null;}
-			public int getNumberofAxis() {return 1;}
+			@Override
+			public JAbstractDiagram getDiagram(AbstractReportModel model) {return null;}			
 			},
 			
 	Histogram3D { 
+			@Override
 			public JAbstractReport getReportType() {return new JHistogram3DConfig(null);}
+			@Override
 			public AbstractReportModel createReportModel() {return new Histogram3DModel(null, null, null);}
+			@Override
 			public JAbstractDiagram getDiagram(AbstractReportModel model) {return null;}
-			public int getNumberofAxis() {return 2;}
-				
+						
 			},
 	Cluster3D {
+			@Override
 			public JAbstractReport getReportType() {return new JCluster3DConfig(null);} 
+			@Override
 			public AbstractReportModel createReportModel() {return new Cluster3DModel(null, null, null, null);}	
+			@Override
 			public JAbstractDiagram getDiagram(AbstractReportModel model) {return null;}
-			public int getNumberofAxis() {return 3;}
 				
 			},
 			
 	Table {
+			@Override
 			public JAbstractReport getReportType() {return new JTableConfig( new TableModel(null));} 
+			@Override
 			public AbstractReportModel createReportModel() {return new TableModel(null);}	
+			@Override
 			public JAbstractDiagram getDiagram(AbstractReportModel model) {return null;}
-			public int getNumberofAxis() {return 0;}
 		};
 	
 	/**

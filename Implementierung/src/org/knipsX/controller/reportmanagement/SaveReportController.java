@@ -20,7 +20,7 @@ public class SaveReportController extends AbstractController {
 	
 	public SaveReportController(final AbstractModel abstractModel, JAbstractReport reportconfig, boolean showDiagram) {    	
 		if (abstractModel instanceof AbstractReportModel) {
-			this.model = (AbstractReportModel) abstractModel;			
+			this.model = abstractModel;			
 		}
 		
 		this.reportconfig = reportconfig;

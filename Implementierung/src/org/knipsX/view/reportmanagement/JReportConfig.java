@@ -72,43 +72,56 @@ public class JReportConfig extends JAbstractReportType {
 
     }	
     
-    
+  
     public JReportConfig(BoxplotModel model) {
     	super(model);
+    	this.reportconfig = new JBoxplotConfig(model);
     	initialize();
     }
     
     public JReportConfig(Cluster3DModel model) {
     	super(model);
+    	this.reportconfig = new JCluster3DConfig(model);
     	initialize();
     }
     
     public JReportConfig(Histogram3DModel model) {
     	super(model);
+    	this.reportconfig = new JHistogram3DConfig(model);
     	initialize();
     }
   
     public JReportConfig(Histogram2DModel model) {
     	super(model);
     	this.reportconfig = new JHistogram2DConfig(model);
-    	initialize();
-    	
+    	initialize(); 	
     	
     }
     
     public JReportConfig(TableModel model) {
     	super(model);
+    	this.reportconfig = new JTableConfig(model);
     	initialize();
     }
     
-	private void initialize() {
-		
+    
+    private void initialize() {
+    	preinitialize();
+    	initializePane();
+    	postinitialize();
+    }
+    
+    private void preinitialize() {	
 		
     	this.tabbedpane = getJTabbedPane();
     	Report.myconfig = this;  
     	mysize[0] = 800;
-    	mysize[1] = 600;
- 
+    	mysize[1] = 600; 
+    	
+    }
+    
+	private void initializePane() {
+
         setTitle("Auswertung Konfigurieren");
 		
 		
@@ -138,15 +151,18 @@ public class JReportConfig extends JAbstractReportType {
         basic.add(bottom);
 
         bottom.setMaximumSize(new Dimension(450, 0));
-        pack();
+        pack();      
+
         
-        
+    }
+	
+	
+	private void postinitialize() {        
         setSize(new Dimension(mysize[0], mysize[1]));        
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
-        
-    }
+	}
     
 	public void setReportType(JAbstractReport reportconfig) {
 		this.mysize[1] = this.mainpanel.getBounds().height;
@@ -156,7 +172,7 @@ public class JReportConfig extends JAbstractReportType {
 		this.reportconfig = reportconfig;
 		this.tabbedpane = this.getJTabbedPane();
 		Report.myconfig = this;
-		initialize();	
+		initializePane();	
 		pack();	
 		
 	}	
