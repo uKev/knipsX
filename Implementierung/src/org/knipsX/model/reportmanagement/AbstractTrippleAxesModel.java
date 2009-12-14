@@ -20,6 +20,7 @@ public abstract class AbstractTrippleAxesModel extends AbstractDoubleAxesModel {
 	public AbstractTrippleAxesModel(
 			ArrayList<PictureContainer> pictureContainer, Axis xAxis, Axis zAxis, Axis yAxis) {
 		super(pictureContainer, xAxis, zAxis);
+		this.yAxis = yAxis;
 		// TODO Auto-generated constructor stub
 	}
 
