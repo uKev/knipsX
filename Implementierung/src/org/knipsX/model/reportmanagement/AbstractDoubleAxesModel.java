@@ -15,6 +15,8 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 public class AbstractDoubleAxesModel extends AbstractSingleAxisModel{
 	// need to be protected because will be used in subclass
 	protected Axis zAxis;
+	protected Object minZ;
+	protected Object maxZ;
 
 	public AbstractDoubleAxesModel(
 			ArrayList<PictureContainer> pictureContainer, Axis xAxis, Axis zAxis) {
@@ -28,5 +30,20 @@ public class AbstractDoubleAxesModel extends AbstractSingleAxisModel{
 
 	public void setzAxis(Axis zAxis) {
 		this.zAxis = zAxis;
+	}
+
+	/**
+	 * 
+	 * @return the smalles value in the z-axis.
+	 */
+	public Object getMinZ() {
+		return minZ;
+	}
+	/**
+	 * 
+	 * @return the biggest value in the z-axis.
+	 */
+	public Object getMaxZ() {
+		return maxZ;
 	}
 }

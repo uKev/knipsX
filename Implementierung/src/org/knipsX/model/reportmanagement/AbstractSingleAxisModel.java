@@ -16,6 +16,11 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel{
 	// needs to be protected because it's used in subclass
 	protected Axis xAxis;
 
+	protected Object minX;
+	protected Object maxX;
+	protected Object minY;
+	protected Object maxY;
+
 	public AbstractSingleAxisModel(
 			ArrayList<PictureContainer> pictureContainer, Axis xAxis) {
 		super(pictureContainer);
@@ -33,5 +38,34 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel{
 
 	public void setxAxis(Axis xAxis) {
 		this.xAxis = xAxis;
+	}
+
+	/**
+	 * 
+	 * @return the smalles value in the x-axis.
+	 */
+	public Object getMinX() {
+		return minX;
+	}
+	/**
+	 * 
+	 * @return the biggest value in the x-axis.
+	 */
+	public Object getMaxX() {
+		return maxX;
+	}
+	/**
+	 * 
+	 * @return the smalles value in the y-axis.
+	 */
+	public Object getMinY() {
+		return minY;
+	}
+	/**
+	 * 
+	 * @return the biggest value in the y-axis.
+	 */
+	public Object getMaxY() {
+		return maxY;
 	}
 }
