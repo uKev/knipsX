@@ -17,8 +17,7 @@ public class Picture implements PictureContainer {
 		super();
 		this.pictureName = fileName;
 		this.path = path;
-		ExifAdapter exifAdapter = new ExifAdapter();
-		exifAdapter.setFilePath(path);
+		ExifAdapter exifAdapter = new ExifAdapter(path);
 		// dummymaesig:
 		Object[] parameter = new Object[] { ExifParameter.CAMERAMODEL,
 				ExifParameter.FLASH, ExifParameter.FNUMBER,

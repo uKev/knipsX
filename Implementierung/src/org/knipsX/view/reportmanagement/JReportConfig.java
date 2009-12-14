@@ -65,43 +65,53 @@ public class JReportConfig extends JAbstractReportType {
     		this.reportconfig = new JCluster3DConfig((Cluster3DModel)model);
     	}  	
 
+
+ 
+        initialize();
+ 
+
+    }	
+    
+    
+    public JReportConfig(BoxplotModel model) {
+    	super(model);
+    	initialize();
+    }
+    
+    public JReportConfig(Cluster3DModel model) {
+    	super(model);
+    	initialize();
+    }
+    
+    public JReportConfig(Histogram3DModel model) {
+    	super(model);
+    	initialize();
+    }
+  
+    public JReportConfig(Histogram2DModel model) {
+    	super(model);
+    	this.reportconfig = new JHistogram2DConfig(model);
+    	initialize();
+    	
+    	
+    }
+    
+    public JReportConfig(TableModel model) {
+    	super(model);
+    	initialize();
+    }
+    
+	private void initialize() {
+		
+		
     	this.tabbedpane = getJTabbedPane();
     	Report.myconfig = this;  
     	mysize[0] = 800;
     	mysize[1] = 600;
  
         setTitle("Auswertung Konfigurieren");
- 
-        initialize();
- 
-        setSize(new Dimension(mysize[0], mysize[1]));        
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setVisible(true);
-    }	
-    
-    
-    public JReportConfig(BoxplotModel model) {
-    	super(model);
-    }
-    
-    public JReportConfig(Cluster3DModel model) {
-    	super(model);
-    }
-    
-    public JReportConfig(Histogram3DModel model) {
-    	super(model);
-    }
-  
-    public JReportConfig(Histogram2DModel model) {
-    	super(model);
-    }
-    
-    public JReportConfig(TableModel model) {
-    	super(model);
-    }
-    
-	private void initialize() {
+		
+		
     	this.basic = new JPanel();
         this.basic.setLayout(new BoxLayout(basic, BoxLayout.Y_AXIS));
         add(basic);
@@ -129,6 +139,13 @@ public class JReportConfig extends JAbstractReportType {
 
         bottom.setMaximumSize(new Dimension(450, 0));
         pack();
+        
+        
+        setSize(new Dimension(mysize[0], mysize[1]));        
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+        
     }
     
 	public void setReportType(JAbstractReport reportconfig) {
