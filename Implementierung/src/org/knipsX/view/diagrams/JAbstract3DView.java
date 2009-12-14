@@ -2,7 +2,6 @@ package org.knipsX.view.diagrams;
 
 import java.awt.Font;
 import java.awt.image.BufferedImage;
-
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
 import javax.media.j3d.Background;
@@ -19,6 +18,8 @@ import javax.media.j3d.Shape3D;
 import javax.media.j3d.Text3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
@@ -408,8 +409,14 @@ public abstract class JAbstract3DView extends JAbstractDiagram{
         // Add scene to branch graph
         this.simpleU.addBranchGraph(this.objRoot);      
         
+        
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));       
         this.canvas3D.setSize(800, 600);
-        add(this.canvas3D);   
+        panel.add(this.canvas3D);
+        panel.add(new JDiagramButtons3D());   
+      	add(panel);
+        
         pack();
         setVisible(true);
 	}
