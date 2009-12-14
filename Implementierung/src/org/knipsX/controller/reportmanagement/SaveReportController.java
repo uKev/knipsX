@@ -16,13 +16,15 @@ import org.knipsX.view.reportmanagement.Report;
 public class SaveReportController extends AbstractController {
 	
 	private JAbstractReport reportconfig;
+	private boolean showDiagram;
 	
-	public SaveReportController(final AbstractModel abstractModel, JAbstractReport reportconfig) {    	
+	public SaveReportController(final AbstractModel abstractModel, JAbstractReport reportconfig, boolean showDiagram) {    	
 		if (abstractModel instanceof AbstractReportModel) {
 			this.model = (AbstractReportModel) abstractModel;			
 		}
 		
 		this.reportconfig = reportconfig;
+		this.showDiagram = showDiagram;
     }
 	
     
@@ -47,7 +49,14 @@ public class SaveReportController extends AbstractController {
 				} else if (singlepanel instanceof JWilcoxon) {
 					System.out.println("Wilcoxon");					
 				}
-			}				
+			}	
+			
+			
+	
+	if(showDiagram) {
+		
+	}
+			
 	}
 	
 }

@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import org.knipsX.controller.reportmanagement.SaveReportController;
-import org.knipsX.model.reportmanagement.DummyModel;
+import org.knipsX.model.reportmanagement.*;
 
 public class JReportConfig extends JAbstractReportType {
 
@@ -48,6 +48,39 @@ public class JReportConfig extends JAbstractReportType {
     }	
 
 
+    public JReportConfig(AbstractReportModel model) {
+    	super(new DummyModel());
+    	
+    	if(model instanceof BoxplotModel) {
+        	this.reportconfig = new JBoxplotConfig((BoxplotModel)model);
+    	} else if(model instanceof Cluster3DModel) {
+    		this.reportconfig = new JCluster3DConfig((Cluster3DModel)model);
+    	}  else if(model instanceof Histogram2DModel) {
+    		this.reportconfig = new JHistogram2DConfig((Histogram2DModel)model);
+    	} else if(model instanceof Histogram3DModel) {
+    		this.reportconfig = new JHistogram3DConfig((Histogram3DModel)model);
+    	} else if(model instanceof TableModel) {
+    		this.reportconfig = new JTableConfig((TableModel)model);
+    	} else if(model instanceof Cluster3DModel) {
+    		this.reportconfig = new JCluster3DConfig((Cluster3DModel)model);
+    	}  	
+
+    	this.tabbedpane = getJTabbedPane();
+    	Report.myconfig = this;  
+    	mysize[0] = 800;
+    	mysize[1] = 600;
+ 
+        setTitle("Auswertung Konfigurieren");
+ 
+        initialize();
+ 
+        setSize(new Dimension(mysize[0], mysize[1]));        
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }	
+    
+    
 	private void initialize() {
     	this.basic = new JPanel();
         this.basic.setLayout(new BoxLayout(basic, BoxLayout.Y_AXIS));
@@ -66,7 +99,7 @@ public class JReportConfig extends JAbstractReportType {
         JButton close = new JButton("Schließen");
         JButton apply = new JButton("Übernehmen");
         JButton show = new JButton("Anzeigen");       
-        show.addActionListener(new SaveReportController(Report.currentModel, this.reportconfig));
+        show.addActionListener(new SaveReportController(Report.currentModel, this.reportconfig, true));
         
 
         bottom.add(close);

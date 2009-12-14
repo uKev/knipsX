@@ -30,7 +30,7 @@ public class JReportWizard extends JAbstractReportType {
 	public JReportWizard() {
 		super(new DummyModel());
 		Report.myconfig = this;
-		this.reportconfig = Report.currentReport.getReportType();
+		this.reportconfig = Report.defaultReport.getReportType();
 		initialize();
 	}
 	

@@ -44,9 +44,15 @@ public class JDiagramType extends JAbstractSinglePanel {
 
         setLayout(null);
         
+        int indexToSelect = 0;
+        
         Object[] myreports = new Object[Report.values().length];
         for(int i=0; i < Report.values().length; i++ ) {
 			myreports[i] = Report.values()[i];
+			
+			if(myreports[i] == Report.currentReport) {
+				indexToSelect = i;
+			}
 		}
         
         // Report.currentModel.getReportName()
@@ -56,15 +62,15 @@ public class JDiagramType extends JAbstractSinglePanel {
               
         
         this.meineliste = new JList(myreports); //data has type Object[]
+        this.meineliste.setSelectedIndex(indexToSelect);
         this.meineliste .addListSelectionListener(new SharedListSelectionHandler(this.meineliste));
         this.meineliste .setCellRenderer(new ComplexCellRenderer());
-        this.meineliste .setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        this.meineliste .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);        
         this.meineliste .setLayoutOrientation(JList.HORIZONTAL_WRAP);
         this.meineliste .setPreferredSize(new Dimension(100, 100));
         this.meineliste .setBounds(0, 60, 250, 250);
         
-        add(this.meineliste);
-        
+        add(this.meineliste);    
        
         
     }
@@ -97,7 +103,7 @@ class ComplexCellRenderer implements ListCellRenderer {
 	final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
 		isSelected, cellHasFocus);
 
-	/* Wenn ein Projekt vorliegt, setze Text */
+	/* Wenn ein Diagram vorliegt, setze Text */
 	if (value instanceof Report) {
 	    final Report myReport = (Report) value;
 	    theText = myReport.toString();

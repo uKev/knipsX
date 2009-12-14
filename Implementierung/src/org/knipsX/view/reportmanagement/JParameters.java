@@ -33,7 +33,7 @@ public class JParameters extends JAbstractSinglePanel {
         
         setLayout(null);
 
-        JButton beep = new JButton( String.valueOf(Report.currentReport.getNumberofAxis()));
+        JButton beep = new JButton( String.valueOf("test"));
         beep.setBounds(150, 60, 80, 30);
 
        JButton close = new JButton("Close");
