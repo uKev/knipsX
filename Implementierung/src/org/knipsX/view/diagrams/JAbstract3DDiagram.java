@@ -28,10 +28,11 @@ public abstract class JAbstract3DDiagram extends JAbstract3DView {
 	public void preinitialize() {
         int goodcamerapos = (int) (this.AXISSIZE/2);
         changeCameraPosition(goodcamerapos, goodcamerapos, goodcamerapos*6);
+        this.numberofAxis = 3;
         
         addLights();
 		createGrid();
-		createAxis(3);              
+		createAxis();              
         
         // Make Interactive for 3D View
         ViewingPlatform viewingPlatform = this.simpleU.getViewingPlatform();        

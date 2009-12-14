@@ -1,5 +1,15 @@
 package org.knipsX.controller.diagrams;
 
-public class CycleThroughViewController {
+import java.awt.event.ActionEvent;
+
+import org.knipsX.controller.AbstractController;
+
+public class CycleThroughViewController extends AbstractController {
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

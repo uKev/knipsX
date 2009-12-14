@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
@@ -46,7 +47,7 @@ public class JDiagramViewer extends JAbstractView {
 
 	        add(toolbar, BorderLayout.NORTH);
 
-	        JToolBar vertical = new JToolBar(JToolBar.VERTICAL);
+	        JToolBar vertical = new JToolBar(SwingConstants.VERTICAL);
 	        vertical.setFloatable(false);
 	        vertical.setMargin(new Insets(10, 5, 5, 5));
 

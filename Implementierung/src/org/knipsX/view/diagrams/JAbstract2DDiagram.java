@@ -27,6 +27,7 @@ public abstract class JAbstract2DDiagram extends JAbstract3DView {
 	 * 2D specific preinitialization routine
 	 */
 	public void preinitialize() {
+		this.numberofAxis = 2;
 		this.canvas3D.getView().setProjectionPolicy(View.PARALLEL_PROJECTION);
 		this.canvas3D.getView().setScreenScale(0.03);
 		this.canvas3D.getView().setScreenScalePolicy(View.SCALE_EXPLICIT);
@@ -34,7 +35,7 @@ public abstract class JAbstract2DDiagram extends JAbstract3DView {
 		this.canvas3D.getView().setFrontClipDistance(-2);		
 		this.textautorotate = false;
 		createGrid();
-		createAxis(2);
+		createAxis();
 		changeCamtoFaceYXPlane();
 		
 		

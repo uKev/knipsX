@@ -1,8 +1,6 @@
 package org.knipsX.view.diagrams;
 
 
-import java.awt.image.BufferedImage;
-
 import org.knipsX.model.AbstractModel;
 
 

@@ -28,6 +28,7 @@ import org.knipsX.model.picturemanagement.Picture;
 
 import com.sun.j3d.utils.geometry.Box;
 import com.sun.j3d.utils.geometry.Cylinder;
+import com.sun.j3d.utils.geometry.Primitive;
 import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
@@ -64,6 +65,12 @@ public abstract class JAbstract3DView extends JAbstractDiagram{
 	 */
 	protected final double GRIDDENSITYFACTOR = 1;
 	
+	
+	/**
+	 * Specifies the number of segments on one axis
+	 */
+	protected final int NUMBEROFSEGMENTS = 10;
+	
 	/**
 	 * Specifies at which detail level the geometry is to be drawn
 	 */
@@ -73,6 +80,12 @@ public abstract class JAbstract3DView extends JAbstractDiagram{
 	 * Specifies if the text in the current view should point to the camera
 	 */
 	protected boolean textautorotate = true;
+	
+	
+	/**
+	 * Specified the number of axis which are added to the object root
+	 */
+	protected int numberofAxis = 3;
 		
 	/**
 	 * Constructor initialized the canvas3D
@@ -123,7 +136,7 @@ public abstract class JAbstract3DView extends JAbstractDiagram{
 	 */
 	public void createSphere(Vector3d position, Vector3d scale, Appearance material){
 		TransformGroup objMove = createTransformGroup(position, scale);
-		Sphere mySphere = new Sphere(1,Sphere.GENERATE_NORMALS,JAbstract3DView.GEODETAIL,material);
+		Sphere mySphere = new Sphere(1,Primitive.GENERATE_NORMALS,JAbstract3DView.GEODETAIL,material);
 		objMove.addChild(mySphere);
 		this.objRoot.addChild(objMove);
 	}
@@ -169,9 +182,8 @@ public abstract class JAbstract3DView extends JAbstractDiagram{
 	
 	/**
 	 * Creates the Axis with axis labels which are automatically placed into the root BranchGroup
-	 * @param numberofAxis value between 0 and 3
 	 */
-	protected void createAxis(int numberofAxis) {	
+	protected void createAxis() {	
 			
 			for(int i = 0; i <= numberofAxis - 1; i++) {
 				
@@ -230,27 +242,7 @@ public abstract class JAbstract3DView extends JAbstractDiagram{
 					objSeg.addChild(myAxisGeo);
 					this.objRoot.addChild(objSeg);					
 				}
-			}
-			
-			// Einheiten
-			double size = 0.33d;
-			for(int q = 0; q<=10; q++) {
-				for(int i=0; i<=2; i++) {
-				if(i==0)
-						createText(new Vector3d(-1,q,-0.75d), new Vector3d(size,size,size), basicMaterial(1,1,1), String.valueOf(q+1) + ".11.09");
-				if(i==1)
-					if(q>0)
-						createText(new Vector3d(-1,-0.5d,q), new Vector3d(size,size,size), basicMaterial(1,1,1), String.valueOf(q*100));						
-				if(i==2)
-					if(q>0)
-						createText(new Vector3d(q,0,-1), new Vector3d(size,size,size), basicMaterial(1,1,1), String.valueOf((q+17)));
-				}
-			}
-			
-			double offset = 1.5;		
-			createText(new Vector3d(0.0d,0.0d,this.AXISSIZE+offset), new Vector3d(0.5d,0.5d,0.5d), basicMaterial(1,1,1), "ISO");
-			createText(new Vector3d(this.AXISSIZE+offset,0.0d, 0.0d), new Vector3d(0.5d,0.5d,0.5d), basicMaterial(1,1,1), "Datum");
-			createText(new Vector3d(0.0d,this.AXISSIZE+offset,0.0d), new Vector3d(0.5d,0.5d,0.5d), basicMaterial(1,1,1), "Brennweite");		
+			}	
 				
 	}
 	
@@ -265,11 +257,11 @@ public abstract class JAbstract3DView extends JAbstractDiagram{
 				Transform3D gridTrans = new Transform3D();
 				if(p==0) {
 					gridTrans.rotX(90 * Math.PI / 180.0d);
-					gridTrans.setTranslation(new Vector3d((double)i/(this.GRIDDENSITYFACTOR),0,this.AXISSIZE/2.0));
+					gridTrans.setTranslation(new Vector3d(i/(this.GRIDDENSITYFACTOR),0,this.AXISSIZE/2.0));
 				}
 				else if(p==1) {
 					gridTrans.rotZ(90 * Math.PI / 180.0d);
-					gridTrans.setTranslation(new Vector3d(this.AXISSIZE/2.0,0,(double)i/(this.GRIDDENSITYFACTOR)));
+					gridTrans.setTranslation(new Vector3d(this.AXISSIZE/2.0,0,i/(this.GRIDDENSITYFACTOR)));
 				}				
 				
 				gridTrans.setScale(new Vector3d(0.025,this.AXISSIZE,0.025));
@@ -344,9 +336,9 @@ public abstract class JAbstract3DView extends JAbstractDiagram{
 	
 	/**
 	 * Creates a basicMaterial with the specified color
-	 * @param x
-	 * @param y
-	 * @param z
+	 * @param x amount of red in color
+	 * @param y amount of green in color
+	 * @param z amount of blue in color
 	 * @return
 	 */
 	protected Appearance basicMaterial(float x, float y, float z)
@@ -422,12 +414,67 @@ public abstract class JAbstract3DView extends JAbstractDiagram{
         setVisible(true);
 	}
 	
+/**
+ * Specifies the labels that are displayed next to each axis
+ * @param xAxis The label of the xAxis
+ * @param zAxis The label of the zAxis
+ * @param yAxis The label of the yAxis
+ */
+	protected void createLabels(String xAxis, String zAxis, String yAxis) {
+		double offset = 1.5;	
+		Appearance myapp = basicMaterial(1,1,1);
+		createText(new Vector3d(0.0d,0.0d,AXISSIZE+offset), new Vector3d(1,1,1), myapp, xAxis);
+		createText(new Vector3d(AXISSIZE+offset,0.0d,0.0), new Vector3d(1,1,1), myapp, yAxis);
+		createText(new Vector3d(0,AXISSIZE+offset,0), new Vector3d(1,1,1), myapp, zAxis);		
+	}
+	
+	
 	
 	/**
-	 * Sets the current picture which is displayed outside of the 3D View
+	 * Generates a string array which contains the segment description of one axis.
+	 * The array will have the length of NUMBEROFSEGMENTS.
+	 * @param minValue the minimum value which will be placed at the origin of the axis
+	 * @param maxValue the maxium value of the axis
+	 */
+	protected String[] generateSegmentDescription(Object minValue, Object maxValue) {
+		String[] returnstring = {"", "asas"};
+		return returnstring;
+	}
+	
+	
+	
+	/**
+	 * Defines the Description of each Segment of an axis. Note that the String Arrays
+	 * you pass in here have length of NUMBEROFSEGMENTS
+	 * @param xAxis the string array which represent the xAxis
+	 * @param zAxis the string array which represent the zAxis
+	 * @param yAxis the string array which represent the yAxis
+	 */
+	protected void setSegmentDescription(String[] xAxis, String[] zAxis, String[] yAxis ) {
+		
+		// Einheiten
+		double size = 0.33d;
+		for(int q = 0; q<= NUMBEROFSEGMENTS - 1; q++) {
+			
+			for(int i=0; i<= this.numberofAxis - 1 ; i++) {
+			if(i==0)
+				createText(new Vector3d(-1,q,-0.75d), new Vector3d(size,size,size), basicMaterial(1,1,1), xAxis[q]);
+			if(i==1)
+				if(q>0)
+				createText(new Vector3d(-1,-0.5d,q), new Vector3d(size,size,size), basicMaterial(1,1,1), zAxis[q]);						
+			if(i==2)
+				if(q>0)
+				createText(new Vector3d(q,0,-1), new Vector3d(size,size,size), basicMaterial(1,1,1), yAxis[q]);
+			}
+		}	
+	}
+	
+	/**
+	 * Sets the current picture which is displayed outside of the 3D View with the
+	 * specified exif parameters
 	 * @param pic
 	 */
-	public void setCurrentPicture(Picture pic) {
+	public void setCurrentDescription(Picture pic) {
 		//TODO
 	}
 	

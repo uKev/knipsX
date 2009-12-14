@@ -1,6 +1,4 @@
 package org.knipsX.view.diagrams;
-import java.awt.image.BufferedImage;
-
 import javax.vecmath.Vector3d;
 
 import org.knipsX.model.AbstractModel;
