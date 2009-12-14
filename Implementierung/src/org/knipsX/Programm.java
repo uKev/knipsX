@@ -27,6 +27,6 @@ public class Programm {
 	final ProjectManagementModel projectManagementModel = new ProjectManagementModel(FileHandler.scanProjectDirectory());
 
 	/* creates a new JProjectAdministration window, which is connected to a model */
-	new JProjectManagement(projectManagementModel);
+	new JProjectManagement<ProjectManagementModel>(projectManagementModel);
     }
 }

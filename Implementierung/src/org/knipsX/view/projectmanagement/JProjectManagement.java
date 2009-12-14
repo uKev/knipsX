@@ -24,52 +24,30 @@ import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.JAbstractView;
 
-public class JProjectManagement extends JAbstractView {
+public class JProjectManagement<M extends ProjectManagementModel> extends JAbstractView<M> {
 
     /** Only for serialisation */
     private static final long serialVersionUID = 2746903025575471227L;
 
-    /* represents the panel for the view */
     private JPanel jContentPane = null;
 
-    /* represents the button for the project copy action */
     private JButton jButtonCopyProject = null;
-
-    /* represents the button for the project create action */
     private JButton jButtonCreateProject = null;
-
-    /* represents the button for the project delete action */
     private JButton jButtonDeleteProject = null;
-
-    /* represents the button for the project open action */
     private JButton jButtonOpenProject = null;
 
-    /* represents the list with all projects */
     private JList jListProject = null;
-
-    /* add scrollbars to the list */
+    
     private JScrollPane jScrollPaneProjectList = null;
-
-    /**
-     * Create a new project management view which is connected to a model.
-     * 
-     * @param model
-     *            the model which is connected to the view.
-     */
-    public JProjectManagement(final ProjectManagementModel model) {
-
-	/* sets the model */
+   
+    public JProjectManagement(M model) {
 	super(model);
-
+	
 	/* renders the view */
 	this.initialize();
     }
 
-    /**
-     * This method initializes this.
-     * 
-     * @return void
-     */
+    
     private void initialize() {
 
 	/* Setze Titel */
@@ -139,7 +117,7 @@ public class JProjectManagement extends JAbstractView {
 	    this.jButtonCopyProject = new JButton("Projekt kopieren");
 
 	    /* create an action listener (which knows the model and the view) to the button */
-	    this.jButtonCopyProject.addActionListener(new ProjectCopyController(this.model, this));
+	    this.jButtonCopyProject.addActionListener(new ProjectCopyController<M, JProjectManagement<M>>(this.model, this));
 	}
 	
 	/* return the button */
@@ -160,7 +138,7 @@ public class JProjectManagement extends JAbstractView {
 	    this.jButtonCreateProject = new JButton("Projekt erstellen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonCreateProject.addActionListener(new ProjectCreateController(this.model));
+	    this.jButtonCreateProject.addActionListener(new ProjectCreateController<M, JProjectManagement<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -181,7 +159,7 @@ public class JProjectManagement extends JAbstractView {
 	    this.jButtonDeleteProject = new JButton("Projekt löschen");
 
 	    /* create an action listener (which knows the model and the view) to the button */
-	    this.jButtonDeleteProject.addActionListener(new ProjectDeleteController(this.model, this));
+	    this.jButtonDeleteProject.addActionListener(new ProjectDeleteController<M, JProjectManagement<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -202,7 +180,7 @@ public class JProjectManagement extends JAbstractView {
 	    this.jButtonOpenProject = new JButton("Projekt öffnen");
 
 	    /* create an action listener (which knows the model an the view) to the button */
-	    this.jButtonOpenProject.addActionListener(new ProjectOpenController(this.model, this));
+	    this.jButtonOpenProject.addActionListener(new ProjectOpenController<M, JProjectManagement<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -272,24 +250,6 @@ public class JProjectManagement extends JAbstractView {
 
 	/* refresh view */
 	this.repaint();
-
-	/* react to program state */
-	if (model.getModelStatus() == ProjectManagementModel.SELECT) {
-
-	    /* set view active */
-	    this.setEnabled(true);
-
-	    /* show view */
-	    this.setVisible(true);
-	} else if (model.getModelStatus() == ProjectManagementModel.OPEN) {
-
-	    /* delete view */
-	    this.dispose();
-	} else {
-
-	    /* set the view inactive */
-	    this.setEnabled(false);
-	}
     }
 }
 

@@ -3,24 +3,23 @@ package org.knipsX.controller.projectview;
 import java.awt.event.ActionEvent;
 
 import org.knipsX.controller.AbstractController;
-import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectModel;
-import org.knipsX.view.projectview.JProjectSwitch;
+import org.knipsX.view.projectview.JProjectView;
 
 /**
  * Represents the Actions which are done by klicking switch project.
  * Acts in harmony with JProjectView.
  */
-public class ProjectSwitchController extends AbstractController {
+public class ProjectSwitchController<M extends ProjectModel, V extends JProjectView<M>> extends
+	AbstractController<M, V> {
 
-	public ProjectSwitchController(final AbstractModel model) {
-		super(model);
-	}
+    public ProjectSwitchController(M model, V view) {
+	super(model, view);
+    }
 
-	@Override
+    @Override
     public void actionPerformed(final ActionEvent e) {
-		this.model.setModelStatus(ProjectModel.SWITCHSAVE);
-		new JProjectSwitch(this.model);
-		this.model.updateViews();
+	// new JProjectSwitch(this.model);
+	this.model.updateViews();
     }
 }

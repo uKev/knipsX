@@ -1,22 +1,16 @@
 package org.knipsX.controller;
 
-/**
- * 
- */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import org.knipsX.model.AbstractModel;
+public abstract class AbstractController<M, V> implements ActionListener {
 
-public abstract class AbstractController implements ActionListener {
+    protected M model;
+    protected V view;
 
-    protected AbstractModel model;
-
-    public AbstractController() {
-    }
-
-    public AbstractController(final AbstractModel abstractModel) {
-	this.model = abstractModel;
+    public AbstractController(final M model, final V view) {
+	this.model = model;
+	this.view = view;
     }
 
     public abstract void actionPerformed(ActionEvent e);
