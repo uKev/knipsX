@@ -3,6 +3,8 @@ package org.knipsX.view.diagrams;
 import java.awt.image.BufferedImage;
 import java.util.Observable;
 
+import javax.swing.JPanel;
+
 import org.knipsX.model.AbstractModel;
 import org.knipsX.view.JAbstractView;
 
@@ -11,6 +13,13 @@ public abstract class JAbstractDiagram extends JAbstractView {
 
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Holds a reference to the current button panel.
+	 * Which is to be painted in the diagram view.
+	 * Note that you have to explicitly add the panel to
+	 * your view.
+	 */
+	protected JPanel ButtonPanel;
 	
 	/**
 	 * This method has to be implemented by every diagram which 
@@ -35,4 +44,6 @@ public abstract class JAbstractDiagram extends JAbstractView {
 	    // TODO Auto-generated method stub
 	    
 	}
+	
+
 }
