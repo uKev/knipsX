@@ -105,7 +105,7 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
     }
 
     /**
-     * Specifies the preinitialization routine which is executed before every scence draw
+     * Specifies the preinitialization routine which is executed before every scene draw
      */
     public abstract void preinitialize();
 
@@ -117,9 +117,9 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
     /**
      * Creates a Cube
      * 
-     * @param position
-     * @param scale
-     * @param material
+     * @param position the position of the cube
+     * @param scale the scale value of the cube
+     * @param material the material of the cube
      */
     public void createCube(Vector3d position, Vector3d scale, Appearance material) {
 	TransformGroup objMove = createTransformGroup(position, scale);
@@ -131,9 +131,9 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
     /**
      * Creates a Sphere
      * 
-     * @param position
-     * @param scale
-     * @param material
+     * @param position the position of the sphere
+     * @param scale the scale value of the sphere
+     * @param material the material of the sphere
      */
     public void createSphere(Vector3d position, Vector3d scale, Appearance material) {
 	TransformGroup objMove = createTransformGroup(position, scale);
@@ -145,10 +145,10 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
     /**
      * Creates Text
      * 
-     * @param position
-     * @param scale
-     * @param material
-     * @param text
+     * @param position the position of the text
+     * @param scale the scale of the text
+     * @param material the material of the text
+     * @param text the text itself
      */
     protected void createText(Vector3d position, Vector3d scale, Appearance material, String text) {
 
@@ -182,14 +182,12 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
     }
 
     /**
-     * Creates the Axis with axis labels which are automatically placed into the root BranchGroup
+     * Creates the Axes which are automatically placed into the root BranchGroup
      * 
-     * @param numberofAxis
-     *            value between 0 and 3
      */
-    protected void createAxis(int numberofAxis) {
+    protected void createAxis() {
 
-	for (int i = 0; i <= numberofAxis - 1; i++) {
+	for (int i = 0; i <= NUMBEROFAXES - 1; i++) {
 
 	    // The transformation information of the axis
 	    Transform3D axistrans = new Transform3D();
@@ -265,14 +263,6 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
 				String.valueOf((q + 17)));
 	    }
 	}
-
-	double offset = 1.5;
-	createText(new Vector3d(0.0d, 0.0d, this.AXISSIZE + offset), new Vector3d(0.5d, 0.5d, 0.5d), basicMaterial(1,
-		1, 1), "ISO");
-	createText(new Vector3d(this.AXISSIZE + offset, 0.0d, 0.0d), new Vector3d(0.5d, 0.5d, 0.5d), basicMaterial(1,
-		1, 1), "Datum");
-	createText(new Vector3d(0.0d, this.AXISSIZE + offset, 0.0d), new Vector3d(0.5d, 0.5d, 0.5d), basicMaterial(1,
-		1, 1), "Brennweite");
 
     }
 
@@ -386,9 +376,10 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
 	}
 	
 	/**
-	 * Sets the current picture which is displayed outside of the 3D View with the
+	 * Sets the current picture which is displayed outside of the 3D view with the
 	 * specified exif parameters
-	 * @param pic
+	 * 
+	 * @param pic the picture which will be displayed outside of the 3D view
 	 */
 	public void setCurrentDescription(Picture pic) {
 		//TODO
@@ -404,7 +395,7 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
     /**
      * Creates and assigns the specified background color to the root BranchGroup
      * 
-     * @param color
+     * @param color the background color
      */
     protected void createBackground(Color3f color) {
 	BoundingSphere riesenkugel = new BoundingSphere(new Point3d(0.0d, 0.0d, 0.0d), Double.MAX_VALUE);
@@ -451,17 +442,17 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
     /**
      * Creates a basicMaterial with the specified color
      * 
-     * @param x
-     * @param y
-     * @param z
+     * @param r the amount of red of the material
+     * @param g the amount of green of the material
+     * @param b the amount of blue of the material
      * @return
      */
-    protected Appearance basicMaterial(float x, float y, float z) {
+    protected Appearance basicMaterial(float r, float g, float b) {
 	Appearance a = new Appearance();
 	Material mat = new Material();
 	mat.setShininess(100.0f);
-	mat.setDiffuseColor(new Color3f(x, y, z));
-	mat.setSpecularColor(new Color3f(x, y, z));
+	mat.setDiffuseColor(new Color3f(r, g, b));
+	mat.setSpecularColor(new Color3f(r, g, b));
 	a.setMaterial(mat);
 	return a;
     }
@@ -469,9 +460,9 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
     /**
      * Changes the camera position to the specified location
      * 
-     * @param x
-     * @param y
-     * @param z
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param z the z coordinate
      */
     protected void changeCameraPosition(float x, float y, float z) {
 	TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
@@ -482,23 +473,12 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
 	vpTrans.setTransform(T3D);
     }
 
-    /**
-     * Changes the camera position and orientation so that is faced the xy plane
-     */
-    protected void changeCamtoFaceYXPlane() {
-	TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
-	this.simpleU.getViewingPlatform().getViewPlatform();
-	Transform3D T3D = new Transform3D();
-	T3D.rotY(-90 * Math.PI / 180.0);
-	T3D.setTranslation(new Vector3d(0, this.AXISSIZE / 2.0, this.AXISSIZE / 2.0));
-	vpTrans.setTransform(T3D);
-    }
 
     /**
      * Creates a TransformGroup with the specified positon and scale
      * 
-     * @param position
-     * @param scale
+     * @param position the position of the TransformGroup
+     * @param scale the scale of the TransformGroup
      * @return
      */
     protected TransformGroup createTransformGroup(Vector3d position, Vector3d scale) {
@@ -510,7 +490,36 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
 	return objMove;
     }
 
+    
+    /**
+     * Sets the camera perspective to one of the predefined perspectives
+     * in the perspective enumeration
+     * 
+     * @param perspEnum the perspective to change to
+     */
 
+    protected void setCameraPerspective(Perspectives perspEnum) {
+    	switch(perspEnum) {
+    		case XYPLANE:
+    			changeCamtoFaceYXPlane();
+    		default:
+    			//
+    		
+    	}
+    	
+    }
+    
+    
+    private void changeCamtoFaceYXPlane() {
+    	TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
+    	this.simpleU.getViewingPlatform().getViewPlatform();
+    	Transform3D T3D = new Transform3D();
+    	T3D.rotY(-90 * Math.PI / 180.0);
+    	T3D.setTranslation(new Vector3d(0, this.AXISSIZE / 2.0, this.AXISSIZE / 2.0));
+    	vpTrans.setTransform(T3D);
+    }
+    
+    
     /**
      * Sets the current picture which is displayed outside of the 3D View
      * 

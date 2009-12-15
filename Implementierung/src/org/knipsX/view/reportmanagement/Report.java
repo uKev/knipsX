@@ -15,7 +15,6 @@ import org.knipsX.view.diagrams.JAbstractDiagram;
  * It is responsible for saving the currently active report and also for
  * refreshing the specified configuration utility.
  * 
- * It is NOT responsible for saving models.
  * 
  * @author David Kaufman
  *
