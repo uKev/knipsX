@@ -31,3 +31,4 @@ public abstract class JAbstractDiagram<M extends AbstractModel> extends JAbstrac
 	    // TODO Auto-generated method stub
 	    
 	}
+}
