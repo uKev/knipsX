@@ -37,17 +37,16 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
     private JButton jButtonOpenProject = null;
 
     private JList jListProject = null;
-    
+
     private JScrollPane jScrollPaneProjectList = null;
-   
+
     public JProjectManagement(M model) {
 	super(model);
-	
+
 	/* renders the view */
 	this.initialize();
     }
 
-    
     private void initialize() {
 
 	/* Setze Titel */
@@ -98,7 +97,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 	    /* add the scrollbars for the list */
 	    this.jContentPane.add(this.getJScrollPaneProjectList());
 	}
-	
+
 	/* return the panel */
 	return this.jContentPane;
     }
@@ -117,9 +116,10 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 	    this.jButtonCopyProject = new JButton("Projekt kopieren");
 
 	    /* create an action listener (which knows the model and the view) to the button */
-	    this.jButtonCopyProject.addActionListener(new ProjectCopyController<M, JProjectManagement<M>>(this.model, this));
+	    this.jButtonCopyProject.addActionListener(new ProjectCopyController<M, JProjectManagement<M>>(this.model,
+		    this));
 	}
-	
+
 	/* return the button */
 	return this.jButtonCopyProject;
     }
@@ -138,7 +138,8 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 	    this.jButtonCreateProject = new JButton("Projekt erstellen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonCreateProject.addActionListener(new ProjectCreateController<M, JProjectManagement<M>>(this.model, this));
+	    this.jButtonCreateProject.addActionListener(new ProjectCreateController<M, JProjectManagement<M>>(
+		    this.model, this));
 	}
 
 	/* return the button */
@@ -159,7 +160,8 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 	    this.jButtonDeleteProject = new JButton("Projekt löschen");
 
 	    /* create an action listener (which knows the model and the view) to the button */
-	    this.jButtonDeleteProject.addActionListener(new ProjectDeleteController<M, JProjectManagement<M>>(this.model, this));
+	    this.jButtonDeleteProject.addActionListener(new ProjectDeleteController<M, JProjectManagement<M>>(
+		    this.model, this));
 	}
 
 	/* return the button */
@@ -180,7 +182,8 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 	    this.jButtonOpenProject = new JButton("Projekt öffnen");
 
 	    /* create an action listener (which knows the model an the view) to the button */
-	    this.jButtonOpenProject.addActionListener(new ProjectOpenController<M, JProjectManagement<M>>(this.model, this));
+	    this.jButtonOpenProject.addActionListener(new ProjectOpenController<M, JProjectManagement<M>>(this.model,
+		    this));
 	}
 
 	/* return the button */
@@ -250,6 +253,10 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 
 	/* refresh view */
 	this.repaint();
+
+	if (this.model.getState() != ProjectManagementModel.ACTIVE) {
+	    this.dispose();
+	}
     }
 }
 

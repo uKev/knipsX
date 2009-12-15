@@ -31,6 +31,7 @@ public class ProjectOpenController<M extends ProjectManagementModel, V extends J
 	if (toOpen.length == 1) {
 
 	    ProjectModel projectModel = FileHandler.scanProjectFile(this.model.getProjectList().get(toOpen[0]).getId());
+	    model.setState(ProjectManagementModel.DEACTIVE);
 	    model.updateViews();
 	    
 	    new JProjectView<ProjectModel>(projectModel);

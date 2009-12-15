@@ -7,6 +7,11 @@ import org.knipsX.model.common.ProjectEntry;
 
 public class ProjectManagementModel extends AbstractModel {
 	
+    	public static final int ACTIVE = 1;
+    	public static final int DEACTIVE = 0;
+    	    	
+    	private int state = ACTIVE;
+    
 	private List<ProjectEntry> projectList;
 
 	public ProjectManagementModel(List<ProjectEntry> linkedList) {
@@ -21,6 +26,14 @@ public class ProjectManagementModel extends AbstractModel {
 		this.projectList = projectlist;
 	}
 
+	public void setState(int state) {
+	    this.state = state;
+	}
+	
+	public int getState() {
+	    return this.state;
+	}
+	
 	/**
 	 * Erstelle komplett neues Projekt.
 	 * 
