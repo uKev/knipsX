@@ -107,11 +107,6 @@ public class ProjectModel extends ProjectEntry {
 	return this.exifParameter;
     }
 
-    @Override
-    public int getModelStatus() {
-	return this.modelStatus;
-    }
-
     public List<PictureContainer> getPictureSetContentList() {
 	return this.pictureSetContentList;
     }
@@ -140,11 +135,6 @@ public class ProjectModel extends ProjectEntry {
 	this.exifParameter = exifParameter;
     }
 
-    @Override
-    public void setModelStatus(final int modelStatus) {
-	this.modelStatus = modelStatus;
-    }
-
     public void setPictureSetContentList(final List<PictureContainer> pictureSetContentList) {
 	this.pictureSetContentList = pictureSetContentList;
     }
@@ -157,5 +147,10 @@ public class ProjectModel extends ProjectEntry {
 
     public void setReportsList(final List<AbstractReportModel> reportList) {
 	this.reportList = reportList;
+    }
+    
+    public boolean addPictureSet(PictureSet pictureSet) {
+	assert pictureSet != null && pictureSet instanceof PictureSet;
+	return this.pictureSetList.add(pictureSet);	
     }
 }

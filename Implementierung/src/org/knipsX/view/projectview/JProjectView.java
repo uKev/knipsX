@@ -54,7 +54,7 @@ import org.knipsX.view.JAbstractView;
  * 
  * Sets all GUI Elements which are described in our Pflichtenheft.
  */
-public class JProjectView extends JAbstractView {
+public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
     /** Only for serialisation */
     private static final long serialVersionUID = 6747507429332590686L;
@@ -164,11 +164,9 @@ public class JProjectView extends JAbstractView {
     /**
      * Creates a project view connected with an appropriate model.
      */
-    public JProjectView(final ProjectModel projectModel) {
-
-	/* sets the model */
-	super(projectModel);
-
+    public JProjectView(M model) {
+	super(model);
+	
 	/* renders the view */
 	this.initialize();
     }
@@ -215,7 +213,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonPictureSetContentAdd.setText("Hinzufügen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetContentAdd.addActionListener(new PictureSetContentAddController(this.model));
+	    this.jButtonPictureSetContentAdd.addActionListener(new PictureSetContentAddController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -240,8 +238,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonPictureSetContentDelete.setText("Entfernen");
 
 	    /* create an action listener (which knows the model and the selected contents) to the button */
-	    this.jButtonPictureSetContentDelete.addActionListener(new PictureSetContentDeleteController(this.model,
-		    this.getSelectedIndicesFromPictureSetContentList()));
+	    this.jButtonPictureSetContentDelete.addActionListener(new PictureSetContentDeleteController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -266,7 +263,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonPictureSetContentRefresh.setText("Aktualisieren");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetContentRefresh.addActionListener(new ProjectViewRefreshController(this.model));
+	    this.jButtonPictureSetContentRefresh.addActionListener(new ProjectViewRefreshController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -291,7 +288,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonPictureSetCopy.setText("Kopieren");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetCopy.addActionListener(new PictureSetCopyController(this.model));
+	    this.jButtonPictureSetCopy.addActionListener(new PictureSetCopyController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -316,7 +313,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonPictureSetCreate.setText("Erstellen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetCreate.addActionListener(new PictureSetCreateController(this.model));
+	    this.jButtonPictureSetCreate.addActionListener(new PictureSetCreateController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -341,8 +338,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonPictureSetDelete.setText("Entfernen");
 
 	    /* create an action listener (which knows the model and the selected picture sets) to the button */
-	    this.jButtonPictureSetDelete.addActionListener(new PictureSetDeleteController(this.model,
-		    getSelectedIndicesFromPictureSetList()));
+	    this.jButtonPictureSetDelete.addActionListener(new PictureSetDeleteController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -367,7 +363,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonProjectChange.setText("Wechseln");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonProjectChange.addActionListener(new ProjectSwitchController(this.model));
+	    this.jButtonProjectChange.addActionListener(new ProjectSwitchController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -392,7 +388,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonProjectSave.setText("Speichern");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonProjectSave.addActionListener(new ProjectSaveController(this.model));
+	    this.jButtonProjectSave.addActionListener(new ProjectSaveController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -417,7 +413,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonReportCreate.setText("Erstellen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonReportCreate.addActionListener(new ReportCreateController(this.model));
+	    this.jButtonReportCreate.addActionListener(new ReportCreateController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -442,7 +438,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonReportOpen.setText("Öffnen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonReportOpen.addActionListener(new ReportOpenController(this.model));
+	    this.jButtonReportOpen.addActionListener(new ReportOpenController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -467,8 +463,7 @@ public class JProjectView extends JAbstractView {
 	    this.jButtonReportDelete.setText("Entfernen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonReportDelete.addActionListener(new ReportDeleteController(this.model, this
-		    .getSelectedIndicesFromReportList()));
+	    this.jButtonReportDelete.addActionListener(new ReportDeleteController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -1289,27 +1284,10 @@ public class JProjectView extends JAbstractView {
 
 	this.jEditorPaneProjectDescription.setText(model.getProjectDescription());
 
+	this.jListPictureSet.setListData(model.getPictureSetList().toArray());
+	
 	/* refresh view */
 	this.repaint();
-
-	/* react to program state */
-	if (model.getModelStatus() == ProjectModel.USERSELECT) {
-
-	    /* set view active */
-	    this.setEnabled(true);
-
-	    /* show view */
-	    this.setVisible(true);
-	} else if (model.getModelStatus() == ProjectModel.SWITCHPROJECT) {
-
-	    /* delete view */
-	    this.dispose();
-
-	} else {
-
-	    /* set the view inactive */
-	    this.setEnabled(false);
-	}
     }
 }
 

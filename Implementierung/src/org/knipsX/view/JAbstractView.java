@@ -11,27 +11,26 @@ import javax.swing.JFrame;
 /* import things from our program */
 import org.knipsX.model.AbstractModel;
 
-public abstract class JAbstractView extends JFrame implements Observer {
+public abstract class JAbstractView<M extends AbstractModel> extends JFrame implements Observer {
 
     /** Only for serialisation */
     private static final long serialVersionUID = -5981384605515636896L;
 
-    /** define an abstract model */
-    protected AbstractModel model;
+    protected M model;
 
     /**
      * Creates a new view which is connected to a model.
      * 
-     * @param abstractModel
+     * @param model
      *            the model which the view should connect to.
      */
-    public JAbstractView(final AbstractModel abstractModel) {
+    public JAbstractView(final M model) {
 
 	/* calls the JFrame constructor */
 	super();
 
 	/* set the model */
-	this.model = abstractModel;
+	this.model = model;
 
 	/* register to model */
 	this.model.addObserver(this);
