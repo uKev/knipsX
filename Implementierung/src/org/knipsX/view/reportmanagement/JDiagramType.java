@@ -134,7 +134,7 @@ class SharedListSelectionHandler implements ListSelectionListener {
     	 
     	 System.out.println(this.meineliste.getSelectedIndex());   	 
     	 
-    	 ReportHelper.setReport(ReportHelper.values()[this.meineliste.getSelectedIndex()]);
+    	 ReportHelper.updateReport(ReportHelper.values()[this.meineliste.getSelectedIndex()]);
     	 
     	 System.out.println(ReportHelper.currentReport.toString());
     	 
