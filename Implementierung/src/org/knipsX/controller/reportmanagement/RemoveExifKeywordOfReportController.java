@@ -5,19 +5,16 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.view.reportmanagement.JPictureSet;
 
-public class RemoveExifKeywordOfReportController extends AbstractController {
+public class RemoveExifKeywordOfReportController<M, V extends JPictureSet> extends AbstractController<M, V> {
 
-	
-	private JPictureSet pictureSet;
-	
-	public RemoveExifKeywordOfReportController(JPictureSet pictureSet) {
-		this.pictureSet = pictureSet;		
-	}
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+    public RemoveExifKeywordOfReportController(V view) {
+	super(view);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+	// TODO Auto-generated method stub
+
+    }
 
 }

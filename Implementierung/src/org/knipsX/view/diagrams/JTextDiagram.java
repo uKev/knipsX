@@ -2,28 +2,26 @@ package org.knipsX.view.diagrams;
 
 import java.awt.image.BufferedImage;
 
-import javax.swing.JTextPane;
-
 import org.knipsX.model.AbstractModel;
 
+public class JTextDiagram<M extends AbstractModel> extends JAbstractDiagram<M> {
 
-public class JTextDiagram extends JAbstractDiagram{
+    private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 1L;
-	private JTextPane pane;
+    /**
+     * Constructor
+     * 
+     * @param abstractModel
+     *            the model from which the drawing information is taken
+     */
+    public JTextDiagram(M model) {
+	super(model);
+	// TODO Auto-generated constructor stub
+    }
 
-	/**
-	 * Constructor
-	 * @param abstractModel the model from which the drawing information is taken
-	 */
-	public JTextDiagram(AbstractModel abstractModel) {
-		super(abstractModel);
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	BufferedImage getDiagramScreenshot() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    BufferedImage getDiagramScreenshot() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 }

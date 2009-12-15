@@ -8,6 +8,10 @@ public abstract class AbstractController<M, V> implements ActionListener {
     protected M model;
     protected V view;
 
+    public AbstractController(final V view) {
+	this.view = view;
+    }
+    
     public AbstractController(final M model, final V view) {
 	this.model = model;
 	this.view = view;

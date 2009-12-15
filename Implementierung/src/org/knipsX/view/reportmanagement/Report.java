@@ -11,38 +11,39 @@ import org.knipsX.view.diagrams.JAbstractDiagram;
 public enum Report {	
 	
 	Boxplot {
-			public JAbstractReport getReportType() {return new JBoxplotConfig(null);} 
+			public JAbstractReport<BoxplotModel> getReportType() {return new JBoxplotConfig<BoxplotModel>(null);} 
 			public AbstractReportModel createReportModel() {return new BoxplotModel();}
-			public JAbstractDiagram getDiagram(AbstractReportModel model) {return null;}
+			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
 			public int getNumberofAxis() {return 1;}
 			},
 			
 	Histogram2D {
-			public JAbstractReport getReportType() {return new JHistogram2DConfig(null);}
+			public JAbstractReport<Histogram2DModel> getReportType() {return new JHistogram2DConfig<Histogram2DModel>(null);}
 			public AbstractReportModel createReportModel() {return new Histogram2DModel(null, null);}	
-			public JAbstractDiagram getDiagram(AbstractReportModel model) {return null;}
+			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
 			public int getNumberofAxis() {return 1;}
 			},
 			
 	Histogram3D { 
-			public JAbstractReport getReportType() {return new JHistogram3DConfig(null);}
+			public JAbstractReport<Histogram3DModel> getReportType() {return new JHistogram3DConfig<Histogram3DModel>(null);}
 			public AbstractReportModel createReportModel() {return new Histogram3DModel(null, null, null);}
-			public JAbstractDiagram getDiagram(AbstractReportModel model) {return null;}
+			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
 			public int getNumberofAxis() {return 2;}
 				
 			},
 	Cluster3D {
-			public JAbstractReport getReportType() {return new JCluster3DConfig(null);} 
+			public JAbstractReport<Cluster3DModel> getReportType() {return new JCluster3DConfig<Cluster3DModel>(null);} 
 			public AbstractReportModel createReportModel() {return new Cluster3DModel(null, null, null, null);}	
-			public JAbstractDiagram getDiagram(AbstractReportModel model) {return null;}
+			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
 			public int getNumberofAxis() {return 3;}
 				
 			},
 			
 	Table {
-			public JAbstractReport getReportType() {return new JTableConfig( new TableModel(null));} 
+			@SuppressWarnings("unchecked")
+			public JAbstractReport<AbstractReportModel> getReportType() {return new JTableConfig( new TableModel(null));} 
 			public AbstractReportModel createReportModel() {return new TableModel(null);}	
-			public JAbstractDiagram getDiagram(AbstractReportModel model) {return null;}
+			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
 			public int getNumberofAxis() {return 0;}
 		};
 	
@@ -50,7 +51,7 @@ public enum Report {
 	 * Returns the report type associated with the specified report enum
 	 * @return the report type associated with the specified report enum
 	 */
-	public abstract JAbstractReport getReportType();
+	public abstract JAbstractReport<?> getReportType();
 	
 	
 	/**
@@ -72,7 +73,7 @@ public enum Report {
 	/**
 	 * Returns the diagram of the associated report
 	 */
-	public abstract JAbstractDiagram getDiagram(AbstractReportModel model);
+	public abstract JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model);
 	
 	
 	
@@ -91,7 +92,7 @@ public enum Report {
 	/**
 	 * The current configuration utility of the current report configuration run
 	 */
-	protected static JAbstractReportType myconfig;
+	protected static JAbstractReportType<AbstractReportModel, JAbstractReport<AbstractReportModel>> myconfig;
 	
 	/**
 	 * The current model of the current report configuration run

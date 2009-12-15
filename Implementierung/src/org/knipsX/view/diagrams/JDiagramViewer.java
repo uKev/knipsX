@@ -17,75 +17,73 @@ import javax.swing.border.LineBorder;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.view.JAbstractView;
 
-public class JDiagramViewer extends JAbstractView {
+public class JDiagramViewer<M extends AbstractModel> extends JAbstractView<M> {
 
-		/**
+    /**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
-		public JLabel xLabel;
-		public JLabel yLabel;
-		public JLabel zLabel;
-		public JLabel jstatusbar;
-		
-	    public JDiagramViewer(AbstractModel model) {
-	    	super(model);
+    private static final long serialVersionUID = 1L;
+    public JLabel xLabel;
+    public JLabel yLabel;
+    public JLabel zLabel;
+    public JLabel jstatusbar;
 
-	        JMenuBar menubar = new JMenuBar();
-	        JMenu file = new JMenu("File");
+    public JDiagramViewer(M model) {
+	super(model);
 
-	        menubar.add(file);
-	        setJMenuBar(menubar);
+	JMenuBar menubar = new JMenuBar();
+	JMenu file = new JMenu("File");
 
-	        JToolBar toolbar = new JToolBar();
-	        toolbar.setFloatable(false);
+	menubar.add(file);
+	setJMenuBar(menubar);
 
-	        JButton bexit = new JButton("Exit");
-	        bexit.setBorder(new EmptyBorder(0 ,0, 0, 0));
-	        file.add(bexit);
+	JToolBar toolbar = new JToolBar();
+	toolbar.setFloatable(false);
 
-	        add(toolbar, BorderLayout.NORTH);
+	JButton bexit = new JButton("Exit");
+	bexit.setBorder(new EmptyBorder(0, 0, 0, 0));
+	file.add(bexit);
 
-	        JToolBar vertical = new JToolBar(JToolBar.VERTICAL);
-	        vertical.setFloatable(false);
-	        vertical.setMargin(new Insets(10, 5, 5, 5));
+	add(toolbar, BorderLayout.NORTH);
 
-	        JLabel selectb = new JLabel("ISO");
-	        selectb.setBorder(new EmptyBorder(3, 0, 3, 0));
-	        this.xLabel = new JLabel("-");
-	        selectb.setBorder(new EmptyBorder(3, 0, 3, 0));
-	        JLabel freehandb = new JLabel("Datum");
-	        freehandb.setBorder(new EmptyBorder(3, 0, 3, 0));
-	        this.yLabel = new JLabel("-");
-	        freehandb.setBorder(new EmptyBorder(3, 0, 3, 0));
-	        JLabel shapeedb = new JLabel("Brennweite");
-	        shapeedb.setBorder(new EmptyBorder(3, 0, 3, 0));
-	        this.zLabel = new JLabel("-");
-	        shapeedb.setBorder(new EmptyBorder(3, 0, 3, 0));
+	JToolBar vertical = new JToolBar(JToolBar.VERTICAL);
+	vertical.setFloatable(false);
+	vertical.setMargin(new Insets(10, 5, 5, 5));
 
-	        vertical.add(selectb);
-	        vertical.add(xLabel);
-	        vertical.add(freehandb);
-	        vertical.add(yLabel);
-	        vertical.add(shapeedb);
-	        vertical.add(zLabel);
+	JLabel selectb = new JLabel("ISO");
+	selectb.setBorder(new EmptyBorder(3, 0, 3, 0));
+	this.xLabel = new JLabel("-");
+	selectb.setBorder(new EmptyBorder(3, 0, 3, 0));
+	JLabel freehandb = new JLabel("Datum");
+	freehandb.setBorder(new EmptyBorder(3, 0, 3, 0));
+	this.yLabel = new JLabel("-");
+	freehandb.setBorder(new EmptyBorder(3, 0, 3, 0));
+	JLabel shapeedb = new JLabel("Brennweite");
+	shapeedb.setBorder(new EmptyBorder(3, 0, 3, 0));
+	this.zLabel = new JLabel("-");
+	shapeedb.setBorder(new EmptyBorder(3, 0, 3, 0));
 
-	        add(vertical, BorderLayout.WEST);
+	vertical.add(selectb);
+	vertical.add(xLabel);
+	vertical.add(freehandb);
+	vertical.add(yLabel);
+	vertical.add(shapeedb);
+	vertical.add(zLabel);
 
-	        this.jstatusbar = new JLabel(" Statusbar");
-	        this.jstatusbar.setPreferredSize(new Dimension(-1, 22));
-	        this.jstatusbar.setBorder(LineBorder.createGrayLineBorder());
-	        add(this.jstatusbar, BorderLayout.SOUTH);
+	add(vertical, BorderLayout.WEST);
 
-	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    }
+	this.jstatusbar = new JLabel(" Statusbar");
+	this.jstatusbar.setPreferredSize(new Dimension(-1, 22));
+	this.jstatusbar.setBorder(LineBorder.createGrayLineBorder());
+	add(this.jstatusbar, BorderLayout.SOUTH);
 
-		@Override
-		public void update(Observable model, Object argument) {
-			// TODO Auto-generated method stub
-			
-		}
-	   
+	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
+    @Override
+    public void update(Observable model, Object argument) {
+	// TODO Auto-generated method stub
 
-	}
+    }
+
+}
