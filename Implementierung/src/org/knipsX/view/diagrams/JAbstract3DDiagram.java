@@ -20,7 +20,7 @@ public abstract class JAbstract3DDiagram<M extends AbstractModel> extends JAbstr
      */
 
     public JAbstract3DDiagram(M model) {
-		super(model);
+	super(model);
     }
 
     @Override

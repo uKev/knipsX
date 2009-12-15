@@ -20,7 +20,7 @@ public abstract class JAbstract2DDiagram<M extends AbstractModel> extends JAbstr
      *            the model from which the drawing information is taken
      */
     public JAbstract2DDiagram(M model) {
-		super(model);
+	super(model);
     }
 
     @Override

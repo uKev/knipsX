@@ -3,8 +3,9 @@ package org.knipsX.view.diagrams;
 import javax.vecmath.Vector3d;
 
 import org.knipsX.model.AbstractModel;
+import org.knipsX.model.reportmanagement.Cluster3DModel;
 
-public class JCluster3D<M extends AbstractModel> extends JAbstract3DDiagram<M> {
+public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,10 +22,9 @@ public class JCluster3D<M extends AbstractModel> extends JAbstract3DDiagram<M> {
 
     @Override
     public void generateContent() {
-		createCube(new Vector3d(5,5,10), new Vector3d(1,1,1), basicMaterial(0, 1, 0));
-		String[] xAchse = {"Test", "Deine Mutter", "1", "3", "as", "asasa", "asas", "asas", "asas", "as"};
-		setSegmentDescription(xAchse, xAchse, xAchse);		
+	createCube(new Vector3d(5, 5, 10), new Vector3d(1, 1, 1), basicMaterial(0, 1, 0));
+	String[] xAchse = { "Test", "Deine Mutter", "1", "3", "as", "asasa", "asas", "asas", "asas", "as" };
+	setSegmentDescription(xAchse, xAchse, xAchse);
     }
-
 
 }

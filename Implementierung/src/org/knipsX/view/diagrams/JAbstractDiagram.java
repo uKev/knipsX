@@ -6,30 +6,26 @@ import java.util.Observable;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.view.JAbstractView;
 
-
 public abstract class JAbstractDiagram<M extends AbstractModel> extends JAbstractView<M> {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public JAbstractDiagram(M model) {
-		super(model);
-	}
-	
-	
-	/**
-	 * This method has to be implemented by every diagram which 
-	 * returns a BufferedImage of the current diagram which can
-	 * later be exported as an image.
-	 * 
-	 * @return BufferedImage containig the current view
-	 */
-	abstract BufferedImage getDiagramScreenshot();
-	
+    public JAbstractDiagram(M model) {
+	super(model);
+    }
 
+    /**
+     * This method has to be implemented by every diagram which
+     * returns a BufferedImage of the current diagram which can
+     * later be exported as an image.
+     * 
+     * @return BufferedImage containig the current view
+     */
+    abstract BufferedImage getDiagramScreenshot();
 
-	@Override
-	public void update(Observable model, Object argument) {
-	    // TODO Auto-generated method stub
-	    
-	}
+    @Override
+    public void update(Observable model, Object argument) {
+	// TODO Auto-generated method stub
+
+    }
 }
