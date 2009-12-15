@@ -12,10 +12,18 @@ import javax.swing.JPanel;
 import org.knipsX.controller.reportmanagement.NextWizardPanelController;
 import org.knipsX.controller.reportmanagement.PreviousWizardPanelController;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
-import org.knipsX.model.reportmanagement.DummyModel;
 
-public class JReportWizard<M extends AbstractReportModel, V extends JAbstractReport<M>> extends
-JAbstractReportType<M, V> {
+/**
+ * This class represents the report creation wizard. It is responsible for creating 
+ * a ReportModel.
+ * 
+ * @author David Kaufman
+ *
+ * @param <M>
+ * @param <V>
+ */
+public class JReportWizard<M extends AbstractReportModel, V extends JAbstractReportCompilation<M>> extends
+JAbstractReportUtil<M, V> {
 	
 	/**
 	 * 
@@ -32,7 +40,7 @@ JAbstractReportType<M, V> {
 	@SuppressWarnings("unchecked")
 	public JReportWizard(M model, V view) {
 	    super(model);
-		Report.myconfig = (JAbstractReportType<AbstractReportModel, JAbstractReport<AbstractReportModel>>) this;
+		Report.myconfig = (JAbstractReportUtil<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>) this;
 		this.reportconfig = (V) Report.defaultReport.getReportType();
 		initialize();
 	}
@@ -52,7 +60,7 @@ JAbstractReportType<M, V> {
         JButton ok = new JButton("OK");
         ok.setToolTipText(currentpanel.tip);
         JButton next = new JButton("Next");
-        next.addActionListener(new NextWizardPanelController<AbstractReportModel, JReportWizard<AbstractReportModel, JAbstractReport<AbstractReportModel>>>((JReportWizard<AbstractReportModel, JAbstractReport<AbstractReportModel>>) this));
+        next.addActionListener(new NextWizardPanelController<AbstractReportModel, JReportWizard<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>>((JReportWizard<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>) this));
         JButton previous = new JButton("Previous");
         next.addActionListener(new PreviousWizardPanelController(this));
         bottom.add(previous);
@@ -88,10 +96,10 @@ JAbstractReportType<M, V> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void setReportType(JAbstractReport<?> reportconfig) {
+	protected void setReportType(JAbstractReportCompilation<?> reportconfig) {
 	    remove(this.basic);
 		this.reportconfig = (V) reportconfig;
-		Report.myconfig = (JAbstractReportType<AbstractReportModel, JAbstractReport<AbstractReportModel>>) this;
+		Report.myconfig = (JAbstractReportUtil<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>) this;
 		initialize();		
 		repaint();
 	}	

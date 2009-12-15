@@ -6,7 +6,13 @@ import javax.swing.JButton;
 
 import org.knipsX.model.reportmanagement.Axis;
 
-
+/**
+ * This class represents the panel where the user is able to assign a 
+ * parameter with an optional description to each available axis. 
+ * 
+ * @author David Kaufman
+ *
+ */
 public class JParameters extends JAbstractSinglePanel {
 
     /**

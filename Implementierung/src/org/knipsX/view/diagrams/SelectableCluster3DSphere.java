@@ -6,6 +6,15 @@ import org.knipsX.model.picturemanagement.Picture;
 import com.sun.j3d.utils.geometry.Primitive;
 import com.sun.j3d.utils.geometry.Sphere;
 
+/**
+ * This class represents a selectable point in a 3D diagram. Additionally
+ * it stores a reference to a picture object which can be used for evaluation
+ * purposes.
+ * 
+ * @author David Kaufman
+ *
+ * @param <M>
+ */
 public class SelectableCluster3DSphere extends Shape3D {
 
     private Picture picture;

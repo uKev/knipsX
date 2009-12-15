@@ -4,6 +4,13 @@ import javax.vecmath.Vector3d;
 
 import org.knipsX.model.AbstractModel;
 
+/**
+ * This class implements how the BoxplotModel is to be drawn.
+ * 
+ * @author David Kaufman
+ *
+ * @param <M>
+ */
 public class JBoxplot<M extends AbstractModel> extends JAbstract2DDiagram<M> {
 
     private static final long serialVersionUID = 1L;

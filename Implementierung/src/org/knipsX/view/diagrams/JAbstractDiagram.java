@@ -6,6 +6,13 @@ import java.util.Observable;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.view.JAbstractView;
 
+/**
+ * This class specifies the main functionality of ever diagram in knipsX
+ * 
+ * @author David Kaufman
+ *
+ * @param <M>
+ */
 public abstract class JAbstractDiagram<M extends AbstractModel> extends JAbstractView<M> {
 
 	private static final long serialVersionUID = 1L;

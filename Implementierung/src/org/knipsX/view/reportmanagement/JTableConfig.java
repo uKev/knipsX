@@ -2,7 +2,15 @@ package org.knipsX.view.reportmanagement;
 
 import org.knipsX.model.reportmanagement.TableModel;
 
-public class JTableConfig<M extends TableModel> extends JAbstractReport<M> {
+/**
+ * This class represents the Table configuration with all its
+ * necessary panels.
+ * 
+ * @author David Kaufman
+ *
+ * @param <M>
+ */
+public class JTableConfig<M extends TableModel> extends JAbstractReportCompilation<M> {
 
     private static final long serialVersionUID = 1L;
 
@@ -17,7 +25,7 @@ public class JTableConfig<M extends TableModel> extends JAbstractReport<M> {
 	Report.currentReport = Report.Table;
 
 	addPanel(new JDiagramType("", null, ""));
-	addPanel(new JPictureSet("", null, ""));
+	addPanel(new JPictureSetExif("", null, ""));
     }
 
 }

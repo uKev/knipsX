@@ -6,7 +6,7 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.view.diagrams.JAbstract3DView;
 
 /**
- * This controller resets the view to the default setting of the specified JAbstract3DView.
+ * This controller resets the view to the default perspective setting of the specified JAbstract3DView.
  *  
  * @author David Kaufman
  *

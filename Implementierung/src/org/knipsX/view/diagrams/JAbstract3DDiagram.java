@@ -8,6 +8,15 @@ import org.knipsX.model.AbstractModel;
 import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
 import com.sun.j3d.utils.universe.ViewingPlatform;
 
+
+/**
+ * This class represents a 3D Diagram. It implements the 3D specific 
+ * preinitialization routine so that all child classes use the specified configuration.
+ * 
+ * @author David Kaufman
+ *
+ * @param <M>
+ */
 public abstract class JAbstract3DDiagram<M extends AbstractModel> extends JAbstract3DView<M> {
 
     private static final long serialVersionUID = 1L;

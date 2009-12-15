@@ -16,8 +16,7 @@ import org.knipsX.view.diagrams.JCluster3D;
 public class Click3DViewController<M, V extends JCluster3D<?>> extends AbstractController<M, V> {
 	
 	public Click3DViewController(V view)  {
-		super(view);
-		
+		super(view);		
 	}
 	
 	@Override

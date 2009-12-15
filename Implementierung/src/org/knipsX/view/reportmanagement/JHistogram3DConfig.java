@@ -2,7 +2,15 @@ package org.knipsX.view.reportmanagement;
 
 import org.knipsX.model.reportmanagement.Histogram3DModel;
 
-public class JHistogram3DConfig<M extends Histogram3DModel> extends JAbstractReport<M> {
+/**
+ * This class represents the 3D Histogram configuration with all its
+ * necessary panels.
+ * 
+ * @author David Kaufman
+ *
+ * @param <M>
+ */
+public class JHistogram3DConfig<M extends Histogram3DModel> extends JAbstractReportCompilation<M> {
 
     private static final long serialVersionUID = 1L;
 
@@ -18,7 +26,7 @@ public class JHistogram3DConfig<M extends Histogram3DModel> extends JAbstractRep
 
 	addPanel(new JDiagramType("", null, ""));
 	addPanel(new JParameters("", null, ""));
-	addPanel(new JPictureSet("", null, ""));
+	addPanel(new JPictureSetExif("", null, ""));
     }
 
 }

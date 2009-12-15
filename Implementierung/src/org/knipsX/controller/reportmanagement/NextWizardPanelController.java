@@ -6,6 +6,15 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.view.reportmanagement.JReportWizard;
 
+/**
+ * This controller is responsible for managing the wizard naviagtion 
+ * to the following pane.
+ * 
+ * @author David Kaufman
+ *
+ * @param <M>
+ * @param <V>
+ */
 public class NextWizardPanelController<M extends AbstractReportModel, V extends JReportWizard<?, ?>> extends AbstractController<M, V> {
 
     public NextWizardPanelController(V view) {
@@ -14,7 +23,7 @@ public class NextWizardPanelController<M extends AbstractReportModel, V extends 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	this.view.nextPanel();
+    	this.view.nextPanel();
     }
 
 }

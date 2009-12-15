@@ -4,7 +4,13 @@ import javax.swing.JButton;
 
 import org.knipsX.model.reportmanagement.WilcoxonTestType;
 
-
+/**
+ * This class represents the panel where the user is able to configure
+ * the wilcoxon test for the boxplot report. 
+ * 
+ * @author David Kaufman
+ *
+ */
 public class JWilcoxon extends JAbstractSinglePanel {
 
 	private static final long serialVersionUID = 1L;

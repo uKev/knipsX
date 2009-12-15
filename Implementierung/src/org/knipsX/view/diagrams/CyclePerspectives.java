@@ -1,5 +1,12 @@
 package org.knipsX.view.diagrams;
 
+/**
+ * This enumeration lists all predefined camera perspective and offers a method
+ * which enforces the selected camera perspective on the specified 3D view.
+ * 
+ * @author David Kaufman
+ *
+ */
 public enum CyclePerspectives {
 	
 	XYPLANE {
@@ -32,7 +39,7 @@ public enum CyclePerspectives {
 	};
 	
 	/**
-	 * Enforces the selected view configuration upon the JAbstract3DView specified
+	 * Enforces the selected view configuration on the JAbstract3DView specified
 	 * @param view the view you want to change
 	 */
 	public abstract void enforce(JAbstract3DView view);

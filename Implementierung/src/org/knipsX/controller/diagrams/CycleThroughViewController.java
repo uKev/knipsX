@@ -7,7 +7,7 @@ import org.knipsX.view.diagrams.JAbstract3DView;
 
 /**
  * This controller makes it possible to cycle through the different 
- * 3d perspectives associated with the CyclePerspective enumeration
+ * 3D perspectives associated with the CyclePerspective enumeration
  * 
  * @author David Kaufman
  *
