@@ -3,6 +3,7 @@
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
+import org.knipsX.model.reportmanagement.DummyModel;
 import org.knipsX.model.reportmanagement.Histogram2DModel;
 
 public class PackageTester {
@@ -15,7 +16,7 @@ public class PackageTester {
 		Cluster3DModel model2 = new Cluster3DModel(null, null, null, null);
 		Histogram2DModel model1 = new Histogram2DModel(null, null);
 		model.setReportName("TEST");
-		new JReportConfig<AbstractReportModel, JAbstractReport<AbstractReportModel>>(model1, null);
-		//new JReportWizard();
+		new JReportConfig<BoxplotModel, JBoxplotConfig<BoxplotModel>>(model, null);
+//		new JReportWizard<AbstractReportModel, JAbstractReport<AbstractReportModel>>(new DummyModel(), null);
 	}
 }

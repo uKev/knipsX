@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import org.knipsX.controller.reportmanagement.NextWizardPanelController;
 import org.knipsX.controller.reportmanagement.PreviousWizardPanelController;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.model.reportmanagement.DummyModel;
 
 public class JReportWizard<M extends AbstractReportModel, V extends JAbstractReport<M>> extends
 JAbstractReportType<M, V> {
