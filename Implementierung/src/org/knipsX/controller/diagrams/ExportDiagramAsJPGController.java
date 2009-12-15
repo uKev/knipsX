@@ -11,9 +11,10 @@ import org.knipsX.view.diagrams.JAbstractDiagram;
  * @author David Kaufman
  *
  */
-public class ExportDiagramAsJPGController extends AbstractController {
+public class ExportDiagramAsJPGController<M, V extends JAbstractDiagram<?>> extends AbstractController<M, V>  {
 
-	public ExportDiagramAsJPGController(JAbstractDiagram diagram) {
+	public ExportDiagramAsJPGController(V diagram) {
+		super(diagram);
 		
 	}
 	

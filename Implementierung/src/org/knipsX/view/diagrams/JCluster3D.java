@@ -1,8 +1,6 @@
 package org.knipsX.view.diagrams;
 
 import javax.vecmath.Vector3d;
-
-import org.knipsX.model.AbstractModel;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
 
 public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> {

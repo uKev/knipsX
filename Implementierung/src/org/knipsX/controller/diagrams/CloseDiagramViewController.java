@@ -11,10 +11,10 @@ import org.knipsX.view.diagrams.JAbstractDiagram;
  * @author David Kaufman
  *
  */
-public class CloseDiagramViewController extends AbstractController {
+public class CloseDiagramViewController<M, V extends JAbstractDiagram<?>> extends AbstractController<M, V> {
 
-	public CloseDiagramViewController(JAbstractDiagram diagram) {
-		
+	public CloseDiagramViewController(V view) {
+		super(view);
 	}
 	
 	@Override

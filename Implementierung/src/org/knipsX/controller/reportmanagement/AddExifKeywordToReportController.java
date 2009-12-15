@@ -6,7 +6,7 @@ import org.knipsX.view.reportmanagement.JPictureSet;
 
 public class AddExifKeywordToReportController<M, V extends JPictureSet> extends AbstractController<M, V> {
     public AddExifKeywordToReportController(V view) {
-	super(view);
+    	super(view);
     }
 
     @Override

@@ -13,9 +13,10 @@ import org.knipsX.view.diagrams.JCluster3D;
  * @author David Kaufman
  *
  */
-public class Click3DViewController extends AbstractController {
+public class Click3DViewController<M, V extends JCluster3D<?>> extends AbstractController<M, V> {
 	
-	public Click3DViewController(JCluster3D cluster3d) {
+	public Click3DViewController(V view)  {
+		super(view);
 		
 	}
 	
