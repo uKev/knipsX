@@ -7,14 +7,6 @@ import org.knipsX.model.common.ProjectEntry;
 
 public class ProjectManagementModel extends AbstractModel {
 	
-	public static final int SELECT = 0;
-	public static final int NEW = 1;
-	public static final int COPY = 2;
-	public static final int DELETE = 3;
-	public static final int OPEN = 4;
-				
-	private int modelStatus = SELECT;
-	
 	private List<ProjectEntry> projectList;
 
 	public ProjectManagementModel(List<ProjectEntry> linkedList) {
@@ -74,14 +66,6 @@ public class ProjectManagementModel extends AbstractModel {
 
 	private String generatePathforID(int id) {
 		return "path";
-	}
-
-	public void setModelStatus(int modelStatus) {
-		this.modelStatus = modelStatus;
-	}
-
-	public int getModelStatus() {
-		return modelStatus;
 	}
 	
 	public void removeFromList(int position) {

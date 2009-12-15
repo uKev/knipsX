@@ -1251,7 +1251,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
      * @return array of indices.
      */
     public int[] getSelectedIndicesFromPictureList() {
-	return this.jListPictureSetActive.getSelectedIndices();
+	return this.jListPictureSet.getSelectedIndices();
     }
 
     /**

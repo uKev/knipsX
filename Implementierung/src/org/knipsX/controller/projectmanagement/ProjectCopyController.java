@@ -59,12 +59,12 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
 
 	} else if (toCopy.length == 0) {
 
-	    /* gives the user a hint, that he has selected too much projects */
+	    /* gives the user a hint, that he has selected too little projects */
 	    JOptionPane.showMessageDialog(null, "Selektieren Sie ein Projekt, um es zu kopieren.",
 		    "Projekt kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
 	} else {
 
-	    /* gives the user a hint, that he has selected too little projects */
+	    /* gives the user a hint, that he has selected too much projects */
 	    JOptionPane.showMessageDialog(null, "Selektieren Sie nur ein Projekt, um es zu kopieren.",
 		    "Projekt kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
 
