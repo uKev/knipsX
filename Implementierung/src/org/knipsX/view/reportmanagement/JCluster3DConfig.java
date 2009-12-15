@@ -21,7 +21,7 @@ public class JCluster3DConfig<M extends Cluster3DModel> extends JAbstractReportC
 	 */
 	public JCluster3DConfig (M model) {
     	super(model);
-    	Report.currentReport = Report.Cluster3D;
+    	ReportHelper.currentReport = ReportHelper.Cluster3D;
     	
     	addPanel(new JDiagramType("", null, ""));
     	addPanel(new JParameters("", null, ""));

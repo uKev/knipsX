@@ -18,7 +18,7 @@ public abstract class JAbstractReportCompilation<M extends AbstractReportModel> 
 
     public JAbstractReportCompilation(M model) {
 	this.model = model;
-	Report.currentModel = model;
+	ReportHelper.currentModel = model;
     }
 
     /**

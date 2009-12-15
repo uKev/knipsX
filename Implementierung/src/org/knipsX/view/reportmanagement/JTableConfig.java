@@ -22,7 +22,7 @@ public class JTableConfig<M extends TableModel> extends JAbstractReportCompilati
      */
     public JTableConfig(M model) {
 	super(model);
-	Report.currentReport = Report.Table;
+	ReportHelper.currentReport = ReportHelper.Table;
 
 	addPanel(new JDiagramType("", null, ""));
 	addPanel(new JPictureSetExif("", null, ""));

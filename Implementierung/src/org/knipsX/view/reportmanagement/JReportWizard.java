@@ -40,8 +40,8 @@ JAbstractReportUtil<M, V> {
 	@SuppressWarnings("unchecked")
 	public JReportWizard(M model, V view) {
 	    super(model);
-		Report.myconfig = (JAbstractReportUtil<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>) this;
-		this.reportconfig = (V) Report.defaultReport.getReportType();
+		ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>) this;
+		this.reportconfig = (V) ReportHelper.defaultReport.getReportType();
 		initialize();
 	}
 	
@@ -99,7 +99,7 @@ JAbstractReportUtil<M, V> {
 	protected void setReportType(JAbstractReportCompilation<?> reportconfig) {
 	    remove(this.basic);
 		this.reportconfig = (V) reportconfig;
-		Report.myconfig = (JAbstractReportUtil<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>) this;
+		ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>) this;
 		initialize();		
 		repaint();
 	}	

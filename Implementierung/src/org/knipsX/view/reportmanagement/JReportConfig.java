@@ -45,7 +45,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends JAbstractRep
 	
 	
 	this.tabbedpane = this.getJTabbedPane();
-	Report.myconfig = (JAbstractReportUtil<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>) this;
+	ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>) this;
 
 	this.setTitle("Auswertung Konfigurieren");	
 	
@@ -89,7 +89,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends JAbstractRep
 		final JButton apply = new JButton("Übernehmen");
 		final JButton show = new JButton("Anzeigen");
 		show.addActionListener(new SaveReportController<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>(
-			Report.currentModel, this.reportConfig, true));
+			ReportHelper.currentModel, this.reportConfig, true));
 	
 		bottom.add(close);
 		bottom.add(apply);
@@ -110,7 +110,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends JAbstractRep
 		this.remove(this.basic);
 		this.reportConfig = (JAbstractReportCompilation<AbstractReportModel>) reportconfig;
 		this.tabbedpane = this.getJTabbedPane();
-		Report.myconfig = (JAbstractReportUtil<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>) this;
+		ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>) this;
 		this.initialize();
 		this.pack();
 

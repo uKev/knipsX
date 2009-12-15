@@ -10,7 +10,7 @@ import org.knipsX.view.reportmanagement.JDiagramType;
 import org.knipsX.view.reportmanagement.JParameters;
 import org.knipsX.view.reportmanagement.JPictureSetExif;
 import org.knipsX.view.reportmanagement.JWilcoxon;
-import org.knipsX.view.reportmanagement.Report;
+import org.knipsX.view.reportmanagement.ReportHelper;
 
 /**
  * This controller is responsible for saving a report configuration
@@ -35,15 +35,15 @@ public class SaveReportController<M extends AbstractReportModel, V extends JAbst
     public void actionPerformed(ActionEvent e) {
 	System.out.println("TEST");
 
-	if (Report.currentModel == null) {
-	    Report.currentModel = Report.currentReport.createReportModel();
+	if (ReportHelper.currentModel == null) {
+	    ReportHelper.currentModel = ReportHelper.currentReport.createReportModel();
 	}
 	for (JAbstractSinglePanel singlepanel : this.view.getregisteredPanels()) {
 
 	    if (singlepanel instanceof JDiagramType) {
 		System.out.println("DiagramTyp");
 		JDiagramType mydiagram = (JDiagramType) singlepanel;
-		Report.currentModel.setReportName(mydiagram.getReportName());
+		ReportHelper.currentModel.setReportName(mydiagram.getReportName());
 
 	    } else if (singlepanel instanceof JParameters) {
 		System.out.println("Parameter");

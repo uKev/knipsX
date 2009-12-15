@@ -22,7 +22,7 @@ public class JBoxplotConfig<M extends BoxplotModel> extends JAbstractReportCompi
      */
     public JBoxplotConfig(M model) {
 	super(model);
-	Report.currentReport = Report.Boxplot;
+	ReportHelper.currentReport = ReportHelper.Boxplot;
 
 		addPanel(new JDiagramType("", null, ""));
 		addPanel(new JParameters("", null, ""));

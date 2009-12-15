@@ -22,7 +22,7 @@ public class JHistogram2DConfig<M extends Histogram2DModel> extends JAbstractRep
      */
     public JHistogram2DConfig(M model) {
 	super(model);
-	Report.currentReport = Report.Histogram2D;
+	ReportHelper.currentReport = ReportHelper.Histogram2D;
 
 	addPanel(new JDiagramType("", null, ""));
 	addPanel(new JParameters("", null, ""));

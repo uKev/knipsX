@@ -22,7 +22,7 @@ public class JHistogram3DConfig<M extends Histogram3DModel> extends JAbstractRep
      */
     public JHistogram3DConfig(M model) {
 	super(model);
-	Report.currentReport = Report.Histogram3D;
+	ReportHelper.currentReport = ReportHelper.Histogram3D;
 
 	addPanel(new JDiagramType("", null, ""));
 	addPanel(new JParameters("", null, ""));

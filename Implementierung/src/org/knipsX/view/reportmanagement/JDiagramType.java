@@ -53,11 +53,11 @@ public class JDiagramType extends JAbstractSinglePanel {
         
         int indexToSelect = 0;
         
-        Object[] myreports = new Object[Report.values().length];
-        for(int i=0; i < Report.values().length; i++ ) {
-			myreports[i] = Report.values()[i];
+        Object[] myreports = new Object[ReportHelper.values().length];
+        for(int i=0; i < ReportHelper.values().length; i++ ) {
+			myreports[i] = ReportHelper.values()[i];
 			
-			if(myreports[i] == Report.currentReport) {
+			if(myreports[i] == ReportHelper.currentReport) {
 				indexToSelect = i;
 			}
 		}
@@ -111,8 +111,8 @@ class ComplexCellRenderer implements ListCellRenderer {
 		isSelected, cellHasFocus);
 
 	/* Wenn ein Diagram vorliegt, setze Text */
-	if (value instanceof Report) {
-	    final Report myReport = (Report) value;
+	if (value instanceof ReportHelper) {
+	    final ReportHelper myReport = (ReportHelper) value;
 	    theText = myReport.toString();
 	}
 	renderer.setText(theText);
@@ -134,9 +134,9 @@ class SharedListSelectionHandler implements ListSelectionListener {
     	 
     	 System.out.println(this.meineliste.getSelectedIndex());   	 
     	 
-    	 Report.setReport(Report.values()[this.meineliste.getSelectedIndex()]);
+    	 ReportHelper.setReport(ReportHelper.values()[this.meineliste.getSelectedIndex()]);
     	 
-    	 System.out.println(Report.currentReport.toString());
+    	 System.out.println(ReportHelper.currentReport.toString());
     	 
     	 
     }
