@@ -6,20 +6,20 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
 
 /**
- * Represents the Actions which are done by editing the projectnamedescription.
+ * Represents the Actions which are done by klicking on delete nearby the picturesetcontent.
  * Acts in harmony with a JProjectView.
  */
-public class PictureSetContentAddController<M extends ProjectModel, V extends JProjectView<M>> extends
+public class PictureSetContentListDeleteController<M extends ProjectModel, V extends JProjectView<M>> extends
 	AbstractController<M, V> {
 
-    public PictureSetContentAddController(M model, V view) {
+    public PictureSetContentListDeleteController(M model, V view) {
 	super(model, view);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	// model.setModelStatus(ProjectModel.ADDTOPICTURESET);
-	// DemoJFileChooser panel = new DemoJFileChooser(model);
+	// model.setModelStatus(ProjectModel.USERSELECT);
+	// //TODO toDelete verwerten mit der liste im model;
 	// model.updateViews();
     }
 }

@@ -30,12 +30,12 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 /* import things from our program */
-import org.knipsX.controller.projectview.PictureSetContentAddController;
-import org.knipsX.controller.projectview.PictureSetCopyController;
-import org.knipsX.controller.projectview.PictureSetCreateController;
-import org.knipsX.controller.projectview.PictureSetContentDeleteController;
-import org.knipsX.controller.projectview.PictureSetDeleteController;
-import org.knipsX.controller.projectview.ProjectViewRefreshController;
+import org.knipsX.controller.projectview.PictureSetContentListAddController;
+import org.knipsX.controller.projectview.PictureSetListCopyController;
+import org.knipsX.controller.projectview.PictureSetListCreateController;
+import org.knipsX.controller.projectview.PictureSetContentListDeleteController;
+import org.knipsX.controller.projectview.PictureSetListDeleteController;
+import org.knipsX.controller.projectview.PictureSetContentListRefreshController;
 import org.knipsX.controller.projectview.ProjectSaveController;
 import org.knipsX.controller.projectview.ProjectSwitchController;
 import org.knipsX.controller.projectview.ReportCreateController;
@@ -213,7 +213,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	    this.jButtonPictureSetContentAdd.setText("Hinzufügen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetContentAdd.addActionListener(new PictureSetContentAddController<M, JProjectView<M>>(this.model, this));
+	    this.jButtonPictureSetContentAdd.addActionListener(new PictureSetContentListAddController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -238,7 +238,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	    this.jButtonPictureSetContentDelete.setText("Entfernen");
 
 	    /* create an action listener (which knows the model and the selected contents) to the button */
-	    this.jButtonPictureSetContentDelete.addActionListener(new PictureSetContentDeleteController<M, JProjectView<M>>(this.model, this));
+	    this.jButtonPictureSetContentDelete.addActionListener(new PictureSetContentListDeleteController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -263,7 +263,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	    this.jButtonPictureSetContentRefresh.setText("Aktualisieren");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetContentRefresh.addActionListener(new ProjectViewRefreshController<M, JProjectView<M>>(this.model, this));
+	    this.jButtonPictureSetContentRefresh.addActionListener(new PictureSetContentListRefreshController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -288,7 +288,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	    this.jButtonPictureSetCopy.setText("Kopieren");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetCopy.addActionListener(new PictureSetCopyController<M, JProjectView<M>>(this.model, this));
+	    this.jButtonPictureSetCopy.addActionListener(new PictureSetListCopyController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -313,7 +313,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	    this.jButtonPictureSetCreate.setText("Erstellen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetCreate.addActionListener(new PictureSetCreateController<M, JProjectView<M>>(this.model, this));
+	    this.jButtonPictureSetCreate.addActionListener(new PictureSetListCreateController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -338,7 +338,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	    this.jButtonPictureSetDelete.setText("Entfernen");
 
 	    /* create an action listener (which knows the model and the selected picture sets) to the button */
-	    this.jButtonPictureSetDelete.addActionListener(new PictureSetDeleteController<M, JProjectView<M>>(this.model, this));
+	    this.jButtonPictureSetDelete.addActionListener(new PictureSetListDeleteController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */

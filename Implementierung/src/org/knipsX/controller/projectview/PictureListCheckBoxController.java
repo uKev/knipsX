@@ -9,10 +9,10 @@ import org.knipsX.view.projectview.JProjectView;
  * Represents the Actions which are done by klicking on the checkbox of
  * one of the pictures in the picturelist. Acts in harmony with a JProjectView.
  */
-public class SetPictureCheckBoxController<M extends ProjectModel, V extends JProjectView<M>> extends
+public class PictureListCheckBoxController<M extends ProjectModel, V extends JProjectView<M>> extends
 	AbstractController<M, V> {
 
-    public SetPictureCheckBoxController(M model, V view) {
+    public PictureListCheckBoxController(M model, V view) {
 	super(model, view);
     }
 

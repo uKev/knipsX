@@ -14,9 +14,9 @@ import org.knipsX.view.projectview.JProjectView;
  * 
  * Acts in harmony with a JProjectView.
  */
-public class PictureSetCopyController<M extends ProjectModel, V extends JProjectView<M>> extends AbstractController<M, V> {
+public class PictureSetListCopyController<M extends ProjectModel, V extends JProjectView<M>> extends AbstractController<M, V> {
 
-    public PictureSetCopyController(M model, V view) {
+    public PictureSetListCopyController(M model, V view) {
 	super(model, view);
     }
 

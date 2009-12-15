@@ -12,10 +12,10 @@ import org.knipsX.view.projectview.JProjectView;
  * Represents the Actions which are done by klicking on delete pictureset.
  * Acts in harmony with a JProjectView.
  */
-public class PictureSetDeleteController<M extends ProjectModel, V extends JProjectView<M>> extends
+public class PictureSetListDeleteController<M extends ProjectModel, V extends JProjectView<M>> extends
 	AbstractController<M, V> {
 
-    public PictureSetDeleteController(M model, V view) {
+    public PictureSetListDeleteController(M model, V view) {
 	super(model, view);
     }
 

@@ -6,20 +6,20 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
 
 /**
- * Represents the Actions which are done by klicking on delete nearby the picturesetcontent.
+ * Represents the actions which are done by editing the project name.
+ * 
  * Acts in harmony with a JProjectView.
  */
-public class PictureSetContentDeleteController<M extends ProjectModel, V extends JProjectView<M>> extends
+public class ProjectEditNameController<M extends ProjectModel, V extends JProjectView<M>> extends
 	AbstractController<M, V> {
 
-    public PictureSetContentDeleteController(M model, V view) {
+    public ProjectEditNameController(M model, V view) {
 	super(model, view);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	// model.setModelStatus(ProjectModel.USERSELECT);
-	// //TODO toDelete verwerten mit der liste im model;
-	// model.updateViews();
+	// ((ProjectModel) model).setProjectDescription(projectView.getProjectDescription());
+	model.updateViews();
     }
 }
