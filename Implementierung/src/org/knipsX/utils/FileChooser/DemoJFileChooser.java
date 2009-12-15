@@ -41,9 +41,9 @@ public class DemoJFileChooser extends JAbstractView {
 				System.out.println("Pfad: " + file.getAbsolutePath() + " dir? "
 						+ file.isDirectory() + " file? " + file.isFile());
 			}
-			model.setModelStatus(ProjectModel.USERSELECT);
+//			model.setModelStatus(ProjectModel.USERSELECT);
 		} else {
-			model.setModelStatus(ProjectModel.USERSELECT);
+//			model.setModelStatus(ProjectModel.USERSELECT);
 			System.out.println("No Selection ");
 		}
 	}
@@ -58,11 +58,11 @@ public class DemoJFileChooser extends JAbstractView {
 		/* cast to model */
 		final ProjectModel projectModel = (ProjectModel) model;
 		
-		if (projectModel.getModelStatus() != ProjectModel.ADDTOPICTURESET) {
-
-		    /* delete view */
-		    this.dispose();
-		}
+//		if (projectModel.getModelStatus() != ProjectModel.ADDTOPICTURESET) {
+//
+//		    /* delete view */
+//		    this.dispose();
+//		}
 		
 	}
 }

@@ -80,7 +80,6 @@ public class Picture implements PictureContainer {
 		return pictureName;
 	}
 
-	@Override
 	public void setName(String name) {
 		this.pictureName = name;
 	}

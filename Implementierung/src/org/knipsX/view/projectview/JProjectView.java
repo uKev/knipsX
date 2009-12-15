@@ -1299,7 +1299,6 @@ class MyPictureSetListCellRenderer implements ListCellRenderer {
     /* defines the default renderer */
     protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-    @Override
     public Component getListCellRendererComponent(final JList list, final Object value, final int index,
 	    final boolean isSelected, final boolean cellHasFocus) {
 
@@ -1330,7 +1329,6 @@ class MyPictureSetContentListCellRenderer implements ListCellRenderer {
     /* defines the default renderer */
     protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-    @Override
     public Component getListCellRendererComponent(final JList list, final Object value, final int index,
 	    final boolean isSelected, final boolean cellHasFocus) {
 
@@ -1375,7 +1373,6 @@ class MyPictureListCellRenderer implements ListCellRenderer {
     /* defines the default renderer */
     protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-    @Override
     public Component getListCellRendererComponent(final JList list, final Object value, final int index,
 	    final boolean isSelected, final boolean cellHasFocus) {
 
@@ -1406,7 +1403,6 @@ class MyReportListCellRenderer implements ListCellRenderer {
     /* defines the default renderer */
     protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-    @Override
     public Component getListCellRendererComponent(final JList list, final Object value, final int index,
 	    final boolean isSelected, final boolean cellHasFocus) {
 

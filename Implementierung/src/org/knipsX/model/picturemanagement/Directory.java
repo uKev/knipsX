@@ -44,12 +44,10 @@ public class Directory implements PictureContainer {
 		
 	}
 
-	@Override
 	public String getName() {
 		return directoryName;
 	}
 
-	@Override
 	public void setName(String name) {
 		this.directoryName = name;		
 	}	

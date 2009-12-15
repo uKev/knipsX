@@ -268,7 +268,6 @@ class MyProjectListCellRenderer implements ListCellRenderer {
     /* defines the default renderer */
     protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-    @Override
     public Component getListCellRendererComponent(final JList list, final Object value, final int index,
 	    final boolean isSelected, final boolean cellHasFocus) {
 
