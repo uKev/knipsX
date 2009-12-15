@@ -44,10 +44,10 @@ public class JPictureSet extends JAbstractSinglePanel {
         setLayout(null);        
         
         // Alle verwendeten Controller hier mal hingeschrieben
-        new AddPictureSetToReportController(this);
+        new AddPictureSetToReportController<AbstractModel, JPictureSet>(this);
         new RemovePictureSetOfReportController(this);
         new RemoveExifKeywordOfReportController(this);
-        new AddExifKeywordToReportController(this);
+        new AddExifKeywordToReportController<AbstractModel, JPictureSet>(this);
         
 
         JButton beep = new JButton(">>");

@@ -4,12 +4,16 @@ import java.awt.event.ActionEvent;
 
 import org.knipsX.controller.AbstractController;
 
-public class CloseReportConfigController extends AbstractController {
+public class CloseReportConfigController<M, V> extends AbstractController<M, V> {
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+    public CloseReportConfigController(V view) {
+	super(view);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+	// TODO Auto-generated method stub
+
+    }
 
 }
