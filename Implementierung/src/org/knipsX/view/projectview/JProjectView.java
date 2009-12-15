@@ -618,7 +618,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListPictureSetActive = new JList(((ProjectModel) this.model).getAllPicturesOfSetList().toArray());
+	    this.jListPictureSetActive = new JList(((ProjectModel) this.model).pictureList().toArray());
 
 	    /* allow to select only one row at once */
 	    this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
