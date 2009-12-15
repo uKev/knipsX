@@ -16,7 +16,7 @@ public class PackageTester {
 		Cluster3DModel model2 = new Cluster3DModel(null, null, null, null);
 		Histogram2DModel model1 = new Histogram2DModel(null, null);
 		model.setReportName("TEST");
-		new JReportConfig<BoxplotModel, JBoxplotConfig<BoxplotModel>>(model, null);
-//		new JReportWizard<AbstractReportModel, JAbstractReport<AbstractReportModel>>(new DummyModel(), null);
+		new JReportConfig<BoxplotModel, JBoxplotConfig<BoxplotModel>>(model, new JBoxplotConfig<BoxplotModel>(model));
+		new JReportWizard<AbstractReportModel, JAbstractReport<AbstractReportModel>>(new DummyModel(), null);
 	}
 }
