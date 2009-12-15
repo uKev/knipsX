@@ -12,8 +12,16 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.PictureSet;
 
 
-
-public class JPictureSet extends JAbstractSinglePanel {
+/**
+ * This class represents the panel where the user is able to assign 
+ * one or more picture sets to the specified report if available.
+ * Also the user has the option to assign one ore more Exif tags
+ * to the current report if possible.
+ * 
+ * @author David Kaufman
+ *
+ */
+public class JPictureSetExif extends JAbstractSinglePanel {
 
     /**
 	 * 
@@ -31,7 +39,7 @@ public class JPictureSet extends JAbstractSinglePanel {
 	 * @param icon The icon which is registered with this panel.
 	 * @param tip The tooltip which is registered with this panel.
 	 */
-    public JPictureSet(String titel, Icon icon, String tip) {
+    public JPictureSetExif(String titel, Icon icon, String tip) {
 		this.title = titel;
 		this.icon = icon;
 		this.tip = tip;
@@ -45,10 +53,10 @@ public class JPictureSet extends JAbstractSinglePanel {
         setLayout(null);        
         
         // Alle verwendeten Controller hier mal hingeschrieben
-        new AddPictureSetToReportController<AbstractModel, JPictureSet>(this);
+        new AddPictureSetToReportController<AbstractModel, JPictureSetExif>(this);
         new RemovePictureSetOfReportController(this);
         new RemoveExifKeywordOfReportController(this);
-        new AddExifKeywordToReportController<AbstractModel, JPictureSet>(this);
+        new AddExifKeywordToReportController<AbstractModel, JPictureSetExif>(this);
         
 
         JButton beep = new JButton(">>");

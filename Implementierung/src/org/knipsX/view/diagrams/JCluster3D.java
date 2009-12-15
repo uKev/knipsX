@@ -3,6 +3,13 @@ package org.knipsX.view.diagrams;
 import javax.vecmath.Vector3d;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
 
+/**
+ * This class implements how the Cluster3DModel is to be drawn.
+ * 
+ * @author David Kaufman
+ *
+ * @param <M>
+ */
 public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> {
 
     private static final long serialVersionUID = 1L;

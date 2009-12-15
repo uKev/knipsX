@@ -2,7 +2,12 @@ package org.knipsX.view.reportmanagement;
 import javax.swing.Icon;
 import javax.swing.JComponent;
 
-
+/**
+ * This class represents a single panel in a report configuration.
+ * 
+ * @author David Kaufman
+ *
+ */
 public abstract class JAbstractSinglePanel extends JComponent {
 
 	private static final long serialVersionUID = 1L;

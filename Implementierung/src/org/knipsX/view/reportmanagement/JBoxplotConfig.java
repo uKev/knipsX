@@ -2,7 +2,15 @@ package org.knipsX.view.reportmanagement;
 
 import org.knipsX.model.reportmanagement.BoxplotModel;
 
-public class JBoxplotConfig<M extends BoxplotModel> extends JAbstractReport<M> {
+/**
+ * This class represents the Boxplot configuration with all its
+ * necessary panels.
+ * 
+ * @author David Kaufman
+ *
+ * @param <M>
+ */
+public class JBoxplotConfig<M extends BoxplotModel> extends JAbstractReportCompilation<M> {
 
     private static final long serialVersionUID = 1L;
 
@@ -16,10 +24,10 @@ public class JBoxplotConfig<M extends BoxplotModel> extends JAbstractReport<M> {
 	super(model);
 	Report.currentReport = Report.Boxplot;
 
-	addPanel(new JDiagramType("", null, ""));
-	addPanel(new JParameters("", null, ""));
-	addPanel(new JPictureSet("", null, ""));
-	addPanel(new JWilcoxon("", null, ""));
+		addPanel(new JDiagramType("", null, ""));
+		addPanel(new JParameters("", null, ""));
+		addPanel(new JPictureSetExif("", null, ""));
+		addPanel(new JWilcoxon("", null, ""));
 
     }
 

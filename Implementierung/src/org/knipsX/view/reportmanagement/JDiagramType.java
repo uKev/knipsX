@@ -14,7 +14,14 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 
-
+/**
+ * This class represents the panel where the user can choose the diagram type 
+ * and assign the report name and report description. 
+ * Note that is panel is present in every report compilation.
+ * 
+ * @author David Kaufman
+ *
+ */
 public class JDiagramType extends JAbstractSinglePanel {
 
 

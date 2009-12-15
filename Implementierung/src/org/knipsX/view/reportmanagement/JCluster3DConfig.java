@@ -2,7 +2,15 @@ package org.knipsX.view.reportmanagement;
 
 import org.knipsX.model.reportmanagement.Cluster3DModel;
 
-public class JCluster3DConfig<M extends Cluster3DModel> extends JAbstractReport<M> {	
+/**
+ * This class represents the 3D Cluster configuration with all its
+ * necessary panels.
+ * 
+ * @author David Kaufman
+ *
+ * @param <M>
+ */
+public class JCluster3DConfig<M extends Cluster3DModel> extends JAbstractReportCompilation<M> {	
 	
 	private static final long serialVersionUID = 1L;
 
@@ -17,7 +25,7 @@ public class JCluster3DConfig<M extends Cluster3DModel> extends JAbstractReport<
     	
     	addPanel(new JDiagramType("", null, ""));
     	addPanel(new JParameters("", null, ""));
-    	addPanel(new JPictureSet("", null, ""));
+    	addPanel(new JPictureSetExif("", null, ""));
     }
     
 }

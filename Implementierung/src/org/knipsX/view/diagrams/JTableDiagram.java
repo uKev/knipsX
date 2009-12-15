@@ -4,6 +4,13 @@ import java.awt.image.BufferedImage;
 
 import org.knipsX.model.AbstractModel;
 
+/**
+ * This class implements how the TableModel is to be drawn.
+ * 
+ * @author David Kaufman
+ *
+ * @param <M>
+ */
 public class JTableDiagram<M extends AbstractModel> extends JAbstractDiagram<M> {
 
     private static final long serialVersionUID = 1L;

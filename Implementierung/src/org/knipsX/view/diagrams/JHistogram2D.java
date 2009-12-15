@@ -2,6 +2,13 @@ package org.knipsX.view.diagrams;
 
 import org.knipsX.model.AbstractModel;
 
+/**
+ * This class implements how the Histogram2DModel is to be drawn.
+ * 
+ * @author David Kaufman
+ *
+ * @param <M>
+ */
 public class JHistogram2D<M extends AbstractModel> extends JAbstract2DDiagram<M> {
 
     private static final long serialVersionUID = 1L;

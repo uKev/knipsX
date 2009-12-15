@@ -4,11 +4,19 @@ import java.util.ArrayList;
 
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 
-public abstract class JAbstractReport<M extends AbstractReportModel> {
+/**
+ * This class represents a sequence of single panels which in turn 
+ * generate a report configuration window.
+ * 
+ * @author David Kaufman
+ *
+ * @param <M>
+ */
+public abstract class JAbstractReportCompilation<M extends AbstractReportModel> {
 
     protected M model;
 
-    public JAbstractReport(M model) {
+    public JAbstractReportCompilation(M model) {
 	this.model = model;
 	Report.currentModel = model;
     }
