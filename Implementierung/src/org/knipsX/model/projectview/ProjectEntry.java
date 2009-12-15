@@ -1,4 +1,4 @@
-package org.knipsX.model.common;
+package org.knipsX.model.projectview;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;

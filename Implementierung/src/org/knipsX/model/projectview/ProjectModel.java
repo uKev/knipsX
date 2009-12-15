@@ -7,7 +7,6 @@ package org.knipsX.model.projectview;
 import java.util.List;
 
 /* import things from our program */
-import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
@@ -106,10 +105,12 @@ public class ProjectModel extends ProjectEntry {
 		return this.pictureSetList;
 	}
 
+	@Override
 	public String getProjectDescription() {
 		return this.projectDescription;
 	}
 
+	@Override
 	public void setProjectDescription(final String projectDescription) {
 		this.projectDescription = projectDescription;
 	}

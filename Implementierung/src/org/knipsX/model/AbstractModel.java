@@ -1,3 +1,6 @@
+/**
+ * This package contains all files co knipsX 
+ */
 package org.knipsX.model;
 
 import java.util.Observable;

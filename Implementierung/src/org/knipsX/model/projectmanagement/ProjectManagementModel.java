@@ -3,7 +3,7 @@ package org.knipsX.model.projectmanagement;
 import java.util.GregorianCalendar;
 import java.util.List;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.common.ProjectEntry;
+import org.knipsX.model.projectview.ProjectEntry;
 
 public class ProjectManagementModel extends AbstractModel {
 	

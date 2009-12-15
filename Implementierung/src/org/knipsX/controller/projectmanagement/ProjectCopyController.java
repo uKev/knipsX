@@ -5,8 +5,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
 import org.knipsX.controller.AbstractController;
-import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
+import org.knipsX.model.projectview.ProjectEntry;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
 /**
