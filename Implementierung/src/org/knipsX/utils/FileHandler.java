@@ -10,11 +10,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /* import things from our programm */
-import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
+import org.knipsX.model.projectview.ProjectEntry;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.BoxplotModel;

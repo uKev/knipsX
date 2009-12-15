@@ -13,7 +13,7 @@ import org.knipsX.model.AbstractModel;
 
 public abstract class JAbstractView<M extends AbstractModel> extends JFrame implements Observer {
 
-    /** Only for serialisation */
+    /** Only for serialization */
     private static final long serialVersionUID = -5981384605515636896L;
 
     protected M model;
@@ -39,10 +39,10 @@ public abstract class JAbstractView<M extends AbstractModel> extends JFrame impl
     /**
      * Have to be implemented by an subclass.
      * 
-     * It is called every time a model is updatet. It decides (based on the program state) what the view shows.
+     * It is called every time a model is updated. It decides (based on the program state) what the view shows.
      * 
      * @param model
-     *            this is a reference to the model which a view observ.
+     *            this is a reference to the model which a view observe.
      * @param argument
      *            this is a reference of an argument passed to the model.
      * 
@@ -51,7 +51,7 @@ public abstract class JAbstractView<M extends AbstractModel> extends JFrame impl
     public abstract void update(final Observable model, final Object argument);
 
     /**
-     * Has the same behaviour as a normal dispose(), but also disconnects the view from a model.
+     * Has the same behavior as a normal dispose(), but also disconnects the view from a model.
      */
     @Override
     public void dispose() {

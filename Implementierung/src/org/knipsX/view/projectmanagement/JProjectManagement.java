@@ -20,8 +20,8 @@ import org.knipsX.controller.projectmanagement.ProjectCopyController;
 import org.knipsX.controller.projectmanagement.ProjectCreateController;
 import org.knipsX.controller.projectmanagement.ProjectDeleteController;
 import org.knipsX.controller.projectmanagement.ProjectOpenController;
-import org.knipsX.model.common.ProjectEntry;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
+import org.knipsX.model.projectview.ProjectEntry;
 import org.knipsX.view.JAbstractView;
 
 public class JProjectManagement<M extends ProjectManagementModel> extends JAbstractView<M> {
