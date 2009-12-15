@@ -6,7 +6,6 @@ import java.util.Observable;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.view.JAbstractView;
 
-
 public abstract class JAbstractDiagram<M extends AbstractModel> extends JAbstractView<M> {
 
 	private static final long serialVersionUID = 1L;
@@ -32,4 +31,3 @@ public abstract class JAbstractDiagram<M extends AbstractModel> extends JAbstrac
 	    // TODO Auto-generated method stub
 	    
 	}
-}
