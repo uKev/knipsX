@@ -166,5 +166,7 @@ public class FileHandler {
 	 */
 	public static void writeProjectToFile(ProjectModel project) {
 	}
-
+	
+	public static void manipulateFileNameAndID(ProjectEntry toManipulate){		
+	}
 }
