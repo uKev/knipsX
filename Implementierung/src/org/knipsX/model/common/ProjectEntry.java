@@ -38,11 +38,11 @@ public class ProjectEntry extends AbstractModel {
      */
     public ProjectEntry(int id, String projectName, String projectDescription, GregorianCalendar creationDate,
 	    String path) {
-	this.id = id;
-	this.projectName = projectName;
-	this.projectDescription = projectDescription;
-	this.creationDate = creationDate;
-	this.path = path;
+		this.id = id;
+		this.projectName = projectName;
+		this.projectDescription = projectDescription;
+		this.creationDate = creationDate;
+		this.path = path;
     }
 
     /**
@@ -52,11 +52,11 @@ public class ProjectEntry extends AbstractModel {
      *            the other project to copy from.
      */
     public ProjectEntry(ProjectEntry projectEntry) {
-	this.id = projectEntry.id;
-	this.projectName = new String(projectEntry.projectName);
-	this.projectDescription = new String(projectEntry.projectDescription);
-	this.creationDate = (GregorianCalendar) projectEntry.creationDate.clone();
-	this.path = new String(projectEntry.path);
+		this.id = projectEntry.id;
+		this.projectName = new String(projectEntry.projectName);
+		this.projectDescription = new String(projectEntry.projectDescription);
+		this.creationDate = (GregorianCalendar) projectEntry.creationDate.clone();
+		this.path = new String(projectEntry.path);
     }
 
     /**

@@ -16,6 +16,7 @@ public class ProjectManagementModel extends AbstractModel {
 
 	public ProjectManagementModel(List<ProjectEntry> linkedList) {
 		this.projectList = linkedList;
+		this.updateViews();
 	}
 
 	public List<ProjectEntry> getProjectList() {

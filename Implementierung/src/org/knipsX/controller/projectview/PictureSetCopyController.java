@@ -10,7 +10,7 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
 
 /**
- * Represents the Actions which are done by klicking on copy pictureset.
+ * Represents the Actions which are done by clicking on copy pictureset.
  * 
  * Acts in harmony with a JProjectView.
  */
