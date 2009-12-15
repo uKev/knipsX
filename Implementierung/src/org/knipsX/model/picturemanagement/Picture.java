@@ -11,14 +11,18 @@ public class Picture implements PictureContainer {
 	private String pictureName;
 	private String path;
 	private Object[][] allExifParameter = new Object[10][2];
-	private boolean isActive = true;
+	private boolean isActive;
 
-	public Picture(String fileName, String path) {
+	public Picture(String fileName, String path, boolean isActive) {
 		super();
+		
 		this.pictureName = fileName;
 		this.path = path;
-		ExifAdapter exifAdapter = new ExifAdapter(path);
+		this.isActive = isActive;
+		
 		// dummymaesig:
+		ExifAdapter exifAdapter = new ExifAdapter(path);
+		
 		Object[] parameter = new Object[] { ExifParameter.CAMERAMODEL,
 				ExifParameter.FLASH, ExifParameter.FNUMBER,
 				ExifParameter.EXPOSURETIME, ExifParameter.ISO,
