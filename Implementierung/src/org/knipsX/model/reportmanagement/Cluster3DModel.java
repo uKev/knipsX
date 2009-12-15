@@ -12,6 +12,8 @@ import org.knipsX.model.picturemanagement.PictureContainer;
  */
 public class Cluster3DModel extends AbstractTrippleAxesModel{
 
+	private Frequency3DPoint [] frequency3DPoints;
+	
 	public Cluster3DModel(ArrayList<PictureContainer> pictureContainer, Axis xAxis, Axis zAxis, Axis yAxis) {
 		super(pictureContainer, xAxis, zAxis, yAxis);
 	}

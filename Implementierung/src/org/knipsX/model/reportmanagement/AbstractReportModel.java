@@ -20,6 +20,7 @@ public abstract class AbstractReportModel extends AbstractModel {
 	// Tags of pictures that will be filtered
 	private String [] exifFilterKeywords;
 	private int reportID;
+	private PictureParameter [] missingExifParameters;
 	
 	public int getReportID() {
 		return reportID;
