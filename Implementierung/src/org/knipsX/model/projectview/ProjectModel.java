@@ -25,7 +25,7 @@ public class ProjectModel extends ProjectEntry {
 	private List<PictureContainer> pictureSetContentList;
 
 	/* the list of pictures of an active picture set content */
-	private List<Picture> allPicturesOfSetList;
+	private List<Picture> pictureList;
 
 	/* the list of all reports */
 	private List<AbstractReportModel> reportList;
@@ -43,12 +43,12 @@ public class ProjectModel extends ProjectEntry {
 	}
 
 	private ProjectModel(final ProjectEntry projectEntry, final List<PictureSet> pictureSetList,
-			final List<PictureContainer> pictureSetContentList, final List<Picture> allPicturesOfSetList,
+			final List<PictureContainer> pictureSetContentList, final List<Picture> pictureList,
 			final List<AbstractReportModel> reportList) {
 		super(projectEntry);
 		this.pictureSetList = pictureSetList;
 		this.reportList = reportList;
-		this.allPicturesOfSetList = allPicturesOfSetList;
+		this.pictureList = pictureList;
 		this.pictureSetContentList = pictureSetContentList;
 		this.exifParameter = new Picture().getAllExifParameter();
 	}
@@ -86,12 +86,16 @@ public class ProjectModel extends ProjectEntry {
 		ProjectModel.lastModel = null;
 	}
 	
-	public List<Picture> getAllPicturesOfSetList() {
-		return this.allPicturesOfSetList;
+	public List<Picture> pictureList() {
+		return this.pictureList;
 	}
 
 	public Object[][] getExifParameter() {
 		return this.exifParameter;
+	}
+	
+	public void setExifParameter(Picture picture) {
+		//this.exifParameter = picture.getExifparameter() ;
 	}
 
 	public List<PictureContainer> getPictureSetContentList() {
@@ -114,8 +118,8 @@ public class ProjectModel extends ProjectEntry {
 		return this.reportList;
 	}
 
-	public void setAllPicturesOfSetList(final List<Picture> allPicturesOfSetList) {
-		this.allPicturesOfSetList = allPicturesOfSetList;
+	public void setPictureList(final List<Picture> pictureList) {
+		this.pictureList = pictureList;
 	}
 
 	public void setExifParameter(final Object[][] exifParameter) {

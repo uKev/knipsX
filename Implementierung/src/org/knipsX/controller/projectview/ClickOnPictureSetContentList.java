@@ -18,7 +18,7 @@ public class ClickOnPictureSetContentList<M extends ProjectModel, V extends JPro
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	// model.setModelStatus(ProjectModel.SELECTIONPICTURESETCONTENTLIST);
+	//model.setPictureList(Die picturelist aus nem container erstellen mit hilfe vom iterator);
 	// model.updateViews();
     }
 }

@@ -17,7 +17,8 @@ public class ClickOnPictureSetList<M extends ProjectModel, V extends JProjectVie
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-	// model.setModelStatus(ProjectModel.SELECTIONPICTURESETLIST);
-	// model.updateViews();
+	// model.setPictureSetContentList(pictureSetContentList); mit den jeweiligen inhalten aktualisieren
+	// model.setPictureList(pictureList); mit den jeweiligen inhalten aktualisieren
+	model.updateViews();
 	}
 }
