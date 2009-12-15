@@ -18,44 +18,6 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
  */
 public class ProjectModel extends ProjectEntry {
 
-    /** The state for user interaction */
-    public static final int USERSELECT = 0;
-    
-    /** The state for the project switching */
-    public static final int SWITCHPROJECT = 1;
-    
-    /** The state for the project saving */
-    public static final int SAVEPROJECT = 2;
-    
-    /** The state for the picture creation */
-    public static final int CREATEPICTURESET = 3;
-    
-    /** The state for the picture deletion */
-    public static final int DELETEPICTURESET = 4;
-    
-    /** The state for the picture copying */
-    public static final int COPYPICTURESET = 5;
-    
-    /** The state for the report creation */
-    public static final int CREATEREPORT = 6;
-    
-    /** The state for the report deletion */
-    public static final int DELETEREPORT = 7;
-    
-    /** The state for adding picture containers to a picture set */
-    public static final int ADDTOPICTURESET = 8;
-    
-    /** The state for the ??? */
-    public static final int SWITCHSAVE = 9;
-    
-    /** */
-    public static final int SELECTIONPICTURESETLIST = 10;
-    public static final int SELECTIONPICTURESETCONTENTLIST = 11;
-    public static final int SELECTIONPICTURELIST = 12;
-
-    /* the current model state */
-    private int modelStatus = ProjectModel.USERSELECT;
-
     /* the list of picture sets */
     private List<PictureSet> pictureSetList;
 
@@ -152,5 +114,10 @@ public class ProjectModel extends ProjectEntry {
     public boolean addPictureSet(PictureSet pictureSet) {
 	assert pictureSet != null && pictureSet instanceof PictureSet;
 	return this.pictureSetList.add(pictureSet);	
+    }
+    
+    public void removePictureSet(int index) {
+	assert index > 0 && this.pictureSetList.size() > index;
+	this.pictureSetList.remove(index);
     }
 }

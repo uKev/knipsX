@@ -1,6 +1,9 @@
 package org.knipsX.controller.projectmanagement;
 
 import java.awt.event.ActionEvent;
+
+import javax.swing.JOptionPane;
+
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.model.projectview.ProjectModel;
@@ -22,16 +25,27 @@ public class ProjectOpenController<M extends ProjectManagementModel, V extends J
     @Override
     public void actionPerformed(ActionEvent e) {
 
-	int[] toOpen = this.view.getSelectedIndicesFromProjectList();
+	final int[] toOpen = this.view.getSelectedIndicesFromProjectList();
 
+	/* only one project can copied at once */
 	if (toOpen.length == 1) {
-	    model.setModelStatus(ProjectManagementModel.OPEN);
+
 	    ProjectModel projectModel = FileHandler.scanProjectFile(this.model.getProjectList().get(toOpen[0]).getId());
 	    model.updateViews();
+	    
 	    new JProjectView<ProjectModel>(projectModel);
 	    projectModel.updateViews();
+	} else if (toOpen.length == 0) {
+
+	    /* gives the user a hint, that he has selected too little projects */
+	    JOptionPane.showMessageDialog(null, "Selektieren Sie ein Projekt, um es zu öffnen.",
+		    "Projekt öffnen - Fehler", JOptionPane.ERROR_MESSAGE);
 	} else {
-	    System.out.println("FEHLER");
+
+	    /* gives the user a hint, that he has selected too much projects */
+	    JOptionPane.showMessageDialog(null, "Selektieren Sie nur ein Projekt, um es zu öffnen.",
+		    "Projekt öffnen - Fehler", JOptionPane.ERROR_MESSAGE);
+
 	}
 
     }
