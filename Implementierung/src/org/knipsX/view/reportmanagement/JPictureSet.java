@@ -8,6 +8,7 @@ import org.knipsX.controller.reportmanagement.AddExifKeywordToReportController;
 import org.knipsX.controller.reportmanagement.AddPictureSetToReportController;
 import org.knipsX.controller.reportmanagement.RemoveExifKeywordOfReportController;
 import org.knipsX.controller.reportmanagement.RemovePictureSetOfReportController;
+import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.PictureSet;
 
 
@@ -44,10 +45,10 @@ public class JPictureSet extends JAbstractSinglePanel {
         setLayout(null);        
         
         // Alle verwendeten Controller hier mal hingeschrieben
-        new AddPictureSetToReportController(this);
+        new AddPictureSetToReportController<AbstractModel, JPictureSet>(this);
         new RemovePictureSetOfReportController(this);
         new RemoveExifKeywordOfReportController(this);
-        new AddExifKeywordToReportController(this);
+        new AddExifKeywordToReportController<AbstractModel, JPictureSet>(this);
         
 
         JButton beep = new JButton(">>");

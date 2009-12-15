@@ -5,21 +5,16 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.view.reportmanagement.JPictureSet;
 
-public class AddPictureSetToReportController extends AbstractController {
+public class AddPictureSetToReportController<M, V extends JPictureSet> extends AbstractController<M, V> {
 
-	
-	private JPictureSet pictureSetView;
-	
-	public AddPictureSetToReportController(JPictureSet pictureSetView) {
-		this.pictureSetView = pictureSetView;		
-	}
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		this.pictureSetView.getPictureContainer();
-		this.pictureSetView.setPictureContainer(this.pictureSetView.getPictureContainer());
-		
-	}
+    public AddPictureSetToReportController(V view) {
+		super(view);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+	// TODO Auto-generated method stub
+
+    }
 
 }

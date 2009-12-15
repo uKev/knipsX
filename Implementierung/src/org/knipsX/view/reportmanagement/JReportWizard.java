@@ -11,15 +11,17 @@ import javax.swing.JPanel;
 
 import org.knipsX.controller.reportmanagement.NextWizardPanelController;
 import org.knipsX.controller.reportmanagement.PreviousWizardPanelController;
+import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.DummyModel;
 
-public class JReportWizard extends JAbstractReportType {
+public class JReportWizard<M extends AbstractReportModel, V extends JAbstractReport<M>> extends
+JAbstractReportType<M, V> {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7846052667877784072L;
-	private JAbstractReport reportconfig;
+	private V reportconfig;
 	private int wizardcounter = 0;
 	private JComponent basic;
 	
@@ -27,13 +29,15 @@ public class JReportWizard extends JAbstractReportType {
 	 * Starts the wizard utilty on a specified reportconfiguraton
 	 * @param reportconfig the report configuration to operate on
 	 */
-	public JReportWizard() {
-		super(new DummyModel());
-		Report.myconfig = this;
-		this.reportconfig = Report.defaultReport.getReportType();
+	@SuppressWarnings("unchecked")
+	public JReportWizard(M model, V view) {
+	    super(model);
+		Report.myconfig = (JAbstractReportType<AbstractReportModel, JAbstractReport<AbstractReportModel>>) this;
+		this.reportconfig = (V) Report.defaultReport.getReportType();
 		initialize();
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void initialize() {
 	
 		JAbstractSinglePanel currentpanel = this.reportconfig.getregisteredPanels().get(wizardcounter);		
@@ -48,7 +52,7 @@ public class JReportWizard extends JAbstractReportType {
         JButton ok = new JButton("OK");
         ok.setToolTipText(currentpanel.tip);
         JButton next = new JButton("Next");
-        next.addActionListener(new NextWizardPanelController(this));
+        next.addActionListener(new NextWizardPanelController<AbstractReportModel, JReportWizard<AbstractReportModel, JAbstractReport<AbstractReportModel>>>((JReportWizard<AbstractReportModel, JAbstractReport<AbstractReportModel>>) this));
         JButton previous = new JButton("Previous");
         next.addActionListener(new PreviousWizardPanelController(this));
         bottom.add(previous);
@@ -62,15 +66,7 @@ public class JReportWizard extends JAbstractReportType {
         setVisible(true);
 	}
 	
-	public void setReportType(JAbstractReport reportconfig) {
-		remove(this.basic);
-		this.reportconfig = reportconfig;
-		Report.myconfig = this;
-		initialize();		
-		repaint();
-	}
-	
-	
+		
 	/**
 	 * Switches the current panel to the next panel if possible
 	 */
@@ -88,5 +84,15 @@ public class JReportWizard extends JAbstractReportType {
 	@Override
 	public void update(Observable model, Object argument) {
 		// Do nothing	    
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	protected void setReportType(JAbstractReport<?> reportconfig) {
+	    remove(this.basic);
+		this.reportconfig = (V) reportconfig;
+		Report.myconfig = (JAbstractReportType<AbstractReportModel, JAbstractReport<AbstractReportModel>>) this;
+		initialize();		
+		repaint();
 	}	
 }
