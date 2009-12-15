@@ -13,10 +13,10 @@ import org.knipsX.view.projectview.JProjectView;
  * Represents the Actions which are done by klicking on create pictureset.
  * Acts in harmony with a JProjectView.
  */
-public class PictureSetCreateController<M extends ProjectModel, V extends JProjectView<M>> extends
+public class PictureSetListCreateController<M extends ProjectModel, V extends JProjectView<M>> extends
 	AbstractController<M, V> {
 
-    public PictureSetCreateController(M model, V view) {
+    public PictureSetListCreateController(M model, V view) {
 	super(model, view);
     }
 

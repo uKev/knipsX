@@ -9,15 +9,17 @@ import org.knipsX.view.projectview.JProjectView;
  * Represents the Actions which are done by editing the projectnamedescription.
  * Acts in harmony with a JProjectView.
  */
-public class EditProjectNameController<M extends ProjectModel, V extends JProjectView<M>> extends
+public class PictureSetContentListAddController<M extends ProjectModel, V extends JProjectView<M>> extends
 	AbstractController<M, V> {
 
-    public EditProjectNameController(M model, V view) {
+    public PictureSetContentListAddController(M model, V view) {
 	super(model, view);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	model.updateViews();
+	// model.setModelStatus(ProjectModel.ADDTOPICTURESET);
+	// DemoJFileChooser panel = new DemoJFileChooser(model);
+	// model.updateViews();
     }
 }

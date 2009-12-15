@@ -9,10 +9,10 @@ import org.knipsX.view.projectview.JProjectView;
  * Represents the Actions which are done by klicking on refresh.
  * Acts in harmony with JProjectView.
  */
-public class ProjectViewRefreshController<M extends ProjectModel, V extends JProjectView<M>> extends
+public class PictureSetContentListRefreshController<M extends ProjectModel, V extends JProjectView<M>> extends
 	AbstractController<M, V> {
 
-    public ProjectViewRefreshController(M model, V view) {
+    public PictureSetContentListRefreshController(M model, V view) {
 	super(model, view);
     }
 

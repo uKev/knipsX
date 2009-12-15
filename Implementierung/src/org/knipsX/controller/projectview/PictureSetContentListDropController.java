@@ -10,10 +10,10 @@ import org.knipsX.view.projectview.JProjectView;
  * 
  *  Acts in harmony with a JProjectView.
  */
-public class DropToPictureSetContentController<M extends ProjectModel, V extends JProjectView<M>> extends
+public class PictureSetContentListDropController<M extends ProjectModel, V extends JProjectView<M>> extends
 	AbstractController<M, V> {
 
-    public DropToPictureSetContentController(M model, V view) {
+    public PictureSetContentListDropController(M model, V view) {
 	super(model, view);
     }
 

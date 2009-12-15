@@ -6,19 +6,18 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
 
 /**
- * Represents the Actions which are done by editing the projectdescription.
+ * Represents the Actions which are done by editing the projectnamedescription.
  * Acts in harmony with a JProjectView.
  */
-public class EditProjectDescriptionController<M extends ProjectModel, V extends JProjectView<M>> extends
+public class PictureSetListDragController<M extends ProjectModel, V extends JProjectView<M>> extends
 	AbstractController<M, V> {
 
-    public EditProjectDescriptionController(M model, V view) {
+    public PictureSetListDragController(M model, V view) {
 	super(model, view);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	// ((ProjectModel) model).setProjectDescription(projectView.getProjectDescription());
 	model.updateViews();
     }
 }

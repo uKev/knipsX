@@ -9,10 +9,10 @@ import org.knipsX.view.projectview.JProjectView;
  * Represents the Actions which are done by klicking on the picturelist. Acts in
  * harmony with a JProjectview.
  */
-public class ClickOnPictureList<M extends ProjectModel, V extends JProjectView<M>>
+public class PictureListClickOnController<M extends ProjectModel, V extends JProjectView<M>>
 		extends AbstractController<M, V> {
 
-	public ClickOnPictureList(M model, V view) {
+	public PictureListClickOnController(M model, V view) {
 		super(model, view);
 	}
 
