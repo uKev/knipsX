@@ -15,7 +15,7 @@ import org.knipsX.view.reportmanagement.Report;
 /**
  * This controller is responsible for saving a report configuration
  * into its corresponding model and returning that model to
- * the main ProjectModel.
+ * the ProjectModel.
  * 
  * @author David Kaufman
  *

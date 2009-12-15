@@ -73,7 +73,6 @@ public enum Report {
 	public abstract JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model);
 	
 	
-	
 	/**
 	 * The current report of the current report configuration run
 	 */
