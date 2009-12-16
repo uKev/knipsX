@@ -1,28 +1,28 @@
 package org.knipsX.view.reportmanagement;
 
-import org.knipsX.model.reportmanagement.Histogram3DModel;
+import org.knipsX.model.reportmanagement.Histogram2DModel;
 
 /**
- * This class represents the 3D Histogram configuration with all its
+ * This class represents the 2D Histogram configuration with all its
  * necessary panels.
  * 
  * @author David Kaufman
  *
  * @param <M>
  */
-public class JHistogram3DConfig<M extends Histogram3DModel> extends JAbstractReportCompilation<M> {
+public class Histogram2DConfig<M extends Histogram2DModel> extends AbstractReportCompilation<M> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Constructor which initialized the report with all its panels
      * 
-     * @param histogram3dmodel
+     * @param histogram2dmodel
      *            the model which is used by the panels
      */
-    public JHistogram3DConfig(M model) {
+    public Histogram2DConfig(M model) {
 	super(model);
-	ReportHelper.currentReport = ReportHelper.Histogram3D;
+	ReportHelper.currentReport = ReportHelper.Histogram2D;
 
 	addPanel(new JDiagramType("", null, ""));
 	addPanel(new JParameters("", null, ""));

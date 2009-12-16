@@ -10,7 +10,7 @@ import org.knipsX.model.reportmanagement.TableModel;
  *
  * @param <M>
  */
-public class JTableConfig<M extends TableModel> extends JAbstractReportCompilation<M> {
+public class TableConfig<M extends TableModel> extends AbstractReportCompilation<M> {
 
     private static final long serialVersionUID = 1L;
 
@@ -20,7 +20,7 @@ public class JTableConfig<M extends TableModel> extends JAbstractReportCompilati
      * @param tablemodel
      *            the model which is used the panels
      */
-    public JTableConfig(M model) {
+    public TableConfig(M model) {
 	super(model);
 	ReportHelper.currentReport = ReportHelper.Table;
 

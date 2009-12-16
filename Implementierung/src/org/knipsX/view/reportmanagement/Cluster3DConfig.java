@@ -10,7 +10,7 @@ import org.knipsX.model.reportmanagement.Cluster3DModel;
  *
  * @param <M>
  */
-public class JCluster3DConfig<M extends Cluster3DModel> extends JAbstractReportCompilation<M> {	
+public class Cluster3DConfig<M extends Cluster3DModel> extends AbstractReportCompilation<M> {	
 	
 	private static final long serialVersionUID = 1L;
 
@@ -19,7 +19,7 @@ public class JCluster3DConfig<M extends Cluster3DModel> extends JAbstractReportC
 	 * Constructor which initialized the report with all its panels
 	 * @param cluster3Dmodel the model which is used by the panels
 	 */
-	public JCluster3DConfig (M model) {
+	public Cluster3DConfig (M model) {
     	super(model);
     	ReportHelper.currentReport = ReportHelper.Cluster3D;
     	

@@ -22,7 +22,7 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
  * @param <M>
  * @param <V>
  */
-public class JReportWizard<M extends AbstractReportModel, V extends JAbstractReportCompilation<M>> extends JAbstractReportUtil<M, V> {
+public class JReportWizard<M extends AbstractReportModel, V extends AbstractReportCompilation<M>> extends JAbstractReportUtil<M, V> {
 	
 	/**
 	 * 
@@ -39,7 +39,7 @@ public class JReportWizard<M extends AbstractReportModel, V extends JAbstractRep
 	@SuppressWarnings("unchecked")
 	public JReportWizard(M model, V view) {
 	    super(model);
-		ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>) this;
+		ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
 		this.reportconfig = (V) ReportHelper.defaultReport.getReportType();
 		initialize();
 	}
@@ -59,7 +59,7 @@ public class JReportWizard<M extends AbstractReportModel, V extends JAbstractRep
         JButton ok = new JButton("OK");
         ok.setToolTipText(currentpanel.tip);
         JButton next = new JButton("Next");
-        next.addActionListener(new NextWizardPanelController<AbstractReportModel, JReportWizard<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>>((JReportWizard<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>) this));
+        next.addActionListener(new NextWizardPanelController<AbstractReportModel, JReportWizard<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>>((JReportWizard<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this));
         JButton previous = new JButton("Previous");
         next.addActionListener(new PreviousWizardPanelController(this));
         bottom.add(previous);
@@ -95,10 +95,10 @@ public class JReportWizard<M extends AbstractReportModel, V extends JAbstractRep
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void setReportType(JAbstractReportCompilation<?> reportconfig) {
+	protected void setReportType(AbstractReportCompilation<?> reportconfig) {
 	    remove(this.basic);
 		this.reportconfig = (V) reportconfig;
-		ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>) this;
+		ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
 		initialize();		
 		repaint();
 	}	

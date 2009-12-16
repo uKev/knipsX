@@ -11,7 +11,7 @@ import org.knipsX.view.JAbstractView;
  * @param <M>
  * @param <V>
  */
-public abstract class JAbstractReportUtil<M extends AbstractReportModel, V extends JAbstractReportCompilation<M>> extends JAbstractView<M> {
+public abstract class JAbstractReportUtil<M extends AbstractReportModel, V extends AbstractReportCompilation<M>> extends JAbstractView<M> {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,5 +26,5 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel, V exten
      * @param jAbstractReport
      *            the new report type
      */
-    abstract protected void setReportType(JAbstractReportCompilation<?> jAbstractReport);
+    abstract protected void setReportType(AbstractReportCompilation<?> jAbstractReport);
 }
