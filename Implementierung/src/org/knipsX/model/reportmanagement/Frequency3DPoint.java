@@ -16,7 +16,7 @@ public class Frequency3DPoint {
 	int y;
 	int z;
 	int frequency;
-	Picture pictures[];
+	private Picture pictures[];
 	
 	public Picture[] getPictures() {
 		return pictures;

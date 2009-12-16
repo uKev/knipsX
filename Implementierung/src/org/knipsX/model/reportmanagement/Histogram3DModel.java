@@ -12,6 +12,8 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 
 public class Histogram3DModel extends AbstractDoubleAxesModel{
 
+	private Category categories[];
+	
 	public Histogram3DModel(ArrayList<PictureContainer> pictureContainer,
 			Axis xAxis, Axis zAxis) {
 		super(pictureContainer, xAxis, zAxis);
@@ -22,7 +24,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel{
 	 * Berechnet die Statistik-Klassen und liefert die entsprechenden Objekte zurück
 	 */
 	public Category [] getCategories(){
-		return null;
+		return this.categories;
 		
 	}
 }
