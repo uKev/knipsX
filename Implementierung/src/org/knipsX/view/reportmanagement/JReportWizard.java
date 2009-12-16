@@ -22,8 +22,7 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
  * @param <M>
  * @param <V>
  */
-public class JReportWizard<M extends AbstractReportModel, V extends JAbstractReportCompilation<M>> extends
-JAbstractReportUtil<M, V> {
+public class JReportWizard<M extends AbstractReportModel, V extends JAbstractReportCompilation<M>> extends JAbstractReportUtil<M, V> {
 	
 	/**
 	 * 

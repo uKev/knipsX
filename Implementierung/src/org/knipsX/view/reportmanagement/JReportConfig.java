@@ -24,8 +24,7 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
  * @param <M>
  * @param <V>
  */
-public class JReportConfig<M extends AbstractReportModel, V extends JAbstractReportCompilation<M>> extends
-	JAbstractReportUtil<M, V> {
+public class JReportConfig<M extends AbstractReportModel, V extends JAbstractReportCompilation<M>> extends JAbstractReportUtil<M, V> {
 
     private static final long serialVersionUID = 1L;
 
@@ -88,8 +87,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends JAbstractRep
 		final JButton close = new JButton("Schließen");
 		final JButton apply = new JButton("Übernehmen");
 		final JButton show = new JButton("Anzeigen");
-		show.addActionListener(new SaveReportController<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>(
-			ReportHelper.currentModel, this.reportConfig, true));
+		show.addActionListener(new SaveReportController<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>(ReportHelper.currentModel, this.reportConfig, true));
 	
 		bottom.add(close);
 		bottom.add(apply);
