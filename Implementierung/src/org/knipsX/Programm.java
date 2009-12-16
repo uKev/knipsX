@@ -13,20 +13,25 @@ import org.knipsX.view.projectmanagement.JProjectManagement;
  */
 public class Programm {
 
-    /**
-     * Starts knipsX.
-     * 
-     * This function shows the first knipsX window.
-     * 
-     * @param args
-     *            stores parameters which are set up by a user during program start.
-     */
-    public static void main(final String[] args) {
+	/**
+	 * Starts knipsX.
+	 * 
+	 * This function shows the first knipsX window.
+	 * 
+	 * @param args
+	 *            stores parameters which are set up by a user during program
+	 *            start.
+	 */
+	public static void main(final String[] args) {
 
-	/* create a model for the ProjectAdministration */
-	final ProjectManagementModel projectManagementModel = new ProjectManagementModel(FileHandler.scanProjectDirectory());
+		/* create a model for the ProjectAdministration */
+		final ProjectManagementModel projectManagementModel = new ProjectManagementModel(
+				FileHandler.scanProjectDirectory());
 
-	/* creates a new JProjectAdministration window, which is connected to a model */
-	new JProjectManagement<ProjectManagementModel>(projectManagementModel);
-    }
+		/*
+		 * creates a new JProjectAdministration window, which is connected to a
+		 * model
+		 */
+		new JProjectManagement<ProjectManagementModel>(projectManagementModel);
+	}
 }

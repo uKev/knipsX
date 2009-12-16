@@ -1,5 +1,6 @@
 package org.knipsX.view.reportmanagement;
 
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
@@ -108,6 +109,14 @@ public enum ReportHelper {
 	// public because controller needs acces
 	public static AbstractReportModel currentModel;
 
+	
+	/**
+	 * The current reference of the ProjectModel. This makes it fairly easy
+	 * to add new reports to the project model. 
+	 */
+	// public because controller needs acces
+	public static ProjectModel currentProjectModel;
+	
 	
 	/**
 	 * Sets the current report and updates the configuration utility
