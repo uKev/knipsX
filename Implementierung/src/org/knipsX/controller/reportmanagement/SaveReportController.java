@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
-import org.knipsX.view.reportmanagement.JAbstractReportCompilation;
+import org.knipsX.view.reportmanagement.AbstractReportCompilation;
 import org.knipsX.view.reportmanagement.JAbstractSinglePanel;
 import org.knipsX.view.reportmanagement.JDiagramType;
 import org.knipsX.view.reportmanagement.JParameters;
@@ -22,7 +22,7 @@ import org.knipsX.view.reportmanagement.ReportHelper;
  * @param <M>
  * @param <V>
  */
-public class SaveReportController<M extends AbstractReportModel, V extends JAbstractReportCompilation<AbstractReportModel>> extends AbstractController<M, V> {
+public class SaveReportController<M extends AbstractReportModel, V extends AbstractReportCompilation<AbstractReportModel>> extends AbstractController<M, V> {
 
     private boolean showDiagram;
 

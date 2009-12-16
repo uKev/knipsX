@@ -24,11 +24,11 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
  * @param <M>
  * @param <V>
  */
-public class JReportConfig<M extends AbstractReportModel, V extends JAbstractReportCompilation<M>> extends JAbstractReportUtil<M, V> {
+public class JReportConfig<M extends AbstractReportModel, V extends AbstractReportCompilation<M>> extends JAbstractReportUtil<M, V> {
 
     private static final long serialVersionUID = 1L;
 
-    private JAbstractReportCompilation<AbstractReportModel> reportConfig;
+    private AbstractReportCompilation<AbstractReportModel> reportConfig;
 
     private JTabbedPane tabbedpane;
 
@@ -40,11 +40,11 @@ public class JReportConfig<M extends AbstractReportModel, V extends JAbstractRep
     @SuppressWarnings("unchecked")
     public JReportConfig(final M model, final V view) {
 	super(model);
-	this.reportConfig = (JAbstractReportCompilation<AbstractReportModel>) view;
+	this.reportConfig = (AbstractReportCompilation<AbstractReportModel>) view;
 	
 	
 	this.tabbedpane = this.getJTabbedPane();
-	ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>) this;
+	ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
 
 	this.setTitle("Auswertung Konfigurieren");	
 	
@@ -87,7 +87,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends JAbstractRep
 		final JButton close = new JButton("Schließen");
 		final JButton apply = new JButton("Übernehmen");
 		final JButton show = new JButton("Anzeigen");
-		show.addActionListener(new SaveReportController<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>(ReportHelper.currentModel, this.reportConfig, true));
+		show.addActionListener(new SaveReportController<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>(ReportHelper.currentModel, this.reportConfig, true));
 	
 		bottom.add(close);
 		bottom.add(apply);
@@ -101,14 +101,14 @@ public class JReportConfig<M extends AbstractReportModel, V extends JAbstractRep
 
     @Override
     @SuppressWarnings("unchecked")
-    public void setReportType(final JAbstractReportCompilation<?> reportconfig) {
+    public void setReportType(final AbstractReportCompilation<?> reportconfig) {
 		this.mysize[1] = this.mainpanel.getBounds().height;
 		this.mysize[0] = this.mainpanel.getBounds().width;
 	
 		this.remove(this.basic);
-		this.reportConfig = (JAbstractReportCompilation<AbstractReportModel>) reportconfig;
+		this.reportConfig = (AbstractReportCompilation<AbstractReportModel>) reportconfig;
 		this.tabbedpane = this.getJTabbedPane();
-		ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, JAbstractReportCompilation<AbstractReportModel>>) this;
+		ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
 		this.initialize();
 		this.pack();
 

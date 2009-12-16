@@ -12,11 +12,11 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
  *
  * @param <M>
  */
-public abstract class JAbstractReportCompilation<M extends AbstractReportModel> {
+public abstract class AbstractReportCompilation<M extends AbstractReportModel> {
 
     protected M model;
 
-    public JAbstractReportCompilation(M model) {
+    public AbstractReportCompilation(M model) {
 	this.model = model;
 	ReportHelper.currentModel = model;
     }

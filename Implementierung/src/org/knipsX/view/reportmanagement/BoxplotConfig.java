@@ -10,7 +10,7 @@ import org.knipsX.model.reportmanagement.BoxplotModel;
  *
  * @param <M>
  */
-public class JBoxplotConfig<M extends BoxplotModel> extends JAbstractReportCompilation<M> {
+public class BoxplotConfig<M extends BoxplotModel> extends AbstractReportCompilation<M> {
 
     private static final long serialVersionUID = 1L;
 
@@ -20,7 +20,7 @@ public class JBoxplotConfig<M extends BoxplotModel> extends JAbstractReportCompi
      * @param boxplotmodel
      *            the model which is used by the views
      */
-    public JBoxplotConfig(M model) {
+    public BoxplotConfig(M model) {
 	super(model);
 	ReportHelper.currentReport = ReportHelper.Boxplot;
 
