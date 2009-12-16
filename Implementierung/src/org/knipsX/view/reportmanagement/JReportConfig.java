@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
 
-import org.knipsX.controller.reportmanagement.SaveReportController;
+import org.knipsX.controller.reportmanagement.ReportSaveController;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 
 /**
@@ -87,7 +87,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
 		final JButton close = new JButton("Schließen");
 		final JButton apply = new JButton("Übernehmen");
 		final JButton show = new JButton("Anzeigen");
-		show.addActionListener(new SaveReportController<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>(ReportHelper.currentModel, this.reportConfig, true));
+		show.addActionListener(new ReportSaveController<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>(ReportHelper.currentModel, this.reportConfig, true));
 	
 		bottom.add(close);
 		bottom.add(apply);
