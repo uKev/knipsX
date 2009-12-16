@@ -33,7 +33,9 @@ public abstract class JAbstractView<M extends AbstractModel> extends JFrame impl
 	this.model = model;
 
 	/* register to model */
-	this.model.addObserver(this);
+	if(this.model != null) {
+		this.model.addObserver(this);
+	}
     }
 
     /**
