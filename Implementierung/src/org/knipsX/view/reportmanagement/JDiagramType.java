@@ -10,8 +10,6 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import org.knipsX.controller.reportmanagement.DiagramTypeSelectController;
 
