@@ -13,6 +13,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.knipsX.controller.reportmanagement.SelectDiagramTypeController;
+
 
 /**
  * This class represents the panel where the user can choose the diagram type 
@@ -70,7 +72,7 @@ public class JDiagramType extends JAbstractSinglePanel {
         
         this.meineliste = new JList(myreports); //data has type Object[]
         this.meineliste.setSelectedIndex(indexToSelect);
-        this.meineliste .addListSelectionListener(new SharedListSelectionHandler(this.meineliste));
+        this.meineliste .addListSelectionListener(new SelectDiagramTypeController(this));
         this.meineliste .setCellRenderer(new ComplexCellRenderer());
         this.meineliste .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);        
         this.meineliste .setLayoutOrientation(JList.HORIZONTAL_WRAP);
@@ -83,6 +85,16 @@ public class JDiagramType extends JAbstractSinglePanel {
     }
     
     
+    
+    /**
+     * Returns the currently selected index in the diagram typ
+     * selection list
+     * 
+     * @return the current selection index
+     */
+    public int getSelectedDiagramType() {
+    	return this.meineliste.getSelectedIndex();
+    }
     
     
     public String getReportName() {
@@ -119,26 +131,6 @@ class ComplexCellRenderer implements ListCellRenderer {
 
 	/* Gib Renderer zurück */
 	return renderer;
-    }
-}
-
-class SharedListSelectionHandler implements ListSelectionListener {
-	
-	private JList meineliste;
-	
-	public SharedListSelectionHandler(JList meineliste) {
-		this.meineliste = meineliste;
-	}
-	
-    public void valueChanged(ListSelectionEvent e) {
-    	 
-    	 System.out.println(this.meineliste.getSelectedIndex());   	 
-    	 
-    	 ReportHelper.updateReport(ReportHelper.values()[this.meineliste.getSelectedIndex()]);
-    	 
-    	 System.out.println(ReportHelper.currentReport.toString());
-    	 
-    	 
     }
 }
 
