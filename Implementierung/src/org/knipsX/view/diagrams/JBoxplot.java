@@ -2,7 +2,7 @@ package org.knipsX.view.diagrams;
 
 import javax.vecmath.Vector3d;
 
-import org.knipsX.model.AbstractModel;
+import org.knipsX.model.reportmanagement.BoxplotModel;
 
 /**
  * This class implements how the BoxplotModel is to be drawn.
@@ -11,7 +11,7 @@ import org.knipsX.model.AbstractModel;
  *
  * @param <M>
  */
-public class JBoxplot<M extends AbstractModel> extends JAbstract2DDiagram<M> {
+public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
 
     private static final long serialVersionUID = 1L;
 

@@ -2,7 +2,7 @@ package org.knipsX.view.diagrams;
 
 import java.awt.image.BufferedImage;
 
-import org.knipsX.model.AbstractModel;
+import org.knipsX.model.reportmanagement.TableModel;
 
 /**
  * This class implements how the TableModel is to be drawn.
@@ -11,7 +11,7 @@ import org.knipsX.model.AbstractModel;
  *
  * @param <M>
  */
-public class JTableDiagram<M extends AbstractModel> extends JAbstractDiagram<M> {
+public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
 
     private static final long serialVersionUID = 1L;
 

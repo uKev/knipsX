@@ -2,7 +2,7 @@ package org.knipsX.view.diagrams;
 
 import java.awt.image.BufferedImage;
 
-import org.knipsX.model.AbstractModel;
+import org.knipsX.model.reportmanagement.TextModel;
 
 /**
  * This class implements how the TextModel is to be drawn.
@@ -11,7 +11,7 @@ import org.knipsX.model.AbstractModel;
  *
  * @param <M>
  */
-public class JTextDiagram<M extends AbstractModel> extends JAbstractDiagram<M> {
+public class JTextDiagram<M extends TextModel> extends JAbstractDiagram<M> {
 
     private static final long serialVersionUID = 1L;
 
