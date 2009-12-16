@@ -13,7 +13,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.knipsX.controller.reportmanagement.SelectDiagramTypeController;
+import org.knipsX.controller.reportmanagement.DiagramTypeSelectController;
 
 
 /**
@@ -72,7 +72,7 @@ public class JDiagramType extends JAbstractSinglePanel {
         
         this.meineliste = new JList(myreports); //data has type Object[]
         this.meineliste.setSelectedIndex(indexToSelect);
-        this.meineliste .addListSelectionListener(new SelectDiagramTypeController(this));
+        this.meineliste .addListSelectionListener(new DiagramTypeSelectController(this));
         this.meineliste .setCellRenderer(new ComplexCellRenderer());
         this.meineliste .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);        
         this.meineliste .setLayoutOrientation(JList.HORIZONTAL_WRAP);
