@@ -22,11 +22,11 @@ import org.knipsX.view.reportmanagement.ReportHelper;
  * @param <M>
  * @param <V>
  */
-public class SaveReportController<M extends AbstractReportModel, V extends AbstractReportCompilation<AbstractReportModel>> extends AbstractController<M, V> {
+public class ReportSaveController<M extends AbstractReportModel, V extends AbstractReportCompilation<AbstractReportModel>> extends AbstractController<M, V> {
 
     private boolean showDiagram;
 
-    public SaveReportController(M model, V view, boolean showDiagram) {
+    public ReportSaveController(M model, V view, boolean showDiagram) {
 		super(model, view);
 		this.showDiagram = showDiagram;
     }

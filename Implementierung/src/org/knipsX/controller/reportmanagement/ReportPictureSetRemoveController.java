@@ -6,7 +6,7 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.view.reportmanagement.JPictureSetExif;
 
 /**
- * This controller is responsible for associating one ore more PictureSets with
+ * This controller is responsible for removing one or more PictureSets of
  * the report which invoked this controller.
  * 
  * @author David Kaufman
@@ -14,9 +14,9 @@ import org.knipsX.view.reportmanagement.JPictureSetExif;
  * @param <M>
  * @param <V>
  */
-public class AddPictureSetToReportController<M, V extends JPictureSetExif> extends AbstractController<M, V> {
+public class ReportPictureSetRemoveController<M, V extends JPictureSetExif> extends AbstractController<M, V> {
 
-    public AddPictureSetToReportController(V view) {
+    public ReportPictureSetRemoveController(V view) {
 		super(view);
     }
 

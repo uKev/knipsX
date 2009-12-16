@@ -15,11 +15,11 @@ import org.knipsX.view.reportmanagement.ReportHelper;
  * @author David Kaufman
  *
  */
-public class SelectDiagramTypeController implements ListSelectionListener {
+public class DiagramTypeSelectController implements ListSelectionListener {
 
 	private JDiagramType view;
 
-	public SelectDiagramTypeController(JDiagramType view) {
+	public DiagramTypeSelectController(JDiagramType view) {
 		this.view = view;
 	}
 

@@ -15,9 +15,9 @@ import org.knipsX.view.reportmanagement.JReportWizard;
  * @param <M>
  * @param <V>
  */
-public class PreviousWizardPanelController<M extends AbstractReportModel, V extends JReportWizard<?, ?>> extends AbstractController<M, V> {
+public class WizardPreviousPanelController<M extends AbstractReportModel, V extends JReportWizard<?, ?>> extends AbstractController<M, V> {
 
-    public PreviousWizardPanelController(V view) {
+    public WizardPreviousPanelController(V view) {
 	super(view);
     }
 

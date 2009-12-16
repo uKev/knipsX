@@ -12,9 +12,9 @@ import org.knipsX.view.diagrams.JAbstract3DView;
  * @author David Kaufman
  *
  */
-public class CycleThroughViewController<M, V extends JAbstract3DView<?>> extends AbstractController<M, V> {
+public class View3DCycleController<M, V extends JAbstract3DView<?>> extends AbstractController<M, V> {
 
-	public CycleThroughViewController(V view) {
+	public View3DCycleController(V view) {
 		super(view);
 		
 	}

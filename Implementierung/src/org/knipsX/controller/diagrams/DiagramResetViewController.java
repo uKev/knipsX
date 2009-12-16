@@ -11,9 +11,9 @@ import org.knipsX.view.diagrams.JAbstract3DView;
  * @author David Kaufman
  *
  */
-public class ResetDiagramViewController<M, V extends JAbstract3DView<?>> extends AbstractController<M, V> {
+public class DiagramResetViewController<M, V extends JAbstract3DView<?>> extends AbstractController<M, V> {
 
-	public ResetDiagramViewController(V view) {
+	public DiagramResetViewController(V view) {
 		super(view);
 		
 	}

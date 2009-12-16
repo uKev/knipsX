@@ -6,7 +6,7 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.view.reportmanagement.JPictureSetExif;
 
 /**
- * This controller is responsible for removing an EXIF keyword of
+ * This controller is responsible for associating one ore more PictureSets with
  * the report which invoked this controller.
  * 
  * @author David Kaufman
@@ -14,9 +14,9 @@ import org.knipsX.view.reportmanagement.JPictureSetExif;
  * @param <M>
  * @param <V>
  */
-public class RemoveExifKeywordOfReportController<M, V extends JPictureSetExif> extends AbstractController<M, V> {
+public class ReportAddPictureSetController<M, V extends JPictureSetExif> extends AbstractController<M, V> {
 
-    public RemoveExifKeywordOfReportController(V view) {
+    public ReportAddPictureSetController(V view) {
 		super(view);
     }
 

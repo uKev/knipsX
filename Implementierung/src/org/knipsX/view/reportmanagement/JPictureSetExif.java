@@ -4,10 +4,10 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JList;
 
-import org.knipsX.controller.reportmanagement.AddExifKeywordToReportController;
-import org.knipsX.controller.reportmanagement.AddPictureSetToReportController;
-import org.knipsX.controller.reportmanagement.RemoveExifKeywordOfReportController;
-import org.knipsX.controller.reportmanagement.RemovePictureSetOfReportController;
+import org.knipsX.controller.reportmanagement.ReportAddExifKeywordController;
+import org.knipsX.controller.reportmanagement.ReportAddPictureSetController;
+import org.knipsX.controller.reportmanagement.ReportRemoveExifKeywordController;
+import org.knipsX.controller.reportmanagement.ReportPictureSetRemoveController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.PictureSet;
 
@@ -53,14 +53,14 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         setLayout(null);        
         
         // Alle verwendeten Controller hier mal hingeschrieben
-        new AddPictureSetToReportController<AbstractModel, JPictureSetExif>(this);
-        new RemovePictureSetOfReportController(this);
-        new RemoveExifKeywordOfReportController(this);
-        new AddExifKeywordToReportController<AbstractModel, JPictureSetExif>(this);
+        new ReportAddPictureSetController<AbstractModel, JPictureSetExif>(this);
+        new ReportPictureSetRemoveController(this);
+        new ReportRemoveExifKeywordController(this);
+        new ReportAddExifKeywordController<AbstractModel, JPictureSetExif>(this);
         
 
         JButton beep = new JButton(">>");
-        beep.addActionListener((new AddPictureSetToReportController(this)));
+        beep.addActionListener((new ReportAddPictureSetController(this)));
         beep.setBounds(150, 60, 80, 30);
         
         Object[] copyFrom = { new PictureSet("HALLO", 1)};
@@ -73,7 +73,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         add(associatedPictureSets);
 
        JButton close = new JButton("<<");
-       close.addActionListener(new RemovePictureSetOfReportController(this));
+       close.addActionListener(new ReportPictureSetRemoveController(this));
        close.setBounds(50, 60, 80, 30);
 
         add(beep);

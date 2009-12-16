@@ -5,16 +5,16 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 
 /**
- * This controller manages the closure of the report configuration view.
+ * This controller manages the closure of the report wizard view.
  * 
  * @author David Kaufman
  *
  * @param <M>
  * @param <V>
  */
-public class CloseReportConfigController<M, V> extends AbstractController<M, V> {
+public class WizardReportCloseController<M, V> extends AbstractController<M, V> {
 
-    public CloseReportConfigController(V view) {
+    public WizardReportCloseController(V view) {
 	super(view);
     }
 

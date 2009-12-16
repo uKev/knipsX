@@ -6,15 +6,16 @@ import org.knipsX.controller.AbstractController;
 import org.knipsX.view.diagrams.JAbstractDiagram;
 
 /**
- * This controller manages the closing of a diagram window
+ * This controller manages the exportation of a screenshot of the current diagram.
  * 
  * @author David Kaufman
  *
  */
-public class CloseDiagramViewController<M, V extends JAbstractDiagram<?>> extends AbstractController<M, V> {
+public class DiagramExportAsJPGController<M, V extends JAbstractDiagram<?>> extends AbstractController<M, V>  {
 
-	public CloseDiagramViewController(V view) {
-		super(view);
+	public DiagramExportAsJPGController(V diagram) {
+		super(diagram);
+		
 	}
 	
 	@Override

@@ -9,8 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import org.knipsX.controller.reportmanagement.NextWizardPanelController;
-import org.knipsX.controller.reportmanagement.PreviousWizardPanelController;
+import org.knipsX.controller.reportmanagement.WizardNextPanelController;
+import org.knipsX.controller.reportmanagement.WizardPreviousPanelController;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 
 /**
@@ -59,9 +59,9 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
         JButton ok = new JButton("OK");
         ok.setToolTipText(currentpanel.tip);
         JButton next = new JButton("Next");
-        next.addActionListener(new NextWizardPanelController<AbstractReportModel, JReportWizard<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>>((JReportWizard<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this));
+        next.addActionListener(new WizardNextPanelController<AbstractReportModel, JReportWizard<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>>((JReportWizard<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this));
         JButton previous = new JButton("Previous");
-        next.addActionListener(new PreviousWizardPanelController(this));
+        next.addActionListener(new WizardPreviousPanelController(this));
         bottom.add(previous);
         bottom.add(ok);
         bottom.add(Box.createRigidArea(new Dimension(5, 0)));
