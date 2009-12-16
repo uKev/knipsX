@@ -37,7 +37,7 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 	 * @param reportconfig the report configuration to operate on
 	 */
 	@SuppressWarnings("unchecked")
-	public JReportWizard(M model, V view) {
+	public JReportWizard(M model) {
 	    super(model);
 		ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
 		this.reportconfig = (V) ReportHelper.defaultReport.getReportType();
