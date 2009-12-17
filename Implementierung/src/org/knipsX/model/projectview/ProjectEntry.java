@@ -5,6 +5,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import org.knipsX.model.AbstractModel;
 
+/**
+ * Represents a project entry (only meta data).
+ */
 public class ProjectEntry extends AbstractModel {
 
 	/* the id of the project */
