@@ -59,7 +59,7 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
 
 				/* has user give in a project name? */
 				if (projectName != null) {
-					this.model.addNewProject(projectName);
+					this.model.copyProject(projectToCopy, projectName);
 					this.model.updateViews();
 				}
 			}
