@@ -313,7 +313,7 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));       
         this.canvas3D.setSize(800, 600);
         panel.add(this.canvas3D);
-        panel.add(new JDiagramButtons3D());   
+        panel.add(this.registeredButtons);   
       	add(panel);
         
         pack();
