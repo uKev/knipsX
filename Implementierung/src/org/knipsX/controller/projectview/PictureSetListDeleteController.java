@@ -5,8 +5,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
 import org.knipsX.controller.AbstractController;
+import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
+
 
 /**
  * Represents the Actions which are done by klicking on delete pictureset.
@@ -21,8 +23,11 @@ public class PictureSetListDeleteController<M extends ProjectModel, V extends JP
 
     @Override
     public void actionPerformed(ActionEvent e) {
+	
 	final int[] toDelete = this.view.getSelectedIndicesFromPictureList();
-
+	
+	Object[] pictureSets = this.model.getPictureSets();
+	
 	/* */
 	if ((toDelete == null) || (toDelete.length == 0)) {
 
@@ -31,7 +36,7 @@ public class PictureSetListDeleteController<M extends ProjectModel, V extends JP
 		    "Bildmenge löschen - Fehler", JOptionPane.ERROR_MESSAGE);
 	} else {
 	    final int decision = JOptionPane.showConfirmDialog(null, "Sollen die ausgewählten Bildmengen:"
-		    + this.generateToDeleteText(toDelete) + " gelöscht werden?", "Bildmenge löschen",
+		    + this.generateToDeleteText(pictureSets, toDelete) + " gelöscht werden?", "Bildmenge löschen",
 		    JOptionPane.YES_NO_OPTION);
 
 	    /* if user pressed "yes" */
@@ -39,7 +44,7 @@ public class PictureSetListDeleteController<M extends ProjectModel, V extends JP
 
 		/* delete all selected projects */
 		for (int n = 0; n < toDelete.length; ++n) {
-		    this.model.removePictureSet(toDelete[n]);
+		    this.model.removePictureSet((PictureSet) pictureSets[n]);
 
 		    /* increments the indices one per round */
 		    for (int j = 0; j < toDelete.length; ++j) {
@@ -51,12 +56,12 @@ public class PictureSetListDeleteController<M extends ProjectModel, V extends JP
 	}
     }
     
-    private String generateToDeleteText(final int[] toDelete) {
+    private String generateToDeleteText(final Object[] pictureSets, final int[] toDelete) {
 	String deleteText = "\n\n";
 
 	/* add all names */
 	for (int n = 0; n < toDelete.length; ++n) {
-	    deleteText += "- " + (this.model).getPictureSetList().get(toDelete[n]).getName() + "\n";
+	    deleteText += "- " + ((PictureSet) pictureSets[n]).getName() + "\n";
 	}
 	return deleteText + "\n";
     }

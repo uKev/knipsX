@@ -1,5 +1,6 @@
 package org.knipsX.view.reportmanagement;
 
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
@@ -22,28 +23,28 @@ import org.knipsX.view.diagrams.JAbstractDiagram;
 public enum ReportHelper {	
 	
 	Boxplot {
-			public AbstractReportCompilation<BoxplotModel> getReportType() {return new BoxplotConfig<BoxplotModel>(null);} 
+			public AbstractReportCompilation<BoxplotModel> createReportCompilation() {return new BoxplotConfig<BoxplotModel>(null);} 
 			public AbstractReportModel createReportModel() {return new BoxplotModel();}
 			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
 			public int getNumberOfAxes() {return 1;}
 			},
 			
 	Histogram2D {
-			public AbstractReportCompilation<Histogram2DModel> getReportType() {return new Histogram2DConfig<Histogram2DModel>(null);}
+			public AbstractReportCompilation<Histogram2DModel> createReportCompilation() {return new Histogram2DConfig<Histogram2DModel>(null);}
 			public AbstractReportModel createReportModel() {return new Histogram2DModel(null, null);}	
 			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
 			public int getNumberOfAxes() {return 1;}
 			},
 			
 	Histogram3D { 
-			public AbstractReportCompilation<Histogram3DModel> getReportType() {return new Histogram3DConfig<Histogram3DModel>(null);}
+			public AbstractReportCompilation<Histogram3DModel> createReportCompilation() {return new Histogram3DConfig<Histogram3DModel>(null);}
 			public AbstractReportModel createReportModel() {return new Histogram3DModel(null, null, null);}
 			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
 			public int getNumberOfAxes() {return 2;}
 				
 			},
 	Cluster3D {
-			public AbstractReportCompilation<Cluster3DModel> getReportType() {return new Cluster3DConfig<Cluster3DModel>(null);} 
+			public AbstractReportCompilation<Cluster3DModel> createReportCompilation() {return new Cluster3DConfig<Cluster3DModel>(null);} 
 			public AbstractReportModel createReportModel() {return new Cluster3DModel(null, null, null, null);}	
 			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
 			public int getNumberOfAxes() {return 3;}
@@ -52,7 +53,7 @@ public enum ReportHelper {
 			
 	Table {
 			@SuppressWarnings("unchecked")
-			public AbstractReportCompilation<AbstractReportModel> getReportType() {return new TableConfig( new TableModel(null));} 
+			public AbstractReportCompilation<AbstractReportModel> createReportCompilation() {return new TableConfig( new TableModel(null));} 
 			public AbstractReportModel createReportModel() {return new TableModel(null);}	
 			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
 			public int getNumberOfAxes() {return 0;}
@@ -62,7 +63,7 @@ public enum ReportHelper {
 	 * Returns the report type associated with the specified report enum
 	 * @return the report type associated with the specified report enum
 	 */
-	public abstract AbstractReportCompilation<?> getReportType();
+	public abstract AbstractReportCompilation<?> createReportCompilation();
 	
 	
 	/**
@@ -99,7 +100,7 @@ public enum ReportHelper {
 	/**
 	 * The current configuration utility of the current report configuration run
 	 */
-	protected static JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>> myconfig;
+	protected static JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>> currentReportUtil;
 	
 	/**
 	 * The current model of the current report configuration run
@@ -110,13 +111,21 @@ public enum ReportHelper {
 
 	
 	/**
+	 * The current reference of the ProjectModel. This makes it fairly easy
+	 * to add new reports to the project model. 
+	 */
+	// public because controller needs acces
+	public static ProjectModel currentProjectModel;
+	
+	
+	/**
 	 * Sets the current report and updates the configuration utility
 	 * Use this method if you want explicitly update the configuration utility
 	 * @param myreport
 	 */
 	public static void updateReport(ReportHelper myreport) {
 		currentReport = myreport;
-		myconfig.setReportType(currentReport.getReportType());
+		currentReportUtil.setReportType(currentReport.createReportCompilation());
 	}
 
 	

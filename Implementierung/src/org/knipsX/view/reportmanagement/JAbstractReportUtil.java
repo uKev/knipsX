@@ -16,7 +16,7 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel, V exten
     private static final long serialVersionUID = 1L;
 
     public JAbstractReportUtil(M model) {
-	super(model);
+    	super(model);
     }
 
     /**

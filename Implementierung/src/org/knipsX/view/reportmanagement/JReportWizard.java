@@ -28,26 +28,26 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 	 * 
 	 */
 	private static final long serialVersionUID = -7846052667877784072L;
-	private V reportconfig;
+	private V reportCompilation;
 	private int wizardcounter = 0;
 	private JComponent basic;
 	
 	/**
-	 * Starts the wizard utilty on a specified reportconfiguraton
+	 * Starts the wizard utility on a specified report configuration
 	 * @param reportconfig the report configuration to operate on
 	 */
 	@SuppressWarnings("unchecked")
-	public JReportWizard(M model, V view) {
-	    super(model);
-		ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
-		this.reportconfig = (V) ReportHelper.defaultReport.getReportType();
+	public JReportWizard() {
+	    super(null);
+		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
+		this.reportCompilation = (V) ReportHelper.defaultReport.createReportCompilation();
 		initialize();
 	}
 	
 	@SuppressWarnings("unchecked")
 	private void initialize() {
 	
-		JAbstractSinglePanel currentpanel = this.reportconfig.getregisteredPanels().get(wizardcounter);		
+		JAbstractSinglePanel currentpanel = this.reportCompilation.getregisteredPanels().get(wizardcounter);		
         setTitle(currentpanel.title);
         this.basic = currentpanel;
         this.basic.setLayout(new BoxLayout(basic, BoxLayout.Y_AXIS));
@@ -97,8 +97,8 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 	@Override
 	protected void setReportType(AbstractReportCompilation<?> reportconfig) {
 	    remove(this.basic);
-		this.reportconfig = (V) reportconfig;
-		ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
+		this.reportCompilation = (V) reportconfig;
+		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
 		initialize();		
 		repaint();
 	}	
