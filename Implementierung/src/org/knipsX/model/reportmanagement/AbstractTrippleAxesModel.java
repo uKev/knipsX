@@ -23,6 +23,10 @@ public abstract class AbstractTrippleAxesModel extends AbstractDoubleAxesModel {
 		this.yAxis = yAxis;
 		// TODO Auto-generated constructor stub
 	}
+	
+	public AbstractTrippleAxesModel() {
+		super();
+	}
 
 	
 	public Axis getyAxis() {

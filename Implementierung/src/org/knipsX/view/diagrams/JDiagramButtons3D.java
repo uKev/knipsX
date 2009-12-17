@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 
 /**
  * This class represents the buttons which are available in ever 3D diagram.
+ * 
  * @author David Kaufman
  *
  */

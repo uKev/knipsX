@@ -18,6 +18,10 @@ public class TextModel extends AbstractReportModel{
 		super(pictureContainer);
 		this.setText(text);
 	}
+	
+	public TextModel() {
+		super();
+	}
 
 	public void setText(String text) {
 		this.text = text;

@@ -16,6 +16,10 @@ public class TableModel extends AbstractReportModel{
 		super(pictureContainer);
 		// TODO Auto-generated constructor stub
 	}
+	public TableModel() {
+		super();
+	}
+	
 	public PictureContainer [] getPictures(){
 		return null;
 		

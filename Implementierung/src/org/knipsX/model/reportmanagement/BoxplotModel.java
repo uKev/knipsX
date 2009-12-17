@@ -34,8 +34,9 @@ public class BoxplotModel extends AbstractSingleAxisModel{
 	/**
 	 * @return the result of the Wilcoxon test
 	 */
-	public boolean isWilcoxonSignificant() {
-		return true;
+	public float getWilcoxonPValue() {
+		// TODO: implement
+		return 0f;
 	}
 
 	public boolean isWilcoxonTestActive() {

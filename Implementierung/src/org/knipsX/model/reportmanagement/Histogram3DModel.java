@@ -20,6 +20,10 @@ public class Histogram3DModel extends AbstractDoubleAxesModel{
 		// TODO Auto-generated constructor stub
 	}	
 	
+	public Histogram3DModel() {
+		super();
+	}
+	
 	/*
 	 * Berechnet die Statistik-Klassen und liefert die entsprechenden Objekte zurück
 	 */

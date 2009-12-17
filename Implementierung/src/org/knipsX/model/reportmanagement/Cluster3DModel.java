@@ -18,7 +18,11 @@ public class Cluster3DModel extends AbstractTrippleAxesModel{
 		super(pictureContainer, xAxis, zAxis, yAxis);
 	}
 	
+	public Cluster3DModel() {
+		super();
+	}
+	
 	public Frequency3DPoint [] getFrequency3DPoints (){
-		return null;
+		return this.frequency3DPoints;
 	}
 }
