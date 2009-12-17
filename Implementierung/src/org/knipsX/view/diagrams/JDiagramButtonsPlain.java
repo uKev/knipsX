@@ -2,13 +2,13 @@ package org.knipsX.view.diagrams;
 
 import java.awt.Dimension;
 
-import javax.swing.JComponent;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
  * This class represents the buttons which are available in the text and table
  * diagram.
+ * 
  * @author David Kaufman
  *
  */

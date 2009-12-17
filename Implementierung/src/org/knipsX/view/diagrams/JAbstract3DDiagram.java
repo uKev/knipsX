@@ -40,7 +40,7 @@ public abstract class JAbstract3DDiagram<M extends AbstractModel> extends JAbstr
     
     this.registeredButtons = new JDiagramButtons3D();
     
-    this.NUMBEROFAXES = 3;
+    this.numberOfAxes = 3;
 	int goodcamerapos = (int) (this.AXISSIZE / 2);
 	changeCameraPosition(goodcamerapos, goodcamerapos, goodcamerapos * 6);
 
