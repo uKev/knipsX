@@ -4,6 +4,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectEntry;
+import org.knipsX.utils.FileHandler;
 
 public class ProjectManagementModel extends AbstractModel {
 	
@@ -49,8 +50,9 @@ public class ProjectManagementModel extends AbstractModel {
 		String path = this.generatePathforID(id);			
 		
 		/* Füge hinzu */
-		this.projectList.add(0, new ProjectEntry(id, projectName, "", new GregorianCalendar(), path));	
-		
+		ProjectEntry newProject = new ProjectEntry(id, projectName, "", new GregorianCalendar(), path);
+		this.projectList.add(0,newProject); 
+		FileHandler.createNewProjectFile(newProject);
 		/* TODO Hier fehlen die Routinen zum Schreiben! */
 	}
 	
@@ -60,7 +62,7 @@ public class ProjectManagementModel extends AbstractModel {
 	 * @param projectEntry Das alte Projekt.
 	 * @param projectName Der Projektname.
 	 */
-	public void copyProject(ProjectEntry projectEntry, String projectName) {
+	public void copyProject(ProjectEntry toCopy, String projectName) {
 		
 		/* Generiere neue ID */
 		int id = this.generateFreeProjectID();
@@ -69,8 +71,9 @@ public class ProjectManagementModel extends AbstractModel {
 		String path = this.generatePathforID(id);
 		
 		/* Füge hinzu */
-		this.projectList.add(0, new ProjectEntry(id, projectName, "", new GregorianCalendar(), path));
-		
+		ProjectEntry theCopy = new ProjectEntry(id, projectName, "", new GregorianCalendar(), path);
+		this.projectList.add(0,theCopy); 
+		FileHandler.copyProject(toCopy, theCopy);
 		/* TODO Hier fehlen die Routinen zum Kopieren! */
 	}
 	

@@ -166,7 +166,10 @@ public class FileHandler {
 	 */
 	public static void writeProjectToFile(ProjectModel project) {
 	}
+		
+	public static void copyProject(ProjectEntry toCopy, ProjectEntry theCopy){		
+	}
 	
-	public static void manipulateFileNameAndID(ProjectEntry toManipulate){		
+	private static void manipulateFileNameAndID(ProjectEntry toManipulate){		
 	}
 }
