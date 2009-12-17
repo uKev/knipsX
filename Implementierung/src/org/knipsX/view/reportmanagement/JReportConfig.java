@@ -61,7 +61,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
     private JTabbedPane getJTabbedPane() {
 		final JTabbedPane tabbedpane = new JTabbedPane();
 	
-		for (final JAbstractSinglePanel item : this.reportCompilation.getregisteredPanels()) {
+		for (final JAbstractSinglePanel item : this.reportCompilation.getRegisteredPanels()) {
 		    tabbedpane.addTab(item.getTitle(), item.getIcon(), item, item.getTip());
 		}
 	
