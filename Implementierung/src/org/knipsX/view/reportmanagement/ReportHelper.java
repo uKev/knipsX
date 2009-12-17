@@ -134,7 +134,7 @@ public enum ReportHelper {
 	public static void addCurrentModelToReportList() {
 		assert currentModel != null;
 		// TODO
-		currentProjectModel).setReportsList(currentProjectModel.getReports());
+		//currentProjectModel.setReportsList(currentProjectModel.getReports());
 		
 	}
 	
