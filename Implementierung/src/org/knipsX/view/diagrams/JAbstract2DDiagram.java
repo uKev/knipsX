@@ -37,6 +37,7 @@ public abstract class JAbstract2DDiagram<M extends AbstractModel> extends JAbstr
      * 2D specific preinitialization routine
      */
     public void preinitialize() {
+    	this.registeredButtons = new JDiagramButtonsPlain();
     	this.NUMBEROFAXES = 2;
 		this.canvas3D.getView().setProjectionPolicy(View.PARALLEL_PROJECTION);
 		this.canvas3D.getView().setScreenScale(0.03);
