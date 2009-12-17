@@ -14,14 +14,28 @@ public class Bar {
 	private PictureContainer pictureContainer;
 	
 	/*
-	 * Gibt die absolute Höhe des Balken an.
+	 * represents the absolute height of the bar.
 	 */
 	private int height;
 
+	/**
+	 * Constructor for the bar with pictureContainer and height parameter
+	 * @param pictureContainer the picture container which is represented through the bar
+	 * @param height the absolute height of the bar
+	 */
 	public Bar(PictureContainer pictureContainer, int height) {
 		super();
 		this.pictureContainer = pictureContainer;
 		this.height = height;
+	}
+	
+	/**
+	 * Constructor for the bar with pictureContainer parameter
+	 * @param pictureContainer the picture container which is represented through the bar
+	 */
+	public Bar(PictureContainer pictureContainer) {
+		super();
+		this.pictureContainer = pictureContainer;
 	}
 	
 	

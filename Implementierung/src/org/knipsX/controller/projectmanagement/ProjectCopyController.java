@@ -24,7 +24,7 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 
-		final int[] toCopy = this.view.getSelectedIndicesFromProjectList();
+		final int[] toCopy = this.view.getSelectedProjects();
 
 		/* only one project can copied at once */
 		if (toCopy.length == 1) {

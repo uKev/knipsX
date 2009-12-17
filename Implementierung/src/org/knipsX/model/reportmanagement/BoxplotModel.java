@@ -21,6 +21,11 @@ public class BoxplotModel extends AbstractSingleAxisModel{
 		super();
 	}
 	
+	/**
+	 * Constructor for the Boxplot Model
+	 * @param pictureContainer
+	 * @param xAxis
+	 */
 	public BoxplotModel(ArrayList<PictureContainer> pictureContainer, Axis xAxis) {
 		super(pictureContainer, xAxis);
 		// TODO: Auto-generated constructor stub
@@ -39,6 +44,10 @@ public class BoxplotModel extends AbstractSingleAxisModel{
 		return 0f;
 	}
 
+	/**
+	 * 
+	 * @return if the wilcoxon test is used
+	 */
 	public boolean isWilcoxonTestActive() {
 		return wilcoxonTestActive;
 	}

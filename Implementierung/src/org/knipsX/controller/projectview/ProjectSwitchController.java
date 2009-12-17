@@ -30,6 +30,7 @@ public class ProjectSwitchController<M extends ProjectModel, V extends JProjectV
     		"Projekt wechseln", JOptionPane.YES_NO_CANCEL_OPTION);
     	
     	if(decision == 0) { /* if user wants to save before a change occurs */
+    		this.model.saveProjectModel();
     		this.view.dispose();
     		
     		/* create a model for the ProjectAdministration */

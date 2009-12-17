@@ -23,7 +23,7 @@ public class PictureSetListCopyController<M extends ProjectModel, V extends JPro
     @Override
     public void actionPerformed(ActionEvent e) {
 	
-	final int[] toCopy = this.view.getSelectedIndicesFromPictureList();
+	final int[] toCopy = this.view.getSelectedPictures();
 
 	/* only one project can copied at once */
 	if (toCopy.length == 1) {

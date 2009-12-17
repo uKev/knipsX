@@ -24,7 +24,7 @@ public class PictureSetListDeleteController<M extends ProjectModel, V extends JP
     @Override
     public void actionPerformed(ActionEvent e) {
 	
-	final int[] toDelete = this.view.getSelectedIndicesFromPictureList();
+	final int[] toDelete = this.view.getSelectedPictures();
 	
 	Object[] pictureSets = this.model.getPictureSets();
 	

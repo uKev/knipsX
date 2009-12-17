@@ -24,14 +24,14 @@ public class ProjectOpenController<M extends ProjectManagementModel, V extends J
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		final int[] toOpen = this.view.getSelectedIndicesFromProjectList();
+		final int[] toOpen = this.view.getSelectedProjects();
 
 		/* only one project can copied at once */
 		if (toOpen.length == 1) {
 
 			ProjectModel projectModel = FileHandler.scanProjectFile(this.model
 					.getProjectList().get(toOpen[0]).getId());
-			model.setState(ProjectManagementModel.DEACTIVE);
+			model.setState(ProjectManagementModel.INACTIVE);
 			model.updateViews();
 
 			new JProjectView<ProjectModel>(projectModel);

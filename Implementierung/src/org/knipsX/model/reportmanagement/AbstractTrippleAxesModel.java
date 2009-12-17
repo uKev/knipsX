@@ -17,6 +17,13 @@ public abstract class AbstractTrippleAxesModel extends AbstractDoubleAxesModel {
 	protected Axis yAxis;	
 
 
+	/**
+	 * Constructor with all parameters needed for the model.
+	 * @param pictureContainer a List of pictureContainer for the report
+	 * @param xAxis the xAxis
+	 * @param zAxis the zAxis
+	 * @param yAxis the yAxis
+	 */
 	public AbstractTrippleAxesModel(
 			ArrayList<PictureContainer> pictureContainer, Axis xAxis, Axis zAxis, Axis yAxis) {
 		super(pictureContainer, xAxis, zAxis);

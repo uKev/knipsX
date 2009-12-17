@@ -21,7 +21,7 @@ public class ProjectDeleteController<M extends ProjectManagementModel, V extends
 
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		final int[] toDelete = this.view.getSelectedIndicesFromProjectList();
+		final int[] toDelete = this.view.getSelectedProjects();
 
 		/* */
 		if ((toDelete == null) || (toDelete.length == 0)) {
