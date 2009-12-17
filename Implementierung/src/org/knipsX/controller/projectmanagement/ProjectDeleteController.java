@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
+import org.knipsX.utils.FileHandler;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
 /**
@@ -45,6 +46,7 @@ public class ProjectDeleteController<M extends ProjectManagementModel, V extends
 				/* delete all selected projects */
 				for (int n = 0; n < toDelete.length; ++n) {
 					this.model.removeFromList(toDelete[n]);
+					FileHandler.deleteProjectFile(null);
 
 					/* increments the indices one per round */
 					for (int j = 0; j < toDelete.length; ++j) {
