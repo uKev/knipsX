@@ -6,7 +6,8 @@ package org.knipsX.model.projectview;
 /* import things from the java sdk */
 import java.util.List;
 
-/* import things from our program */
+/* import things from our project */
+import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
@@ -17,135 +18,241 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
  */
 public class ProjectModel extends ProjectEntry {
 
-	/* the list of picture sets */
-	private List<PictureSet> pictureSetList;
-
-	/* the list of picture set contents of an active picture set */
-	private List<PictureContainer> pictureSetContentList;
-
-	/* the list of pictures of an active picture set content */
-	private List<Picture> pictureList;
-
-	/* the list of all reports */
-	private List<AbstractReportModel> reportList;
-
-	/* the exif parameters */
-	private Object[][] exifParameter;
-
-	private static ProjectModel lastModel = null;
-
-	/**
-	 * Default-Konstruktor, der nicht außerhalb dieser Klasse aufgerufen werden kann
-	 */
-	private ProjectModel(final ProjectEntry projectEntry) {
-		super(projectEntry);
+    /**
+     * Returns a new instance of ProjectModel, if the project which is committed to the method is != the former project
+     * which was managed by the ProjectModel. If the to projects are equals, the no new instance will be returned.
+     * 
+     * @param projectEntry
+     *            the project which the ProjectModel have to manage.
+     * @param pictureSets
+     *            an amount of picture sets for the committed project which have to be managed by the ProjectModel.
+     * @param reports
+     *            an amount of reports for the committed project which have to be managed by the ProjectModel.
+     * 
+     * @return an instance of ProjectModel which manages the project.
+     */
+    public static ProjectModel getInstance(final ProjectEntry projectEntry, final List<PictureSet> pictureSets,
+	    final List<AbstractReportModel> reports) {
+	if ((ProjectModel.lastModel == null)
+		|| ((ProjectModel.lastModel != null) && (ProjectModel.lastModel.getId() != projectEntry.getId()))) {
+	    ProjectModel.lastModel = new ProjectModel(projectEntry, pictureSets, reports);
 	}
+	return ProjectModel.lastModel;
 
-	private ProjectModel(final ProjectEntry projectEntry, final List<PictureSet> pictureSetList,
-			final List<PictureContainer> pictureSetContentList, final List<Picture> pictureList,
-			final List<AbstractReportModel> reportList) {
-		super(projectEntry);
-		this.pictureSetList = pictureSetList;
-		this.reportList = reportList;
-		this.pictureList = pictureList;
-		this.pictureSetContentList = pictureSetContentList;
-		this.exifParameter = new Picture().getAllExifParameter();
-	}
+    }
 
-	public static ProjectModel getInstance(final ProjectEntry projectEntry) {
-		if (lastModel == null || (lastModel != null && lastModel.getId() != projectEntry.getId())) {
-			lastModel = new ProjectModel(projectEntry);
-		}
-		return lastModel;
-	}
+    private List<PictureSet> pictureSetList;
+    private List<AbstractReportModel> reportList;
 
-	public static ProjectModel getInstance(final ProjectEntry projectEntry, final List<PictureSet> pictureSetList,
-			final List<PictureContainer> pictureSetContentList, final List<Picture> allPicturesOfSetList,
-			final List<AbstractReportModel> reportList) {
-		if (lastModel == null || (lastModel != null && lastModel.getId() != projectEntry.getId())) {
-			lastModel = new ProjectModel(projectEntry, pictureSetList, pictureSetContentList, allPicturesOfSetList,
-					reportList);
-		} 
-			return lastModel;
-		
-	}
+    private Object[][] exifParameter;
 
-	public int generateFreePictureSetID() {
-		return 0;
-	}
+    private static ProjectModel lastModel = null;
 
-	public int generateFreeReportID() {
-		return 0;
-	}
+    /*
+     * This Constructor is private, because this class implements the singleton pattern.
+     * 
+     * @param projectEntry
+     * the project which the ProjectModel have to manage.
+     * 
+     * @param pictureSets
+     * an amount of picture sets for the committed project which have to be managed by the ProjectModel.
+     * 
+     * @param reports
+     * an amount of reports for the committed project which have to be managed by the ProjectModel.
+     */
+    private ProjectModel(final ProjectEntry projectEntry, final List<PictureSet> pictureSets,
+	    final List<AbstractReportModel> reports) {
+	super(projectEntry);
+	this.pictureSetList = pictureSets;
+	this.reportList = reports;
+	this.exifParameter = new Picture().getAllExifParameter();
+    }
 
-	/**
-	 * This method destroys the model!
-	 */
-	public void destroy() {
-		ProjectModel.lastModel = null;
-	}
-	
-	public List<Picture> pictureList() {
-		return this.pictureList;
-	}
+    /**
+     * Add a picture set to the current project.
+     * 
+     * @param pictureSet
+     *            the picture set to add.
+     * 
+     * @return true if the picture set was added, false if not.
+     */
+    public boolean addPictureSet(final PictureSet pictureSet) {
+	assert (pictureSet != null) && (pictureSet instanceof PictureSet);
+	return this.pictureSetList.add(pictureSet);
+    }
 
-	public Object[][] getExifParameter() {
-		return this.exifParameter;
-	}
-	
-	public void setExifParameter(Picture picture) {
-		//this.exifParameter = picture.getExifparameter() ;
-	}
+    /**
+     * Remove a picture set of the current project.
+     * 
+     * @param pictureSet
+     *            the picture set to remove.
+     * 
+     * @return true if the picture set was removed, false if not.
+     */
+    public boolean removePictureSet(final PictureSet pictureSet) {
+	assert (pictureSet != null) && (pictureSet instanceof PictureSet);
+	return this.pictureSetList.remove(pictureSet);
+    }
 
-	public List<PictureContainer> getPictureSetContentList() {
-		return this.pictureSetContentList;
-	}
+    /**
+     * Add a picture set content of a picture set.
+     * 
+     * @param pictureSet
+     *            the picture set where the content must be added.
+     * @param pictureContainer
+     *            the content which must be added.
+     * 
+     * @return true if the picture set content was added, false if not.
+     */
+    public boolean addContentToPictureSet(final PictureSet pictureSet, final PictureContainer pictureContainer) {
+	// assert (pictureSet != null) && (pictureSet instanceof PictureSet);
+	// return this.pictureSetList.add(pictureSet);
+	return true;
+    }
 
-	public List<PictureSet> getPictureSetList() {
-		return this.pictureSetList;
-	}
+    /**
+     * Remove a picture set content of a picture set.
+     * 
+     * @param pictureSet
+     *            the picture set where the content must be removed.
+     * @param pictureContainer
+     *            the content which must be removed.
+     * 
+     * @return true if the picture set content was removed, false if not.
+     */
+    public boolean removeContentFromPictureSet(final PictureSet pictureSet, final PictureContainer pictureContainer) {
+	// assert (pictureSet != null) && (pictureSet instanceof PictureSet);
+	// return this.pictureSetList.remove(pictureSet);
+	return true;
+    }
 
-	@Override
-	public String getProjectDescription() {
-		return this.projectDescription;
-	}
+    /**
+     * Add a report to the current project.
+     * 
+     * @param report
+     *            the report to add.
+     * 
+     * @return true if the report was added, false if not.
+     */
+    public boolean addReport(final AbstractReportModel report) {
+	assert (report != null) && (report instanceof AbstractReportModel);
+	return this.reportList.add(report);
+    }
 
-	@Override
-	public void setProjectDescription(final String projectDescription) {
-		this.projectDescription = projectDescription;
-	}
+    /**
+     * Remove a report of the current project.
+     * 
+     * @param report
+     *            the picture set to remove.
+     * 
+     * @return true if the report was removed, false if not.
+     */
+    public boolean removeReport(final AbstractReportModel report) {
+	assert (report != null) && (report instanceof AbstractReportModel);
+	return this.reportList.remove(report);
+    }
 
-	public List<AbstractReportModel> getReportList() {
-		return this.reportList;
-	}
+    /**
+     * This method destroys the model.
+     */
+    public void destroy() {
+	ProjectModel.lastModel = null;
+    }
 
-	public void setPictureList(final List<Picture> pictureList) {
-		this.pictureList = pictureList;
-	}
+    private int generateFreePictureSetId() {
+	return 0;
+    }
 
-	public void setExifParameter(final Object[][] exifParameter) {
-		this.exifParameter = exifParameter;
-	}
+    private int generateFreeReportId() {
+	return 0;
+    }
 
-	public void setPictureSetContentList(final List<PictureContainer> pictureSetContentList) {
-		this.pictureSetContentList = pictureSetContentList;
-	}
+    /**
+     * Get the exif parameters which knipsX can handle with.
+     * 
+     * @return the parameters.
+     */
+    public Object[][] getExifParameter() {
+	return this.exifParameter;
+    }
 
-	public void setPictureSetsList(final List<PictureSet> pictureSetList) {
-		this.pictureSetList = pictureSetList;
-	}
+    /**
+     * Get all picture sets which the model handle with.
+     * 
+     * @return an amount of picture sets.
+     */
+    public Object[] getPictureSets() {
+	return this.pictureSetList.toArray();
+    }
 
-	public void setReportsList(final List<AbstractReportModel> reportList) {
-		this.reportList = reportList;
-	}
+    /**
+     * Get all picture sets which a picture set handle with.
+     * 
+     * @param pictureSet
+     *            the picture set which we use as root.
+     * 
+     * @return an amount of picture sets.
+     */
+    public PictureSet[] getPictureSetsOfAPictureSet(final PictureSet pictureSet) {
+	// return (PictureSet[]) this.pictureSetList.toArray();
+	return new PictureSet[0];
+    }
 
-	public boolean addPictureSet(PictureSet pictureSet) {
-		assert pictureSet != null && pictureSet instanceof PictureSet;
-		return this.pictureSetList.add(pictureSet);
-	}
+    /**
+     * Get all directories which a picture set handle with.
+     * 
+     * @param pictureSet
+     *            the picture set which we use as root.
+     * 
+     * @return an amount of picture sets.
+     */
+    public Directory[] getDirectoriesOfAPictureSet(final PictureSet pictureSet) {
+	// return (PictureSet[]) this.pictureSetList.toArray();
+	return new Directory[0];
+    }
 
-	public void removePictureSet(int index) {
-		assert index > 0 && this.pictureSetList.size() > index;
-		this.pictureSetList.remove(index);
-	}
+    /**
+     * Get all pictures which a picture set handle with.
+     * 
+     * @param pictureSet
+     *            the picture set which we use as root.
+     * 
+     * @return an amount of pictures.
+     */
+    public Picture[] getPicturesOfAPictureSet(final PictureSet pictureSet) {
+	// return (PictureSet[]) this.pictureSetList.toArray();
+	return new Picture[0];
+    }
+
+    /**
+     * Get all pictures which a directory handle with.
+     * 
+     * @param directory
+     *            the directory which we use as root.
+     * 
+     * @return an amount of pictures.
+     */
+    public Picture[] getPicturesOfADirectory(final Directory directory) {
+	// return (PictureSet[]) this.pictureSetList.toArray();
+	return new Picture[0];
+    }
+
+    /**
+     * Get all pictures which the model handle with.
+     * 
+     * @return an amount of pictures.
+     */
+    public Picture[] getAllPictures() {
+	// return (PictureSet[]) this.pictureSetList.toArray();
+	return new Picture[0];
+    }
+
+    /**
+     * Get all reports which the model handle with.
+     * 
+     * @return an amount of picture sets.
+     */
+    public Object[] getReports() {
+	return this.reportList.toArray();
+    }
 }
