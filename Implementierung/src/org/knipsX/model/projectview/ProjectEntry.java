@@ -69,16 +69,6 @@ public class ProjectEntry extends AbstractModel {
     }
 
     /**
-     * Set the id of the project.
-     * 
-     * @param the
-     *            id of the project.
-     */
-    public void setId(int id) {
-	this.id = id;
-    }
-
-    /**
      * Get the name of the project.
      * 
      * @return the name of the project.
@@ -124,30 +114,12 @@ public class ProjectEntry extends AbstractModel {
     }
 
     /**
-     * Set the creation date of the project.
-     * 
-     * @return the creation date of the project.
-     */
-    public void setCreationDate(GregorianCalendar creationDate) {
-	this.creationDate = creationDate;
-    }
-
-    /**
      * Get the path to the project configuration file.
      * 
      * @return the path to the project configuration file.
      */
     public String getPath() {
 	return path;
-    }
-
-    /**
-     * Set the path to the project configuration file.
-     * 
-     * @return the path to the project configuration file.
-     */
-    public void setPath(String path) {
-	this.path = path;
     }
 
     /**

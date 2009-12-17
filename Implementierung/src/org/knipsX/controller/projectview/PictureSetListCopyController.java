@@ -10,7 +10,7 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
 
 /**
- * Represents the Actions which are done by clicking on copy pictureset.
+ * Represents the actions which are done by clicking on copy picture set.
  * 
  * Acts in harmony with a JProjectView.
  */
@@ -22,13 +22,14 @@ public class PictureSetListCopyController<M extends ProjectModel, V extends JPro
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	final int[] toCopy = this.view.getSelectedIndicesFromPictureSetList();
+	
+	final int[] toCopy = this.view.getSelectedIndicesFromPictureList();
 
 	/* only one project can copied at once */
 	if (toCopy.length == 1) {
 
 	    /* get the selected project */
-	    final PictureSet pictureSetToCopy = this.model.getPictureSetList().get(toCopy[0]);
+	    final PictureSet pictureSetToCopy = (PictureSet) this.model.getPictureSets()[toCopy[0]];
 
 	    final int decision = JOptionPane.showConfirmDialog(null, "Soll das ausgewählte Projekt \""
 		    + pictureSetToCopy.getName() + "\" kopiert werden?", "Projekt kopieren", JOptionPane.YES_NO_OPTION);

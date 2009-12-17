@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
@@ -85,7 +87,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
     /* represents the panel for the reports */
     private JPanel jPanelReport = null;
-    
+
     /* represents the panel for the report options */
     private JPanel jPanelReportOptions = null;
 
@@ -166,7 +168,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
      */
     public JProjectView(M model) {
 	super(model);
-	
+
 	/* renders the view */
 	this.initialize();
     }
@@ -213,7 +215,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	    this.jButtonPictureSetContentAdd.setText("Hinzufügen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetContentAdd.addActionListener(new PictureSetContentListAddController<M, JProjectView<M>>(this.model, this));
+	    this.jButtonPictureSetContentAdd
+		    .addActionListener(new PictureSetContentListAddController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -238,7 +241,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	    this.jButtonPictureSetContentDelete.setText("Entfernen");
 
 	    /* create an action listener (which knows the model and the selected contents) to the button */
-	    this.jButtonPictureSetContentDelete.addActionListener(new PictureSetContentListDeleteController<M, JProjectView<M>>(this.model, this));
+	    this.jButtonPictureSetContentDelete
+		    .addActionListener(new PictureSetContentListDeleteController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -263,7 +267,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	    this.jButtonPictureSetContentRefresh.setText("Aktualisieren");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetContentRefresh.addActionListener(new PictureSetContentListRefreshController<M, JProjectView<M>>(this.model, this));
+	    this.jButtonPictureSetContentRefresh
+		    .addActionListener(new PictureSetContentListRefreshController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -288,7 +293,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	    this.jButtonPictureSetCopy.setText("Kopieren");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetCopy.addActionListener(new PictureSetListCopyController<M, JProjectView<M>>(this.model, this));
+	    this.jButtonPictureSetCopy.addActionListener(new PictureSetListCopyController<M, JProjectView<M>>(
+		    this.model, this));
 	}
 
 	/* return the button */
@@ -313,7 +319,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	    this.jButtonPictureSetCreate.setText("Erstellen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonPictureSetCreate.addActionListener(new PictureSetListCreateController<M, JProjectView<M>>(this.model, this));
+	    this.jButtonPictureSetCreate.addActionListener(new PictureSetListCreateController<M, JProjectView<M>>(
+		    this.model, this));
 	}
 
 	/* return the button */
@@ -338,7 +345,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	    this.jButtonPictureSetDelete.setText("Entfernen");
 
 	    /* create an action listener (which knows the model and the selected picture sets) to the button */
-	    this.jButtonPictureSetDelete.addActionListener(new PictureSetListDeleteController<M, JProjectView<M>>(this.model, this));
+	    this.jButtonPictureSetDelete.addActionListener(new PictureSetListDeleteController<M, JProjectView<M>>(
+		    this.model, this));
 	}
 
 	/* return the button */
@@ -363,7 +371,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	    this.jButtonProjectChange.setText("Wechseln");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonProjectChange.addActionListener(new ProjectSwitchController<M, JProjectView<M>>(this.model, this));
+	    this.jButtonProjectChange.addActionListener(new ProjectSwitchController<M, JProjectView<M>>(this.model,
+		    this));
 	}
 
 	/* return the button */
@@ -413,7 +422,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	    this.jButtonReportCreate.setText("Erstellen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonReportCreate.addActionListener(new ReportCreateController<M, JProjectView<M>>(this.model, this));
+	    this.jButtonReportCreate
+		    .addActionListener(new ReportCreateController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -463,7 +473,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	    this.jButtonReportDelete.setText("Entfernen");
 
 	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonReportDelete.addActionListener(new ReportDeleteController<M, JProjectView<M>>(this.model, this));
+	    this.jButtonReportDelete
+		    .addActionListener(new ReportDeleteController<M, JProjectView<M>>(this.model, this));
 	}
 
 	/* return the button */
@@ -588,7 +599,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListPictureSet = new JList(((ProjectModel) this.model).getPictureSetList().toArray());
+	    this.jListPictureSet = new JList(this.model.getPictureSets());
 
 	    /* allow to select only one row at once */
 	    this.jListPictureSet.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -618,7 +629,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListPictureSetActive = new JList(((ProjectModel) this.model).pictureList().toArray());
+	    this.jListPictureSetActive = new JList(this.model.getAllPictures());
 
 	    /* allow to select only one row at once */
 	    this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -647,9 +658,25 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	/* create if not set */
 	if (this.jListPictureSetContent == null) {
 
+	    List<PictureContainer> list = new ArrayList<PictureContainer>();
+
+	    PictureSet pictureSet = (PictureSet) this.model.getPictureSets()[0];
+
+	    for (PictureSet element : this.model.getPictureSetsOfAPictureSet(pictureSet)) {
+		list.add(element);
+	    }
+
+	    for (Directory element : this.model.getDirectoriesOfAPictureSet(pictureSet)) {
+		list.add(element);
+	    }
+
+	    for (Picture element : this.model.getPicturesOfAPictureSet(pictureSet)) {
+		list.add(element);
+	    }
+
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListPictureSetContent = new JList(((ProjectModel) this.model).getPictureSetContentList().toArray());
+	    this.jListPictureSetContent = new JList(list.toArray());
 
 	    /* allow to select only one row at once */
 	    this.jListPictureSetContent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -679,7 +706,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
 	    /* creates a new list with options */
 	    /* TODO method for this list content */
-	    this.jListReport = new JList(((ProjectModel) this.model).getReportList().toArray());
+	    this.jListReport = new JList(this.model.getReports());
 
 	    /* allow to select only one row at once */
 	    this.jListReport.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1088,7 +1115,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
 	    /* add the list with the reports for the project */
 	    this.jPanelReport.add(this.getJListReport(), BorderLayout.NORTH);
-	    
+
 	    /* add the list with the reportoptions for the project */
 	    this.jPanelReport.add(this.getJPanelReportOptions(), BorderLayout.CENTER);
 
@@ -1132,7 +1159,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	/* return the panel */
 	return this.jPanelReportOptions;
     }
-    
+
     /**
      * This method initializes jScrollPaneExif.
      * 
@@ -1284,8 +1311,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
 	this.jEditorPaneProjectDescription.setText(model.getProjectDescription());
 
-	this.jListPictureSet.setListData(model.getPictureSetList().toArray());
-	
+	this.jListPictureSet.setListData(model.getPictureSets());
+
 	/* refresh view */
 	this.repaint();
     }
