@@ -1176,7 +1176,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	/**
 	 * This method initializes jScrollPaneProjectDescription.
 	 * 
-	 * @return javax.swing.JScrollPane the scrollpane.
+	 * @return the scrollpane.
 	 */
 	private JScrollPane getJScrollPaneProjectDescription() {
 
@@ -1197,7 +1197,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	/**
 	 * This method initializes jTableExif.
 	 * 
-	 * @return javax.swing.JTable the table.
+	 * @return the table.
 	 */
 	private JTable getJTableExif() {
 
@@ -1223,7 +1223,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	/**
 	 * This method initializes jTextFieldProjectDescription.
 	 * 
-	 * @return javax.swing.JTextField the textfield.
+	 * @return the textfield.
 	 */
 	private JTextField getJTextFieldProjectName() {
 

@@ -24,7 +24,7 @@ public class ProjectOpenController<M extends ProjectManagementModel, V extends J
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		final int[] toOpen = this.view.getSelectedIndicesFromProjectList();
+		final int[] toOpen = this.view.getSelectedProjects();
 
 		/* only one project can copied at once */
 		if (toOpen.length == 1) {
