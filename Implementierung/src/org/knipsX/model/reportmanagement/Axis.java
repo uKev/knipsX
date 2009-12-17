@@ -13,11 +13,21 @@ public class Axis{
 	private String description;
 	private ExifParameter parameter;
 	
+	/**
+	 * Constructor with all parameters for an axis.
+	 * @param description text for the axis
+	 * @param parameter the exif-parameter which will be evaluated for the axis
+	 */
 	public Axis(String description, ExifParameter parameter) {
 		super();
 		this.description = description;
 		this.parameter = parameter;
 	}
+	
+	/**
+	 * Constructor with exif parameter
+	 * @param parameter the exif-parameter which will be evaluated for the axis
+	 */
 	public Axis(ExifParameter parameter) {
 		super();
 		this.description = parameter.toString();

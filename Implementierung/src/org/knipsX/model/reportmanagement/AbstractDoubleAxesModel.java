@@ -18,6 +18,12 @@ public class AbstractDoubleAxesModel extends AbstractSingleAxisModel{
 	protected Object minZ;
 	protected Object maxZ;
 
+	/**
+	 * Constructur with all parameters.
+	 * @param pictureContainer
+	 * @param xAxis
+	 * @param zAxis
+	 */
 	public AbstractDoubleAxesModel(
 			ArrayList<PictureContainer> pictureContainer, Axis xAxis, Axis zAxis) {
 		super(pictureContainer, xAxis);
@@ -32,19 +38,23 @@ public class AbstractDoubleAxesModel extends AbstractSingleAxisModel{
 		return zAxis;
 	}
 
+	/**
+	 * Sets the zAxis .
+	 * @param a zAxis
+	 */
 	public void setzAxis(Axis zAxis) {
 		this.zAxis = zAxis;
 	}
 
 	/**
-	 * 
-	 * @return the smalles value in the z-axis.
+	 * Give the smallest value in the z-axis.
+	 * @return the smallest value in the z-axis.
 	 */
 	public Object getMinZ() {
 		return minZ;
 	}
 	/**
-	 * 
+	 * Give the biggest value in the z-axis.
 	 * @return the biggest value in the z-axis.
 	 */
 	public Object getMaxZ() {
