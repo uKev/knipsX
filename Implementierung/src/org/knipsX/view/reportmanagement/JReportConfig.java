@@ -28,7 +28,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
 
     private static final long serialVersionUID = 1L;
 
-    private AbstractReportCompilation<AbstractReportModel> reportConfig;
+    private AbstractReportCompilation<AbstractReportModel> reportCompilation ;
 
     private JTabbedPane tabbedpane;
 
@@ -40,11 +40,11 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
     @SuppressWarnings("unchecked")
     public JReportConfig(final M model, final V view) {
 	super(model);
-	this.reportConfig = (AbstractReportCompilation<AbstractReportModel>) view;
+	this.reportCompilation  = (AbstractReportCompilation<AbstractReportModel>) view;
 	
 	
 	this.tabbedpane = this.getJTabbedPane();
-	ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
+	ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
 
 	this.setTitle("Auswertung Konfigurieren");	
 	
@@ -61,7 +61,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
     private JTabbedPane getJTabbedPane() {
 		final JTabbedPane tabbedpane = new JTabbedPane();
 	
-		for (final JAbstractSinglePanel item : this.reportConfig.getregisteredPanels()) {
+		for (final JAbstractSinglePanel item : this.reportCompilation.getregisteredPanels()) {
 		    tabbedpane.addTab(item.getTitle(), item.getIcon(), item, item.getTip());
 		}
 	
@@ -87,7 +87,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
 		final JButton close = new JButton("Schließen");
 		final JButton apply = new JButton("Übernehmen");
 		final JButton show = new JButton("Anzeigen");
-		show.addActionListener(new ReportSaveController<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>(ReportHelper.currentModel, this.reportConfig, true));
+		show.addActionListener(new ReportSaveController<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>(ReportHelper.currentModel, this.reportCompilation, true));
 	
 		bottom.add(close);
 		bottom.add(apply);
@@ -106,9 +106,9 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
 		this.mysize[0] = this.mainpanel.getBounds().width;
 	
 		this.remove(this.basic);
-		this.reportConfig = (AbstractReportCompilation<AbstractReportModel>) reportconfig;
+		this.reportCompilation = (AbstractReportCompilation<AbstractReportModel>) reportconfig;
 		this.tabbedpane = this.getJTabbedPane();
-		ReportHelper.myconfig = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
+		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
 		this.initialize();
 		this.pack();
 
