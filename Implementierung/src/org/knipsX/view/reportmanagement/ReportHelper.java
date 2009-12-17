@@ -127,6 +127,26 @@ public enum ReportHelper {
 		currentReport = myreport;
 		currentReportUtil.setReportType(currentReport.createReportCompilation());
 	}
+	
+	/**
+	 * Adds the currently active model in the ReportHelper class into the ProjectModel
+	 */
+	public static void addCurrentModelToReportList() {
+		assert currentModel != null;
+		// TODO
+		currentProjectModel.setReportsList(currentProjectModel.getReportList());
+		
+	}
+	
+	
+	/**
+	 * This function resets all settings so that a new report can be generated properly. 
+	 * Basically in initializes all of the variables with their respective default
+	 * values
+	 */
+	public static void cleanUp() {
+		
+	}
 
 	
 }

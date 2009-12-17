@@ -41,7 +41,7 @@ public abstract class AbstractReportCompilation<M extends AbstractReportModel> {
      * 
      * @return registered panels
      */
-    public ArrayList<JAbstractSinglePanel> getregisteredPanels() {
+    public ArrayList<JAbstractSinglePanel> getRegisteredPanels() {
 	return this.registeredPanels;
     }
 

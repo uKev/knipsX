@@ -38,7 +38,7 @@ public class ReportSaveController<M extends AbstractReportModel, V extends Abstr
 	if (ReportHelper.currentModel == null) {
 	    ReportHelper.currentModel = ReportHelper.currentReport.createReportModel();
 	}
-	for (JAbstractSinglePanel singlepanel : this.view.getregisteredPanels()) {
+	for (JAbstractSinglePanel singlepanel : this.view.getRegisteredPanels()) {
 
 	    if (singlepanel instanceof JDiagramType) {
 		System.out.println("DiagramTyp");
