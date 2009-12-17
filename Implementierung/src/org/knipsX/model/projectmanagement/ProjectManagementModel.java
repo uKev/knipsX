@@ -1,6 +1,5 @@
 package org.knipsX.model.projectmanagement;
 
-import java.util.GregorianCalendar;
 import java.util.List;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectEntry;
@@ -10,17 +9,19 @@ import org.knipsX.utils.FileHandler;
  * Manages all the projects the user has.
  */
 public class ProjectManagementModel extends AbstractModel {
-	
-    	public static final int ACTIVE = 1;
-    	public static final int INACTIVE = 0;
-    	    	
-    	private int state = ACTIVE;
-    
+
+	public static final int ACTIVE = 1;
+	public static final int INACTIVE = 0;
+
+	private int state = ACTIVE;
+
 	private List<ProjectEntry> projectList;
 
 	/**
-	 * Creates
+	 * Creates a project management model based on projects.
+	 * 
 	 * @param linkedList
+	 *            the projects.
 	 */
 	public ProjectManagementModel(List<ProjectEntry> linkedList) {
 		this.projectList = linkedList;
@@ -36,39 +37,57 @@ public class ProjectManagementModel extends AbstractModel {
 	}
 
 	public void setState(int state) {
-	    this.state = state;
+		this.state = state;
 	}
-	
+
 	public int getState() {
-	    return this.state;
+		return this.state;
 	}
-	
+
 	/**
-	 * Erstelle komplett neues Projekt.
+	 * Add a new project to the model.
 	 * 
-	 * @param projectName Der Projektname.
+	 * @param projectName
+	 *            the name of the project.
 	 */
-	public void addNewProject(String projectName) {		
-		
+	public void addNewProject(String projectName) {
+
 		/* Füge hinzu */
 		ProjectEntry newProject = new ProjectEntry(projectName);
-		this.projectList.add(0,newProject); 
+		this.projectList.add(0, newProject);
 		FileHandler.createNewProjectFile(newProject);
 		/* TODO Hier fehlen die Routinen zum Schreiben! */
 	}
-	
+
 	/**
-	 * Erstelle neues Projekt, basierend auf einem alten Projekt. 
+	 * Remove a project from the model.
 	 * 
-	 * @param projectEntry Das alte Projekt.
-	 * @param projectName Der Projektname.
+	 * @param project
+	 *            the project.
+	 */
+	public void removeProject(ProjectEntry project) {
+		//
+		// /* Füge hinzu */
+		// ProjectEntry newProject = new ProjectEntry(projectName);
+		// this.projectList.add(0, newProject);
+		// FileHandler.createNewProjectFile(newProject);
+		// /* TODO Hier fehlen die Routinen zum Schreiben! */
+	}
+
+	/**
+	 * Create a new model based on an old model.
+	 * 
+	 * @param toCopy
+	 *            the old model.
+	 * @param projectName
+	 *            the name of the new project.
 	 */
 	public void copyProject(ProjectEntry toCopy, String projectName) {
-		
+
 		/* Füge hinzu */
-		this.projectList.add(0, FileHandler.copyProject(toCopy, projectName)); 
+		this.projectList.add(0, FileHandler.copyProject(toCopy, projectName));
 	}
-	
+
 	private int generateFreeProjectID() {
 		return 0;
 	}
@@ -76,13 +95,4 @@ public class ProjectManagementModel extends AbstractModel {
 	private String generatePathforID(int id) {
 		return "path";
 	}
-	
-	public void removeFromList(int position) {
-		projectList.remove(position);
-	}
-	
-	public void addToList(ProjectEntry projectEntry) {
-		projectList.add(0, projectEntry);		
-	}
-	
 }

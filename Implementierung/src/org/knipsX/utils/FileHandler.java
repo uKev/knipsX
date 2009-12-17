@@ -38,7 +38,7 @@ public class FileHandler {
 	 * @param newProject
 	 *            the new project to be saved.
 	 */
-	public static void createNewProjectFile(ProjectEntry newProject) {
+	public static void createNewProjectFile(final ProjectEntry newProject) {
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class FileHandler {
 	 * @param newProject
 	 *            the project to be deleted.
 	 */
-	public static void deleteProjectFile(ProjectEntry newProject) {
+	public static void deleteProjectFile(final ProjectEntry newProject) {
 	}
 
 	/**
@@ -55,8 +55,6 @@ public class FileHandler {
 	 * a ProjectEntry.
 	 * 
 	 * @return a list of ProjectEntry objects.
-	 * 
-	 * @see #org
 	 */
 	public static List<ProjectEntry> scanProjectDirectory() {
 
@@ -140,8 +138,9 @@ public class FileHandler {
 	 * Writes the project to a project configuration file.
 	 * 
 	 * @param project
+	 *            the project to save.
 	 */
-	public static void writeProjectToFile(ProjectModel project) {
+	public static void writeProjectToFile(final ProjectModel project) {
 	}
 
 	private static void manipulateFileNameAndID(ProjectEntry toManipulate) {
