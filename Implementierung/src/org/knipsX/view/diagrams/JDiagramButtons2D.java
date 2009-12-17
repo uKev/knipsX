@@ -2,12 +2,12 @@ package org.knipsX.view.diagrams;
 
 import java.awt.Dimension;
 
-import javax.swing.JComponent;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
  * This class represents the buttons which are available in ever 2D diagram.
+ * 
  * @author David Kaufman
  *
  */

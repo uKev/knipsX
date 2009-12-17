@@ -1,7 +1,6 @@
 package org.knipsX.view.diagrams;
 
 import javax.media.j3d.Shape3D;
-import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.reportmanagement.Frequency3DPoint;
 
 import com.sun.j3d.utils.geometry.Primitive;
@@ -9,7 +8,7 @@ import com.sun.j3d.utils.geometry.Sphere;
 
 /**
  * This class represents a selectable point in a 3D diagram. Additionally
- * it stores a reference to a picture object which can be used for evaluation
+ * it stores a reference to a Frequency3DPoint object which can be used for evaluation
  * purposes.
  * 
  * @author David Kaufman
