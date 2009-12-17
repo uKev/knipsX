@@ -6,15 +6,22 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectEntry;
 import org.knipsX.utils.FileHandler;
 
+/**
+ * Manages all the projects the user has.
+ */
 public class ProjectManagementModel extends AbstractModel {
 	
     	public static final int ACTIVE = 1;
-    	public static final int DEACTIVE = 0;
+    	public static final int INACTIVE = 0;
     	    	
     	private int state = ACTIVE;
     
 	private List<ProjectEntry> projectList;
 
+	/**
+	 * Creates
+	 * @param linkedList
+	 */
 	public ProjectManagementModel(List<ProjectEntry> linkedList) {
 		this.projectList = linkedList;
 		this.updateViews();
@@ -41,16 +48,10 @@ public class ProjectManagementModel extends AbstractModel {
 	 * 
 	 * @param projectName Der Projektname.
 	 */
-	public void addNewProject(String projectName) {
-		
-		/* Generiere neue ID */
-		int id = this.generateFreeProjectID();
-		
-		/* Generiere neuen Pfad  */
-		String path = this.generatePathforID(id);			
+	public void addNewProject(String projectName) {		
 		
 		/* Füge hinzu */
-		ProjectEntry newProject = new ProjectEntry(id, projectName, "", new GregorianCalendar(), path);
+		ProjectEntry newProject = new ProjectEntry(projectName);
 		this.projectList.add(0,newProject); 
 		FileHandler.createNewProjectFile(newProject);
 		/* TODO Hier fehlen die Routinen zum Schreiben! */
@@ -64,17 +65,8 @@ public class ProjectManagementModel extends AbstractModel {
 	 */
 	public void copyProject(ProjectEntry toCopy, String projectName) {
 		
-		/* Generiere neue ID */
-		int id = this.generateFreeProjectID();
-		
-		/* Generiere neuen Pfad  */
-		String path = this.generatePathforID(id);
-		
 		/* Füge hinzu */
-		ProjectEntry theCopy = new ProjectEntry(id, projectName, "", new GregorianCalendar(), path);
-		this.projectList.add(0,theCopy); 
-		FileHandler.copyProject(toCopy, theCopy);
-		/* TODO Hier fehlen die Routinen zum Kopieren! */
+		this.projectList.add(0, FileHandler.copyProject(toCopy, projectName)); 
 	}
 	
 	private int generateFreeProjectID() {

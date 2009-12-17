@@ -31,7 +31,7 @@ public class ProjectOpenController<M extends ProjectManagementModel, V extends J
 
 			ProjectModel projectModel = FileHandler.scanProjectFile(this.model
 					.getProjectList().get(toOpen[0]).getId());
-			model.setState(ProjectManagementModel.DEACTIVE);
+			model.setState(ProjectManagementModel.INACTIVE);
 			model.updateViews();
 
 			new JProjectView<ProjectModel>(projectModel);

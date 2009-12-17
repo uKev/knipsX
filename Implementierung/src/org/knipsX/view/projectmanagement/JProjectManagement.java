@@ -24,240 +24,250 @@ import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.model.projectview.ProjectEntry;
 import org.knipsX.view.JAbstractView;
 
+/**
+ * Represents the management for all user projects.
+ * 
+ * Sets all GUI Elements which are described in our Pflichtenheft.
+ */
 public class JProjectManagement<M extends ProjectManagementModel> extends JAbstractView<M> {
 
-    /** Only for serialisation */
-    private static final long serialVersionUID = 2746903025575471227L;
+	private static final long serialVersionUID = 2746903025575471227L;
 
-    private JPanel jContentPane = null;
+	private JPanel jContentPane = null;
 
-    private JButton jButtonCopyProject = null;
-    private JButton jButtonCreateProject = null;
-    private JButton jButtonDeleteProject = null;
-    private JButton jButtonOpenProject = null;
+	private JButton jButtonCopyProject = null;
+	private JButton jButtonCreateProject = null;
+	private JButton jButtonDeleteProject = null;
+	private JButton jButtonOpenProject = null;
 
-    private JList jListProject = null;
+	private JList jListProject = null;
 
-    private JScrollPane jScrollPaneProjectList = null;
+	private JScrollPane jScrollPaneProjectList = null;
 
-    public JProjectManagement(M model) {
-	super(model);
+	/**
+	 * Create a new view which is connected to a appropriate model.
+	 * 
+	 * @param model
+	 *            the model which will be connected.
+	 */
+	public JProjectManagement(M model) {
+		super(model);
 
-	/* renders the view */
-	this.initialize();
-    }
-
-    private void initialize() {
-
-	/* Setze Titel */
-	this.setTitle("Projektübersicht");
-
-	/* show main panel */
-	this.setContentPane(this.getJContentPane());
-
-	/* set standard close action */
-	/* TODO We have to edit the close action! */
-	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-	/* change size to preferred size */
-	this.pack();
-
-	/* set location to the center of the screen */
-	this.setLocationRelativeTo(null);
-
-	/* show view */
-	this.setVisible(true);
-    }
-
-    /**
-     * This method initializes jContentPane
-     * 
-     * @return javax.swing.JPanel
-     */
-    private JPanel getJContentPane() {
-
-	/* create if not set */
-	if (this.jContentPane == null) {
-
-	    /* create a new panel */
-	    this.jContentPane = new JPanel();
-
-	    /* add the button for project creation */
-	    this.jContentPane.add(this.getJButtonCreateProject());
-
-	    /* add the button for project opening */
-	    this.jContentPane.add(this.getJButtonOpenProject());
-
-	    /* add the button for project deletion */
-	    this.jContentPane.add(this.getJButtonDeleteProject());
-
-	    /* add the button for project copying */
-	    this.jContentPane.add(this.getJButtonCopyProject());
-
-	    /* add the scrollbars for the list */
-	    this.jContentPane.add(this.getJScrollPaneProjectList());
+		/* renders the view */
+		this.initialize();
 	}
 
-	/* return the panel */
-	return this.jContentPane;
-    }
+	private void initialize() {
 
-    /**
-     * This method initializes jButtonCopyProject
-     * 
-     * @return javax.swing.JButton
-     */
-    private JButton getJButtonCopyProject() {
+		/* Setze Titel */
+		this.setTitle("Projektübersicht");
 
-	/* create if not set */
-	if (this.jButtonCopyProject == null) {
+		/* show main panel */
+		this.setContentPane(this.getJContentPane());
 
-	    /* create new button */
-	    this.jButtonCopyProject = new JButton("Projekt kopieren");
+		/* set standard close action */
+		/* TODO We have to edit the close action! */
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	    /* create an action listener (which knows the model and the view) to the button */
-	    this.jButtonCopyProject.addActionListener(new ProjectCopyController<M, JProjectManagement<M>>(this.model,
-		    this));
+		/* change size to preferred size */
+		this.pack();
+
+		/* set location to the center of the screen */
+		this.setLocationRelativeTo(null);
+
+		/* show view */
+		this.setVisible(true);
 	}
 
-	/* return the button */
-	return this.jButtonCopyProject;
-    }
+	/**
+	 * This method initializes jContentPane.
+	 * 
+	 * @return the panel.
+	 */
+	private JPanel getJContentPane() {
 
-    /**
-     * This method initializes jButtonCreateProject
-     * 
-     * @return javax.swing.JButton
-     */
-    private JButton getJButtonCreateProject() {
+		/* create if not set */
+		if (this.jContentPane == null) {
 
-	/* create if not set */
-	if (this.jButtonCreateProject == null) {
+			/* create a new panel */
+			this.jContentPane = new JPanel();
 
-	    /* create new button */
-	    this.jButtonCreateProject = new JButton("Projekt erstellen");
+			/* add the button for project creation */
+			this.jContentPane.add(this.getJButtonCreateProject());
 
-	    /* create an action listener (which knows the model) to the button */
-	    this.jButtonCreateProject.addActionListener(new ProjectCreateController<M, JProjectManagement<M>>(
-		    this.model, this));
+			/* add the button for project opening */
+			this.jContentPane.add(this.getJButtonOpenProject());
+
+			/* add the button for project deletion */
+			this.jContentPane.add(this.getJButtonDeleteProject());
+
+			/* add the button for project copying */
+			this.jContentPane.add(this.getJButtonCopyProject());
+
+			/* add the scrollbars for the list */
+			this.jContentPane.add(this.getJScrollPaneProjectList());
+		}
+
+		/* return the panel */
+		return this.jContentPane;
 	}
 
-	/* return the button */
-	return this.jButtonCreateProject;
-    }
+	/**
+	 * This method initializes jButtonCopyProject.
+	 * 
+	 * @return the button.
+	 */
+	private JButton getJButtonCopyProject() {
 
-    /**
-     * This method initializes jButtonDeleteProject
-     * 
-     * @return javax.swing.JButton
-     */
-    private JButton getJButtonDeleteProject() {
+		/* create if not set */
+		if (this.jButtonCopyProject == null) {
 
-	/* create if not set */
-	if (this.jButtonDeleteProject == null) {
+			/* create new button */
+			this.jButtonCopyProject = new JButton("Projekt kopieren");
 
-	    /* create new button */
-	    this.jButtonDeleteProject = new JButton("Projekt löschen");
+			/* create an action listener (which knows the model and the view) to the button */
+			this.jButtonCopyProject.addActionListener(new ProjectCopyController<M, JProjectManagement<M>>(this.model,
+					this));
+		}
 
-	    /* create an action listener (which knows the model and the view) to the button */
-	    this.jButtonDeleteProject.addActionListener(new ProjectDeleteController<M, JProjectManagement<M>>(
-		    this.model, this));
+		/* return the button */
+		return this.jButtonCopyProject;
 	}
 
-	/* return the button */
-	return this.jButtonDeleteProject;
-    }
+	/**
+	 * This method initializes jButtonCreateProject.
+	 * 
+	 * @return the button.
+	 */
+	private JButton getJButtonCreateProject() {
 
-    /**
-     * This method initializes jButtonOpenProject
-     * 
-     * @return javax.swing.JButton
-     */
-    private JButton getJButtonOpenProject() {
+		/* create if not set */
+		if (this.jButtonCreateProject == null) {
 
-	/* create if not set */
-	if (this.jButtonOpenProject == null) {
+			/* create new button */
+			this.jButtonCreateProject = new JButton("Projekt erstellen");
 
-	    /* create new button */
-	    this.jButtonOpenProject = new JButton("Projekt öffnen");
+			/* create an action listener (which knows the model) to the button */
+			this.jButtonCreateProject.addActionListener(new ProjectCreateController<M, JProjectManagement<M>>(
+					this.model, this));
+		}
 
-	    /* create an action listener (which knows the model an the view) to the button */
-	    this.jButtonOpenProject.addActionListener(new ProjectOpenController<M, JProjectManagement<M>>(this.model,
-		    this));
+		/* return the button */
+		return this.jButtonCreateProject;
 	}
 
-	/* return the button */
-	return this.jButtonOpenProject;
-    }
+	/**
+	 * This method initializes jButtonDeleteProject.
+	 * 
+	 * @return the button.
+	 */
+	private JButton getJButtonDeleteProject() {
 
-    /**
-     * Initialisiert jListProject
-     * 
-     * @return
-     */
-    private JList getJListProject() {
+		/* create if not set */
+		if (this.jButtonDeleteProject == null) {
 
-	/* create if not set */
-	if (this.jListProject == null) {
+			/* create new button */
+			this.jButtonDeleteProject = new JButton("Projekt löschen");
 
-	    /* create new list */
-	    this.jListProject = new JList(((ProjectManagementModel) this.model).getProjectList().toArray());
+			/* create an action listener (which knows the model and the view) to the button */
+			this.jButtonDeleteProject.addActionListener(new ProjectDeleteController<M, JProjectManagement<M>>(
+					this.model, this));
+		}
 
-	    /* set a custom cell renderer */
-	    this.jListProject.setCellRenderer(new MyProjectListCellRenderer());
+		/* return the button */
+		return this.jButtonDeleteProject;
 	}
 
-	/* return the list */
-	return this.jListProject;
+	/**
+	 * This method initializes jButtonOpenProject.
+	 * 
+	 * @return the button.
+	 */
+	private JButton getJButtonOpenProject() {
 
-    }
+		/* create if not set */
+		if (this.jButtonOpenProject == null) {
 
-    /**
-     * This method initializes jScrollPaneProjectList
-     * 
-     * @return javax.swing.JScrollPane
-     */
-    private JScrollPane getJScrollPaneProjectList() {
+			/* create new button */
+			this.jButtonOpenProject = new JButton("Projekt öffnen");
 
-	/* create if not set */
-	if (this.jScrollPaneProjectList == null) {
+			/* create an action listener (which knows the model an the view) to the button */
+			this.jButtonOpenProject.addActionListener(new ProjectOpenController<M, JProjectManagement<M>>(this.model,
+					this));
+		}
 
-	    /* create new scrollpane */
-	    this.jScrollPaneProjectList = new JScrollPane();
-
-	    /* add the list to the scrollpane */
-	    this.jScrollPaneProjectList.setViewportView(this.getJListProject());
+		/* return the button */
+		return this.jButtonOpenProject;
 	}
 
-	/* return the scrollpane */
-	return this.jScrollPaneProjectList;
-    }
+	/**
+	 * This method initializes jListProject.
+	 * 
+	 * @return the list.
+	 */
+	private JList getJListProject() {
 
-    /**
-     * This method checks which entries are marked in the list of projects and gives them back as indices.
-     * 
-     * @return array of indices.
-     */
-    public int[] getSelectedIndicesFromProjectList() {
-	return this.jListProject.getSelectedIndices();
-    }
+		/* create if not set */
+		if (this.jListProject == null) {
 
-    @Override
-    public void update(final Observable o, final Object arg) {
+			/* create new list */
+			this.jListProject = new JList(((ProjectManagementModel) this.model).getProjectList().toArray());
 
-	/* cast to model */
-	final ProjectManagementModel model = (ProjectManagementModel) o;
+			/* set a custom cell renderer */
+			this.jListProject.setCellRenderer(new MyProjectListCellRenderer());
+		}
 
-	/* set the data for the project list */
-	this.jListProject.setListData(model.getProjectList().toArray());
+		/* return the list */
+		return this.jListProject;
 
-	/* refresh view */
-	this.repaint();
-
-	if (this.model.getState() != ProjectManagementModel.ACTIVE) {
-	    this.dispose();
 	}
-    }
+
+	/**
+	 * This method initializes jScrollPaneProjectList.
+	 * 
+	 * @return the scrollpane.
+	 */
+	private JScrollPane getJScrollPaneProjectList() {
+
+		/* create if not set */
+		if (this.jScrollPaneProjectList == null) {
+
+			/* create new scrollpane */
+			this.jScrollPaneProjectList = new JScrollPane();
+
+			/* add the list to the scrollpane */
+			this.jScrollPaneProjectList.setViewportView(this.getJListProject());
+		}
+
+		/* return the scrollpane */
+		return this.jScrollPaneProjectList;
+	}
+
+	/**
+	 * This method checks which entries are marked in the list of projects and gives them back as indices.
+	 * 
+	 * @return array of indices.
+	 */
+	public int[] getSelectedProjects() {
+		return this.jListProject.getSelectedIndices();
+	}
+
+	@Override
+	public void update(final Observable o, final Object arg) {
+
+		/* cast to model */
+		final ProjectManagementModel model = (ProjectManagementModel) o;
+
+		/* set the data for the project list */
+		this.jListProject.setListData(model.getProjectList().toArray());
+
+		/* refresh view */
+		this.repaint();
+
+		if (this.model.getState() != ProjectManagementModel.ACTIVE) {
+			this.dispose();
+		}
+	}
 }
 
 /**
@@ -265,27 +275,43 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
  */
 class MyProjectListCellRenderer implements ListCellRenderer {
 
-    /* defines the default renderer */
-    protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+	/* defines the default renderer */
+	protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-    public Component getListCellRendererComponent(final JList list, final Object value, final int index,
-	    final boolean isSelected, final boolean cellHasFocus) {
+	/**
+	 * Renders the cell.
+	 * 
+	 * @param list
+	 *            the JList we're painting.
+	 * @param value
+	 *            the value returned by list.getModel().getElementAt(index).
+	 * @param index
+	 *            the cells index.
+	 * @param isSelected
+	 *            true if the specified cell was selected.
+	 * @param cellHasFocus
+	 *            true if the specified cell has the focus.
+	 * 
+	 * @return the representation of the cell.
+	 */
+	public Component getListCellRendererComponent(final JList list, final Object value, final int index,
+			final boolean isSelected, final boolean cellHasFocus) {
 
-	/* the text for the cell */
-	String theText = null;
+		/* the text for the cell */
+		String theText = null;
 
-	/* generate the label which represents the cell */
-	final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
-		isSelected, cellHasFocus);
+		/* generate the label which represents the cell */
+		final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
+				isSelected, cellHasFocus);
 
-	/* if the selected item is a "ProjectEntry" -> set the name */
-	if (value instanceof ProjectEntry) {
-	    final ProjectEntry projectEntry = (ProjectEntry) value;
-	    theText = projectEntry.getProjectName() + " " + projectEntry.calendarToString();
+		/* if the selected item is a "ProjectEntry" -> set the name */
+		if (value instanceof ProjectEntry) {
+			final ProjectEntry projectEntry = (ProjectEntry) value;
+			theText = projectEntry.getProjectName() + " " + projectEntry.calendarToString();
+		}
+		renderer.setText(theText);
+
+		/* return the label */
+		return renderer;
 	}
-	renderer.setText(theText);
-
-	/* return the label */
-	return renderer;
-    }
 }

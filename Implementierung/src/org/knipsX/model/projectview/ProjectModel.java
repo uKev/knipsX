@@ -12,6 +12,7 @@ import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.utils.FileHandler;
 
 /**
  * Manages all the data for an active project.
@@ -159,14 +160,6 @@ public class ProjectModel extends ProjectEntry {
 	ProjectModel.lastModel = null;
     }
 
-    private int generateFreePictureSetId() {
-	return 0;
-    }
-
-    private int generateFreeReportId() {
-	return 0;
-    }
-
     /**
      * Get the exif parameters which knipsX can handle with.
      * 
@@ -254,5 +247,9 @@ public class ProjectModel extends ProjectEntry {
      */
     public Object[] getReports() {
 	return this.reportList.toArray();
+    }
+    
+    public void saveProjectModel() {
+    	FileHandler.writeProjectToFile(this);
     }
 }
