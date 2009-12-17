@@ -23,6 +23,10 @@ public class AbstractDoubleAxesModel extends AbstractSingleAxisModel{
 		super(pictureContainer, xAxis);
 		this.zAxis = zAxis;
 	}
+	
+	public AbstractDoubleAxesModel() {
+		super();
+	}
 
 	public Axis getzAxis() {
 		return zAxis;

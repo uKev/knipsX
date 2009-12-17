@@ -27,6 +27,7 @@ public abstract class AbstractReportModel extends AbstractModel {
 	}
 
 	public AbstractReportModel() {
+		super();
 		// TODO Auto-generated constructor stub
 	}	
 	

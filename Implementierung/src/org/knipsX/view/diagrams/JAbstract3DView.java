@@ -32,6 +32,15 @@ import com.sun.j3d.utils.geometry.Cylinder;
 import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
+
+/**
+ * This class manages all java 3d interactions and offers methods than simplify the
+ * utilization of the java 3d functions significantly
+ * 
+ * @author David Kaufman
+ * 
+ * @param <M> the model which is to be drawn
+ */
 public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstractDiagram<M> {
 
     private static final long serialVersionUID = 1L;
@@ -72,7 +81,7 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
     /**
      * Specifies the number of axes used
      */
-    protected int NUMBEROFAXES = 3;
+    protected int numberOfAxes = 3;
     
     /**
      * Specifies the number of segments for one axis
@@ -182,12 +191,14 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
     }
 
     /**
-     * Creates the Axes which are automatically placed into the root BranchGroup
+     * Creates the axes which are automatically placed into the root BranchGroup.
+     * To change the number of axis you must change the numberOfAxes variable 
+     * before calling this function.
      * 
      */
     protected void createAxis() {
 
-	for (int i = 0; i <= NUMBEROFAXES - 1; i++) {
+	for (int i = 0; i <= numberOfAxes - 1; i++) {
 
 	    // The transformation information of the axis
 	    Transform3D axistrans = new Transform3D();
@@ -267,7 +278,7 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
     }
 
     /**
-     * Creates a Grid which is automatically placed into the root BranchGroup
+     * Creates a grid which is automatically placed into the root BranchGroup
      */
     protected void createGrid() {
 	for (int q = 0; q <= 0; q++) {
@@ -350,7 +361,7 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
 	
 	
 	/**
-	 * Defines the Description of each Segment of an axis. Note that the String Arrays
+	 * Defines the description of each segment of an axis. Note that the string arrays
 	 * you pass in here have length of NUMBEROFSEGMENTS
 	 * @param xAxis the string array which represent the xAxis
 	 * @param zAxis the string array which represent the zAxis
@@ -362,7 +373,7 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
 		double size = 0.33d;
 		for(int q = 0; q<= NUMBEROFSEGMENTS - 1; q++) {
 			
-			for(int i=0; i<= this.NUMBEROFAXES - 1 ; i++) {
+			for(int i=0; i<= this.numberOfAxes - 1 ; i++) {
 			if(i==0)
 				createText(new Vector3d(-1,q,-0.75d), new Vector3d(size,size,size), basicMaterial(1,1,1), xAxis[q]);
 			if(i==1)
