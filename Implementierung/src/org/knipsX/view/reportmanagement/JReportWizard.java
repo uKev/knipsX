@@ -47,7 +47,7 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 	@SuppressWarnings("unchecked")
 	private void initialize() {
 	
-		JAbstractSinglePanel currentpanel = this.reportCompilation.getregisteredPanels().get(wizardcounter);		
+		JAbstractSinglePanel currentpanel = this.reportCompilation.getRegisteredPanels().get(wizardcounter);		
         setTitle(currentpanel.title);
         this.basic = currentpanel;
         this.basic.setLayout(new BoxLayout(basic, BoxLayout.Y_AXIS));

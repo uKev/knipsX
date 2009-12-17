@@ -28,7 +28,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private PictureSet[] pictureContainer;
-	private String [] exifFilterTags;
+	private String [] exifFilterKeywords;
 	private JList availablePictureSets;
 	private JList associatedPictureSets;
 	
@@ -103,12 +103,12 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 		return pix;
 	}
 
-	public void setExifFilterTags(String [] exifFilterTags) {
-		this.exifFilterTags = exifFilterTags;
+	public void setExifFilterKeywords(String [] exifFilterKeywords) {
+		this.exifFilterKeywords = exifFilterKeywords;
 	}
 
-	public String [] getExifFilterTags() {
-		return exifFilterTags;
+	public String [] getExifFilterKeywords() {
+		return exifFilterKeywords;
 	}
 
 
