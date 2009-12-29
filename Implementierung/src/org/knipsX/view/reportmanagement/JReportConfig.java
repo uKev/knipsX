@@ -39,21 +39,21 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
 
     @SuppressWarnings("unchecked")
     public JReportConfig(final M model, final V view) {
-	super(model);
-	this.reportCompilation  = (AbstractReportCompilation<AbstractReportModel>) view;
+		super(model);
+		this.reportCompilation  = (AbstractReportCompilation<AbstractReportModel>) view;
+		
+		
+		this.tabbedpane = this.getJTabbedPane();
+		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
 	
-	
-	this.tabbedpane = this.getJTabbedPane();
-	ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
-
-	this.setTitle("Auswertung Konfigurieren");	
-	
-	this.initialize();
-	
-	this.setSize(new Dimension(this.mysize[0], this.mysize[1]));
-	this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-	this.setLocationRelativeTo(null);
-	this.setVisible(true);
+		this.setTitle("Auswertung Konfigurieren");	
+		
+		this.initialize();
+		
+		this.setSize(new Dimension(this.mysize[0], this.mysize[1]));
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
 	
 	
     }

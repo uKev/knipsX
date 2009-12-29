@@ -31,21 +31,21 @@ public enum ReportHelper {
 			
 	Histogram2D {
 			public AbstractReportCompilation<Histogram2DModel> createReportCompilation() {return new Histogram2DConfig<Histogram2DModel>(null);}
-			public AbstractReportModel createReportModel() {return new Histogram2DModel(null, null);}	
+			public AbstractReportModel createReportModel() {return new Histogram2DModel();}	
 			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
 			public int getNumberOfAxes() {return 1;}
 			},
 			
 	Histogram3D { 
 			public AbstractReportCompilation<Histogram3DModel> createReportCompilation() {return new Histogram3DConfig<Histogram3DModel>(null);}
-			public AbstractReportModel createReportModel() {return new Histogram3DModel(null, null, null);}
+			public AbstractReportModel createReportModel() {return new Histogram3DModel();}
 			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
 			public int getNumberOfAxes() {return 2;}
 				
 			},
 	Cluster3D {
 			public AbstractReportCompilation<Cluster3DModel> createReportCompilation() {return new Cluster3DConfig<Cluster3DModel>(null);} 
-			public AbstractReportModel createReportModel() {return new Cluster3DModel(null, null, null, null);}	
+			public AbstractReportModel createReportModel() {return new Cluster3DModel();}	
 			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
 			public int getNumberOfAxes() {return 3;}
 				
@@ -88,7 +88,7 @@ public enum ReportHelper {
 	/**
 	 * The current report of the current report configuration run
 	 */
-	// public because controller needs acces
+	// public because controller needs access
 	public static ReportHelper currentReport;
 	
 	
@@ -106,7 +106,7 @@ public enum ReportHelper {
 	 * The current model of the current report configuration run
 	 * 
 	 */
-	// public because controller needs acces
+	// public because controller needs access
 	public static AbstractReportModel currentModel;
 
 	
@@ -114,7 +114,7 @@ public enum ReportHelper {
 	 * The current reference of the ProjectModel. This makes it fairly easy
 	 * to add new reports to the project model. 
 	 */
-	// public because controller needs acces
+	// public because controller needs access
 	public static ProjectModel currentProjectModel;
 	
 	
