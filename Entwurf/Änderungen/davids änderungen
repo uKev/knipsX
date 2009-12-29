@@ -1,0 +1,12 @@
+Änderungen: 
+
+MVC Report Management
+	TableConfig hinzugefügt
+	currentReport und defaultReport Referenzen nach JAbstractReportUtil verschoben
+	Multiplizitäten zwischen AbstractReportComililation und JAbstractSinglePanel korrigiert
+
+Sequence diagram Wizard Report Create
+	Synchronität wiederhergestellt (Einige Rückpfeile am Ende eines Methodenaufrufs haben gefehlt)
+
+
+
