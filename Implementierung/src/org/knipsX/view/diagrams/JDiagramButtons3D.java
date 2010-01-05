@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import org.knipsX.controller.diagrams.DiagramExportAsBufferedImageController;
+
 /**
  * This class represents the buttons which are available in ever 3D diagram.
  * 
@@ -13,13 +15,15 @@ import javax.swing.JPanel;
 public class JDiagramButtons3D extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-
-	public JDiagramButtons3D() {
-		JButton mybutton = new JButton("test");
-		mybutton.setPreferredSize(new Dimension(100,25));
+	private JAbstractDiagram<?> view;
+	
+	public JDiagramButtons3D(JAbstractDiagram<?> view) {
+		this.view = view;
 		
-		JButton mybutton1 = new JButton("test");
-		mybutton1.setPreferredSize(new Dimension(100,25));
+		JButton mybutton = new JButton("test");
+		
+		JButton mybutton1 = new JButton("Export Image");
+		mybutton1.addActionListener(new DiagramExportAsBufferedImageController(view));
 		
 		add(mybutton);
 		add(mybutton1);

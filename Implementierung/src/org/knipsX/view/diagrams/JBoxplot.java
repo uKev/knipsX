@@ -31,10 +31,16 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
 
     @Override
     public void generateContent() {
-	addLights();
+
 		createText(new Vector3d(5, 2, 5), new Vector3d(1, 1, 1), basicMaterial(1, 0, 1), "TEST");
 		createSphere(new Vector3d(5, 5, 5), new Vector3d(1, 1, 1), basicMaterial(1, 1, 1));
 		createCube(new Vector3d(5, 5, 10), new Vector3d(1, 1, 1), basicMaterial(0, 1, 0));
+		
+		String[] xAchse = generateSegmentDescription(null,null);
+		String[] yAchse = generateSegmentDescription(null,null);
+		String[] zAchse = generateSegmentDescription(null,null);
+		
+		setSegmentDescription(xAchse,yAchse,zAchse);
     }
 
 

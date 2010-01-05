@@ -43,7 +43,7 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
     }
 
     @Override
-    BufferedImage getDiagramScreenshot() {
+	public BufferedImage getDiagramScreenshot() {
 		// TODO Auto-generated method stub
 		return null;
     }

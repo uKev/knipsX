@@ -28,7 +28,7 @@ public class JTextDiagram<M extends TextModel> extends JAbstractDiagram<M> {
     }
 
     @Override
-    BufferedImage getDiagramScreenshot() {
+	public BufferedImage getDiagramScreenshot() {
 	// TODO Auto-generated method stub
 	return null;
     }

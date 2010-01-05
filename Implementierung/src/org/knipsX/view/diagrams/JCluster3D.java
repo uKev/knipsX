@@ -27,9 +27,11 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
 
     @Override
     public void generateContent() {
-	createCube(new Vector3d(5, 5, 10), new Vector3d(1, 1, 1), basicMaterial(0, 1, 0));
-	String[] xAchse = { "Test", "Deine Mutter", "1", "3", "as", "asasa", "asas", "asas", "asas", "as" };
-	setSegmentDescription(xAchse, xAchse, xAchse);
+		createCube(new Vector3d(5, 5, 10), new Vector3d(1, 1, 1), basicMaterial(0, 1, 0));
+		String[] xAchse = generateSegmentDescription(null,null);
+		setSegmentDescription(xAchse, xAchse, xAchse);
+		createLabels("Hallo", "Test", "OMG");
+	
     }
 
 }

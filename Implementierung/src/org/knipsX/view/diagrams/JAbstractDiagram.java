@@ -41,7 +41,7 @@ public abstract class JAbstractDiagram<M extends AbstractModel> extends JAbstrac
 	 * 
 	 * @return BufferedImage containing the current view
 	 */
-	abstract BufferedImage getDiagramScreenshot();
+	public abstract BufferedImage getDiagramScreenshot();
 	
 	
 	/**

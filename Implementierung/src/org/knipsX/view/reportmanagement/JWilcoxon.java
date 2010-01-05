@@ -48,8 +48,8 @@ public class JWilcoxon extends JAbstractSinglePanel {
         setLayout(container);
 		
         JPanel mainpanel = new JPanel();        
-        mainpanel.setLayout(new BoxLayout(mainpanel, BoxLayout.PAGE_AXIS));        
-		
+        mainpanel.setLayout(new BoxLayout(mainpanel, BoxLayout.PAGE_AXIS));
+        
 		JPanel singlepanel = new JPanel();
 		singlepanel.setAlignmentX(LEFT_ALIGNMENT);
 		singlepanel.setMaximumSize(new Dimension(Integer.MAX_VALUE,400));
@@ -67,14 +67,14 @@ public class JWilcoxon extends JAbstractSinglePanel {
 
         singlepanel.add(new JLabel("Signifikanzniveau (1-10 %)"));
         this.significanceSlider = new JSignifanceSlider();
-        singlepanel.add(this.significanceSlider);
-        
-        
-        this.errorMessage = new JLabel();        
-        this.errorMessage.setAlignmentX(LEFT_ALIGNMENT);
+        singlepanel.add(this.significanceSlider);       
         
         mainpanel.add(singlepanel);
+        
+        this.errorMessage = new JLabel();               
+        this.errorMessage.setAlignmentX(LEFT_ALIGNMENT);        
         mainpanel.add(this.errorMessage);
+        
         mainpanel.add(Box.createVerticalGlue());
         add(mainpanel); 
         
