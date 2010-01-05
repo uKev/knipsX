@@ -1,5 +1,7 @@
 package org.knipsX.view.reportmanagement;
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 /**
@@ -26,6 +28,13 @@ public abstract class JAbstractSinglePanel extends JComponent {
 	 * The tooltip which is registered with this panel.
 	 */
 	protected String tip;
+	
+	
+	
+	public JAbstractSinglePanel() {
+		this.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+	}
+	
 	
 	public String getTitle() {
 		return title;
@@ -56,5 +65,21 @@ public abstract class JAbstractSinglePanel extends JComponent {
 		this.tip = tip;
 	}
 	
+    /**
+     * Returns an ImageIcon, or null if the path was invalid.
+     * 
+     * @param path The absolute or relative path to the image icon
+     * @param description The description of the image icon
+     * @return ImageIcon object
+     */
+    protected ImageIcon createImageIcon(String path, String description) {
+        java.net.URL imgURL = getClass().getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL, description);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
 	
 }

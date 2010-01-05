@@ -17,14 +17,25 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel, V exten
 
     public JAbstractReportUtil(M model) {
     	super(model);
+    	
     }
 
     /**
      * Each configuration utility has to implement this method which
-     * registeres a new report type to the current configuration utilitiy
+     * registers a new report type to the current configuration utility
      * 
      * @param jAbstractReport
      *            the new report type
      */
     abstract protected void setReportType(AbstractReportCompilation<?> jAbstractReport);
+    
+    
+    
+    
+    /**
+     * The current reportCompilation of the report configuration utility 
+     */
+    protected AbstractReportCompilation<AbstractReportModel> reportCompilation ;
+    
+    
 }

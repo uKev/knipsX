@@ -1,5 +1,6 @@
 package org.knipsX.view.diagrams;
 
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import javax.media.j3d.AmbientLight;
@@ -100,19 +101,27 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
      *            the model from which the drawing information is taken
      */
     public JAbstract3DView(M model) {
-	super(model);
+		super(model);
+	
+		this.objRoot = new BranchGroup();
+		this.canvas3D = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
+		this.simpleU = new SimpleUniverse(this.canvas3D);
 
-	this.objRoot = new BranchGroup();
-	this.canvas3D = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
-	this.simpleU = new SimpleUniverse(this.canvas3D);
-
-	preinitialize();
-
-	generateContent();
-
-	postinitialize();
+		preinitialize();
+	
+		generateContent();
+	
+		postinitialize();
     }
 
+    
+	@Override
+	public
+	Component getDiagram() {
+		// TODO Auto-generated method stub
+		return this.canvas3D;
+	}
+    
     /**
      * Specifies the preinitialization routine which is executed before every scene draw
      */
@@ -307,7 +316,17 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
 	}
 	}
 	
-
+	@Override
+	void showDiagram() {
+        this.canvas3D.setSize(800, 600);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));       
+        panel.add(this.canvas3D);
+        panel.add(this.registeredButtons);   
+      	add(panel);        
+        pack();   	
+        this.setVisible(true);
+	}
 
 	
 	private void postinitialize() {        
@@ -317,18 +336,7 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
         createBackground(new Color3f(0.7f, 0.7f, 0.7f));
         
         // Add scene to branch graph
-        this.simpleU.addBranchGraph(this.objRoot);      
-        
-        
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));       
-        this.canvas3D.setSize(800, 600);
-        panel.add(this.canvas3D);
-        panel.add(this.registeredButtons);   
-      	add(panel);
-        
-        pack();
-        setVisible(true);
+        this.simpleU.addBranchGraph(this.objRoot);
 	}
 	
 /**

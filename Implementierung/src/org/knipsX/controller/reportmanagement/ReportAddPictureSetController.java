@@ -14,16 +14,16 @@ import org.knipsX.view.reportmanagement.JPictureSetExif;
  * @param <M>
  * @param <V>
  */
-public class ReportAddPictureSetController<M, V extends JPictureSetExif> extends AbstractController<M, V> {
-
+public class ReportAddPictureSetController<M, V extends JPictureSetExif> extends AbstractController<M, V> {	
+	
+	
     public ReportAddPictureSetController(V view) {
 		super(view);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	// TODO Auto-generated method stub
-
+    	view.associatePictureSet();
     }
 
 }

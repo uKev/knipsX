@@ -21,8 +21,7 @@ public class ReportAddExifKeywordController<M, V extends JPictureSetExif> extend
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	// TODO Auto-generated method stub
-
+    	view.associateExifFilterKeywords();
     }
 
 }

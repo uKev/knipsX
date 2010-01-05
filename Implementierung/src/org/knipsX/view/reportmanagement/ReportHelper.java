@@ -1,5 +1,7 @@
 package org.knipsX.view.reportmanagement;
 
+import java.awt.Component;
+
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.BoxplotModel;
@@ -8,6 +10,11 @@ import org.knipsX.model.reportmanagement.Histogram2DModel;
 import org.knipsX.model.reportmanagement.Histogram3DModel;
 import org.knipsX.model.reportmanagement.TableModel;
 import org.knipsX.view.diagrams.JAbstractDiagram;
+import org.knipsX.view.diagrams.JBoxplot;
+import org.knipsX.view.diagrams.JCluster3D;
+import org.knipsX.view.diagrams.JHistogram2D;
+import org.knipsX.view.diagrams.JHistogram3D;
+import org.knipsX.view.diagrams.JTableDiagram;
 
 /**
  * This class is the mediator between the report configuration utility and
@@ -25,28 +32,32 @@ public enum ReportHelper {
 	Boxplot {
 			public AbstractReportCompilation<BoxplotModel> createReportCompilation() {return new BoxplotConfig<BoxplotModel>(null);} 
 			public AbstractReportModel createReportModel() {return new BoxplotModel();}
-			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
+			public JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model) {return null;}
+			public Component getDiagram() {  return new JBoxplot(null).getDiagram();};
 			public int getNumberOfAxes() {return 1;}
 			},
 			
 	Histogram2D {
 			public AbstractReportCompilation<Histogram2DModel> createReportCompilation() {return new Histogram2DConfig<Histogram2DModel>(null);}
 			public AbstractReportModel createReportModel() {return new Histogram2DModel();}	
-			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
+			public JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model) {return null;}
+			public Component getDiagram() {return new JHistogram2D(null).getDiagram();};
 			public int getNumberOfAxes() {return 1;}
 			},
 			
-	Histogram3D { 
+	Histogram3D{ 
 			public AbstractReportCompilation<Histogram3DModel> createReportCompilation() {return new Histogram3DConfig<Histogram3DModel>(null);}
 			public AbstractReportModel createReportModel() {return new Histogram3DModel();}
-			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
+			public JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model) {return null;}
+			public Component getDiagram() {return new JHistogram3D(null).getDiagram();};
 			public int getNumberOfAxes() {return 2;}
 				
 			},
 	Cluster3D {
 			public AbstractReportCompilation<Cluster3DModel> createReportCompilation() {return new Cluster3DConfig<Cluster3DModel>(null);} 
 			public AbstractReportModel createReportModel() {return new Cluster3DModel();}	
-			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
+			public JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model) {return null;}
+			public Component getDiagram() {return new JCluster3D(null).getDiagram();};
 			public int getNumberOfAxes() {return 3;}
 				
 			},
@@ -55,7 +66,8 @@ public enum ReportHelper {
 			@SuppressWarnings("unchecked")
 			public AbstractReportCompilation<AbstractReportModel> createReportCompilation() {return new TableConfig( new TableModel(null));} 
 			public AbstractReportModel createReportModel() {return new TableModel(null);}	
-			public JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model) {return null;}
+			public JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model) {return null;}
+			public Component getDiagram() {return new JTableDiagram(null).getDiagram();};
 			public int getNumberOfAxes() {return 0;}
 		};
 	
@@ -75,7 +87,14 @@ public enum ReportHelper {
 	/**
 	 * Returns the diagram of the associated report
 	 */
-	public abstract JAbstractDiagram<AbstractReportModel> getDiagram(AbstractReportModel model);
+	public abstract JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model);
+	
+	
+	
+	/**
+	 * 
+	 */
+	public abstract Component getDiagram();	
 	
 	
 	/**

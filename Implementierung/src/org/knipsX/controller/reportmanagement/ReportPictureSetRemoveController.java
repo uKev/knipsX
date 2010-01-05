@@ -22,8 +22,7 @@ public class ReportPictureSetRemoveController<M, V extends JPictureSetExif> exte
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	// TODO Auto-generated method stub
-
+    	view.removePictureSet();
     }
 
 }

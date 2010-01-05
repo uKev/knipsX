@@ -17,8 +17,8 @@ public abstract class AbstractReportCompilation<M extends AbstractReportModel> {
     protected M model;
 
     public AbstractReportCompilation(M model) {
-	this.model = model;
-	ReportHelper.currentModel = model;
+		this.model = model;
+		ReportHelper.currentModel = model;
     }
 
     /**

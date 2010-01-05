@@ -1,5 +1,6 @@
 package org.knipsX.view.diagrams;
 
+import java.awt.Component;
 import java.awt.image.BufferedImage;
 
 import org.knipsX.model.reportmanagement.TextModel;
@@ -31,4 +32,16 @@ public class JTextDiagram<M extends TextModel> extends JAbstractDiagram<M> {
 	// TODO Auto-generated method stub
 	return null;
     }
+
+	@Override
+	Component getDiagram() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	void showDiagram() {
+		// TODO Auto-generated method stub
+		
+	}
 }

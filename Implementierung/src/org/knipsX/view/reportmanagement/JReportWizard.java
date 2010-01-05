@@ -27,8 +27,7 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7846052667877784072L;
-	private V reportCompilation;
+	private static final long serialVersionUID = -7846052667877784072L;	
 	private int wizardcounter = 0;
 	private JComponent basic;
 	
@@ -40,35 +39,51 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 	public JReportWizard() {
 	    super(null);
 		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
-		this.reportCompilation = (V) ReportHelper.defaultReport.createReportCompilation();
+		this.reportCompilation = (AbstractReportCompilation<AbstractReportModel>) ReportHelper.defaultReport.createReportCompilation();
 		initialize();
 	}
 	
 	@SuppressWarnings("unchecked")
 	private void initialize() {
 	
+		this.basic = new JPanel();
+		this.basic.setLayout(new BoxLayout(this.basic, BoxLayout.Y_AXIS));
+		this.basic.setPreferredSize(new Dimension(800,600));
+		this.add(this.basic);
+		
 		JAbstractSinglePanel currentpanel = this.reportCompilation.getRegisteredPanels().get(wizardcounter);		
         setTitle(currentpanel.title);
-        this.basic = currentpanel;
-        this.basic.setLayout(new BoxLayout(basic, BoxLayout.Y_AXIS));
-        this.getContentPane().add(basic);        
+        this.basic.add(currentpanel);              
         this.basic.add(Box.createVerticalGlue());
         JPanel bottom = new JPanel();
-        bottom.setAlignmentX(1f);
+        bottom.setAlignmentX(0.5f);
         bottom.setLayout(new BoxLayout(bottom, BoxLayout.X_AXIS));
         JButton ok = new JButton("OK");
         ok.setToolTipText(currentpanel.tip);
-        JButton next = new JButton("Next");
-        next.addActionListener(new WizardNextPanelController<AbstractReportModel, JReportWizard<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>>((JReportWizard<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this));
-        JButton previous = new JButton("Previous");
-        next.addActionListener(new WizardPreviousPanelController(this));
+        JButton next = new JButton("Weiter");
+        
+        if((this.wizardcounter) >= this.reportCompilation.getRegisteredPanels().size()-1 ) {
+        	next.setEnabled(false);
+        }
+        
+        next.addActionListener(new WizardNextPanelController(this));
+        JButton previous = new JButton("Zurück");
+        
+        if(0 >= this.wizardcounter) {
+        	previous.setEnabled(false);
+        }
+        
+        
+        previous.addActionListener(new WizardPreviousPanelController(this));        
         bottom.add(previous);
-        bottom.add(ok);
-        bottom.add(Box.createRigidArea(new Dimension(5, 0)));
+        bottom.add(Box.createRigidArea(new Dimension(15, 0)));   
         bottom.add(next);
+        bottom.add(Box.createRigidArea(new Dimension(15, 0)));
+        bottom.add(ok);
         bottom.add(Box.createRigidArea(new Dimension(15, 0)));
         this.basic.add(bottom);
         this.basic.add(Box.createRigidArea(new Dimension(0, 15)));
+        this.add(basic);  
         pack();
         setVisible(true);
 	}
@@ -78,14 +93,18 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 	 * Switches the current panel to the next panel if possible
 	 */
 	public void nextPanel() {
-		// TODO
+		this.wizardcounter++;
+		this.remove(this.basic);
+		initialize();
 	}
 	
 	/**
 	 * Switches the current panel to the previous panel if possible
 	 */
 	public void previousPanel() {
-		// TODO
+		this.wizardcounter--;
+		this.remove(this.basic);
+		initialize();
 	}
 
 	@Override
@@ -97,7 +116,7 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 	@Override
 	protected void setReportType(AbstractReportCompilation<?> reportconfig) {
 	    remove(this.basic);
-		this.reportCompilation = (V) reportconfig;
+		this.reportCompilation = (AbstractReportCompilation<AbstractReportModel>) reportconfig;
 		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
 		initialize();		
 		repaint();

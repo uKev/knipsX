@@ -6,6 +6,8 @@ package org.knipsX.view;
 /* import things from the java sdk */
 import java.util.Observable;
 import java.util.Observer;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /* import things from our program */
@@ -36,9 +38,10 @@ public abstract class JAbstractView<M extends AbstractModel> extends JFrame impl
 			this.model.addObserver(this);
 		}
 	}
-
+	
+	
 	/**
-	 * Have to be implemented by an subclass.
+	 * Has to be implemented by a subclass.
 	 * 
 	 * It is called every time a model is updated. It decides (based on the program state) what the view shows.
 	 * 

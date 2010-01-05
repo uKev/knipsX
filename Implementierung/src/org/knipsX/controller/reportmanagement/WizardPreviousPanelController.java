@@ -23,7 +23,7 @@ public class WizardPreviousPanelController<M extends AbstractReportModel, V exte
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	this.view.previousPanel();
+    	this.view.previousPanel();
     }
 	
 

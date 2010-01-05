@@ -1,5 +1,6 @@
 package org.knipsX.view.diagrams;
 
+import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.util.Observable;
 
@@ -38,12 +39,26 @@ public abstract class JAbstractDiagram<M extends AbstractModel> extends JAbstrac
 	 * returns a BufferedImage of the current diagram which can
 	 * later be exported as an image.
 	 * 
-	 * @return BufferedImage containig the current view
+	 * @return BufferedImage containing the current view
 	 */
 	abstract BufferedImage getDiagramScreenshot();
 	
+	
+	/**
+	 * This function returns the actual diagram which is used for
+	 * pre-visualization purposes.
+	 * 
+	 * @return The actual diagram without buttons
+	 */
+	abstract Component getDiagram();
 
-
+	
+	
+	/**
+	 * Displays the Diagram with the associated buttons
+	 */
+	abstract void showDiagram();
+	
 	@Override
 	public void update(Observable model, Object argument) {
 	    // TODO Auto-generated method stub

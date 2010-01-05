@@ -38,25 +38,25 @@ public abstract class JAbstract3DDiagram<M extends AbstractModel> extends JAbstr
      */
     public void preinitialize() {
     
-    this.registeredButtons = new JDiagramButtons3D();
-    
-    this.numberOfAxes = 3;
-	int goodcamerapos = (int) (this.AXISSIZE / 2);
-	changeCameraPosition(goodcamerapos, goodcamerapos, goodcamerapos * 6);
-
-	addLights();
-	createGrid();
-	createAxis();
-
-	// Make Interactive for 3D View
-	ViewingPlatform viewingPlatform = this.simpleU.getViewingPlatform();
-
-	OrbitBehavior orbit = new OrbitBehavior(this.canvas3D, OrbitBehavior.REVERSE_ALL);
-	BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
-	orbit.setSchedulingBounds(bounds);
-	orbit.setRotationCenter(new Point3d(this.AXISSIZE / 2.0, 0, this.AXISSIZE / 2.0));
-	orbit.setZoomFactor(3);
-	viewingPlatform.setViewPlatformBehavior(orbit);
+	    this.registeredButtons = new JDiagramButtons3D();
+	    
+	    this.numberOfAxes = 3;
+		int goodcamerapos = (int) (this.AXISSIZE / 2);
+		changeCameraPosition(goodcamerapos, goodcamerapos, goodcamerapos * 6);
+	
+		addLights();
+		createGrid();
+		createAxis();
+	
+		// Make Interactive for 3D View
+		ViewingPlatform viewingPlatform = this.simpleU.getViewingPlatform();
+	
+		OrbitBehavior orbit = new OrbitBehavior(this.canvas3D, OrbitBehavior.REVERSE_ALL);
+		BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
+		orbit.setSchedulingBounds(bounds);
+		orbit.setRotationCenter(new Point3d(this.AXISSIZE / 2.0, 0, this.AXISSIZE / 2.0));
+		orbit.setZoomFactor(3);
+		viewingPlatform.setViewPlatformBehavior(orbit);
 
     }
 }
