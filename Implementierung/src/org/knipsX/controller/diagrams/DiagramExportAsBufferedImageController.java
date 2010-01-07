@@ -4,7 +4,7 @@ package org.knipsX.controller.diagrams;
 import java.awt.event.ActionEvent;
 
 import org.knipsX.controller.AbstractController;
-import org.knipsX.utils.JFileSaver;
+import org.knipsX.utils.FileChooser.JExtendedFileChooser;
 import org.knipsX.view.diagrams.JAbstractDiagram;
 
 
@@ -23,7 +23,7 @@ public class DiagramExportAsBufferedImageController<M, V extends JAbstractDiagra
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		new JFileSaver(this.view.getDiagramScreenshot());
+		JExtendedFileChooser.saveBufferedImage(this.view.getDiagramScreenshot());
 	}
 
 }

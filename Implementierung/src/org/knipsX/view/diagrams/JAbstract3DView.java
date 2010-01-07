@@ -305,10 +305,11 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
 				    segment.rotY(90 * Math.PI / 180.0d);
 				    segment.setTranslation(new Vector3d(0, 0, i*this.segmentSize));
 				} else if (q == 2) {
-				    segment.rotX(90 * Math.PI / 180.0d);
+				    segment.rotX(0 * Math.PI / 180.0d);
 				    segment.setTranslation(new Vector3d(i*this.segmentSize, 0, 0));
 				} else if (q == 3) {
-				    segment.rotX(90 * Math.PI / 180.0d);
+					//TODO Werden momentan nicht benutzt
+					segment.rotX(90 * Math.PI / 180.0d);
 				    segment.setTranslation(new Vector3d(i*this.segmentSize, 0, this.AXISSIZE));
 				} else if (q == 4) {
 				    segment.rotZ(90 * Math.PI / 180.0d);
@@ -436,7 +437,6 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
 		
 		return returnstring;
 	}
-	
 	
 	
 	/**
@@ -625,8 +625,7 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
     }
     
     class OffScreenCanvas3D extends Canvas3D {
-        OffScreenCanvas3D(GraphicsConfiguration graphicsConfiguration,
-    		      boolean offScreen) {
+        OffScreenCanvas3D(GraphicsConfiguration graphicsConfiguration, boolean offScreen) {
 
     	super(graphicsConfiguration, offScreen);
         }
@@ -644,8 +643,8 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
     	waitForOffScreenRendering();
     	bImage = getOffScreenBuffer().getImage();
 
-            // To release the reference of buffer inside Java 3D.
-            setOffScreenBuffer(null);
+        // To release the reference of buffer inside Java 3D.
+        setOffScreenBuffer(null);
 
     	return bImage;
         }
