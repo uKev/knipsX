@@ -20,17 +20,8 @@ public class JExtendedFileChooser {
     	filechooser.setMultiSelectionEnabled(true);    	
     	filechooser.setCurrentDirectory(new File(lastOpenDir));
     	
-	    //Add a custom file filter and disable the default
-	    //(Accept All) file filter.
-    	filechooser.addChoosableFileFilter(new ImageFilter());
-    	filechooser.setAcceptAllFileFilterUsed(false);
-            
-       
-	    //Add the preview pane.
-    	filechooser.setAccessory(new ImagePreview(filechooser));
-        
         //Show it.
-        int returnVal = filechooser.showDialog(filechooser,"Attach");
+        int returnVal = filechooser.showDialog(filechooser,"Hinzufügen");
         
         //Process the results.
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -46,20 +37,29 @@ public class JExtendedFileChooser {
     private static void initialize() {
     	if(filechooser == null) {
     		filechooser = new JFileChooser();
-    	} 
-    	
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception exc) {
-			System.err.println("Error loading  Look and Feel: " + exc);
-		}
+    		
+    	    //Add a custom file filter and disable the default
+    	    //(Accept All) file filter.
+        	filechooser.addChoosableFileFilter(new ImageFilter());
+        	filechooser.setAcceptAllFileFilterUsed(false);               
+           
+    	    //Add the preview pane.
+        	filechooser.setAccessory(new ImagePreview(filechooser));
+        	
+    		try {
+    			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    		} catch (Exception exc) {
+    			System.err.println("Error loading  Look and Feel: " + exc);
+    		}
+    		
+    	}   	
+
     }
     
     public static void saveBufferedImage(BufferedImage imageToBeSaved) {
 
     	initialize();
     	
-    	filechooser.setFileSelectionMode(JFileChooser.SAVE_DIALOG);
     	filechooser.setMultiSelectionEnabled(false);  
     	filechooser.setCurrentDirectory(new File(lastSaveDir));
     	
