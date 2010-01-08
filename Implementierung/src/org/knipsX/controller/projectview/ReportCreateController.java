@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
+import org.knipsX.view.reportmanagement.JReportWizard;
 
 /**
  * Represents the Actions which are done by klicking on create report.
@@ -17,7 +18,7 @@ public class ReportCreateController<M extends ProjectModel, V extends JProjectVi
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	// aufruf des wizards;
+	new JReportWizard();
 	model.updateViews();
     }
 }
