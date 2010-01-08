@@ -50,6 +50,7 @@ import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.view.JAbstractView;
+import org.knipsX.view.reportmanagement.ReportHelper;
 
 /**
  * Represents the view for an active project.
@@ -164,6 +165,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 	 */
 	public JProjectView(M model) {
 		super(model);
+		
+		/* register model with report helper */ 
+		ReportHelper.currentProjectModel = this.model;
 
 		/* renders the view */
 		this.initialize();
@@ -1304,6 +1308,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 		this.jEditorPaneProjectDescription.setText(model.getProjectDescription());
 
 		this.jListPictureSet.setListData(model.getPictureSets());
+		
+		this.jListReport.setListData(model.getReports());
 
 		/* refresh view */
 		this.repaint();
