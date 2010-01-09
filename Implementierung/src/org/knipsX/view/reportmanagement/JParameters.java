@@ -160,8 +160,12 @@ public class JParameters extends JAbstractSinglePanel {
 		
 		public void setAxis(Axis axis) {
 			if(axis != null) {
-				this.axisDescription.setText(axis.getDescription());
-				this.exifparamcombo.setSelectedItem(axis.getParameter());
+				this.axisDescription.setText(axis.getDescription());				
+				if(axis.getParameter() == null) {
+					this.exifparamcombo.setSelectedIndex(0);
+				} else {
+					this.exifparamcombo.setSelectedItem(axis.getParameter());
+				}
 			}
 		}
 
@@ -195,7 +199,12 @@ public class JParameters extends JAbstractSinglePanel {
 		}
 		
 		public ExifParameter getExifparam() {
-			return (ExifParameter)this.exifparamcombo.getSelectedItem();
+			if(this.exifparamcombo.getSelectedItem() instanceof ExifParameter) {
+				return (ExifParameter)this.exifparamcombo.getSelectedItem();
+			}
+			
+			return null;
+			
 		}
 		
     	
@@ -217,10 +226,12 @@ public class JParameters extends JAbstractSinglePanel {
     		
 	        Object[] exifparams = new Object[ExifParameter.values().length + 1];
 	        for(int i = 0; i < exifparams.length - 1; i++) {
-	        	if(i==0)
+	        	if(i==0) {
 	        		exifparams[0] = "-";
-	        	else 
+	        		
+	        	} else { 
 	        		exifparams[i] = ExifParameter.values()[i-1];
+	        	}
 	        	
 	        	this.addItem(exifparams[i]);
 	        }  

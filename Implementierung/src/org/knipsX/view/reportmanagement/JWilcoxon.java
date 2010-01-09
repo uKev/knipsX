@@ -200,7 +200,8 @@ public class JWilcoxon extends JAbstractSinglePanel {
 		private static final long serialVersionUID = 1L;
 
 		public JWilcoxonTestTypeComboBox() {
-    		super(WilcoxonTestType.values());	        
+    		super(WilcoxonTestType.values());	
+    		this.setSelectedItem(WilcoxonTestType.LEFT);
     	}
     }
     
@@ -210,7 +211,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
     }
     
     public WilcoxonTestType getTestType() {
-    	return (WilcoxonTestType) this.wilcoxoncombobox.getSelectedObjects()[0];
+    	return (WilcoxonTestType) this.wilcoxoncombobox.getSelectedItem();
     }
     
     public float getStatisticalSignificance() {
