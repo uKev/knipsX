@@ -13,6 +13,7 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.utils.FileHandler;
+import org.knipsX.view.reportmanagement.ReportHelper;
 
 /**
  * Manages all the data for an active project.
@@ -134,9 +135,18 @@ public class ProjectModel extends ProjectEntry {
 	 * @return true if the report was added, false if not.
 	 */
 	public boolean addReport(final AbstractReportModel report) {
-		assert (report != null) && (report instanceof AbstractReportModel);		
-		boolean returnValue = this.reportList.add(report);		
+		assert (report != null) && (report instanceof AbstractReportModel);
+		boolean returnValue = false;
+		
+			if(ReportHelper.reportID != -1) {
+				this.reportList.set(ReportHelper.reportID, report);
+				returnValue = true;
+			} else {
+				returnValue = this.reportList.add(report);
+			}
+			
 		this.updateViews();
+		
 		return returnValue;
 	}
 
