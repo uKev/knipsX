@@ -22,8 +22,9 @@ public class Cluster3DConfig<M extends Cluster3DModel> extends AbstractReportCom
 	public Cluster3DConfig (M model) {
     	super(model);
     	ReportHelper.currentReport = ReportHelper.Cluster3D;
+    	this.diagramDescription = "In der 3D-Computergrafik und algorithmischen Geometrie bezeichnet eine Punktwolke eine Liste von kartesischen 3D-Koordinaten. Diese kann von einem 3D-Modellierungswerkzeug sowie mittels Abtastung von Objekten oder Oberflächen durch Systeme wie Koordinatenmessmaschinen oder tastende 3D-Scanner erstellt werden. Optische Scanner untergliedert man in Lasertechnologie, die nach dem Triangulationsprinzip arbeiten, und Normallicht-Scanner, die nach dem Streifenlichtverfahren („coded-light“) arbeiten.";
     	
-    	addPanel(new JDiagramType("", null, ""));
+    	addPanel(new JDiagramType("", null, "",  this.diagramDescription));
     	addPanel(new JParameters("", null, ""));
     	addPanel(new JPictureSetExif("", null, ""));
     }

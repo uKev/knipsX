@@ -3,6 +3,8 @@ package org.knipsX.view.reportmanagement;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -32,6 +34,7 @@ public class JDiagramType extends JAbstractSinglePanel {
 
 
 	private JTextField reportname;
+	private JLabel reportNameError;
 	private JTextArea reportdescription;
 	private static final long serialVersionUID = 1L;
 	private JList diagramType;
@@ -42,7 +45,7 @@ public class JDiagramType extends JAbstractSinglePanel {
 	 * @param icon The icon which is registered with this panel.
 	 * @param tip The tooltip which is registered with this panel.
 	 */
-    public JDiagramType(String titel, Icon icon, String tip) {
+    public JDiagramType(String titel, Icon icon, String tip, String diagramDescription) {
     	
     	
 		this.title = titel;
@@ -66,12 +69,25 @@ public class JDiagramType extends JAbstractSinglePanel {
         leftpanel.add(reportnamelabel);
         
         //Add the report name text field
+        JPanel reportNamePanel = new JPanel();
+        reportNamePanel.setLayout(new BoxLayout(reportNamePanel, BoxLayout.X_AXIS));
+        
+       
         this.reportname = new JTextField();        
-        this.reportname.setAlignmentX(LEFT_ALIGNMENT);
         this.reportname.setPreferredSize(new Dimension(20,20));
         this.reportname.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
+        this.reportname.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent ke) {   
+            	revalidateReport();
+            }
+		});
         
-        leftpanel.add(this.reportname);
+        reportNamePanel.add(this.reportname);
+        this.reportNameError = new JLabel();
+        reportNamePanel.add(this.reportNameError);
+        reportNamePanel.setAlignmentX(LEFT_ALIGNMENT);
+        leftpanel.add(reportNamePanel);
         leftpanel.add(Box.createRigidArea(new Dimension(0,20)));
         
         JLabel reportdescriptionlabel = new JLabel("Auswertungsbeschreibung");
@@ -129,18 +145,16 @@ public class JDiagramType extends JAbstractSinglePanel {
         leftpanel.add(diagramTypePanel);
         leftpanel.add(Box.createVerticalGlue());        
         
-        
         // Initialize the right panel       
         JPanel rightpanel = new JPanel();
         rightpanel.setLayout(new BoxLayout(rightpanel, BoxLayout.PAGE_AXIS)); 
-        
-        Component tempcomponent = ReportHelper.currentReport.getDiagram();  
-        tempcomponent.setPreferredSize(new Dimension(300,150));
-        tempcomponent.setMaximumSize(new Dimension(800,800));
-        rightpanel.add(tempcomponent);
+                
+        Component diagramView = ReportHelper.currentReport.getDiagram();  
+        diagramView.setPreferredSize(new Dimension(300,150));
+        rightpanel.add(diagramView);
         rightpanel.add(Box.createRigidArea(new Dimension(0,20)));
         
-        JTextArea mytextarea = new JTextArea();
+        JTextArea mytextarea = new JTextArea(diagramDescription);
         mytextarea.setColumns(20);
         mytextarea.setRows(5);
         mytextarea.setWrapStyleWord(true);
@@ -156,12 +170,16 @@ public class JDiagramType extends JAbstractSinglePanel {
         add(leftpanel);
         add(Box.createRigidArea(new Dimension(25,20)));
         add(Box.createHorizontalGlue());
-        add(rightpanel);
-       
+        add(rightpanel);   
+        
+        
+        if(ReportHelper.currentModel != null) {
+        	this.reportname.setText(ReportHelper.currentModel.getReportName());
+        	this.reportdescription.setText(ReportHelper.currentModel.getReportDescription());
+        }
         
     }
-    
-    
+   
     
     /**
      * Returns the currently selected index in the diagram typ
@@ -181,6 +199,31 @@ public class JDiagramType extends JAbstractSinglePanel {
     public String getReportDescription() {
     	return this.reportdescription.getText();
     }
+
+
+	@Override
+	public boolean isDiagramDisplayable() {
+		if(this.reportname.getText().length() > 0) {
+			return true;
+		}
+		
+		return false;
+	}
+
+
+	@Override
+	public boolean isDiagramSaveable() {
+		if(reportname.getText().length() > 0) {
+			this.reportNameError.setIcon(null);
+			this.reportNameError.setText(null);
+			return true;
+			
+		} else {
+			this.reportNameError.setIcon(createImageIcon("../../images/userwarning.png", null));
+			this.reportNameError.setToolTipText("Um die Auswertung speichern zu können muss ein Auswertungsname definiert werden");
+			return false;
+		}
+	}
 
 }
 

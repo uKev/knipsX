@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.knipsX.model.reportmanagement.Axis;
+import org.knipsX.model.reportmanagement.*;
 import org.knipsX.utils.ExifParameter;
 
 /**
@@ -60,8 +60,9 @@ public class JParameters extends JAbstractSinglePanel {
 
         	
         	if(i>=0) {
-        		if (AxisParameters[i] == null)
-        			AxisParameters[i] = new AxisParameter(axes[i], null, null);        		
+        		if (AxisParameters[i] == null)        			  
+        			AxisParameters[i] = new AxisParameter(axes[i], null, null);
+        		
         		this.singlepanel.add(AxisParameters[i]);
         		this.singlepanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
@@ -79,11 +80,26 @@ public class JParameters extends JAbstractSinglePanel {
 	        	
         	}
           add(this.singlepanel);
-
         }
 
         add(Box.createVerticalGlue());
 
+        
+		
+        if(ReportHelper.currentModel != null) {
+        	if(ReportHelper.currentModel instanceof BoxplotModel) {		
+        		this.AxisParameters[0].setAxis(((BoxplotModel)ReportHelper.currentModel).getxAxis());        			
+        	} else if (ReportHelper.currentModel instanceof Histogram2DModel) {
+        		this.AxisParameters[0].setAxis(((Histogram2DModel)ReportHelper.currentModel).getxAxis());
+        	} else if (ReportHelper.currentModel instanceof Histogram2DModel) {
+        		this.AxisParameters[0].setAxis(((Histogram3DModel)ReportHelper.currentModel).getxAxis());
+        	} else if (ReportHelper.currentModel instanceof Cluster3DModel) {
+        		this.AxisParameters[0].setAxis(((Cluster3DModel)ReportHelper.currentModel).getxAxis());
+        		this.AxisParameters[1].setAxis(((Cluster3DModel)ReportHelper.currentModel).getzAxis());
+        		this.AxisParameters[2].setAxis(((Cluster3DModel)ReportHelper.currentModel).getyAxis());
+        	}
+
+          }
     }
     
     /**
@@ -91,8 +107,13 @@ public class JParameters extends JAbstractSinglePanel {
      * @return the Exif-parameters and axes desription 
      */
     public ArrayList<Axis> getAxes() {
-    	//TODO
-		return null;    	
+    	ArrayList<Axis> returnAxis = new ArrayList<Axis>();
+    	
+    	for(AxisParameter axisparam : this.AxisParameters) {
+    		returnAxis.add(new Axis(axisparam.getAxisDescription(), axisparam.getExifparam()));
+    	}
+    	
+    	return returnAxis;
     }
     
     
@@ -103,33 +124,48 @@ public class JParameters extends JAbstractSinglePanel {
 		private static final long serialVersionUID = 1L;
 		private boolean invalid = true;
 		private String AxisParameterName;
-		private ExifParameter exifparam;
-		private String AxisDescription;
+		private JTextField axisDescription;
+		private ExifParamComboBox exifparamcombo;
 		
 		private JLabel ValidLabel = new JLabel(createImageIcon("../../images/userwarning.png", null));
+		
+		public AxisParameter() {
+			
+		}
 		
 		public AxisParameter(String axisParameterName, ExifParameter exifparam, String axisDescription) {
 			super();
 			this.AxisParameterName = axisParameterName;
-			this.exifparam = exifparam;
-			this.AxisDescription = axisDescription;
+			if(axisDescription != null)
+				this.axisDescription.setText(axisDescription);
+			
 			
 			
         	BoxLayout myboxlayoutintern = new BoxLayout(this, BoxLayout.X_AXIS);
         	this.setLayout(myboxlayoutintern);			
         	
         	this.add(new JLabel(this.AxisParameterName));
-        	this.add(Box.createRigidArea(new Dimension(20,0)));	
-        	this.add(new ExifParamsComboBox(this));	        	
+        	this.add(Box.createRigidArea(new Dimension(20,0)));        	
+        	this.exifparamcombo = new ExifParamComboBox(this);
+        	this.add(this.exifparamcombo);	
         	this.add(Box.createRigidArea(new Dimension(20,0)));
         	this.add(this.ValidLabel);
-        	        	
         	this.add(Box.createRigidArea(new Dimension(20,0)));
-        	this.add(new JTextField(this.AxisDescription));		
-        	this.setMaximumSize(new Dimension(Integer.MAX_VALUE,20));	
+        	this.axisDescription = new JTextField(axisDescription);        	
+        	this.add(this.axisDescription);	
+        	this.setMaximumSize(new Dimension(Integer.MAX_VALUE,20));
+        		
 		}
 		
 		
+		public void setAxis(Axis axis) {
+			if(axis != null) {
+				this.axisDescription.setText(axis.getDescription());
+				this.exifparamcombo.setSelectedItem(axis.getParameter());
+			}
+		}
+
+
 		public void setInvalid(boolean invalid) {
 			if (invalid == false) {
 				System.out.println("valid");
@@ -154,20 +190,19 @@ public class JParameters extends JAbstractSinglePanel {
 			return AxisParameterName;
 		}
 
-
-		public ExifParameter getExifparam() {
-			return exifparam;
-		}
-
-
 		public String getAxisDescription() {
-			return AxisDescription;
+			return this.axisDescription.getText();
 		}
+		
+		public ExifParameter getExifparam() {
+			return (ExifParameter)this.exifparamcombo.getSelectedItem();
+		}
+		
     	
     }
     
     
-    public class ExifParamsComboBox extends JComboBox implements ActionListener {
+    public class ExifParamComboBox extends JComboBox implements ActionListener {
 
     	/**
 		 * 
@@ -175,7 +210,7 @@ public class JParameters extends JAbstractSinglePanel {
 		private static final long serialVersionUID = 1L;
 		private AxisParameter axisparam;
     	
-    	public ExifParamsComboBox(AxisParameter axisparam) {
+    	public ExifParamComboBox(AxisParameter axisparam) {
     		
     		this.axisparam = axisparam;
     		
@@ -204,6 +239,8 @@ public class JParameters extends JAbstractSinglePanel {
 	        } else {
 	        	updateParameter(true);
 	        }
+	        
+	        revalidateReport();
 		}
 		
 		
@@ -214,5 +251,21 @@ public class JParameters extends JAbstractSinglePanel {
 		}	
     	
     }
+
+
+	@Override
+	public boolean isDiagramDisplayable() {
+		for(AxisParameter axisParam :this.AxisParameters) {
+			if(axisParam.invalid == true) {
+				return false;				
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean isDiagramSaveable() {
+		return true;
+	}
 
 }

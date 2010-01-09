@@ -69,12 +69,10 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
 
 	@Override
 	public BufferedImage getDiagramScreenshot() {
-		Rectangle d = this.scrollpane.getBounds();
-		BufferedImage bi = new BufferedImage(d.width, d.height,
-				BufferedImage.TYPE_INT_RGB);
+		Rectangle d = this.table.getBounds();
+		BufferedImage bi = new BufferedImage(d.width, d.height,BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2d = bi.createGraphics();
-		SwingUtilities.paintComponent(g2d, this.scrollpane, this.scrollpane.getRootPane(), 0, 0,
-				d.width, d.height);
+		this.table.paint(g2d);
 		return bi;
 	}
 
@@ -84,7 +82,7 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
 	}
 
 	@Override
-	void showDiagram() {	
+	public void showDiagram() {	
         this.setVisible(true);
 	}
 }

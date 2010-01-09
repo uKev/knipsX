@@ -45,11 +45,9 @@ public class JTextDiagram<M extends TextModel> extends JAbstractDiagram<M> {
     @Override
 	public BufferedImage getDiagramScreenshot() {
 		Rectangle d = this.textArea.getBounds();
-		BufferedImage bi = new BufferedImage(d.width, d.height,
-				BufferedImage.TYPE_INT_RGB);
+		BufferedImage bi = new BufferedImage(d.width, d.height,BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2d = bi.createGraphics();
-		SwingUtilities.paintComponent(g2d, this.textArea, this.textArea.getRootPane(), 0, 0,
-				d.width, d.height);
+		this.textArea.paint(g2d);
 		return bi;
     }
 
@@ -60,7 +58,7 @@ public class JTextDiagram<M extends TextModel> extends JAbstractDiagram<M> {
 	}
 
 	@Override
-	void showDiagram() {
+	public void showDiagram() {
 		this.setVisible(true);		
 	}
 }

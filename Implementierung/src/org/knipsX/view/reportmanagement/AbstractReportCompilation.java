@@ -14,8 +14,9 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
  */
 public abstract class AbstractReportCompilation<M extends AbstractReportModel> {
 
-    protected M model;
-
+    protected M model;    
+    protected String diagramDescription;
+    
     public AbstractReportCompilation(M model) {
 		this.model = model;
 		ReportHelper.currentModel = model;
@@ -33,7 +34,7 @@ public abstract class AbstractReportCompilation<M extends AbstractReportModel> {
      * @param component
      */
     protected void addPanel(JAbstractSinglePanel component) {
-	this.registeredPanels.add(component);
+		this.registeredPanels.add(component);
     }
 
     /**
@@ -42,7 +43,7 @@ public abstract class AbstractReportCompilation<M extends AbstractReportModel> {
      * @return registered panels
      */
     public ArrayList<JAbstractSinglePanel> getRegisteredPanels() {
-	return this.registeredPanels;
+    	return this.registeredPanels;
     }
 
 }

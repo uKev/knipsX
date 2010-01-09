@@ -7,14 +7,13 @@ import java.util.Observable;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
 
+import org.knipsX.controller.reportmanagement.ReportCloseController;
 import org.knipsX.controller.reportmanagement.ReportSaveController;
-import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.model.reportmanagement.*;
 
 /**
  * This class represents the report configuration utility for an existing report. It
@@ -32,29 +31,45 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
     private JTabbedPane tabbedpane;
     private JPanel basic;
     private JPanel mainpanel;
-    private JButton show;
 
     private final int[] mysize = {800,600};
 
     @SuppressWarnings("unchecked")
     public JReportConfig(final M model, final V view) {
 		super(model);
-		this.reportCompilation  = (AbstractReportCompilation<AbstractReportModel>) view;	
-		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
+		ReportHelper.currentModel = this.model;
+		
+	    if(model instanceof BoxplotModel) {
+	    	ReportHelper.currentReport = ReportHelper.Boxplot;	
+		}  else if(model instanceof TableModel) {
+			ReportHelper.currentReport = ReportHelper.Table;
+		} else if(model instanceof Cluster3DModel) {
+			ReportHelper.currentReport = ReportHelper.Cluster3D;
+		} else if(model instanceof Histogram2DModel) {
+			ReportHelper.currentReport = ReportHelper.Histogram2D;
+		} else if(model instanceof Histogram3DModel) {
+			ReportHelper.currentReport = ReportHelper.Histogram3D;
+		}	
+		
+		this.reportCompilation = (AbstractReportCompilation<AbstractReportModel>) ReportHelper.currentReport.createReportCompilation(model);
+		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;		
 		this.tabbedpane = this.getJTabbedPane();		
-		this.setTitle("Auswertung konfigurieren");		
-		this.initialize();		
+		this.setTitle("Auswertung konfigurieren");
+		
+		this.initialize();	
+		
+        this.close.addActionListener(new ReportCloseController(this));        
+        this.save.addActionListener(new ReportSaveController(this, false));        
+        this.show.addActionListener(new ReportSaveController(this, true));  
 		this.setSize(new Dimension(this.mysize[0], this.mysize[1]));
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		//For debugging purposes
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	
 	
     }
 
-    private JTabbedPane getJTabbedPane() {
+	private JTabbedPane getJTabbedPane() {
 		final JTabbedPane tabbedpane = new JTabbedPane();
 	
 		for (final JAbstractSinglePanel item : this.reportCompilation.getRegisteredPanels()) {
@@ -68,6 +83,8 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
 		    if(item instanceof JPictureSetExif) {
 		    	((JPictureSetExif) item).revalidateBoxplot();
 		    }
+		    
+		    item.revalidateReport();
 		}
 	
 		return tabbedpane;
@@ -83,33 +100,29 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
 		this.mainpanel = new JPanel(new BorderLayout());
 		this.mainpanel.setBorder(BorderFactory.createEmptyBorder(15, 25, 15, 25));
 		this.mainpanel.add(this.tabbedpane);
-		this.mainpanel.setPreferredSize(new Dimension(this.mysize[0], this.mysize[1]));
+		this.setPreferredSize(new Dimension(this.mysize[0], this.mysize[1]));
 	
 		this.basic.add(this.mainpanel);
 	
 		final JPanel bottom = new JPanel(new FlowLayout(FlowLayout.CENTER));
 	
-		final JButton close = new JButton("Schließen");
-		final JButton apply = new JButton("Übernehmen");
-		this.show = new JButton("Anzeigen");
-		
-		show.addActionListener(new ReportSaveController<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>(ReportHelper.currentModel, this.reportCompilation, true));
-	
 		bottom.add(close);
-		bottom.add(apply);
+		bottom.add(save);
 		bottom.add(show);
 		this.basic.add(bottom);
 	
 		bottom.setMaximumSize(new Dimension(450, 0));
 		this.pack();
+        ReportHelper.currentReportUtil.revalidateDisplayability();
+        ReportHelper.currentReportUtil.revalidateSaveability();
     }
     
 
     @Override
     @SuppressWarnings("unchecked")
     public void setReportType(final AbstractReportCompilation<?> reportconfig) {
-		this.mysize[1] = this.mainpanel.getBounds().height;
-		this.mysize[0] = this.mainpanel.getBounds().width;
+		this.mysize[1] = this.getBounds().height;
+		this.mysize[0] = this.getBounds().width;
 	
 		this.remove(this.basic);
 		this.reportCompilation = (AbstractReportCompilation<AbstractReportModel>) reportconfig;

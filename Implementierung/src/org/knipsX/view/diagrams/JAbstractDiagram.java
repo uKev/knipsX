@@ -57,7 +57,7 @@ public abstract class JAbstractDiagram<M extends AbstractModel> extends JAbstrac
 	/**
 	 * Displays the Diagram with the associated buttons
 	 */
-	abstract void showDiagram();
+	public abstract void showDiagram();
 	
 	@Override
 	public void update(Observable model, Object argument) {

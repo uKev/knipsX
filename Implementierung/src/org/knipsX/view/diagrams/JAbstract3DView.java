@@ -367,7 +367,7 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
 	}
 	
 	@Override
-	void showDiagram() {
+	public void showDiagram() {
         this.canvas3D.setSize(800, 600);
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));       

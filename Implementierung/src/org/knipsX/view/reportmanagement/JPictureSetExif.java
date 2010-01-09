@@ -2,6 +2,7 @@ package org.knipsX.view.reportmanagement;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -18,6 +19,7 @@ import org.knipsX.controller.reportmanagement.ReportAddPictureSetController;
 import org.knipsX.controller.reportmanagement.ReportRemoveExifKeywordController;
 import org.knipsX.controller.reportmanagement.ReportPictureSetRemoveController;
 import org.knipsX.model.AbstractModel;
+import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 
 
@@ -36,7 +38,6 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private PictureSet[] pictureContainer = {new PictureSet("",1),new PictureSet("",2),new PictureSet("",3)};
 	private String [] exifFilterKeywords = {"asas", "HAÖÖP"};
 	private JFlexibleList availablePictureSets;
 	private JFlexibleList associatedPictureSets;
@@ -72,7 +73,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         	availablePictureSetsPanel.setLayout(new BorderLayout());        	
         	JLabel availablePictureSetsLabel = new JLabel("Verfügbare Bildermengen");
         	availablePictureSetsPanel.add(availablePictureSetsLabel,BorderLayout.NORTH);        	
-        	this.availablePictureSets = new JFlexibleList(this.pictureContainer);
+        	this.availablePictureSets = new JFlexibleList(ReportHelper.currentProjectModel.getPictureSets());
         	this.availablePictureSets.setFixedCellWidth(250);
         	JScrollPane test = new JScrollPane(this.availablePictureSets);
         	availablePictureSetsPanel.add(test,BorderLayout.CENTER);        	
@@ -149,7 +150,21 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         
 	    
 	    add(bottompanel);
-
+	    
+	    
+        if(ReportHelper.currentModel != null) {     
+        	if(ReportHelper.currentModel.getPictureContainer() != null) {
+        		this.associatedPictureSets.addElements(ReportHelper.currentModel.getPictureContainer().toArray());
+        		this.availablePictureSets.removeElements(ReportHelper.currentModel.getPictureContainer().toArray());
+        	}
+        	
+        	if(ReportHelper.currentModel.getExifFilterKeywords() != null) {
+        		this.associatedExifTags.addElements((ReportHelper.currentModel.getExifFilterKeywords()));
+        		this.availableExifTags.removeElements((ReportHelper.currentModel.getExifFilterKeywords()));
+        	}
+        	
+        }
+	    
     }
 
     
@@ -167,6 +182,16 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 			addElements(elements);
 			
         }
+		
+		public Object[] getElements() {
+			Object[] returnObject = new Object[this.getContents().size()];			
+			
+			for(int i = 0; i < returnObject.length; i++) {
+				returnObject[i] = this.getContents().get(i);
+			}
+			
+			return returnObject;
+		}
 		
 		public void addElements(Object[] elements) {
 			for(Object element : elements) {
@@ -193,7 +218,9 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 				enabled = true;
 			}
 			
-			for(JAbstractSinglePanel singlepanel : ReportHelper.currentReportUtil.reportCompilation.getRegisteredPanels()) {
+			ArrayList<JAbstractSinglePanel> registeredPanels = ReportHelper.currentReportUtil.reportCompilation.getRegisteredPanels();
+			 
+			for(JAbstractSinglePanel singlepanel : registeredPanels) {
 				if(singlepanel instanceof JWilcoxon) {
 					singlepanel.setEnabled(enabled);
 				}
@@ -207,6 +234,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 	public void associatePictureSet() {
 		this.associatedPictureSets.addElements(this.availablePictureSets.getSelectedValues());
 		this.availablePictureSets.removeElements(this.availablePictureSets.getSelectedValues());
+		revalidateReport();
 		revalidateBoxplot();
 	}
 
@@ -214,6 +242,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 	public void removePictureSet() {
 		this.availablePictureSets.addElements(this.associatedPictureSets.getSelectedValues());
 		this.associatedPictureSets.removeElements(this.associatedPictureSets.getSelectedValues());
+		revalidateReport();
 		revalidateBoxplot();
 	}
 
@@ -225,6 +254,48 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 	public void removeExifFilterKeywords() {
 		this.availableExifTags.addElements(this.associatedExifTags.getSelectedValues());
 		this.associatedExifTags.removeElements(this.associatedExifTags.getSelectedValues());
+	}
+
+
+	
+	public String[] getExifFilterKeywords() {
+		Object[] tempObject = this.associatedExifTags.getElements();
+		String[] returnString = new String[tempObject.length];
+		
+		for(int i = 0; i < tempObject.length; i++) {
+			returnString[i] = (String)tempObject[i];
+		}	
+		
+		return returnString;
+	};
+
+	 
+
+	public ArrayList<PictureContainer> getPictureContainer() {
+		Object[] tempObject = this.associatedPictureSets.getElements();
+		ArrayList<PictureContainer> returnPictureContainer = new ArrayList<PictureContainer>();
+		
+		for(int i = 0; i < tempObject.length; i++) {
+			returnPictureContainer.add((PictureContainer)tempObject[i]);
+		}	
+		
+		return returnPictureContainer;
+	}
+	
+	@Override
+	public boolean isDiagramDisplayable() {
+		if(this.associatedPictureSets.getContents().size() > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
+
+	@Override
+	public boolean isDiagramSaveable() {
+		return true;
 	}
 
 

@@ -30,9 +30,35 @@ public abstract class JAbstractSinglePanel extends JComponent {
 	protected String tip;
 	
 	
+	/**
+	 * Specifies if the current panel has all the specified information to
+	 * display the report
+	 */
+	public abstract boolean isDiagramDisplayable();
+	
+	
+	/**
+	 * Specifies if the current panel has all the specified information to
+	 * display the report
+	 */
+	public abstract boolean isDiagramSaveable();
+	
 	
 	public JAbstractSinglePanel() {
 		this.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+	}
+	
+	public void revalidateReport() {
+		revalidateDisplayability();
+		revalidateSaveability();
+	}
+	
+	public void revalidateDisplayability() {
+		ReportHelper.currentReportUtil.revalidateDisplayability();
+	}
+	
+	public void revalidateSaveability() {
+		ReportHelper.currentReportUtil.revalidateSaveability();
 	}
 	
 	

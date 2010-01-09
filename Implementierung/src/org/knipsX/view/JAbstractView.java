@@ -64,6 +64,8 @@ public abstract class JAbstractView<M extends AbstractModel> extends JFrame impl
 		super.dispose();
 
 		/* deregister from the model */
-		this.model.deleteObserver(this);
+		if(this.model != null) {
+			this.model.deleteObserver(this);
+		}
 	}
 }

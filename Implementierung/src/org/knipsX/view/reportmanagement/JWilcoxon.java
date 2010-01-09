@@ -18,6 +18,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.knipsX.model.reportmanagement.WilcoxonTestType;
+import org.knipsX.model.reportmanagement.BoxplotModel;
 
 
 /**
@@ -44,7 +45,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
 			this.title = "Wilcoxon Test";
 		}
 		
-        BoxLayout container = new BoxLayout(this, BoxLayout.Y_AXIS);
+        BoxLayout container = new BoxLayout(this, BoxLayout.X_AXIS);
         setLayout(container);
 		
         JPanel mainpanel = new JPanel();        
@@ -67,6 +68,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
 
         singlepanel.add(new JLabel("Signifikanzniveau (1-10 %)"));
         this.significanceSlider = new JSignifanceSlider();
+        this.significanceSlider.setAlignmentX(LEFT_ALIGNMENT);
         singlepanel.add(this.significanceSlider);       
         
         mainpanel.add(singlepanel);
@@ -76,10 +78,20 @@ public class JWilcoxon extends JAbstractSinglePanel {
         mainpanel.add(this.errorMessage);
         
         mainpanel.add(Box.createVerticalGlue());
-        add(mainpanel); 
+        add(mainpanel);
         
         
         setEnabled(false);
+        
+        if(ReportHelper.currentModel != null) {
+        	if(ReportHelper.currentModel instanceof BoxplotModel) {
+            	this.wilcoxonCheckBox.setSelected(((BoxplotModel)ReportHelper.currentModel).isWilcoxonTestActive());
+            	this.significanceSlider.floatSlider.setFloatValue(((BoxplotModel)ReportHelper.currentModel).getWilcoxonSignificance());
+            	this.wilcoxoncombobox.setSelectedItem(((BoxplotModel)ReportHelper.currentModel).getWilcoxonTestType());
+        	}
+
+        }
+        
     }
     
     
@@ -95,7 +107,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
         	this.wilcoxoncombobox.setEnabled(false);
         	this.significanceSlider.setEnabled(false);
         	this.wilcoxonCheckBox.setEnabled(false);        	
-            this.errorMessage.setText("Es müssen genau zwei Bildmengen ausgewählt sein");
+            this.errorMessage.setText("Es müssen genau zwei Bildmengen ausgewählt sein, damit der Wilcoxon Test aktiviert werden kann");
             this.errorMessage.setIcon(createImageIcon("../../images/userwarning.png", null));    		
     	}
     }
@@ -110,7 +122,6 @@ public class JWilcoxon extends JAbstractSinglePanel {
     		private JTextField percentField;
     		
     		public JSignifanceSlider() {
-    			
     			
     	        this.percentField = new JTextField(this.floatSlider.getDecimalPlace()+2); 
     	        this.percentField.setHorizontalAlignment(JTextField.RIGHT);    	        
@@ -205,5 +216,17 @@ public class JWilcoxon extends JAbstractSinglePanel {
     public float getStatisticalSignificance() {
     	return this.significanceSlider.getValue();
     }
+
+
+	@Override
+	public boolean isDiagramDisplayable() {
+		return true;
+	}
+
+
+	@Override
+	public boolean isDiagramSaveable() {
+		return true;
+	}
 
 }
