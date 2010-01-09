@@ -120,6 +120,7 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 	 * Switches the current panel to the next panel if possible
 	 */
 	public void nextPanel() {
+		resize();
 		this.wizardcounter++;
 		this.remove(this.basic);
 		initialize();
@@ -129,6 +130,7 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 	 * Switches the current panel to the previous panel if possible
 	 */
 	public void previousPanel() {
+		resize();
 		this.wizardcounter--;
 		this.remove(this.basic);
 		initialize();
@@ -142,13 +144,16 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void setReportType(AbstractReportCompilation<?> reportconfig) {
-		this.mysize[1] = this.getBounds().height;
-		this.mysize[0] = this.getBounds().width;
-		
+		resize();
 	    remove(this.basic);
 		this.reportCompilation = (AbstractReportCompilation<AbstractReportModel>) reportconfig;
 		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
 		initialize();		
 		repaint();
-	}	
+	}
+	
+	private void resize() {
+		this.mysize[1] = this.getBounds().height;
+		this.mysize[0] = this.getBounds().width;
+	}
 }

@@ -155,6 +155,7 @@ public class JDiagramType extends JAbstractSinglePanel {
         rightpanel.add(Box.createRigidArea(new Dimension(0,20)));
         
         JTextArea mytextarea = new JTextArea(diagramDescription);
+        mytextarea.setEditable(false);
         mytextarea.setColumns(20);
         mytextarea.setRows(5);
         mytextarea.setWrapStyleWord(true);

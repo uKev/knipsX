@@ -84,7 +84,7 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
     protected final double GRIDDENSITYFACTOR = 1;
 
     /**
-     * Specifies at which detail level the geometry is to be drawn
+     * Specifies at which level of detail the geometry is to be drawn
      */
     protected final static int GEODETAIL = 10;
     

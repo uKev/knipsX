@@ -1,11 +1,14 @@
 package org.knipsX.view.reportmanagement;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -13,12 +16,15 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListCellRenderer;
 
 import org.knipsX.controller.reportmanagement.ReportAddExifKeywordController;
 import org.knipsX.controller.reportmanagement.ReportAddPictureSetController;
 import org.knipsX.controller.reportmanagement.ReportRemoveExifKeywordController;
 import org.knipsX.controller.reportmanagement.ReportPictureSetRemoveController;
 import org.knipsX.model.AbstractModel;
+import org.knipsX.model.picturemanagement.Directory;
+import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 
@@ -74,6 +80,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         	JLabel availablePictureSetsLabel = new JLabel("Verfügbare Bildermengen");
         	availablePictureSetsPanel.add(availablePictureSetsLabel,BorderLayout.NORTH);        	
         	this.availablePictureSets = new JFlexibleList(ReportHelper.currentProjectModel.getPictureSets());
+        	this.availablePictureSets.setCellRenderer(new PictureSetListCellRenderer());
         	this.availablePictureSets.setFixedCellWidth(250);
         	JScrollPane test = new JScrollPane(this.availablePictureSets);
         	availablePictureSetsPanel.add(test,BorderLayout.CENTER);        	
@@ -89,6 +96,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 	        topbuttonpanel.add(insertpictureset);	       
 	        JButton removepictureset = new JButton("<<");
 	        removepictureset.addActionListener(new ReportPictureSetRemoveController<AbstractModel, JPictureSetExif>(this));
+	        topbuttonpanel.add(Box.createRigidArea(new Dimension(0,10)));
 	        topbuttonpanel.add(removepictureset);	        
 	        toppanel.add(topbuttonpanel);
 	        
@@ -99,6 +107,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 	        associatedPictureSetsPanel.setLayout(new BorderLayout());	        
 	        JLabel associatedPictureSetsLabel = new JLabel("Verwendete Bildermengen");
         	this.associatedPictureSets = new JFlexibleList();
+        	this.associatedPictureSets.setCellRenderer(new PictureSetListCellRenderer());
         	this.associatedPictureSets.setFixedCellWidth(250);
         	associatedPictureSetsPanel.add(associatedPictureSetsLabel,BorderLayout.NORTH);
         	associatedPictureSetsPanel.add(new JScrollPane(this.associatedPictureSets),BorderLayout.CENTER);
@@ -132,6 +141,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 	        bottombuttonpanel.add(insertexiftag);	       
 	        JButton removeexiftag = new JButton("<<");
 	        removeexiftag.addActionListener(new ReportRemoveExifKeywordController<AbstractModel, JPictureSetExif>(this));
+	        bottombuttonpanel.add(Box.createRigidArea(new Dimension(0,10)));
 	        bottombuttonpanel.add(removeexiftag);	        
 	        bottompanel.add(bottombuttonpanel);
 	        
@@ -296,6 +306,52 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 	@Override
 	public boolean isDiagramSaveable() {
 		return true;
+	}
+	
+	
+	/**
+	 * This nested class renders a picture set content cell for the picture set content list of an active project.
+	 */
+	class PictureSetListCellRenderer implements ListCellRenderer {
+
+		/* defines the default renderer */
+		protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+
+		/**
+		 * Renders the cell.
+		 * 
+		 * @param list
+		 *            the JList we're painting.
+		 * @param value
+		 *            the value returned by list.getModel().getElementAt(index).
+		 * @param index
+		 *            the cells index.
+		 * @param isSelected
+		 *            true if the specified cell was selected.
+		 * @param cellHasFocus
+		 *            true if the specified cell has the focus.
+		 * 
+		 * @return the representation of the cell.
+		 */
+		public Component getListCellRendererComponent(final JList list, final Object value, final int index,
+				final boolean isSelected, final boolean cellHasFocus) {
+
+			/* the text for the cell */
+			String theText = null;
+
+			/* generate the label which represents the cell */
+			final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
+					isSelected, cellHasFocus);
+
+			if (value instanceof PictureSet) {
+				final PictureContainer pictureContainer = (PictureContainer) value;
+				theText = pictureContainer.getName();
+			}
+			renderer.setText(theText);
+
+			/* return the label */
+			return renderer;
+		}
 	}
 
 

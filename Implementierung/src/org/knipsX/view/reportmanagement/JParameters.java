@@ -171,13 +171,11 @@ public class JParameters extends JAbstractSinglePanel {
 
 
 		public void setInvalid(boolean invalid) {
-			if (invalid == false) {
-				System.out.println("valid");
+			if (!invalid) {
 				this.ValidLabel.setIcon(null);
 				this.ValidLabel.setPreferredSize(new Dimension(32,32));
 			}
 			else {
-				System.out.println("invalid");
 				this.ValidLabel.setIcon(createImageIcon("../../images/userwarning.png", null));
 			}
 			
