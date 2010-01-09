@@ -4,6 +4,7 @@
 package org.knipsX.view;
 
 /* import things from the java sdk */
+import java.awt.Image;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -32,7 +33,10 @@ public abstract class JAbstractView<M extends AbstractModel> extends JFrame impl
 		super();
 
 		this.model = model;
-
+		
+		/* sets the icon image which is associated with every subclass*/
+		this.setIconImage(createImageIcon("../../images/appicon.png", null).getImage());
+		
 		/* register to model */
 		if (this.model != null) {
 			this.model.addObserver(this);
@@ -63,9 +67,26 @@ public abstract class JAbstractView<M extends AbstractModel> extends JFrame impl
 		/* calls the normal dispose */
 		super.dispose();
 
-		/* deregister from the model */
+		/* unregister from the model */
 		if(this.model != null) {
 			this.model.deleteObserver(this);
 		}
 	}
+	
+    /**
+     * Returns an ImageIcon, or null if the path was invalid.
+     * 
+     * @param path The absolute or relative path to the image icon
+     * @param description The description of the image icon
+     * @return ImageIcon object
+     */
+    public ImageIcon createImageIcon(String path, String description) {
+        java.net.URL imgURL = getClass().getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL, description);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
 }
