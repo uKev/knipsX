@@ -24,13 +24,7 @@ public class DiagramTypeSelectController implements ListSelectionListener {
 	}
 
 	public void valueChanged(ListSelectionEvent e) {
-
-		System.out.println(this.view.getSelectedDiagramType());
-
 		ReportHelper.updateReport(ReportHelper.values()[this.view.getSelectedDiagramType()]);
-
-		System.out.println(ReportHelper.currentReport.toString());
-
 	}
 
 }
