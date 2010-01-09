@@ -46,11 +46,11 @@ public class JExtendedFileChooser {
     	    //Add the preview pane.
         	filechooser.setAccessory(new ImagePreview(filechooser));
         	
-    		try {
-    			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-    		} catch (Exception exc) {
-    			System.err.println("Error loading  Look and Feel: " + exc);
-    		}
+//    		try {
+//    			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//    		} catch (Exception exc) {
+//    			System.err.println("Error loading  Look and Feel: " + exc);
+//    		}
     		
     	}   	
 
