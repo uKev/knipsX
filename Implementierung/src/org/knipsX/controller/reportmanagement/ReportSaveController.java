@@ -4,14 +4,11 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 import org.knipsX.controller.AbstractController;
-import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
 import org.knipsX.model.reportmanagement.Histogram2DModel;
 import org.knipsX.model.reportmanagement.Histogram3DModel;
-import org.knipsX.view.diagrams.JAbstractDiagram;
-import org.knipsX.view.reportmanagement.AbstractReportCompilation;
 import org.knipsX.view.reportmanagement.JAbstractReportUtil;
 import org.knipsX.view.reportmanagement.JAbstractSinglePanel;
 import org.knipsX.view.reportmanagement.JDiagramType;
@@ -95,19 +92,14 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
 		    }
 		}
 	
+		ReportHelper.currentProjectModel.addReport(this.model, this.view.getReportID());
 		
-		ReportHelper.addModelToReportList(this.model);
-		
-		this.view.dispose();
-		
+		this.view.dispose();		
 		
 		if (showDiagram) {
-			ReportHelper.currentReport.displayDiagram(this.model).showDiagram();
+			ReportHelper.currentReport.displayDiagram(this.model, this.view.getReportID()).showDiagram();
 		}
-		
-		ReportHelper.cleanUp();
-		
-		
+				
 		
     }
 

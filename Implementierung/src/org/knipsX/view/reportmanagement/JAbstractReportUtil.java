@@ -16,6 +16,7 @@ import org.knipsX.view.JAbstractView;
 public abstract class JAbstractReportUtil<M extends AbstractReportModel, V extends AbstractReportCompilation<M>> extends JAbstractView<M> {
 
     private static final long serialVersionUID = 1L;
+    protected int reportID = -1;
 
     public JAbstractReportUtil(M model) {
     	super(model);
@@ -43,13 +44,17 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel, V exten
     	return this.reportCompilation;
     }
     
+    public int getReportID() {
+    	return this.reportID;
+    }
+    
     protected void revalidateDisplayability() {
     	boolean isDisplayable = true;
     	
     	for(JAbstractSinglePanel singlepanel : this.reportCompilation.getRegisteredPanels()) {
     		if(singlepanel.isDiagramDisplayable() == false) {
     			isDisplayable = false;
-    			break;
+    			// Don't use break; here otherwise some views might not receive the isDiagramDisplayable() call
     		}
     	}
     	
@@ -68,7 +73,7 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel, V exten
     	for(JAbstractSinglePanel singlepanel : this.reportCompilation.getRegisteredPanels()) {
     		if(singlepanel.isDiagramSaveable() == false) {
     			isSaveable = false;
-    			break;
+    			// Don't use break; here otherwise some views might not receive the isDiagramSaveable() call
     		}
     	}
     	

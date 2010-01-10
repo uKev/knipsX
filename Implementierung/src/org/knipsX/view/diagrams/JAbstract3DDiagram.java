@@ -7,7 +7,7 @@ import org.knipsX.model.AbstractModel;
 
 import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
 import com.sun.j3d.utils.universe.ViewingPlatform;
-
+import org.knipsX.model.reportmanagement.AbstractReportModel;
 
 /**
  * This class represents a 3D Diagram. It implements the 3D specific 
@@ -17,7 +17,7 @@ import com.sun.j3d.utils.universe.ViewingPlatform;
  *
  * @param <M>
  */
-public abstract class JAbstract3DDiagram<M extends AbstractModel> extends JAbstract3DView<M> {
+public abstract class JAbstract3DDiagram<M extends AbstractReportModel> extends JAbstract3DView<M> {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,8 +28,8 @@ public abstract class JAbstract3DDiagram<M extends AbstractModel> extends JAbstr
      *            the model from which the drawing information is taken
      */
 
-    public JAbstract3DDiagram(M model) {
-	super(model);
+    public JAbstract3DDiagram(M model, int reportID) {
+    	super(model, reportID);
     }
 
     @Override

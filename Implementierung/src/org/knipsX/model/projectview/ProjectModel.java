@@ -134,12 +134,12 @@ public class ProjectModel extends ProjectEntry {
 	 * 
 	 * @return true if the report was added, false if not.
 	 */
-	public boolean addReport(final AbstractReportModel report) {
+	public boolean addReport(final AbstractReportModel report, int reportID) {
 		assert (report != null) && (report instanceof AbstractReportModel);
 		boolean returnValue = false;
 		
-			if(ReportHelper.reportID != -1) {
-				this.reportList.set(ReportHelper.reportID, report);
+			if(reportID != -1) {
+				this.reportList.set(reportID, report);
 				returnValue = true;
 			} else {
 				returnValue = this.reportList.add(report);

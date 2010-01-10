@@ -25,8 +25,8 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
      * @param abstractModel
      *            the model from which the drawing information is taken
      */
-    public JBoxplot(M model) {
-		super(model);
+    public JBoxplot(M model, int reportID) {
+		super(model, reportID);
     }
 
     @Override

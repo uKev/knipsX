@@ -19,9 +19,8 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
      * @param abstractModel
      *            the model from which the drawing information is taken
      */
-    public JHistogram3D(M model) {
-	super(model);
-	// TODO Auto-generated constructor stub
+    public JHistogram3D(M model, int reportID) {
+    	super(model, reportID);
     }
 
     @Override

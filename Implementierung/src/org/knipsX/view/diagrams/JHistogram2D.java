@@ -19,8 +19,8 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
      * @param abstractModel
      *            the model from which the drawing information is taken
      */
-    public JHistogram2D(M model) {
-	super(model);
+    public JHistogram2D(M model, int reportID) {
+    	super(model, reportID);
 	// TODO Auto-generated constructor stub
     }
 

@@ -34,8 +34,8 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
 	 * @param abstractModel
 	 *            the model from which the drawing information is taken
 	 */
-	public JTableDiagram(M model) {
-		super(model);
+	public JTableDiagram(M model, int reportID) {
+		super(model, reportID);
 
 		AbstractTableModel dataModel = new AbstractTableModel() {
 			/**
@@ -83,6 +83,7 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
 
 	@Override
 	public void showDiagram() {	
+		this.setLocationRelativeTo(null);
         this.setVisible(true);
 	}
 }

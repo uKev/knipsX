@@ -4,7 +4,7 @@ import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.View;
 import javax.vecmath.Point3d;
 
-import org.knipsX.model.AbstractModel;
+import org.knipsX.model.reportmanagement.AbstractReportModel;
 
 import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
 import com.sun.j3d.utils.universe.ViewingPlatform;
@@ -18,7 +18,7 @@ import com.sun.j3d.utils.universe.ViewingPlatform;
  * 
  * @param <M>
  */
-public abstract class JAbstract2DDiagram<M extends AbstractModel> extends
+public abstract class JAbstract2DDiagram<M extends AbstractReportModel> extends
 		JAbstract3DView<M> {
 
 	private static final long serialVersionUID = 1L;
@@ -29,8 +29,8 @@ public abstract class JAbstract2DDiagram<M extends AbstractModel> extends
 	 * @param abstractModel
 	 *            the model from which the drawing information is taken
 	 */
-	public JAbstract2DDiagram(M model) {
-		super(model);
+	public JAbstract2DDiagram(M model, int reportID) {
+		super(model, reportID);
 	}
 
 	@Override

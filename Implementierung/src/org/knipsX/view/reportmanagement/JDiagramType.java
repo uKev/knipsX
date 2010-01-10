@@ -125,7 +125,6 @@ public class JDiagramType extends JAbstractSinglePanel {
 		}
         
         JPanel diagramTypePanel = new JPanel();
-        diagramTypePanel.setAlignmentX(LEFT_ALIGNMENT);
         /*
          * put the JList inside a separate JPanel which uses a grid layout
          * to maximize the list inside the diagramTypePanel
@@ -138,18 +137,19 @@ public class JDiagramType extends JAbstractSinglePanel {
         this.diagramType.setCellRenderer(new ComplexCellRenderer());
         this.diagramType.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);        
         this.diagramType.setLayoutOrientation(JList.HORIZONTAL_WRAP);        
-        this.diagramType.setAlignmentX(LEFT_ALIGNMENT);
         
         
         diagramTypePanel.add(this.diagramType);
-        leftpanel.add(diagramTypePanel);
+        JScrollPane diagramScrollPane = new JScrollPane(diagramTypePanel);
+        diagramScrollPane.setAlignmentX(LEFT_ALIGNMENT);
+        leftpanel.add(diagramScrollPane);
         leftpanel.add(Box.createVerticalGlue());        
         
         // Initialize the right panel       
         JPanel rightpanel = new JPanel();
         rightpanel.setLayout(new BoxLayout(rightpanel, BoxLayout.PAGE_AXIS)); 
                 
-        Component diagramView = ReportHelper.currentReport.getDiagram();  
+        Component diagramView = ReportHelper.currentReport.getDiagramView();  
         diagramView.setPreferredSize(new Dimension(300,150));
         rightpanel.add(diagramView);
         rightpanel.add(Box.createRigidArea(new Dimension(0,20)));

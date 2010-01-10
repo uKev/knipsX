@@ -20,9 +20,8 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
      * @param abstractModel
      *            the model from which the drawing information is taken
      */
-    public JCluster3D(M model) {
-	super(model);
-	// TODO Auto-generated constructor stub
+    public JCluster3D(M model, int reportID) {
+    	super(model, reportID);
     }
 
     @Override

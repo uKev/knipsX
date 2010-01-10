@@ -49,6 +49,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 	private JFlexibleList associatedPictureSets;
 	private JFlexibleList availableExifTags;
 	private JFlexibleList associatedExifTags;
+	private JLabel errorMessage;
 	
 
 	/**
@@ -92,12 +93,18 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         	JPanel topbuttonpanel = new JPanel();
         	topbuttonpanel.setLayout(new BoxLayout(topbuttonpanel, BoxLayout.Y_AXIS));        	
 	        JButton insertpictureset = new JButton(">>");
+	        insertpictureset.setAlignmentX(CENTER_ALIGNMENT);
 	        insertpictureset.addActionListener(new ReportAddPictureSetController<AbstractModel, JPictureSetExif>(this));
 	        topbuttonpanel.add(insertpictureset);	       
 	        JButton removepictureset = new JButton("<<");
+	        removepictureset.setAlignmentX(CENTER_ALIGNMENT);
 	        removepictureset.addActionListener(new ReportPictureSetRemoveController<AbstractModel, JPictureSetExif>(this));
 	        topbuttonpanel.add(Box.createRigidArea(new Dimension(0,10)));
-	        topbuttonpanel.add(removepictureset);	        
+	        topbuttonpanel.add(removepictureset);
+	        this.errorMessage = new JLabel();	        
+	        this.errorMessage.setAlignmentX(CENTER_ALIGNMENT);
+	        topbuttonpanel.add(Box.createRigidArea(new Dimension(0,10)));
+	        topbuttonpanel.add(this.errorMessage);
 	        toppanel.add(topbuttonpanel);
 	        
 	        // Add a spacer to relax the layout
@@ -295,9 +302,13 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 	@Override
 	public boolean isDiagramDisplayable() {
 		if(this.associatedPictureSets.getContents().size() > 0) {
+			this.errorMessage.setIcon(null);
+			this.errorMessage.setToolTipText(null);
 			return true;
 		} else {
-			return false;
+			this.errorMessage.setIcon(createImageIcon("../../images/userwarning.png", null));
+			this.errorMessage.setToolTipText("Um die Auswertung anzeigen zu können muss mindestens eine Bildmenge der Auswertung hinzugefügt werden");
+			return false;			
 		}
 	}
 

@@ -3,9 +3,12 @@ package org.knipsX.controller.diagrams;
 import java.awt.event.ActionEvent;
 
 import org.knipsX.controller.AbstractController;
-import org.knipsX.view.diagrams.JAbstract3DView;
+import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.view.diagrams.JAbstractDiagram;
+import org.knipsX.view.reportmanagement.AbstractReportCompilation;
+import org.knipsX.view.reportmanagement.JReportConfig;
 
-public class ReportEditController<M, V extends JAbstract3DView<?>> extends AbstractController<M, V> {
+public class ReportEditController<M, V extends JAbstractDiagram<?>> extends AbstractController<M, V> {
 
 	public ReportEditController(V view) {
 		super(view);
@@ -13,9 +16,9 @@ public class ReportEditController<M, V extends JAbstract3DView<?>> extends Abstr
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent e) {		
+	    new JReportConfig<AbstractReportModel,AbstractReportCompilation<AbstractReportModel>>(this.view.getReportModel(), this.view.getReportID());
+	    this.view.dispose();
 	}
 
 }

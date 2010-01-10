@@ -32,32 +32,32 @@ public enum ReportHelper {
 	Boxplot {
 			public AbstractReportCompilation<BoxplotModel> createReportCompilation(AbstractReportModel model) {return new BoxplotConfig<BoxplotModel>((BoxplotModel) model);} 
 			public AbstractReportModel createReportModel() {return new BoxplotModel();}
-			public JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model) {return new JBoxplot((BoxplotModel)model);}
-			public Component getDiagram() {  return new JBoxplot(null).getDiagram();};
+			public JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model, int reportID) {return new JBoxplot((BoxplotModel)model, reportID);}
+			public Component getDiagramView() {  return new JBoxplot(null,-1).getDiagram();};
 			public int getNumberOfAxes() {return 1;}
 			},
 			
 	Histogram2D {
 			public AbstractReportCompilation<Histogram2DModel> createReportCompilation(AbstractReportModel model) {return new Histogram2DConfig<Histogram2DModel>((Histogram2DModel) model);}
 			public AbstractReportModel createReportModel() {return new Histogram2DModel();}	
-			public JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model) {return new JHistogram2D((Histogram2DModel)model);}
-			public Component getDiagram() {return new JHistogram2D(null).getDiagram();};
+			public JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model, int reportID) {return new JHistogram2D((Histogram2DModel)model, reportID);}
+			public Component getDiagramView() {return new JHistogram2D(null,-1).getDiagram();};
 			public int getNumberOfAxes() {return 1;}
 			},
 			
 	Histogram3D{ 
 			public AbstractReportCompilation<Histogram3DModel> createReportCompilation(AbstractReportModel model) {return new Histogram3DConfig<Histogram3DModel>((Histogram3DModel) model);}
 			public AbstractReportModel createReportModel() {return new Histogram3DModel();}
-			public JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model) {return new JHistogram3D((Histogram3DModel)model);}
-			public Component getDiagram() {return new JHistogram3D(null).getDiagram();};
+			public JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model, int reportID) {return new JHistogram3D((Histogram3DModel)model, reportID);}
+			public Component getDiagramView() {return new JHistogram3D(null,-1).getDiagram();};
 			public int getNumberOfAxes() {return 2;}
 				
 			},
 	Cluster3D {
 			public AbstractReportCompilation<Cluster3DModel> createReportCompilation(AbstractReportModel model) {return new Cluster3DConfig<Cluster3DModel>((Cluster3DModel) model);} 
 			public AbstractReportModel createReportModel() {return new Cluster3DModel();}	
-			public JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model) {return new JCluster3D((Cluster3DModel)model);}
-			public Component getDiagram() {return new JCluster3D(null).getDiagram();};
+			public JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model, int reportID) {return new JCluster3D((Cluster3DModel)model, reportID);}
+			public Component getDiagramView() {return new JCluster3D(null,-1).getDiagram();};
 			public int getNumberOfAxes() {return 3;}
 				
 			},
@@ -66,8 +66,8 @@ public enum ReportHelper {
 			@SuppressWarnings("unchecked")
 			public AbstractReportCompilation<AbstractReportModel> createReportCompilation(AbstractReportModel model) {return new TableConfig( (TableModel) model);} 
 			public AbstractReportModel createReportModel() {return new TableModel(null);}	
-			public JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model) {return new JTableDiagram((TableModel)model);}
-			public Component getDiagram() {return new JTableDiagram(null).getDiagram();};
+			public JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model, int reportID) {return new JTableDiagram((TableModel)model, reportID);}
+			public Component getDiagramView() {return new JTableDiagram(null,-1).getDiagram();};
 			public int getNumberOfAxes() {return 0;}
 		};
 	
@@ -83,21 +83,26 @@ public enum ReportHelper {
 	
 	
 	/**
-	 * Creates and returns the associated reportmodel with the specified report enum 
+	 * Creates and returns the associated report model with the specified report enum 
 	 * @return the associated reportmodel with the specified report enum 
 	 */
 	public abstract AbstractReportModel createReportModel();
 	
 	/**
-	 * Returns the diagram of the associated report
+	 * Returns the complete diagram with associated buttons. To show the diagram on screen call the 
+	 * respective method.
+	 * 
+	 * @param model the report model of the report you want to visualize
+	 * @param reportID the report id of the report
+	 * @return the diagram
 	 */
-	public abstract JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model);
+	public abstract JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model, int reportID);
 	
 	
 	/**
-	 * Returns the Component of the Diagram
+	 * Returns the Component of the Diagram without the associated buttons
 	 */
-	public abstract Component getDiagram();	
+	public abstract Component getDiagramView();	
 	
 	
 	/**
@@ -148,26 +153,6 @@ public enum ReportHelper {
 		currentReport = myreport;
 		currentReportUtil.setReportType(currentReport.createReportCompilation(null));
 	}
-		
-	/**
-	 * Adds the currently active model in the ReportHelper class into the ProjectModel
-	 */
-	public static void addModelToReportList(AbstractReportModel model) {
-		assert model != null;		
-		currentProjectModel.addReport(model);
-	}
-	
-	
-	/**
-	 * This function resets all settings so that a new report can be generated properly. 
-	 * Basically in initializes all of the variables with their respective default
-	 * values
-	 */
-	public static void cleanUp() {
-		currentModel = null;
-		reportID = -1;
-	}
-	
 	
 
 	

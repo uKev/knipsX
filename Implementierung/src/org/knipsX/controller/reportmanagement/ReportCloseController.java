@@ -22,7 +22,6 @@ public class ReportCloseController<M, V extends JAbstractReportUtil<?,?>> extend
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    	ReportHelper.cleanUp();
     	this.view.dispose();
     }
 

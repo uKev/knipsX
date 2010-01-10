@@ -34,7 +34,7 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
-import org.knipsX.model.AbstractModel;
+import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.picturemanagement.Picture;
 
 import com.sun.j3d.utils.geometry.Box;
@@ -51,7 +51,7 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
  * 
  * @param <M> the model which is to be drawn
  */
-public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstractDiagram<M> {
+public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAbstractDiagram<M> {
 
     private static final long serialVersionUID = 1L;
 
@@ -124,8 +124,8 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
      * @param abstractModel
      *            the model from which the drawing information is taken
      */
-    public JAbstract3DView(M model) {
-		super(model);
+    public JAbstract3DView(M model, int reportID) {
+		super(model, reportID);
 	
 		this.objRoot = new BranchGroup();
 		this.canvas3D = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
@@ -376,7 +376,8 @@ public abstract class JAbstract3DView<M extends AbstractModel> extends JAbstract
         	panel.add(this.registeredButtons);
         }
       	add(panel); 
-        pack();   	
+        pack();
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
 	}
 

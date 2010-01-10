@@ -38,8 +38,10 @@ public class ReportOpenController<M extends ProjectModel, V extends JProjectView
 	 */
 	
     UIManager.put("TabbedPane.contentAreaColor", new Color(238,238,238));
+    
+    
     if(this.view.getSelectedReports().length > 0) {
-	    new JReportConfig<AbstractReportModel,AbstractReportCompilation<AbstractReportModel>>((AbstractReportModel) this.model.getReports()[this.view.getSelectedReports()[0]], null);
+	    new JReportConfig<AbstractReportModel,AbstractReportCompilation<AbstractReportModel>>((AbstractReportModel) this.model.getReports()[this.view.getSelectedReports()[0]], this.view.getSelectedReports()[0]);
 	    ReportHelper.reportID = this.view.getSelectedReports()[0];
     }
     

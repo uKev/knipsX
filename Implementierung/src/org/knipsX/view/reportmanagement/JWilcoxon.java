@@ -85,9 +85,10 @@ public class JWilcoxon extends JAbstractSinglePanel {
         
         if(ReportHelper.currentModel != null) {
         	if(ReportHelper.currentModel instanceof BoxplotModel) {
-            	this.wilcoxonCheckBox.setSelected(((BoxplotModel)ReportHelper.currentModel).isWilcoxonTestActive());
-            	this.significanceSlider.floatSlider.setFloatValue(((BoxplotModel)ReportHelper.currentModel).getWilcoxonSignificance());
-            	this.wilcoxoncombobox.setSelectedItem(((BoxplotModel)ReportHelper.currentModel).getWilcoxonTestType());
+            	this.wilcoxonCheckBox.setSelected(((BoxplotModel)ReportHelper.currentModel).isWilcoxonTestActive());            	
+            	this.significanceSlider.floatSlider.setFloatValue(((BoxplotModel)ReportHelper.currentModel).getWilcoxonSignificance());            	
+            	if(((BoxplotModel)ReportHelper.currentModel).getWilcoxonTestType() !=  null)
+            		this.wilcoxoncombobox.setSelectedItem(((BoxplotModel)ReportHelper.currentModel).getWilcoxonTestType());
         	}
 
         }

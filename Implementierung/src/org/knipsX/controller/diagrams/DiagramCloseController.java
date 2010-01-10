@@ -19,8 +19,7 @@ public class DiagramCloseController<M, V extends JAbstractDiagram<?>> extends Ab
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		this.view.dispose();		
 	}
 
 }

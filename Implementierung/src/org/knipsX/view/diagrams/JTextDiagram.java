@@ -30,8 +30,8 @@ public class JTextDiagram<M extends TextModel> extends JAbstractDiagram<M> {
      * @param abstractModel
      *            the model from which the drawing information is taken
      */
-    public JTextDiagram(M model) {
-    	super(model);
+    public JTextDiagram(M model, int reportID) {
+    	super(model, reportID);
 		this.textArea = new JTextArea("LOOL");
 		
         JPanel mainpanel = new JPanel();
@@ -52,13 +52,13 @@ public class JTextDiagram<M extends TextModel> extends JAbstractDiagram<M> {
     }
 
 	@Override
-	Component getDiagram() {
-		// TODO Auto-generated method stub
-		return null;
+	public Component getDiagram() {
+		return this.textArea;
 	}
 
 	@Override
 	public void showDiagram() {
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);		
 	}
 }

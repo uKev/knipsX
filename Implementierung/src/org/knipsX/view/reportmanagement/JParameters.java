@@ -217,10 +217,8 @@ public class JParameters extends JAbstractSinglePanel {
 		private static final long serialVersionUID = 1L;
 		private AxisParameter axisparam;
     	
-    	public ExifParamComboBox(AxisParameter axisparam) {
-    		
+    	public ExifParamComboBox(AxisParameter axisparam) {    		
     		this.axisparam = axisparam;
-    		
     		
 	        Object[] exifparams = new Object[ExifParameter.values().length + 1];
 	        for(int i = 0; i < exifparams.length - 1; i++) {
@@ -232,7 +230,7 @@ public class JParameters extends JAbstractSinglePanel {
 	        	}
 	        	
 	        	this.addItem(exifparams[i]);
-	        }  
+	        }
 	        
 	        this.setSelectedIndex(0);
 	        this.addActionListener(this);

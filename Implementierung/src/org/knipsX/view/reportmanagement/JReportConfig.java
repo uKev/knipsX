@@ -32,12 +32,15 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
     private JPanel basic;
     private JPanel mainpanel;
 
+
     private final int[] mysize = {800,600};
 
     @SuppressWarnings("unchecked")
-    public JReportConfig(final M model, final V view) {
+    public JReportConfig(final M model, final int reportID) {
 		super(model);
+		this.reportID = reportID;
 		ReportHelper.currentModel = this.model;
+		
 		
 	    if(model instanceof BoxplotModel) {
 	    	ReportHelper.currentReport = ReportHelper.Boxplot;	

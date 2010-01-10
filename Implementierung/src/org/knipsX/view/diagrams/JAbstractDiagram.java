@@ -6,7 +6,7 @@ import java.util.Observable;
 
 import javax.swing.JComponent;
 
-import org.knipsX.model.AbstractModel;
+import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.view.JAbstractView;
 
 /**
@@ -16,9 +16,10 @@ import org.knipsX.view.JAbstractView;
  *
  * @param <M>
  */
-public abstract class JAbstractDiagram<M extends AbstractModel> extends JAbstractView<M> {
+public abstract class JAbstractDiagram<M extends AbstractReportModel> extends JAbstractView<M> {
 
 	private static final long serialVersionUID = 1L;
+	private int reportID = -1;
 	
 	/**
 	 * This JComponent contains the button set of the specific diagram view.
@@ -29,8 +30,9 @@ public abstract class JAbstractDiagram<M extends AbstractModel> extends JAbstrac
 	 */
 	protected JComponent registeredButtons;
 
-	public JAbstractDiagram(M model) {
+	public JAbstractDiagram(M model, int reportID) {
 		super(model);
+		this.reportID = reportID;
 	}
 	
 
@@ -53,6 +55,9 @@ public abstract class JAbstractDiagram<M extends AbstractModel> extends JAbstrac
 	abstract Component getDiagram();
 
 	
+	public AbstractReportModel getReportModel() {
+		return this.model;
+	}
 	
 	/**
 	 * Displays the Diagram with the associated buttons
@@ -61,7 +66,16 @@ public abstract class JAbstractDiagram<M extends AbstractModel> extends JAbstrac
 	
 	@Override
 	public void update(Observable model, Object argument) {
-	    // TODO Auto-generated method stub
-	    
+		// Does nothing	    
+	}
+	
+	/**
+	 * Returns the report ID of the current report associated with the diagram
+	 * @return
+	 */
+	public int getReportID() {
+		return this.reportID;
 	}
 }
+
+
