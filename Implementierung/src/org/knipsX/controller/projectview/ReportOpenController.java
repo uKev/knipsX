@@ -42,7 +42,6 @@ public class ReportOpenController<M extends ProjectModel, V extends JProjectView
     
     if(this.view.getSelectedReports().length > 0) {
 	    new JReportConfig<AbstractReportModel,AbstractReportCompilation<AbstractReportModel>>((AbstractReportModel) this.model.getReports()[this.view.getSelectedReports()[0]], this.view.getSelectedReports()[0]);
-	    ReportHelper.reportID = this.view.getSelectedReports()[0];
     }
     
     }
