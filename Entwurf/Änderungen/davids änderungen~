@@ -9,6 +9,5 @@ Sequence diagram Wizard Report Create
 
 DiagramExportAsJPGController in DiagramExportAsBufferedImageController umbenannt
 	Durch die Umbennenung entscheidet der JExtendedFileChooser in welchem Format 
-	das buffered image gespeichert wird. Durch die Umbenennung wird die Rolle der 
-	Controllers klarer
+	das buffered image gespeichert wird
 
