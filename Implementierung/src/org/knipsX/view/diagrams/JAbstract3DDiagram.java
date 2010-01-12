@@ -38,11 +38,9 @@ public abstract class JAbstract3DDiagram<M extends AbstractReportModel> extends 
      */
     public void preinitialize() {
     
-	    this.registeredButtons = new JDiagramButtons3D(this);
-	    
+	    this.registeredButtons = new JDiagramButtons3D(this);	    
 	    this.numberOfAxes = 3;
-		int goodcamerapos = (int) (this.AXISSIZE / 2);
-		changeCameraPosition(goodcamerapos, goodcamerapos, goodcamerapos * 6);
+	    this.setCameraPerspective(Perspectives.PERSPECTIVE);
 		
 		addLights();
 		createGrid();

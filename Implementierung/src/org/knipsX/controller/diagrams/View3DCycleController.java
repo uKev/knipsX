@@ -21,8 +21,7 @@ public class View3DCycleController<M, V extends JAbstract3DView<?>> extends Abst
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		this.view.nextPerspective();	
 	}
 
 }

@@ -118,6 +118,9 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
     private double segmentSize = this.AXISSIZE / NUMBEROFSEGMENTS;
     
+    
+    private int currentPerspective = 0;
+    
     /**
      * Constructor initialized the canvas3D
      * 
@@ -594,28 +597,69 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      * @param perspEnum the perspective to change to
      */
 
-    protected void setCameraPerspective(Perspectives perspEnum) {
+    public void setCameraPerspective(Perspectives perspEnum) {
     	switch(perspEnum) {
     		case XYPLANE:
     			changeCamtoFaceYXPlane();
+    			break;
+    		case XZPLANE:
+    			changeCamtoFaceXZPlane();
+    			break;
+    		case YZPLANE:
+    			changeCamtoFaceYZPlane();
+    			break;
+    		case PERSPECTIVE:
+    			changeCamtoPerspective();
+    			break;
     		default:
-    			//
-    		
+    			assert false;
+    			break;    		
     	}
     	
-    }
+    }    
     
+    public void nextPerspective() {   	
+    	
+    	if(this.currentPerspective < Perspectives.values().length - 1) {
+    		this.currentPerspective++;
+    	} else {
+    		this.currentPerspective = 0;
+    	}    	
+    	setCameraPerspective(Perspectives.values()[this.currentPerspective]);
+    }
     
     private void changeCamtoFaceYXPlane() {
     	TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
-    	this.simpleU.getViewingPlatform().getViewPlatform();
     	Transform3D T3D = new Transform3D();
     	T3D.rotY(-90 * Math.PI / 180.0);
     	T3D.setTranslation(new Vector3d(-2*this.AXISSIZE, this.AXISSIZE / 2.0, this.AXISSIZE/2));
     	vpTrans.setTransform(T3D);
     }
     
+    private void changeCamtoFaceXZPlane() {
+    	TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
+    	Transform3D T3D = new Transform3D();
+    	T3D.setTranslation(new Vector3d(this.AXISSIZE/2.0, this.AXISSIZE/2.0, 3*this.AXISSIZE));
+    	vpTrans.setTransform(T3D);
+    }
     
+    private void changeCamtoFaceYZPlane() {  
+    	TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
+    	Transform3D T3D = new Transform3D();
+    	T3D.rotY(180 * Math.PI / 180.0);
+    	T3D.setTranslation(new Vector3d(this.AXISSIZE/2.0, this.AXISSIZE/2.0, -2*this.AXISSIZE));
+    	vpTrans.setTransform(T3D);
+    }
+    
+    private void changeCamtoPerspective() {  
+    	TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
+    	Transform3D T3D = new Transform3D();
+    	T3D.rotY(60 * Math.PI / 180.0);
+    	T3D.rotX(-12.5 * Math.PI / 180.0);
+    	T3D.setTranslation(new Vector3d(this.AXISSIZE/2.0, 2*this.AXISSIZE/2.0, 3*this.AXISSIZE));
+    	vpTrans.setTransform(T3D);
+    }
+        
     /**
      * Sets the current picture which is displayed outside of the 3D View
      * 
