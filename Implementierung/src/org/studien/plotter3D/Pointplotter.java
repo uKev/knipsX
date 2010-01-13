@@ -249,7 +249,7 @@ public class Pointplotter extends MouseAdapter {
 			
 			// Create transformation group
 			TransformGroup objData = new TransformGroup(dataTrans);	
-			objData.setCapability(PickInfo.PICK_GEOMETRY );		
+			objData.setCapability(PickInfo.PICK_GEOMETRY);		
 			objData.addChild(new myShape3D(myfloat,myfloat+myfloat,myfloat));
 			
 			
@@ -338,9 +338,9 @@ public class Pointplotter extends MouseAdapter {
 		
 		createLabels();
 
-		//insertData();
+		insertData();
 		
-		addAllBars();
+		//addAllBars();
 		
 		addLights();		
 		
