@@ -12,3 +12,7 @@ DiagramExportAsJPGController in DiagramExportAsBufferedImageController umbenannt
 	das buffered image gespeichert wird. Durch die Umbenennung wird die Rolle der 
 	Controllers klarer
 
+SelectableCluster3DSphere in Selectable3DShape umbenannt
+	Durch die Umbennenung der Klasse lässt sich diese flexibler einsetzten. Nun kann man generell
+	Shapes deklarieren, die in der Lage sind angeklickt zu werden
+
