@@ -16,3 +16,4 @@ SelectableCluster3DSphere in Selectable3DShape umbenannt
 	Durch die Umbennenung der Klasse lässt sich diese flexibler einsetzten. Nun kann man generell
 	Shapes deklarieren, die in der Lage sind angeklickt zu werden
 
+JFileSave wird nicht benötigt da der JFileChooser bereits das Speichern beherrscht
