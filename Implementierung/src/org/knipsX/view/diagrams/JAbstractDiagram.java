@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.Observable;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.view.JAbstractView;

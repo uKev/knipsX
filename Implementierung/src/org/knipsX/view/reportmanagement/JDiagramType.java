@@ -129,7 +129,7 @@ public class JDiagramType extends JAbstractSinglePanel {
          * put the JList inside a separate JPanel which uses a grid layout
          * to maximize the list inside the diagramTypePanel
          */
-        diagramTypePanel.setLayout(new GridLayout(1,1));
+        diagramTypePanel.setLayout(new GridLayout(1, 1));
         
         this.diagramType = new JList(myreports);
         this.diagramType.setSelectedIndex(indexToSelect);
@@ -150,9 +150,9 @@ public class JDiagramType extends JAbstractSinglePanel {
         rightpanel.setLayout(new BoxLayout(rightpanel, BoxLayout.PAGE_AXIS)); 
                 
         Component diagramView = ReportHelper.currentReport.getDiagramView();  
-        diagramView.setPreferredSize(new Dimension(300,150));
+        diagramView.setPreferredSize(new Dimension(300, 150));
         rightpanel.add(diagramView);
-        rightpanel.add(Box.createRigidArea(new Dimension(0,20)));
+        rightpanel.add(Box.createRigidArea(new Dimension(0, 20)));
         
         JTextArea mytextarea = new JTextArea(diagramDescription);
         mytextarea.setEditable(false);
@@ -162,14 +162,14 @@ public class JDiagramType extends JAbstractSinglePanel {
         mytextarea.setLineWrap(true);
         rightpanel.add(mytextarea);
         JScrollPane rightscrollpane = new JScrollPane(mytextarea); 
-        rightscrollpane.setMaximumSize(new Dimension(Integer.MAX_VALUE,450));
+        rightscrollpane.setMaximumSize(new Dimension(Integer.MAX_VALUE, 450));
         rightscrollpane.setAlignmentX(CENTER_ALIGNMENT);
         rightpanel.add(rightscrollpane);      
         
         
         // Add them to the main layout
         add(leftpanel);
-        add(Box.createRigidArea(new Dimension(25,20)));
+        add(Box.createRigidArea(new Dimension(25, 20)));
         add(Box.createHorizontalGlue());
         add(rightpanel);   
         

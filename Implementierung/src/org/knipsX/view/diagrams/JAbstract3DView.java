@@ -1,11 +1,13 @@
 package org.knipsX.view.diagrams;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsConfigTemplate;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
+import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
@@ -31,7 +33,9 @@ import javax.media.j3d.Text3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
@@ -142,12 +146,22 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     /**
      * Specifies if the text in the current view should point to the camera
      */
-    protected boolean textautorotate = true;
-
+    protected boolean textautorotate = true;   
+    
     /**
      * Specifies the off screen scale of the of screen canvas3d
      */
     private static final int OFF_SCREEN_SCALE = 2;
+    
+    /**
+     * Specifies the left Panel which is visible in diagram view
+     */
+    protected JPanel leftPanel;
+    
+    /**
+     * Specifies the right Panel which is visible in diagram view
+     */
+    protected JPanel rightPanel;
 
     /**
      * Stores the reference to the OffScreenCanvas3D object
@@ -640,7 +654,6 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
          * Set the back clipping plane to a relative high value to ensure that
          * the view is drawn even if the view is zoomed out very far
          */
-
         this.canvas3D.getView().setBackClipDistance(500);
 
         this.createBackground(new Color3f(0.7f, 0.7f, 0.7f));
@@ -745,19 +758,32 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
     @Override
     public void showDiagram() {
-        this.canvas3D.setSize(800, 600);
-        final JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        panel.add(this.canvas3D);
+
+        BoxLayout container = new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS);
+        setLayout(new BorderLayout());
+
+        Component diagramView = this.canvas3D;
+        diagramView.setPreferredSize(new Dimension(800, 600));
+
+        this.add(diagramView, BorderLayout.CENTER);
+
         if (this.registeredButtons != null) {
-            panel.add(this.registeredButtons);
+            this.add(this.registeredButtons, BorderLayout.SOUTH);
         }
-        this.add(panel);
+        
+        if (this.leftPanel != null) {
+            this.add(leftPanel, BorderLayout.WEST);
+        }
+        
+        if (this.rightPanel != null) {
+            this.add(rightPanel, BorderLayout.EAST);
+        }
+
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-    
+
     public PickCanvas getPickCanvas() {
         return this.pickCanvas;
     }

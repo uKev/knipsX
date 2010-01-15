@@ -9,8 +9,8 @@ import com.sun.j3d.utils.geometry.Sphere;
 
 /**
  * This class represents a selectable shape in a 3D diagram. Additionally
- * it stores a reference to a Frequency3DPoint object which can be used for evaluation
- * purposes.
+ * it stores a reference to a Frequency3DPoint object which can be used for 
+ * further evaluation purposes.
  * 
  * @author David Kaufman
  *

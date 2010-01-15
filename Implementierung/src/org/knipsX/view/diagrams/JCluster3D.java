@@ -5,6 +5,8 @@ import java.util.Random;
 import javax.media.j3d.PickInfo;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.vecmath.Vector3d;
 
 import org.knipsX.model.reportmanagement.Cluster3DModel;
@@ -57,6 +59,9 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
         final String[] xAchse = this.generateSegmentDescription(null, null);
         this.setSegmentDescription(xAchse, xAchse, xAchse);
         this.createLabels("Hallo", "Test", "OMG");
+        
+        this.leftPanel = new JPanel();
+        
 
     }
 
