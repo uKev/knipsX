@@ -7,7 +7,6 @@ import org.knipsX.model.picturemanagement.PictureContainer;
  * 
  * @author Kevin Zuber
  *
- *
  */
 public class Bar {
 	
