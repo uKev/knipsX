@@ -1,6 +1,5 @@
 package org.knipsX.view.diagrams;
 
-import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -14,39 +13,50 @@ import org.knipsX.controller.diagrams.View3DCycleController;
  * This class represents the buttons which are available in ever 3D diagram.
  * 
  * @author David Kaufman
- *
+ * 
  */
 public class JDiagramButtons3D extends JPanel {
 
-	private static final long serialVersionUID = 1L;
-	private JAbstractDiagram<?> view;
-	
-	public JDiagramButtons3D(JAbstractDiagram<?> view) {
-		this.view = view;
-		
-		JButton mybutton = new JButton("Schließen");
-		mybutton.addActionListener(new DiagramCloseController(view));
-		
-		JButton mybutton0 = new JButton("Auswertung bearbeiten");
-		mybutton0.addActionListener(new ReportEditController((JAbstract3DView) view));
-		
-		
-		JButton mybutton2 = new JButton("Ansicht zurücksetzen");
-		mybutton2.addActionListener(new DiagramResetViewController((JAbstract3DView) view, Perspectives.PERSPECTIVE));
-		
-		
-		JButton mybutton3 = new JButton("Nächste Ansicht");
-		mybutton3.addActionListener(new View3DCycleController((JAbstract3DView) view));
-		
-		
-		JButton mybutton1 = new JButton("Als Bild exportieren");
-		mybutton1.addActionListener(new DiagramExportAsBufferedImageController(view));
-		
-		add(mybutton);
-		add(mybutton0);
-		add(mybutton1);
-		add(mybutton2);
-		add(mybutton3);
-	}
-	
+    private static final long serialVersionUID = 7392718398074755843L;
+
+    /**
+     * Constructor which takes an abstract diagram as a parameter and defines
+     * a set of buttons with their associated controllers which operate on the
+     * view
+     * 
+     * @param view
+     *            the view on which the controllers work on
+     */
+
+    public JDiagramButtons3D(JAbstractDiagram<?> view) {
+
+        /* Define the close button and associate the controller */
+        JButton closeButton = new JButton("Schließen");
+        closeButton.addActionListener(new DiagramCloseController<Object, JAbstractDiagram<?>>(view));
+
+        /* Define the edit button and associate the controller */
+        JButton editButton = new JButton("Auswertung bearbeiten");
+        editButton.addActionListener(new ReportEditController<Object, JAbstract3DView<?>>((JAbstract3DView<?>) view));
+
+        /* Define the reset button and associate the controller */
+        JButton resetButton = new JButton("Ansicht zurücksetzen");
+        /* Set the PERSPECTIVE perspective enum as the default view */
+        resetButton.addActionListener(new DiagramResetViewController<Object, JAbstract3DView<?>>((JAbstract3DView<?>) view, Perspectives.PERSPECTIVE));
+
+        /* Define the next button and associate the controller */
+        JButton nextButton = new JButton("Nächste Ansicht");
+        nextButton.addActionListener(new View3DCycleController<Object, JAbstract3DView<?>>((JAbstract3DView<?>) view));
+
+        /* Define the close export and associate the controller */
+        JButton exportButton = new JButton("Als Bild exportieren");
+        exportButton.addActionListener(new DiagramExportAsBufferedImageController<Object, JAbstractDiagram<?>>(view));
+
+        /* Add all the defined buttons to the current panel */
+        add(closeButton);
+        add(editButton);
+        add(resetButton);
+        add(nextButton);
+        add(exportButton);
+    }
+
 }

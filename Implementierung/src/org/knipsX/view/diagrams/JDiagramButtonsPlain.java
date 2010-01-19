@@ -14,28 +14,39 @@ import org.knipsX.controller.diagrams.ReportEditController;
  * diagram.
  * 
  * @author David Kaufman
- *
+ * 
  */
 public class JDiagramButtonsPlain extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private JAbstractDiagram<?> view;
+
+    /**
+     * Constructor which takes an abstract diagram as a parameter and defines
+     * a set of buttons with their associated controllers which operate on the
+     * view
+     * 
+     * @param view
+     *            the view on which the controllers work on
+     */
 
     public JDiagramButtonsPlain(JAbstractDiagram<?> view) {
-    	this.view = view;
-    	
-		JButton mybutton = new JButton("Schließen");
-		mybutton.addActionListener(new DiagramCloseController(view));
-		
-		JButton mybutton0 = new JButton("Auswertung bearbeiten");
-		mybutton0.addActionListener(new ReportEditController(view));
-		
-		JButton mybutton1 = new JButton("Als Bild exportieren");
-		mybutton1.addActionListener(new DiagramExportAsBufferedImageController(view));
-		
-		add(mybutton);
-		add(mybutton0);
-		add(mybutton1);
+        
+        /* Define the close button and associate the controller */
+        JButton closeButton = new JButton("Schließen");
+        closeButton.addActionListener(new DiagramCloseController<Object, JAbstractDiagram<?>>(view));
+        
+        /* Define the edit button and associate the controller */
+        JButton editButton = new JButton("Auswertung bearbeiten");
+        editButton.addActionListener(new ReportEditController<Object, JAbstractDiagram<?>>(view));
+
+        /* Define the export button and associate the controller */
+        JButton exportButton = new JButton("Als Bild exportieren");
+        exportButton.addActionListener(new DiagramExportAsBufferedImageController<Object, JAbstractDiagram<?>>(view));
+
+        /* Add all the defined buttons to the current panel */
+        add(closeButton);
+        add(editButton);
+        add(exportButton);
     }
 
 }
