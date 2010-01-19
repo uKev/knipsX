@@ -1,92 +1,115 @@
-/**
- * This package is the root of all views of knipsX.
- */
 package org.knipsX.view;
 
-/* import things from the java sdk */
-import java.awt.Image;
+import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-/* import things from our program */
 import org.knipsX.model.AbstractModel;
 
+/**
+ * This view is the top of our view structure. It manages a model, which is connected to it. The connection is
+ * implemented through the observer pattern.
+ * 
+ * @author Kai Bouché
+ * 
+ * @param <M>
+ *            you must set this to a model which is a child from the top of our model structure.
+ */
 public abstract class JAbstractView<M extends AbstractModel> extends JFrame implements Observer {
 
-	/** Only for serialization */
-	private static final long serialVersionUID = -5981384605515636896L;
+    private static final long serialVersionUID = -5981384605515636896L;
 
-	protected M model;
+    protected M model;
 
-	/**
-	 * Creates a new view which is connected to a model.
-	 * 
-	 * @param model
-	 *            the model which the view should connect to.
-	 */
-	public JAbstractView(final M model) {
+    /**
+     * Creates a new view which is connected to a model.
+     * 
+     * @param model
+     *            the model which the view should connect to.
+     * 
+     * @throws IllegalArgumentException
+     *             if you didn't set a model.
+     */
+    public JAbstractView(final M model) throws IllegalArgumentException {
 
-		/* calls the JFrame constructor */
-		super();
+        /* calls the JFrame constructor */
+        super();
 
-		this.model = model;
-		
-		/* sets the icon image which is associated with every subclass*/
-		this.setIconImage(createImageIcon("../../images/appicon.png", null).getImage());
-		
-		/* register to model */
-		if (this.model != null) {
-			this.model.addObserver(this);
-		}
-	}
-	
-	
-	/**
-	 * Has to be implemented by a subclass.
-	 * 
-	 * It is called every time a model is updated. It decides (based on the program state) what the view shows.
-	 * 
-	 * @param model
-	 *            this is a reference to the model which a view observe.
-	 * @param argument
-	 *            this is a reference of an argument passed to the model.
-	 * 
-	 * @see #java.util.Observer.update(Observable, Object)
-	 */
-	public abstract void update(final Observable model, final Object argument);
+        if (model == null) {
+            throw new IllegalArgumentException("[JAbstractView::constructor()] - You didn't set a model.");
+        } else {
+            this.model = model;
 
-	/**
-	 * Has the same behavior as a normal dispose(), but also disconnects the view from a model.
-	 */
-	@Override
-	public void dispose() {
+            /* register to model */
+            this.model.addObserver(this);
+        }
 
-		/* calls the normal dispose */
-		super.dispose();
+        /* sets the knipsX icon image which is associated with every subclass */
+        try {
+            this.setIconImage(this.createImageIcon("../../images/appicon.png", null).getImage());
+        } catch (final FileNotFoundException exception) {
+            System.err.println(exception);
+        }
+    }
 
-		/* unregister from the model */
-		if(this.model != null) {
-			this.model.deleteObserver(this);
-		}
-	}
-	
     /**
      * Returns an ImageIcon, or null if the path was invalid.
      * 
-     * @param path The absolute or relative path to the image icon
-     * @param description The description of the image icon
+     * @param path
+     *            the absolute or relative path to the image icon
+     * 
+     * @param description
+     *            the description of the image icon
+     * 
      * @return ImageIcon object
+     * 
+     * @throws FileNotFoundException
+     *             if there's no image available at the given path.
      */
-    public ImageIcon createImageIcon(String path, String description) {
-        java.net.URL imgURL = getClass().getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL, description);
+    private ImageIcon createImageIcon(final String path, final String description) throws FileNotFoundException {
+
+        ImageIcon imageIcon = null;
+
+        /* return the path, where knipsX is installed, connected with the relative path to the icon */
+        final URL imgURL = this.getClass().getResource(path);
+
+        if (imgURL == null) {
+            throw new FileNotFoundException("[JAbstractView::createImageIcon()] - Couldn't find file: " + imgURL);
         } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
+            imageIcon = new ImageIcon(imgURL, description);
         }
+
+        return imageIcon;
     }
+
+    /**
+     * Has the same behavior like the normal dispose(), but also disconnects the view from a model.
+     */
+    @Override
+    public void dispose() {
+
+        /* calls the normal dispose */
+        super.dispose();
+
+        /* unregister from the model */
+        this.model.deleteObserver(this);
+    }
+
+    /**
+     * Has to be implemented by a subclass.
+     * 
+     * It is called every time a model is updated. It decides what the view has to show.
+     * 
+     * @param model
+     *            this is a reference to the model which a view observe.
+     * @param argument
+     *            this is a reference of an argument passed to the model.
+     * 
+     * @see #java.util.Observer.update(Observable, Object)
+     */
+    public abstract void update(final Observable model, final Object argument);
 }
