@@ -27,7 +27,7 @@ public class JPEGImageFilter extends FileFilter {
         String extension = Utils.getExtension(f);
         
         if (extension != null) {            
-            if (extension.equals(Utils.jpeg) || extension.equals(Utils.jpg)) {
+            if (extension.equals(Utils.JPEG) || extension.equals(Utils.JPG)) {
                 return true;
             }
         }

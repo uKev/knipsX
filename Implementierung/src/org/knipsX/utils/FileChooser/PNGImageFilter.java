@@ -27,7 +27,7 @@ public class PNGImageFilter extends FileFilter {
         String extension = Utils.getExtension(f);
         
         if (extension != null) {
-            if (extension.equals(extension.equals(Utils.png))) {
+            if (extension.equals(extension.equals(Utils.PNG))) {
                     return true;
             }
         }
