@@ -25,7 +25,7 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
  * @param <M>
  * @param <V>
  */
-public class JReportWizard<M extends AbstractReportModel, V extends AbstractReportCompilation<M>> extends JAbstractReportUtil<M, V> {
+public class JReportWizard<M extends AbstractReportModel, V extends AbstractReportCompilation> extends JAbstractReportUtil<M, V> {
 	
 	/**
 	 * 
@@ -44,8 +44,8 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 	@SuppressWarnings("unchecked")
 	public JReportWizard() {
 	    super(null);
-		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
-		this.reportCompilation = (AbstractReportCompilation<AbstractReportModel>) ReportHelper.defaultReport.createReportCompilation(null);
+		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation>) this;
+		this.reportCompilation = (AbstractReportCompilation) ReportHelper.defaultReport.createReportCompilation(null);
 		
 		this.nextPanelButton = new JButton("Weiter");
 		this.previousPanelButton = new JButton("Zurück");
@@ -143,11 +143,11 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void setReportType(AbstractReportCompilation<?> reportconfig) {
+	protected void setReportType(AbstractReportCompilation reportconfig) {
 		resize();
 	    remove(this.basic);
-		this.reportCompilation = (AbstractReportCompilation<AbstractReportModel>) reportconfig;
-		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation<AbstractReportModel>>) this;
+		this.reportCompilation = (AbstractReportCompilation) reportconfig;
+		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation>) this;
 		initialize();		
 		repaint();
 	}

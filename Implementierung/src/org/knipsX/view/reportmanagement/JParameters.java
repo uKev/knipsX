@@ -39,15 +39,9 @@ public class JParameters extends JAbstractSinglePanel {
 	 * @param icon The icon which is registered with this panel.
 	 * @param tip The tooltip which is registered with this panel.
 	 */
-    public JParameters(String titel, Icon icon, String tip) {
-		this.title = titel;
-		this.icon = icon;
-		this.tip = tip;
-		
-    	
-		if(this.title == null || this.title == "") {
-			this.title = "Parameter";
-		}
+    public JParameters() {
+
+        this.title = "Parameters";
         
         BoxLayout container = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(container);  

@@ -17,18 +17,7 @@ public abstract class JAbstractSinglePanel extends JComponent {
 	/**
 	 * The title which is registered with this panel.
 	 */
-	protected String title;
-	
-	/**
-	 * The icon which is registered with this panel.
-	 */
-	protected Icon icon;
-	
-	/**
-	 * The tooltip which is registered with this panel.
-	 */
-	protected String tip;
-	
+	protected String title;	
 	
 	/**
 	 * Specifies if the current panel has all the specified information to
@@ -45,7 +34,7 @@ public abstract class JAbstractSinglePanel extends JComponent {
 	
 	
 	public JAbstractSinglePanel() {
-		this.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+		this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 	}
 	
 	public void revalidateReport() {
@@ -72,24 +61,7 @@ public abstract class JAbstractSinglePanel extends JComponent {
 	}
 
 
-	public Icon getIcon() {
-		return icon;
-	}
 
-
-	public void setIcon(Icon icon) {
-		this.icon = icon;
-	}
-
-
-	public String getTip() {
-		return tip;
-	}
-
-
-	public void setTip(String tip) {
-		this.tip = tip;
-	}
 	
     /**
      * Returns an ImageIcon, or null if the path was invalid.
