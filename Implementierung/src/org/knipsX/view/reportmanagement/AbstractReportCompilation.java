@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * This class represents a sequence of single panels which in turn
- * generate a report configuration window.
+ * generate a report configuration window
  * 
  * @author David Kaufman
  * 
