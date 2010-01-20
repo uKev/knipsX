@@ -23,8 +23,8 @@ public abstract class JAbstractSinglePanel extends JComponent {
      * The default constructor of the class which is invoked by every subclass
      */
     public JAbstractSinglePanel() {
-        
-        /* Draw an invisible border around the panel to make it more readable*/
+
+        /* Draw an invisible border around the panel to make it more readable */
         this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
     }
 
@@ -55,12 +55,12 @@ public abstract class JAbstractSinglePanel extends JComponent {
     public String getTitle() {
         return this.title;
     }
-    
+
     /**
      * Specifies if the current panel has all the specified information to display the report
      * 
      * @return true if the current panel as the appropriate amount of information to be displayed
-     * otherwise it returns false
+     *         otherwise it returns false
      */
     public abstract boolean isDiagramDisplayable();
 
@@ -68,7 +68,7 @@ public abstract class JAbstractSinglePanel extends JComponent {
      * Specifies if the current panel has all the specified information to save the report
      * 
      * @return true if the current panel as the appropriate amount of information to be save
-     * otherwise it returns false
+     *         otherwise it returns false
      */
     public abstract boolean isDiagramSaveable();
 
@@ -80,6 +80,9 @@ public abstract class JAbstractSinglePanel extends JComponent {
         ReportHelper.currentReportUtil.revalidateSaveability();
     }
 
-
+    /**
+     * This method is responsible for filling the view with the information from the model
+     */
+    public abstract void fillViewWithModelInfo();
 
 }
