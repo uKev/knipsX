@@ -21,7 +21,7 @@ public class JDiagramButtons2D extends JPanel {
     /**
      * Constructor which takes an abstract diagram as a parameter and defines
      * a set of buttons with their associated controllers which operate on the
-     * view
+     * specified view
      * 
      * @param view
      *            the view on which the controllers work on
