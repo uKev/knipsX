@@ -17,7 +17,7 @@ public class Histogram2DConfig extends AbstractReportCompilation {
      */
     public Histogram2DConfig() {
         
-        /* Define diagram description*/
+        /* Define diagram description */
         //INTERNATIONALIZE
         this.diagramDescription = "Ein Histogramm dient der graphischen Darstellung der Häufigkeitsverteilung"
         		+ " metrisch skalierter klassierter Merkmale. Im Gegensatz zum Balken- bzw. "
