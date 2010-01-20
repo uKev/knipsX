@@ -1,5 +1,6 @@
 package org.knipsX.view.diagrams;
 
+import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.Histogram2DModel;
 
 /**
@@ -9,15 +10,18 @@ import org.knipsX.model.reportmanagement.Histogram2DModel;
  *
  * @param <M>
  */
-public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram<M> {
+public class JHistogram2D<M extends AbstractReportModel> extends JAbstract2DDiagram<M> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Constructor
      * 
-     * @param abstractModel
-     *            the model from which the drawing information is taken
+     * @param model
+     *            the model from which the drawing information is taken from
+     *            
+     * @param reportID 
+     *                the report id of the report    
      */
     public JHistogram2D(M model, int reportID) {
     	super(model, reportID);
