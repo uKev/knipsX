@@ -16,7 +16,7 @@ public class Cluster3DConfig extends AbstractReportCompilation {
      */
     public Cluster3DConfig() {        
         
-        /* Define diagram description*/
+        /* Define diagram description */
         //INTERNATIONALIZE
         this.diagramDescription = "In der 3D-Computergrafik und algorithmischen Geometrie bezeichnet eine "
         		+ "Punktwolke eine Liste von kartesischen 3D-Koordinaten. Diese kann von einem "
