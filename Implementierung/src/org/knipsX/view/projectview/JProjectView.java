@@ -167,7 +167,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 		super(model);
 		
 		/* register model with report helper */ 
-		ReportHelper.currentProjectModel = this.model;
+		ReportHelper.setProjectModel(this.model);
 
 		/* renders the view */
 		this.initialize();
