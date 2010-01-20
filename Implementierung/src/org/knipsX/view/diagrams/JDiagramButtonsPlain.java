@@ -30,14 +30,17 @@ public class JDiagramButtonsPlain extends JPanel {
     public JDiagramButtonsPlain(JAbstractDiagram<?> view) {
         
         /* Define the close button and associate the controller */
+        //INTERNATIONALIZE
         JButton closeButton = new JButton("Schließen");
         closeButton.addActionListener(new DiagramCloseController<Object, JAbstractDiagram<?>>(view));
         
         /* Define the edit button and associate the controller */
+        //INTERNATIONALIZE
         JButton editButton = new JButton("Auswertung bearbeiten");
         editButton.addActionListener(new ReportEditController<Object, JAbstractDiagram<?>>(view));
 
         /* Define the export button and associate the controller */
+        //INTERNATIONALIZE
         JButton exportButton = new JButton("Als Bild exportieren");
         exportButton.addActionListener(new DiagramExportAsBufferedImageController<Object, JAbstractDiagram<?>>(view));
 

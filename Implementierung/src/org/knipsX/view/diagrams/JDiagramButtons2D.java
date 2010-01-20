@@ -29,21 +29,25 @@ public class JDiagramButtons2D extends JPanel {
 
     public JDiagramButtons2D(final JAbstractDiagram<?> view) {
 
-        /* Define the close button and associate the controller */        
+        /* Define the close button and associate the controller */ 
+        //INTERNATIONALIZE
         final JButton closeButton = new JButton("Schließen");
         closeButton.addActionListener(new DiagramCloseController<Object, JAbstractDiagram<?>>(view));
 
         /* Define the edit button and associate the controller */
+        //INTERNATIONALIZE
         final JButton editButton = new JButton("Auswertung bearbeiten");
         editButton.addActionListener(new ReportEditController<Object, JAbstractDiagram<?>>(view));
 
         /* Define the reset button and associate the controller */
+        //INTERNATIONALIZE
         final JButton resetButton = new JButton("Ansicht zurücksetzen");        
         /* Set the XYPLANE perspective enum as the default view */
         resetButton.addActionListener(new DiagramResetViewController<Object, JAbstract3DView<?>>(
                 (JAbstract3DView<?>) view, Perspectives.XYPLANE));
 
         /* Define the export button and associate the controller */
+        //INTERNATIONALIZE
         final JButton exportButton = new JButton("Als Bild exportieren");
         exportButton.addActionListener(new DiagramExportAsBufferedImageController<Object, JAbstractDiagram<?>>(view));
 
