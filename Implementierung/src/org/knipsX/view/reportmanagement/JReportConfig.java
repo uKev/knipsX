@@ -13,7 +13,13 @@ import javax.swing.WindowConstants;
 
 import org.knipsX.controller.reportmanagement.ReportCloseController;
 import org.knipsX.controller.reportmanagement.ReportSaveController;
-import org.knipsX.model.reportmanagement.*;
+import org.knipsX.model.AbstractModel;
+import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.model.reportmanagement.BoxplotModel;
+import org.knipsX.model.reportmanagement.Cluster3DModel;
+import org.knipsX.model.reportmanagement.Histogram2DModel;
+import org.knipsX.model.reportmanagement.Histogram3DModel;
+import org.knipsX.model.reportmanagement.TableModel;
 
 /**
  * This class represents the report configuration utility for an existing report. It
@@ -32,36 +38,44 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
     private JTabbedPane tabbedpane;
     private JPanel basic;
     private JPanel mainpanel;
-
     private final int[] mysize = { 800, 600 };
 
+    /**
+     * This constructor creates a new report configuration utility of an existing 
+     * report model
+     * @param model the report model you want to configure
+     * @param reportID the report id of the report in the view
+     */
     public JReportConfig(final M model, final int reportID) {
         super(model);
         this.reportID = reportID;
-        ReportHelper.currentModel = this.model;
+        ReportHelper.setCurrentModel(this.model);
 
         if (model instanceof BoxplotModel) {
-            ReportHelper.currentReport = ReportHelper.Boxplot;
+            ReportHelper.setCurrentReport(ReportHelper.Boxplot);
         } else if (model instanceof TableModel) {
-            ReportHelper.currentReport = ReportHelper.Table;
+            ReportHelper.setCurrentReport(ReportHelper.Table);
         } else if (model instanceof Cluster3DModel) {
-            ReportHelper.currentReport = ReportHelper.Cluster3D;
+            ReportHelper.setCurrentReport(ReportHelper.Cluster3D);
         } else if (model instanceof Histogram2DModel) {
-            ReportHelper.currentReport = ReportHelper.Histogram2D;
+            ReportHelper.setCurrentReport(ReportHelper.Histogram2D);
         } else if (model instanceof Histogram3DModel) {
-            ReportHelper.currentReport = ReportHelper.Histogram3D;
+            ReportHelper.setCurrentReport(ReportHelper.Histogram3D);
         }
 
-        this.reportCompilation = (AbstractReportCompilation) ReportHelper.currentReport.createReportCompilation();
-        ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel>) this;
+        this.reportCompilation = ReportHelper.getCurrentReport().createReportCompilation();
+        ReportHelper.currentReportUtil = this;
         this.tabbedpane = this.getJTabbedPane();
+        //INTERNATIONALIZE
         this.setTitle("Auswertung konfigurieren");
 
         this.initialize();
 
-        this.closeButton.addActionListener(new ReportCloseController(this));
-        this.saveButton.addActionListener(new ReportSaveController(this, false));
-        this.showButton.addActionListener(new ReportSaveController(this, true));
+        this.closeButton.addActionListener(new ReportCloseController<AbstractModel, JReportConfig<?, ?>>(this));
+        this.saveButton.addActionListener(new ReportSaveController<AbstractReportModel, JReportConfig<?, ?>>(this,
+                false));
+        this.showButton
+                .addActionListener(new ReportSaveController<AbstractReportModel, JReportConfig<?, ?>>(this, true));
         this.setSize(new Dimension(this.mysize[0], this.mysize[1]));
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -73,7 +87,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
         final JTabbedPane tabbedpane = new JTabbedPane();
 
         for (final JAbstractSinglePanel item : this.reportCompilation.getRegisteredPanels()) {
-            
+
             tabbedpane.addTab(item.getTitle(), item);
 
             /*
@@ -94,45 +108,57 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
     private void initialize() {
 
         this.basic = new JPanel();
-        this.basic.setLayout(new BoxLayout(this.basic, BoxLayout.Y_AXIS));
+        this.basic.setLayout(new BoxLayout(this.basic, BoxLayout.PAGE_AXIS));
         this.add(this.basic);
 
         this.mainpanel = new JPanel(new BorderLayout());
         this.mainpanel.setBorder(BorderFactory.createEmptyBorder(15, 25, 15, 25));
         this.mainpanel.add(this.tabbedpane);
+        
+        /* Resize this window properly*/
         this.setPreferredSize(new Dimension(this.mysize[0], this.mysize[1]));
 
         this.basic.add(this.mainpanel);
 
         final JPanel bottom = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        bottom.add(closeButton);
-        bottom.add(saveButton);
-        bottom.add(showButton);
+        bottom.add(this.closeButton);
+        bottom.add(this.saveButton);
+        bottom.add(this.showButton);
         this.basic.add(bottom);
 
         bottom.setMaximumSize(new Dimension(450, 0));
+        
         this.pack();
+        
         ReportHelper.currentReportUtil.revalidateDisplayability();
         ReportHelper.currentReportUtil.revalidateSaveability();
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void setReportType(final AbstractReportCompilation reportconfig) {
+        /* Remember the size of the current configuration utility so that it can be resized properly */
         this.mysize[1] = this.getBounds().height;
         this.mysize[0] = this.getBounds().width;
 
+        /* Remove the basic panel from the view because it is no longer needed */
         this.remove(this.basic);
-        this.reportCompilation = (AbstractReportCompilation) reportconfig;
+        
+        /* Update necessary variables */        
+        this.reportCompilation = reportconfig;
+        
+        /* Generate the JTabbedPane */
         this.tabbedpane = this.getJTabbedPane();
-        ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel>) this;
+        
+        ReportHelper.currentReportUtil = this;
+        
+        /* Reinitialize the panel */
         this.initialize();
     }
 
     @Override
     public void update(final Observable model, final Object argument) {
-        // Do nothing
+        /* Do nothing */
     }
 
 }
