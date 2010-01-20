@@ -24,13 +24,13 @@ public class Histogram3DConfig extends AbstractReportCompilation {
         		+ "nicht durch die Höhe von Balken, sondern durch die Fläche der Balken repräsentiert.";
 
         
-        /* add the diagram panel to the report */
+        /* Add the diagram panel to the report */
         addPanel(new JDiagramType(this.diagramDescription));
         
-        /* add the parameters panel to the report */
+        /* Add the parameters panel to the report */
         addPanel(new JParameters());
         
-        /* add the picture set management and EXIF keyword panel to the report */
+        /* Add the picture set management and EXIF keyword panel to the report */
         addPanel(new JPictureSetExif());
     }
 
