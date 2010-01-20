@@ -16,7 +16,7 @@ public class BoxplotConfig extends AbstractReportCompilation {
      */
     public BoxplotConfig() {
 
-        /* Define diagram description*/
+        /* Define diagram description */
         //INTERNATIONALIZE
         this.diagramDescription = "Der Boxplot (auch Box-Whisker-Plot oder deutsch Kastengrafik) ist ein " 
                                   + "Diagramm, das zur grafischen Darstellung der Verteilung statistischer Daten " 
