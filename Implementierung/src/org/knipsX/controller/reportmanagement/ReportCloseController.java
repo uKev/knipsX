@@ -14,7 +14,7 @@ import org.knipsX.view.reportmanagement.ReportHelper;
  * @param <M>
  * @param <V>
  */
-public class ReportCloseController<M, V extends JAbstractReportUtil<?,?>> extends AbstractController<M, V> {
+public class ReportCloseController<M, V extends JAbstractReportUtil<?>> extends AbstractController<M, V> {
 
     public ReportCloseController(V view) {
     	super(view);

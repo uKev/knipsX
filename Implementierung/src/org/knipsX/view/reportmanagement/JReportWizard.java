@@ -25,7 +25,7 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
  * @param <M>
  * @param <V>
  */
-public class JReportWizard<M extends AbstractReportModel, V extends AbstractReportCompilation> extends JAbstractReportUtil<M, V> {
+public class JReportWizard<M extends AbstractReportModel, V extends AbstractReportCompilation> extends JAbstractReportUtil<M> {
 	
 	/**
 	 * 
@@ -35,7 +35,7 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 	private JComponent basic;
 	private JButton nextPanelButton;
 	private JButton previousPanelButton;
-	private final int[] mysize = {800,600};
+	private final int[] mysize = {800, 600};
 	
 	/**
 	 * Starts the wizard utility on a specified report configuration
@@ -44,15 +44,15 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 	@SuppressWarnings("unchecked")
 	public JReportWizard() {
 	    super(null);
-		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation>) this;
-		this.reportCompilation = (AbstractReportCompilation) ReportHelper.defaultReport.createReportCompilation(null);
+		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel>) this;
+		this.reportCompilation = (AbstractReportCompilation) ReportHelper.defaultReport.createReportCompilation();
 		
 		this.nextPanelButton = new JButton("Weiter");
 		this.previousPanelButton = new JButton("Zurück");
 		
-		this.close.addActionListener(new ReportCloseController(this));        
-        this.save.addActionListener(new ReportSaveController(this, false));        
-        this.show.addActionListener(new ReportSaveController(this, true));
+		this.closeButton.addActionListener(new ReportCloseController(this));        
+        this.saveButton.addActionListener(new ReportSaveController(this, false));        
+        this.showButton.addActionListener(new ReportSaveController(this, true));
         this.nextPanelButton.addActionListener(new WizardNextPanelController(this));
         this.previousPanelButton.addActionListener(new WizardPreviousPanelController(this));
         
@@ -99,15 +99,15 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
         JPanel bottom = new JPanel();
         bottom.setAlignmentX(0.5f);
         bottom.setLayout(new BoxLayout(bottom, BoxLayout.X_AXIS));
-        bottom.add(this.close);
+        bottom.add(this.closeButton);
         bottom.add(Box.createRigidArea(new Dimension(15, 0)));
         bottom.add(this.previousPanelButton);
         bottom.add(Box.createRigidArea(new Dimension(15, 0)));   
         bottom.add(this.nextPanelButton);
         bottom.add(Box.createRigidArea(new Dimension(15, 0)));
-        bottom.add(this.save);
+        bottom.add(this.saveButton);
         bottom.add(Box.createRigidArea(new Dimension(15, 0)));        
-        bottom.add(this.show);
+        bottom.add(this.showButton);
         bottom.add(Box.createRigidArea(new Dimension(15, 0)));
         this.basic.add(bottom);
         this.basic.add(Box.createRigidArea(new Dimension(0, 15)));
@@ -147,7 +147,7 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 		resize();
 	    remove(this.basic);
 		this.reportCompilation = (AbstractReportCompilation) reportconfig;
-		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation>) this;
+		ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel>) this;
 		initialize();		
 		repaint();
 	}

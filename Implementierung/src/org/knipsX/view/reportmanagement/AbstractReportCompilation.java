@@ -11,22 +11,21 @@ import java.util.ArrayList;
  */
 
 public abstract class AbstractReportCompilation {
-
-    protected String diagramDescription;
-
-    /**
-	 * 
-	 */
-    private static final long serialVersionUID = 1L;
+    
+    /* The internal data structure of the registered panels */
     private final ArrayList<JAbstractSinglePanel> registeredPanels = new ArrayList<JAbstractSinglePanel>();
+    
+    /* The string containing the diagram description */
+    protected String diagramDescription;
+    
 
     /**
      * Adds the specified panel to the current report configuration.
      * 
-     * @param component
+     * @param panel the panel you want to add
      */
-    protected void addPanel(final JAbstractSinglePanel component) {
-        this.registeredPanels.add(component);
+    protected void addPanel(final JAbstractSinglePanel panel) {
+        this.registeredPanels.add(panel);
     }
 
     /**

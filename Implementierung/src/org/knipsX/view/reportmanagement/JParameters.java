@@ -88,9 +88,12 @@ public class JParameters extends JAbstractSinglePanel {
         	} else if (ReportHelper.currentModel instanceof Histogram2DModel) {
         		this.AxisParameters[0].setAxis(((Histogram3DModel)ReportHelper.currentModel).getxAxis());
         	} else if (ReportHelper.currentModel instanceof Cluster3DModel) {
-        		this.AxisParameters[0].setAxis(((Cluster3DModel)ReportHelper.currentModel).getxAxis());
-        		this.AxisParameters[1].setAxis(((Cluster3DModel)ReportHelper.currentModel).getzAxis());
-        		this.AxisParameters[2].setAxis(((Cluster3DModel)ReportHelper.currentModel).getyAxis());
+        	        if(this.AxisParameters.length == 1) 
+        	            this.AxisParameters[0].setAxis(((Cluster3DModel)ReportHelper.currentModel).getxAxis());
+        	        if(this.AxisParameters.length == 2)
+        	            this.AxisParameters[1].setAxis(((Cluster3DModel)ReportHelper.currentModel).getzAxis());
+        	        if(this.AxisParameters.length == 3)
+        	            this.AxisParameters[2].setAxis(((Cluster3DModel)ReportHelper.currentModel).getyAxis());
         	}
 
           }

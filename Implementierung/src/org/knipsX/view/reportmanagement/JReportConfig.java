@@ -25,7 +25,7 @@ import org.knipsX.model.reportmanagement.*;
  * @param <V>
  */
 public class JReportConfig<M extends AbstractReportModel, V extends AbstractReportCompilation> extends
-        JAbstractReportUtil<M, V> {
+        JAbstractReportUtil<M> {
 
     private static final long serialVersionUID = 1L;
 
@@ -52,17 +52,16 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
             ReportHelper.currentReport = ReportHelper.Histogram3D;
         }
 
-        this.reportCompilation = (AbstractReportCompilation) ReportHelper.currentReport
-                .createReportCompilation(model);
-        ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation>) this;
+        this.reportCompilation = (AbstractReportCompilation) ReportHelper.currentReport.createReportCompilation();
+        ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel>) this;
         this.tabbedpane = this.getJTabbedPane();
         this.setTitle("Auswertung konfigurieren");
 
         this.initialize();
 
-        this.close.addActionListener(new ReportCloseController(this));
-        this.save.addActionListener(new ReportSaveController(this, false));
-        this.show.addActionListener(new ReportSaveController(this, true));
+        this.closeButton.addActionListener(new ReportCloseController(this));
+        this.saveButton.addActionListener(new ReportSaveController(this, false));
+        this.showButton.addActionListener(new ReportSaveController(this, true));
         this.setSize(new Dimension(this.mysize[0], this.mysize[1]));
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -107,9 +106,9 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
 
         final JPanel bottom = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        bottom.add(close);
-        bottom.add(save);
-        bottom.add(show);
+        bottom.add(closeButton);
+        bottom.add(saveButton);
+        bottom.add(showButton);
         this.basic.add(bottom);
 
         bottom.setMaximumSize(new Dimension(450, 0));
@@ -127,7 +126,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
         this.remove(this.basic);
         this.reportCompilation = (AbstractReportCompilation) reportconfig;
         this.tabbedpane = this.getJTabbedPane();
-        ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel, AbstractReportCompilation>) this;
+        ReportHelper.currentReportUtil = (JAbstractReportUtil<AbstractReportModel>) this;
         this.initialize();
     }
 
