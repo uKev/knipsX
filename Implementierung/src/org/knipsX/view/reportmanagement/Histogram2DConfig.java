@@ -1,14 +1,11 @@
 package org.knipsX.view.reportmanagement;
 
-import org.knipsX.model.reportmanagement.Histogram2DModel;
-
 /**
  * This class represents the 2D Histogram configuration with all its
  * necessary panels.
  * 
  * @author David Kaufman
- *
- * @param <M>
+ * 
  */
 public class Histogram2DConfig extends AbstractReportCompilation {
 
@@ -19,13 +16,22 @@ public class Histogram2DConfig extends AbstractReportCompilation {
      * 
      */
     public Histogram2DConfig() {
-		ReportHelper.currentReport = ReportHelper.Histogram2D;
-		this.diagramDescription = "Ein Histogramm dient der graphischen Darstellung der Häufigkeitsverteilung metrisch skalierter klassierter Merkmale. Im Gegensatz zum Balken- bzw. Säulendiagramm (engl. bar chart) werden die Häufigkeiten beim Histogramm nicht durch die Höhe von Balken, sondern durch die Fläche der Balken repräsentiert.";
-		
-		addPanel(new JDiagramType(this.diagramDescription));
-		addPanel(new JParameters());
-		addPanel(new JPictureSetExif());
-    }
+        
+        /* Define diagram description*/
+        //INTERNATIONALIZE
+        this.diagramDescription = "Ein Histogramm dient der graphischen Darstellung der Häufigkeitsverteilung"
+        		+ " metrisch skalierter klassierter Merkmale. Im Gegensatz zum Balken- bzw. "
+        		+ "Säulendiagramm (engl. bar chart) werden die Häufigkeiten beim Histogramm nicht durch "
+        		+ "die Höhe von Balken, sondern durch die Fläche der Balken repräsentiert.";
 
+        /* add the diagram panel to the report */
+        addPanel(new JDiagramType(this.diagramDescription));
+        
+        /* add the parameters panel to the report */
+        addPanel(new JParameters());
+        
+        /* add the picture set management and EXIF keyword panel to the report */
+        addPanel(new JPictureSetExif());
+    }
 
 }
