@@ -27,7 +27,7 @@ import org.knipsX.view.reportmanagement.ReportHelper;
  * @param <M>
  * @param <V>
  */
-public class ReportSaveController<M extends AbstractReportModel, V extends JAbstractReportUtil> extends AbstractController<M, V> {
+public class ReportSaveController<M extends AbstractReportModel, V extends JAbstractReportUtil<?>> extends AbstractController<M, V> {
 
     private boolean showDiagram;
 
@@ -40,9 +40,9 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
     public void actionPerformed(ActionEvent e) {	
 		 ArrayList<JAbstractSinglePanel> registeredPanels = this.view.getReportCompilation().getRegisteredPanels();			 
 		 
-		System.out.println(ReportHelper.currentReport);
+		System.out.println(ReportHelper.getCurrentReport());
 		
-		this.model = (M) ReportHelper.currentReport.createReportModel();
+		this.model = (M) ReportHelper.getCurrentReport().createReportModel();
 		
 		for (JAbstractSinglePanel singlepanel : registeredPanels) {
 	
@@ -87,13 +87,13 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
 		    }
 		}
 	
-		ReportHelper.currentProjectModel.addReport(this.model, this.view.getReportID());
+		ReportHelper.getProjectModel().addReport(this.model, this.view.getReportID());
 		System.out.println(this.model);
 		
 		this.view.dispose();		
 		
 		if (showDiagram) {
-			ReportHelper.currentReport.displayDiagram(this.model, this.view.getReportID()).showDiagram();
+			ReportHelper.getCurrentReport().displayDiagram(this.model, this.view.getReportID()).showDiagram();
 		}
 				
 		

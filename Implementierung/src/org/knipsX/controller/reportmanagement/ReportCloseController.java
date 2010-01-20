@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 
 import org.knipsX.controller.AbstractController;
 import org.knipsX.view.reportmanagement.JAbstractReportUtil;
-import org.knipsX.view.reportmanagement.ReportHelper;
 
 /**
  * This controller manages the closure of the report configuration view.
