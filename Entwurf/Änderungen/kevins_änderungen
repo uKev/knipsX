@@ -1,0 +1,5 @@
+2010-01-17
+	* Frequency3DPoint 
+		- public void setFrequency(int frequency) entfernt
+		- setX,Y,Z entfernt
+		- public void setPictures(Picture[] pictures) entfernt

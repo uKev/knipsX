@@ -18,12 +18,12 @@ public class Frequency3DPoint {
 	int frequency;
 	private Picture pictures[];
 	
+	/**
+	 * Give access to the Pictures, that are represented with this point.
+	 * @return an array of picture objects.
+	 */
 	public Picture[] getPictures() {
 		return pictures;
-	}
-
-	public void setPictures(Picture[] pictures) {
-		this.pictures = pictures;
 	}
 	
 	public void addPicture(Picture picture) {
@@ -41,25 +41,16 @@ public class Frequency3DPoint {
 	public int getX() {
 		return x;
 	}
-	public void setX(int x) {
-		this.x = x;
-	}
+	
 	public int getY() {
 		return y;
 	}
-	public void setY(int y) {
-		this.y = y;
-	}
+	
 	public int getZ() {
 		return z;
 	}
-	public void setZ(int z) {
-		this.z = z;
-	}
+	
 	public int getFrequency() {
 		return frequency;
-	}
-	public void setFrequency(int frequency) {
-		this.frequency = frequency;
 	}
 }
