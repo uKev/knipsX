@@ -6,7 +6,7 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.view.JAbstractView;
 
 /**
- * This class is the parent class of every configuration utility.
+ * This class is the parent class of every configuration utility
  * 
  * @author David Kaufman
  * 
