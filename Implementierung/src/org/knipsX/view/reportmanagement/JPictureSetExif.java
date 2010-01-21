@@ -291,6 +291,8 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         /* Add button panel top button panel */
         addBottomButtonPanel(bottombuttonpanel);
 
+        bottompanel.add(bottombuttonpanel);
+        
         /* Add a spacer to relax the layout */
         bottompanel.add(Box.createRigidArea(new Dimension(20, 0)));
 
