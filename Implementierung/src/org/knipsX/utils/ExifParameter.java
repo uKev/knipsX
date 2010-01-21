@@ -6,7 +6,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return null;
+            return "Cameramodel";
         }
     },
     
@@ -14,7 +14,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return null;
+            return "Flash";
         }
     },
     
@@ -22,7 +22,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return null;
+            return "Fnumber";
         }
     },
     
@@ -30,7 +30,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return null;
+            return "Exposuretime";
         }
     },
     
@@ -38,7 +38,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return null;
+            return "Iso";
         }
     },
     
@@ -46,7 +46,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return null;
+            return "Focallength";
         }
     },
     
@@ -54,7 +54,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return null;
+            return "Date";
         }
     },
     
@@ -62,7 +62,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return null;
+            return "Dayofweek";
         }
     },
     
@@ -70,7 +70,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return null;
+            return "Time";
         }
     },
     
@@ -78,7 +78,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return null;
+            return "Objectivname";
         }
     };
 
@@ -86,5 +86,4 @@ public enum ExifParameter {
      * {@inheritDoc}
      */
     public abstract String toString();
-
 }

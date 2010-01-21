@@ -22,11 +22,11 @@ public class Picture implements PictureContainer {
 		
 		ExifAdapter exifAdapter = new ExifAdapter(path);
 		
-		for (int n = 0; n < allExifParameter.length; n++) {
-			allExifParameter[n][0] = ExifParameter.values().toString();
-		}
-		for (int n = 0; n < allExifParameter.length; n++) {
-			exifAdapter.getExifParameter((ExifParameter) ExifParameter.values()[n]);
+		ExifParameter[] parameters = ExifParameter.values();
+
+		for(int i = 0; i < parameters.length; ++i) {
+		    allExifParameter[i][0] = parameters[i];
+		    allExifParameter[i][1] = exifAdapter.getExifParameter(parameters[i]);
 		}
 	}
 
