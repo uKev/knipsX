@@ -104,7 +104,7 @@ public final class FileHandler {
         PictureSet dummyPictureSet = new PictureSet("Goldfische", 1);
 
         /* create some dummy picture containers and add to the picture set */
-        Picture dummyPicture = new Picture(null, null, false);
+        Picture dummyPicture = new Picture("DSC00964.JPG", System.getProperty("user.dir") + File.separator + "DSC00964.JPG", false);
         dummyPicture.setName("Nemo");
         dummyPictureSet.add(dummyPicture);
 

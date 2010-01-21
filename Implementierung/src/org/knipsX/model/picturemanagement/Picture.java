@@ -28,7 +28,6 @@ public class Picture implements PictureContainer {
 		for (int n = 0; n < allExifParameter.length; n++) {
 			exifAdapter.getExifParameter((ExifParameter) ExifParameter.values()[n]);
 		}
-
 	}
 
 	public List<?> getItems() {

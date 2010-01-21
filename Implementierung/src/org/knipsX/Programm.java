@@ -29,7 +29,7 @@ public final class Programm {
     public static void main(final String[] args) {
 
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (ClassNotFoundException e) {
             System.err.println("Error loading Look and Feel: " + e);
             e.printStackTrace();

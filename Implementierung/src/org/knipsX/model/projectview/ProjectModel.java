@@ -4,6 +4,7 @@
 package org.knipsX.model.projectview;
 
 /* import things from the java sdk */
+import java.io.File;
 import java.util.List;
 
 /* import things from our project */
@@ -65,7 +66,7 @@ public class ProjectModel extends ProjectEntry {
 		super(projectEntry);
 		this.pictureSetList = pictureSets;
 		this.reportList = reports;
-		this.exifParameter = new Picture().getAllExifParameter();
+		this.exifParameter = new Picture("DSC00964.JPG", System.getProperty("user.dir") + File.separator + "DSC00964.JPG", false).getAllExifParameter();
 	}
 
 	/**
