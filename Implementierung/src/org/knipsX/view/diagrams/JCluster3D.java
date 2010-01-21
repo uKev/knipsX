@@ -5,12 +5,10 @@ import java.util.Random;
 import javax.media.j3d.PickInfo;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.vecmath.Vector3d;
 
 import org.knipsX.model.reportmanagement.AbstractReportModel;
-import org.knipsX.model.reportmanagement.Cluster3DModel;
 
 /**
  * This class implements how the Cluster3DModel is to be drawn.
@@ -45,8 +43,8 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
 
             final Transform3D dataTrans = new Transform3D();
 
-            dataTrans.setTranslation(new Vector3d(random.nextDouble() * this.AXISSIZE, random.nextDouble()
-                    * this.AXISSIZE, random.nextDouble() * this.AXISSIZE));
+            dataTrans.setTranslation(new Vector3d(random.nextDouble() * this.axis3D[0].getAxisSize(), random.nextDouble()
+                    * this.axis3D[1].getAxisSize(), random.nextDouble() * this.axis3D[2].getAxisSize()));
 
             // Create transformation group
             final TransformGroup objData = new TransformGroup(dataTrans);
@@ -60,8 +58,6 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
             this.objRoot.addChild(objData);
         }
 
-        final String[] xAchse = this.generateSegmentDescription(null, null);
-        this.setSegmentDescription(xAchse, xAchse, xAchse);
         this.createLabels("Hallo", "Test", "OMG");
         
         this.leftPanel = new JPanel();
