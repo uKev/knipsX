@@ -7,3 +7,8 @@
 	* Bar
 		- setPictureContainer entfernt
 		- setHeight entfernt
+2010-01-21
+	* Frequency3DPoint
+		* Konsturktor geändert, nimmt jetzt Picture[] anstelle von frequency
+		+ neuer Konstruktor der ein einzelnes picture nimmt
+		+ neuer Konstruktor der ein ArrayList von pictures nimmt
