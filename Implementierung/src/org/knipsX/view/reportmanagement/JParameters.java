@@ -7,272 +7,317 @@ import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.knipsX.model.reportmanagement.*;
+import org.knipsX.model.reportmanagement.Axis;
+import org.knipsX.model.reportmanagement.BoxplotModel;
+import org.knipsX.model.reportmanagement.Cluster3DModel;
+import org.knipsX.model.reportmanagement.Histogram2DModel;
+import org.knipsX.model.reportmanagement.Histogram3DModel;
 import org.knipsX.utils.ExifParameter;
 
 /**
- * This class represents the panel where the user is able to assign a 
- * parameter with an optional description to each available axis. 
+ * This class represents the panel where the user is able to assign a
+ * parameter with an optional description to each available axis.
  * 
  * @author David Kaufman
- *
+ * 
  */
 public class JParameters extends JAbstractSinglePanel {
 
+    private static final long serialVersionUID = -3829461274586923051L;
+
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private AxisParameter[] AxisParameters = new AxisParameter[ReportHelper.currentReport.getNumberOfAxes()];
-	private JPanel singlepanel;
-	
-	/**
-	 * Constructor which initialized this parameter panel
-	 * 
-	 * @param titel The title which is registered with this panel.
-	 * @param icon The icon which is registered with this panel.
-	 * @param tip The tooltip which is registered with this panel.
-	 */
-    public JParameters(String titel, Icon icon, String tip) {
-		this.title = titel;
-		this.icon = icon;
-		this.tip = tip;
-		
-    	
-		if(this.title == null || this.title == "") {
-			this.title = "Parameter";
-		}
-        
-        BoxLayout container = new BoxLayout(this, BoxLayout.Y_AXIS);
-        setLayout(container);  
-        
-        this.singlepanel = new JPanel();
-        this.singlepanel.setLayout(new BoxLayout(singlepanel, BoxLayout.PAGE_AXIS)); 
-        String[] axes = {"x-Achse", "z-Achse", "y-Achse"};
-        
-        for(int i = -1; i < ReportHelper.currentReport.getNumberOfAxes(); i++) {
+     * 
+     * This class represents an axis parameter in the JParameters panel.
+     * 
+     * It generally is an arbitrary axis with an associated EXIF parameter
+     * and a description.
+     * 
+     * @author David Kaufman
+     * 
+     */
+    public class AxisParameter extends JPanel {
 
-        	
-        	if(i>=0) {
-        		if (AxisParameters[i] == null)        			  
-        			AxisParameters[i] = new AxisParameter(axes[i], null, null);
-        		
-        		this.singlepanel.add(AxisParameters[i]);
-        		this.singlepanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        private static final long serialVersionUID = 3315636512790006885L;
 
-        	} else {
-            	JPanel mypanel = new JPanel();
-            	BoxLayout myboxlayoutintern = new BoxLayout(mypanel, BoxLayout.X_AXIS);
-            	mypanel.setLayout(myboxlayoutintern);
-	        	mypanel.add(new JLabel("Achsen"));
-	        	mypanel.add(Box.createRigidArea(new Dimension(225,0)));
-	        	mypanel.add(new JLabel("Beschreibung"));
-	        	mypanel.setMinimumSize(new Dimension(Integer.MAX_VALUE,32));
-	        	mypanel.setMaximumSize(new Dimension(Integer.MAX_VALUE,64));
-	        	this.singlepanel.add(mypanel);
-	        	this.singlepanel.add(Box.createRigidArea(new Dimension(0,32)));
-	        	
-        	}
-          add(this.singlepanel);
+        private boolean invalid = true;
+        private String axisParameterName;
+        private JTextField axisDescription;
+        private ExifParamComboBox exifparamcombo;
+
+        private final JLabel validLabel = new JLabel(JParameters.this.createImageIcon("../../images/userwarning.png",
+                null));
+
+        /**
+         * This constructor creates an axis parameter object with the parameters specified
+         * 
+         * @param axisParameterName
+         *            the axis parameter name, e.g. x-Axis
+         * @param exifparam
+         *            the actual EXIF parameter
+         * @param axisDescription
+         *            the axis description
+         */
+        public AxisParameter(final String axisParameterName, final ExifParameter exifparam, final String axisDescription) {
+            super();
+            this.axisParameterName = axisParameterName;
+            if (axisDescription != null) {
+                this.axisDescription.setText(axisDescription);
+            }
+
+            final BoxLayout myboxlayoutintern = new BoxLayout(this, BoxLayout.X_AXIS);
+            this.setLayout(myboxlayoutintern);
+
+            this.add(new JLabel(this.axisParameterName));
+            this.add(Box.createRigidArea(new Dimension(20, 0)));
+            this.exifparamcombo = new ExifParamComboBox(this);
+            this.add(this.exifparamcombo);
+            this.add(Box.createRigidArea(new Dimension(20, 0)));
+            this.add(this.validLabel);
+            this.add(Box.createRigidArea(new Dimension(20, 0)));
+            this.axisDescription = new JTextField(axisDescription);
+            this.add(this.axisDescription);
+            this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
+
         }
 
-        add(Box.createVerticalGlue());
+        /**
+         * Returns the associated axis description
+         * 
+         * @return the axis description
+         */
+        public String getAxisDescription() {
+            return this.axisDescription.getText();
+        }
 
-        
-		
-        if(ReportHelper.currentModel != null) {
-        	if(ReportHelper.currentModel instanceof BoxplotModel) {		
-        		this.AxisParameters[0].setAxis(((BoxplotModel)ReportHelper.currentModel).getxAxis());        			
-        	} else if (ReportHelper.currentModel instanceof Histogram2DModel) {
-        		this.AxisParameters[0].setAxis(((Histogram2DModel)ReportHelper.currentModel).getxAxis());
-        	} else if (ReportHelper.currentModel instanceof Histogram2DModel) {
-        		this.AxisParameters[0].setAxis(((Histogram3DModel)ReportHelper.currentModel).getxAxis());
-        	} else if (ReportHelper.currentModel instanceof Cluster3DModel) {
-        		this.AxisParameters[0].setAxis(((Cluster3DModel)ReportHelper.currentModel).getxAxis());
-        		this.AxisParameters[1].setAxis(((Cluster3DModel)ReportHelper.currentModel).getzAxis());
-        		this.AxisParameters[2].setAxis(((Cluster3DModel)ReportHelper.currentModel).getyAxis());
-        	}
+        /**
+         * Returns the associated EXIF parameter
+         * 
+         * @return the EXIF parameter
+         */
+        public ExifParameter getExifparam() {
+            if (this.exifparamcombo.getSelectedItem() instanceof ExifParameter) {
+                return (ExifParameter) this.exifparamcombo.getSelectedItem();
+            }
 
-          }
+            return null;
+
+        }
+
+        /**
+         * Returns if the parameter specified is invalid or not
+         * 
+         * @return true, if invalid, false otherwise
+         */
+        public boolean isInvalid() {
+            return this.invalid;
+        }
+
+        /**
+         * Sets the current axis panel to the specified axis object
+         * 
+         * @param axis
+         *            the axis you want to insert
+         */
+        public void setAxis(final Axis axis) {
+            if (axis != null) {
+                this.axisDescription.setText(axis.getDescription());
+                if (axis.getParameter() == null) {
+                    this.exifparamcombo.setSelectedIndex(0);
+                } else {
+                    this.exifparamcombo.setSelectedItem(axis.getParameter());
+                }
+            }
+        }
+
+        /**
+         * This method is responsible for updating the view if the invalidity changes
+         * 
+         * @param invalid
+         *            the invalidity
+         */
+        public void setInvalid(final boolean invalid) {
+            if (!invalid) {
+                this.validLabel.setIcon(null);
+                this.validLabel.setPreferredSize(new Dimension(32, 32));
+            } else {
+                this.validLabel.setIcon(JParameters.this.createImageIcon("../../images/userwarning.png", null));
+            }
+
+            this.repaint();
+            this.invalid = invalid;
+        }
+
     }
-    
+
     /**
-     * Returns the Exif-parameters and axes desription specified
-     * @return the Exif-parameters and axes desription 
+     * This class represents the combo box which displays the various EXIF parameters in the JParamters panel
+     * 
+     * 
+     * @author David Kaufman
+     * 
      */
-    public ArrayList<Axis> getAxes() {
-    	ArrayList<Axis> returnAxis = new ArrayList<Axis>();
-    	
-    	for(AxisParameter axisparam : this.AxisParameters) {
-    		returnAxis.add(new Axis(axisparam.getAxisDescription(), axisparam.getExifparam()));
-    	}
-    	
-    	return returnAxis;
-    }
-    
-    
-    public class AxisParameter extends JPanel {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-		private boolean invalid = true;
-		private String AxisParameterName;
-		private JTextField axisDescription;
-		private ExifParamComboBox exifparamcombo;
-		
-		private JLabel ValidLabel = new JLabel(createImageIcon("../../images/userwarning.png", null));
-		
-		public AxisParameter() {
-			
-		}
-		
-		public AxisParameter(String axisParameterName, ExifParameter exifparam, String axisDescription) {
-			super();
-			this.AxisParameterName = axisParameterName;
-			if(axisDescription != null)
-				this.axisDescription.setText(axisDescription);
-			
-			
-			
-        	BoxLayout myboxlayoutintern = new BoxLayout(this, BoxLayout.X_AXIS);
-        	this.setLayout(myboxlayoutintern);			
-        	
-        	this.add(new JLabel(this.AxisParameterName));
-        	this.add(Box.createRigidArea(new Dimension(20,0)));        	
-        	this.exifparamcombo = new ExifParamComboBox(this);
-        	this.add(this.exifparamcombo);	
-        	this.add(Box.createRigidArea(new Dimension(20,0)));
-        	this.add(this.ValidLabel);
-        	this.add(Box.createRigidArea(new Dimension(20,0)));
-        	this.axisDescription = new JTextField(axisDescription);        	
-        	this.add(this.axisDescription);	
-        	this.setMaximumSize(new Dimension(Integer.MAX_VALUE,20));
-        		
-		}
-		
-		
-		public void setAxis(Axis axis) {
-			if(axis != null) {
-				this.axisDescription.setText(axis.getDescription());				
-				if(axis.getParameter() == null) {
-					this.exifparamcombo.setSelectedIndex(0);
-				} else {
-					this.exifparamcombo.setSelectedItem(axis.getParameter());
-				}
-			}
-		}
-
-
-		public void setInvalid(boolean invalid) {
-			if (!invalid) {
-				this.ValidLabel.setIcon(null);
-				this.ValidLabel.setPreferredSize(new Dimension(32,32));
-			}
-			else {
-				this.ValidLabel.setIcon(createImageIcon("../../images/userwarning.png", null));
-			}
-			
-			repaint();
-			this.invalid = invalid;
-		}	
-		
-		
-		public boolean isInvalid() {
-			return this.invalid;
-		}
-		
-		public String getAxisParameterName() {
-			return AxisParameterName;
-		}
-
-		public String getAxisDescription() {
-			return this.axisDescription.getText();
-		}
-		
-		public ExifParameter getExifparam() {
-			if(this.exifparamcombo.getSelectedItem() instanceof ExifParameter) {
-				return (ExifParameter)this.exifparamcombo.getSelectedItem();
-			}
-			
-			return null;
-			
-		}
-		
-    	
-    }
-    
-    
     public class ExifParamComboBox extends JComboBox implements ActionListener {
 
-    	/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-		private AxisParameter axisparam;
-    	
-    	public ExifParamComboBox(AxisParameter axisparam) {    		
-    		this.axisparam = axisparam;
-    		
-	        Object[] exifparams = new Object[ExifParameter.values().length + 1];
-	        for(int i = 0; i < exifparams.length - 1; i++) {
-	        	if(i==0) {
-	        		exifparams[0] = "-";
-	        		
-	        	} else { 
-	        		exifparams[i] = ExifParameter.values()[i-1];
-	        	}
-	        	
-	        	this.addItem(exifparams[i]);
-	        }
-	        
-	        this.setSelectedIndex(0);
-	        this.addActionListener(this);
-	        
-    	}
-    	
-		@Override
-		public void actionPerformed(ActionEvent e) {
-	        JComboBox cb = (JComboBox)e.getSource();
-	        
-	        if(cb.getSelectedIndex() != 0) {
-	        	updateParameter(false);		
-	        } else {
-	        	updateParameter(true);
-	        }
-	        
-	        revalidateReport();
-		}
-		
-		
-		protected void updateParameter(boolean invalid) {
-				if(axisparam.isInvalid() != invalid) {
-					axisparam.setInvalid(invalid);
-				}		
-		}	
-    	
+        private static final long serialVersionUID = -6260424764891224456L;
+
+        private final AxisParameter axisparam;
+
+        /**
+         * This constructor create an ExifParamComboBox object and also stores an axis parameter object
+         * which is later used to manipulate the panel if the user selected a valid or invalid entry in the
+         * combo box
+         * 
+         * @param axisparam the axis paramter object which is to be modified
+         */
+        public ExifParamComboBox(final AxisParameter axisparam) {
+            this.axisparam = axisparam;
+
+            final Object[] exifparams = new Object[ExifParameter.values().length + 1];
+            for (int i = 0; i < exifparams.length - 1; i++) {
+                if (i == 0) {
+                    exifparams[0] = "-";
+
+                } else {
+                    exifparams[i] = ExifParameter.values()[i - 1];
+                }
+
+                this.addItem(exifparams[i]);
+            }
+
+            this.setSelectedIndex(0);
+            this.addActionListener(this);
+
+        }
+
+        @Override
+        public void actionPerformed(final ActionEvent e) {
+            final JComboBox cb = (JComboBox) e.getSource();
+
+            if (cb.getSelectedIndex() != 0) {
+                this.axisparam.setInvalid(false);
+            } else {
+                this.axisparam.setInvalid(true);
+            }
+
+            JParameters.this.revalidateReport();
+        }
+
     }
 
+    private final AxisParameter[] axisParameters = new AxisParameter[ReportHelper.getCurrentReport().getNumberOfAxes()];
 
-	@Override
-	public boolean isDiagramDisplayable() {
-		for(AxisParameter axisParam :this.AxisParameters) {
-			if(axisParam.invalid == true) {
-				return false;				
-			}
-		}
-		return true;
-	}
+    private final JPanel singlepanel;
 
-	@Override
-	public boolean isDiagramSaveable() {
-		return true;
-	}
+    // INTERNATIONALIZE
+    final String[] axesDescription = { "x-Achse", "z-Achse", "y-Achse" };
+
+    /**
+     * Constructor which initialized this parameter panel
+     */
+    public JParameters() {
+
+        /* Set the title name of this panel */
+        //INTERNATIONALIZE
+        this.title = "Parameters";
+
+        this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+
+        this.singlepanel = new JPanel();
+        this.singlepanel.setLayout(new BoxLayout(this.singlepanel, BoxLayout.PAGE_AXIS));
+
+        for (int i = -1; i < ReportHelper.getCurrentReport().getNumberOfAxes(); i++) {
+
+            if (i >= 0) {
+                this.axisParameters[i] = new AxisParameter(axesDescription[i], null, null);
+                this.singlepanel.add(this.axisParameters[i]);
+            } else {
+                final JPanel mypanel = new JPanel();
+                mypanel.setLayout(new BoxLayout(mypanel, BoxLayout.X_AXIS));
+
+                // INTERNATIONALIZE
+                mypanel.add(new JLabel("Achsen"));
+
+                mypanel.add(Box.createRigidArea(new Dimension(225, 0)));
+
+                // INTERNATIONALIZE
+                mypanel.add(new JLabel("Beschreibung"));
+
+                /* Set minimum and maximum size to prevent cutting */
+                mypanel.setMinimumSize(new Dimension(Integer.MAX_VALUE, 32));
+                mypanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 64));
+                this.singlepanel.add(mypanel);
+
+            }
+
+            this.singlepanel.add(Box.createRigidArea(new Dimension(0, 32)));
+            this.add(this.singlepanel);
+        }
+
+        this.add(Box.createVerticalGlue());
+
+        /* Fill the view with model information */
+        fillViewWithModelInfo();
+    }
+
+    /**
+     * {@inheritDoc}}
+     */
+    public final void fillViewWithModelInfo() {
+
+        if (ReportHelper.getCurrentModel() != null) {
+            if (ReportHelper.getCurrentModel() instanceof BoxplotModel) {
+                this.axisParameters[0].setAxis(((BoxplotModel) ReportHelper.getCurrentModel()).getxAxis());
+            } else if (ReportHelper.getCurrentModel() instanceof Histogram2DModel) {
+                this.axisParameters[0].setAxis(((Histogram2DModel) ReportHelper.getCurrentModel()).getxAxis());
+            } else if (ReportHelper.getCurrentModel() instanceof Histogram2DModel) {
+                this.axisParameters[0].setAxis(((Histogram3DModel) ReportHelper.getCurrentModel()).getxAxis());
+            } else if (ReportHelper.getCurrentModel() instanceof Cluster3DModel) {
+                if (this.axisParameters.length >= 1) {
+                    this.axisParameters[0].setAxis(((Cluster3DModel) ReportHelper.getCurrentModel()).getxAxis());
+                }
+                if (this.axisParameters.length >= 2) {
+                    this.axisParameters[1].setAxis(((Cluster3DModel) ReportHelper.getCurrentModel()).getzAxis());
+                }
+                if (this.axisParameters.length == 3) {
+                    this.axisParameters[2].setAxis(((Cluster3DModel) ReportHelper.getCurrentModel()).getyAxis());
+                }
+            }
+        }
+    }
+
+    /**
+     * Returns the EXIF parameters and axes description specified
+     * 
+     * @return the EXIF parameters and axes description
+     */
+    public ArrayList<Axis> getAxes() {
+        final ArrayList<Axis> returnAxis = new ArrayList<Axis>();
+
+        for (final AxisParameter axisparam : this.axisParameters) {
+            returnAxis.add(new Axis(axisparam.getAxisDescription(), axisparam.getExifparam()));
+        }
+
+        return returnAxis;
+    }
+
+    @Override
+    public boolean isDiagramDisplayable() {
+        for (final AxisParameter axisParam : this.axisParameters) {
+            if (axisParam.invalid) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean isDiagramSaveable() {
+        return true;
+    }
 
 }

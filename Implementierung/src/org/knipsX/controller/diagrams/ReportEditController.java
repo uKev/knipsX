@@ -17,7 +17,7 @@ public class ReportEditController<M, V extends JAbstractDiagram<?>> extends Abst
 
 	@Override
 	public void actionPerformed(ActionEvent e) {		
-	    new JReportConfig<AbstractReportModel,AbstractReportCompilation<AbstractReportModel>>(this.view.getReportModel(), this.view.getReportID());
+	    new JReportConfig<AbstractReportModel,AbstractReportCompilation>(this.view.getReportModel(), this.view.getReportID());
 	    this.view.dispose();
 	}
 

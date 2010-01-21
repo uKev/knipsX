@@ -22,13 +22,13 @@ public final class JExtendedFileChooser {
     private static String lastSaveDir = "";
     private static String lastOpenDir = "";
 
-    /* the initialization routine which configures the file chooser */
+    /* The initialization routine which configures the file chooser */
     private static void initialize() {
         
-        /* create a new file chooser object */
+        /* Create a new file chooser object */
         JExtendedFileChooser.filechooser = new JFileChooser();
 
-        /* disable default file filter */
+        /* Disable default file filter */
         JExtendedFileChooser.filechooser.setAcceptAllFileFilterUsed(false);
 
         /* Add the preview pane */
@@ -71,9 +71,6 @@ public final class JExtendedFileChooser {
             /* Prepare file name to be stored on hard drive */
             final String fileName = file.getName().replaceAll(".png", "").replaceAll(".png", "") + ".png";
             final File outputfile = new File(file.getParent() + "/" + fileName);
-
-            /* Uncomment for debugging purposes */
-            // new ImageDisplayer(imageToBeSaved);
 
             try {
                 /* Write image to disk */
@@ -121,7 +118,7 @@ public final class JExtendedFileChooser {
             
         }
 
-        // Reset the file chooser for the next time it's shown.
+        /* Reset the file chooser for the next time it's shown. */
         JExtendedFileChooser.filechooser.setSelectedFile(null);
 
         return selectedFilesandDirectories;

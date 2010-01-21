@@ -31,19 +31,16 @@ public abstract class JAbstractView<M extends AbstractModel> extends JFrame impl
      * @param model
      *            the model which the view should connect to.
      * 
-     * @throws IllegalArgumentException
-     *             if you didn't set a model.
      */
-    public JAbstractView(final M model) throws IllegalArgumentException {
+    public JAbstractView(final M model) {
 
         /* calls the JFrame constructor */
         super();
 
-        if (model == null) {
-            throw new IllegalArgumentException("[JAbstractView::constructor()] - You didn't set a model.");
-        } else {
-            this.model = model;
+        /* Note that some views don't ever have a associated model */
 
+        if (model != null) {
+            this.model = model;
             /* register to model */
             this.model.addObserver(this);
         }
@@ -56,7 +53,7 @@ public abstract class JAbstractView<M extends AbstractModel> extends JFrame impl
         }
     }
 
-    /**
+    /*
      * Returns an ImageIcon, or null if the path was invalid.
      * 
      * @param path
@@ -96,7 +93,10 @@ public abstract class JAbstractView<M extends AbstractModel> extends JFrame impl
         super.dispose();
 
         /* unregister from the model */
-        this.model.deleteObserver(this);
+        if (this.model != null) {
+            /* Note that some views don't ever have a associated model */
+            this.model.deleteObserver(this);
+        }
     }
 
     /**

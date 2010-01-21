@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.vecmath.Vector3d;
 
+import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
 
 /**
@@ -18,15 +19,18 @@ import org.knipsX.model.reportmanagement.Cluster3DModel;
  * 
  * @param <M>
  */
-public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> {
+public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagram<M> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Constructor
      * 
-     * @param abstractModel
-     *            the model from which the drawing information is taken
+     * @param model
+     *            the model from which the drawing information is taken from
+     *            
+     * @param reportID 
+     *                the report id of the report    
      */
     public JCluster3D(final M model, final int reportID) {
         super(model, reportID);

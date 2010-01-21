@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
+import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.TableModel;
 
 /**
@@ -21,69 +22,72 @@ import org.knipsX.model.reportmanagement.TableModel;
  * 
  * @param <M>
  */
-public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
+public class JTableDiagram<M extends AbstractReportModel> extends JAbstractDiagram<M> {
 
-	private static final long serialVersionUID = 1L;
-	private JTable table;
-	private JScrollPane scrollpane;
-	private JPanel mainpanel;
+    private static final long serialVersionUID = 1L;
+    private JTable table;
+    private JScrollPane scrollpane;
+    private JPanel mainpanel;
 
-	/**
-	 * Constructor
-	 * 
-	 * @param abstractModel
-	 *            the model from which the drawing information is taken
-	 */
-	public JTableDiagram(M model, int reportID) {
-		super(model, reportID);
+    /**
+     * Constructor
+     * 
+     * @param model
+     *            the model from which the drawing information is taken from
+     * 
+     * @param reportID
+     *            the report id of the report
+     */
+    public JTableDiagram(M model, int reportID) {
+        super(model, reportID);
 
-		AbstractTableModel dataModel = new AbstractTableModel() {
-			/**
+        AbstractTableModel dataModel = new AbstractTableModel() {
+            /**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
-			public int getColumnCount() {
-				return 10;
-			}
+            public int getColumnCount() {
+                return 10;
+            }
 
-			public int getRowCount() {
-				return 20;
-			}
+            public int getRowCount() {
+                return 20;
+            }
 
-			public Object getValueAt(int row, int col) {
-				return new Integer(row * col);
-			}
-		};
+            public Object getValueAt(int row, int col) {
+                return new Integer(row * col);
+            }
+        };
 
-		this.table = new JTable(dataModel);		
-		this.scrollpane = new JScrollPane(table);
+        this.table = new JTable(dataModel);
+        this.scrollpane = new JScrollPane(table);
         this.mainpanel = new JPanel();
-        this.mainpanel.setLayout(new BoxLayout(this.mainpanel, BoxLayout.PAGE_AXIS));       
+        this.mainpanel.setLayout(new BoxLayout(this.mainpanel, BoxLayout.PAGE_AXIS));
         this.mainpanel.add(this.scrollpane);
         this.mainpanel.add(new JDiagramButtonsPlain(this));
-      	add(this.mainpanel);       	
-        pack();   
+        add(this.mainpanel);
+        pack();
 
-	}
+    }
 
-	@Override
-	public BufferedImage getDiagramScreenshot() {
-		Rectangle d = this.table.getBounds();
-		BufferedImage bi = new BufferedImage(d.width, d.height,BufferedImage.TYPE_INT_RGB);
-		Graphics2D g2d = bi.createGraphics();
-		this.table.paint(g2d);
-		return bi;
-	}
+    @Override
+    public BufferedImage getDiagramScreenshot() {
+        Rectangle d = this.table.getBounds();
+        BufferedImage bi = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = bi.createGraphics();
+        this.table.paint(g2d);
+        return bi;
+    }
 
-	@Override
-	public Component getDiagram() {
-		return this.scrollpane;
-	}
+    @Override
+    public Component getDiagram() {
+        return this.scrollpane;
+    }
 
-	@Override
-	public void showDiagram() {	
-		this.setLocationRelativeTo(null);
+    @Override
+    public void showDiagram() {
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
-	}
+    }
 }

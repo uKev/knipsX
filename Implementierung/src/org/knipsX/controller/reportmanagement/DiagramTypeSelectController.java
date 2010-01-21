@@ -24,7 +24,13 @@ public class DiagramTypeSelectController implements ListSelectionListener {
 	}
 
 	public void valueChanged(ListSelectionEvent e) {
+	        
+	        //ReportHelper.currentModel = null;
+	    
 		ReportHelper.updateReport(ReportHelper.values()[this.view.getSelectedDiagramType()]);
+
+		
+		
 	}
 
 }

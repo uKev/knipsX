@@ -3,3 +3,7 @@
 		- public void setFrequency(int frequency) entfernt
 		- setX,Y,Z entfernt
 		- public void setPictures(Picture[] pictures) entfernt
+2010-01-21
+	* Bar
+		- setPictureContainer entfernt
+		- setHeight entfernt
