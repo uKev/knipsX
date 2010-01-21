@@ -1,12 +1,14 @@
 package org.knipsX.model.projectmanagement;
 
 import java.util.List;
+import java.util.UUID;
+
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectEntry;
 import org.knipsX.utils.FileHandler;
 
 /**
- * Manages all the projects the user has.
+ * Manages all the projects data the user has.
  */
 public class ProjectManagementModel extends AbstractModel {
 
@@ -52,7 +54,6 @@ public class ProjectManagementModel extends AbstractModel {
 	 */
 	public void addNewProject(String projectName) {
 
-		/* Füge hinzu */
 		ProjectEntry newProject = new ProjectEntry(projectName);
 		this.projectList.add(0, newProject);
 		FileHandler.createNewProjectFile(newProject);
@@ -62,16 +63,12 @@ public class ProjectManagementModel extends AbstractModel {
 	/**
 	 * Remove a project from the model.
 	 * 
-	 * @param project
+	 * @param toDelete
 	 *            the project.
 	 */
-	public void removeProject(ProjectEntry project) {
-		//
-		// /* Füge hinzu */
-		// ProjectEntry newProject = new ProjectEntry(projectName);
-		// this.projectList.add(0, newProject);
-		// FileHandler.createNewProjectFile(newProject);
-		// /* TODO Hier fehlen die Routinen zum Schreiben! */
+	public void removeProject(int toDelete) {
+	    FileHandler.deleteProjectFile(this.projectList.get(toDelete));
+	    this.projectList.remove(toDelete);				
 	}
 
 	/**
@@ -88,11 +85,12 @@ public class ProjectManagementModel extends AbstractModel {
 		this.projectList.add(0, FileHandler.copyProject(toCopy, projectName));
 	}
 
-	private int generateFreeProjectID() {
-		return 0;
+	private long generateFreeProjectID() {
+	    long uuid = UUID.randomUUID().timestamp();	    
+	    return uuid;
 	}
 
-	private String generatePathforID(int id) {
+	private String generatePathforID(long id) {
 		return "path";
 	}
 }

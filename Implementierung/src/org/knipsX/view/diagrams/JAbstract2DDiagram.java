@@ -40,7 +40,8 @@ public abstract class JAbstract2DDiagram<M extends AbstractReportModel> extends
 	public void preinitialize() {
 		this.registeredButtons = new JDiagramButtons2D(this);
 		this.textautorotate = false;		
-		this.numberOfAxes = 2;
+		this.numberOfAxes = 2;		
+		
 
 		// this.canvas3D.getView().setProjectionPolicy(View.PARALLEL_PROJECTION);
 		// this.canvas3D.getView().setScreenScale(0.03);
@@ -48,8 +49,6 @@ public abstract class JAbstract2DDiagram<M extends AbstractReportModel> extends
 		// this.canvas3D.getView().setBackClipDistance(20);
 		// this.canvas3D.getView().setFrontClipDistance(-2);
 
-		createGrid();
-		createAxis();
 		addLights();		
 
 		// Make Interactive for 2D View
@@ -63,7 +62,8 @@ public abstract class JAbstract2DDiagram<M extends AbstractReportModel> extends
 		orbit.setSchedulingBounds(bounds);
 		viewingPlatform.setViewPlatformBehavior(orbit);
 		
-		setCameraPerspective(Perspectives.XYPLANE);
+	              
+                setCameraPerspective(Perspectives.XYPLANE);
 
 	}
 

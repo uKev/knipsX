@@ -34,10 +34,10 @@ public final class Utils {
      * 
      * @param f the file Object you want to extract the extension from
      * 
-     * @return the lower case extension of the specified file or null if the file hasn't go an extension
+     * @return the lower case extension of the specified file or "" if the file hasn't got an extension
      */
     public static String getExtension(File f) {
-        String ext = null;
+        String ext = "";
         String s = f.getName();
         int i = s.lastIndexOf('.');
 

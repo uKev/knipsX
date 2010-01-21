@@ -4,6 +4,9 @@
 package org.knipsX;
 
 /* import things from our programm */
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.utils.FileHandler;
 import org.knipsX.view.projectmanagement.JProjectManagement;
@@ -11,27 +14,44 @@ import org.knipsX.view.projectmanagement.JProjectManagement;
 /**
  * This class is the entry to our program.
  */
-public class Programm {
+public final class Programm {
 
-	/**
-	 * Starts knipsX.
-	 * 
-	 * This function shows the first knipsX window.
-	 * 
-	 * @param args
-	 *            stores parameters which are set up by a user during program
-	 *            start.
-	 */
-	public static void main(final String[] args) {
+    private Programm() {
+    }
 
-		/* create a model for the ProjectAdministration */
-		final ProjectManagementModel projectManagementModel = new ProjectManagementModel(
-				FileHandler.scanProjectDirectory());
+    /**
+     * Starts knipsX.
+     * 
+     * This function shows the first knipsX window.
+     * 
+     * @param args stores parameters which are set up by a user during program start.
+     */
+    public static void main(final String[] args) {
 
-		/*
-		 * creates a new JProjectAdministration window, which is connected to a
-		 * model
-		 */
-		new JProjectManagement<ProjectManagementModel>(projectManagementModel);
-	}
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            System.err.println("Error loading Look and Feel: " + e);
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            System.err.println("Error loading Look and Feel: " + e);
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            System.err.println("Error loading Look and Feel: " + e);
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            System.err.println("Error loading Look and Feel: " + e);
+            e.printStackTrace();
+        }
+        
+        /* create a model for the ProjectAdministration */
+        final ProjectManagementModel projectManagementModel = new ProjectManagementModel(FileHandler
+                .scanProjectDirectory());
+
+        /*
+         * creates a new JProjectAdministration window, which is connected to a
+         * model
+         */
+        new JProjectManagement<ProjectManagementModel>(projectManagementModel);
+    }
 }

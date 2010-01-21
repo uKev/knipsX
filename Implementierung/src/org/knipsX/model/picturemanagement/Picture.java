@@ -10,7 +10,7 @@ public class Picture implements PictureContainer {
 
 	private String pictureName;
 	private String path;
-	private Object[][] allExifParameter = new Object[10][2];
+	private Object[][] allExifParameter = new Object[ExifParameter.class.getEnumConstants().length][2];
 	private boolean isActive;
 
 	public Picture(String fileName, String path, boolean isActive) {
@@ -20,27 +20,15 @@ public class Picture implements PictureContainer {
 		this.path = path;
 		this.isActive = isActive;
 		
-		// dummymaesig:
 		ExifAdapter exifAdapter = new ExifAdapter(path);
 		
-		Object[] parameter = new Object[] { ExifParameter.CAMERAMODEL,
-				ExifParameter.FLASH, ExifParameter.FNUMBER,
-				ExifParameter.EXPOSURETIME, ExifParameter.ISO,
-				ExifParameter.FOCALLENGTH, ExifParameter.DATE,
-				ExifParameter.DAYOFWEEK, ExifParameter.TIME,
-				ExifParameter.OBJECTIVENAME };
 		for (int n = 0; n < allExifParameter.length; n++) {
-			allExifParameter[n][0] = parameter[n].toString();
+			allExifParameter[n][0] = ExifParameter.values().toString();
 		}
 		for (int n = 0; n < allExifParameter.length; n++) {
-			allExifParameter[n][1] = n;
-			// das unter ist das was man verwenden muss ohne dummies...
-			// exifAdapter.getExifParameter((ExifParameter) parameter[n]);
+			exifAdapter.getExifParameter((ExifParameter) ExifParameter.values()[n]);
 		}
 
-	}
-
-	public Picture() {
 	}
 
 	public List<?> getItems() {
@@ -88,25 +76,25 @@ public class Picture implements PictureContainer {
 		this.pictureName = name;
 	}
 
-	// wird für die statistischen Auswertungen benötigt
+	// wird für die statistischen Auswertungen benötigt kann sein das hier ordinal die falsche zahl zurückgibt
 	public Object getExifParameter(ExifParameter exifParameter) {
-		// TODO: implement
-		return null;
+	    return allExifParameter[exifParameter.ordinal()][1];
 	}
 
 	public boolean hasExifKeyword(String keyword) {
-		// TODO: implement
-		return true;
+	    boolean hasKeyword = false;
+		
+	    return hasKeyword;
 	}
 
 	public boolean hasMinOneKeywordOf(String[] keywords) {
-		// TODO: implement
-		return true;
+	    boolean hasMinOneKeyword = false;
+		return hasMinOneKeyword;
 	}
 
 	public boolean hasAllKeywords(String[] keywords) {
-		// TODO: implement
-		return false;
+	    boolean hasAllKeyword = false;
+		return hasAllKeyword;
 	}
 
 	public boolean isActive() {
@@ -121,7 +109,4 @@ public class Picture implements PictureContainer {
 		return allExifParameter;
 	}
 
-	public void setAllExifParameter(Object[][] allExifParameter) {
-		this.allExifParameter = allExifParameter;
-	}
 }

@@ -12,15 +12,7 @@ public class Directory implements PictureContainer {
 	public String path;
 	
 	public Directory() {
-		/**************************************************************************
-		 * Dummy Picture Objekte werden hier dem Directory hinzugefügt
-		 * 
-		 *************************************************************************/
-		
-		this.pictures.add(new Picture());
-		this.pictures.add(new Picture());
-		this.pictures.add(new Picture());
-		this.pictures.add(new Picture());		
+				
 	}
 
 	public List<?> getItems() {
