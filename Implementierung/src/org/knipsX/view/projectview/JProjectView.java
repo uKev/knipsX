@@ -386,16 +386,16 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jListPictureSet.setLayoutOrientation(JList.VERTICAL);
             this.jListPictureSet.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             this.jListPictureSet.setVisibleRowCount(-1);
-            
+
             /* we store picture set objects in the list, so we have to set a special rendering */
             this.jListPictureSet.setCellRenderer(new MyPictureSetListCellRenderer());
         }
         JScrollPane listScroller = new JScrollPane(this.jListPictureSet);
-        
+
         /* FIXME correct size */
         listScroller.setMinimumSize(new Dimension(250, 75));
         listScroller.setPreferredSize(new Dimension(250, 75));
-        
+
         return listScroller;
     }
 
@@ -414,11 +414,11 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jListPictureSetActive.setCellRenderer(new MyPictureListCellRenderer());
         }
         JScrollPane listScroller = new JScrollPane(this.jListPictureSetActive);
-        
+
         /* FIXME correct size */
         listScroller.setMinimumSize(new Dimension(146, 400));
         listScroller.setPreferredSize(new Dimension(146, 400));
-        
+
         return listScroller;
     }
 
@@ -440,11 +440,11 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jListPictureSetContent.setCellRenderer(new MyPictureSetContentListCellRenderer());
         }
         JScrollPane listScroller = new JScrollPane(this.jListPictureSetContent);
-        
+
         /* FIXME correct size */
         listScroller.setMinimumSize(new Dimension(250, 75));
         listScroller.setPreferredSize(new Dimension(250, 75));
-        
+
         return listScroller;
     }
 
@@ -463,11 +463,11 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jListReport.setCellRenderer(new MyReportListCellRenderer());
         }
         JScrollPane listScroller = new JScrollPane(this.jListReport);
-        
+
         /* FIXME correct size */
         listScroller.setMinimumSize(new Dimension(250, 75));
         listScroller.setPreferredSize(new Dimension(250, 75));
-        
+
         return listScroller;
     }
 
@@ -484,7 +484,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* INTERNATIONALIZE */
             final TitledBorder title = BorderFactory
                     .createTitledBorder(BorderFactory.createEmptyBorder(), "Exif-Daten");
-            
+
             this.jPanelExif.setBorder(title);
 
             this.jPanelExif.add(this.getJScrollPaneExif(), BorderLayout.CENTER);
@@ -614,29 +614,38 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* create new layout for this panel */
             final GroupLayout jPanelProjectOptionsLayout = new GroupLayout(this.jPanelProjectOptions);
 
+            SequentialGroup horiButtons = jPanelProjectOptionsLayout.createSequentialGroup();
+
+            /* define horizontal placement of the buttons */
+            horiButtons.addComponent(this.getJButtonProjectChange());
+            horiButtons.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED);
+            horiButtons.addComponent(this.getJButtonProjectSave());
+
+            /* define horizontal placement of the area */
+            ParallelGroup horiWholeArea = jPanelProjectOptionsLayout
+                    .createParallelGroup(GroupLayout.Alignment.TRAILING);
+
+            horiWholeArea.addGroup(horiButtons);
+            horiWholeArea.addComponent(this.getJTextFieldProjectName());
+
             /* set the horizontal assignment */
-            jPanelProjectOptionsLayout.setHorizontalGroup(jPanelProjectOptionsLayout.createParallelGroup(
-                    GroupLayout.Alignment.LEADING).addGroup(
-                    GroupLayout.Alignment.TRAILING,
-                    jPanelProjectOptionsLayout.createSequentialGroup().addContainerGap().addGroup(
-                            jPanelProjectOptionsLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                    .addComponent(this.getJTextFieldProjectName(), GroupLayout.DEFAULT_SIZE, 240,
-                                            Short.MAX_VALUE).addGroup(
-                                            jPanelProjectOptionsLayout.createSequentialGroup().addComponent(
-                                                    this.getJButtonProjectChange()).addPreferredGap(
-                                                    LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                    this.getJButtonProjectSave()))).addContainerGap()));
+            jPanelProjectOptionsLayout.setHorizontalGroup(horiWholeArea);
+
+            /* define vertical placement of the buttons */
+            ParallelGroup vertButtons = jPanelProjectOptionsLayout.createParallelGroup(GroupLayout.Alignment.BASELINE);
+
+            vertButtons.addComponent(this.getJButtonProjectSave());
+            vertButtons.addComponent(this.getJButtonProjectChange());
+
+            /* define vertical placement of the area */
+            SequentialGroup vertWholeArea = jPanelProjectOptionsLayout.createSequentialGroup();
+
+            vertWholeArea.addGroup(vertButtons);
+            vertWholeArea.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED);
+            vertWholeArea.addComponent(this.getJTextFieldProjectName());
 
             /* set the vertical assignment */
-            jPanelProjectOptionsLayout.setVerticalGroup(jPanelProjectOptionsLayout.createParallelGroup(
-                    GroupLayout.Alignment.LEADING).addGroup(
-                    jPanelProjectOptionsLayout.createSequentialGroup().addGroup(
-                            jPanelProjectOptionsLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                    .addComponent(this.getJButtonProjectSave()).addComponent(
-                                            this.getJButtonProjectChange())).addPreferredGap(
-                            LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE).addComponent(
-                            this.getJTextFieldProjectName(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                            GroupLayout.PREFERRED_SIZE)));
+            jPanelProjectOptionsLayout.setVerticalGroup(vertWholeArea);
 
             /* set the layout to the panel */
             this.jPanelProjectOptions.setLayout(jPanelProjectOptionsLayout);
