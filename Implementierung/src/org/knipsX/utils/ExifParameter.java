@@ -1,59 +1,83 @@
 package org.knipsX.utils;
 
 public enum ExifParameter {
-    
+
     CAMERAMODEL {
         @Override
         public String toString() {
-            //INTERNATIONALIZE
+            // INTERNATIONALIZE
             return null;
         }
-    }, FLASH {
+    },
+    
+    FLASH {
         @Override
         public String toString() {
-            //INTERNATIONALIZE
+            // INTERNATIONALIZE
             return null;
         }
-    }, FNUMBER, EXPOSURETIME {
+    },
+    
+    FNUMBER {
         @Override
         public String toString() {
-            //INTERNATIONALIZE
+            // INTERNATIONALIZE
             return null;
         }
-    }, ISO {
+    },
+    
+    EXPOSURETIME {
         @Override
         public String toString() {
-            //INTERNATIONALIZE
+            // INTERNATIONALIZE
             return null;
         }
-    }, FOCALLENGTH {
+    },
+    
+    ISO {
         @Override
         public String toString() {
-            //INTERNATIONALIZE
+            // INTERNATIONALIZE
             return null;
         }
-    }, DATE {
+    },
+    
+    FOCALLENGTH {
         @Override
         public String toString() {
-            //INTERNATIONALIZE
+            // INTERNATIONALIZE
             return null;
         }
-    }, DAYOFWEEK {
+    },
+    
+    DATE {
         @Override
         public String toString() {
-            //INTERNATIONALIZE
+            // INTERNATIONALIZE
             return null;
         }
-    }, TIME {
+    },
+    
+    DAYOFWEEK {
         @Override
         public String toString() {
-            //INTERNATIONALIZE
+            // INTERNATIONALIZE
             return null;
         }
-    }, OBJECTIVENAME {
+    },
+    
+    TIME {
         @Override
         public String toString() {
-            //INTERNATIONALIZE
+            // INTERNATIONALIZE
+            return null;
+        }
+    },
+    
+    OBJECTIVENAME {
+        @Override
+        public String toString() {
+            // INTERNATIONALIZE
             return null;
         }
     };
