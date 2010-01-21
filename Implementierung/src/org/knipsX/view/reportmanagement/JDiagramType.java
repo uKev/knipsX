@@ -258,8 +258,10 @@ public class JDiagramType extends JAbstractSinglePanel {
      */
     public void fillViewWithModelInfo() {
         if (ReportHelper.getCurrentModel() != null) {
+            
             this.reportname.setText(ReportHelper.getCurrentModel().getReportName());
             this.reportdescription.setText(ReportHelper.getCurrentModel().getReportDescription());
+            
         }        
     }
 
