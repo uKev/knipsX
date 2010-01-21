@@ -17,3 +17,5 @@ SelectableCluster3DSphere in Selectable3DShape umbenannt
 	Shapes deklarieren, die in der Lage sind angeklickt zu werden
 
 JFileSave wird nicht benötigt da der JFileChooser bereits das Speichern beherrscht
+
+Axis3D Klasse eingeführt um die individuelle Segmentierung einer Achse zu begünstigen
