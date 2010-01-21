@@ -4,33 +4,64 @@ import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.utils.ExifParameter;
 
 /**
- * Datacontainer für a pair of exifParameter and picture.
+ * Datacontainer for a pair of exifParameter and picture.
+ * 
  * @author Kevin Zuber
- *
+ * 
  */
 public class PictureParameter {
-	private ExifParameter exifParameter;
-	private Picture picture;
-	
-	public PictureParameter(ExifParameter exifParameter, Picture picture) {
-		super();
-		this.exifParameter = exifParameter;
-		this.picture = picture;
-	}
-	
-	public ExifParameter getExifParameter() {
-		return exifParameter;
-	}
-	
-	public void setExifParameter(ExifParameter exifParameter) {
-		this.exifParameter = exifParameter;
-	}
-	
-	public Picture getPicture() {
-		return picture;
-	}
-	
-	public void setPicture(Picture picture) {
-		this.picture = picture;
-	}
+    private ExifParameter exifParameter;
+    private Picture picture;
+
+    /**
+     * Constructor for PictureParameter with an exifParameter and a picture
+     * 
+     * @param exifParameter
+     *            exif parameter
+     * @param picture
+     *            picture object of type Picture
+     */
+    public PictureParameter(final ExifParameter exifParameter, final Picture picture) {
+        super();
+        this.exifParameter = exifParameter;
+        this.picture = picture;
+    }
+
+    /**
+     * Getter for the exif parameter
+     * 
+     * @return the exif parameter which is in relation to a picture
+     */
+    public ExifParameter getExifParameter() {
+        return this.exifParameter;
+    }
+
+    /**
+     * Getter for the picture which is in relation to a exif parameter
+     * 
+     * @return the picture which is in relation to a exif parameter
+     */
+    public Picture getPicture() {
+        return this.picture;
+    }
+
+    /**
+     * Setter for the exif parameter which is in relation to a picture
+     * 
+     * @param exifParameter
+     *            the exif paramter which is in relation to a picture
+     */
+    public void setExifParameter(final ExifParameter exifParameter) {
+        this.exifParameter = exifParameter;
+    }
+
+    /**
+     * Setter for the picture which is in relation to a exif parameter
+     * 
+     * @param picture
+     *            the picture which is in relation to a exif parameter
+     */
+    public void setPicture(final Picture picture) {
+        this.picture = picture;
+    }
 }
