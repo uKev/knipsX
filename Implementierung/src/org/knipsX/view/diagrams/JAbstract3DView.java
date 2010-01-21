@@ -65,9 +65,8 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
 public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAbstractDiagram<M> {
 
     class OffScreenCanvas3D extends Canvas3D {
-        /**
-         * 
-         */
+
+        
         private static final long serialVersionUID = 7632725339641761565L;
 
         OffScreenCanvas3D(final GraphicsConfiguration graphicsConfiguration, final boolean offScreen) {
@@ -707,7 +706,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
     /**
      * Sets the current picture which is displayed outside of the 3D view with the
-     * specified exif parameters
+     * specified EXIF parameters
      * 
      * @param pic
      *            the picture which will be displayed outside of the 3D view
