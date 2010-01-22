@@ -297,10 +297,10 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         if (this.jContentPane == null) {
 
             this.jContentPane = new JPanel();
-            
+
             /* Draw an invisible border around the panel to make it more readable */
             this.jContentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-            
+
             final int widthLeft = 300;
             final int widthRight = 250;
 
@@ -429,18 +429,24 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jListPictureSetContent == null) {
-            PictureSet pictureSet = (PictureSet) this.model.getPictureSets()[0];
+            try {
+                PictureSet pictureSet = (PictureSet) this.model.getPictureSets()[0];
 
-            List<PictureContainer> list = this.extractPictureSetContents(pictureSet);
+                List<PictureContainer> list = this.extractPictureSetContents(pictureSet);
 
-            /* creates a new list with options */
-            this.jListPictureSetContent = new JList(list.toArray());
-
+                /* creates a new list with options */
+                this.jListPictureSetContent = new JList(list.toArray());
+            } catch (ArrayIndexOutOfBoundsException exception) {
+                /* we could have a new and empty project */
+                this.jListPictureSetContent = new JList();
+            }
+            
             this.jListPictureSetContent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             this.jListPictureSetContent.setLayoutOrientation(JList.VERTICAL);
 
             /* we store different objects in the list, so we have to set a special rendering */
             this.jListPictureSetContent.setCellRenderer(new MyPictureSetContentListCellRenderer());
+
         }
         JScrollPane listScroller = new JScrollPane(this.jListPictureSetContent);
 

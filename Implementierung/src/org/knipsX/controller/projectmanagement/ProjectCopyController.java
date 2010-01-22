@@ -30,7 +30,7 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
 		if (toCopy.length == 1) {
 
 			/* get the selected project */
-			final ProjectModel projectToCopy = this.model.getProjectList().get(
+			final ProjectModel projectToCopy = this.model.getProjects().get(
 					toCopy[0]);
 
 			final int decision = JOptionPane.showConfirmDialog(null,
@@ -60,7 +60,6 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
 				/* has user give in a project name? */
 				if (projectName != null) {
 					this.model.copyProject(projectToCopy, projectName);
-					this.model.updateViews();
 				}
 			}
 

@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.model.projectview.ProjectModel;
-import org.knipsX.utils.RepositoryHandler;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 import org.knipsX.view.projectview.JProjectView;
 
@@ -34,17 +33,16 @@ public class ProjectSwitchController<M extends ProjectModel, V extends JProjectV
     		this.view.dispose();
     		
     		/* create a model for the ProjectAdministration */
-    		final ProjectManagementModel projectManagementModel = new ProjectManagementModel(RepositoryHandler.scanProjectDirectory());
+    		final ProjectManagementModel projectManagementModel = new ProjectManagementModel();
 
     		/* creates a new JProjectAdministration window, which is connected to a model */
     		new JProjectManagement<ProjectManagementModel>(projectManagementModel);
     	} else if( decision == 1) { /* if user doesn't want to save before a change occurs */
     		
-    		this.model.destroy();
     		this.view.dispose();
     		
     		/* create a model for the ProjectAdministration */
-    		final ProjectManagementModel projectManagementModel = new ProjectManagementModel(RepositoryHandler.scanProjectDirectory());
+    		final ProjectManagementModel projectManagementModel = new ProjectManagementModel();
 
     		/* creates a new JProjectAdministration window, which is connected to a model */
     		new JProjectManagement<ProjectManagementModel>(projectManagementModel);

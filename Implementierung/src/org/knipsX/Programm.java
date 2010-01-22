@@ -45,8 +45,7 @@ public final class Programm {
         }
         
         /* create a model for the ProjectAdministration */
-        final ProjectManagementModel projectManagementModel = new ProjectManagementModel(RepositoryHandler
-                .scanProjectDirectory());
+        final ProjectManagementModel projectManagementModel = new ProjectManagementModel();
 
         /*
          * creates a new JProjectAdministration window, which is connected to a

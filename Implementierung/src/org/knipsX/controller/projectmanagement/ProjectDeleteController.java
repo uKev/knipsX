@@ -39,15 +39,13 @@ public class ProjectDeleteController<M extends ProjectManagementModel, V extends
 
                 /* delete all selected projects */
                 for (int n = 0; n < toDelete.length; ++n) {
-                    (this.model).removeProject(toDelete[n]);
+                    this.model.removeProject(toDelete[n]);
            
-
                     /* increments the indices one per round */
                     for (int j = 0; j < toDelete.length; ++j) {
                         toDelete[j] -= 1;
                     }
                 }
-                this.model.updateViews();
             }
         }
     }
@@ -57,7 +55,7 @@ public class ProjectDeleteController<M extends ProjectManagementModel, V extends
 
         /* add all names */
         for (int n = 0; n < toDelete.length; ++n) {
-            deleteText += "- " + (this.model).getProjectList().get(toDelete[n]).getProjectName() + "\n";
+            deleteText += "- " + (this.model).getProjects().get(toDelete[n]).getProjectName() + "\n";
         }
         return deleteText + "\n";
     }

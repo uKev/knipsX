@@ -290,7 +290,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
         if (this.jListProject == null) {
 
             /* create new list */
-            this.jListProject = new JList(((ProjectManagementModel) this.model).getProjectList().toArray());
+            this.jListProject = new JList(this.model.getProjects().toArray());
 
             /* set a custom cell renderer */
             this.jListProject.setCellRenderer(new MyProjectListCellRenderer());
@@ -347,7 +347,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
         final ProjectManagementModel model = (ProjectManagementModel) observedModel;
 
         /* set the data for the project list */
-        this.jListProject.setListData(model.getProjectList().toArray());
+        this.jListProject.setListData(model.getProjects().toArray());
 
         /* refresh view */
         this.repaint();

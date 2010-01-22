@@ -39,8 +39,7 @@ public class ProjectCreateController<M extends ProjectManagementModel, V extends
 
 		/* has user give in a project name? */
 		if (projectName != null) {
-			this.model.addNewProject(projectName);
-			this.model.updateViews();
+			this.model.addProject(projectName);
 		}
 	}
 }

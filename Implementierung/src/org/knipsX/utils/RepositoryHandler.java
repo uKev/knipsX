@@ -1,25 +1,7 @@
-/**
- * This package is the root of all utility packages.
- */
 package org.knipsX.utils;
 
-/* import things from the java sdk */
 import java.io.File;
-import java.util.GregorianCalendar;
-import java.util.LinkedList;
-import java.util.List;
 
-/* import things from our program */
-import org.knipsX.model.picturemanagement.Directory;
-import org.knipsX.model.picturemanagement.Picture;
-import org.knipsX.model.picturemanagement.PictureSet;
-import org.knipsX.model.projectview.ProjectModel;
-import org.knipsX.model.reportmanagement.AbstractReportModel;
-import org.knipsX.model.reportmanagement.BoxplotModel;
-
-/**
- * Has functions that can handle with the filesystem.
- */
 public final class RepositoryHandler {
 
     /**
@@ -29,12 +11,7 @@ public final class RepositoryHandler {
     
     private static Repository currentRepo = new DummyRepository();
 
-
     public static Repository getRepository(){
         return RepositoryHandler.currentRepo;
     }
-
-
-
- 
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
@@ -12,35 +13,25 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 
-
 public class DummyRepository implements Repository {
 
-    @Override
-    public void deleteProject(int projectID) {
-        // TODO Auto-generated method stub
-        
-    }
+    /* the list */
+    private final List<ProjectModel> projects = new LinkedList<ProjectModel>();
 
-    @Override
-    public List<ProjectModel> getProjects() {
-        
-        /* the list */
-        final List<ProjectModel> projectList = new LinkedList<ProjectModel>();
-        
+    public DummyRepository() {
+
         /* create a list of picture sets */
         List<PictureSet> pictureSetList = new LinkedList<PictureSet>();
 
         /* create a list of reports */
         List<AbstractReportModel> reportList = new LinkedList<AbstractReportModel>();
 
-        /* create the project */
-        ProjectModel project = new ProjectModel(6, "XML", "Desc", new GregorianCalendar(2009, 11, 12, 7, 9, 3), "");
-
         /* create the first picture set an some picture containers */
         PictureSet dummyPictureSet = new PictureSet("Goldfische", 1);
 
         /* create some dummy picture containers and add to the picture set */
-        Picture dummyPicture = new Picture("DSC00964.JPG", System.getProperty("user.dir") + File.separator + "DSC00964.JPG", false);
+        Picture dummyPicture = new Picture("DSC00964.JPG", System.getProperty("user.dir") + File.separator
+                + "DSC00964.JPG", false);
         dummyPicture.setName("Nemo");
         dummyPictureSet.add(dummyPicture);
 
@@ -70,22 +61,67 @@ public class DummyRepository implements Repository {
 
         reportList.add(dummyReportOne);
         reportList.add(dummyReportTwo);
-        
-        /* add some dummy projects */
-        projectList.add(ProjectModel.getInstance(project, pictureSetList, reportList));
-        
-        projectList.add(new ProjectModel(2, "Der Ehhhhhhhmer", "", new GregorianCalendar(2009, 11, 12, 12, 42, 43), ""));
 
-        /* returns the list */
-        return projectList;
-        
+        /* add some dummy projects */
+        this.projects.add(new ProjectModel(UUID.randomUUID().hashCode(), "XML", "Desc", new GregorianCalendar(2009, 11,
+                12, 7, 9, 3), pictureSetList, reportList));
+        this.projects.add(new ProjectModel(UUID.randomUUID().hashCode(), "Der Ehhhhhhhmer", "", new GregorianCalendar(
+                2009, 11, 12, 12, 42, 43), pictureSetList, reportList));
     }
 
     @Override
-    public void saveProject(int projectID, ProjectModel projectModel) {
-        // TODO Auto-generated method stub
-        
+    public List<ProjectModel> getProjects() {
+        return new LinkedList<ProjectModel>(this.projects);
     }
 
+    @Override
+    public ProjectModel getProject(int projectId) {
+        assert this.projects.size() > 0;
 
+        boolean goOn = true;
+        ProjectModel project = null;
+
+        /* delete the project */
+        for (int i = 0; goOn && i < this.projects.size(); ++i) {
+            if (this.projects.get(i).equals(projectId)) {
+                project = this.projects.get(i);
+                goOn = false;
+            }
+        }
+        return project;
+    }
+
+    @Override
+    public int createProject() {
+        int id = UUID.randomUUID().hashCode();
+        this.projects.add(new ProjectModel(id, "", "", new GregorianCalendar()));
+        return id;
+    }
+
+    @Override
+    public int createProject(ProjectModel toCopy) {
+        int id = UUID.randomUUID().hashCode();
+        this.projects.add(new ProjectModel(toCopy, id));
+        return id;
+    }
+
+    @Override
+    public void deleteProject(int projectId) {
+        assert this.projects.size() > 0;
+
+        boolean goOn = true;
+
+        /* delete the project */
+        for (int i = 0; goOn && i < this.projects.size(); ++i) {
+            if (this.projects.get(i).equals(projectId)) {
+                this.projects.remove(this.projects.get(i));
+                goOn = false;
+            }
+        }
+    }
+
+    @Override
+    public void saveProject(ProjectModel toSave) {
+        this.projects.add(toSave);
+    }
 }

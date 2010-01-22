@@ -1,7 +1,6 @@
 package org.knipsX.model.projectmanagement;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectModel;
@@ -17,7 +16,7 @@ public class ProjectManagementModel extends AbstractModel {
 
 	private int state = ACTIVE;
 
-	private List<ProjectModel> projectList;
+	private List<ProjectModel> projects;
 
 	/**
 	 * Creates a project management model based on projects.
@@ -25,39 +24,58 @@ public class ProjectManagementModel extends AbstractModel {
 	 * @param linkedList
 	 *            the projects.
 	 */
-	public ProjectManagementModel(List<ProjectModel> linkedList) {
-		this.projectList = linkedList;
+	public ProjectManagementModel(List<ProjectModel> projects) {
+		this.projects = projects;
 		this.updateViews();
 	}
-
-	public List<ProjectModel> getProjectList() {
-		return projectList;
+	
+	/**
+         * Creates a project management model based on projects.
+         * 
+         * Scans the project folder for projects.
+         */
+	public ProjectManagementModel() {
+	    this.projects = RepositoryHandler.getRepository().getProjects();
+	    this.updateViews();
 	}
 
-	public void setProjectlist(List<ProjectModel> projectlist) {
-		this.projectList = projectlist;
+	public List<ProjectModel> getProjects() {
+		return projects;
 	}
 
 	public void setState(int state) {
 		this.state = state;
+		this.updateViews();
 	}
 
 	public int getState() {
 		return this.state;
 	}
 
+	public ProjectModel getProject(int index) {
+	    return this.projects.get(index);
+	}
+	
 	/**
 	 * Add a new project to the model.
 	 * 
 	 * @param projectName
 	 *            the name of the project.
 	 */
-	public void addNewProject(String projectName) {
-
-//	    ProjectModel newProject = ProjectModel.getInstance(projectModel, pictureSets, reports)new ProjectModel(projectName);
-//		this.projectList.add(0, newProject);
-//		FileHandler.createNewProjectFile(newProject);
-		/* TODO Hier fehlen die Routinen zum Schreiben! */
+	public void addProject(String projectName) {
+	    
+	    /* create new project */
+            int id = RepositoryHandler.getRepository().createProject();
+            
+            /* get an modify the new project */
+            ProjectModel newProject = RepositoryHandler.getRepository().getProject(id);
+            
+            newProject.setProjectName(projectName);
+            
+            /* add new project */
+            this.projects.add(0, newProject);
+            
+            this.updateViews();
 	}
 
 	/**
@@ -67,8 +85,11 @@ public class ProjectManagementModel extends AbstractModel {
 	 *            the project.
 	 */
 	public void removeProject(int toDelete) {
-	    RepositoryHandler.deleteProjectFile(this.projectList.get(toDelete));
-	    this.projectList.remove(toDelete);				
+	    ProjectModel project = this.projects.remove(toDelete);
+	    
+	    RepositoryHandler.getRepository().deleteProject(project.getId());
+	    
+	    this.updateViews();
 	}
 
 	/**
@@ -80,17 +101,18 @@ public class ProjectManagementModel extends AbstractModel {
 	 *            the name of the new project.
 	 */
 	public void copyProject(ProjectModel toCopy, String projectName) {
-
-		/* Füge hinzu */
-		this.projectList.add(0, RepositoryHandler.copyProject(toCopy, projectName));
-	}
-
-	private long generateFreeProjectID() {
-	    long uuid = UUID.randomUUID().timestamp();	    
-	    return uuid;
-	}
-
-	private String generatePathforID(long id) {
-		return "path";
+	    
+	    /* create new project from an old one */
+	    int id = RepositoryHandler.getRepository().createProject(toCopy);
+	    
+	    /* get and modify the copied project */
+	    ProjectModel newProject = RepositoryHandler.getRepository().getProject(id);
+            
+            newProject.setProjectName(projectName);
+            
+            /* add copied project */
+            this.projects.add(0, newProject);
+            
+            this.updateViews();
 	}
 }
