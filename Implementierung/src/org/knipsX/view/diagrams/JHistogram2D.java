@@ -1,13 +1,12 @@
 package org.knipsX.view.diagrams;
 
 import org.knipsX.model.reportmanagement.AbstractReportModel;
-import org.knipsX.model.reportmanagement.Histogram2DModel;
 
 /**
  * This class implements how the Histogram2DModel is to be drawn.
  * 
  * @author David Kaufman
- *
+ * 
  * @param <M>
  */
 public class JHistogram2D<M extends AbstractReportModel> extends JAbstract2DDiagram<M> {
@@ -19,18 +18,18 @@ public class JHistogram2D<M extends AbstractReportModel> extends JAbstract2DDiag
      * 
      * @param model
      *            the model from which the drawing information is taken from
-     *            
-     * @param reportID 
-     *                the report id of the report    
+     * 
+     * @param reportID
+     *            the report id of the report
      */
-    public JHistogram2D(M model, int reportID) {
-    	super(model, reportID);
-	// TODO Auto-generated constructor stub
+    public JHistogram2D(final M model, final int reportID) {
+        super(model, reportID);
+        // TODO Auto-generated constructor stub
     }
 
     @Override
     public void generateContent() {
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
 }

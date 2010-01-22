@@ -14,7 +14,6 @@ import com.sun.j3d.utils.geometry.Sphere;
  * 
  * @author David Kaufman
  *
- * @param <M>
  */
 public class Selectable3DShape extends Shape3D {
 
