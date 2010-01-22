@@ -71,6 +71,12 @@ public enum ReportHelper {
         public int getNumberOfAxes() {
             return 1;
         }
+
+        @Override
+        public String toString() {
+            //INTERNATIONALIZE
+            return "Boxplot";
+        }
     },
 
     /** The report which identifies a 2D histogram report **/
@@ -115,6 +121,12 @@ public enum ReportHelper {
         public int getNumberOfAxes() {
             return 1;
         }
+
+        @Override
+        public String toString() {
+            //INTERNATIONALIZE
+            return "2D Histogram";
+        }
     },
 
     /** The report which identifies a 3D histogram report **/
@@ -158,6 +170,12 @@ public enum ReportHelper {
         @Override
         public int getNumberOfAxes() {
             return 2;
+        }
+
+        @Override
+        public String toString() {
+            //INTERNATIONALIZE
+            return "3D Histogram";
         }
 
     },
@@ -205,6 +223,12 @@ public enum ReportHelper {
             return 3;
         }
 
+        @Override
+        public String toString() {
+            //INTERNATIONALIZE
+            return "3D Cluster";
+        }
+
     },
 
     /** The report which identifies a table report **/
@@ -250,6 +274,12 @@ public enum ReportHelper {
         public int getNumberOfAxes() {
             return 0;
         }
+
+        @Override
+        public String toString() {
+            //INTERNATIONALIZE
+            return "Tabel";
+        }
     };
 
     /**
@@ -276,6 +306,11 @@ public enum ReportHelper {
 
     // public because controller needs access
     private static ProjectModel currentProjectModel;
+    
+    /**
+     * {@inheritDoc}
+     */
+    public abstract String toString();
 
     /**
      * Returns the current model
