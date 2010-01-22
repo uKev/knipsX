@@ -28,7 +28,7 @@ import org.knipsX.controller.projectmanagement.ProjectCreateController;
 import org.knipsX.controller.projectmanagement.ProjectDeleteController;
 import org.knipsX.controller.projectmanagement.ProjectOpenController;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
-import org.knipsX.model.projectview.ProjectEntry;
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.JAbstractView;
 
 /**
@@ -388,9 +388,9 @@ class MyProjectListCellRenderer implements ListCellRenderer {
                 isSelected, cellHasFocus);
 
         /* if the selected item is a "ProjectEntry" -> set the name */
-        if (value instanceof ProjectEntry) {
-            final ProjectEntry projectEntry = (ProjectEntry) value;
-            theText = projectEntry.getProjectName() + " " + projectEntry.calendarToString();
+        if (value instanceof ProjectModel) {
+            final ProjectModel projectModel = (ProjectModel) value;
+            theText = projectModel.getProjectName() + " " + projectModel.calendarToString();
         }
         renderer.setText(theText);
 

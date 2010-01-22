@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectview.ProjectEntry;
-import org.knipsX.utils.FileHandler;
+import org.knipsX.model.projectview.ProjectModel;
+import org.knipsX.utils.RepositoryHandler;
 
 /**
  * Manages all the projects data the user has.
@@ -17,7 +17,7 @@ public class ProjectManagementModel extends AbstractModel {
 
 	private int state = ACTIVE;
 
-	private List<ProjectEntry> projectList;
+	private List<ProjectModel> projectList;
 
 	/**
 	 * Creates a project management model based on projects.
@@ -25,16 +25,16 @@ public class ProjectManagementModel extends AbstractModel {
 	 * @param linkedList
 	 *            the projects.
 	 */
-	public ProjectManagementModel(List<ProjectEntry> linkedList) {
+	public ProjectManagementModel(List<ProjectModel> linkedList) {
 		this.projectList = linkedList;
 		this.updateViews();
 	}
 
-	public List<ProjectEntry> getProjectList() {
+	public List<ProjectModel> getProjectList() {
 		return projectList;
 	}
 
-	public void setProjectlist(List<ProjectEntry> projectlist) {
+	public void setProjectlist(List<ProjectModel> projectlist) {
 		this.projectList = projectlist;
 	}
 
@@ -54,9 +54,9 @@ public class ProjectManagementModel extends AbstractModel {
 	 */
 	public void addNewProject(String projectName) {
 
-		ProjectEntry newProject = new ProjectEntry(projectName);
-		this.projectList.add(0, newProject);
-		FileHandler.createNewProjectFile(newProject);
+//	    ProjectModel newProject = ProjectModel.getInstance(projectModel, pictureSets, reports)new ProjectModel(projectName);
+//		this.projectList.add(0, newProject);
+//		FileHandler.createNewProjectFile(newProject);
 		/* TODO Hier fehlen die Routinen zum Schreiben! */
 	}
 
@@ -67,7 +67,7 @@ public class ProjectManagementModel extends AbstractModel {
 	 *            the project.
 	 */
 	public void removeProject(int toDelete) {
-	    FileHandler.deleteProjectFile(this.projectList.get(toDelete));
+	    RepositoryHandler.deleteProjectFile(this.projectList.get(toDelete));
 	    this.projectList.remove(toDelete);				
 	}
 
@@ -79,10 +79,10 @@ public class ProjectManagementModel extends AbstractModel {
 	 * @param projectName
 	 *            the name of the new project.
 	 */
-	public void copyProject(ProjectEntry toCopy, String projectName) {
+	public void copyProject(ProjectModel toCopy, String projectName) {
 
 		/* Füge hinzu */
-		this.projectList.add(0, FileHandler.copyProject(toCopy, projectName));
+		this.projectList.add(0, RepositoryHandler.copyProject(toCopy, projectName));
 	}
 
 	private long generateFreeProjectID() {

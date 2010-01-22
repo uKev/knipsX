@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.model.projectview.ProjectModel;
-import org.knipsX.utils.FileHandler;
+import org.knipsX.utils.RepositoryHandler;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 import org.knipsX.view.projectview.JProjectView;
 
@@ -29,7 +29,7 @@ public class ProjectOpenController<M extends ProjectManagementModel, V extends J
 		/* only one project can copied at once */
 		if (toOpen.length == 1) {
 
-			ProjectModel projectModel = FileHandler.scanProjectFile(this.model
+			ProjectModel projectModel = RepositoryHandler.scanProjectFile(this.model
 					.getProjectList().get(toOpen[0]).getId());
 			model.setState(ProjectManagementModel.INACTIVE);
 			model.updateViews();

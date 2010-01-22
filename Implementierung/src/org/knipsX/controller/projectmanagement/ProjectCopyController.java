@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
-import org.knipsX.model.projectview.ProjectEntry;
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
 /**
@@ -30,7 +30,7 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
 		if (toCopy.length == 1) {
 
 			/* get the selected project */
-			final ProjectEntry projectToCopy = this.model.getProjectList().get(
+			final ProjectModel projectToCopy = this.model.getProjectList().get(
 					toCopy[0]);
 
 			final int decision = JOptionPane.showConfirmDialog(null,

@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.model.projectview.ProjectModel;
-import org.knipsX.utils.FileHandler;
+import org.knipsX.utils.RepositoryHandler;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 import org.knipsX.view.projectview.JProjectView;
 
@@ -34,7 +34,7 @@ public class ProjectSwitchController<M extends ProjectModel, V extends JProjectV
     		this.view.dispose();
     		
     		/* create a model for the ProjectAdministration */
-    		final ProjectManagementModel projectManagementModel = new ProjectManagementModel(FileHandler.scanProjectDirectory());
+    		final ProjectManagementModel projectManagementModel = new ProjectManagementModel(RepositoryHandler.scanProjectDirectory());
 
     		/* creates a new JProjectAdministration window, which is connected to a model */
     		new JProjectManagement<ProjectManagementModel>(projectManagementModel);
@@ -44,7 +44,7 @@ public class ProjectSwitchController<M extends ProjectModel, V extends JProjectV
     		this.view.dispose();
     		
     		/* create a model for the ProjectAdministration */
-    		final ProjectManagementModel projectManagementModel = new ProjectManagementModel(FileHandler.scanProjectDirectory());
+    		final ProjectManagementModel projectManagementModel = new ProjectManagementModel(RepositoryHandler.scanProjectDirectory());
 
     		/* creates a new JProjectAdministration window, which is connected to a model */
     		new JProjectManagement<ProjectManagementModel>(projectManagementModel);

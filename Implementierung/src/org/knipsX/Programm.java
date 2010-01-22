@@ -8,7 +8,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
-import org.knipsX.utils.FileHandler;
+import org.knipsX.utils.RepositoryHandler;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
 /**
@@ -45,7 +45,7 @@ public final class Programm {
         }
         
         /* create a model for the ProjectAdministration */
-        final ProjectManagementModel projectManagementModel = new ProjectManagementModel(FileHandler
+        final ProjectManagementModel projectManagementModel = new ProjectManagementModel(RepositoryHandler
                 .scanProjectDirectory());
 
         /*
