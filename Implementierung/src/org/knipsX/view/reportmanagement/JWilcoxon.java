@@ -115,7 +115,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
             this.percentField.setText(this.floatSlider.getFloatValue() + " %");
 
             this.floatSlider.addChangeListener(new ChangeListener() {
-                @Override
+                
                 public void stateChanged(final ChangeEvent e) {
                     final float temp = JSignifanceSlider.this.floatSlider.getFloatValue();
                     JSignifanceSlider.this.percentField.setText(String.valueOf(temp) + " %");
