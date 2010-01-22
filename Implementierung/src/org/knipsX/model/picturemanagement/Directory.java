@@ -30,8 +30,13 @@ public class Directory implements PictureContainer {
         }
     }
 
-    public List<PictureContainer> getItems() {
-        return new LinkedList<PictureContainer>(this.pictures);
+    public List<Picture> getItems() {
+        if (this.pictures.size() == 0) {
+            this.currentPosition = 0;
+            this.getAllPictures(new File(path));
+        }
+        
+        return new LinkedList<Picture>(this.pictures);
     }
 
     public String getName() {

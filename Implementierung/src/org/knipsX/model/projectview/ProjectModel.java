@@ -88,6 +88,11 @@ public class ProjectModel extends AbstractModel {
                 + File.separator + "DSC00964.JPG").getAllExifParameter();
     }
 
+    public void loadData() {
+        GetPictureDataThread thread = new GetPictureDataThread(this);
+        thread.start();
+    }
+    
     public boolean equals(int projectId) {
         boolean isEquals = false;
         if (this.id == projectId) {
@@ -268,7 +273,7 @@ public class ProjectModel extends AbstractModel {
     }
 
     /**
-     * Get all pictures which a picture set handle with.
+     * Get pictures which a picture set handle with (only on Rootlevel).
      * 
      * @param pictureSet
      *            the picture set which we use as root.
@@ -277,16 +282,8 @@ public class ProjectModel extends AbstractModel {
      */
     public Picture[] getPicturesOfAPictureSet(final PictureSet pictureSet) {
         List<Picture> pictures = new ArrayList<Picture>();
-
-        /* get the pictures */
-        List<PictureContainer> items = pictureSet.getItems();
-
-        for (PictureContainer item : items) {
-            if (item instanceof Picture) {
-                pictures.add((Picture) item);
-            }
-        }
-
+        pictures = extractPicturesFromContainer(pictures, pictureSet.getItems());
+      
         /* convert to array */
         Picture[] pictureArray = new Picture[pictures.size()];
 
@@ -296,6 +293,23 @@ public class ProjectModel extends AbstractModel {
         return pictureArray;
     }
 
+    private List<Picture> extractPicturesFromContainer(List<Picture> pictures, List<PictureContainer> container) {
+        
+        for (PictureContainer item : container) {
+            if (item instanceof Picture) {
+                pictures.add((Picture) item);
+            } else if (item instanceof Directory) {
+                Directory directory = (Directory) item;
+                pictures.addAll(directory.getItems());
+            } else if (item instanceof PictureSet) {
+                PictureSet pictureSet = (PictureSet) item;
+                List<Picture> picturesInPictureSet = new ArrayList<Picture>();
+                pictures.addAll(extractPicturesFromContainer(picturesInPictureSet, pictureSet.getItems()));
+            }
+        }
+        return pictures;
+    }
+    
     /**
      * Get all pictures which a directory handle with.
      * 
@@ -314,8 +328,20 @@ public class ProjectModel extends AbstractModel {
      * @return an amount of pictures.
      */
     public Picture[] getAllPictures() {
-        // return (PictureSet[]) this.pictureSetList.toArray();
-        return new Picture[0];
+        List<Picture> pictures = new ArrayList<Picture>();
+        
+        for(PictureSet pictureSet : this.pictureSetList) {
+            List<Picture> picturesFromPictureSet = new ArrayList<Picture>();
+            pictures.addAll(extractPicturesFromContainer(picturesFromPictureSet, pictureSet.getItems()));
+        }
+        
+        /* convert to array */
+        Picture[] pictureArray = new Picture[pictures.size()];
+
+        for (int i = 0; i < pictureArray.length; ++i) {
+            pictureArray[i] = pictures.get(i);
+        }
+        return pictureArray;
     }
 
     /**
@@ -402,5 +428,23 @@ public class ProjectModel extends AbstractModel {
 
         return day + "." + month + "." + year + " - " + df.format(hour) + ":" + df.format(minute) + ":"
                 + df.format(second);
+    }
+}
+
+class GetPictureDataThread extends Thread {
+    
+    Picture[] pictures;
+    ProjectModel project;
+    
+    GetPictureDataThread(ProjectModel project) {
+        this.pictures = project.getAllPictures();
+        this.project = project;
+    }
+
+    public void run() {
+        for(Picture picture : this.pictures) {
+            picture.init();
+            project.updateViews();
+        }
     }
 }

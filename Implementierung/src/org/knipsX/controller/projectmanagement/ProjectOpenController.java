@@ -31,7 +31,7 @@ public class ProjectOpenController<M extends ProjectManagementModel, V extends J
             model.setState(ProjectManagementModel.INACTIVE);
 
             new JProjectView<ProjectModel>(projectModel);
-            projectModel.updateViews();
+            projectModel.loadData();
         } else if (toOpen.length == 0) {
 
             /* gives the user a hint, that he has selected too little projects */

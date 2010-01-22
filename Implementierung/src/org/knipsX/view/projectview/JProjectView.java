@@ -10,13 +10,16 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
@@ -827,8 +830,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* refresh view */
         this.repaint();
-
-        System.out.println("height: " + this.getHeight() + " width: " + this.getWidth());
     }
 
     private List<PictureContainer> extractPictureSetContents(PictureSet pictureSet) {
@@ -985,9 +986,16 @@ class MyPictureListCellRenderer implements ListCellRenderer {
         if (value instanceof Picture) {
             final Picture picture = (Picture) value;
             theText = picture.getName();
+            
+            Image smallThumbnail = picture.getSmallThumbnail();
+            if(smallThumbnail != null) {
+                renderer.setIcon(new ImageIcon(picture.getSmallThumbnail()));
+                
+            }            
         }
         renderer.setText(theText);
-
+        renderer.setPreferredSize(new Dimension(renderer.getWidth(), 40));
+        
         return renderer;
     }
 }
