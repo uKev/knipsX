@@ -9,11 +9,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
 import org.knipsX.model.reportmanagement.AbstractReportModel;
-import org.knipsX.model.reportmanagement.TableModel;
 
 /**
  * This class implements how the TableModel is to be drawn.
@@ -25,9 +23,9 @@ import org.knipsX.model.reportmanagement.TableModel;
 public class JTableDiagram<M extends AbstractReportModel> extends JAbstractDiagram<M> {
 
     private static final long serialVersionUID = 1L;
-    private JTable table;
-    private JScrollPane scrollpane;
-    private JPanel mainpanel;
+    private final JTable table;
+    private final JScrollPane scrollpane;
+    private final JPanel mainpanel;
 
     /**
      * Constructor
@@ -38,10 +36,10 @@ public class JTableDiagram<M extends AbstractReportModel> extends JAbstractDiagr
      * @param reportID
      *            the report id of the report
      */
-    public JTableDiagram(M model, int reportID) {
+    public JTableDiagram(final M model, final int reportID) {
         super(model, reportID);
 
-        AbstractTableModel dataModel = new AbstractTableModel() {
+        final AbstractTableModel dataModel = new AbstractTableModel() {
             /**
 			 * 
 			 */
@@ -55,34 +53,34 @@ public class JTableDiagram<M extends AbstractReportModel> extends JAbstractDiagr
                 return 20;
             }
 
-            public Object getValueAt(int row, int col) {
+            public Object getValueAt(final int row, final int col) {
                 return new Integer(row * col);
             }
         };
 
         this.table = new JTable(dataModel);
-        this.scrollpane = new JScrollPane(table);
+        this.scrollpane = new JScrollPane(this.table);
         this.mainpanel = new JPanel();
         this.mainpanel.setLayout(new BoxLayout(this.mainpanel, BoxLayout.PAGE_AXIS));
         this.mainpanel.add(this.scrollpane);
         this.mainpanel.add(new JDiagramButtonsPlain(this));
-        add(this.mainpanel);
-        pack();
+        this.add(this.mainpanel);
+        this.pack();
 
-    }
-
-    @Override
-    public BufferedImage getDiagramScreenshot() {
-        Rectangle d = this.table.getBounds();
-        BufferedImage bi = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2d = bi.createGraphics();
-        this.table.paint(g2d);
-        return bi;
     }
 
     @Override
     public Component getDiagram() {
         return this.scrollpane;
+    }
+
+    @Override
+    public BufferedImage getDiagramScreenshot() {
+        final Rectangle d = this.table.getBounds();
+        final BufferedImage bi = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
+        final Graphics2D g2d = bi.createGraphics();
+        this.table.paint(g2d);
+        return bi;
     }
 
     @Override
