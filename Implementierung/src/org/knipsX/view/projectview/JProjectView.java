@@ -297,7 +297,10 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         if (this.jContentPane == null) {
 
             this.jContentPane = new JPanel();
-
+            
+            /* Draw an invisible border around the panel to make it more readable */
+            this.jContentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            
             final int widthLeft = 300;
             final int widthRight = 250;
 
