@@ -5,76 +5,60 @@ import java.util.List;
 
 public class PictureSet implements PictureContainer {
 
-	private List<PictureContainer> childs = new ArrayList<PictureContainer>();	
-	
-	private String name;
-	
-	private int iD;
-	
-	public PictureSet(String pictureSetName, int freePictureSetID) {
-		this.name = pictureSetName;
-		this.iD = freePictureSetID;
-	}
-	
-	public PictureSet(PictureSet pictureSetToCopy, String pictureSetName, int freePictureSetID) {
-		this.name = pictureSetName;
-		this.iD = freePictureSetID;
-		this.childs = pictureSetToCopy.getChilds();
-	}
+    private List<PictureContainer> childs = new ArrayList<PictureContainer>();
 
-	public void add(PictureContainer container) {
-		childs.add(container);
-	}
-	
-	public void remove(PictureContainer container) {
-		childs.remove(container);
-	}
+    private int id;
 
-	public List<PictureContainer> getItems() {
-		List<PictureContainer> temp = new ArrayList<PictureContainer>();
-		for(PictureContainer element : childs) {
-			temp.add(element);
-		}
-		return temp;
-	}
+    private int currentPosition;
 
-	public boolean hasNext() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    private String name;
 
-	public Picture next() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public PictureSet(String pictureSetName, int freePictureSetID) {
+        this.name = pictureSetName;
+        this.id = freePictureSetID;
+    }
 
-	public void remove() {
-		// TODO Auto-generated method stub
-		
-	}
+    public PictureSet(PictureSet pictureSetToCopy, String pictureSetName, int freePictureSetID) {
+        this.name = pictureSetName;
+        this.id = freePictureSetID;
+        this.childs = pictureSetToCopy.getItems();
+    }
 
-	public List<PictureContainer> getChilds() {
-		return childs;
-	}
+    public void add(PictureContainer container) {
+        childs.add(container);
+    }
 
-	public void setChilds(List<PictureContainer> childs) {
-		this.childs = childs;
-	}
+    public void remove(PictureContainer container) {
+        childs.remove(container);
+    }
 
-	public int getId() {
-		return iD;
-	}
+    public List<PictureContainer> getItems() {
+        return new ArrayList<PictureContainer>(this.childs);
+    }
 
-	public void setId(int id) {
-		this.iD = id;
-	}
+    public boolean hasNext() {
 
-	public String getName() {
-		return name;
-	}
+        /* check if next item is in list */
+        return (currentPosition++) <= (this.childs.size() - 1);
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
+    public PictureContainer next() {
+        PictureContainer pictureContainer = this.childs.get(currentPosition);
+
+        this.currentPosition++;
+
+        return pictureContainer;
+    }
+
+    public void remove() {
+        /* not implemented */
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

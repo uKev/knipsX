@@ -1,46 +1,74 @@
 package org.knipsX.model.picturemanagement;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Directory implements PictureContainer {
-	
-	public List<Picture> pictures = new LinkedList<Picture>();
-	
-	public String directoryName;
-	
-	public String path;
-	
-	public Directory() {
-				
-	}
 
-	public List<?> getItems() {
-		List<PictureContainer> temp = new LinkedList<PictureContainer>();
-		temp.add(this);
-		return temp;
-	}
-	
-	public boolean hasNext() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	public Picture next() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	public void remove() {
-		// TODO Auto-generated method stub
-		
-	}
+    private List<Picture> pictures = new LinkedList<Picture>();
 
-	public String getName() {
-		return directoryName;
-	}
+    private int currentPosition;
 
-	public void setName(String name) {
-		this.directoryName = name;		
-	}	
+    private String directoryName;
+
+    private String path;
+
+    public Directory(String path) {
+        this.path = path;
+        this.directoryName = path;
+    }
+
+    private void getAllPictures(File path) {
+        if (path.isDirectory()) {
+            File[] children = path.listFiles();
+            for (int i = 0; i < children.length; i++) {
+                getAllPictures(children[i]);
+            }
+        } else {
+            this.pictures.add(new Picture(path));
+        }
+    }
+
+    public List<PictureContainer> getItems() {
+        return new LinkedList<PictureContainer>(this.pictures);
+    }
+
+    public String getName() {
+        return directoryName;
+    }
+
+    public void setName(String name) {
+        this.directoryName = name;
+    }
+
+    @Override
+    public boolean hasNext() {
+        if (this.pictures.size() == 0) {
+            this.currentPosition = 0;
+            this.getAllPictures(new File(path));
+        }
+
+        /* check if next item is in list */
+        return (currentPosition++) <= (this.pictures.size() - 1);
+    }
+
+    @Override
+    public PictureContainer next() {
+        if (this.pictures.size() == 0) {
+            this.currentPosition = 0;
+            this.getAllPictures(new File(path));
+        }
+
+        PictureContainer picture = this.pictures.get(currentPosition);
+
+        this.currentPosition++;
+
+        return picture;
+    }
+
+    @Override
+    public void remove() { 
+        /* not implemented */
+    }
 }

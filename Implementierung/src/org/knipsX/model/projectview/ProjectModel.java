@@ -67,8 +67,8 @@ public class ProjectModel extends AbstractModel {
         this.creationDate = new GregorianCalendar();
         this.pictureSetList = projectModel.pictureSetList;
         this.reportList = projectModel.reportList;
-        this.exifParameter = new Picture("DSC00964.JPG", System.getProperty("user.dir") + File.separator
-                + "DSC00964.JPG", false).getAllExifParameter();
+        this.exifParameter = new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
+                + File.separator + "DSC00964.JPG").getAllExifParameter();
     }
 
     public ProjectModel(int id, String projectName, String projectDescription, GregorianCalendar creationDate) {
@@ -84,8 +84,8 @@ public class ProjectModel extends AbstractModel {
         this.creationDate = creationDate;
         this.pictureSetList = pictureSets;
         this.reportList = reports;
-        this.exifParameter = new Picture("DSC00964.JPG", System.getProperty("user.dir") + File.separator
-                + "DSC00964.JPG", false).getAllExifParameter();
+        this.exifParameter = new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
+                + File.separator + "DSC00964.JPG").getAllExifParameter();
     }
 
     public boolean equals(int projectId) {
@@ -218,8 +218,24 @@ public class ProjectModel extends AbstractModel {
      * @return an amount of picture sets.
      */
     public PictureSet[] getPictureSetsOfAPictureSet(final PictureSet pictureSet) {
-        // return (PictureSet[]) this.pictureSetList.toArray();
-        return new PictureSet[0];
+        List<PictureSet> pictureSets = new ArrayList<PictureSet>();
+
+        /* get the picture sets */
+        List<PictureContainer> items = pictureSet.getItems();
+
+        for (PictureContainer container : items) {
+            if (container instanceof PictureSet) {
+                pictureSets.add((PictureSet) container);
+            }
+        }
+
+        /* convert to array */
+        PictureSet[] pictureSetArray = new PictureSet[pictureSets.size()];
+
+        for (int i = 0; i < pictureSetArray.length; ++i) {
+            pictureSetArray[i] = pictureSets.get(i);
+        }
+        return pictureSetArray;
     }
 
     /**
@@ -231,8 +247,24 @@ public class ProjectModel extends AbstractModel {
      * @return an amount of picture sets.
      */
     public Directory[] getDirectoriesOfAPictureSet(final PictureSet pictureSet) {
-        // return (PictureSet[]) this.pictureSetList.toArray();
-        return new Directory[0];
+        List<Directory> directories = new ArrayList<Directory>();
+
+        /* get the directories */
+        List<PictureContainer> items = pictureSet.getItems();
+
+        for (PictureContainer item : items) {
+            if (item instanceof Directory) {
+                directories.add((Directory) item);
+            }
+        }
+
+        /* convert to array */
+        Directory[] directoryArray = new Directory[directories.size()];
+
+        for (int i = 0; i < directoryArray.length; ++i) {
+            directoryArray[i] = directories.get(i);
+        }
+        return directoryArray;
     }
 
     /**
@@ -244,8 +276,24 @@ public class ProjectModel extends AbstractModel {
      * @return an amount of pictures.
      */
     public Picture[] getPicturesOfAPictureSet(final PictureSet pictureSet) {
-        // return (PictureSet[]) this.pictureSetList.toArray();
-        return new Picture[0];
+        List<Picture> pictures = new ArrayList<Picture>();
+
+        /* get the pictures */
+        List<PictureContainer> items = pictureSet.getItems();
+
+        for (PictureContainer item : items) {
+            if (item instanceof Picture) {
+                pictures.add((Picture) item);
+            }
+        }
+
+        /* convert to array */
+        Picture[] pictureArray = new Picture[pictures.size()];
+
+        for (int i = 0; i < pictureArray.length; ++i) {
+            pictureArray[i] = pictures.get(i);
+        }
+        return pictureArray;
     }
 
     /**
@@ -257,8 +305,7 @@ public class ProjectModel extends AbstractModel {
      * @return an amount of pictures.
      */
     public Picture[] getPicturesOfADirectory(final Directory directory) {
-        // return (PictureSet[]) this.pictureSetList.toArray();
-        return new Picture[0];
+        return (Picture[]) directory.getItems().toArray();
     }
 
     /**

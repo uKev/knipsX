@@ -30,12 +30,13 @@ public class DummyRepository implements Repository {
         PictureSet dummyPictureSet = new PictureSet("Goldfische", 1);
 
         /* create some dummy picture containers and add to the picture set */
-        Picture dummyPicture = new Picture("DSC00964.JPG", System.getProperty("user.dir") + File.separator
-                + "DSC00964.JPG", false);
+        Picture dummyPicture = new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
+                + File.separator + "DSC00964.JPG");
         dummyPicture.setName("Nemo");
         dummyPictureSet.add(dummyPicture);
 
-        Directory dummyDirectory = new Directory();
+        Directory dummyDirectory = new Directory(System.getProperty("user.dir") + File.separator + "testbilder"
+                + File.separator + "testordner");
         dummyDirectory.setName("Urlaubsbilder");
         dummyPictureSet.add(dummyDirectory);
 
@@ -63,8 +64,8 @@ public class DummyRepository implements Repository {
         reportList.add(dummyReportTwo);
 
         /* add some dummy projects */
-        this.projects.add(new ProjectModel(UUID.randomUUID().hashCode(), "XML", "Desc", new GregorianCalendar(2009, 11,
-                12, 7, 9, 3), pictureSetList, reportList));
+        this.projects.add(new ProjectModel(UUID.randomUUID().hashCode(), "Testprojekt mit Realbildern",
+                "Keine Beschreibung.", new GregorianCalendar(2009, 11, 12, 7, 9, 3), pictureSetList, reportList));
         this.projects.add(new ProjectModel(UUID.randomUUID().hashCode(), "Der Ehhhhhhhmer", "", new GregorianCalendar(
                 2009, 11, 12, 12, 42, 43), pictureSetList, reportList));
     }
