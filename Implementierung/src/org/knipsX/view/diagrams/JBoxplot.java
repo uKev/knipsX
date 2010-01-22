@@ -14,7 +14,8 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
 
 public class JBoxplot<M extends AbstractReportModel> extends JAbstract2DDiagram<M> {
 
-    private static final long serialVersionUID = 1L;
+    
+    private static final long serialVersionUID = 7304743674236993462L;
 
     /**
      * Constructor

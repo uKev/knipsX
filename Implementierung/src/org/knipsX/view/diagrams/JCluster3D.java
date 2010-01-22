@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.vecmath.Vector3d;
 
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.utils.ExifParameter;
 
 /**
  * This class implements how the Cluster3DModel is to be drawn.
@@ -19,7 +20,7 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
  */
 public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagram<M> {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -2802017414318945810L;
 
     /**
      * Constructor
@@ -58,7 +59,7 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
             this.objRoot.addChild(objData);
         }
 
-        this.createLabels("Hallo", "Test", "OMG");
+        this.createLabels(ExifParameter.ISO.toString(), ExifParameter.DAYOFWEEK.toString(), ExifParameter.FNUMBER.toString());
         
         this.leftPanel = new JPanel();
         
