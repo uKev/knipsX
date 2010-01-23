@@ -62,7 +62,7 @@ public class ProjectManagementModel extends AbstractModel {
 	 * @param projectName
 	 *            the name of the project.
 	 */
-	public void addProject(String projectName) {
+	public void addProject(String name) {
 	    
 	    /* create new project */
             int id = RepositoryHandler.getRepository().createProject();
@@ -70,7 +70,7 @@ public class ProjectManagementModel extends AbstractModel {
             /* get an modify the new project */
             ProjectModel newProject = RepositoryHandler.getRepository().getProject(id);
             
-            newProject.setProjectName(projectName);
+            newProject.setName(name);
             
             /* add new project */
             this.projects.add(0, newProject);
@@ -100,7 +100,7 @@ public class ProjectManagementModel extends AbstractModel {
 	 * @param projectName
 	 *            the name of the new project.
 	 */
-	public void copyProject(ProjectModel toCopy, String projectName) {
+	public void copyProject(ProjectModel toCopy, String name) {
 	    
 	    /* create new project from an old one */
 	    int id = RepositoryHandler.getRepository().createProject(toCopy);
@@ -108,7 +108,7 @@ public class ProjectManagementModel extends AbstractModel {
 	    /* get and modify the copied project */
 	    ProjectModel newProject = RepositoryHandler.getRepository().getProject(id);
             
-            newProject.setProjectName(projectName);
+            newProject.setName(name);
             
             /* add copied project */
             this.projects.add(0, newProject);

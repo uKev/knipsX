@@ -24,12 +24,12 @@ public class PictureSet implements PictureContainer {
         this.childs = pictureSetToCopy.getItems();
     }
 
-    public void add(PictureContainer container) {
-        childs.add(container);
+    public boolean add(PictureContainer container) {
+        return childs.add(container);
     }
 
-    public void remove(PictureContainer container) {
-        childs.remove(container);
+    public boolean remove(PictureContainer container) {
+        return childs.remove(container);
     }
 
     public List<PictureContainer> getItems() {

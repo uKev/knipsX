@@ -756,7 +756,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jTextFieldProjectName == null) {
-            this.jTextFieldProjectName = new JTextField(model.getProjectName());
+            this.jTextFieldProjectName = new JTextField(model.getName());
         }
         return this.jTextFieldProjectName;
     }
@@ -816,11 +816,11 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         final ProjectModel model = (ProjectModel) o;
 
         /* INTERNATIONALIZE */
-        this.setTitle("Projektansicht für " + model.getProjectName());
+        this.setTitle("Projektansicht für " + model.getName());
 
         /* things about the project */
-        this.jTextFieldProjectName.setText(model.getProjectName());
-        this.jEditorPaneProjectDescription.setText(model.getProjectDescription());
+        this.jTextFieldProjectName.setText(model.getName());
+        this.jEditorPaneProjectDescription.setText(model.getDescription());
 
         /* setup the lists */
         this.jListPictureSet.setListData(model.getPictureSets());

@@ -390,7 +390,7 @@ class MyProjectListCellRenderer implements ListCellRenderer {
         /* if the selected item is a "ProjectEntry" -> set the name */
         if (value instanceof ProjectModel) {
             final ProjectModel projectModel = (ProjectModel) value;
-            theText = projectModel.getProjectName() + " " + projectModel.calendarToString();
+            theText = projectModel.getName() + " " + projectModel.calendarToString();
         }
         renderer.setText(theText);
 

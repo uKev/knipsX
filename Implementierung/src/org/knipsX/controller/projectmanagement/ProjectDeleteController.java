@@ -55,7 +55,7 @@ public class ProjectDeleteController<M extends ProjectManagementModel, V extends
 
         /* add all names */
         for (int n = 0; n < toDelete.length; ++n) {
-            deleteText += "- " + (this.model).getProjects().get(toDelete[n]).getProjectName() + "\n";
+            deleteText += "- " + (this.model).getProjects().get(toDelete[n]).getName() + "\n";
         }
         return deleteText + "\n";
     }

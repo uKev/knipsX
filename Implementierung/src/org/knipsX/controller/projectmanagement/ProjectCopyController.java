@@ -35,7 +35,7 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
 
 			final int decision = JOptionPane.showConfirmDialog(null,
 					"Soll das ausgewählte Projekt \""
-							+ projectToCopy.getProjectName()
+							+ projectToCopy.getName()
 							+ "\" kopiert werden?", "Projekt kopieren",
 					JOptionPane.YES_NO_OPTION);
 
