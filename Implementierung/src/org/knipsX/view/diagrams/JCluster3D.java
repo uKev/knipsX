@@ -59,7 +59,9 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
             this.objRoot.addChild(objData);
         }
 
-        this.createLabels(ExifParameter.ISO.toString(), ExifParameter.DAYOFWEEK.toString(), ExifParameter.FNUMBER.toString());
+        this.axis3D[0].generateSegmentDescription(200, 900, 5);
+        this.axis3D[1].generateSegmentDescription(100, 600, 5);
+        this.axis3D[2].generateSegmentDescription(10, 20, 5);       
         
         this.leftPanel = new JPanel();
         

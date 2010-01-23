@@ -40,6 +40,7 @@ import javax.vecmath.Vector3f;
 import org.knipsX.controller.diagrams.View3DClickController;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.utils.ExifParameter;
 
 import com.sun.j3d.utils.geometry.Box;
 import com.sun.j3d.utils.geometry.Cone;
@@ -61,11 +62,11 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
 public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAbstractDiagram<M> {
 
     /**
-     * This class is responsible for handling the off screen buffer of the assign graphics 
-     * configuration and outputting the generated buffered image  
+     * This class is responsible for handling the off screen buffer of the assign graphics
+     * configuration and outputting the generated buffered image
      * 
      * @author David Kaufman
-     *
+     * 
      */
     class OffScreenCanvas3D extends Canvas3D {
 
@@ -74,9 +75,11 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         /**
          * This constructor initializes the off screen canvas 3D with the specified parameters
          * 
-         * @param graphicsConfiguration The graphics configuration of the view
-         * @param offScreen Specifies if the generated view is calculated off screen or on screen
-         * true if  offScreen, false if onScreen
+         * @param graphicsConfiguration
+         *            The graphics configuration of the view
+         * @param offScreen
+         *            Specifies if the generated view is calculated off screen or on screen
+         *            true if offScreen, false if onScreen
          */
         OffScreenCanvas3D(final GraphicsConfiguration graphicsConfiguration, final boolean offScreen) {
             super(graphicsConfiguration, offScreen);
@@ -85,10 +88,12 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         /**
          * Renders the view and generates a buffered image with the specified with and height
          * 
-         * @param width the width of the generated image
-         * @param height the height of the generated image
+         * @param width
+         *            the width of the generated image
+         * @param height
+         *            the height of the generated image
          * 
-         * @return the generated buffered image 
+         * @return the generated buffered image
          */
         BufferedImage doRender(final int width, final int height) {
 
@@ -369,29 +374,32 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             this.objRoot.addChild(objAxis);
         }
 
-        /* Create segments (ticks) for each axis */
+        /* Create ticks for each axis */
         for (int q = 0; q < this.numberOfAxes; q++) {
             for (int i = 1; i < this.axis3D[q].getNumberOfSegments(); i++) {
                 final Transform3D segment = new Transform3D();
 
-                if (q == 0) {
+                if (q == 0 && this.axis3D[0].isShowSegments()) {
                     final double normDistance = i * this.axis3D[0].getSegmentSize();
                     segment.rotX(90 * Math.PI / 180.0d);
                     segment.setTranslation(new Vector3d(0, normDistance, 0));
-                } else if (q == 1) {
+                } else if (q == 1 && this.axis3D[1].isShowSegments()) {
                     final double normDistance = i * this.axis3D[1].getSegmentSize();
                     segment.rotY(90 * Math.PI / 180.0d);
                     segment.setTranslation(new Vector3d(0, 0, normDistance));
-                } else if (q == 2) {
+                } else if (q == 2 && this.axis3D[2].isShowSegments()) {
                     final double normDistance = i * this.axis3D[2].getSegmentSize();
                     segment.rotX(0 * Math.PI / 180.0d);
                     segment.setTranslation(new Vector3d(normDistance, 0, 0));
                 }
 
-                final TransformGroup objSeg = new TransformGroup(segment);
-                final Box myAxisGeo = new Box(0.0125f, 0.25f, 0.0125f, 1, this.basicMaterial(1f, 1f, 1f));
-                objSeg.addChild(myAxisGeo);
-                this.objRoot.addChild(objSeg);
+                if (this.axis3D[0].isShowSegments() || this.axis3D[1].isShowSegments()
+                        || this.axis3D[2].isShowSegments()) {
+                    final TransformGroup objSeg = new TransformGroup(segment);
+                    final Box myAxisGeo = new Box(0.0125f, 0.25f, 0.0125f, 1, this.basicMaterial(1f, 1f, 1f));
+                    objSeg.addChild(myAxisGeo);
+                    this.objRoot.addChild(objSeg);
+                }
             }
         }
 
@@ -467,7 +475,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      * Creates a grid which is automatically placed into the root BranchGroup
      */
     protected void createGrid() {
-        
+
         final TransformGroup gridtransform = this.createTransformGroup(
                 new Vector3d(this.axis3D[0].getAxisSize(), 0, 0), new Vector3d(1, 1, 1));
 
@@ -648,47 +656,6 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      */
     public abstract void generateContent();
 
-    /**
-     * Generates a string array which contains the segment description of one axis. *
-     * 
-     * @param minValue
-     *            the minimum value which will be placed at the origin of the axis
-     * @param maxValue
-     *            the maximum value of the axis
-     * 
-     * @param axis
-     *            the axis object which will contain the segment description
-     */
-    protected void generateSegmentDescription(final Object minValue, final Object maxValue, final Axis3D axis) {
-
-        if (minValue instanceof Double) {
-
-            axis.setNumberOfSegments(20);
-
-            final String[] returnstring = new String[axis.getNumberOfSegments()];
-
-            for (int i = 0; i < axis.getNumberOfSegments(); i++) {
-                returnstring[i] = String.valueOf(i);
-            }
-
-            axis.setSegmentDescription(returnstring);
-
-        } else {
-
-            final String[] returnstring = new String[2];
-
-            for (int i = 0; i < axis.getSegmentSize(); i++) {
-                returnstring[i] = String.valueOf(i);
-            }
-
-            assert returnstring.length == axis.getNumberOfSegments();
-
-            axis.setSegmentDescription(returnstring);
-
-        }
-
-    }
-
     @Override
     public Component getDiagram() {
         return this.canvas3D;
@@ -750,6 +717,12 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         /* Create the axis */
         this.createAxis();
 
+        /* Create the segment description */
+        this.createSegmentDescription();
+        
+        /* Create labels */
+        this.createLabels(this.axis3D[0].getDescription(), this.axis3D[1].getDescription(), this.axis3D[2].getDescription());
+
         /* Create the off-screen Canvas3D object */
         this.createOffScreenCanvas(this.canvas3D);
 
@@ -809,14 +782,14 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     }
 
     /**
-     * Defines the description of each segment of an axis. 
+     * Defines the description of each segment of an axis.
      */
-    protected void setSegmentDescription() {
+    protected void createSegmentDescription() {
 
         /* Define the size of each text label */
         final double size = 0.33d;
 
-        if (this.numberOfAxes >= 1) {
+        if (this.numberOfAxes >= 1 && this.axis3D[0].isShowSegments()) {
             /* Create the x Axis */
             final String[] xAxis = this.axis3D[0].getSegmentDescription();
 
@@ -829,7 +802,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             }
         }
 
-        if (this.numberOfAxes >= 2) {
+        if (this.numberOfAxes >= 2 && this.axis3D[1].isShowSegments()) {
             /* Create the z Axis */
             final String[] zAxis = this.axis3D[1].getSegmentDescription();
 
@@ -841,7 +814,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             }
         }
 
-        if (this.numberOfAxes >= 3) {
+        if (this.numberOfAxes >= 3 && this.axis3D[2].isShowSegments()) {
             /* Create the y Axis */
             final String[] yAxis = this.axis3D[2].getSegmentDescription();
 

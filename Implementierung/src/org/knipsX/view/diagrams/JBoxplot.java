@@ -38,10 +38,12 @@ public class JBoxplot<M extends AbstractReportModel> extends JAbstract2DDiagram<
         this.createSphere(new Vector3d(5, 5, 5), new Vector3d(1, 1, 1), this.basicMaterial(1, 1, 1));
         this.createCube(new Vector3d(5, 5, 10), new Vector3d(1, 1, 1), this.basicMaterial(0, 1, 0));
 
-        this.generateSegmentDescription(1.5d, null, this.axis3D[0]);
-        this.generateSegmentDescription(null, null, this.axis3D[1]);
-        this.generateSegmentDescription(null, null, this.axis3D[2]);
-        this.setSegmentDescription();
+        this.axis3D[0].generateSegmentDescription(200, 900, 20);
+        this.axis3D[1].generateSegmentDescription(null, null, 3);
+        
+        this.axis3D[0].setDescription("Test 1234");
+        
+     
         
         
 
