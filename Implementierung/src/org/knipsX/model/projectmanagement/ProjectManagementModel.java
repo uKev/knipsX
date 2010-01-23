@@ -134,15 +134,15 @@ public class ProjectManagementModel extends AbstractModel {
     /**
      * Create a new model based on an old model.
      * 
-     * @param toCopy
+     * @param projectToCopy
      *            the old model.
      * @param name
      *            the name of the new project.
      */
-    public void copyProject(int toCopy, String name) {
+    public void copyProject(ProjectModel projectToCopy, String name) {
 
         /* create new project from an old one */
-        int id = RepositoryHandler.getRepository().createProject(this.projects.get(toCopy));
+        int id = RepositoryHandler.getRepository().createProject(projectToCopy);
 
         /* get and modify the copied project */
         ProjectModel newProject = RepositoryHandler.getRepository().getProject(id);

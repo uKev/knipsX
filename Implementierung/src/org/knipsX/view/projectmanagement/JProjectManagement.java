@@ -352,7 +352,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
         /* refresh view */
         this.repaint();
 
-        if (this.model.getState() != ProjectManagementModel.ACTIVE) {
+        if (this.model.getStatus() != ProjectManagementModel.ACTIVE) {
             this.dispose();
         }
     }

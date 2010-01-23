@@ -28,7 +28,7 @@ public class ProjectOpenController<M extends ProjectManagementModel, V extends J
         /* only one project can copied at once */
         if (toOpen.length == 1) {
             ProjectModel projectModel = this.model.getProject(toOpen[0]);
-            model.setState(ProjectManagementModel.INACTIVE);
+            model.setStatus(ProjectManagementModel.INACTIVE);
 
             new JProjectView<ProjectModel>(projectModel);
             projectModel.loadData();
