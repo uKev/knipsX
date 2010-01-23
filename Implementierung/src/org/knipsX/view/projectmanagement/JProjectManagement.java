@@ -71,7 +71,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 
         /* show main panel */
         this.setContentPane(this.getJContentPane());
-      
+
         this.setMinimumSize(new Dimension(600, 75));
 
         this.setPreferredSize(new Dimension(600, 300));
@@ -101,17 +101,17 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 
             /* create a new panel */
             this.jContentPane = new JPanel();
-            
-            /*sets the main layout for this window*/
+
+            /* sets the main layout for this window */
             this.jContentPane.setLayout(new BoxLayout(jContentPane, BoxLayout.PAGE_AXIS));
 
-            /*sets borders in this window*/
+            /* sets borders in this window */
             this.jContentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-            /*sets and adds the buttonpanel with its layout*/
+            /* sets and adds the buttonpanel with its layout */
             this.jContentPane.add(getJButtonPane(), BorderLayout.PAGE_START);
-            
-            /*sets and adds the listpanel with its layout*/
+
+            /* sets and adds the listpanel with its layout */
             this.jContentPane.add(getJListPane(), BorderLayout.LINE_START);
 
         }
@@ -133,10 +133,10 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
             /* create a new panel */
             this.jButtonPane = new JPanel();
 
-            /*sets the layout between the buttons*/
+            /* sets the layout between the buttons */
             this.jButtonPane.setLayout(new BoxLayout(jButtonPane, BoxLayout.LINE_AXIS));
 
-            /*sets an border which surronds the buttons*/
+            /* sets an border which surronds the buttons */
             this.jButtonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 
             /* add the button for project creation */
@@ -176,7 +176,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
             /* create a new panel */
             this.jListPane = new JPanel();
 
-            /*sets the layout for the jListpane*/
+            /* sets the layout for the jListpane */
             this.jListPane.setLayout(new BoxLayout(jListPane, BoxLayout.PAGE_AXIS));
 
             /* add the scrollbars for the list */
@@ -369,11 +369,11 @@ class MyProjectListCellRenderer implements ListCellRenderer {
     /**
      * Renders the cell.
      * 
-     * @param list the JList we're painting.
-     * @param value the value returned by list.getModel().getElementAt(index).
-     * @param index the cells index.
-     * @param isSelected true if the specified cell was selected.
-     * @param cellHasFocus true if the specified cell has the focus.
+     * @param list The JList we're painting.
+     * @param value The value returned by list.getModel().getElementAt(index).
+     * @param index The cells index.
+     * @param isSelected True if the specified cell was selected.
+     * @param cellHasFocus True if the specified cell has the focus.
      * 
      * @return the representation of the cell.
      */
@@ -382,17 +382,20 @@ class MyProjectListCellRenderer implements ListCellRenderer {
 
         /* the text for the cell */
         String theText = null;
+        String toolTipText = null;
 
         /* generate the label which represents the cell */
         final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
                 isSelected, cellHasFocus);
 
-        /* if the selected item is a "ProjectEntry" -> set the name */
+        /* if the selected item is a "ProjectEntry" -> set the name and the description */
         if (value instanceof ProjectModel) {
             final ProjectModel projectModel = (ProjectModel) value;
             theText = projectModel.getName() + " " + projectModel.calendarToString();
+            toolTipText = projectModel.getDescription();
         }
         renderer.setText(theText);
+        renderer.setToolTipText(toolTipText);
 
         /* return the label */
         return renderer;
