@@ -70,12 +70,10 @@ public class DummyRepository implements Repository {
                 2009, 11, 12, 12, 42, 43), pictureSetList, reportList));
     }
 
-    @Override
     public List<ProjectModel> getProjects() {
         return new LinkedList<ProjectModel>(this.projects);
     }
 
-    @Override
     public ProjectModel getProject(int projectId) {
         assert this.projects.size() > 0;
 
@@ -92,21 +90,18 @@ public class DummyRepository implements Repository {
         return project;
     }
 
-    @Override
     public int createProject() {
         int id = UUID.randomUUID().hashCode();
         this.projects.add(new ProjectModel(id, "", "", new GregorianCalendar()));
         return id;
     }
 
-    @Override
     public int createProject(ProjectModel toCopy) {
         int id = UUID.randomUUID().hashCode();
         this.projects.add(new ProjectModel(toCopy, id));
         return id;
     }
 
-    @Override
     public void deleteProject(int projectId) {
         assert this.projects.size() > 0;
 
@@ -121,7 +116,6 @@ public class DummyRepository implements Repository {
         }
     }
 
-    @Override
     public void saveProject(ProjectModel toSave) {
         this.projects.add(toSave);
     }

@@ -47,7 +47,6 @@ public class Directory implements PictureContainer {
         this.directoryName = name;
     }
 
-    @Override
     public boolean hasNext() {
         if (this.pictures.size() == 0) {
             this.currentPosition = 0;
@@ -58,7 +57,6 @@ public class Directory implements PictureContainer {
         return (currentPosition++) <= (this.pictures.size() - 1);
     }
 
-    @Override
     public PictureContainer next() {
         if (this.pictures.size() == 0) {
             this.currentPosition = 0;
@@ -72,7 +70,6 @@ public class Directory implements PictureContainer {
         return picture;
     }
 
-    @Override
     public void remove() { 
         /* not implemented */
     }

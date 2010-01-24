@@ -164,7 +164,6 @@ public class Picture implements PictureContainer {
         return allExifParameter;
     }
 
-    @Override
     public void setName(String name) {
     }
 
