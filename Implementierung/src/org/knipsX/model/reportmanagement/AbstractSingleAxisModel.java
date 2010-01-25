@@ -5,67 +5,107 @@ import java.util.ArrayList;
 import org.knipsX.model.picturemanagement.PictureContainer;
 
 /**
- * AbstractDoubleSingleAxisModel is the superclass of all diagram models which need at least one
+ * AbstractSingleAxisModel is the superclass of all diagram models which need at least one
  * axis with exif parameters and exif description, mostly 2D diagrams.
  * Axis is singular and axes is plural :).
  * 
  * @author Kevin Zuber
  */
 
-public abstract class AbstractSingleAxisModel extends AbstractReportModel{
-	// needs to be protected because it's used in subclass
-	protected Axis xAxis;
+public abstract class AbstractSingleAxisModel extends AbstractReportModel {
+    // needs to be protected because it's used in subclass
+    protected Axis xAxis;
 
-	protected Object minX;
-	protected Object maxX;
-	protected Object minY;
-	protected Object maxY;
+    protected Object minX;
+    protected Object maxX;
+    protected Object minY;
+    protected Object maxY;
 
-	public AbstractSingleAxisModel(
-			ArrayList<PictureContainer> pictureContainer, Axis xAxis) {
-		super(pictureContainer);
-		this.xAxis = xAxis;
-	}
+    /**
+     * Constructor for an empty AbstractSingleAxisModel
+     */
+    public AbstractSingleAxisModel() {
+        super();
+    }
 
-	public AbstractSingleAxisModel() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * Constructor for a AbstractSingleAxisModel with pictureContainer, xAxis, reportName and reportDescription
+     * 
+     * @param pictureContainer
+     *            picture Container
+     * @param xAxis
+     *            x axis
+     * @param reportName
+     *            name of the report
+     * @param reportDescription
+     *            description of the report
+     */
+    public AbstractSingleAxisModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis,
+            final String reportName, final String reportDescription) {
+        this(pictureContainer, xAxis, reportName, reportDescription, null);
+    }
 
-	public Axis getxAxis() {
-		return xAxis;
-	}
+    /**
+     * Constructor for a AbstractSingleAxisModel with pictureContainer, xAxis, reportName, reportDescription and
+     * exifFilterKeywords
+     * 
+     * @param pictureContainer
+     *            picture Container
+     * @param xAxis
+     *            x axis
+     * @param reportName
+     *            name of the report
+     * @param reportDescription
+     *            description of the report
+     * @param exifFilterKeywords
+     *            pictures are filtered with this keywords.
+     */
+    public AbstractSingleAxisModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis,
+            final String reportName, final String reportDescription, final ArrayList<String> exifFilterKeywords) {
+        super(pictureContainer, reportName, reportDescription, exifFilterKeywords);
+        this.setxAxis(xAxis);
+    }
 
-	public void setxAxis(Axis xAxis) {
-		this.xAxis = xAxis;
-	}
+    /**
+     * Biggest value in x-axis
+     * 
+     * @return the biggest value in the x-axis.
+     */
+    public abstract Object getMaxX();
 
-	/**
-	 * 
-	 * @return the smalles value in the x-axis.
-	 */
-	public Object getMinX() {
-		return minX;
-	}
-	/**
-	 * 
-	 * @return the biggest value in the x-axis.
-	 */
-	public Object getMaxX() {
-		return maxX;
-	}
-	/**
-	 * 
-	 * @return the smalles value in the y-axis.
-	 */
-	public Object getMinY() {
-		return minY;
-	}
-	/**
-	 * 
-	 * @return the biggest value in the y-axis.
-	 */
-	public Object getMaxY() {
-		return maxY;
-	}
+    /**
+     * Biggest value in y-axis
+     * 
+     * @return the biggest value in the y-axis.
+     */
+    public abstract Object getMaxY();
+
+    /**
+     * Smallest value in x-axis
+     * 
+     * @return the smallest value in the x-axis.
+     */
+    public abstract Object getMinX();
+
+    /**
+     * Smallest value in y-axis
+     * 
+     * @return the smallest value in the y-axis.
+     */
+    public abstract Object getMinY();
+
+    /**
+     * Getter for the x-axis
+     * 
+     * @return the xAxis
+     */
+    public abstract Axis getxAxis();
+
+    /**
+     * Sets the x-axis
+     * 
+     * @param xAxis
+     *            the x axis
+     */
+    public abstract void setxAxis(final Axis xAxis);
 }

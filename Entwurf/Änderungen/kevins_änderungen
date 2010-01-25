@@ -17,4 +17,8 @@
 		+ add/remove Funktionen für exifFilterKeywords sowie Picture Container
 	* WilcoxonTestType
 		+ toString() method
-
+2010-01-25
+	* AbstractSingleAxisModel
+		+ Konstruktor hinzugefügt
+		* Konstruktor verändert
+	
