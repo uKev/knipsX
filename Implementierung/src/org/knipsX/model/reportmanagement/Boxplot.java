@@ -1,6 +1,8 @@
 package org.knipsX.model.reportmanagement;
 
+import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.utils.ExifParameter;
 
 /**
  * Represents the boxplot with all parts containing to it and calculate them.
@@ -63,9 +65,21 @@ public class Boxplot {
      * @param pictures
      *            the pictures which will be represented with the boxplot
      */
-    public Boxplot(final PictureContainer pictures) {
+    public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter) {
+       
         // calculate the Boxplot from the pictures in the pictureSet
         // add private methods to calculate the stuff
+        /*
+         * Maybe use a Librara, available:
+         * http://commons.apache.org/math/
+         * http://www.rforge.net/rJava/
+         * http://acs.lbl.gov/~hoschek/colt/
+         * In Ubuntu Repo: r-cran-rjava
+         */
+        /*for (Picture pic : pictures){
+         FIXME PictureContainer needs to bee Iterable   
+        }*/ 
+        
     }
 
     public double getLowerQuartile() {
