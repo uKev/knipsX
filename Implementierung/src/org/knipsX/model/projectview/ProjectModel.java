@@ -14,12 +14,12 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 
-class GetPictureDataThread extends Thread {
+class GetExifDataThread extends Thread {
 
     Picture[] pictures;
     ProjectModel project;
 
-    GetPictureDataThread(final ProjectModel project) {
+    GetExifDataThread(final ProjectModel project) {
         this.pictures = project.getAllPictures();
         this.project = project;
     }
@@ -27,7 +27,29 @@ class GetPictureDataThread extends Thread {
     @Override
     public void run() {
         for (final Picture picture : this.pictures) {
-            picture.init();
+            picture.getAllExifParameter();
+            this.project.updateViews();
+        }
+        Thread thread = new CreateThumbnailThread(this.project);
+        thread.start();
+    }
+}
+
+class CreateThumbnailThread extends Thread {
+
+    Picture[] pictures;
+    ProjectModel project;
+
+    CreateThumbnailThread(final ProjectModel project) {
+        this.pictures = project.getAllPictures();
+        this.project = project;
+    }
+
+    @Override
+    public void run() {
+        for (final Picture picture : this.pictures) {
+            picture.getSmallThumbnail();
+            picture.getBigThumbnail();
             this.project.updateViews();
         }
     }
@@ -230,7 +252,7 @@ public class ProjectModel extends AbstractModel {
      */
 
     public void loadData() {
-        final GetPictureDataThread thread = new GetPictureDataThread(this);
+        final Thread thread = new GetExifDataThread(this);
         thread.start();
     }
 

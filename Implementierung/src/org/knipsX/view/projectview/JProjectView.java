@@ -110,6 +110,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         /* report helper connects to the current model */
         ReportHelper.setCurrentProjectModel(this.model);
 
+        /* TWEAK Search the right position */
+        this.model.loadData();
+        
         this.initialize();
     }
 
@@ -868,7 +871,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
     /* generates the three sperated parts of picture set contents */
     private List<PictureContainer> extractPictureSetContents(final PictureSet pictureSet) {
-        
+
         /* we show three different types of picture containers */
         final List<PictureContainer> list = new ArrayList<PictureContainer>();
 
@@ -1025,7 +1028,8 @@ class MyPictureListCellRenderer implements ListCellRenderer {
             final Image smallThumbnail = picture.getSmallThumbnail();
             if (smallThumbnail != null) {
                 renderer.setIcon(new ImageIcon(picture.getSmallThumbnail()));
-
+                renderer.setToolTipText("<html><img width=\"5px\" height=\"10px\" src=\"" + picture.getPath() + "\">");
+                System.out.println("<html><img width=\"5px\" height=\"10px\" src=\"" + picture.getPath() + "\">");
             }
         }
         renderer.setText(theText);
