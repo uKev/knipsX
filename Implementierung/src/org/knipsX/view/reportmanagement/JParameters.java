@@ -57,10 +57,6 @@ public class JParameters extends JAbstractSinglePanel {
          * 
          * @param axisParameterName
          *            the axis parameter name, e.g. x-Axis
-         * @param exifparam
-         *            the actual EXIF parameter
-         * @param axisDescription
-         *            the axis description
          */
         public AxisParameter(final String axisParameterName) {
             super();
@@ -168,6 +164,9 @@ public class JParameters extends JAbstractSinglePanel {
             this.invalid = invalid;
         }
 
+        /**
+         * Add the action listener to this object
+         */
         public void addActionListener() {
             this.exifparamcombo.addActionListener(exifparamcombo);
         }

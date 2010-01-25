@@ -5,6 +5,14 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 
+/**
+ * This class handles all sorts of resource allocation. For example generating an ImageIcon from a
+ * specified path.
+ * 
+ * 
+ * @author David Kaufman
+ *
+ */
 public final class Resource {
 
     /**
