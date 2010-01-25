@@ -80,6 +80,7 @@ public class Frequency3DPoint {
         this.y = y;
         this.z = z;
         this.pictures = new ArrayList<Picture>(Arrays.asList(pictures));
+     
     }
 
     /**

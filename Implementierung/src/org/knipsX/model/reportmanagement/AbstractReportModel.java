@@ -24,10 +24,8 @@ public abstract class AbstractReportModel extends AbstractModel {
     private int reportID;
 
     /**
-     * @deprecated
-     *             Constructor for the AbstractReportModel
+     * Constructor for the AbstractReportModel
      */
-    @Deprecated
     public AbstractReportModel() {
         super();
     }
