@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,12 +28,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JToolTip;
 import javax.swing.LayoutStyle;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.metal.MetalToolTipUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -110,10 +116,10 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         /* report helper connects to the current model */
         ReportHelper.setCurrentProjectModel(this.model);
 
+        this.initialize();
+
         /* TWEAK Search the right position */
         this.model.loadData();
-        
-        this.initialize();
     }
 
     /* initializes the view */
@@ -1019,7 +1025,7 @@ class MyPictureListCellRenderer implements ListCellRenderer {
         /* generate the label which represents the cell */
         final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
                 isSelected, cellHasFocus);
-
+        
         /* if the selected item is a "Picture" -> set the name */
         if (value instanceof Picture) {
             final Picture picture = (Picture) value;
@@ -1028,8 +1034,7 @@ class MyPictureListCellRenderer implements ListCellRenderer {
             final Image smallThumbnail = picture.getSmallThumbnail();
             if (smallThumbnail != null) {
                 renderer.setIcon(new ImageIcon(picture.getSmallThumbnail()));
-                renderer.setToolTipText("<html><img width=\"5px\" height=\"10px\" src=\"" + picture.getPath() + "\">");
-                System.out.println("<html><img width=\"5px\" height=\"10px\" src=\"" + picture.getPath() + "\">");
+                renderer.setToolTipText("Bla");
             }
         }
         renderer.setText(theText);
@@ -1123,3 +1128,67 @@ class MyTableCellRenderer extends JLabel implements TableCellRenderer {
         return renderer;
     }
 }
+
+/*
+ * ################################################################################################################
+ * TOOLTIP
+ * FIXME implement this shit correct!
+ * ################################################################################################################
+ */
+
+//class ImageToolTipListCellRenderer extends DefaultListCellRenderer {
+//
+//    private static final long serialVersionUID = 6235304707730082310L;
+//
+//    private Image image;
+//    
+//    public void setImage(Image image) {
+//        this.image = image;
+//    }
+//    
+//    @Override
+//    public JToolTip createToolTip() {
+//        return new ImageToolTip(this.image);
+//    }
+//}
+//
+//class ImageToolTip extends JToolTip {
+//    
+//    private static final long serialVersionUID = 9162241243828840210L;
+//
+//    public ImageToolTip(Image image) {
+//        setUI(new ImageToolTipUI(image));
+//    }
+//}
+//
+//class ImageToolTipUI extends MetalToolTipUI {
+//
+//    private Image image;
+//
+//    public ImageToolTipUI(Image image) {
+//        super();
+//        this.image = image;
+//    }
+//
+//    public void paint(Graphics g, JComponent c) {
+//        FontMetrics metrics = c.getFontMetrics(g.getFont());
+//        g.setColor(c.getForeground());
+//        g.drawString(((JToolTip) c).getTipText(), 1, 1);
+//        g.drawImage(this.image, 1, metrics.getHeight(), c);
+//    }
+//
+//    public Dimension getPreferredSize(JComponent c) {
+//        FontMetrics metrics = c.getFontMetrics(c.getFont());
+//        String tipText = ((JToolTip) c).getTipText();
+//        if (tipText == null) {
+//            tipText = "";
+//        }
+//        int width = SwingUtilities.computeStringWidth(metrics, tipText);
+//        int height = metrics.getHeight() + this.image.getHeight(c);
+//
+//        if (width < this.image.getWidth(c)) {
+//            width = this.image.getWidth(c);
+//        }
+//        return new Dimension(width, height);
+//    }
+//}

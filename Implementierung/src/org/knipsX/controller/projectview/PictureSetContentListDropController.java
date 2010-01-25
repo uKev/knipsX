@@ -19,7 +19,6 @@ public class PictureSetContentListDropController<M extends ProjectModel, V exten
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	model.updateViews();
     }
 
     private boolean canBeInserted() {

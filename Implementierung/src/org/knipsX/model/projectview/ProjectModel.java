@@ -14,6 +14,7 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 
+/* scans the exif data of all pictures */
 class GetExifDataThread extends Thread {
 
     Picture[] pictures;
@@ -28,13 +29,13 @@ class GetExifDataThread extends Thread {
     public void run() {
         for (final Picture picture : this.pictures) {
             picture.getAllExifParameter();
-            this.project.updateViews();
         }
         Thread thread = new CreateThumbnailThread(this.project);
         thread.start();
     }
 }
 
+/* creates thumbnails for all pictures */
 class CreateThumbnailThread extends Thread {
 
     Picture[] pictures;
@@ -48,8 +49,7 @@ class CreateThumbnailThread extends Thread {
     @Override
     public void run() {
         for (final Picture picture : this.pictures) {
-            picture.getSmallThumbnail();
-            picture.getBigThumbnail();
+            picture.initThumbnails();
             this.project.updateViews();
         }
     }
@@ -60,6 +60,10 @@ class CreateThumbnailThread extends Thread {
  */
 public class ProjectModel extends AbstractModel {
 
+    protected void updateViews() {
+        super.updateViews();
+    }
+    
     private final int id;
 
     private String name;
