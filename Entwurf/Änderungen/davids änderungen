@@ -19,3 +19,5 @@ SelectableCluster3DSphere in Selectable3DShape umbenannt
 JFileSave wird nicht benötigt da der JFileChooser bereits das Speichern beherrscht
 
 Axis3D Klasse eingeführt um die individuelle Segmentierung einer Achse zu begünstigen
+
+Klasse Resouce eingeführt um Resourcenallokation zu vereinheitlichen
