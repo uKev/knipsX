@@ -50,7 +50,10 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
         super(model);
         this.reportID = reportID;
         ReportHelper.setCurrentModel(this.model);
+        ReportHelper.currentReportUtil = this;
 
+        
+        
         if (model instanceof BoxplotModel) {
             ReportHelper.setCurrentReport(ReportHelper.Boxplot);
         } else if (model instanceof TableModel) {
@@ -63,8 +66,9 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
             ReportHelper.setCurrentReport(ReportHelper.Histogram3D);
         }
 
-        this.reportCompilation = ReportHelper.getCurrentReport().createReportCompilation();
-        ReportHelper.currentReportUtil = this;
+        this.reportCompilation = ReportHelper.getCurrentReport().createReportCompilation();     
+        
+        
         this.tabbedpane = this.getJTabbedPane();
         //INTERNATIONALIZE
         this.setTitle("Auswertung konfigurieren");

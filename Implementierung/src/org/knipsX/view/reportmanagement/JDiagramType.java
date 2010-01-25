@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.FileNotFoundException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -19,6 +20,7 @@ import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 
 import org.knipsX.controller.reportmanagement.DiagramTypeSelectController;
+import org.knipsX.utils.Resource;
 
 /**
  * This class represents the panel where the user can choose the diagram type
@@ -245,7 +247,11 @@ public class JDiagramType extends JAbstractSinglePanel {
             return true;
 
         } else {
-            this.reportNameErrorLabel.setIcon(this.createImageIcon("../../images/userwarning.png", null));
+            try {
+                this.reportNameErrorLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+            } catch (FileNotFoundException e) {                
+                e.printStackTrace();
+            }
             //INTERNATIONALIZE
             this.reportNameErrorLabel
                     .setToolTipText("Um die Auswertung speichern zu können muss ein Auswertungsname definiert werden");

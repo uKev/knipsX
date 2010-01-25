@@ -1010,9 +1010,8 @@ class MyPictureListCellRenderer implements ListCellRenderer {
     public MyPictureListCellRenderer() {
         try {
             
-            this.noImageIcon = new Resource().createImageIcon("../images/noimage.png", "");
+            this.noImageIcon = Resource.createImageIcon("../images/noimage.png", "");
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

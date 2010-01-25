@@ -29,25 +29,6 @@ public abstract class JAbstractSinglePanel extends JComponent {
     }
 
     /**
-     * Returns an ImageIcon, or null if the path was invalid.
-     * 
-     * @param path
-     *            The absolute or relative path to the image icon
-     * @param description
-     *            The description of the image icon
-     * @return ImageIcon object
-     */
-    protected ImageIcon createImageIcon(final String path, final String description) {
-        final java.net.URL imgURL = this.getClass().getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL, description);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-        }
-    }
-
-    /**
      * Returns the title of the current panel
      * 
      * @return the title of the current panel
