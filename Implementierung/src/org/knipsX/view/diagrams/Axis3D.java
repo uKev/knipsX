@@ -1,5 +1,7 @@
 package org.knipsX.view.diagrams;
 
+import java.text.DecimalFormat;
+
 import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.utils.ExifParameter;
 
@@ -96,7 +98,25 @@ class Axis3D {
 
             this.setSegmentDescription(returnstring);
 
-        }        
+        }  
+        
+        if (minValue instanceof Double && maxValue instanceof Double) {
+            
+            double temp = (Double) maxValue - (Double) minValue;
+            
+            double pieces = temp / this.getNumberOfSegments();
+
+            final String[] returnstring = new String[this.getNumberOfSegments() + 1];
+
+            DecimalFormat format = new DecimalFormat("#.###");
+            
+            for (int i = 0; i < this.getNumberOfSegments() + 1; i++) {
+                returnstring[i] = String.valueOf(format.format((Double) minValue + pieces * i));
+            }
+
+            this.setSegmentDescription(returnstring);
+
+        }  
         
 
     }

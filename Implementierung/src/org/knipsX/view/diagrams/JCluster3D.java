@@ -1,13 +1,10 @@
 package org.knipsX.view.diagrams;
 
-import java.awt.Dimension;
 import java.util.Random;
 
 import javax.media.j3d.PickInfo;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
-import javax.swing.Box;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.vecmath.Vector3d;
 
@@ -71,11 +68,8 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
         this.axis3D[1].setAxis(new Axis(ExifParameter.ISO));
         this.axis3D[2].setAxis(new Axis(ExifParameter.FLASH));
         
-        
         this.leftPanel = new JPanel();
         this.setCurrentDescription(null);
-        //Dimension size = new Dimension(30, 30);
-        //this.leftPanel.add(new Box.Filler(size, size, size));
         
         
 

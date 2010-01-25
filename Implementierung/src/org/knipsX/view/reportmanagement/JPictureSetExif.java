@@ -186,9 +186,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     private JFlexibleList availablePictureSets;
     private JFlexibleList associatedPictureSets;
     private JFlexibleList availableExifTags;
-
     private JFlexibleList associatedExifTags;
-
     private JLabel errorMessage;
 
     /* Add button panel top button panel to the specified panel */
