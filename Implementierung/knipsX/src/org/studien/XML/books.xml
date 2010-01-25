@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<Collection>
+  <books>
+    <book itemId="999">
+      <name>
+         Learning JAXB
+      </name>
+      <ISBN>
+        123445 
+      </ISBN>
+      <price>
+        34 $
+      </price>
+      <authors>
+        <authorName> Jane Doe
+        </authorName>
+      </authors>
+      <description>
+         This books contains step by step instructions for beginners so that they can start using Java API for XML Binding.
+      </description>
+      <promotion>
+        <Discount> 10% on this book if purchased by March 2003
+        </Discount>
+      </promotion>
+      <publicationDate>
+        2003-01-01
+      </publicationDate>
+      <bookCategory>other
+      </bookCategory>
+    </book>
+
+    <book itemId="129">
+      <name>
+         Java Webservices today and Beyond
+      </name>
+      <ISBN>
+        522965 
+      </ISBN>
+      <price>
+        29 $
+      </price>
+      <authors>
+        <authorName> John Brown
+        </authorName>
+        <authorName> Peter T.
+        </authorName>
+      </authors>
+      <description>
+         This books contains information for users so that they can start using Java Web Services Developer Pack.
+      </description>
+      <promotion>
+        <Discount> Buy one get Learning webservices Part 1 free
+        </Discount>
+      </promotion>
+      <publicationDate>
+        2002-11-01
+      </publicationDate>
+      <bookCategory>magazine  
+      </bookCategory>
+    </book>
+  </books>
+</Collection>
+
