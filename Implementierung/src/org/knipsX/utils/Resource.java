@@ -21,19 +21,24 @@ public final class Resource {
      * @throws FileNotFoundException
      *             if there's no image available at the given path.
      */
-    public ImageIcon createImageIcon(final String path, final String description) throws FileNotFoundException {
+    public static ImageIcon createImageIcon(final String path, final String description) throws FileNotFoundException {
 
         ImageIcon imageIcon = null;
 
         /* return the path, where knipsX is installed, connected with the relative path to the icon */
-        final URL imgURL = getClass().getResource(path);
+        final URL imgURL = Resource.class.getResource(path);
 
         if (imgURL == null) {
-            throw new FileNotFoundException("[JAbstractView::createImageIcon()] - Couldn't find file: " + imgURL);
+            throw new FileNotFoundException("[createImageIcon()] - Couldn't find file: " + imgURL);
         } else {
             imageIcon = new ImageIcon(imgURL, description);
         }
 
         return imageIcon;
+    }
+    
+    /* To satisfy checkstyle */
+    private Resource() {
+        
     }
 }

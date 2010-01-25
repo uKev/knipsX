@@ -80,8 +80,8 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
      * of the report in question
      */
     protected void revalidateDisplayability() {
-        boolean isDisplayable = true;
-
+        boolean isDisplayable = true;       
+        
         for (JAbstractSinglePanel singlepanel : this.reportCompilation.getRegisteredPanels()) {
             if (!singlepanel.isDiagramDisplayable()) {
                 isDisplayable = false;

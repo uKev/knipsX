@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.FileNotFoundException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -20,6 +21,7 @@ import javax.swing.event.ChangeListener;
 
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.WilcoxonTestType;
+import org.knipsX.utils.Resource;
 
 /**
  * This class represents the panel where the user is able to configure
@@ -343,7 +345,11 @@ public class JWilcoxon extends JAbstractSinglePanel {
             // INTERNATIONALIZE
             this.errorImageSetMessageLabel.setText("Es müssen genau zwei Bildmengen ausgewählt sein, "
                     + "damit der Wilcoxon Test aktiviert werden kann.");
-            this.errorImageSetMessageLabel.setIcon(this.createImageIcon("../../images/userwarning.png", null));
+            try {
+                this.errorImageSetMessageLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
         this.errorImageSet = enabled;
@@ -365,7 +371,11 @@ public class JWilcoxon extends JAbstractSinglePanel {
             this.errorNonOrdinalMessageLabel.setText("");
 
         } else {
-            this.errorNonOrdinalMessageLabel.setIcon(this.createImageIcon("../../images/userwarning.png", null));
+            try {
+                this.errorNonOrdinalMessageLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
             // INTERNATIONALIZE
             this.errorNonOrdinalMessageLabel.setText("Es muss ein ordinaler Exif-Paramter ausgewählt werden.");
 

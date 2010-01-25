@@ -3,6 +3,7 @@ package org.knipsX.view.reportmanagement;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -18,6 +19,7 @@ import org.knipsX.model.reportmanagement.Cluster3DModel;
 import org.knipsX.model.reportmanagement.Histogram2DModel;
 import org.knipsX.model.reportmanagement.Histogram3DModel;
 import org.knipsX.utils.ExifParameter;
+import org.knipsX.utils.Resource;
 
 /**
  * This class represents the panel where the user is able to assign a
@@ -48,9 +50,7 @@ public class JParameters extends JAbstractSinglePanel {
         private String axisParameterName;
         private JTextField axisDescription;
         private ExifParamComboBox exifparamcombo;
-
-        private final JLabel validLabel = new JLabel(JParameters.this.createImageIcon("../../images/userwarning.png",
-                null));
+        private final JLabel validLabel = new JLabel();
 
         /**
          * This constructor creates an axis parameter object with the parameters specified
@@ -82,6 +82,11 @@ public class JParameters extends JAbstractSinglePanel {
             this.axisDescription = new JTextField(axisDescription);
             this.add(this.axisDescription);
             this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
+            try {
+                this.validLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
         }
 
@@ -145,11 +150,19 @@ public class JParameters extends JAbstractSinglePanel {
                 this.validLabel.setIcon(null);
                 this.validLabel.setPreferredSize(new Dimension(32, 32));
             } else {
-                this.validLabel.setIcon(JParameters.this.createImageIcon("../../images/userwarning.png", null));
+                try {
+                    this.validLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
 
             this.repaint();
             this.invalid = invalid;
+        }
+
+        public void addActionListener() {
+            this.exifparamcombo.addActionListener(exifparamcombo);
         }
 
     }
@@ -172,7 +185,8 @@ public class JParameters extends JAbstractSinglePanel {
          * which is later used to manipulate the panel if the user selected a valid or invalid entry in the
          * combo box
          * 
-         * @param axisparam the axis paramter object which is to be modified
+         * @param axisparam
+         *            the axis paramter object which is to be modified
          */
         public ExifParamComboBox(final AxisParameter axisparam) {
             this.axisparam = axisparam;
@@ -190,7 +204,6 @@ public class JParameters extends JAbstractSinglePanel {
             }
 
             this.setSelectedIndex(0);
-            this.addActionListener(this);
 
         }
 
@@ -206,7 +219,7 @@ public class JParameters extends JAbstractSinglePanel {
 
             JParameters.this.revalidateReport();
             JParameters.this.revalidateWilcoxon();
-            
+
         }
 
     }
@@ -224,9 +237,9 @@ public class JParameters extends JAbstractSinglePanel {
     public JParameters() {
 
         /* Set the title name of this panel */
-        //INTERNATIONALIZE
+        // INTERNATIONALIZE
         this.title = "Parameters";
-
+        
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         this.singlepanel = new JPanel();
@@ -264,10 +277,15 @@ public class JParameters extends JAbstractSinglePanel {
 
         /* Fill the view with model information */
         fillViewWithModelInfo();
+
+        /* Add action listeners, after model has filled view with information */
+        for (int i = 0; i < axisParameters.length; i++) {
+            axisParameters[i].addActionListener();
+        }
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     public final void fillViewWithModelInfo() {
 
@@ -281,6 +299,7 @@ public class JParameters extends JAbstractSinglePanel {
             } else if (ReportHelper.getCurrentModel() instanceof Cluster3DModel) {
                 if (this.axisParameters.length >= 1) {
                     this.axisParameters[0].setAxis(((Cluster3DModel) ReportHelper.getCurrentModel()).getxAxis());
+
                 }
                 if (this.axisParameters.length >= 2) {
                     this.axisParameters[1].setAxis(((Cluster3DModel) ReportHelper.getCurrentModel()).getzAxis());
@@ -322,15 +341,14 @@ public class JParameters extends JAbstractSinglePanel {
         return true;
     }
 
-    
     /**
      * This method is responsible for revalidating the wilcoxon panel, since changes made to the paramters
-     *  effect configuration of the wilcoxon panel
+     * effect configuration of the wilcoxon panel
      */
     protected void revalidateWilcoxon() {
         if (ReportHelper.getCurrentReport() == ReportHelper.Boxplot) {
             boolean enabled = false;
-            
+
             if (axisParameters[0] != null) {
                 if (axisParameters[0].getExifparam() instanceof ExifParameter) {
                     enabled = axisParameters[0].getExifparam().isOrdinal();

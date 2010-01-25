@@ -3,6 +3,7 @@ package org.knipsX.view.reportmanagement;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -23,6 +24,7 @@ import org.knipsX.controller.reportmanagement.ReportRemoveExifKeywordController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
+import org.knipsX.utils.Resource;
 
 /**
  * This class represents the panel where the user is able to assign
@@ -396,7 +398,11 @@ public class JPictureSetExif extends JAbstractSinglePanel {
             this.errorMessage.setToolTipText(null);
             return true;
         } else {
-            this.errorMessage.setIcon(this.createImageIcon("../../images/userwarning.png", null));
+            try {
+                this.errorMessage.setIcon(Resource.createImageIcon("../../images/userwarning.png", null));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
             this.errorMessage
                     .setToolTipText("Um die Auswertung anzeigen zu können muss mindestens eine Bildmenge der Auswertung hinzugefügt werden");
             return false;
