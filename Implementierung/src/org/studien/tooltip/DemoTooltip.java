@@ -1,3 +1,5 @@
+package org.studien.tooltip;
+
 /*
  *      DemoTooltip.java
  *
