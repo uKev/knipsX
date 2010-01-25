@@ -1,0 +1,9 @@
+Kann mich hierbei eigentlich nur den Java Coding Conventions anschließen, d.h. jeder sollte die ja eigentlich schon kennen:
+
+- http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html
+
+Wichtig: Wenn jemand seinen Code eincheckt in GIT, _sollte_ er auf jeden Fall dokumentiert sein.
+
+Stimme dem zu und habe nichts hinzuzufügen, bis auf die Anmerkung, dass private Methoden kein Javadoc bekommen sollten. Steht bestimmt aber auch in den Conventions. Benjamin Draxler 20:30 13.01.2010
+
+Stimme zu. Die Javadoc koennen wir auch als html generieren. Vladimir 23:59 13.01.2010

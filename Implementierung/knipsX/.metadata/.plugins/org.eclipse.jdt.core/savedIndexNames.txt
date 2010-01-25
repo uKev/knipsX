@@ -1,0 +1,13 @@
+INDEX VERSION 1.126+/home/clyde/SOFT_PR/git_clone2/tempX/Implementierung/.metadata/.plugins/org.eclipse.jdt.core
+516116778.index
+1189062746.index
+406065318.index
+925624498.index
+2889915287.index
+1654635368.index
+2686503099.index
+3223902160.index
+1393721363.index
+1193566714.index
+2040264796.index
+1796948596.index
