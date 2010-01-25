@@ -17,8 +17,5 @@ public class ReportDeleteController<M extends ProjectModel, V extends JProjectVi
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	// new JReportDelete(model, toDelete);
-	model.updateViews();
-
     }
 }

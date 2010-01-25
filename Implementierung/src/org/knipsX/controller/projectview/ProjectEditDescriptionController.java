@@ -18,7 +18,5 @@ public class ProjectEditDescriptionController<M extends ProjectModel, V extends 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	// ((ProjectModel) model).setProjectDescription(projectView.getProjectDescription());
-	model.updateViews();
     }
 }

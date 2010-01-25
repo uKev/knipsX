@@ -6,7 +6,7 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
 
 /**
- * Represents the Actions which are done by klicking on the picturesetlist.
+ * Represents the Actions which are done by clicking on the picture set list.
  * Acts in harmony with a JProjectview.
  */
 public class PictureSetListClickOnController<M extends ProjectModel, V extends JProjectView<M>> extends AbstractController<M, V> {
@@ -17,8 +17,5 @@ public class PictureSetListClickOnController<M extends ProjectModel, V extends J
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-	// model.setPictureSetContentList(pictureSetContentList); mit den jeweiligen inhalten aktualisieren
-	// model.setPictureList(pictureList); mit den jeweiligen inhalten aktualisieren
-	model.updateViews();
 	}
 }

@@ -11,7 +11,7 @@ import org.knipsX.view.projectview.JProjectView;
 
 
 /**
- * Represents the Actions which are done by klicking on delete pictureset.
+ * Represents the Actions which are done by clicking on delete picture set.
  * Acts in harmony with a JProjectView.
  */
 public class PictureSetListDeleteController<M extends ProjectModel, V extends JProjectView<M>> extends
@@ -51,7 +51,6 @@ public class PictureSetListDeleteController<M extends ProjectModel, V extends JP
 			toDelete[j] -= 1;
 		    }
 		}
-		this.model.updateViews();
 	    }
 	}
     }

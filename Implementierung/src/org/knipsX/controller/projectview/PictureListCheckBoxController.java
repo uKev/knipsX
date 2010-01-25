@@ -18,7 +18,5 @@ public class PictureListCheckBoxController<M extends ProjectModel, V extends JPr
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	// TODO im model jeweilige(toSet) bildelemnte in liste bearbeiten booleanwert;
-	model.updateViews();
     }
 }

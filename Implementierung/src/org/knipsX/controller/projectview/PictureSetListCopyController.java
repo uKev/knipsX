@@ -52,7 +52,6 @@ public class PictureSetListCopyController<M extends ProjectModel, V extends JPro
 		/* has user give in a project name? */
 		if (pictureSetName != null) {
 		    this.model.addPictureSet(new PictureSet(pictureSetName, 0));
-		    this.model.updateViews();
 		}
 	    }
 
