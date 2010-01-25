@@ -801,7 +801,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
      * @return an array of indices.
      */
     public int[] getSelectedPictureSets() {
-        assert this.jListPictureSet == null;
+        assert this.jListPictureSet != null;
         return this.jListPictureSet.getSelectedIndices();
     }
 
@@ -811,7 +811,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
      * @return an array of indices.
      */
     public int[] getSelectedPictureSetContents() {
-        assert this.jListPictureSetContent == null;
+        assert this.jListPictureSetContent != null;
         return this.jListPictureSetContent.getSelectedIndices();
     }
 
@@ -821,7 +821,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
      * @return array of indices.
      */
     public int[] getSelectedPictures() {
-        assert this.jListPictureSet == null;
+        assert this.jListPictureSet != null;
         return this.jListPictureSet.getSelectedIndices();
     }
 
@@ -831,7 +831,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
      * @return array of indices.
      */
     public int[] getSelectedReports() {
-        assert this.jListReport == null;
+        assert this.jListReport != null;
         return this.jListReport.getSelectedIndices();
     }
 
