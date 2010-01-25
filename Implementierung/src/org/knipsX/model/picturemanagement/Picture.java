@@ -82,7 +82,7 @@ public class Picture implements PictureContainer {
     }
     
     public void initThumbnails() {
-        if (this.bigThumbnail == null) {
+        if (this.bigThumbnail == null) {            
             try {
                 this.bigThumbnail = Picture.getThumbOf(ImageIO.read(new File(path)), 200, Image.SCALE_FAST);
             } catch (IOException e) {
@@ -117,8 +117,9 @@ public class Picture implements PictureContainer {
     }
 
     // wird für die statistischen Auswertungen benötigt kann sein das hier ordinal die falsche zahl zurückgibt
-    public Object getExifParameter(ExifParameter exifParameter) {
-        return allExifParameter[exifParameter.ordinal()][1];
+    public Object getExifParameter(ExifParameter exifParameter) {      
+        
+        return getAllExifParameter()[exifParameter.ordinal()][1];
     }
 
     public boolean hasExifKeyword(String keyword) {

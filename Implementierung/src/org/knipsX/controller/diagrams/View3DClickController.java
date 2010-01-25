@@ -9,6 +9,7 @@ import javax.media.j3d.Transform3D;
 import javax.vecmath.Point3d;
 
 import org.knipsX.model.picturemanagement.Picture;
+import org.knipsX.view.reportmanagement.ReportHelper;
 import org.knipsX.view.diagrams.JAbstract3DView;
 import org.knipsX.view.diagrams.Selectable3DShape;
 import org.knipsX.utils.ExifParameter;
@@ -53,8 +54,7 @@ public class View3DClickController extends MouseAdapter {
 
                 if (p != null) {
                     //this.view.setCurrentDescription(p.getFrequence3DPoint().getPictures()[0]);                    
-                    this.view.setCurrentDescription(new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
-                            + File.separator + "DSC00964.JPG"));
+                    this.view.setCurrentDescription(ReportHelper.getProjectModel().getAllPictures()[0]);
                 } else {
                     System.out.println("null");
                 }

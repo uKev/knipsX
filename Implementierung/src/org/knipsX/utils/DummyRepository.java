@@ -48,7 +48,8 @@ public class DummyRepository implements Repository {
         pictureSetList.add(dummyPictureSet);
 
         /* create some dummy picture sets and add */
-        pictureSetList.add(new PictureSet("Urlaub", 3));
+        PictureSet test = new PictureSet("Urlaub", 3);        
+        pictureSetList.add(test);
         pictureSetList.add(new PictureSet("Golfen", 4));
         pictureSetList.add(new PictureSet("Weihnachten 2008", 5));
 
@@ -63,7 +64,10 @@ public class DummyRepository implements Repository {
         
         AbstractReportModel dummyReportThree = new Cluster3DModel();
         dummyReportThree.setReportName("Cluster ftw");
-        dummyReportThree.setReportDescription("Analyse über Blenden - neu");        
+        dummyReportThree.setReportDescription("Analyse über Blenden - neu");    
+        dummyReportThree.addPictureContainer(test);
+        
+        
 
         reportList.add(dummyReportThree);
         reportList.add(dummyReportOne);

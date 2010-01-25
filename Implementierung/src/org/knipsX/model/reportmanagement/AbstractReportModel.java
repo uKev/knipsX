@@ -117,7 +117,11 @@ public abstract class AbstractReportModel extends AbstractModel {
      * @return the exif keywords which will be filtered in the report.
      */
     public String[] getExifFilterKeywords() {
-        return this.exifFilterKeywords.toArray(new String[] {});
+        if (this.exifFilterKeywords != null) {
+            return this.exifFilterKeywords.toArray(new String[] {});
+        } else {
+            return null;
+        }
     }
 
     /**

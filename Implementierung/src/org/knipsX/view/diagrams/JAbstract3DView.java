@@ -738,7 +738,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
             // TODO Das muss später entfernt werden
             if (pic != null) {
-                pic.init();
+               pic.initThumbnails();
             }
     
             if (this.leftPanel != null) {
