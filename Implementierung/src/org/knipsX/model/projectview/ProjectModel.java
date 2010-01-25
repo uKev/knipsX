@@ -30,6 +30,8 @@ class GetExifDataThread extends Thread {
         for (final Picture picture : this.pictures) {
             picture.getAllExifParameter();
         }
+        
+        /* first get all exif data */
         Thread thread = new CreateThumbnailThread(this.project);
         thread.start();
     }
