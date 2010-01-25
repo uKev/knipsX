@@ -30,6 +30,12 @@ public class TextModel extends AbstractReportModel{
 	public String getText() {
 		return text;
 	}
+
+    @Override
+    public PictureParameter[] getPicturesWithMissingExifParameter() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 	
 
 }

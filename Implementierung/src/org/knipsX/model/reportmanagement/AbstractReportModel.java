@@ -54,7 +54,7 @@ public abstract class AbstractReportModel extends AbstractModel {
      * @param reportName
      *            the name of the report
      * @param reportDescription
-     *            a description of a reprot
+     *            a description of a report
      * @param exifFilterKeywords
      *            keywords which must be in every picture for the report
      */
@@ -83,6 +83,16 @@ public abstract class AbstractReportModel extends AbstractModel {
     public AbstractReportModel(final ArrayList<PictureContainer> pictureContainer, final String reportName,
             final String reportDescription, final String[] exifFilterKeywords) {
         this(pictureContainer, reportName, reportDescription, new ArrayList<String>(Arrays.asList(exifFilterKeywords)));
+    }
+
+    /**
+     * Constructor with pictreContainer
+     * 
+     * @param pictureContainer
+     *            a picture container
+     */
+    public AbstractReportModel(ArrayList<PictureContainer> pictureContainer) {
+        this(pictureContainer, null, null);
     }
 
     /**

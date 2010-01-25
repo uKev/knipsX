@@ -24,4 +24,9 @@ public class TableModel extends AbstractReportModel{
 		return null;
 		
 	}
+    @Override
+    public PictureParameter[] getPicturesWithMissingExifParameter() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

@@ -12,14 +12,14 @@ import org.knipsX.model.picturemanagement.PictureContainer;
  * @author Kevin Zuber
  *
  */
-public class AbstractDoubleAxesModel extends AbstractSingleAxisModel{
+public abstract class AbstractDoubleAxesModel extends AbstractSingleAxisModel{
 	// need to be protected because will be used in subclass
 	protected Axis zAxis;
 	protected Object minZ;
 	protected Object maxZ;
 
 	/**
-	 * Constructur with all parameters.
+	 * Constructor with all parameters.
 	 * @param pictureContainer
 	 * @param xAxis
 	 * @param zAxis
