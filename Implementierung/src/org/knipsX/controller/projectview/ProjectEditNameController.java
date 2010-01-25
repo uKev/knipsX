@@ -19,7 +19,5 @@ public class ProjectEditNameController<M extends ProjectModel, V extends JProjec
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	// ((ProjectModel) model).setProjectDescription(projectView.getProjectDescription());
-	model.updateViews();
     }
 }

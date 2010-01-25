@@ -10,7 +10,7 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
 
 /**
- * Represents the Actions which are done by klicking on create pictureset.
+ * Represents the Actions which are done by clicking on create picture set.
  * Acts in harmony with a JProjectView.
  */
 public class PictureSetListCreateController<M extends ProjectModel, V extends JProjectView<M>> extends
@@ -38,7 +38,6 @@ public class PictureSetListCreateController<M extends ProjectModel, V extends JP
 	/* has user give in a project name? */
 	if (pictureSetName != null) {
 	    this.model.addPictureSet(new PictureSet(pictureSetName, 0));
-	    this.model.updateViews();
 	}
     }
 }

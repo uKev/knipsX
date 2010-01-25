@@ -1,5 +1,6 @@
 package org.knipsX.model.picturemanagement;
 
+import java.awt.Component;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -80,16 +81,8 @@ public class Picture implements PictureContainer {
 
     public void remove() {
     }
-
-    public void init() {
-        if (this.smallThumbnail == null) {
-            try {
-                this.smallThumbnail = Picture.getThumbOf(ImageIO.read(new File(path)), 50, Image.SCALE_FAST);
-            } catch (IOException e) {
-                System.err.println("[Picture::getSmallThumbnail()] - File didn't exist - " + path);
-            }
-        }
-        
+    
+    public void initThumbnails() {
         if (this.bigThumbnail == null) {
             try {
                 this.bigThumbnail = Picture.getThumbOf(ImageIO.read(new File(path)), 200, Image.SCALE_FAST);
@@ -98,7 +91,13 @@ public class Picture implements PictureContainer {
             }
         }
         
-        this.getAllExifParameter();
+        if (this.smallThumbnail == null) {
+            try {
+                this.smallThumbnail = Picture.getThumbOf(ImageIO.read(new File(path)), 50, Image.SCALE_FAST);
+            } catch (IOException e) {
+                System.err.println("[Picture::getSmallThumbnail()] - File didn't exist - " + path);
+            }
+        }
     }
     
     public BufferedImage getBigThumbnail() {
@@ -106,6 +105,7 @@ public class Picture implements PictureContainer {
     }
 
     public Image getSmallThumbnail() {
+
         return this.smallThumbnail;
     }
 

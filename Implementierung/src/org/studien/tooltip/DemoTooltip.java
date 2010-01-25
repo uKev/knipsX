@@ -20,7 +20,6 @@
  */
 
 
-package org.studien.tooltip;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ToolTipManager;
@@ -45,6 +44,9 @@ public class DemoTooltip {
       DemoTooltip.class.getResource("Strahlhorn.jpg") +
       "\"> "
       );
+    System.out.println("<html><img width=\"5px\" height=\"10px\" src=\"" +
+      DemoTooltip.class.getResource("Strahlhorn.jpg") +
+      "\"> ");
     label.setHorizontalAlignment(JLabel.CENTER);
     frame.setContentPane(label);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

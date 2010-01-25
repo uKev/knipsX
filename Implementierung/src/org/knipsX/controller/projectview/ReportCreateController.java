@@ -19,6 +19,5 @@ public class ReportCreateController<M extends ProjectModel, V extends JProjectVi
     @Override
     public void actionPerformed(ActionEvent e) {
 	new JReportWizard();
-	model.updateViews();
     }
 }

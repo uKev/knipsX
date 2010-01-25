@@ -18,6 +18,5 @@ public class PictureSetListDragController<M extends ProjectModel, V extends JPro
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	model.updateViews();
     }
 }
