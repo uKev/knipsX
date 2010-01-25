@@ -12,6 +12,7 @@ import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.BoxplotModel;
+import org.knipsX.model.reportmanagement.Cluster3DModel;
 
 public class DummyRepository implements Repository {
 
@@ -59,7 +60,12 @@ public class DummyRepository implements Repository {
         AbstractReportModel dummyReportTwo = new BoxplotModel();
         dummyReportTwo.setReportName("neue Blendenanalyse");
         dummyReportTwo.setReportDescription("Analyse über Blenden - neu");
+        
+        AbstractReportModel dummyReportThree = new Cluster3DModel();
+        dummyReportThree.setReportName("Cluster ftw");
+        dummyReportThree.setReportDescription("Analyse über Blenden - neu");        
 
+        reportList.add(dummyReportThree);
         reportList.add(dummyReportOne);
         reportList.add(dummyReportTwo);
 
