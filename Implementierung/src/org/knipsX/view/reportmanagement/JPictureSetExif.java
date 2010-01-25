@@ -37,6 +37,8 @@ import org.knipsX.utils.Resource;
  */
 public class JPictureSetExif extends JAbstractSinglePanel {
 
+    private static final long serialVersionUID = 5672963172972999584L;
+
     /**
      * 
      * This is a utility class which implements a JList in a way that it is

@@ -1,7 +1,6 @@
 package org.knipsX.view.reportmanagement;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 /**
