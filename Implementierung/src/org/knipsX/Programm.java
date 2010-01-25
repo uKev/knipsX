@@ -8,7 +8,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
-import org.knipsX.utils.RepositoryHandler;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
 /**

@@ -39,7 +39,7 @@ package org.knipsX.utils.exifAdapter.jexifviewer;
 import java.io.RandomAccessFile;
 import java.io.IOException;
 
-import org.studien.exifAdapter.jexifviewer.shared.dataformathelper.JDataFormatHelper;
+import org.knipsX.utils.exifAdapter.jexifviewer.shared.dataformathelper.JDataFormatHelper;
 
 
 /**

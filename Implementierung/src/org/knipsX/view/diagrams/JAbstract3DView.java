@@ -40,7 +40,6 @@ import javax.vecmath.Vector3f;
 import org.knipsX.controller.diagrams.View3DClickController;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
-import org.knipsX.utils.ExifParameter;
 
 import com.sun.j3d.utils.geometry.Box;
 import com.sun.j3d.utils.geometry.Cone;

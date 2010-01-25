@@ -11,7 +11,6 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.view.projectview.JProjectView;
 import org.knipsX.view.reportmanagement.AbstractReportCompilation;
 import org.knipsX.view.reportmanagement.JReportConfig;
-import org.knipsX.view.reportmanagement.ReportHelper;
 
 /**
  * Represents the Actions which are done by klicking on open report.

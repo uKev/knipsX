@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.vecmath.Vector3d;
 
 import org.knipsX.model.reportmanagement.AbstractReportModel;
-import org.knipsX.utils.ExifParameter;
 
 /**
  * This class implements how the Cluster3DModel is to be drawn.

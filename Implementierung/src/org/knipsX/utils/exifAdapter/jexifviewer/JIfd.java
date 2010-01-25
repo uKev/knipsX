@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.studien.exifAdapter.jexifviewer.shared.dataformathelper.JDataFormatHelper;
+import org.knipsX.utils.exifAdapter.jexifviewer.shared.dataformathelper.JDataFormatHelper;
 
 
 /**

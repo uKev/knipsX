@@ -30,7 +30,7 @@ import java.io.RandomAccessFile;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.studien.exifAdapter.jexifviewer.shared.files.JPathHelper;
+import org.knipsX.utils.exifAdapter.jexifviewer.shared.files.JPathHelper;
 
 
 /**
