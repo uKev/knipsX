@@ -12,3 +12,9 @@
 		* Konsturktor geändert, nimmt jetzt Picture[] anstelle von frequency
 		+ neuer Konstruktor der ein einzelnes picture nimmt
 		+ neuer Konstruktor der ein ArrayList von pictures nimmt
+2010-01-24
+	* AbstractReportModel
+		+ add/remove Funktionen für exifFilterKeywords sowie Picture Container
+	* WilcoxonTestType
+		+ toString() method
+
