@@ -176,10 +176,8 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         toppanel.add(availablePictureSetsPanel);
     }
 
-    /**
-	 * 
-	 */
-    private static final long serialVersionUID = 1L;
+   
+    //TODO Hier müssen noch die richtigen EXIF Keywords reingeladen werden
     private final String[] exifFilterKeywords = { "asas", "HAÖÖP" };
     private JFlexibleList availablePictureSets;
     private JFlexibleList associatedPictureSets;
@@ -191,6 +189,9 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
     /* Add button panel top button panel to the specified panel */
     private void addTopButtonPanel(JPanel topbuttonpanel) {
+        /* to prevent popping and fixing alignment of layout add fixed dimension */       
+        Dimension size = new Dimension(32, 32);
+        topbuttonpanel.add(new Box.Filler(size, size, size));        
         final JButton insertpictureset = new JButton(">>");
         insertpictureset.setAlignmentX(Component.CENTER_ALIGNMENT);
         insertpictureset.addActionListener(new ReportAddPictureSetController<AbstractModel, JPictureSetExif>(this));
@@ -349,7 +350,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         this.associatedPictureSets.addElements(this.availablePictureSets.getSelectedValues());
         this.availablePictureSets.removeElements(this.availablePictureSets.getSelectedValues());
         this.revalidateReport();
-        this.revalidateBoxplot();
+        this.revalidateWilcoxon();
     }
 
     /**
@@ -388,6 +389,10 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     public boolean isDiagramDisplayable() {
         if (this.associatedPictureSets.getContents().size() > 0) {
             this.errorMessage.setIcon(null);
+            /* to prevent popping of layout add fixed dimension */
+            this.errorMessage.setMinimumSize(new Dimension(32, 32));
+            this.errorMessage.setPreferredSize(new Dimension(32, 32));
+            this.errorMessage.setMaximumSize(new Dimension(32, 32));
             this.errorMessage.setToolTipText(null);
             return true;
         } else {
@@ -418,14 +423,14 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         this.availablePictureSets.addElements(this.associatedPictureSets.getSelectedValues());
         this.associatedPictureSets.removeElements(this.associatedPictureSets.getSelectedValues());
         this.revalidateReport();
-        this.revalidateBoxplot();
+        this.revalidateWilcoxon();
     }
 
     /**
-     * This method is responsible for revalidating the boxplot panel, since changes made to the picture
-     * sets effect configuration of the boxplot panel
+     * This method is responsible for revalidating the wilcoxon panel, since changes made to the picture
+     * sets effect configuration of the wilcoxon panel
      */
-    protected void revalidateBoxplot() {
+    protected void revalidateWilcoxon() {
         if (ReportHelper.getCurrentReport() == ReportHelper.Boxplot) {
             boolean enabled = false;
 
@@ -438,7 +443,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
             for (final JAbstractSinglePanel singlepanel : registeredPanels) {
                 if (singlepanel instanceof JWilcoxon) {
-                    singlepanel.setEnabled(enabled);
+                    ((JWilcoxon) singlepanel).setImageSetEnabled(enabled);
                 }
             }
 

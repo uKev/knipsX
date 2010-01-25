@@ -56,14 +56,14 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
 		    	
 		    	JParameters parametersPanel = (JParameters) singlepanel;
 		    	
-		    	if(this.model instanceof BoxplotModel) {
+		    	if (this.model instanceof BoxplotModel) {
 		    		((BoxplotModel) this.model).setxAxis(parametersPanel.getAxes().get(0));	
-				} else if(this.model instanceof Histogram2DModel) {
+				} else if (this.model instanceof Histogram2DModel) {
 					((Histogram2DModel) this.model).setxAxis(parametersPanel.getAxes().get(0));	
-				} else if(this.model instanceof Histogram3DModel) {
+				} else if (this.model instanceof Histogram3DModel) {
 					((Histogram3DModel) this.model).setxAxis(parametersPanel.getAxes().get(0));
 					((Histogram3DModel) this.model).setzAxis(parametersPanel.getAxes().get(1));	
-				} else if(this.model instanceof Cluster3DModel) {
+				} else if (this.model instanceof Cluster3DModel) {
 					((Cluster3DModel) this.model).setxAxis(parametersPanel.getAxes().get(0));
 					((Cluster3DModel) this.model).setzAxis(parametersPanel.getAxes().get(1));
 					((Cluster3DModel) this.model).setyAxis(parametersPanel.getAxes().get(2));
@@ -78,7 +78,7 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
 		    } else if (singlepanel instanceof JWilcoxon) {
 		    	JWilcoxon wilcoxonPanel = (JWilcoxon) singlepanel;
 		    	
-		    	if(this.model instanceof BoxplotModel) {
+		    	if (this.model instanceof BoxplotModel) {
 		    		((BoxplotModel) this.model).setWilcoxonSignificance(wilcoxonPanel.getStatisticalSignificance());
 		    		((BoxplotModel) this.model).setWilcoxonTestType(wilcoxonPanel.getTestType());
 		    		((BoxplotModel) this.model).setWilcoxonTestActive(wilcoxonPanel.getStatus());

@@ -97,7 +97,7 @@ public class JParameters extends JAbstractSinglePanel {
         /**
          * Returns the associated EXIF parameter
          * 
-         * @return the EXIF parameter
+         * @return the EXIF parameter, if no EXIF parameter is selected, return null
          */
         public ExifParameter getExifparam() {
             if (this.exifparamcombo.getSelectedItem() instanceof ExifParameter) {
@@ -205,6 +205,8 @@ public class JParameters extends JAbstractSinglePanel {
             }
 
             JParameters.this.revalidateReport();
+            JParameters.this.revalidateWilcoxon();
+            
         }
 
     }
@@ -320,4 +322,30 @@ public class JParameters extends JAbstractSinglePanel {
         return true;
     }
 
+    
+    /**
+     * This method is responsible for revalidating the wilcoxon panel, since changes made to the paramters
+     *  effect configuration of the wilcoxon panel
+     */
+    protected void revalidateWilcoxon() {
+        if (ReportHelper.getCurrentReport() == ReportHelper.Boxplot) {
+            boolean enabled = false;
+            
+            if (axisParameters[0] != null) {
+                if (axisParameters[0].getExifparam() instanceof ExifParameter) {
+                    enabled = axisParameters[0].getExifparam().isOrdinal();
+                }
+            }
+
+            final ArrayList<JAbstractSinglePanel> registeredPanels = ReportHelper.currentReportUtil.reportCompilation
+                    .getRegisteredPanels();
+
+            for (final JAbstractSinglePanel singlepanel : registeredPanels) {
+                if (singlepanel instanceof JWilcoxon) {
+                    ((JWilcoxon) singlepanel).setOrdianlEnabled(enabled);
+                }
+            }
+
+        }
+    }
 }

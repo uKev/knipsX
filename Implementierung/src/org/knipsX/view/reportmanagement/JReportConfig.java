@@ -91,12 +91,15 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
             tabbedpane.addTab(item.getTitle(), item);
 
             /*
-             * revalidate the boxplot panel because picture sets might have been registered
-             * with the current report
+             * Revalidate the Wilcoxon panel because picture sets might have been registered
+             * with the current report and a non ordinal EXIF parameter might have been 
+             * associated with the available parameter
              */
 
             if (item instanceof JPictureSetExif) {
-                ((JPictureSetExif) item).revalidateBoxplot();
+                ((JPictureSetExif) item).revalidateWilcoxon();
+            } else if (item instanceof JParameters) {
+                ((JParameters) item).revalidateWilcoxon();
             }
 
             item.revalidateReport();

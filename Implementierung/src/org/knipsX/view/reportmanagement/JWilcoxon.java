@@ -115,7 +115,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
             this.percentField.setText(this.floatSlider.getFloatValue() + " %");
 
             this.floatSlider.addChangeListener(new ChangeListener() {
-                
+
                 public void stateChanged(final ChangeEvent e) {
                     final float temp = JSignifanceSlider.this.floatSlider.getFloatValue();
                     JSignifanceSlider.this.percentField.setText(String.valueOf(temp) + " %");
@@ -163,7 +163,11 @@ public class JWilcoxon extends JAbstractSinglePanel {
 
     private JCheckBox wilcoxonCheckBox;
 
-    private final JLabel errorMessageLabel;
+    private JLabel errorImageSetMessageLabel;
+    private boolean errorImageSet = false;
+
+    private JLabel errorNonOrdinalMessageLabel;
+    private boolean errorNonOrdinal = false;
 
     /**
      * Constructor which initialized this wilcoxon test panel
@@ -172,7 +176,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
     public JWilcoxon() {
 
         /* Set the title name of this panel */
-        //INTERNATIONALIZE
+        // INTERNATIONALIZE
         this.title = "Wilcoxon Test";
 
         this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
@@ -196,18 +200,31 @@ public class JWilcoxon extends JAbstractSinglePanel {
 
         mainpanel.add(singlepanel);
 
-        /* Add error message label */
-        this.errorMessageLabel = new JLabel();
-        this.errorMessageLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        mainpanel.add(this.errorMessageLabel);
+        /* Add image set error message label */
+        addImageSetErrorMessage(mainpanel);
+
+        /* Add non ordinal error message label */
+        addNonOrdinaleErrorMessage(mainpanel);
 
         mainpanel.add(Box.createVerticalGlue());
         this.add(mainpanel);
 
-        this.setEnabled(false);
-
         this.fillViewWithModelInfo();
 
+    }
+
+    /* Add non ordinal error message label */
+    private void addNonOrdinaleErrorMessage(JPanel mainpanel) {
+        this.errorNonOrdinalMessageLabel = new JLabel();
+        this.errorNonOrdinalMessageLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        mainpanel.add(errorNonOrdinalMessageLabel);
+    }
+
+    /* Add image set error message label */
+    private void addImageSetErrorMessage(JPanel mainpanel) {
+        this.errorImageSetMessageLabel = new JLabel();
+        this.errorImageSetMessageLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        mainpanel.add(this.errorImageSetMessageLabel);
     }
 
     /* Add wilcoxon significance slider elements to the specified panel */
@@ -232,7 +249,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
         // INTERNATIONALIZE
         final JLabel testType = new JLabel("Testart");
         singlepanel.add(testType);
-        this.wilcoxoncombobox = new JComboBox();
+        this.wilcoxoncombobox = new JComboBox(WilcoxonTestType.values());
         this.wilcoxoncombobox.setSelectedItem(WilcoxonTestType.LEFT);
         singlepanel.add(this.wilcoxoncombobox);
     }
@@ -241,7 +258,8 @@ public class JWilcoxon extends JAbstractSinglePanel {
     public void fillViewWithModelInfo() {
         if (ReportHelper.getCurrentModel() != null) {
             if (ReportHelper.getCurrentModel() instanceof BoxplotModel) {
-                this.wilcoxonCheckBox.setSelected(((BoxplotModel) ReportHelper.getCurrentModel()).isWilcoxonTestActive());
+                this.wilcoxonCheckBox.setSelected(((BoxplotModel) ReportHelper.getCurrentModel())
+                        .isWilcoxonTestActive());
                 this.significanceSlider.floatSlider.setFloatValue(((BoxplotModel) ReportHelper.getCurrentModel())
                         .getWilcoxonSignificance());
                 if (((BoxplotModel) ReportHelper.getCurrentModel()).getWilcoxonTestType() != null) {
@@ -294,20 +312,63 @@ public class JWilcoxon extends JAbstractSinglePanel {
     @Override
     public void setEnabled(final boolean enabled) {
         if (enabled) {
-            this.errorMessageLabel.setIcon(null);
-            this.errorMessageLabel.setText("");
             this.wilcoxoncombobox.setEnabled(true);
             this.significanceSlider.setEnabled(true);
             this.wilcoxonCheckBox.setEnabled(true);
-
         } else {
             this.wilcoxoncombobox.setEnabled(false);
             this.significanceSlider.setEnabled(false);
             this.wilcoxonCheckBox.setEnabled(false);
+        }
+    }
+
+    /**
+     * Specifies if this pane should show the error message indicating that there were not
+     * exactly two image sets associated with the current report
+     * 
+     * @param enabled
+     *            true if the error message should not be show, false otherwise
+     */
+    public void setImageSetEnabled(final boolean enabled) {
+        if (enabled) {
+            this.errorImageSetMessageLabel.setIcon(null);
+            this.errorImageSetMessageLabel.setText("");
+
+        } else {
             // INTERNATIONALIZE
-            this.errorMessageLabel.setText("Es müssen genau zwei Bildmengen ausgewählt sein, "
-                    + "damit der Wilcoxon Test aktiviert werden kann");
-            this.errorMessageLabel.setIcon(this.createImageIcon("../../images/userwarning.png", null));
+            this.errorImageSetMessageLabel.setText("Es müssen genau zwei Bildmengen ausgewählt sein, "
+                    + "damit der Wilcoxon Test aktiviert werden kann.");
+            this.errorImageSetMessageLabel.setIcon(this.createImageIcon("../../images/userwarning.png", null));
+        }
+
+        this.errorImageSet = enabled;
+        if (this.errorImageSet && this.errorNonOrdinal) {
+            this.setEnabled(enabled);
+        }
+    }
+
+    /**
+     * Specifies if this pane should show the error message indicating that there was no
+     * ordinal EXIF parameter selected
+     * 
+     * @param enabled
+     *            true if the error message should not be show, false otherwise
+     */
+    public void setOrdianlEnabled(final boolean enabled) {
+        if (enabled) {
+            this.errorNonOrdinalMessageLabel.setIcon(null);
+            this.errorNonOrdinalMessageLabel.setText("");
+
+        } else {
+            this.errorNonOrdinalMessageLabel.setIcon(this.createImageIcon("../../images/userwarning.png", null));
+            // INTERNATIONALIZE
+            this.errorNonOrdinalMessageLabel.setText("Es muss ein ordinaler Exif-Paramter ausgewählt werden.");
+
+        }
+
+        this.errorNonOrdinal = enabled;
+        if (this.errorImageSet && this.errorNonOrdinal) {
+            this.setEnabled(enabled);
         }
     }
 
