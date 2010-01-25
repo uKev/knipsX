@@ -28,6 +28,7 @@ public abstract class AbstractReportModel extends AbstractModel {
      */
     public AbstractReportModel() {
         super();
+        this.pictureContainer = new ArrayList<PictureContainer>();
     }
 
     /**
@@ -64,6 +65,7 @@ public abstract class AbstractReportModel extends AbstractModel {
         this.reportName = reportName;
         this.reportDescription = reportDescription;
         this.exifFilterKeywords = exifFilterKeywords;
+        this.pictureContainer = new ArrayList<PictureContainer>();
     }
 
     /**
