@@ -31,6 +31,10 @@ import javax.media.j3d.Shape3D;
 import javax.media.j3d.Text3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
@@ -59,63 +63,6 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
  *            the model which is to be drawn
  */
 public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAbstractDiagram<M> {
-
-    /**
-     * This class is responsible for handling the off screen buffer of the assign graphics
-     * configuration and outputting the generated buffered image
-     * 
-     * @author David Kaufman
-     * 
-     */
-    class OffScreenCanvas3D extends Canvas3D {
-
-        private static final long serialVersionUID = 7632725339641761565L;
-
-        /**
-         * This constructor initializes the off screen canvas 3D with the specified parameters
-         * 
-         * @param graphicsConfiguration
-         *            The graphics configuration of the view
-         * @param offScreen
-         *            Specifies if the generated view is calculated off screen or on screen
-         *            true if offScreen, false if onScreen
-         */
-        OffScreenCanvas3D(final GraphicsConfiguration graphicsConfiguration, final boolean offScreen) {
-            super(graphicsConfiguration, offScreen);
-        }
-
-        /**
-         * Renders the view and generates a buffered image with the specified with and height
-         * 
-         * @param width
-         *            the width of the generated image
-         * @param height
-         *            the height of the generated image
-         * 
-         * @return the generated buffered image
-         */
-        BufferedImage doRender(final int width, final int height) {
-
-            BufferedImage bImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
-            final ImageComponent2D buffer = new ImageComponent2D(ImageComponent.FORMAT_RGBA, bImage);
-
-            this.setOffScreenBuffer(buffer);
-            this.renderOffScreenBuffer();
-            this.waitForOffScreenRendering();
-            bImage = this.getOffScreenBuffer().getImage();
-
-            /* To release the reference of buffer inside Java 3D. */
-            this.setOffScreenBuffer(null);
-
-            return bImage;
-        }
-
-        @Override
-        public void postSwap() {
-            /* No operation since we always wait for off-screen rendering to complete */
-        }
-    }
 
     private static final long serialVersionUID = 1305626160044284511L;
 
@@ -178,7 +125,9 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     private OffScreenCanvas3D offScreenCanvas3D;
 
     /**
-     * Create three axis3D objects for each axis one axis3D object
+     * Create three axis3D objects for each axis one axis3D object.
+     * Note that all three axes have to be initialized even if only
+     * two axis are displayed.
      */
     protected Axis3D[] axis3D = { new Axis3D(), new Axis3D(), new Axis3D() };
 
@@ -191,6 +140,11 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      * The pick canvas which realizes object picking in the 3D view
      */
     private PickCanvas pickCanvas;
+
+    /**
+     * Specifies if the grid should be drawn
+     */
+    protected boolean showGrid = true;
 
     /**
      * Constructor initialized the canvas3D
@@ -710,17 +664,20 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
         this.createBackground(new Color3f(0.7f, 0.7f, 0.7f));
 
-        /* Create the grid */
-        this.createGrid();
+        if (this.showGrid) {
+            /* Create the grid */
+            this.createGrid();
+        }
 
         /* Create the axis */
         this.createAxis();
 
         /* Create the segment description */
         this.createSegmentDescription();
-        
+
         /* Create labels */
-        this.createLabels(this.axis3D[0].getDescription(), this.axis3D[1].getDescription(), this.axis3D[2].getDescription());
+        this.createLabels(this.axis3D[0].getDescription(), this.axis3D[1].getDescription(), this.axis3D[2]
+                .getDescription());
 
         /* Create the off-screen Canvas3D object */
         this.createOffScreenCanvas(this.canvas3D);
@@ -775,9 +732,46 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      * 
      * @param pic
      *            the picture which will be displayed outside of the 3D view
+     * 
      */
     public void setCurrentDescription(final Picture pic) {
-        // TODO
+
+            // TODO Das muss später entfernt werden
+            if (pic != null) {
+                pic.init();
+            }
+    
+            if (this.leftPanel != null) {
+                this.leftPanel.removeAll();
+                this.leftPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+                this.leftPanel.setLayout(new BoxLayout(this.leftPanel, BoxLayout.PAGE_AXIS));
+    
+                for (int i = 0; i < axis3D.length; i++) {
+                    JLabel titleLabel = new JLabel(axis3D[i].getDescription().toString());
+                    this.leftPanel.add(titleLabel);
+    
+                    if (axis3D[i].getExifParameter() != null && pic != null) {
+                        JLabel exifParametersLabel = new JLabel(pic.getExifParameter(axis3D[i].getExifParameter())
+                                .toString());
+                        Font f = exifParametersLabel.getFont();
+                        exifParametersLabel.setFont(f.deriveFont(f.getStyle() ^ Font.BOLD));
+                        
+                        this.leftPanel.add(exifParametersLabel);
+                    } else {
+                        this.leftPanel.add(new JLabel("-"));
+                    }
+    
+                    this.leftPanel.add(javax.swing.Box.createRigidArea(new Dimension(0, 20)));
+                }
+    
+                if (pic != null) {
+                    this.leftPanel.add(new JLabel(new ImageIcon(pic.getSmallThumbnail())));
+                }
+                
+                this.pack();
+                repaint();
+            }
+       
     }
 
     /**
@@ -789,7 +783,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         final double size = 0.33d;
 
         if (this.numberOfAxes >= 1 && this.axis3D[0].isShowSegments()) {
-            /* Create the x Axis */
+            /* Create the y Axis */
             final String[] xAxis = this.axis3D[0].getSegmentDescription();
 
             for (int q = 0; q < xAxis.length; q++) {
@@ -802,7 +796,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         }
 
         if (this.numberOfAxes >= 2 && this.axis3D[1].isShowSegments()) {
-            /* Create the z Axis */
+            /* Create the x Axis */
             final String[] zAxis = this.axis3D[1].getSegmentDescription();
 
             for (int q = 0; q < zAxis.length; q++) {
@@ -814,7 +808,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         }
 
         if (this.numberOfAxes >= 3 && this.axis3D[2].isShowSegments()) {
-            /* Create the y Axis */
+            /* Create the z Axis */
             final String[] yAxis = this.axis3D[2].getSegmentDescription();
 
             for (int q = 0; q < yAxis.length; q++) {
@@ -851,6 +845,63 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+
+    /**
+     * This class is responsible for handling the off screen buffer of the assign graphics
+     * configuration and outputting the generated buffered image
+     * 
+     * @author David Kaufman
+     * 
+     */
+    class OffScreenCanvas3D extends Canvas3D {
+
+        private static final long serialVersionUID = 7632725339641761565L;
+
+        /**
+         * This constructor initializes the off screen canvas 3D with the specified parameters
+         * 
+         * @param graphicsConfiguration
+         *            The graphics configuration of the view
+         * @param offScreen
+         *            Specifies if the generated view is calculated off screen or on screen
+         *            true if offScreen, false if onScreen
+         */
+        OffScreenCanvas3D(final GraphicsConfiguration graphicsConfiguration, final boolean offScreen) {
+            super(graphicsConfiguration, offScreen);
+        }
+
+        /**
+         * Renders the view and generates a buffered image with the specified with and height
+         * 
+         * @param width
+         *            the width of the generated image
+         * @param height
+         *            the height of the generated image
+         * 
+         * @return the generated buffered image
+         */
+        BufferedImage doRender(final int width, final int height) {
+
+            BufferedImage bImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+            final ImageComponent2D buffer = new ImageComponent2D(ImageComponent.FORMAT_RGBA, bImage);
+
+            this.setOffScreenBuffer(buffer);
+            this.renderOffScreenBuffer();
+            this.waitForOffScreenRendering();
+            bImage = this.getOffScreenBuffer().getImage();
+
+            /* To release the reference of buffer inside Java 3D. */
+            this.setOffScreenBuffer(null);
+
+            return bImage;
+        }
+
+        @Override
+        public void postSwap() {
+            /* No operation since we always wait for off-screen rendering to complete */
+        }
     }
 
 }

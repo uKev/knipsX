@@ -2,13 +2,16 @@ package org.knipsX.controller.diagrams;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 import javax.media.j3d.PickInfo;
 import javax.media.j3d.Transform3D;
 import javax.vecmath.Point3d;
 
+import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.view.diagrams.JAbstract3DView;
 import org.knipsX.view.diagrams.Selectable3DShape;
+import org.knipsX.utils.ExifParameter;
 
 /**
  * This controller manages the mouse input that occur in a JCluster3D diagram.
@@ -49,7 +52,9 @@ public class View3DClickController extends MouseAdapter {
                 mytrans.transform(mypoint);
 
                 if (p != null) {
-                    System.out.println(p);
+                    //this.view.setCurrentDescription(p.getFrequence3DPoint().getPictures()[0]);                    
+                    this.view.setCurrentDescription(new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
+                            + File.separator + "DSC00964.JPG"));
                 } else {
                     System.out.println("null");
                 }

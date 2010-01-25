@@ -1,11 +1,27 @@
 package org.knipsX.view.diagrams;
 
+import org.knipsX.model.reportmanagement.Axis;
+import org.knipsX.utils.ExifParameter;
+
 class Axis3D {
-    private String description = "";
+    
     private int numberOfSegments = 10;
     private String[] segmentDescription = new String[numberOfSegments];
     private double axisSize = 10;
     private boolean showSegments = false;
+    private Axis axis;
+
+    public ExifParameter getExifParameter() {
+        if(axis != null) {
+            return axis.getParameter();
+        }
+        
+        return null;
+    }
+
+    public void setAxis(Axis axis) {
+        this.axis = axis;
+    }
 
     public boolean isShowSegments() {
         return showSegments;
@@ -16,7 +32,11 @@ class Axis3D {
     }
 
     public String getDescription() {
-        return this.description;
+        if(this.axis != null) {
+            return axis.getDescription();
+        }
+        
+        return "";        
     }
 
     public int getNumberOfSegments() {
@@ -35,9 +55,6 @@ class Axis3D {
         this.axisSize = axisSize;
     }
 
-    public void setDescription(final String description) {        
-        this.description = description;
-    }
 
     public void setNumberOfSegments(final int numberOfSegments) {
         this.numberOfSegments = numberOfSegments;
