@@ -127,6 +127,12 @@ public class ProjectModel extends AbstractModel {
                 + File.separator + "DSC00964.JPG").getAllExifParameter();
     }
 
+    /*
+     * ################################################################################################################
+     * GETTER/SETTER
+     * ################################################################################################################
+     */
+
     /**
      * Get the creation date of the project.
      * 
@@ -184,38 +190,59 @@ public class ProjectModel extends AbstractModel {
     }
 
     /**
-     * Add a picture set content of a picture set.
+     * Get the exif parameters which knipsX can handle with.
      * 
-     * @param set
-     *            the picture set where the content must be added.
-     * @param container
-     *            the content which must be added.
-     * 
-     * @return true if the picture set content was added, false if not.
+     * @return the parameters.
      */
-    public boolean addContentToPictureSet(final PictureSet set, final PictureContainer container) {
-        assert (set != null) && (set instanceof PictureSet);
-        assert (container != null) && (set instanceof PictureContainer);
-
-        return set.add(container);
+    public Object[][] getExifParameter() {
+        return this.exifParameter.clone();
     }
 
     /**
-     * Remove a picture set content of a picture set.
+     * Get the creation date of the project as readable String.
      * 
-     * @param set
-     *            the picture set where the content must be removed.
-     * @param container
-     *            the content which must be removed.
-     * 
-     * @return true if the picture set content was removed, false if not.
+     * @return the creation date of the project as readable String.
      */
-    public boolean removeContentFromPictureSet(final PictureSet set, final PictureContainer container) {
-        assert (set != null) && (set instanceof PictureSet);
-        assert (container != null) && (set instanceof PictureContainer);
+    public String calendarToString() {
+        final int year = this.creationDate.get(Calendar.YEAR);
+        final int month = this.creationDate.get(Calendar.MONTH) + 1;
+        final int day = this.creationDate.get(Calendar.DAY_OF_MONTH);
+        final int hour = this.creationDate.get(Calendar.HOUR_OF_DAY);
+        final int minute = this.creationDate.get(Calendar.MINUTE);
+        final int second = this.creationDate.get(Calendar.SECOND);
 
-        return set.remove(container);
+        final DecimalFormat df = new DecimalFormat("00");
+
+        return day + "." + month + "." + year + " - " + df.format(hour) + ":" + df.format(minute) + ":"
+                + df.format(second);
     }
+
+    /*
+     * ################################################################################################################
+     * FUNCTIONS FOR DATA MANAGEMENT
+     * ################################################################################################################
+     */
+
+    /*
+     * ################################################################################################################
+     * -- THE MODEL THEMSELF
+     * ################################################################################################################
+     */
+
+    public void loadData() {
+        final GetPictureDataThread thread = new GetPictureDataThread(this);
+        thread.start();
+    }
+
+    public void saveProjectModel() {
+        // RepositoryHandler.writeProjectToFile(this);
+    }
+
+    /*
+     * ################################################################################################################
+     * -- THE PICTURE SETS
+     * ################################################################################################################
+     */
 
     /**
      * Add a picture set to the current project.
@@ -237,45 +264,136 @@ public class ProjectModel extends AbstractModel {
     }
 
     /**
-     * Add a report to the current project.
+     * Remove a picture set of the current project.
      * 
-     * @param report
-     *            the report to add.
+     * @param pictureSet
+     *            the picture set to remove.
      * 
-     * @return true if the report was added, false if not.
+     * @return true if the picture set was removed, false if not.
      */
-    public boolean addReport(final AbstractReportModel report, final int reportId) {
-        assert (report != null) && (report instanceof AbstractReportModel);
-        boolean returnValue = false;
+    public boolean removePictureSet(final PictureSet pictureSet) {
+        assert (pictureSet != null) && (pictureSet instanceof PictureSet);
 
-        if (reportId != -1) {
-            this.reportList.set(reportId, report);
-            returnValue = true;
-        } else {
-            returnValue = this.reportList.add(report);
+        final boolean isRemoved = this.pictureSetList.remove(pictureSet);
+
+        if (isRemoved) {
+            this.updateViews();
         }
-        this.updateViews();
-        return returnValue;
+        return isRemoved;
     }
 
     /**
-     * Get the creation date of the project as readable String.
+     * Get all picture sets which the model handle with.
      * 
-     * @return the creation date of the project as readable String.
+     * @return an amount of picture sets.
      */
-    public String calendarToString() {
-        final int year = this.creationDate.get(Calendar.YEAR);
-        final int month = this.creationDate.get(Calendar.MONTH) + 1;
-        final int day = this.creationDate.get(Calendar.DAY_OF_MONTH);
-        final int hour = this.creationDate.get(Calendar.HOUR_OF_DAY);
-        final int minute = this.creationDate.get(Calendar.MINUTE);
-        final int second = this.creationDate.get(Calendar.SECOND);
-
-        final DecimalFormat df = new DecimalFormat("00");
-
-        return day + "." + month + "." + year + " - " + df.format(hour) + ":" + df.format(minute) + ":"
-                + df.format(second);
+    public Object[] getPictureSets() {
+        return this.pictureSetList.toArray();
     }
+
+    /**
+     * Get all picture sets which a picture set handle with.
+     * 
+     * @param pictureSet
+     *            the picture set which we use as root.
+     * 
+     * @return an amount of picture sets.
+     */
+    public PictureSet[] getPictureSetsOfAPictureSet(final PictureSet pictureSet) {
+        final List<PictureSet> pictureSets = new ArrayList<PictureSet>();
+
+        /* get the picture sets */
+        final List<PictureContainer> items = pictureSet.getItems();
+
+        for (final PictureContainer container : items) {
+            if (container instanceof PictureSet) {
+                pictureSets.add((PictureSet) container);
+            }
+        }
+
+        /* convert to array */
+        final PictureSet[] pictureSetArray = new PictureSet[pictureSets.size()];
+
+        for (int i = 0; i < pictureSetArray.length; ++i) {
+            pictureSetArray[i] = pictureSets.get(i);
+        }
+        return pictureSetArray;
+    }
+
+    /**
+     * Get all directories which a picture set handle with.
+     * 
+     * @param pictureSet
+     *            the picture set which we use as root.
+     * 
+     * @return an amount of picture sets.
+     */
+    public Directory[] getDirectoriesOfAPictureSet(final PictureSet pictureSet) {
+        final List<Directory> directories = new ArrayList<Directory>();
+
+        /* get the directories */
+        final List<PictureContainer> items = pictureSet.getItems();
+
+        for (final PictureContainer item : items) {
+            if (item instanceof Directory) {
+                directories.add((Directory) item);
+            }
+        }
+
+        /* convert to array */
+        final Directory[] directoryArray = new Directory[directories.size()];
+
+        for (int i = 0; i < directoryArray.length; ++i) {
+            directoryArray[i] = directories.get(i);
+        }
+        return directoryArray;
+    }
+
+    /*
+     * ################################################################################################################
+     * -- THE PICTURE SET CONTENTS
+     * ################################################################################################################
+     */
+
+    /**
+     * Add a picture set content of a picture set.
+     * 
+     * @param set
+     *            the picture set where the content must be added.
+     * @param container
+     *            the content which must be added.
+     * 
+     * @return true if the picture set content was added, false if not.
+     */
+    public boolean addContentToPictureSet(final PictureSet set, final PictureContainer container) {
+        assert (set != null) && (set instanceof PictureSet);
+        assert (container != null) && (container instanceof PictureContainer);
+
+        return set.add(container);
+    }
+
+    /**
+     * Remove a picture set content of a picture set.
+     * 
+     * @param set
+     *            the picture set where the content must be removed.
+     * @param container
+     *            the content which must be removed.
+     * 
+     * @return true if the picture set content was removed, false if not.
+     */
+    public boolean removeContentFromPictureSet(final PictureSet set, final PictureContainer container) {
+        assert (set != null) && (set instanceof PictureSet);
+        assert (container != null) && (container instanceof PictureContainer);
+
+        return set.remove(container);
+    }
+
+    /*
+     * ################################################################################################################
+     * -- THE PICTURES
+     * ################################################################################################################
+     */
 
     /* recursive walk through the "kompositum" */
     private List<Picture> extractPicturesFromContainer(final List<Picture> pictures,
@@ -319,94 +437,6 @@ public class ProjectModel extends AbstractModel {
     }
 
     /**
-     * Get all directories which a picture set handle with.
-     * 
-     * @param pictureSet
-     *            the picture set which we use as root.
-     * 
-     * @return an amount of picture sets.
-     */
-    public Directory[] getDirectoriesOfAPictureSet(final PictureSet pictureSet) {
-        final List<Directory> directories = new ArrayList<Directory>();
-
-        /* get the directories */
-        final List<PictureContainer> items = pictureSet.getItems();
-
-        for (final PictureContainer item : items) {
-            if (item instanceof Directory) {
-                directories.add((Directory) item);
-            }
-        }
-
-        /* convert to array */
-        final Directory[] directoryArray = new Directory[directories.size()];
-
-        for (int i = 0; i < directoryArray.length; ++i) {
-            directoryArray[i] = directories.get(i);
-        }
-        return directoryArray;
-    }
-
-    /**
-     * Get the exif parameters which knipsX can handle with.
-     * 
-     * @return the parameters.
-     */
-    public Object[][] getExifParameter() {
-        return this.exifParameter.clone();
-    }
-
-    /**
-     * Get all picture sets which the model handle with.
-     * 
-     * @return an amount of picture sets.
-     */
-    public Object[] getPictureSets() {
-        return this.pictureSetList.toArray();
-    }
-
-    /**
-     * Get all picture sets which a picture set handle with.
-     * 
-     * @param pictureSet
-     *            the picture set which we use as root.
-     * 
-     * @return an amount of picture sets.
-     */
-    public PictureSet[] getPictureSetsOfAPictureSet(final PictureSet pictureSet) {
-        final List<PictureSet> pictureSets = new ArrayList<PictureSet>();
-
-        /* get the picture sets */
-        final List<PictureContainer> items = pictureSet.getItems();
-
-        for (final PictureContainer container : items) {
-            if (container instanceof PictureSet) {
-                pictureSets.add((PictureSet) container);
-            }
-        }
-
-        /* convert to array */
-        final PictureSet[] pictureSetArray = new PictureSet[pictureSets.size()];
-
-        for (int i = 0; i < pictureSetArray.length; ++i) {
-            pictureSetArray[i] = pictureSets.get(i);
-        }
-        return pictureSetArray;
-    }
-
-    /**
-     * Get all pictures which a directory handle with.
-     * 
-     * @param directory
-     *            the directory which we use as root.
-     * 
-     * @return an amount of pictures.
-     */
-    public Picture[] getPicturesOfADirectory(final Directory directory) {
-        return (Picture[]) directory.getItems().toArray();
-    }
-
-    /**
      * Get pictures which a picture set handle with (only on Rootlevel).
      * 
      * @param pictureSet
@@ -428,36 +458,43 @@ public class ProjectModel extends AbstractModel {
     }
 
     /**
-     * Get all reports which the model handle with.
+     * Get all pictures which a directory handle with.
      * 
-     * @return an amount of picture sets.
+     * @param directory
+     *            the directory which we use as root.
+     * 
+     * @return an amount of pictures.
      */
-    public Object[] getReports() {
-        return this.reportList.toArray();
+    public Picture[] getPicturesOfADirectory(final Directory directory) {
+        return (Picture[]) directory.getItems().toArray();
     }
 
-    public void loadData() {
-        final GetPictureDataThread thread = new GetPictureDataThread(this);
-        thread.start();
-    }
+    /*
+     * ################################################################################################################
+     * -- THE REPORTS
+     * ################################################################################################################
+     */
 
     /**
-     * Remove a picture set of the current project.
+     * Add a report to the current project.
      * 
-     * @param pictureSet
-     *            the picture set to remove.
+     * @param report
+     *            the report to add.
      * 
-     * @return true if the picture set was removed, false if not.
+     * @return true if the report was added, false if not.
      */
-    public boolean removePictureSet(final PictureSet pictureSet) {
-        assert (pictureSet != null) && (pictureSet instanceof PictureSet);
+    public boolean addReport(final AbstractReportModel report, final int reportId) {
+        assert (report != null) && (report instanceof AbstractReportModel);
+        boolean returnValue = false;
 
-        final boolean isRemoved = this.pictureSetList.remove(pictureSet);
-
-        if (isRemoved) {
-            this.updateViews();
+        if (reportId != -1) {
+            this.reportList.set(reportId, report);
+            returnValue = true;
+        } else {
+            returnValue = this.reportList.add(report);
         }
-        return isRemoved;
+        this.updateViews();
+        return returnValue;
     }
 
     /**
@@ -479,7 +516,12 @@ public class ProjectModel extends AbstractModel {
         return isRemoved;
     }
 
-    public void saveProjectModel() {
-        // RepositoryHandler.writeProjectToFile(this);
+    /**
+     * Get all reports which the model handle with.
+     * 
+     * @return an amount of picture sets.
+     */
+    public Object[] getReports() {
+        return this.reportList.toArray();
     }
 }
