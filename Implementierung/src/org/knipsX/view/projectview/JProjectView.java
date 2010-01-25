@@ -17,6 +17,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.GroupLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -1001,6 +1002,8 @@ class MyPictureListCellRenderer implements ListCellRenderer {
 
     protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
+    private final Icon noImageIcon = new ImageIcon(System.getProperty("user.dir") + "\\src\\org\\knipsX\\images\\noimage.png"); 
+    
     /**
      * Renders the cell.
      * 
@@ -1033,8 +1036,9 @@ class MyPictureListCellRenderer implements ListCellRenderer {
 
             final Image smallThumbnail = picture.getSmallThumbnail();
             if (smallThumbnail != null) {
-                renderer.setIcon(new ImageIcon(picture.getSmallThumbnail()));
-                renderer.setToolTipText("Bla");
+                renderer.setIcon(new ImageIcon(smallThumbnail));
+            } else {
+                renderer.setIcon(noImageIcon);
             }
         }
         renderer.setText(theText);

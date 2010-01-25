@@ -1,6 +1,5 @@
 package org.knipsX.model.picturemanagement;
 
-import java.awt.Component;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
