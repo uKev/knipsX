@@ -208,6 +208,11 @@ public class JWilcoxon extends JAbstractSinglePanel {
 
         mainpanel.add(Box.createVerticalGlue());
         this.add(mainpanel);
+        
+        /* Disable this panel. Note that other panes will active the pane if
+         * all required conditions are met 
+         */
+        this.setEnabled(false);
 
         this.fillViewWithModelInfo();
 
