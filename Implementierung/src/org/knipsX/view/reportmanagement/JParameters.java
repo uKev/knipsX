@@ -57,18 +57,11 @@ public class JParameters extends JAbstractSinglePanel {
          * 
          * @param axisParameterName
          *            the axis parameter name, e.g. x-Axis
-         * @param exifparam
-         *            the actual EXIF parameter
-         * @param axisDescription
-         *            the axis description
          */
-        public AxisParameter(final String axisParameterName, final ExifParameter exifparam, final String axisDescription) {
+        public AxisParameter(final String axisParameterName) {
             super();
             this.axisParameterName = axisParameterName;
-            if (axisDescription != null) {
-                this.axisDescription.setText(axisDescription);
-            }
-
+            
             final BoxLayout myboxlayoutintern = new BoxLayout(this, BoxLayout.X_AXIS);
             this.setLayout(myboxlayoutintern);
 
@@ -79,7 +72,7 @@ public class JParameters extends JAbstractSinglePanel {
             this.add(Box.createRigidArea(new Dimension(20, 0)));
             this.add(this.validLabel);
             this.add(Box.createRigidArea(new Dimension(20, 0)));
-            this.axisDescription = new JTextField(axisDescription);
+            this.axisDescription = new JTextField();
             this.add(this.axisDescription);
             this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
             try {
@@ -99,6 +92,15 @@ public class JParameters extends JAbstractSinglePanel {
             return this.axisDescription.getText();
         }
 
+        /**
+         * Sets the axis description to the specified value
+         * 
+         * @param string the new axis description
+         */
+        public void setAxisDescription(String string) {
+            this.axisDescription.setText(string);
+        }
+        
         /**
          * Returns the associated EXIF parameter
          * 
@@ -135,6 +137,7 @@ public class JParameters extends JAbstractSinglePanel {
                     this.exifparamcombo.setSelectedIndex(0);
                 } else {
                     this.exifparamcombo.setSelectedItem(axis.getParameter());
+                    this.setInvalid(false);
                 }
             }
         }
@@ -161,6 +164,9 @@ public class JParameters extends JAbstractSinglePanel {
             this.invalid = invalid;
         }
 
+        /**
+         * Add the action listener to this object
+         */
         public void addActionListener() {
             this.exifparamcombo.addActionListener(exifparamcombo);
         }
@@ -216,7 +222,10 @@ public class JParameters extends JAbstractSinglePanel {
             } else {
                 this.axisparam.setInvalid(true);
             }
-
+            
+            /* Reset axis description after an event was fired */
+            this.axisparam.setAxisDescription("");
+            
             JParameters.this.revalidateReport();
             JParameters.this.revalidateWilcoxon();
 
@@ -239,7 +248,7 @@ public class JParameters extends JAbstractSinglePanel {
         /* Set the title name of this panel */
         // INTERNATIONALIZE
         this.title = "Parameters";
-        
+
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         this.singlepanel = new JPanel();
@@ -248,7 +257,7 @@ public class JParameters extends JAbstractSinglePanel {
         for (int i = -1; i < ReportHelper.getCurrentReport().getNumberOfAxes(); i++) {
 
             if (i >= 0) {
-                this.axisParameters[i] = new AxisParameter(axesDescription[i], null, null);
+                this.axisParameters[i] = new AxisParameter(axesDescription[i]);
                 this.singlepanel.add(this.axisParameters[i]);
             } else {
                 final JPanel mypanel = new JPanel();
@@ -257,7 +266,7 @@ public class JParameters extends JAbstractSinglePanel {
                 // INTERNATIONALIZE
                 mypanel.add(new JLabel("Achsen"));
 
-                mypanel.add(Box.createRigidArea(new Dimension(225, 0)));
+                mypanel.add(Box.createRigidArea(new Dimension(215, 0)));
 
                 // INTERNATIONALIZE
                 mypanel.add(new JLabel("Beschreibung"));
@@ -278,12 +287,15 @@ public class JParameters extends JAbstractSinglePanel {
         /* Fill the view with model information */
         fillViewWithModelInfo();
 
-        /* Add action listeners, after model has filled view with information */
+    }
+
+    
+    /* Add action listeners, after model has filled view with information */
+    private void addActionListenersToComboBox() {
         for (int i = 0; i < axisParameters.length; i++) {
             axisParameters[i].addActionListener();
         }
     }
-
     /**
      * {@inheritDoc}
      */
@@ -309,6 +321,10 @@ public class JParameters extends JAbstractSinglePanel {
                 }
             }
         }
+        
+
+        /* Add action listeners, after model has filled view with information */
+        addActionListenersToComboBox();
     }
 
     /**
