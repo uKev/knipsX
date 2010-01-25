@@ -109,7 +109,9 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      * 
      * @return the xAxis
      */
-    public abstract Axis getxAxis();
+    public Axis getxAxis() {
+        return this.xAxis;
+    }
 
     /**
      * Sets the x-axis
@@ -117,5 +119,7 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      * @param xAxis
      *            the x axis
      */
-    public abstract void setxAxis(final Axis xAxis);
+    public void setxAxis(final Axis xAxis){
+        this.xAxis = xAxis;
+    }
 }

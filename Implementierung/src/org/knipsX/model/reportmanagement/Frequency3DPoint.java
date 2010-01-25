@@ -121,31 +121,4 @@ public class Frequency3DPoint {
         final Picture[] pictures = new Picture[this.pictures.size()];
         return this.pictures.toArray(pictures);
     }
-
-    /**
-     * Getter for the x coordinate of the picture object
-     * 
-     * @return x coordinate of the picture object
-     */
-    public int getX() {
-        return this.x;
-    }
-
-    /**
-     * Getter for the y coordinate of the picture object
-     * 
-     * @return y coordinate of the picture object
-     */
-    public int getY() {
-        return this.y;
-    }
-
-    /**
-     * Getter for the z coordinate of the picture object
-     * 
-     * @return z coordinate of the picture object
-     */
-    public int getZ() {
-        return this.z;
-    }
 }
