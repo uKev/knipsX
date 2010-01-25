@@ -1,14 +1,19 @@
 package org.knipsX.view.diagrams;
 
+import java.awt.Dimension;
 import java.util.Random;
 
 import javax.media.j3d.PickInfo;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.swing.Box;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.vecmath.Vector3d;
 
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.model.reportmanagement.Axis;
+import org.knipsX.utils.ExifParameter;
 
 /**
  * This class implements how the Cluster3DModel is to be drawn.
@@ -62,7 +67,16 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
         this.axis3D[1].generateSegmentDescription(100, 600, 5);
         this.axis3D[2].generateSegmentDescription(10, 20, 5);       
         
+        this.axis3D[0].setAxis(new Axis("TEst", ExifParameter.CAMERAMODEL));
+        this.axis3D[1].setAxis(new Axis(ExifParameter.ISO));
+        this.axis3D[2].setAxis(new Axis(ExifParameter.FLASH));
+        
+        
         this.leftPanel = new JPanel();
+        this.setCurrentDescription(null);
+        //Dimension size = new Dimension(30, 30);
+        //this.leftPanel.add(new Box.Filler(size, size, size));
+        
         
 
     }
