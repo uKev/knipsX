@@ -46,7 +46,8 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
     }
 
     /**
-     * Constructor for a AbstractSingleAxisModel with pictureContainer, xAxis, reportName, reportDescription and exifFilterKeywords
+     * Constructor for a AbstractSingleAxisModel with pictureContainer, xAxis, reportName, reportDescription and
+     * exifFilterKeywords
      * 
      * @param pictureContainer
      *            picture Container
@@ -56,7 +57,8 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      *            name of the report
      * @param reportDescription
      *            description of the report
-     *      @param exifFilterKeywords pictures are filtered with this keywords.
+     * @param exifFilterKeywords
+     *            pictures are filtered with this keywords.
      */
     public AbstractSingleAxisModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis,
             final String reportName, final String reportDescription, final ArrayList<String> exifFilterKeywords) {
@@ -66,37 +68,44 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
 
     /**
      * Biggest value in x-axis
+     * 
      * @return the biggest value in the x-axis.
      */
     public abstract Object getMaxX();
 
     /**
      * Biggest value in y-axis
+     * 
      * @return the biggest value in the y-axis.
      */
     public abstract Object getMaxY();
 
     /**
      * Smallest value in x-axis
+     * 
      * @return the smallest value in the x-axis.
      */
     public abstract Object getMinX();
 
     /**
      * Smallest value in y-axis
+     * 
      * @return the smallest value in the y-axis.
      */
     public abstract Object getMinY();
 
     /**
      * Getter for the x-axis
+     * 
      * @return the xAxis
      */
     public abstract Axis getxAxis();
 
     /**
      * Sets the x-axis
-     * @param xAxis the x axis
+     * 
+     * @param xAxis
+     *            the x axis
      */
     public abstract void setxAxis(final Axis xAxis);
 }
