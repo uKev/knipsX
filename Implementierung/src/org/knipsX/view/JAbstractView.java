@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import org.knipsX.model.AbstractModel;
+import org.knipsX.utils.Resource;
 
 /**
  * This view is the top of our view structure. It manages a model, which is connected to it. The connection is
@@ -47,41 +48,13 @@ public abstract class JAbstractView<M extends AbstractModel> extends JFrame impl
 
         /* sets the knipsX icon image which is associated with every subclass */
         try {
-            this.setIconImage(this.createImageIcon("../../images/appicon.png", null).getImage());
+            this.setIconImage(new Resource().createImageIcon("../images/appicon.png", "").getImage());
         } catch (final FileNotFoundException exception) {
             System.err.println(exception);
         }
     }
 
-    /*
-     * Returns an ImageIcon, or null if the path was invalid.
-     * 
-     * @param path
-     *            the absolute or relative path to the image icon
-     * 
-     * @param description
-     *            the description of the image icon
-     * 
-     * @return ImageIcon object
-     * 
-     * @throws FileNotFoundException
-     *             if there's no image available at the given path.
-     */
-    private ImageIcon createImageIcon(final String path, final String description) throws FileNotFoundException {
 
-        ImageIcon imageIcon = null;
-
-        /* return the path, where knipsX is installed, connected with the relative path to the icon */
-        final URL imgURL = this.getClass().getResource(path);
-
-        if (imgURL == null) {
-            throw new FileNotFoundException("[JAbstractView::createImageIcon()] - Couldn't find file: " + imgURL);
-        } else {
-            imageIcon = new ImageIcon(imgURL, description);
-        }
-
-        return imageIcon;
-    }
 
     /**
      * Has the same behavior like the normal dispose(), but also disconnects the view from a model.

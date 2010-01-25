@@ -255,7 +255,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
         final JLabel testType = new JLabel("Testart");
         singlepanel.add(testType);
         this.wilcoxoncombobox = new JComboBox(WilcoxonTestType.values());
-        this.wilcoxoncombobox.setSelectedItem(WilcoxonTestType.LEFT);
+        this.wilcoxoncombobox.setSelectedItem(WilcoxonTestType.LESS);
         singlepanel.add(this.wilcoxoncombobox);
     }
 

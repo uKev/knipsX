@@ -9,6 +9,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -59,6 +60,7 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.utils.Resource;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.reportmanagement.ReportHelper;
 
@@ -1002,7 +1004,18 @@ class MyPictureListCellRenderer implements ListCellRenderer {
 
     protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-    private final Icon noImageIcon = new ImageIcon(System.getProperty("user.dir") + "\\src\\org\\knipsX\\images\\noimage.png"); 
+    //private final Icon noImageIcon = new ImageIcon(System.getProperty("user.dir") + "\\src\\org\\knipsX\\images\\noimage.png"); 
+    private Icon noImageIcon = null;
+    
+    public MyPictureListCellRenderer() {
+        try {
+            
+            this.noImageIcon = new Resource().createImageIcon("../images/noimage.png", "");
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
     
     /**
      * Renders the cell.
