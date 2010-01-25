@@ -33,8 +33,8 @@ import org.knipsX.model.reportmanagement.TableModel;
 public class JReportConfig<M extends AbstractReportModel, V extends AbstractReportCompilation> extends
         JAbstractReportUtil<M> {
 
-    private static final long serialVersionUID = 1L;
-
+    
+    private static final long serialVersionUID = 7028621688633924200L;
     private JTabbedPane tabbedpane;
     private JPanel basic;
     private JPanel mainpanel;

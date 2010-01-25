@@ -399,7 +399,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
             return true;
         } else {
             try {
-                this.errorMessage.setIcon(Resource.createImageIcon("../../images/userwarning.png", null));
+                this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
