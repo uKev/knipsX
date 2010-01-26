@@ -19,20 +19,35 @@ public class Selectable3DShape extends Shape3D {
 
     private Frequency3DPoint frequencypoint;
 
+    /**
+     * Creates a Selectable3DShape object with the specified frequency3Dpoint
+     * 
+     * @param frequencypoint the frequency3dpoint you want to assign
+     */
     public Selectable3DShape(Frequency3DPoint frequencypoint) {
 	this.frequencypoint = frequencypoint;
 	Sphere mySphere = new Sphere(0.075f * 2, Primitive.GENERATE_NORMALS, JAbstract3DView.GEODETAIL);
 	addGeometry(mySphere.getShape().getGeometry());
     }
     
-    
-    public Selectable3DShape(Frequency3DPoint frequencypoint, Geometry Geo) {
+    /**
+     * Creates a Selectable3DShape object with the specified frequency3Dpoint and 
+     * geometry
+     * 
+     * @param frequencypoint the frequency3dpoint you want to assign
+     * @param geo the geometry of the point
+     */
+    public Selectable3DShape(Frequency3DPoint frequencypoint, Geometry geo) {
         this.frequencypoint = frequencypoint;
-        addGeometry(Geo);
+        addGeometry(geo);
     }
 
+    /**
+     * Returns the Frequency3DPoint of the current object
+     * @return the Frequncy3DPoint 
+     */
     public Frequency3DPoint getFrequence3DPoint() {
-    	return frequencypoint;
+    	return this.frequencypoint;
     }
 
 }
