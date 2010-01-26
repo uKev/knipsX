@@ -89,7 +89,7 @@ public class Boxplot {
         ArrayList<Double> values = new ArrayList<Double>();
         
         /*for (Picture pic : pictures){
-         FIXME PictureContainer needs to bee Iterable   
+         FIXME PictureContainer needs to be Iterable   
             */
             
             Picture picture = new Picture("/abc", true);
@@ -124,7 +124,7 @@ public class Boxplot {
 
     private double calculateMaxValue(ArrayList<Double> values) {
         assert isSorted(values);
-        // TODO Auto-generated method stub
+
         return values.get(values.size());
     }
 
@@ -148,14 +148,14 @@ public class Boxplot {
 
     private double calculateLowerQuartile(ArrayList<Double> values) {
         assert isSorted(values);
-        // TODO Auto-generated method stub
-        return 0;
+        
+        return this.quantile(values, 0.25);
     }
 
     private double calculateUpperQuartile(ArrayList<Double> values) {
         assert isSorted(values);
-        // TODO Auto-generated method stub
-        return 0;
+        
+        return this.quantile(values, 0.75);
     }
 
     private double calculateMedian(ArrayList<Double> values) {
@@ -177,7 +177,15 @@ public class Boxplot {
 
     private double calculateMean(ArrayList<Double> values) {
         assert isSorted(values);
-        // TODO Auto-generated method stub
+        
+        double mean = 0;
+        
+        for (double value : values){
+            mean += value;
+        }
+        
+        mean = mean / ((double)values.size());
+        
         return 0;
     }
 
@@ -227,6 +235,30 @@ public class Boxplot {
         return this.upperWhisker;
     }
     
+    double quantile(ArrayList<Double> values, double p){
+        assert isSorted(values);
+        
+        assert p > 0;
+        // TWEAK allow p == 0
+        
+        
+        double quantile = 0;
+        
+        int valuesSize = values.size();
+        
+        // here are small symbols better to read than long ones
+        double q = 1.0/p;
+        int s = values.size();
+        
+        if (valuesSize % q == 0){
+            quantile = (( (double)values.get((int)( (s-1) / q )) ) + ((double)values.get( (int)(( s ) / q)))) / 2;
+        }
+        else {
+            quantile = (double)values.get((int)(( s )/q));
+        }
+         
+        return quantile;
+    }
     
     private boolean isSorted(ArrayList<Double> values){
         double previous = Double.MIN_VALUE;
