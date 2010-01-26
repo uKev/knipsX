@@ -2,6 +2,7 @@ package org.knipsX.model.picturemanagement;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -12,11 +13,11 @@ import javax.imageio.ImageIO;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
 
-public class Picture implements PictureContainer {
+public class Picture implements PictureContainer, Comparable<Picture>, ImageObserver {
+    
+    private File pictureFile;
 
-    private boolean isActive;
-
-    private String path;
+    private boolean isActiveorNot;
 
     private Object[][] allExifParameter;
 
@@ -28,40 +29,16 @@ public class Picture implements PictureContainer {
      * 
      * @param path
      */
-    public Picture(String path) {
-        this(new File(path));
-    }
-    
-    /**
-     * Create new Picture.
-     * 
-     * @param picture
-     */
-    public Picture(File picture) {
-        this(picture, true);
-    }
-
-    /**
-     * Create new Picture with flag.
-     * 
-     * @param picture
-     * @param isActive
-     */
-    public Picture(File picture, boolean isActive) {
-        this.path = picture.getAbsolutePath();
-        this.isActive = isActive;
+    public Picture(String path, boolean isActiveorNot) {
+        this.pictureFile = new File(path);
+        this.isActiveorNot = isActiveorNot;
         this.allExifParameter = null;
     }
-
-    /**
-     * Clone a picture.
-     * 
-     * @param picture
-     */
-    public Picture(Picture picture) {
-        this.isActive = picture.isActive;
-        this.path = new String(picture.path);
-        this.allExifParameter = picture.allExifParameter.clone();
+    
+    public Picture(File file, boolean isActiveorNot) {
+        this.pictureFile = file;
+        this.isActiveorNot = isActiveorNot;
+        this.allExifParameter = null;
     }
 
     public List<PictureContainer> getItems() {
@@ -84,17 +61,17 @@ public class Picture implements PictureContainer {
     public void initThumbnails() {
         if (this.bigThumbnail == null) {            
             try {
-                this.bigThumbnail = Picture.getThumbOf(ImageIO.read(new File(path)), 200, Image.SCALE_FAST);
+                this.bigThumbnail = Picture.getThumbOf(ImageIO.read(pictureFile), 200, Image.SCALE_FAST);
             } catch (IOException e) {
-                System.err.println("[Picture::getBigThumbnail()] - File didn't exist - " + path);
+                System.err.println("[Picture::getBigThumbnail()] - File didn't exist - " + pictureFile.getAbsolutePath());
             }
         }
         
         if (this.smallThumbnail == null) {
             try {
-                this.smallThumbnail = Picture.getThumbOf(ImageIO.read(new File(path)), 50, Image.SCALE_FAST);
+                this.smallThumbnail = Picture.getThumbOf(ImageIO.read(pictureFile), 50, Image.SCALE_FAST);
             } catch (IOException e) {
-                System.err.println("[Picture::getSmallThumbnail()] - File didn't exist - " + path);
+                System.err.println("[Picture::getSmallThumbnail()] - File didn't exist - " + pictureFile.getAbsolutePath());
             }
         }
     }
@@ -104,19 +81,18 @@ public class Picture implements PictureContainer {
     }
 
     public Image getSmallThumbnail() {
-
         return this.smallThumbnail;
     }
 
     public String getPath() {
-        return path;
+        return pictureFile.getAbsolutePath();
     }
 
     public String getName() {
-        return path;
+        return pictureFile.getName();
     }
 
-    // wird für die statistischen Auswertungen benötigt kann sein das hier ordinal die falsche zahl zurückgibt
+    // wird fÃ¼r die statistischen Auswertungen benÃ¶tigt kann sein das hier ordinal die falsche zahl zurÃ¼ckgibt
     public Object getExifParameter(ExifParameter exifParameter) {      
         
         return getAllExifParameter()[exifParameter.ordinal()][1];
@@ -141,16 +117,16 @@ public class Picture implements PictureContainer {
     }
 
     public boolean isActive() {
-        return isActive;
+        return isActiveorNot;
     }
 
     public void setActive(boolean isActive) {
-        this.isActive = isActive;
+        this.isActiveorNot = isActive;
     }
 
     public Object[][] getAllExifParameter() {
         if (this.allExifParameter == null) {
-            ExifAdapter exifAdapter = new ExifAdapter(this.path);
+            ExifAdapter exifAdapter = new ExifAdapter(pictureFile.getAbsolutePath());
 
             ExifParameter[] parameters = ExifParameter.values();
 
@@ -164,19 +140,16 @@ public class Picture implements PictureContainer {
         return allExifParameter;
     }
 
-    public void setName(String name) {
-    }
-
     private static BufferedImage getThumbOf(BufferedImage bImage, int maxWidthOrHight, int hints) {
         int width = bImage.getWidth();
         int height = bImage.getHeight();
 
         if (width >= height) {
             width = maxWidthOrHight;
-            height = -1; // negative Höhe bedeutet, dass diese Höhe dem Seitenverhältnis entsprechend an die neue Breite
+            height = -1; // negative HÃ¶he bedeutet, dass diese HÃ¶he dem SeitenverhÃ¤ltnis entsprechend an die neue Breite
             // angepasst wird.
         } else {
-            width = -1; // negative breite: Breite wird dem Seitenverhältnis entsprechend an die neue Höhe angepasst.
+            width = -1; // negative breite: Breite wird dem SeitenverhÃ¤ltnis entsprechend an die neue HÃ¶he angepasst.
             height = maxWidthOrHight;
         }
 
@@ -187,4 +160,20 @@ public class Picture implements PictureContainer {
         return bThumb;
     }
 
+    @Override
+    public boolean imageUpdate(Image arg0, int arg1, int arg2, int arg3, int arg4, int arg5) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public int compareTo(Picture pictureToCompare) {
+        if (this.getPath().hashCode() == pictureToCompare.getPath().hashCode()){
+            return 0;
+        } else if (this.getName().compareTo(pictureToCompare.getName()) == 1) {
+            return 1;
+        } else {
+            return -1; 
+        }      
+    }
 }
