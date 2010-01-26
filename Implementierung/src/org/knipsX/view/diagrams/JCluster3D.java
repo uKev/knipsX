@@ -1,10 +1,16 @@
 package org.knipsX.view.diagrams;
 
+import java.awt.Color;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.Random;
 
 import javax.media.j3d.PickInfo;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.vecmath.Vector3d;
 
@@ -69,10 +75,42 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
         this.axis3D[2].setAxis(new Axis(ExifParameter.FLASH));
         
         this.leftPanel = new JPanel();
-        this.setCurrentDescription(null);
         
+        this.rightPanel = new GradientFrequencyPanel(0, 20);
+        
+        this.setCurrentDescription(null);       
         
 
+    }
+    
+    
+    
+    public class GradientFrequencyPanel extends JPanel {
+
+        private static final long serialVersionUID = -8130052088314062751L;
+        
+        private int minValue;
+        private int maxValue;
+        
+        public GradientFrequencyPanel(int minValue, int maxValue) {           
+            this.minValue = minValue;
+            this.maxValue = maxValue;    
+            add(new JLabel("Häufigkeiten"));
+        }
+        
+        @Override 
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            
+            Graphics2D g2 = (Graphics2D) g;                
+            Rectangle e = new Rectangle(20, 20, 120, 120);
+            
+            GradientPaint gp = new GradientPaint(0, 60, Color.white, 0, 120, Color.BLACK, false);
+            g2.setPaint(gp);
+            g2.fill(e);
+       }
+        
+        
     }
 
 }

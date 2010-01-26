@@ -1,5 +1,7 @@
 package org.knipsX.view.reportmanagement;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,8 +10,10 @@ import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -61,7 +65,7 @@ public class JParameters extends JAbstractSinglePanel {
         public AxisParameter(final String axisParameterName) {
             super();
             this.axisParameterName = axisParameterName;
-            
+
             final BoxLayout myboxlayoutintern = new BoxLayout(this, BoxLayout.X_AXIS);
             this.setLayout(myboxlayoutintern);
 
@@ -95,12 +99,13 @@ public class JParameters extends JAbstractSinglePanel {
         /**
          * Sets the axis description to the specified value
          * 
-         * @param string the new axis description
+         * @param string
+         *            the new axis description
          */
         public void setAxisDescription(String string) {
             this.axisDescription.setText(string);
         }
-        
+
         /**
          * Returns the associated EXIF parameter
          * 
@@ -133,12 +138,14 @@ public class JParameters extends JAbstractSinglePanel {
         public void setAxis(final Axis axis) {
             if (axis != null) {
                 this.axisDescription.setText(axis.getDescription());
+
                 if (axis.getParameter() == null) {
                     this.exifparamcombo.setSelectedIndex(0);
                 } else {
                     this.exifparamcombo.setSelectedItem(axis.getParameter());
                     this.setInvalid(false);
                 }
+
             }
         }
 
@@ -157,6 +164,13 @@ public class JParameters extends JAbstractSinglePanel {
                     this.validLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
+                }
+
+                if (ReportHelper.getCurrentReport() == ReportHelper.Boxplot) {
+                    if (this.getExifparam() != null && !this.getExifparam().isOrdinal()) {
+                        this.validLabel.setToolTipText("Beim Boxplot können nur ordianele Werte ausgewählt werden");
+                    }
+
                 }
             }
 
@@ -197,6 +211,10 @@ public class JParameters extends JAbstractSinglePanel {
         public ExifParamComboBox(final AxisParameter axisparam) {
             this.axisparam = axisparam;
 
+            if (ReportHelper.getCurrentReport() == ReportHelper.Boxplot) {
+                this.setRenderer(new OrdinalCellRenderer());
+            }
+
             final Object[] exifparams = new Object[ExifParameter.values().length + 1];
             for (int i = 0; i < exifparams.length - 1; i++) {
                 if (i == 0) {
@@ -213,6 +231,34 @@ public class JParameters extends JAbstractSinglePanel {
 
         }
 
+        /**
+         * This cell renderer specifies that only ordinal EXIF parameters are drawn as the normal
+         * foreground color. Non ordinal EXIF parameters are drawn gray
+         * 
+         * @author David Kaufman
+         *
+         */
+        public class OrdinalCellRenderer extends DefaultListCellRenderer {
+
+            private static final long serialVersionUID = -8188427562977471722L;
+
+            /**
+             * {@inheritDoc}
+             */
+            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+                    boolean cellHasFocus) {
+                Component comp = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (value instanceof ExifParameter) {
+                    if (((ExifParameter) value).isOrdinal()) {
+                        comp.setForeground(list.getForeground());
+                    } else {
+                        comp.setForeground(Color.LIGHT_GRAY);
+                    }
+                }
+                return comp;
+            }
+        }
+
         @Override
         public void actionPerformed(final ActionEvent e) {
             final JComboBox cb = (JComboBox) e.getSource();
@@ -222,10 +268,22 @@ public class JParameters extends JAbstractSinglePanel {
             } else {
                 this.axisparam.setInvalid(true);
             }
-            
+
             /* Reset axis description after an event was fired */
             this.axisparam.setAxisDescription("");
-            
+
+            /* Prohibit non ordinal EXIF Parameters if report is boxplot */
+            if (ReportHelper.getCurrentReport() == ReportHelper.Boxplot) {
+
+                if (cb.getSelectedItem() instanceof ExifParameter) {
+                    if (!((ExifParameter) cb.getSelectedItem()).isOrdinal()) {
+                        this.axisparam.setInvalid(true);
+                    } else {
+                        this.axisparam.setInvalid(false);
+                    }
+                }
+            }
+
             JParameters.this.revalidateReport();
             JParameters.this.revalidateWilcoxon();
 
@@ -254,6 +312,17 @@ public class JParameters extends JAbstractSinglePanel {
         this.singlepanel = new JPanel();
         this.singlepanel.setLayout(new BoxLayout(this.singlepanel, BoxLayout.PAGE_AXIS));
 
+        /* add the axis parameters to singlepanel */
+        addAxisParameters();
+
+        this.add(Box.createVerticalGlue());
+
+        /* Fill the view with model information */
+        fillViewWithModelInfo();
+
+    }
+
+    private void addAxisParameters() {
         for (int i = -1; i < ReportHelper.getCurrentReport().getNumberOfAxes(); i++) {
 
             if (i >= 0) {
@@ -281,21 +350,15 @@ public class JParameters extends JAbstractSinglePanel {
             this.singlepanel.add(Box.createRigidArea(new Dimension(0, 32)));
             this.add(this.singlepanel);
         }
-
-        this.add(Box.createVerticalGlue());
-
-        /* Fill the view with model information */
-        fillViewWithModelInfo();
-
     }
 
-    
     /* Add action listeners, after model has filled view with information */
     private void addActionListenersToComboBox() {
         for (int i = 0; i < axisParameters.length; i++) {
             axisParameters[i].addActionListener();
         }
     }
+
     /**
      * {@inheritDoc}
      */
@@ -321,7 +384,6 @@ public class JParameters extends JAbstractSinglePanel {
                 }
             }
         }
-        
 
         /* Add action listeners, after model has filled view with information */
         addActionListenersToComboBox();

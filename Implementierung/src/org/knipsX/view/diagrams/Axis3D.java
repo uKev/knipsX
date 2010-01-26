@@ -5,6 +5,15 @@ import java.text.DecimalFormat;
 import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.utils.ExifParameter;
 
+
+/** 
+ * This class represents an axis in three dimensional space. It stores information 
+ * about the size of the axis in the view, the number of segments (ticks) and their 
+ * description, the assigned EXIF parameter and the description of the axis
+ * 
+ * @author David Kaufman
+ *
+ */
 class Axis3D {
     
     private int numberOfSegments = 10;
@@ -13,56 +22,105 @@ class Axis3D {
     private boolean showSegments = false;
     private Axis axis;
 
+    /**
+     * Returns the assigned EXIF Parameter
+     * @return The assigned EXIF parameter or null if there is none
+     */
     public ExifParameter getExifParameter() {
-        if(axis != null) {
+        //TODO: Fehlerüberprüfung kann man sich sparen, zum Testen aber durchaus hilfreich
+        if (axis != null) {
             return axis.getParameter();
         }
         
         return null;
     }
 
+    /**
+     * Sets the Axis to the specified paramter
+     * @param axis The axis object which you want to assign
+     */
     public void setAxis(Axis axis) {
         this.axis = axis;
     }
 
+    /**
+     * Returns if the segments should be displayed or not
+     * 
+     * @return returns true if the segments should be displayed, otherwise it 
+     * returns false
+     */
     public boolean isShowSegments() {
         return showSegments;
     }
 
+    /**
+     * Returns the axis size 
+     * 
+     * @return returns the axis size
+     */
     public double getAxisSize() {
         return this.axisSize;
     }
 
+    /**
+     * Returns the description of the axis
+     * 
+     * @return the description of the axis
+     */
     public String getDescription() {
-        if(this.axis != null) {
+        if (this.axis != null) {
             return axis.getDescription();
         }
         
         return "";        
     }
 
+    /**
+     * Returns the number of segments
+     * @return the number of segments
+     */
     public int getNumberOfSegments() {
         return this.numberOfSegments;
     }
 
+    /**
+     * Returns the segment description as a array of strings
+     * @return the segment description
+     */
     public String[] getSegmentDescription() {
         return this.segmentDescription;
     }
 
+    /**
+     * Returns the size of each segment
+     * @return the size of each segment
+     */
     public double getSegmentSize() {
         return this.axisSize / (double) this.numberOfSegments;
     }
 
+    /**
+     * Sets the axis size to the specified value
+     * @param axisSize the new axis size
+     */
     public void setAxisSize(final double axisSize) {
         this.axisSize = axisSize;
     }
 
-
+    /**
+     * Sets the number of segments to the specified value
+     * @param numberOfSegments the number of segments. Note that the segment
+     * description will be overwritten
+     */
     public void setNumberOfSegments(final int numberOfSegments) {
         this.numberOfSegments = numberOfSegments;
         this.segmentDescription = new String[numberOfSegments + 1];
     }
 
+    /**
+     * Sets the segment description to the specified string array
+     * @param segmentDescription the new segment description
+     */
     public void setSegmentDescription(final String[] segmentDescription) {
         this.segmentDescription = segmentDescription;
     }
@@ -87,7 +145,7 @@ class Axis3D {
             
             int temp = (Integer) maxValue - (Integer) minValue;
             
-            /* Note that underflow can occur */
+            /* Note that underflow might occur */
             int pieces = temp / this.getNumberOfSegments();
 
             final String[] returnstring = new String[this.getNumberOfSegments() + 1];
@@ -115,7 +173,6 @@ class Axis3D {
             }
 
             this.setSegmentDescription(returnstring);
-
         }  
         
 

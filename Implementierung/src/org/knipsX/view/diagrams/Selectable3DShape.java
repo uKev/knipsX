@@ -17,22 +17,38 @@ import com.sun.j3d.utils.geometry.Sphere;
  */
 public class Selectable3DShape extends Shape3D {
 
-    private Frequency3DPoint frequencypoint;
+    private Frequency3DPoint frequency3DPoint;
 
-    public Selectable3DShape(Frequency3DPoint frequencypoint) {
-	this.frequencypoint = frequencypoint;
+    /**
+     * Creates a Selectable3DShape object with the specified frequency3Dpoint,
+     * uses a sphere as geometry
+     * 
+     * @param frequency3DPoint the frequency3dpoint you want to assign
+     */
+    public Selectable3DShape(Frequency3DPoint frequency3DPoint) {
+	this.frequency3DPoint = frequency3DPoint;
 	Sphere mySphere = new Sphere(0.075f * 2, Primitive.GENERATE_NORMALS, JAbstract3DView.GEODETAIL);
 	addGeometry(mySphere.getShape().getGeometry());
     }
     
-    
-    public Selectable3DShape(Frequency3DPoint frequencypoint, Geometry Geo) {
-        this.frequencypoint = frequencypoint;
-        addGeometry(Geo);
+    /**
+     * Creates a Selectable3DShape object with the specified frequency3Dpoint and 
+     * geometry
+     * 
+     * @param frequency3DPoint the frequency3dpoint you want to assign
+     * @param geo the geometry of the point
+     */
+    public Selectable3DShape(Frequency3DPoint frequency3DPoint, Geometry geo) {
+        this.frequency3DPoint = frequency3DPoint;
+        addGeometry(geo);
     }
 
+    /**
+     * Returns the Frequency3DPoint of the current object
+     * @return the Frequncy3DPoint 
+     */
     public Frequency3DPoint getFrequence3DPoint() {
-    	return frequencypoint;
+    	return this.frequency3DPoint;
     }
 
 }

@@ -40,18 +40,24 @@ public abstract class JAbstract3DDiagram<M extends AbstractReportModel> extends 
      */
     public void preinitialize() {
 
+        /* Register 3D buttons with view */
         this.registeredButtons = new JDiagramButtons3D(this);
-        this.setCameraPerspective(Perspectives.PERSPECTIVE);
+        
+        /* Set the number of axes to 3*/
         this.numberOfAxes = 3;
-        this.addLights();
-        /* Make 3D view interactive */
+        
+        this.addLights();        
+        
+        /* Make view interactive */        
         final ViewingPlatform viewingPlatform = this.simpleU.getViewingPlatform();
         final OrbitBehavior orbit = new OrbitBehavior(this.canvas3D, OrbitBehavior.REVERSE_ALL);
         final BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
         orbit.setSchedulingBounds(bounds);
-        orbit.setRotationCenter(new Point3d(this.axis3D[0].getAxisSize() / 2.0, 0, this.axis3D[2].getAxisSize() / 2.0));
+        orbit.setRotationCenter(new Point3d(this.axis3D[2].getAxisSize() / 2.0, 0, this.axis3D[1].getAxisSize() / 2.0));
         orbit.setZoomFactor(3);
         viewingPlatform.setViewPlatformBehavior(orbit);
 
+        /* Set default camera perspective to a perspective view */
+        this.setCameraPerspective(Perspectives.PERSPECTIVE);
     }
 }
