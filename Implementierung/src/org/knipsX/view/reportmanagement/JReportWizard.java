@@ -43,7 +43,10 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
      */
     public JReportWizard() {
         super(null);
+        ReportHelper.setCurrentModel(null);
+        
         ReportHelper.currentReportUtil = this;
+        
         this.reportCompilation = ReportHelper.getDefaultReport().createReportCompilation();
 
         //INTERNATIONALIZE

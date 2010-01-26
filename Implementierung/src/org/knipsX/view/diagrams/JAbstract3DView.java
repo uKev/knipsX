@@ -745,7 +745,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      */
     public void setCurrentDescription(final Picture pic) {
 
-            // TODO Das muss später entfernt werden
+            // TWEAK
             if (pic != null) {
                pic.initThumbnails();
             }
