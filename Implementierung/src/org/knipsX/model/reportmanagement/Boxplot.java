@@ -1,8 +1,13 @@
 package org.knipsX.model.reportmanagement;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.utils.ExifParameter;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 /**
  * Represents the boxplot with all parts containing to it and calculate them.
@@ -65,22 +70,122 @@ public class Boxplot {
      * @param pictures
      *            the pictures which will be represented with the boxplot
      */
-    public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter) {
+    public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter, String pictureSetName) {
        
         // calculate the Boxplot from the pictures in the pictureSet
         // add private methods to calculate the stuff
         /*
-         * Maybe use a Librara, available:
+         * Maybe use a Library, available:
          * http://commons.apache.org/math/
          * http://www.rforge.net/rJava/
+         *      In Ubuntu Repo: r-cran-rjavaIn Ubuntu Repo: r-cran-rjava
          * http://acs.lbl.gov/~hoschek/colt/
-         * In Ubuntu Repo: r-cran-rjava
+         * or we use library for testing the results
+         * 
          */
+        
+        assert exifParameter.isOrdinal();
+        
+        ArrayList<Double> values = new ArrayList<Double>();
+        
         /*for (Picture pic : pictures){
          FIXME PictureContainer needs to bee Iterable   
+            */
+            
+            Picture picture = new Picture("/abc", true);
+        
+            double value = (Double)picture.getExifParameter(exifParameter);
+            values.add(value);
+            
+        
+        /*
         }*/ 
         
+            Collections.sort(values);
+        
+        
+        this.mean = this.calculateMean(values);
+        this.median = this.calculateMedian(values);
+        this.upperQuartile = this.calculateUpperQuartile(values);
+        this.lowerQuartile = this.calculateLowerQuartile(values);
+        this.upperWhisker = this.calculateUpperWhisker(values);
+        this.lowerWhisker = this.calculateLowerWhisker(values);
+        this.outlier = this.calculateOutlier(values);
+        this.maxValue = this.calculateMaxValue(values);
+        this.minValue = this.calculateMinValue(values);
+   
+        
     }
+    private double calculateMinValue(ArrayList<Double> values) {
+        assert isSorted(values);
+        
+        return values.get(0);
+    }
+
+    private double calculateMaxValue(ArrayList<Double> values) {
+        assert isSorted(values);
+        // TODO Auto-generated method stub
+        return values.get(values.size());
+    }
+
+    private double[] calculateOutlier(ArrayList<Double> values) {
+        assert isSorted(values);
+                // TODO Auto-generated method stub
+        return null;
+    }
+
+    private double calculateLowerWhisker(ArrayList<Double> values) {
+        assert isSorted(values);
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    private double calculateUpperWhisker(ArrayList<Double> values) {
+        assert isSorted(values);
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    private double calculateLowerQuartile(ArrayList<Double> values) {
+        assert isSorted(values);
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    private double calculateUpperQuartile(ArrayList<Double> values) {
+        assert isSorted(values);
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    private double calculateMedian(ArrayList<Double> values) {
+        assert isSorted(values);
+        
+        double median;
+        
+        int valuesSize = values.size();
+        
+        if (valuesSize % 2 == 0){
+            median = (((double)values.get((values.size()/2))) + ((double)values.get((values.size()/2)))) / 2;
+        }
+        else {
+            median = (double)values.get((values.size()+1)/2);
+        }
+        
+        return median;
+    }
+
+    private double calculateMean(ArrayList<Double> values) {
+        assert isSorted(values);
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter) {
+        this(pictures, exifParameter, null);
+        this.PictureSetName = pictures.getName() + " - " + exifParameter.toString();
+    }
+    
 
     public double getLowerQuartile() {
         return this.lowerQuartile;
@@ -120,6 +225,24 @@ public class Boxplot {
 
     public double getUpperWhisker() {
         return this.upperWhisker;
+    }
+    
+    
+    private boolean isSorted(ArrayList<Double> values){
+        double previous = Double.MIN_VALUE;
+        
+        boolean isSorted = true;
+        
+        for (double value : values)
+        {
+            if (value < previous){
+                isSorted = false;
+                break;
+            }
+            previous = value;
+        }
+        
+        return isSorted;
     }
 
 }
