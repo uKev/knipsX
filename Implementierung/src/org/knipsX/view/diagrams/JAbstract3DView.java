@@ -368,6 +368,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         for (int i = 0; i < this.numberOfAxes; i++) {
             final Transform3D coneTransformation = new Transform3D();
             Cone axisArrow = null;
+            /* The ratio between cone length and axis size*/
             final float percentage = 1.0f / 20.0f;
 
             if (i == 0) {
