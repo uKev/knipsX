@@ -155,6 +155,8 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
      * Change an HSV color to RGB color. We don't bother converting the alpha
      * as that stays the same regardless of color space.
      * 
+     * Taken from the org.jscience.util package
+     * 
      * @param h
      *            The h component of the color
      * @param s
