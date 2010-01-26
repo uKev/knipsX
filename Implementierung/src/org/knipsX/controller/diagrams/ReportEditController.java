@@ -12,12 +12,11 @@ public class ReportEditController<M, V extends JAbstractDiagram<?>> extends Abst
 
 	public ReportEditController(V view) {
 		super(view);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {		
-	    new JReportConfig<AbstractReportModel,AbstractReportCompilation>(this.view.getReportModel(), this.view.getReportID());
+	    new JReportConfig<AbstractReportModel, AbstractReportCompilation>(this.view.getReportModel(), this.view.getReportID());
 	    this.view.dispose();
 	}
 

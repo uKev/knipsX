@@ -19,7 +19,8 @@ import org.knipsX.view.JAbstractView;
 public abstract class JAbstractDiagram<M extends AbstractReportModel> extends JAbstractView<M> {
 
     private static final long serialVersionUID = 5427649938817210196L;
-
+    
+    /* The default report id */
     private int reportID = -1;
 
     /**

@@ -118,8 +118,10 @@ public class ProjectModel extends AbstractModel {
         this.creationDate = date;
         this.pictureSetList = pictureSets;
         this.reportList = reports;
-        this.exifParameter = new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
-                + File.separator + "DSC00964.JPG").getAllExifParameter();
+        this.exifParameter = new Object[][]{};
+        //TODO Hier muss das erste Bilder der Liste mit den exif werten genommen werden
+        //this.exifParameter = new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
+        //        + File.separator + "DSC00964.JPG").getAllExifParameter();
     }
 
     /**
@@ -151,8 +153,10 @@ public class ProjectModel extends AbstractModel {
         this.creationDate = new GregorianCalendar();
         this.pictureSetList = toCopy.pictureSetList;
         this.reportList = toCopy.reportList;
-        this.exifParameter = new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
-                + File.separator + "DSC00964.JPG").getAllExifParameter();
+        this.exifParameter = new Object[][] {};
+        //TODO Hier muss das erste Bilder der Liste mit den exif werten genommen werden
+        //this.exifParameter = new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
+        //       + File.separator + "DSC00964.JPG").getAllExifParameter();
     }
 
     /*

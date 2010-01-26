@@ -55,7 +55,10 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
 
 /**
  * This class manages all java 3d interactions and offers methods than simplify the
- * utilization of the java 3d functions significantly
+ * utilization of the java 3d functions significantly.
+ * 
+ * Note that when passing transformation information the order of axis 
+ * is z, y and then x  
  * 
  * @author David Kaufman
  * 
@@ -127,7 +130,8 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     /**
      * Create three axis3D objects for each axis one axis3D object.
      * Note that all three axes have to be initialized even if only
-     * two axis are displayed.
+     * two axis are displayed. axis3D[0] denotes the y axis
+     * axis3D[1] the x axis, axis3D[2] the z axis
      */
     protected Axis3D[] axis3D = { new Axis3D(), new Axis3D(), new Axis3D() };
 
@@ -251,6 +255,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         vpTrans.setTransform(transform3D);
     }
 
+    /* change the camera to a position where it faces the x z plane */
     private void changeCamtoFaceXZPlane() {
         final TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
         final Transform3D transform3D = new Transform3D();
@@ -259,6 +264,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         vpTrans.setTransform(transform3D);
     }
 
+    /* change the camera to a position where it faces the y x plane */
     private void changeCamtoFaceYXPlane() {
         final TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
         final Transform3D transform3D = new Transform3D();
@@ -268,6 +274,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         vpTrans.setTransform(transform3D);
     }
 
+    /* change the camera to a position where it faces the y z plane */
     private void changeCamtoFaceYZPlane() {
         final TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
         final Transform3D transform3D = new Transform3D();
@@ -277,6 +284,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         vpTrans.setTransform(transform3D);
     }
 
+    /* change the camera to a position where it shows all of the important scene elements */
     private void changeCamtoPerspective() {
         final TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
         final Transform3D transform3D = new Transform3D();
@@ -360,6 +368,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         for (int i = 0; i < this.numberOfAxes; i++) {
             final Transform3D coneTransformation = new Transform3D();
             Cone axisArrow = null;
+            /* The ratio between cone length and axis size*/
             final float percentage = 1.0f / 20.0f;
 
             if (i == 0) {
@@ -849,7 +858,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
     /**
      * This class is responsible for handling the off screen buffer of the assign graphics
-     * configuration and outputting the generated buffered image
+     * configuration and outputting the generated buffered image via the doRender() function
      * 
      * @author David Kaufman
      * 

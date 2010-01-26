@@ -19,14 +19,14 @@ public class Directory implements PictureContainer {
         this.directoryName = path;
     }
 
-    private void getAllPictures(File path) {
-        if (path.isDirectory()) {
-            File[] children = path.listFiles();
+    private void getAllPictures(File file) {
+        if (file.isDirectory()) {
+            File[] children = file.listFiles();
             for (int i = 0; i < children.length; i++) {
                 getAllPictures(children[i]);
             }
         } else {
-            this.pictures.add(new Picture(path));
+            this.pictures.add(new Picture(file,true));
         }
     }
 

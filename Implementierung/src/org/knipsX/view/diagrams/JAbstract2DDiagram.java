@@ -39,29 +39,26 @@ public abstract class JAbstract2DDiagram<M extends AbstractReportModel> extends 
      * 2D specific preinitialization routine
      */
     public void preinitialize() {
+        
+        /* Register 2D buttons with view */
         this.registeredButtons = new JDiagramButtons2D(this);
+        
+        /* Disable text auto rotate */
         this.textautorotate = false;
+        
+        /* Set the number of axes to 2*/
         this.numberOfAxes = 2;
-
-        // this.canvas3D.getView().setProjectionPolicy(View.PARALLEL_PROJECTION);
-        // this.canvas3D.getView().setScreenScale(0.03);
-        // this.canvas3D.getView().setScreenScalePolicy(View.SCALE_EXPLICIT);
-        // this.canvas3D.getView().setBackClipDistance(20);
-        // this.canvas3D.getView().setFrontClipDistance(-2);
 
         this.addLights();
 
-        // Make Interactive for 2D View
+        /* Make view interactive */
         final ViewingPlatform viewingPlatform = this.simpleU.getViewingPlatform();
-
         final OrbitBehavior orbit = new OrbitBehavior(this.canvas3D, OrbitBehavior.REVERSE_ALL);
-        orbit.setRotateEnable(false);
-        // orbit.setZoomEnable(false);
-        // orbit.setTranslateEnable(false);
         final BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
         orbit.setSchedulingBounds(bounds);
         viewingPlatform.setViewPlatformBehavior(orbit);
 
+        /* Set default camera perspective to face the x y plane */
         this.setCameraPerspective(Perspectives.XYPLANE);
 
     }
