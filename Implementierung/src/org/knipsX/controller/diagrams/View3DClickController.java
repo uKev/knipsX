@@ -2,17 +2,11 @@ package org.knipsX.controller.diagrams;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 
 import javax.media.j3d.PickInfo;
-import javax.media.j3d.Transform3D;
-import javax.vecmath.Point3d;
 
-import org.knipsX.model.picturemanagement.Picture;
-import org.knipsX.view.reportmanagement.ReportHelper;
 import org.knipsX.view.diagrams.JAbstract3DView;
 import org.knipsX.view.diagrams.Selectable3DShape;
-import org.knipsX.utils.ExifParameter;
 
 /**
  * This controller manages the mouse input that occur in a JCluster3D diagram.
@@ -30,7 +24,9 @@ public class View3DClickController extends MouseAdapter {
 
     /**
      * The constructor which initializes the view 3D click controller
-     * @param view The view the controller operates on
+     * 
+     * @param view
+     *            The view the controller operates on
      */
     public View3DClickController(final JAbstract3DView<?> view) {
         this.view = view;
@@ -46,17 +42,8 @@ public class View3DClickController extends MouseAdapter {
         if (result != null) {
             if (result.getNode() instanceof Selectable3DShape) {
                 final Selectable3DShape p = (Selectable3DShape) result.getNode();
-
-                final Transform3D mytrans = new Transform3D();
-                result.getNode().getLocalToVworld(mytrans);
-                final Point3d mypoint = new Point3d();
-                mytrans.transform(mypoint);
-
                 if (p != null) {
-                    //this.view.setCurrentDescription(p.getFrequence3DPoint().getPictures()[0]);                    
-                    this.view.setCurrentDescription(ReportHelper.getProjectModel().getAllPictures()[0]);
-                } else {
-                    System.out.println("null");
+                    this.view.setCurrentDescription(p.getFrequence3DPoint().getPictures()[0]);
                 }
             }
         }

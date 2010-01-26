@@ -1,5 +1,7 @@
 package org.knipsX.view.diagrams;
 
+import javax.vecmath.Vector3d;
+
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 
 /**
@@ -28,7 +30,7 @@ public class JHistogram3D<M extends AbstractReportModel> extends JAbstract3DDiag
 
     @Override
     public void generateContent() {
-        // TODO Auto-generated method stub
+        createCube(new Vector3d(5, 0, 5), new Vector3d(1, 1, 1), this.basicMaterial(1, 1, 1));
     }
 
 }

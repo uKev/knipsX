@@ -40,10 +40,8 @@ public class JTableDiagram<M extends AbstractReportModel> extends JAbstractDiagr
         super(model, reportID);
 
         final AbstractTableModel dataModel = new AbstractTableModel() {
-            /**
-			 * 
-			 */
-            private static final long serialVersionUID = 1L;
+
+            private static final long serialVersionUID = -136606257319989327L;
 
             public int getColumnCount() {
                 return 10;

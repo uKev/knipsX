@@ -20,7 +20,8 @@ public class Selectable3DShape extends Shape3D {
     private Frequency3DPoint frequency3DPoint;
 
     /**
-     * Creates a Selectable3DShape object with the specified frequency3Dpoint
+     * Creates a Selectable3DShape object with the specified frequency3Dpoint,
+     * uses a sphere as geometry
      * 
      * @param frequency3DPoint the frequency3dpoint you want to assign
      */

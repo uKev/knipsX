@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -34,10 +35,13 @@ public class JTextDiagram<M extends TextModel> extends JAbstractDiagram<M> {
      */
     public JTextDiagram(final M model, final int reportID) {
         super(model, reportID);
-        this.textArea = new JTextArea("LOOL");
+        this.textArea = new JTextArea(this.model.getText());
+        this.textArea.setRows(20);
+        this.textArea.setColumns(20);
 
         final JPanel mainpanel = new JPanel();
         mainpanel.setLayout(new BoxLayout(mainpanel, BoxLayout.PAGE_AXIS));
+        mainpanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         mainpanel.add(this.textArea);
         mainpanel.add(new JDiagramButtonsPlain(this));
         this.add(mainpanel);
