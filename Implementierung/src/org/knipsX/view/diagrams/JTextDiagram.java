@@ -1,7 +1,6 @@
 package org.knipsX.view.diagrams;
 
 import java.awt.Component;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -18,10 +17,12 @@ import org.knipsX.model.reportmanagement.TextModel;
  * @author David Kaufman
  * 
  * @param <M>
+ *            a model which is connected to this view. Must be a child of TestModel.
  */
 public class JTextDiagram<M extends TextModel> extends JAbstractDiagram<M> {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 4077704582406078818L;
+
     private final JTextArea textArea;
 
     /**
@@ -35,6 +36,7 @@ public class JTextDiagram<M extends TextModel> extends JAbstractDiagram<M> {
      */
     public JTextDiagram(final M model, final int reportID) {
         super(model, reportID);
+
         this.textArea = new JTextArea(this.model.getText());
         this.textArea.setRows(20);
         this.textArea.setColumns(20);
@@ -45,6 +47,8 @@ public class JTextDiagram<M extends TextModel> extends JAbstractDiagram<M> {
         mainpanel.add(this.textArea);
         mainpanel.add(new JDiagramButtonsPlain(this));
         this.add(mainpanel);
+
+        /* set the size of the diagram based on the preferred size of its components */
         this.pack();
     }
 
@@ -55,11 +59,11 @@ public class JTextDiagram<M extends TextModel> extends JAbstractDiagram<M> {
 
     @Override
     public BufferedImage getDiagramScreenshot() {
-        final Rectangle d = this.textArea.getBounds();
-        final BufferedImage bi = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
-        final Graphics2D g2d = bi.createGraphics();
-        this.textArea.paint(g2d);
-        return bi;
+        final Rectangle bounds = this.textArea.getBounds();
+        final BufferedImage image = new BufferedImage(bounds.width, bounds.height, BufferedImage.TYPE_INT_RGB);
+
+        this.textArea.paint(image.createGraphics());
+        return image;
     }
 
     @Override
