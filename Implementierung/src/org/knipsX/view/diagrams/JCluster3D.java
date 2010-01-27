@@ -130,7 +130,7 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
             for (int i = 0; i < numberOfGradiations; ++i) {
 
                 /* define the colors for the HSB color model */
-                float hue = 136f;
+                float hue = 0.33f;
                 float saturation = 1f;
                 float brightness = (numberOfGradiations - i) * ((float) 1f / numberOfGradiations);
                 
