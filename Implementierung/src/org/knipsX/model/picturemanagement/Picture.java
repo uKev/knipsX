@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
 
-public class Picture implements PictureContainer, Comparable<Picture>, ImageObserver {
+public class Picture implements PictureContainer, ImageObserver {
     
     private File pictureFile;
 
@@ -160,15 +160,13 @@ public class Picture implements PictureContainer, Comparable<Picture>, ImageObse
         return bThumb;
     }
 
-    @Override
     public boolean imageUpdate(Image arg0, int arg1, int arg2, int arg3, int arg4, int arg5) {
         // TODO Auto-generated method stub
         return false;
     }
 
-    @Override
-    public int compareTo(Picture pictureToCompare) {
-        if (this.getPath().hashCode() == pictureToCompare.getPath().hashCode()){
+    public int compareTo(PictureContainer pictureToCompare) {
+        if (this.getPath().hashCode() == ((Picture) pictureToCompare).getPath().hashCode()){
             return 0;
         } else if (this.getName().compareTo(pictureToCompare.getName()) == 1) {
             return 1;
