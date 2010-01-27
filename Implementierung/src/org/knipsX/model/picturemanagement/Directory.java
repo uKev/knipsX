@@ -75,7 +75,6 @@ public class Directory implements PictureContainer {
         /* not implemented */
     }
 
-    @Override
     public int compareTo(PictureContainer directoryToCompare) {
         if (this.getPath().hashCode() == ((Directory) directoryToCompare).getPath().hashCode()) {
             return 0;

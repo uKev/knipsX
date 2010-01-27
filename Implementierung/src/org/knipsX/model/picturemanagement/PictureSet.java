@@ -79,7 +79,6 @@ public class PictureSet implements PictureContainer {
         return id;
     }
 
-    @Override
     public int compareTo(PictureContainer picturesetToCompare) {
         if (this.id == ((PictureSet) picturesetToCompare).getID()){
             return 0;
