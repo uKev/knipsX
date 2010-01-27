@@ -41,7 +41,7 @@ public class JTableDiagram<M extends AbstractReportModel> extends JAbstractDiagr
     public JTableDiagram(final M model, final int reportId) {
         super(model, reportId);
 
-        /* TODO when implementing the controller, we must set this to the right controller */
+        /* TODO when implementing the controller, we must set this to the right data */
         final AbstractTableModel dataModel = new AbstractTableModel() {
 
             private static final long serialVersionUID = -136606257319989327L;

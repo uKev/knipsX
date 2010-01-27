@@ -34,17 +34,17 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
      * @param model
      *            the model from which the drawing information is taken from
      * 
-     * @param reportID
+     * @param reportId
      *            the report id of the report
      */
-    public JCluster3D(final M model, final int reportID) {
-        super(model, reportID);
+    public JCluster3D(final M model, final int reportId) {
+        super(model, reportId);
     }
 
     @Override
     public void generateContent() {
 
-        // for (int i = 0; i <= this.model.getFrequency3DPoints().length; i++) {
+        /* TODO when implementing the controller, we must set this to the right data */
         for (int i = 0; i <= 200; i++) {
             final Random random = new Random();
 
@@ -54,10 +54,10 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
                     .nextDouble()
                     * this.axis3D[1].getAxisSize(), random.nextDouble() * this.axis3D[2].getAxisSize()));
 
-            // Create transformation group
+            /* create transformation group */
             final TransformGroup objData = new TransformGroup(dataTrans);
             objData.setCapability(PickInfo.PICK_GEOMETRY);
-            // objData.addChild(new Selectable3DShape(this.model.getFrequency3DPoints()[i]));
+
             Selectable3DShape selectableShape = new Selectable3DShape(null);
             float myfloat = (float) random.nextDouble();
             selectableShape.setAppearance(basicMaterial(myfloat, 2 * myfloat, myfloat));
@@ -66,67 +66,82 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
             this.objRoot.addChild(objData);
         }
 
+        /* setup y axis */
         this.axis3D[0].generateSegmentDescription(200, 900, 5);
-        this.axis3D[1].generateSegmentDescription(100, 600, 5);
-        this.axis3D[2].generateSegmentDescription(10, 20, 5);
+        this.axis3D[0].setAxis(new Axis("Test", ExifParameter.CAMERAMODEL));
 
-        this.axis3D[0].setAxis(new Axis("TEst", ExifParameter.CAMERAMODEL));
+        /* setup x axis */
+        this.axis3D[1].generateSegmentDescription(100, 600, 5);
         this.axis3D[1].setAxis(new Axis(ExifParameter.ISO));
+
+        /* setup z axis */
+        this.axis3D[2].generateSegmentDescription(10, 20, 5);
         this.axis3D[2].setAxis(new Axis(ExifParameter.FLASH));
 
+        /* set the left panel which shows you infos about a selected picture */
         this.leftPanel = new JPanel();
 
-        int[] test = new int[16];
-
-        for (int i = 0; i < test.length; i++) {
-            test[i] = i;
-        }
-
-        this.rightPanel = new GradientFrequencyPanel(test);
-
+        /* when the diagram first appears, no shape is selected */
         this.setCurrentDescription(null);
 
+        /* set the right panel which shows you infos about the amount of pictures behind a shape */
+        int[] test = new int[16];
+
+        for (int i = 0; i < test.length; ++i) {
+            test[i] = i;
+        }
+        this.rightPanel = new GradientFrequencyPanel(test);
     }
 
-    public class GradientFrequencyPanel extends JPanel {
+    /* represents a panel which shows us a gradiation of colors to show how many pictures behind a shape */
+    private class GradientFrequencyPanel extends JPanel {
 
         private static final long serialVersionUID = -8130052088314062751L;
+
         private static final int HEIGHT = 400;
         private static final int WIDTH = 75;
-        private int[] distribution;
         private static final int RIGHTSPACING = 10;
         private static final int TOPSPACING = 10;
+
         private static final double EPSILON = 17;
+
+        private int[] distribution;
 
         public GradientFrequencyPanel(int[] distribution) {
             this.distribution = distribution;
             this.setPreferredSize(new Dimension(125, 0));
-
         }
 
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            Graphics2D g2 = (Graphics2D) g;
+            final int numberOfGradiations = this.distribution.length;
+            
+            Graphics2D g2d = (Graphics2D) g;
 
-            g2.setPaint(Color.black);
-            g2.drawString("Häufigkeiten", GradientFrequencyPanel.RIGHTSPACING, GradientFrequencyPanel.TOPSPACING + 5);
+            g2d.setPaint(Color.black);
+            
+            /* INTERNATIONALIZE */
+            g2d.drawString("Häufigkeiten", GradientFrequencyPanel.RIGHTSPACING, GradientFrequencyPanel.TOPSPACING + 5);
 
-            double segmentSize = (double) GradientFrequencyPanel.HEIGHT / (double) this.distribution.length;
-            System.out.println(segmentSize);
+            double segmentSize = (double) GradientFrequencyPanel.HEIGHT / (double) numberOfGradiations;
 
-            for (int i = 0; i < this.distribution.length; i++) {
+            for (int i = 0; i < numberOfGradiations; ++i) {
 
-                float[] rgb = convertHSVtoRGB(136, 1f, (this.distribution.length - i)
-                        * ((float) 1 / this.distribution.length));
-                g2.setPaint(new Color(rgb[0], rgb[1], rgb[2]));
+                /* define the colors for the HSB color model */
+                float hue = 136f;
+                float saturation = 1f;
+                float brightness = (numberOfGradiations - i) * ((float) 1f / numberOfGradiations);
+                
+                /* convert to RGB color model and paint it */
+                g2d.setPaint(Color.getHSBColor(hue, saturation, brightness));
 
-                g2.fill(new Rectangle2D.Double(GradientFrequencyPanel.RIGHTSPACING + 25,
+                g2d.fill(new Rectangle2D.Double(GradientFrequencyPanel.RIGHTSPACING + 25,
                         GradientFrequencyPanel.TOPSPACING + segmentSize * (i) + 20, GradientFrequencyPanel.WIDTH,
                         segmentSize));
 
-                g2.setPaint(Color.black);
+                g2d.setPaint(Color.black);
 
                 boolean draw = false;
 
@@ -134,125 +149,16 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
                     draw = true;
 
                 } else {
-                    if (i == 0 || i == this.distribution.length - 1) {
+                    if (i == 0 || i == numberOfGradiations - 1) {
                         draw = true;
-
                     }
                 }
 
                 if (draw) {
-                    g2.drawString(Integer.toString(this.distribution[i]), GradientFrequencyPanel.RIGHTSPACING,
+                    g2d.drawString(Integer.toString(this.distribution[i]), GradientFrequencyPanel.RIGHTSPACING,
                             (int) (GradientFrequencyPanel.TOPSPACING + segmentSize * (i) + 20 + 0.66 * segmentSize));
                 }
-
-            }
-
-        }
-
-    }
-
-    /**
-     * Change an HSV color to RGB color. We don't bother converting the alpha
-     * as that stays the same regardless of color space.
-     * 
-     * Taken from the org.jscience.util package
-     * 
-     * @param h
-     *            The h component of the color
-     * @param s
-     *            The s component of the color
-     * @param v
-     *            The v component of the color
-     * 
-     * @return the r g b value
-     * 
-     *         Taken from
-     */
-    public float[] convertHSVtoRGB(float h, float s, float v) {
-
-        float r = 0;
-        float g = 0;
-        float b = 0;
-
-        if (s == 0) {
-            // this color in on the black white center line <=> h = UNDEFINED
-            if (Float.isNaN(h)) {
-                // Achromatic color, there is no hue
-                r = v;
-                g = v;
-                b = v;
-            }
-
-        } else {
-            if (h == 360) {
-                // 360 is equiv to 0
-                h = 0;
-            }
-
-            // h is now in [0,6)
-            h = h / 60;
-
-            int i = (int) Math.floor(h);
-            float f = h - i; // f is fractional part of h
-            float p = v * (1 - s);
-            float q = v * (1 - (s * f));
-            float t = v * (1 - (s * (1 - f)));
-
-            switch (i) {
-                case 0:
-                    r = v;
-                    g = t;
-                    b = p;
-
-                    break;
-
-                case 1:
-                    r = q;
-                    g = v;
-                    b = p;
-
-                    break;
-
-                case 2:
-                    r = p;
-                    g = v;
-                    b = t;
-
-                    break;
-
-                case 3:
-                    r = p;
-                    g = q;
-                    b = v;
-
-                    break;
-
-                case 4:
-                    r = t;
-                    g = p;
-                    b = v;
-
-                    break;
-
-                case 5:
-                    r = v;
-                    g = p;
-                    b = q;
-
-                    break;
-
-                default:
-                    break;
             }
         }
-
-        // now assign everything....
-        float[] rgb = new float[3];
-        rgb[0] = r;
-        rgb[1] = g;
-        rgb[2] = b;
-
-        return rgb;
     }
-
 }
