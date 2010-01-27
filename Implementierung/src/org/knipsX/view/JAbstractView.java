@@ -1,11 +1,9 @@
 package org.knipsX.view;
 
 import java.io.FileNotFoundException;
-import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import org.knipsX.model.AbstractModel;

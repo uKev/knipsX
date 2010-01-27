@@ -238,23 +238,25 @@ public class Boxplot {
     double quantile(ArrayList<Double> values, double p){
         assert isSorted(values);
         
-        assert p > 0;
-        // TWEAK allow p == 0
-        
-        
         double quantile = 0;
         
-        int valuesSize = values.size();
-        
         // here are small symbols better to read than long ones
-        double q = 1.0/p;
         int s = values.size();
         
-        if (valuesSize % q == 0){
-            quantile = (( (double)values.get((int)( (s-1) / q )) ) + ((double)values.get( (int)(( s ) / q)))) / 2;
+        // Epsilon
+        double e = 0.000001;
+        int k = (int) (p*((double)s));
+        
+        // s * p is element of N
+        if (((s*p) % 1) < e && ((s*p)%1) > (-e) ){
+            
+            quantile = (( (double)values.get( k-1 )) + ( (double)values.get(k)) ) / 2;
+        
         }
         else {
-            quantile = (double)values.get((int)(( s )/q));
+            // s * p is not an element of N
+            quantile = (double)values.get(k);
+        
         }
          
         return quantile;

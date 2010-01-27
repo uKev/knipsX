@@ -6,6 +6,8 @@ import java.util.List;
 public class PictureSet implements PictureContainer {
 
     private List<PictureContainer> childs = new ArrayList<PictureContainer>();
+    
+    private List<Picture> inactivePictures = new ArrayList<Picture>();
 
     private int id;
 
@@ -24,8 +26,23 @@ public class PictureSet implements PictureContainer {
         this.childs = pictureSetToCopy.getItems();
     }
 
-    public boolean add(PictureContainer container) {
-        return childs.add(container);
+    public boolean addToChilds(PictureContainer container) {
+        if(childs.contains(container)){
+            System.out.println("Element is already in the PictureSet");        
+            return false;
+        }else{
+            if (container instanceof PictureSet){
+                if (this.id == ((PictureSet)container).getID()){
+                    System.out.println("Can´t add PictureSet");
+                    return false;
+                }else {
+                    return childs.add(container);
+                }
+                
+            }else{
+                return childs.add(container); 
+            }
+        }      
     }
 
     public boolean remove(PictureContainer container) {
@@ -57,8 +74,18 @@ public class PictureSet implements PictureContainer {
     public String getName() {
         return name;
     }
+    
+    public int getID(){
+        return id;
+    }
 
-    public void setName(String name) {
-        this.name = name;
+    public int compareTo(PictureContainer picturesetToCompare) {
+        if (this.id == ((PictureSet) picturesetToCompare).getID()){
+            return 0;
+        } else if (this.getName().compareTo(picturesetToCompare.getName()) == 1) {
+            return 1;
+        } else {
+            return -1; 
+        }
     }
 }

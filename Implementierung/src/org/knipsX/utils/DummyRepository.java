@@ -34,15 +34,15 @@ public class DummyRepository implements Repository {
         /* create some dummy picture containers and add to the picture set */
         Picture dummyPicture = new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
                 + File.separator + "DSC00964.JPG", true);
-        dummyPictureSet.add(dummyPicture);
+        dummyPictureSet.addToChilds(dummyPicture);
 
         Directory dummyDirectory = new Directory(System.getProperty("user.dir") + File.separator + "testbilder"
                 + File.separator + "testordner");
-        dummyDirectory.setName("Urlaubsbilder");
-        dummyPictureSet.add(dummyDirectory);
+        
+        dummyPictureSet.addToChilds(dummyDirectory);
 
-        dummyPictureSet.add(new PictureSet("Grillfest", 10));
-        dummyPictureSet.add(new PictureSet("SuperGoldfische", 11));
+        dummyPictureSet.addToChilds(new PictureSet("Grillfest", 10));
+        dummyPictureSet.addToChilds(new PictureSet("SuperGoldfische", 11));
 
         /* add to list */
         pictureSetList.add(dummyPictureSet);

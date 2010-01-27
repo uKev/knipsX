@@ -1,6 +1,5 @@
 package org.knipsX.model.projectview;
 
-import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -401,7 +400,7 @@ public class ProjectModel extends AbstractModel {
         assert (set != null) && (set instanceof PictureSet);
         assert (container != null) && (container instanceof PictureContainer);
 
-        return set.add(container);
+        return set.addToChilds(container);
     }
 
     /**

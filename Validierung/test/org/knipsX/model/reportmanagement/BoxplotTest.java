@@ -169,7 +169,7 @@ public class BoxplotTest {
          * 2
          */
         
-        assertEquals("Median kaputt", 2.0, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0)), 0.5), 0.00001);
+        assertEquals("Median kaputt", 2.0, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0)), 0.5), 0.000001);
         
         /*
          * R:
@@ -178,7 +178,7 @@ public class BoxplotTest {
          * 50%
          * 2.5 
          */
-        assertEquals("Median kaputt", 2.5, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 4.0)), 0.5), 0.00001);
+        assertEquals("Median kaputt", 2.5, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 4.0)), 0.5), 0.000001);
         
         /*
          * R:
@@ -189,29 +189,29 @@ public class BoxplotTest {
          * 50%
          * 4.5
          */
-        assertEquals("Median kaputt", 4.5, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(2.0, 3.0, 4.0, 5.0, 7.0, 9.0)), 0.5), 0.00001);
-        
+        assertEquals("Median kaputt", 4.5, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(2.0, 3.0, 4.0, 5.0, 7.0, 9.0)), 0.5), 0.000001);
+
         /*
          * R:
          * > elements <- sample(1:10, 6, replace=F)
          * > elements
          * [1] 4 3 2 9 5 7
-         * > quantile(elements, prob=0.5)
+         * > quantile(elements, prob=0.25, type=5)
          * 25%
-         * 3.25 
+         * 3 
          */
-        assertEquals("Lower Quartile with even number", 3.25, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(2.0, 3.0, 4.0, 5.0, 7.0, 9.0)), 0.25), 0.00001);
+        assertEquals("Lower Quartile with even number", 3, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(2.0, 3.0, 4.0, 5.0, 7.0, 9.0)), 0.25), 0.000001);
         
         /*
          * R:
          * > elements <- sample(1:15, 11, replace=F)
          * > elements
          * [1] 13 15 10  6  1 12  2 11  7  5  3
-         * > quantile(elements, prob=0.5)
+         * > quantile(elements, prob=0.25, type=5)
          * 25%
-         * 4
+         * 3.5
          */
-        assertEquals("Lower Quartile with uneven number", 4, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 5.0, 6.0, 7.0, 10.0, 11.0, 12.0,13.0, 15.0)), 0.25), 0.00001);
+        assertEquals("Lower Quartile with uneven number", 3.5, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 5.0, 6.0, 7.0, 10.0, 11.0, 12.0,13.0, 15.0)), 0.25), 0.000001);
         
     }
 
