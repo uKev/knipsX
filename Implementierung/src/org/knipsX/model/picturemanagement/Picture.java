@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
 
-public class Picture implements PictureContainer, Comparable<Picture>, ImageObserver {
+public class Picture implements PictureContainer, ImageObserver {
     
     private File pictureFile;
 
@@ -167,8 +167,8 @@ public class Picture implements PictureContainer, Comparable<Picture>, ImageObse
     }
 
     @Override
-    public int compareTo(Picture pictureToCompare) {
-        if (this.getPath().hashCode() == pictureToCompare.getPath().hashCode()){
+    public int compareTo(PictureContainer pictureToCompare) {
+        if (this.getPath().hashCode() == ((Picture) pictureToCompare).getPath().hashCode()){
             return 0;
         } else if (this.getName().compareTo(pictureToCompare.getName()) == 1) {
             return 1;
