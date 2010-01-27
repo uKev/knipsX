@@ -39,7 +39,7 @@ public class UsingJAXBTest1 {
             unmarshaller.setValidating(true);
 
             Collection collection= (Collection)
-                     unmarshaller.unmarshal(new File("books.xml"));
+                     unmarshaller.unmarshal(new File( "books.xml"));
 
             CollectionType.BooksType booksType = collection.getBooks();
             List bookList = booksType.getBook();

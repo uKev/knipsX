@@ -7,8 +7,6 @@ import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.utils.ExifParameter;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
 /**
  * Represents the boxplot with all parts containing to it and calculate them.
  * This is:
@@ -161,18 +159,7 @@ public class Boxplot {
     private double calculateMedian(ArrayList<Double> values) {
         assert isSorted(values);
         
-        double median;
-        
-        int valuesSize = values.size();
-        
-        if (valuesSize % 2 == 0){
-            median = (((double)values.get((values.size()/2))) + ((double)values.get((values.size()/2)))) / 2;
-        }
-        else {
-            median = (double)values.get((values.size()+1)/2);
-        }
-        
-        return median;
+        return this.quantile(values, 0.5);
     }
 
     private double calculateMean(ArrayList<Double> values) {
