@@ -160,13 +160,11 @@ public class Picture implements PictureContainer, Comparable<Picture>, ImageObse
         return bThumb;
     }
 
-    @Override
     public boolean imageUpdate(Image arg0, int arg1, int arg2, int arg3, int arg4, int arg5) {
         // TODO Auto-generated method stub
         return false;
     }
 
-    @Override
     public int compareTo(Picture pictureToCompare) {
         if (this.getPath().hashCode() == pictureToCompare.getPath().hashCode()){
             return 0;

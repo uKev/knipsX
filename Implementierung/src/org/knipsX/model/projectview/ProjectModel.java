@@ -1,6 +1,5 @@
 package org.knipsX.model.projectview;
 
-import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
