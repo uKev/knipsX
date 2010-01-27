@@ -10,57 +10,24 @@ public class Directory implements PictureContainer {
 
     private int currentPosition;
 
-    private String directoryName;
-
-    private String path;
+    private File directoryFile;
 
     public Directory(String path) {
-        this.path = path;
-        this.directoryName = path;
-    }
-
-    private void getAllPictures(File file) {
-        if (file.isDirectory()) {
-            File[] children = file.listFiles();
-            for (int i = 0; i < children.length; i++) {
-                getAllPictures(children[i]);
-            }
-        } else {
-            this.pictures.add(new Picture(file,true));
-        }
-    }
-
-    public List<Picture> getItems() {
-        if (this.pictures.size() == 0) {
-            this.currentPosition = 0;
-            this.getAllPictures(new File(path));
-        }
-        
-        return new LinkedList<Picture>(this.pictures);
+        this.directoryFile = new File(path);
     }
 
     public String getName() {
-        return directoryName;
+        return directoryFile.getName();
     }
 
-    public void setName(String name) {
-        this.directoryName = name;
+    public String getPath() {
+        return directoryFile.getAbsolutePath();
     }
-
-    public boolean hasNext() {
-        if (this.pictures.size() == 0) {
-            this.currentPosition = 0;
-            this.getAllPictures(new File(path));
-        }
-
-        /* check if next item is in list */
-        return (currentPosition++) <= (this.pictures.size() - 1);
-    }
-
+    
     public PictureContainer next() {
         if (this.pictures.size() == 0) {
             this.currentPosition = 0;
-            this.getAllPictures(new File(path));
+            this.getAllPictures(directoryFile);
         }
 
         PictureContainer picture = this.pictures.get(currentPosition);
@@ -70,7 +37,52 @@ public class Directory implements PictureContainer {
         return picture;
     }
 
-    public void remove() { 
+    public boolean hasNext() {
+        if (this.pictures.size() == 0) {
+            this.currentPosition = 0;
+            this.getAllPictures(directoryFile);
+        }
+
+        /* check if next item is in list */
+        return (currentPosition++) <= (this.pictures.size() - 1);
+    }
+
+    public List<Picture> getItems() {
+        if (this.pictures.size() == 0) {
+            this.currentPosition = 0;
+            this.getAllPictures(directoryFile);
+        }
+
+        return new LinkedList<Picture>(this.pictures);
+    }
+
+
+    private void getAllPictures(File file) {
+        if (file.isDirectory()) {
+            File[] children = file.listFiles();
+            for (int i = 0; i < children.length; i++) {
+                getAllPictures(children[i]);
+            }
+        } else {
+            this.pictures.add(new Picture(file, true));
+        }
+    }
+
+    /**
+     * This method should not be implemented. This function is illegal.
+     */
+    public void remove() {
         /* not implemented */
+    }
+
+    @Override
+    public int compareTo(PictureContainer directoryToCompare) {
+        if (this.getPath().hashCode() == ((Directory) directoryToCompare).getPath().hashCode()) {
+            return 0;
+        } else if (this.getName().compareTo(directoryToCompare.getName()) == 1) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }
