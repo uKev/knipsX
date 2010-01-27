@@ -1,7 +1,6 @@
 package org.knipsX.view.diagrams;
 
 import java.awt.Component;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -22,23 +21,27 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
  */
 public class JTableDiagram<M extends AbstractReportModel> extends JAbstractDiagram<M> {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2423794061738381566L;
+
     private final JTable table;
+
     private final JScrollPane scrollpane;
+
     private final JPanel mainpanel;
 
     /**
      * Constructor
      * 
      * @param model
-     *            the model from which the drawing information is taken from
+     *            the model from which the drawing information is taken from.
      * 
-     * @param reportID
-     *            the report id of the report
+     * @param reportId
+     *            the report id of the report.
      */
-    public JTableDiagram(final M model, final int reportID) {
-        super(model, reportID);
+    public JTableDiagram(final M model, final int reportId) {
+        super(model, reportId);
 
+        /* TODO when implementing the controller, we must set this to the right controller */
         final AbstractTableModel dataModel = new AbstractTableModel() {
 
             private static final long serialVersionUID = -136606257319989327L;
@@ -57,14 +60,17 @@ public class JTableDiagram<M extends AbstractReportModel> extends JAbstractDiagr
         };
 
         this.table = new JTable(dataModel);
+
         this.scrollpane = new JScrollPane(this.table);
+
         this.mainpanel = new JPanel();
         this.mainpanel.setLayout(new BoxLayout(this.mainpanel, BoxLayout.PAGE_AXIS));
         this.mainpanel.add(this.scrollpane);
         this.mainpanel.add(new JDiagramButtonsPlain(this));
         this.add(this.mainpanel);
-        this.pack();
 
+        /* set the size of the diagram based on the preferred size of its components */
+        this.pack();
     }
 
     @Override
@@ -74,15 +80,17 @@ public class JTableDiagram<M extends AbstractReportModel> extends JAbstractDiagr
 
     @Override
     public BufferedImage getDiagramScreenshot() {
-        final Rectangle d = this.table.getBounds();
-        final BufferedImage bi = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
-        final Graphics2D g2d = bi.createGraphics();
-        this.table.paint(g2d);
-        return bi;
+        final Rectangle bounds = this.table.getBounds();
+        final BufferedImage image = new BufferedImage(bounds.width, bounds.height, BufferedImage.TYPE_INT_RGB);
+
+        this.table.paint(image.createGraphics());
+        return image;
     }
 
     @Override
     public void showDiagram() {
+
+        /* set the diagramm to the center of the screen */
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
