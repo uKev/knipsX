@@ -34,12 +34,12 @@ public class UsingJAXBTest1 {
 
     public static void main (String args[]) {
         try {
-            JAXBContext jc = JAXBContext.newInstance("work.test.jaxb");
+            JAXBContext jc = JAXBContext.newInstance("test.jaxb");
             Unmarshaller unmarshaller = jc.createUnmarshaller();
             unmarshaller.setValidating(true);
 
             Collection collection= (Collection)
-                     unmarshaller.unmarshal(new File("books.xml"));
+                     unmarshaller.unmarshal(new File( "books.xml"));
 
             CollectionType.BooksType booksType = collection.getBooks();
             List bookList = booksType.getBook();
