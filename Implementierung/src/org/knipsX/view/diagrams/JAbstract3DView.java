@@ -310,12 +310,12 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
             if (i == 0) {
                 axisTrans.rotX(90 * Math.PI / 180.0d);
-                axisTrans.setTranslation(new Vector3d(0, 0, this.axis3D[0].getAxisSize() / 2.0));
-                axisTrans.setScale(new Vector3d(0.15d, this.axis3D[0].getAxisSize(), 0.15d));
+                axisTrans.setTranslation(new Vector3d(0, 0, this.axis3D[1].getAxisSize() / 2.0));
+                axisTrans.setScale(new Vector3d(0.15d, this.axis3D[1].getAxisSize(), 0.15d));
             } else if (i == 1) {
                 axisTrans.rotY(90 * Math.PI / 180.0d);
-                axisTrans.setTranslation(new Vector3d(0, this.axis3D[1].getAxisSize() / 2.0, 0));
-                axisTrans.setScale(new Vector3d(0.15d, this.axis3D[1].getAxisSize(), 0.15d));
+                axisTrans.setTranslation(new Vector3d(0, this.axis3D[0].getAxisSize() / 2.0, 0));
+                axisTrans.setScale(new Vector3d(0.15d, this.axis3D[0].getAxisSize(), 0.15d));
             } else {
                 axisTrans.rotZ(90 * Math.PI / 180.0d);
                 axisTrans.setTranslation(new Vector3d(this.axis3D[2].getAxisSize() / 2.0, 0, 0));
@@ -340,22 +340,21 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             for (int i = 1; i < this.axis3D[q].getNumberOfSegments(); i++) {
                 final Transform3D segment = new Transform3D();
 
+                final double normDistance = i * this.axis3D[q].getSegmentSize();
+                
                 if (q == 0 && this.axis3D[0].isShowSegments()) {
-                    final double normDistance = i * this.axis3D[0].getSegmentSize();
                     segment.rotX(90 * Math.PI / 180.0d);
                     segment.setTranslation(new Vector3d(0, normDistance, 0));
-                } else if (q == 1 && this.axis3D[1].isShowSegments()) {
-                    final double normDistance = i * this.axis3D[1].getSegmentSize();
+                } else if (q == 1 && this.axis3D[1].isShowSegments()) {                    
                     segment.rotY(90 * Math.PI / 180.0d);
                     segment.setTranslation(new Vector3d(0, 0, normDistance));
-                } else if (q == 2 && this.axis3D[2].isShowSegments()) {
-                    final double normDistance = i * this.axis3D[2].getSegmentSize();
+                } else if (q == 2 && this.axis3D[2].isShowSegments()) {                    
                     segment.rotX(0 * Math.PI / 180.0d);
                     segment.setTranslation(new Vector3d(normDistance, 0, 0));
                 }
 
-                if (this.axis3D[0].isShowSegments() || this.axis3D[1].isShowSegments()
-                        || this.axis3D[2].isShowSegments()) {
+                
+                if (this.axis3D[0].isShowSegments() || this.axis3D[1].isShowSegments() || this.axis3D[2].isShowSegments()) {
                     final TransformGroup objSeg = new TransformGroup(segment);
                     final Box myAxisGeo = new Box(0.0125f, 0.25f, 0.0125f, 1, this.basicMaterial(1f, 1f, 1f));
                     objSeg.addChild(myAxisGeo);
@@ -371,25 +370,23 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             /* The ratio between cone length and axis size*/
             final float percentage = 1.0f / 20.0f;
 
-            if (i == 0) {
-                final double normDistance = 0.5 * this.axis3D[0].getAxisSize() * percentage
-                        + this.axis3D[0].getAxisSize();
+            final double normDistance = 0.5 * this.axis3D[i].getAxisSize() * percentage + this.axis3D[i].getAxisSize();
+            
+            if (i == 1) {
                 coneTransformation.rotX(90 * Math.PI / 180.0d);
                 coneTransformation.setTranslation(new Vector3d(0, 0, normDistance));
-                axisArrow = new Cone(0.125f, (float) this.axis3D[0].getAxisSize() * percentage, this.basicMaterial(0,
+                axisArrow = new Cone(0.125f, (float) this.axis3D[i].getAxisSize() * percentage, this.basicMaterial(0,
                         0, 0));
-            } else if (i == 1) {
-                final double normDistance = 0.5 * this.axis3D[1].getAxisSize() * percentage
-                        + this.axis3D[1].getAxisSize();
+            } else if (i == 0) {
+
                 coneTransformation.setTranslation(new Vector3d(0, normDistance, 0));
-                axisArrow = new Cone(0.125f, (float) this.axis3D[1].getAxisSize() * percentage, this.basicMaterial(0,
+                axisArrow = new Cone(0.125f, (float) this.axis3D[i].getAxisSize() * percentage, this.basicMaterial(0,
                         0, 0));
             } else if (i == 2) {
-                final double normDistance = 0.5 * this.axis3D[2].getAxisSize() * percentage
-                        + this.axis3D[2].getAxisSize();
+
                 coneTransformation.rotZ(270 * Math.PI / 180.0d);
                 coneTransformation.setTranslation(new Vector3d(normDistance, 0, 0));
-                axisArrow = new Cone(0.125f, (float) this.axis3D[2].getAxisSize() * percentage, this.basicMaterial(0,
+                axisArrow = new Cone(0.125f, (float) this.axis3D[i].getAxisSize() * percentage, this.basicMaterial(0,
                         0, 0));
             }
 

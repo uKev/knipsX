@@ -47,27 +47,31 @@ public class JBoxplot<M extends AbstractReportModel> extends JAbstract2DDiagram<
         double[] outlier = {75, 76, 85, 90};
         
         
-        Boxplot boxplot = new Boxplot(0.2784033, 10, 12.31617, -25 , 73.23535, -46.98489, outlier, 90,  -50, "BLA");        
+        
         
 
         
-        Boxplot[] myboxplot = new Boxplot[42];
+        Boxplot[] myboxplot = new Boxplot[20];
         
         for (int p = 0; p < myboxplot.length; p++) {
-            myboxplot[p] = boxplot;
+            myboxplot[p] = new Boxplot(0.2784033, 10, 12.31617, -25 , 73.23535, -46.98489, outlier, 90,  -50, "BLA");
         }        
         
+        Boxplot boxplot = myboxplot[0];
         
         this.minValue = boxplot.getMinValue();
         this.maxValue = boxplot.getMaxValue();
-        
-        double whiskerScale = 0.05;
-        double whiskerScaleWidth = 1;
-        double boxWidth = 0.5;
+        this.axis3D[1].setAxisSize(Math.max(myboxplot.length, 10));
+
         
         double boxplotSpacing = this.axis3D[1].getAxisSize() /  (double) myboxplot.length;
         double range = Math.abs(boxplot.getMaxValue()) + Math.abs(boxplot.getMinValue());
         double scaleFactor = this.axis3D[0].getAxisSize() / range;
+        
+        double correctionFactor =  Math.min(boxplotSpacing / 2.0d, 1);
+        double whiskerScale = 0.05 * correctionFactor;
+        double whiskerScaleWidth = 0.5 * correctionFactor;
+        double boxWidth = 0.5 * correctionFactor;
         
         for (int i = 0; i < myboxplot.length; i++) {
             double interquartileRange = Math.abs(myboxplot[i].getUpperQuartile()) + Math.abs(myboxplot[i].getLowerQuartile());
@@ -110,7 +114,7 @@ public class JBoxplot<M extends AbstractReportModel> extends JAbstract2DDiagram<
         
         
         this.axis3D[0].generateSegmentDescription(boxplot.getMinValue(), boxplot.getMaxValue(), 8);
-        this.axis3D[1].generateSegmentDescription(null, null, 2);
+        this.axis3D[1].generateSegmentDescription(null, null, myboxplot.length + 1);
 
     }
 
