@@ -21,7 +21,6 @@ public abstract class AbstractReportModel extends AbstractModel {
     private String reportDescription;
     // Tags of pictures that will be filtered
     private ArrayList<String> exifFilterKeywords;
-    private int reportID;
 
     /**
      * Constructor for the AbstractReportModel
@@ -76,7 +75,7 @@ public abstract class AbstractReportModel extends AbstractModel {
      * @param reportName
      *            the name of the report
      * @param reportDescription
-     *            a description of a reprot
+     *            a description of a report
      * @param exifFilterKeywords
      *            keywords which must be in every picture for the report
      */
@@ -160,14 +159,6 @@ public abstract class AbstractReportModel extends AbstractModel {
         return this.reportDescription;
     }
 
-    /**
-     * Getter for the ID of the report
-     * 
-     * @return the ID of the report.
-     */
-    public int getReportID() {
-        return this.reportID;
-    }
 
     /**
      * Getter for the name of the report.
