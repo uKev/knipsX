@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -105,9 +106,7 @@ public class Picture implements PictureContainer, ImageObserver {
         return pictureFile.getName();
     }
 
-    // wird fÃ¼r die statistischen Auswertungen benÃ¶tigt kann sein das hier ordinal die falsche zahl zurÃ¼ckgibt
     public Object getExifParameter(ExifParameter exifParameter) {      
-        
         return getAllExifParameter()[exifParameter.ordinal()][1];
     }
 
@@ -159,10 +158,9 @@ public class Picture implements PictureContainer, ImageObserver {
 
         if (width >= height) {
             width = maxWidthOrHight;
-            height = -1; // negative HÃ¶he bedeutet, dass diese HÃ¶he dem SeitenverhÃ¤ltnis entsprechend an die neue Breite
-            // angepasst wird.
+            height = -1; 
         } else {
-            width = -1; // negative breite: Breite wird dem SeitenverhÃ¤ltnis entsprechend an die neue HÃ¶he angepasst.
+            width = -1;
             height = maxWidthOrHight;
         }
 
@@ -178,13 +176,17 @@ public class Picture implements PictureContainer, ImageObserver {
         return false;
     }
 
-    public int compareTo(PictureContainer pictureToCompare) {
-        if (this.getPath().hashCode() == ((Picture) pictureToCompare).getPath().hashCode()){
+	public Iterator<Picture> iterator() {
+		return this;
+	}
+
+	public int compareTo(PictureContainer pictureToCompare) {
+		if (this.getPath().hashCode() == ((Picture) pictureToCompare).getPath().hashCode()){
             return 0;
         } else if (this.getName().compareTo(pictureToCompare.getName()) == 1) {
             return 1;
         } else {
             return -1; 
-        }      
-    }
+        } 
+	}
 }

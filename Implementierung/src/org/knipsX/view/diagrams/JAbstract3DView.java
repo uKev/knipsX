@@ -1,6 +1,7 @@
 package org.knipsX.view.diagrams;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -56,9 +57,6 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
 /**
  * This class manages all java 3d interactions and offers methods than simplify the
  * utilization of the java 3d functions significantly.
- * 
- * Note that when passing transformation information the order of axis 
- * is z, y and then x  
  * 
  * @author David Kaufman
  * 
@@ -144,6 +142,12 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      * The pick canvas which realizes object picking in the 3D view
      */
     private PickCanvas pickCanvas;
+    
+    
+    /**
+     * The root transform group
+     */
+    protected TransformGroup rootTransform;
 
     /**
      * Specifies if the grid should be drawn
@@ -163,8 +167,13 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         super(model, reportID);
 
         /* Initialize the object root branch group. All elements are in the view are added to this group */
-        this.objRoot = new BranchGroup();
-
+        this.objRoot = new BranchGroup(); 
+        
+        
+        /* Initialize the root transform group */
+        this.rootTransform = new TransformGroup();
+        this.rootTransform.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
+        
         /* Initialize the canvas 3D */
         this.canvas3D = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
 
@@ -203,14 +212,14 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             }
             dir.normalize();
             dLight.setDirection(dir);
-            this.objRoot.addChild(dLight);
+            this.rootTransform.addChild(dLight);
         }
 
         /* ambient light */
         final AmbientLight aLight = new AmbientLight();
         aLight.setInfluencingBounds(new BoundingSphere(new Point3d(0.0d, 0.0d, 0.0d), Double.MAX_VALUE));
         aLight.setColor(new Color3f(1.0f, 1.0f, 1.0f));
-        this.objRoot.addChild(aLight);
+        this.rootTransform.addChild(aLight);
 
     }
 
@@ -232,6 +241,24 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         mat.setShininess(100.0f);
         mat.setDiffuseColor(new Color3f(r, g, b));
         mat.setSpecularColor(new Color3f(r, g, b));
+        a.setMaterial(mat);
+        return a;
+    }
+    
+    /**
+     * Creates a basicMaterial with the specified color
+     * 
+     * @param color
+     *            the color of the material
+     * 
+     * @return the appearance object with the specified color
+     */
+    protected Appearance basicMaterial(Color color) {
+        final Appearance a = new Appearance();
+        final Material mat = new Material();
+        mat.setShininess(100.0f);
+        mat.setDiffuseColor(new Color3f(color));
+        mat.setSpecularColor(new Color3f(color));
         a.setMaterial(mat);
         return a;
     }
@@ -332,7 +359,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             objAxis.addChild(myAxisGeo);
 
             /* Add both groups to the root */
-            this.objRoot.addChild(objAxis);
+            this.rootTransform.addChild(objAxis);
         }
 
         /* Create ticks for each axis */
@@ -354,11 +381,11 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
                 }
 
                 
-                if (this.axis3D[0].isShowSegments() || this.axis3D[1].isShowSegments() || this.axis3D[2].isShowSegments()) {
+                if (this.axis3D[q].isShowSegments()) {
                     final TransformGroup objSeg = new TransformGroup(segment);
                     final Box myAxisGeo = new Box(0.0125f, 0.25f, 0.0125f, 1, this.basicMaterial(1f, 1f, 1f));
                     objSeg.addChild(myAxisGeo);
-                    this.objRoot.addChild(objSeg);
+                    this.rootTransform.addChild(objSeg);
                 }
             }
         }
@@ -392,7 +419,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
             final TransformGroup axisArrowTG = new TransformGroup(coneTransformation);
             axisArrowTG.addChild(axisArrow);
-            this.objRoot.addChild(axisArrowTG);
+            this.rootTransform.addChild(axisArrowTG);
 
         }
 
@@ -410,7 +437,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         final Background hg = new Background();
         hg.setColor(color);
         hg.setApplicationBounds(riesenkugel);
-        this.objRoot.addChild(hg);
+        this.rootTransform.addChild(hg);
     }
 
     /**
@@ -427,7 +454,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         final TransformGroup objMove = this.createTransformGroup(position, scale);
         final Box myBox = new Box(1, 1, 1, material);
         objMove.addChild(myBox);
-        this.objRoot.addChild(objMove);
+        this.rootTransform.addChild(objMove);
     }
 
     /**
@@ -473,7 +500,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             }
         }
 
-        this.objRoot.addChild(gridtransform);
+        this.rootTransform.addChild(gridtransform);
 
     }
 
@@ -544,7 +571,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         final TransformGroup objMove = this.createTransformGroup(position, scale);
         final Sphere mySphere = new Sphere(1, Primitive.GENERATE_NORMALS, JAbstract3DView.GEODETAIL, material);
         objMove.addChild(mySphere);
-        this.objRoot.addChild(objMove);
+        this.rootTransform.addChild(objMove);
     }
 
     /**
@@ -589,7 +616,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             objMove.addChild(textShape);
         }
 
-        this.objRoot.addChild(objMove);
+        this.rootTransform.addChild(objMove);
     }
 
     /**
@@ -686,8 +713,11 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
                 .getDescription());
 
         /* Create the off-screen Canvas3D object */
-        this.createOffScreenCanvas(this.canvas3D);
-
+        this.createOffScreenCanvas(this.canvas3D);       
+        
+        /* Add the root transforum group to the object root */
+        this.objRoot.addChild(this.rootTransform);
+        
         /* Add scene to branch graph */
         this.simpleU.addBranchGraph(this.objRoot);
 
@@ -790,12 +820,12 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
         if (this.numberOfAxes >= 1 && this.axis3D[0].isShowSegments()) {
             /* Create the y Axis */
-            final String[] xAxis = this.axis3D[0].getSegmentDescription();
+            final String[] yAxis = this.axis3D[0].getSegmentDescription();
 
-            for (int q = 0; q < xAxis.length; q++) {
-                if (xAxis[q] != null) {
+            for (int q = 0; q < yAxis.length; q++) {
+                if (yAxis[q] != null) {
                     this.createText(new Vector3d(0, q * this.axis3D[0].getSegmentSize(), -0.75d), new Vector3d(size,
-                            size, size), this.basicMaterial(1, 1, 1), xAxis[q]);
+                            size, size), this.basicMaterial(1, 1, 1), yAxis[q]);
                 }
 
             }
@@ -803,24 +833,24 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
         if (this.numberOfAxes >= 2 && this.axis3D[1].isShowSegments()) {
             /* Create the x Axis */
-            final String[] zAxis = this.axis3D[1].getSegmentDescription();
+            final String[] xAxis = this.axis3D[1].getSegmentDescription();
 
-            for (int q = 0; q < zAxis.length; q++) {
-                if (zAxis[q] != null) {
+            for (int q = 0; q < xAxis.length; q++) {
+                if (xAxis[q] != null) {
                     this.createText(new Vector3d(0, -0.75d, q * this.axis3D[1].getSegmentSize()), new Vector3d(size,
-                            size, size), this.basicMaterial(1, 1, 1), zAxis[q]);
+                            size, size), this.basicMaterial(1, 1, 1), xAxis[q]);
                 }
             }
         }
 
         if (this.numberOfAxes >= 3 && this.axis3D[2].isShowSegments()) {
             /* Create the z Axis */
-            final String[] yAxis = this.axis3D[2].getSegmentDescription();
+            final String[] zAxis = this.axis3D[2].getSegmentDescription();
 
-            for (int q = 0; q < yAxis.length; q++) {
-                if (yAxis[q] != null) {
+            for (int q = 0; q < zAxis.length; q++) {
+                if (zAxis[q] != null) {
                     this.createText(new Vector3d(q * this.axis3D[2].getSegmentSize(), -0.5d, -0.5d), new Vector3d(size,
-                            size, size), this.basicMaterial(1, 1, 1), yAxis[q]);
+                            size, size), this.basicMaterial(1, 1, 1), zAxis[q]);
                 }
             }
         }

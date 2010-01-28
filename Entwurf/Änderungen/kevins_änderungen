@@ -21,4 +21,7 @@
 	* AbstractSingleAxisModel
 		+ Konstruktor hinzugefügt
 		* Konstruktor verändert
-	
+2010-01-28
+	* AbstractReportModel
+		- getReportID()
+

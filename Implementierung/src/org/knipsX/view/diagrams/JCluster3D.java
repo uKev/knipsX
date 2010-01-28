@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import javax.media.j3d.PickInfo;
@@ -13,8 +15,8 @@ import javax.media.j3d.TransformGroup;
 import javax.swing.JPanel;
 import javax.vecmath.Vector3d;
 
-import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.Axis;
+import org.knipsX.model.reportmanagement.Cluster3DModel;
 import org.knipsX.utils.ExifParameter;
 
 /**
@@ -24,7 +26,7 @@ import org.knipsX.utils.ExifParameter;
  * 
  * @param <M>
  */
-public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagram<M> {
+public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> {
 
     private static final long serialVersionUID = -2802017414318945810L;
 
@@ -44,6 +46,22 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
     @Override
     public void generateContent() {
 
+        
+        //TODO uncomment when frequency3d point are implemented
+        
+        ArrayList<Integer> typesOfPoints = new ArrayList<Integer>();        
+        
+        for (int i = 0; i < this.model.getFrequency3DPoints().length; i++) {
+            if (!typesOfPoints.contains(this.model.getFrequency3DPoints()[i].getPictures().length)) {
+                typesOfPoints.add(this.model.getFrequency3DPoints()[i].getPictures().length);
+            }
+        }
+        
+        assert typesOfPoints.size() > 0;
+        
+        Collections.sort(typesOfPoints);        
+        
+        
         /* TODO when implementing the controller, we must set this to the right data */
         for (int i = 0; i <= 200; i++) {
             final Random random = new Random();
@@ -84,16 +102,11 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
         /* when the diagram first appears, no shape is selected */
         this.setCurrentDescription(null);
 
-        /* set the right panel which shows you infos about the amount of pictures behind a shape */
-        int[] test = new int[16];
-
-        for (int i = 0; i < test.length; ++i) {
-            test[i] = i;
-        }
-        this.rightPanel = new GradientFrequencyPanel(test);
+        /* set the right panel which shows you information about the amount of pictures behind a shape */
+        this.rightPanel = new GradientFrequencyPanel(typesOfPoints);
     }
 
-    /* represents a panel which shows us a gradiation of colors to show how many pictures behind a shape */
+    /* represents a panel which displays a color gradient to show how many pictures are behind a shape */
     private class GradientFrequencyPanel extends JPanel {
 
         private static final long serialVersionUID = -8130052088314062751L;
@@ -105,9 +118,9 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
 
         private static final double EPSILON = 17;
 
-        private int[] distribution;
+        private ArrayList<Integer> distribution;
 
-        public GradientFrequencyPanel(int[] distribution) {
+        public GradientFrequencyPanel(ArrayList<Integer> distribution) {
             this.distribution = distribution;
             this.setPreferredSize(new Dimension(125, 0));
         }
@@ -116,7 +129,7 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            final int numberOfGradiations = this.distribution.length;
+            final int numberOfGradiations = this.distribution.size();
             
             Graphics2D g2d = (Graphics2D) g;
 
@@ -155,10 +168,12 @@ public class JCluster3D<M extends AbstractReportModel> extends JAbstract3DDiagra
                 }
 
                 if (draw) {
-                    g2d.drawString(Integer.toString(this.distribution[i]), GradientFrequencyPanel.RIGHTSPACING,
+                    g2d.drawString(Integer.toString(this.distribution.get(i)), GradientFrequencyPanel.RIGHTSPACING,
                             (int) (GradientFrequencyPanel.TOPSPACING + segmentSize * (i) + 20 + 0.66 * segmentSize));
                 }
             }
         }
     }
+    
+    
 }

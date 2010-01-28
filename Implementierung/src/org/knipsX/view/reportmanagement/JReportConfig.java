@@ -50,7 +50,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
         super(model);
         this.reportID = reportID;
         ReportHelper.setCurrentModel(this.model);
-        ReportHelper.currentReportUtil = this;
+        ReportHelper.setCurrentReportUtility(this);
 
         
         
@@ -138,8 +138,8 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
         
         this.pack();
         
-        ReportHelper.currentReportUtil.revalidateDisplayability();
-        ReportHelper.currentReportUtil.revalidateSaveability();
+        ReportHelper.getCurrentReportUtility().revalidateDisplayability();
+        ReportHelper.getCurrentReportUtility().revalidateSaveability();
     }
 
     @Override
@@ -157,7 +157,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
         /* Generate the JTabbedPane */
         this.tabbedpane = this.getJTabbedPane();
         
-        ReportHelper.currentReportUtil = this;
+        ReportHelper.setCurrentReportUtility(this);
         
         /* Reinitialize the panel */
         this.initialize();

@@ -444,7 +444,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 enabled = true;
             }
 
-            final ArrayList<JAbstractSinglePanel> registeredPanels = ReportHelper.currentReportUtil.reportCompilation
+            final ArrayList<JAbstractSinglePanel> registeredPanels = ReportHelper.getCurrentReportUtility().reportCompilation
                     .getRegisteredPanels();
 
             for (final JAbstractSinglePanel singlepanel : registeredPanels) {

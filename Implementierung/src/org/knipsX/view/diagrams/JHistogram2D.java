@@ -1,6 +1,6 @@
 package org.knipsX.view.diagrams;
 
-import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.model.reportmanagement.Histogram2DModel;
 
 /**
  * This class implements how the Histogram2DModel is to be drawn.
@@ -9,7 +9,7 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
  * 
  * @param <M>
  */
-public class JHistogram2D<M extends AbstractReportModel> extends JAbstract2DDiagram<M> {
+public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram<M> {
 
     private static final long serialVersionUID = 1L;
 

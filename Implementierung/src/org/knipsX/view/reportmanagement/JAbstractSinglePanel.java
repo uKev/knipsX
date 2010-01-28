@@ -56,8 +56,8 @@ public abstract class JAbstractSinglePanel extends JComponent {
      * Revalidates the report. It checks to see if the report is displayable and saveable
      */
     public void revalidateReport() {
-        ReportHelper.currentReportUtil.revalidateDisplayability();
-        ReportHelper.currentReportUtil.revalidateSaveability();
+        ReportHelper.getCurrentReportUtility().revalidateDisplayability();
+        ReportHelper.getCurrentReportUtility().revalidateSaveability();
     }
 
     /**
