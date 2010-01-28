@@ -3,7 +3,7 @@
  *****************************************************************************/
 package org.knipsX.model.picturemanagement;
 
-/* import things from the java sdk */
+/* import classes from the java sdk */
 import java.io.File;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -20,7 +20,7 @@ public class Directory implements PictureContainer {
     /* The current position in the pictures list */
     private int currentPosition;
 
-    /* The abstarct representation of this directory in filesystem */
+    /* The abstract representation of this directory in filesystem */
     private File directoryFile;
 
     /**
