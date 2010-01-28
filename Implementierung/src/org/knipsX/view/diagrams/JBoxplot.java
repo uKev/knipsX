@@ -1,15 +1,12 @@
 package org.knipsX.view.diagrams;
 
 import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 
 import javax.vecmath.Vector3d;
 
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.Boxplot;
-import org.knipsX.model.reportmanagement.BoxplotModel;
 
 /**
  * This class implements how the BoxplotModel is to be drawn.
