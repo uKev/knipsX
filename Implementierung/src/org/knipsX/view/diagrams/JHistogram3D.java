@@ -2,7 +2,8 @@ package org.knipsX.view.diagrams;
 
 import javax.vecmath.Vector3d;
 
-import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.model.reportmanagement.Histogram3DModel;
+
 
 /**
  * This class implements how the Histogram3DModel is to be drawn.
@@ -11,7 +12,7 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
  * 
  * @param <M>
  */
-public class JHistogram3D<M extends AbstractReportModel> extends JAbstract3DDiagram<M> {
+public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram<M> {
 
     private static final long serialVersionUID = 1L;
 

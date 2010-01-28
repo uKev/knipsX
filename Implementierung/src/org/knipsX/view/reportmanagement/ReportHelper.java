@@ -52,8 +52,8 @@ public enum ReportHelper {
          * {@inheritDoc}
          */
         @Override
-        public JAbstractDiagram<AbstractReportModel> displayDiagram(final AbstractReportModel model, final int reportID) {
-            return new JBoxplot<AbstractReportModel>(model, reportID);
+        public JAbstractDiagram<?> displayDiagram(final AbstractReportModel model, final int reportID) {
+            return new JBoxplot<BoxplotModel>((BoxplotModel) model, reportID);
         }
 
         /**
@@ -61,7 +61,7 @@ public enum ReportHelper {
          */
         @Override
         public Component getDiagramView() {
-            return new JBoxplot<AbstractReportModel>(null, -1).getDiagram();
+            return new JBoxplot<BoxplotModel>(null, -1).getDiagram();
         };
 
         /**
@@ -102,8 +102,8 @@ public enum ReportHelper {
          * {@inheritDoc}
          */
         @Override
-        public JAbstractDiagram<AbstractReportModel> displayDiagram(final AbstractReportModel model, final int reportID) {
-            return new JHistogram2D<AbstractReportModel>(model, reportID);
+        public JAbstractDiagram<Histogram2DModel> displayDiagram(final AbstractReportModel model, final int reportID) {
+            return new JHistogram2D<Histogram2DModel>((Histogram2DModel) model, reportID);
         }
 
         /**
@@ -111,7 +111,7 @@ public enum ReportHelper {
          */
         @Override
         public Component getDiagramView() {
-            return new JHistogram2D<AbstractReportModel>(null, -1).getDiagram();
+            return new JHistogram2D<Histogram2DModel>(null, -1).getDiagram();
         };
 
         /**
@@ -152,8 +152,8 @@ public enum ReportHelper {
          * {@inheritDoc}
          */
         @Override
-        public JAbstractDiagram<AbstractReportModel> displayDiagram(final AbstractReportModel model, final int reportID) {
-            return new JHistogram3D<AbstractReportModel>(model, reportID);
+        public JAbstractDiagram<Histogram3DModel> displayDiagram(final AbstractReportModel model, final int reportID) {
+            return new JHistogram3D<Histogram3DModel>((Histogram3DModel) model, reportID);
         }
 
         /**
@@ -161,7 +161,7 @@ public enum ReportHelper {
          */
         @Override
         public Component getDiagramView() {
-            return new JHistogram3D<AbstractReportModel>(null, -1).getDiagram();
+            return new JHistogram3D<Histogram3DModel>(null, -1).getDiagram();
         };
 
         /**
@@ -203,8 +203,8 @@ public enum ReportHelper {
          * {@inheritDoc}
          */
         @Override
-        public JAbstractDiagram<AbstractReportModel> displayDiagram(final AbstractReportModel model, final int reportID) {
-            return new JCluster3D<AbstractReportModel>(model, reportID);
+        public JAbstractDiagram<?> displayDiagram(final AbstractReportModel model, final int reportID) {
+            return new JCluster3D<Cluster3DModel>((Cluster3DModel) model, reportID);
         }
 
         /**
@@ -212,7 +212,7 @@ public enum ReportHelper {
          */
         @Override
         public Component getDiagramView() {
-            return new JCluster3D<AbstractReportModel>(null, -1).getDiagram();
+            return new JCluster3D<Cluster3DModel>(null, -1).getDiagram();
         };
 
         /**
@@ -433,7 +433,7 @@ public enum ReportHelper {
      *            the report id of the report
      * @return the diagram
      */
-    public abstract JAbstractDiagram<AbstractReportModel> displayDiagram(AbstractReportModel model, int reportID);
+    public abstract JAbstractDiagram<?> displayDiagram(AbstractReportModel model, int reportID);
 
     /**
      * Returns the Component of the Diagram without the associated button
