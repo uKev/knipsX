@@ -8,8 +8,6 @@ public class PictureSet implements PictureContainer {
 
 	private List<PictureContainer> children = new ArrayList<PictureContainer>();
 
-	private List<Picture> inactivePictures = new ArrayList<Picture>();
-
 	private int id;
 
 	private int currentChild;

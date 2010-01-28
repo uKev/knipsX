@@ -27,7 +27,7 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
     }
 
     @Override
-    public PictureParameter[] getPicturesWithMissingExifParameter() {
+    public ArrayList<PictureParameter> getPicturesWithMissingExifParameter() {
         // TODO Auto-generated method stub
         // kann das in die Axen-Klassen ausgelagert werden? Gibt es da Unterschiede?
         return null;
