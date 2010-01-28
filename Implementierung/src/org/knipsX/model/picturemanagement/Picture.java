@@ -1,5 +1,9 @@
+/******************************************************************************
+ * This package is the root of all files regarding the "picturemanagement".
+ *****************************************************************************/
 package org.knipsX.model.picturemanagement;
 
+/* import classes from the java sdk */
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
@@ -8,27 +12,35 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 
+/* import classes from our util source*/
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
 
+/**************************************************************************************************
+ * The Class Picture represents a picture with image and Exif-Metadata. It also has an thumbnail.
+ *************************************************************************************************/
 public class Picture implements PictureContainer, ImageObserver {
 
+    /* The abstract representation of this picture in filesystem */
     private File pictureFile;
 
+    /* A status to factor this picture into the report or not */
     private boolean isActiveorNot;
 
+    /* The Exif metadata connected with the picture */
     private Object[][] allExifParameter;
 
+    /* Thumbnails */
     private BufferedImage smallThumbnail;
     private BufferedImage bigThumbnail;
 
     /**
-     * Create new Picture.
+     * Create new Picture with a path.
      * 
-     * @param path
+     * @param path the filepath of the picture
+     * @param isActiveorNot the status of the picture
      */
     public Picture(String path, boolean isActiveorNot) {
         this.pictureFile = new File(path);
@@ -36,22 +48,74 @@ public class Picture implements PictureContainer, ImageObserver {
         this.allExifParameter = null;
     }
 
+    /**
+     * Create new Picture with a file.
+     * 
+     * @param file the file to create from
+     * @param isActiveorNot the status of the picture
+     */
     public Picture(File file, boolean isActiveorNot) {
         this.pictureFile = file;
         this.isActiveorNot = isActiveorNot;
         this.allExifParameter = null;
     }
+    
+    /**
+     * Gets the name from the picture
+     * @return the name
+     */  
+    public String getName() {
+        return pictureFile.getName();
+    }
+    
+    /**
+     * Gets the path from the picture
+     * @return the path
+     */
+    
+    public String getPath() {
+        return pictureFile.getAbsolutePath();
+    }
 
+    /**
+     * Gets a specific Exif parameter from the picture
+     * @param specific exifParameter
+     * @return value of the parameter
+     */
+    public Object getExifParameter(ExifParameter exifParameter) {
+        return getAllExifParameter()[exifParameter.ordinal()][1];
+    }
+
+    /**
+     * Returns a List with the picture in it
+     * @return the list with the picture
+     */
     public List<PictureContainer> getItems() {
         List<PictureContainer> items = new LinkedList<PictureContainer>();
         items.add(this);
         return items;
     }
+    
+    /**
+     * @see java.lang.Iterable#iterator()
+     * @return the iterator over this
+     */
+    public Iterator<Picture> iterator() {
+        return this;
+    }
 
+    /**
+     * @see java.util.Iterator#next()
+     * @return false because this is only one element
+     */
     public boolean hasNext() {
         return false;
     }
 
+    /**
+     * @see java.util.Iterator#next()
+     * @return the picture because this is one element
+     */
     public Picture next() {
         return this;
     }
@@ -102,22 +166,6 @@ public class Picture implements PictureContainer, ImageObserver {
         }
         return buffImage;
 
-    }
-    
-    public Iterator<Picture> iterator() {
-        return this;
-    }
-
-    public String getPath() {
-        return pictureFile.getAbsolutePath();
-    }
-
-    public String getName() {
-        return pictureFile.getName();
-    }
-
-    public Object getExifParameter(ExifParameter exifParameter) {
-        return getAllExifParameter()[exifParameter.ordinal()][1];
     }
 
     public boolean hasExifKeyword(String keyword) {
@@ -181,6 +229,14 @@ public class Picture implements PictureContainer, ImageObserver {
         return bThumb;
     }
 
+    /**
+    * It also allows to compare over PictureContainer but it is not done in the basic version of our programm.
+    * 
+    * @see java.lang.Comparable#compareTo(java.lang.Object)
+    * @param pictureToCompare other picture to compare
+    * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
+    *         the specified object
+    */
     public int compareTo(PictureContainer pictureToCompare) {
         if (this.getPath().hashCode() == ((Picture) pictureToCompare).getPath().hashCode()) {
             return 0;

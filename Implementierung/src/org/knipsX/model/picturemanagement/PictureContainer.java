@@ -3,7 +3,7 @@
  *****************************************************************************/
 package org.knipsX.model.picturemanagement;
 
-/* import things from the java sdk */
+/* import classes from the java sdk */
 import java.util.Iterator;
 import java.util.List;
 
