@@ -23,80 +23,85 @@ import org.knipsX.view.reportmanagement.ReportHelper;
  * the ProjectModel.
  * 
  * @author David Kaufman
- *
+ * 
  * @param <M>
  * @param <V>
  */
-public class ReportSaveController<M extends AbstractReportModel, V extends JAbstractReportUtil<?>> extends AbstractController<M, V> {
+public class ReportSaveController<M extends AbstractReportModel, V extends JAbstractReportUtil<?>> extends
+        AbstractController<M, V> {
 
     private boolean showDiagram;
 
     public ReportSaveController(V view, boolean showDiagram) {
-		super(view);
-		this.showDiagram = showDiagram;
+        super(view);
+        this.showDiagram = showDiagram;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {	
-		 ArrayList<JAbstractSinglePanel> registeredPanels = this.view.getReportCompilation().getRegisteredPanels();			 
-		 
-		System.out.println(ReportHelper.getCurrentReport());
-		
-		this.model = (M) ReportHelper.getCurrentReport().createReportModel();
-		
-		for (JAbstractSinglePanel singlepanel : registeredPanels) {
-	
-		    if (singlepanel instanceof JDiagramType) {
-		    	
-				JDiagramType mydiagram = (JDiagramType) singlepanel;
-				this.model.setReportName(mydiagram.getReportName());
-				this.model.setReportDescription(mydiagram.getReportDescription());			
-	
-		    } else if (singlepanel instanceof JParameters) {
-		    	
-		    	JParameters parametersPanel = (JParameters) singlepanel;
-		    	
-		    	if (this.model instanceof BoxplotModel) {
-		    		((BoxplotModel) this.model).setxAxis(parametersPanel.getAxes().get(0));	
-				} else if (this.model instanceof Histogram2DModel) {
-					((Histogram2DModel) this.model).setxAxis(parametersPanel.getAxes().get(0));	
-				} else if (this.model instanceof Histogram3DModel) {
-					((Histogram3DModel) this.model).setxAxis(parametersPanel.getAxes().get(0));
-					((Histogram3DModel) this.model).setzAxis(parametersPanel.getAxes().get(1));	
-				} else if (this.model instanceof Cluster3DModel) {
-					((Cluster3DModel) this.model).setxAxis(parametersPanel.getAxes().get(0));
-					((Cluster3DModel) this.model).setzAxis(parametersPanel.getAxes().get(1));
-					((Cluster3DModel) this.model).setyAxis(parametersPanel.getAxes().get(2));
-				}
-			
-		    } else if (singlepanel instanceof JPictureSetExif) {
-		    	
-		    	JPictureSetExif pictureSetExifPanel = (JPictureSetExif) singlepanel;		    	
-				this.model.setPictureContainer(pictureSetExifPanel.getPictureContainer());
-				this.model.setExifFilterKeywords(pictureSetExifPanel.getExifFilterKeywords());
-			
-		    } else if (singlepanel instanceof JWilcoxon) {
-		    	JWilcoxon wilcoxonPanel = (JWilcoxon) singlepanel;
-		    	
-		    	if (this.model instanceof BoxplotModel) {
-		    		((BoxplotModel) this.model).setWilcoxonSignificance(wilcoxonPanel.getStatisticalSignificance());
-		    		((BoxplotModel) this.model).setWilcoxonTestType(wilcoxonPanel.getTestType());
-		    		((BoxplotModel) this.model).setWilcoxonTestActive(wilcoxonPanel.getStatus());
-		    	}
-			
-		    }
-		}
-	
-		ReportHelper.getProjectModel().addReport(this.model, this.view.getReportID());
-		System.out.println(this.model);
-		
-		this.view.dispose();		
-		
-		if (showDiagram) {
-			ReportHelper.getCurrentReport().displayDiagram(this.model, this.view.getReportID()).showDiagram();
-		}
-				
-		
+    public void actionPerformed(ActionEvent e) {
+        ArrayList<JAbstractSinglePanel> registeredPanels = this.view.getReportCompilation().getRegisteredPanels();
+
+        this.model = (M) this.createSavableModel(registeredPanels);
+
+        ReportHelper.getProjectModel().addReport(this.model, this.view.getReportID());
+
+        this.view.dispose();
+
+        if (showDiagram) {
+            ReportHelper.getCurrentReport().displayDiagram(this.model, this.view.getReportID()).showDiagram();
+        }
+
+    }
+
+    public static AbstractReportModel createSavableModel(ArrayList<JAbstractSinglePanel> registeredPanels) {
+
+        AbstractReportModel model = ReportHelper.getCurrentReport().createReportModel();
+
+        for (JAbstractSinglePanel singlepanel : registeredPanels) {
+
+            if (singlepanel instanceof JDiagramType) {
+
+                JDiagramType mydiagram = (JDiagramType) singlepanel;
+                model.setReportName(mydiagram.getReportName());
+                model.setReportDescription(mydiagram.getReportDescription());
+
+            } else if (singlepanel instanceof JParameters) {
+
+                JParameters parametersPanel = (JParameters) singlepanel;
+
+                if (model instanceof BoxplotModel) {
+                    ((BoxplotModel) model).setxAxis(parametersPanel.getAxes().get(0));
+                } else if (model instanceof Histogram2DModel) {
+                    ((Histogram2DModel) model).setxAxis(parametersPanel.getAxes().get(0));                    
+                } else if (model instanceof Histogram3DModel) {
+                    ((Histogram3DModel) model).setxAxis(parametersPanel.getAxes().get(0));
+                    ((Histogram3DModel) model).setzAxis(parametersPanel.getAxes().get(1));
+                } else if (model instanceof Cluster3DModel) {
+                    ((Cluster3DModel) model).setxAxis(parametersPanel.getAxes().get(0));
+                    ((Cluster3DModel) model).setzAxis(parametersPanel.getAxes().get(1));
+                    ((Cluster3DModel) model).setyAxis(parametersPanel.getAxes().get(2));
+                }
+
+            } else if (singlepanel instanceof JPictureSetExif) {
+
+                JPictureSetExif pictureSetExifPanel = (JPictureSetExif) singlepanel;
+                model.setPictureContainer(pictureSetExifPanel.getPictureContainer());
+                model.setExifFilterKeywords(pictureSetExifPanel.getExifFilterKeywords());
+
+            } else if (singlepanel instanceof JWilcoxon) {
+                JWilcoxon wilcoxonPanel = (JWilcoxon) singlepanel;
+
+                if (model instanceof BoxplotModel) {
+                    ((BoxplotModel) model).setWilcoxonSignificance(wilcoxonPanel.getStatisticalSignificance());
+                    ((BoxplotModel) model).setWilcoxonTestType(wilcoxonPanel.getTestType());
+                    ((BoxplotModel) model).setWilcoxonTestActive(wilcoxonPanel.getStatus());
+                }
+
+            }
+        }
+
+        return model;
+
     }
 
 }

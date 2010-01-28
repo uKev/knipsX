@@ -36,7 +36,7 @@ public class ReportOpenController<M extends ProjectModel, V extends JProjectView
 	 *  fits in with the normal user interface 
 	 */
 	
-    UIManager.put("TabbedPane.contentAreaColor", new Color(238,238,238));
+    UIManager.put("TabbedPane.contentAreaColor", new Color(238, 238, 238));
     
     
     if(this.view.getSelectedReports().length > 0) {
