@@ -16,9 +16,9 @@ import org.knipsX.model.picturemanagement.Picture;
 
 public class Frequency3DPoint {
 
-    int x;
-    int y;
-    int z;
+    double x;
+    double y;
+    double z;
     private final ArrayList<Picture> pictures;
 
     /**
@@ -83,6 +83,11 @@ public class Frequency3DPoint {
      
     }
 
+    public Frequency3DPoint(double x2, double y2, double z2, Picture pic) {
+        this.pictures = new ArrayList<Picture>();
+        this.pictures.add(pic);
+    }
+
     /**
      * Adds a Picture to the list of pictures that are represented by this point.
      * 
@@ -121,4 +126,19 @@ public class Frequency3DPoint {
         final Picture[] pictures = new Picture[this.pictures.size()];
         return this.pictures.toArray(pictures);
     }
+
+    /**
+     * Test for equal point. Test if x, y and z are equal. Frequency is ignored.
+     * @param frequency3DPoint the other {@link Frequency3DPoint} it should be compared to.
+     * @return true if they are the same.
+     */
+   public boolean equals(Frequency3DPoint frequency3DPoint) {
+       boolean isEqual = false;
+       if (frequency3DPoint.x == this.x && frequency3DPoint.y == this.y && frequency3DPoint.z == this.z){
+           isEqual = true;
+       } else {
+           isEqual = false;
+       }
+       return isEqual;
+   }
 }

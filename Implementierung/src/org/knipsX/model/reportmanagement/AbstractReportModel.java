@@ -21,6 +21,7 @@ public abstract class AbstractReportModel extends AbstractModel {
     private String reportDescription;
     // Tags of pictures that will be filtered
     private ArrayList<String> exifFilterKeywords;
+    private ArrayList<PictureParameter> missingExifParameter;
 
     /**
      * Constructor for the AbstractReportModel
@@ -28,6 +29,7 @@ public abstract class AbstractReportModel extends AbstractModel {
     public AbstractReportModel() {
         super();
         this.pictureContainer = new ArrayList<PictureContainer>();
+        this.missingExifParameter = null;
     }
 
     /**
@@ -65,6 +67,7 @@ public abstract class AbstractReportModel extends AbstractModel {
         this.reportDescription = reportDescription;
         this.exifFilterKeywords = exifFilterKeywords;
         this.pictureContainer = new ArrayList<PictureContainer>();
+        this.missingExifParameter = null;
     }
 
     /**
@@ -132,7 +135,7 @@ public abstract class AbstractReportModel extends AbstractModel {
             return null;
         }
     }
-
+    
     /**
      * Getter for the PictureContainers
      * 
@@ -143,12 +146,18 @@ public abstract class AbstractReportModel extends AbstractModel {
     }
 
     /**
-     * Returns an array of PictureParameter objects with each a pair of a picture and
+     * Returns an ArrayList of PictureParameter objects with each a pair of a picture and
      * the missing exif parameter inside the picture. Only checks exif parameters that will be used in the report.
      * 
      * @return pictures with missing exif parameters that are missing for the report
      */
-    public abstract ArrayList<PictureParameter> getPicturesWithMissingExifParameter();
+    public ArrayList<PictureParameter> getPicturesWithMissingExifParameter(){
+            return this.missingExifParameter;
+    }
+    
+    protected void addMissingExifPictureParameter(PictureParameter exifParameter){
+        this.missingExifParameter.add(exifParameter);
+    }
 
     /**
      * getter for the description of the report.

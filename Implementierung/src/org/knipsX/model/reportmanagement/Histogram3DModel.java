@@ -33,27 +33,27 @@ public class Histogram3DModel extends AbstractDoubleAxesModel{
 	}
 
     @Override
-    public Object getMaxX() {
+    public double getMaxX() {
         // TODO Auto-generated method stub
-        return null;
+        return 0;
     }
 
     @Override
-    public Object getMaxY() {
+    public double getMaxY() {
         // TODO Auto-generated method stub
-        return null;
+        return 0;
     }
 
     @Override
-    public Object getMinX() {
+    public double getMinX() {
         // TODO Auto-generated method stub
-        return null;
+        return 0;
     }
 
     @Override
-    public Object getMinY() {
+    public double getMinY() {
         // TODO Auto-generated method stub
-        return null;
+        return 0;
     }
 
     @Override
