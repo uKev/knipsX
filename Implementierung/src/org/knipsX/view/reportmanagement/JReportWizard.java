@@ -45,7 +45,7 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
         super(null);
         ReportHelper.setCurrentModel(null);
         
-        ReportHelper.currentReportUtil = this;
+        ReportHelper.setCurrentReportUtility(this);
         
         this.reportCompilation = ReportHelper.getDefaultReport().createReportCompilation();
 
@@ -100,8 +100,8 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
             this.previousPanelButton.setEnabled(true);
         }
 
-        ReportHelper.currentReportUtil.revalidateDisplayability();
-        ReportHelper.currentReportUtil.revalidateSaveability();
+        ReportHelper.getCurrentReportUtility().revalidateDisplayability();
+        ReportHelper.getCurrentReportUtility().revalidateSaveability();
 
         final JPanel bottom = new JPanel();
         bottom.setAlignmentX(0.5f);
@@ -161,7 +161,7 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
         /* Update necessary variables */
         this.reportCompilation = reportconfig;
 
-        ReportHelper.currentReportUtil = this;
+        ReportHelper.setCurrentReportUtility(this);
 
         /* Reinitialize the panel */
         this.initialize();

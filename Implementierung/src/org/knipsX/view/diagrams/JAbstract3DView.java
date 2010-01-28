@@ -58,9 +58,6 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
  * This class manages all java 3d interactions and offers methods than simplify the
  * utilization of the java 3d functions significantly.
  * 
- * Note that when passing transformation information the order of axis 
- * is z, y and then x  
- * 
  * @author David Kaufman
  * 
  * @param <M>
@@ -823,12 +820,12 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
         if (this.numberOfAxes >= 1 && this.axis3D[0].isShowSegments()) {
             /* Create the y Axis */
-            final String[] xAxis = this.axis3D[0].getSegmentDescription();
+            final String[] yAxis = this.axis3D[0].getSegmentDescription();
 
-            for (int q = 0; q < xAxis.length; q++) {
-                if (xAxis[q] != null) {
+            for (int q = 0; q < yAxis.length; q++) {
+                if (yAxis[q] != null) {
                     this.createText(new Vector3d(0, q * this.axis3D[0].getSegmentSize(), -0.75d), new Vector3d(size,
-                            size, size), this.basicMaterial(1, 1, 1), xAxis[q]);
+                            size, size), this.basicMaterial(1, 1, 1), yAxis[q]);
                 }
 
             }
@@ -836,24 +833,24 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
         if (this.numberOfAxes >= 2 && this.axis3D[1].isShowSegments()) {
             /* Create the x Axis */
-            final String[] zAxis = this.axis3D[1].getSegmentDescription();
+            final String[] xAxis = this.axis3D[1].getSegmentDescription();
 
-            for (int q = 0; q < zAxis.length; q++) {
-                if (zAxis[q] != null) {
+            for (int q = 0; q < xAxis.length; q++) {
+                if (xAxis[q] != null) {
                     this.createText(new Vector3d(0, -0.75d, q * this.axis3D[1].getSegmentSize()), new Vector3d(size,
-                            size, size), this.basicMaterial(1, 1, 1), zAxis[q]);
+                            size, size), this.basicMaterial(1, 1, 1), xAxis[q]);
                 }
             }
         }
 
         if (this.numberOfAxes >= 3 && this.axis3D[2].isShowSegments()) {
             /* Create the z Axis */
-            final String[] yAxis = this.axis3D[2].getSegmentDescription();
+            final String[] zAxis = this.axis3D[2].getSegmentDescription();
 
-            for (int q = 0; q < yAxis.length; q++) {
-                if (yAxis[q] != null) {
+            for (int q = 0; q < zAxis.length; q++) {
+                if (zAxis[q] != null) {
                     this.createText(new Vector3d(q * this.axis3D[2].getSegmentSize(), -0.5d, -0.5d), new Vector3d(size,
-                            size, size), this.basicMaterial(1, 1, 1), yAxis[q]);
+                            size, size), this.basicMaterial(1, 1, 1), zAxis[q]);
                 }
             }
         }

@@ -17,6 +17,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.knipsX.model.reportmanagement.AbstractSingleAxisModel;
 import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
@@ -236,7 +237,7 @@ public class JParameters extends JAbstractSinglePanel {
          * foreground color. Non ordinal EXIF parameters are drawn gray
          * 
          * @author David Kaufman
-         *
+         * 
          */
         public class OrdinalCellRenderer extends DefaultListCellRenderer {
 
@@ -371,10 +372,10 @@ public class JParameters extends JAbstractSinglePanel {
                 this.axisParameters[0].setAxis(((Histogram2DModel) ReportHelper.getCurrentModel()).getxAxis());
             } else if (ReportHelper.getCurrentModel() instanceof Histogram2DModel) {
                 this.axisParameters[0].setAxis(((Histogram3DModel) ReportHelper.getCurrentModel()).getxAxis());
+                this.axisParameters[1].setAxis(((Histogram3DModel) ReportHelper.getCurrentModel()).getzAxis());
             } else if (ReportHelper.getCurrentModel() instanceof Cluster3DModel) {
                 if (this.axisParameters.length >= 1) {
                     this.axisParameters[0].setAxis(((Cluster3DModel) ReportHelper.getCurrentModel()).getxAxis());
-
                 }
                 if (this.axisParameters.length >= 2) {
                     this.axisParameters[1].setAxis(((Cluster3DModel) ReportHelper.getCurrentModel()).getzAxis());
@@ -433,7 +434,7 @@ public class JParameters extends JAbstractSinglePanel {
                 }
             }
 
-            final ArrayList<JAbstractSinglePanel> registeredPanels = ReportHelper.currentReportUtil.reportCompilation
+            final ArrayList<JAbstractSinglePanel> registeredPanels = ReportHelper.getCurrentReportUtility().reportCompilation
                     .getRegisteredPanels();
 
             for (final JAbstractSinglePanel singlepanel : registeredPanels) {

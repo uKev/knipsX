@@ -295,7 +295,7 @@ public enum ReportHelper {
     /**
      * The current configuration utility of the current report configuration run
      */
-    protected static JAbstractReportUtil<?> currentReportUtil;
+    private static JAbstractReportUtil<?> currentReportUtility;
 
     /**
      * The current model of the current report configuration run
@@ -404,9 +404,9 @@ public enum ReportHelper {
      * @param myreport
      *            The report you want to update
      */
-    public static void updateReport(final ReportHelper myreport) {
+    public static void updateReport(final ReportHelper myreport) {        
         ReportHelper.currentReport = myreport;
-        ReportHelper.currentReportUtil.setReportType(ReportHelper.currentReport.createReportCompilation());
+        ReportHelper.currentReportUtility.setReportType(ReportHelper.currentReport.createReportCompilation());
     }
 
     /**
@@ -449,5 +449,22 @@ public enum ReportHelper {
      *         returns 0 if no axis is used
      */
     public abstract int getNumberOfAxes();
+
+    /**
+     * Returns the current report utility
+     * @return the current report utility
+     */
+    public static JAbstractReportUtil<?> getCurrentReportUtility() {
+        return currentReportUtility;
+    }
+
+    /**
+     * Sets the current report utility to the specified value
+     * @param currentReportUtility the current report utility
+     */
+    public static void setCurrentReportUtility(JAbstractReportUtil<?> currentReportUtility) {
+        ReportHelper.currentReportUtility = currentReportUtility;
+    }
+    
 
 }
