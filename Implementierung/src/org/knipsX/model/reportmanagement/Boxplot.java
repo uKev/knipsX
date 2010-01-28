@@ -111,19 +111,9 @@ public class Boxplot {
 
         final ArrayList<Double> values = new ArrayList<Double>();
 
-        /*
-         * for (Picture pic : pictures){
-         * FIXME PictureContainer needs to be Iterable
-         */
-
-        final Picture picture = new Picture("/abc", true);
-
-        final double value = (Double) picture.getExifParameter(exifParameter);
-        values.add(value);
-
-        /*
-         * }
-         */
+        for (Picture pic : pictures) {
+            values.add((Double) pic.getExifParameter(exifParameter));            
+        }
 
         Collections.sort(values);
 
