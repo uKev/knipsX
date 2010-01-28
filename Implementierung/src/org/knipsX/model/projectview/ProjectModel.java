@@ -417,7 +417,7 @@ public class ProjectModel extends AbstractModel {
         assert (set != null) && (set instanceof PictureSet);
         assert (container != null) && (container instanceof PictureContainer);
 
-        return set.remove(container);
+        return set.removeFromPictureSet(container);
     }
 
     /*

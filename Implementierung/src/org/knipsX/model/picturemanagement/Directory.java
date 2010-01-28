@@ -1,5 +1,5 @@
 /******************************************************************************
- * This package is the root of all files regarding the "project management".
+ * This package is the root of all files regarding the "picturemanagement".
  *****************************************************************************/
 package org.knipsX.model.picturemanagement;
 
@@ -26,8 +26,7 @@ public class Directory implements PictureContainer {
     /**
      * Creates a new directory from a path.
      * 
-     * @param path
-     *            the pathname from the directory
+     * @param path the pathname from the directory
      */
     public Directory(String path) {
         this.directoryFile = new File(path);
@@ -74,7 +73,7 @@ public class Directory implements PictureContainer {
 
     /**
      * @see java.util.Iterator#hasNext()
-     * @return only true
+     * @return true if there is an element left , false if not
      */
     public boolean hasNext() {
         if (this.pictures.size() == 0) {
@@ -85,7 +84,7 @@ public class Directory implements PictureContainer {
             return true;
         } else {
             this.currentPosition = 0;
-            return true;
+            return false;
         }
     }
 
@@ -93,7 +92,7 @@ public class Directory implements PictureContainer {
      * @see java.util.Iterator#remove()
      */
     public void remove() {
-        /* not implemented beacause this function is illegal */
+        /* not implemented because this function is illegal */
     }
 
     /**
