@@ -24,7 +24,7 @@ public class Boxplot {
     double lowerQuartile;
     double upperWhisker;
     double lowerWhisker;
-    double outlier[];
+    ArrayList<Double> outlier;
     double maxValue;
     double minValue;
 
@@ -48,8 +48,8 @@ public class Boxplot {
      * @param pictureSetName
      */
     public Boxplot(final double mean, final double median, final double upperQuartile, final double lowerQuartile,
-            final double upperWhisker, final double lowerWhisker, final double[] outlier, final double maxValue,
-            final double minValue, final String pictureSetName) {
+            final double upperWhisker, final double lowerWhisker, final ArrayList<Double> outlier,
+            final double maxValue, final double minValue, final String pictureSetName) {
         this.mean = mean;
         this.median = median;
         this.upperQuartile = upperQuartile;
@@ -62,46 +62,50 @@ public class Boxplot {
         this.PictureSetName = pictureSetName;
     }
 
+    public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter) {
+        this(pictures, exifParameter, null);
+        this.PictureSetName = pictures.getName() + " - " + exifParameter.toString();
+    }
+
     /**
      * Calculates the boxplot from the pictures
      * 
      * @param pictures
      *            the pictures which will be represented with the boxplot
      */
-    public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter, String pictureSetName) {
-       
+    public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter, final String pictureSetName) {
+
         // calculate the Boxplot from the pictures in the pictureSet
         // add private methods to calculate the stuff
         /*
          * Maybe use a Library, available:
          * http://commons.apache.org/math/
          * http://www.rforge.net/rJava/
-         *      In Ubuntu Repo: r-cran-rjavaIn Ubuntu Repo: r-cran-rjava
+         * In Ubuntu Repo: r-cran-rjavaIn Ubuntu Repo: r-cran-rjava
          * http://acs.lbl.gov/~hoschek/colt/
          * or we use library for testing the results
-         * 
          */
-        
+
         assert exifParameter.isOrdinal();
-        
-        ArrayList<Double> values = new ArrayList<Double>();
-        
-        /*for (Picture pic : pictures){
-         FIXME PictureContainer needs to be Iterable   
-            */
-            
-            Picture picture = new Picture("/abc", true);
-        
-            double value = (Double)picture.getExifParameter(exifParameter);
-            values.add(value);
-            
-        
+
+        final ArrayList<Double> values = new ArrayList<Double>();
+
         /*
-        }*/ 
-        
-            Collections.sort(values);
-        
-        
+         * for (Picture pic : pictures){
+         * FIXME PictureContainer needs to be Iterable
+         */
+
+        final Picture picture = new Picture("/abc", true);
+
+        final double value = (Double) picture.getExifParameter(exifParameter);
+        values.add(value);
+
+        /*
+         * }
+         */
+
+        Collections.sort(values);
+
         this.mean = this.calculateMean(values);
         this.median = this.calculateMedian(values);
         this.upperQuartile = this.calculateUpperQuartile(values);
@@ -111,76 +115,133 @@ public class Boxplot {
         this.outlier = this.calculateOutlier(values);
         this.maxValue = this.calculateMaxValue(values);
         this.minValue = this.calculateMinValue(values);
-   
-        
-    }
-    private double calculateMinValue(ArrayList<Double> values) {
-        assert isSorted(values);
-        
-        return values.get(0);
+
     }
 
-    private double calculateMaxValue(ArrayList<Double> values) {
-        assert isSorted(values);
+    private double calculateLowerQuartile(final ArrayList<Double> values) {
+        assert this.isSorted(values);
+
+        return this.quantile(values, 0.25);
+    }
+
+    private double calculateLowerWhisker(final ArrayList<Double> values) {
+        assert this.isSorted(values);
+
+        final double upperQuartile = this.calculateUpperQuartile(values);
+        final double lowerQuartile = this.calculateLowerQuartile(values);
+        final double interQuartileRange = Math.abs(upperQuartile - lowerQuartile);
+
+        double value = lowerQuartile;
+        double lowerWhisker = value;
+
+        int i = (int) (values.size() * 0.25);
+
+        while ((value >= (lowerQuartile - (1.5 * interQuartileRange))) && (i >= 0)) {
+            lowerWhisker = value;
+            value = values.get(i);
+            i--;
+        }
+        return lowerWhisker;
+    }
+
+    private double calculateMaxValue(final ArrayList<Double> values) {
+        assert this.isSorted(values);
 
         return values.get(values.size());
     }
 
-    private double[] calculateOutlier(ArrayList<Double> values) {
-        assert isSorted(values);
-                // TODO Auto-generated method stub
-        return null;
-    }
+    private double calculateMean(final ArrayList<Double> values) {
+        assert values != null;
+        assert values.size() > 0;
+        assert this.isSorted(values);
 
-    private double calculateLowerWhisker(ArrayList<Double> values) {
-        assert isSorted(values);
-        // TODO Auto-generated method stub
+        double mean = 0;
+
+        for (final double value : values) {
+            mean += value;
+        }
+
+        mean = mean / (values.size());
+
         return 0;
     }
 
-    private double calculateUpperWhisker(ArrayList<Double> values) {
-        assert isSorted(values);
-        // TODO Auto-generated method stub
-        return 0;
-    }
+    private double calculateMedian(final ArrayList<Double> values) {
+        assert this.isSorted(values);
 
-    private double calculateLowerQuartile(ArrayList<Double> values) {
-        assert isSorted(values);
-        
-        return this.quantile(values, 0.25);
-    }
-
-    private double calculateUpperQuartile(ArrayList<Double> values) {
-        assert isSorted(values);
-        
-        return this.quantile(values, 0.75);
-    }
-
-    private double calculateMedian(ArrayList<Double> values) {
-        assert isSorted(values);
-        
         return this.quantile(values, 0.5);
     }
 
-    private double calculateMean(ArrayList<Double> values) {
-        assert isSorted(values);
-        
-        double mean = 0;
-        
-        for (double value : values){
-            mean += value;
-        }
-        
-        mean = mean / ((double)values.size());
-        
-        return 0;
+    private double calculateMinValue(final ArrayList<Double> values) {
+        assert this.isSorted(values);
+
+        return values.get(0);
     }
 
-    public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter) {
-        this(pictures, exifParameter, null);
-        this.PictureSetName = pictures.getName() + " - " + exifParameter.toString();
+    private ArrayList<Double> calculateOutlier(final ArrayList<Double> values) {
+        assert this.isSorted(values);
+        final ArrayList<Double> outlier = new ArrayList<Double>();
+
+        /*
+         * calculate upper outlier
+         */
+        final double upperWhisker = this.calculateUpperWhisker(values);
+        final int lastElement = values.size() - 1;
+        if (upperWhisker < values.get(lastElement)) {
+            // There are outlier
+            int i = lastElement;
+
+            while (upperWhisker < values.get(i)) {
+                outlier.add(values.get(i));
+                i--;
+            }
+
+        }
+
+        /*
+         * calculate lower outlier
+         */
+
+        final double lowerWhisker = this.calculateLowerWhisker(values);
+        final int firstElement = 0;
+        if (lowerWhisker > values.get(firstElement)) {
+            // There are outlier
+            int i = firstElement;
+
+            while (lowerWhisker > values.get(i)) {
+                outlier.add(values.get(i));
+                i++;
+            }
+
+        }
+        return outlier;
     }
-    
+
+    private double calculateUpperQuartile(final ArrayList<Double> values) {
+        assert this.isSorted(values);
+
+        return this.quantile(values, 0.75);
+    }
+
+    private double calculateUpperWhisker(final ArrayList<Double> values) {
+        assert this.isSorted(values);
+
+        final double upperQuartile = this.calculateUpperQuartile(values);
+        final double lowerQuartile = this.calculateLowerQuartile(values);
+        final double interQuartileRange = Math.abs(upperQuartile - lowerQuartile);
+
+        double value = upperQuartile;
+        double upperWhisker = value;
+
+        int i = (int) (values.size() * 0.75);
+
+        while ((value <= (upperQuartile + (1.5 * interQuartileRange))) && (i < values.size())) {
+            upperWhisker = value;
+            value = values.get(i);
+            i++;
+        }
+        return upperWhisker;
+    }
 
     public double getLowerQuartile() {
         return this.lowerQuartile;
@@ -206,7 +267,7 @@ public class Boxplot {
         return this.minValue;
     }
 
-    public double[] getOutlier() {
+    public ArrayList<Double> getOutlier() {
         return this.outlier;
     }
 
@@ -221,49 +282,47 @@ public class Boxplot {
     public double getUpperWhisker() {
         return this.upperWhisker;
     }
-    
-    double quantile(ArrayList<Double> values, double p){
-        assert isSorted(values);
-        
-        double quantile = 0;
-        
-        // here are small symbols better to read than long ones
-        int s = values.size();
-        
-        // Epsilon
-        double e = 0.000001;
-        int k = (int) (p*((double)s));
-        
-        // s * p is element of N
-        if (((s*p) % 1) < e && ((s*p)%1) > (-e) ){
-            
-            quantile = (( (double)values.get( k-1 )) + ( (double)values.get(k)) ) / 2;
-        
-        }
-        else {
-            // s * p is not an element of N
-            quantile = (double)values.get(k);
-        
-        }
-         
-        return quantile;
-    }
-    
-    private boolean isSorted(ArrayList<Double> values){
+
+    private boolean isSorted(final ArrayList<Double> values) {
         double previous = Double.MIN_VALUE;
-        
+
         boolean isSorted = true;
-        
-        for (double value : values)
-        {
-            if (value < previous){
+
+        for (final double value : values) {
+            if (value < previous) {
                 isSorted = false;
                 break;
             }
             previous = value;
         }
-        
+
         return isSorted;
+    }
+
+    double quantile(final ArrayList<Double> values, final double p) {
+        assert this.isSorted(values);
+
+        double quantile = 0;
+
+        // here are small symbols better to read than long ones
+        final int s = values.size();
+
+        // Epsilon
+        final double e = 0.000001;
+        final int k = (int) (p * (s));
+
+        // s * p is element of N
+        if ((((s * p) % 1) < e) && (((s * p) % 1) > (-e))) {
+
+            quantile = (((double) values.get(k - 1)) + ((double) values.get(k))) / 2;
+
+        } else {
+            // s * p is not an element of N
+            quantile = values.get(k);
+
+        }
+
+        return quantile;
     }
 
 }
