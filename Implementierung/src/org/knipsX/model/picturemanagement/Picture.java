@@ -132,7 +132,7 @@ public class Picture implements PictureContainer, ImageObserver {
             try {
                 this.bigThumbnail = Picture.getThumbOf(ImageIO.read(pictureFile), 200, Image.SCALE_FAST);
             } catch (IOException e) {
-                System.err.println("[Picture::getBigThumbnail()] - File didn't exist - "
+                System.err.println("[Picture::getBigThumbnail()] - File does not exist - "
                         + pictureFile.getAbsolutePath());
             }
         }
@@ -141,7 +141,7 @@ public class Picture implements PictureContainer, ImageObserver {
             try {
                 this.smallThumbnail = Picture.getThumbOf(ImageIO.read(pictureFile), 50, Image.SCALE_FAST);
             } catch (IOException e) {
-                System.err.println("[Picture::getSmallThumbnail()] - File didn't exist - "
+                System.err.println("[Picture::getSmallThumbnail()] - File does not exist - "
                         + pictureFile.getAbsolutePath());
             }
         }
