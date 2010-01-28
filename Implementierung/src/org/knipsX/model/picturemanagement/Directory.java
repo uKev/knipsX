@@ -48,13 +48,13 @@ public class Directory implements PictureContainer {
         return (currentPosition++) <= (this.pictures.size() - 1);
     }
 
-    public List<PictureContainer> getItems() {
+    public List<Picture> getItems() {
         if (this.pictures.size() == 0) {
             this.currentPosition = 0;
             this.getAllPictures(directoryFile);
         }
 
-        return new LinkedList<PictureContainer>(this.pictures);
+        return new LinkedList<Picture>(this.pictures);
     }
 
 
