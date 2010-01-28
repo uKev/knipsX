@@ -148,7 +148,7 @@ public abstract class AbstractReportModel extends AbstractModel {
      * 
      * @return pictures with missing exif parameters that are missing for the report
      */
-    public abstract PictureParameter[] getPicturesWithMissingExifParameter();
+    public abstract ArrayList<PictureParameter> getPicturesWithMissingExifParameter();
 
     /**
      * getter for the description of the report.
