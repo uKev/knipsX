@@ -74,7 +74,7 @@ public class DummyRepository implements Repository {
 
         int numberOfElements = 0;    
         
-        for (Picture picture : test) {                    
+        for (Picture picture : dummyPictureSet) {                    
             numberOfElements++;
         }
         
