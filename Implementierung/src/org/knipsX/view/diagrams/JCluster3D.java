@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 import javax.media.j3d.PickInfo;
@@ -51,15 +50,15 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
         
         ArrayList<Integer> typesOfPoints = new ArrayList<Integer>();        
         
-        for (int i = 0; i < this.model.getFrequency3DPoints().length; i++) {
-            if (!typesOfPoints.contains(this.model.getFrequency3DPoints()[i].getPictures().length)) {
-                typesOfPoints.add(this.model.getFrequency3DPoints()[i].getPictures().length);
-            }
-        }
-        
-        assert typesOfPoints.size() > 0;
-        
-        Collections.sort(typesOfPoints);        
+//        for (int i = 0; i < this.model.getFrequency3DPoints().length; i++) {
+//            if (!typesOfPoints.contains(this.model.getFrequency3DPoints()[i].getFrequency())) {
+//                typesOfPoints.add(this.model.getFrequency3DPoints()[i].getFrequency());
+//            }
+//        }
+//        
+//        assert typesOfPoints.size() > 0;
+//        
+//        Collections.sort(typesOfPoints);        
         
         
         /* TODO when implementing the controller, we must set this to the right data */
@@ -78,7 +77,11 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
 
             Selectable3DShape selectableShape = new Selectable3DShape(null);
             float myfloat = (float) random.nextDouble();
-            selectableShape.setAppearance(basicMaterial(myfloat, 2 * myfloat, myfloat));
+            selectableShape.setAppearance(basicMaterial(myfloat, myfloat * myfloat, myfloat));
+            
+            //TODO uncomment when frequency3d point are implemented
+            //selectableShape.setAppearance(basicMaterial(getColorAtPosition(this.model.getFrequency3DPoints()[i].getFrequency(), typesOfPoints.size())));
+            
             objData.addChild(selectableShape);
 
             this.objRoot.addChild(objData);
@@ -96,7 +99,7 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
         this.axis3D[2].generateSegmentDescription(10, 20, 5);
         this.axis3D[2].setAxis(new Axis(ExifParameter.FLASH));
 
-        /* set the left panel which shows you infos about a selected picture */
+        /* set the left panel which shows you information about a selected picture */
         this.leftPanel = new JPanel();
 
         /* when the diagram first appears, no shape is selected */
@@ -129,26 +132,21 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            final int numberOfGradiations = this.distribution.size();
-            
+            final int numberOfShades = this.distribution.size();
+
             Graphics2D g2d = (Graphics2D) g;
 
             g2d.setPaint(Color.black);
-            
+
             /* INTERNATIONALIZE */
             g2d.drawString("Häufigkeiten", GradientFrequencyPanel.RIGHTSPACING, GradientFrequencyPanel.TOPSPACING + 5);
 
-            double segmentSize = (double) GradientFrequencyPanel.HEIGHT / (double) numberOfGradiations;
+            double segmentSize = (double) GradientFrequencyPanel.HEIGHT / (double) numberOfShades;
 
-            for (int i = 0; i < numberOfGradiations; ++i) {
+            for (int i = 0; i < numberOfShades; ++i) {
 
-                /* define the colors for the HSB color model */
-                float hue = 0.33f;
-                float saturation = 1f;
-                float brightness = (numberOfGradiations - i) * ((float) 1f / numberOfGradiations);
-                
                 /* convert to RGB color model and paint it */
-                g2d.setPaint(Color.getHSBColor(hue, saturation, brightness));
+                g2d.setPaint(getColorAtPosition(i, numberOfShades));
 
                 g2d.fill(new Rectangle2D.Double(GradientFrequencyPanel.RIGHTSPACING + 25,
                         GradientFrequencyPanel.TOPSPACING + segmentSize * (i) + 20, GradientFrequencyPanel.WIDTH,
@@ -162,7 +160,7 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
                     draw = true;
 
                 } else {
-                    if (i == 0 || i == numberOfGradiations - 1) {
+                    if (i == 0 || i == numberOfShades - 1) {
                         draw = true;
                     }
                 }
@@ -174,6 +172,12 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
             }
         }
     }
-    
-    
+
+    private Color getColorAtPosition(int i, int numberOfElements) {
+        float hue = 0.33f;
+        float saturation = 1f;
+        float brightness = (numberOfElements - i) * ((float) 1f / numberOfElements);
+
+        return Color.getHSBColor(hue, saturation, brightness);
+    }
 }

@@ -173,6 +173,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         /* Initialize the root transform group */
         this.rootTransform = new TransformGroup();
         this.rootTransform.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
+        this.rootTransform.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
         
         /* Initialize the canvas 3D */
         this.canvas3D = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
