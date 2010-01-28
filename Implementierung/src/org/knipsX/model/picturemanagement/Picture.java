@@ -15,7 +15,7 @@ import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
 
 public class Picture implements PictureContainer, ImageObserver {
-    
+
     private File pictureFile;
 
     private boolean isActiveorNot;
@@ -35,7 +35,7 @@ public class Picture implements PictureContainer, ImageObserver {
         this.isActiveorNot = isActiveorNot;
         this.allExifParameter = null;
     }
-    
+
     public Picture(File file, boolean isActiveorNot) {
         this.pictureFile = file;
         this.isActiveorNot = isActiveorNot;
@@ -56,27 +56,33 @@ public class Picture implements PictureContainer, ImageObserver {
         return this;
     }
 
+    /**
+     * This method should not be implemented. This function is illegal.
+     */
     public void remove() {
+        /* not implemented */
     }
-    
+
     public void initThumbnails() {
-        if (this.bigThumbnail == null) {            
+        if (this.bigThumbnail == null) {
             try {
                 this.bigThumbnail = Picture.getThumbOf(ImageIO.read(pictureFile), 200, Image.SCALE_FAST);
             } catch (IOException e) {
-                System.err.println("[Picture::getBigThumbnail()] - File didn't exist - " + pictureFile.getAbsolutePath());
+                System.err.println("[Picture::getBigThumbnail()] - File didn't exist - "
+                        + pictureFile.getAbsolutePath());
             }
         }
-        
+
         if (this.smallThumbnail == null) {
             try {
                 this.smallThumbnail = Picture.getThumbOf(ImageIO.read(pictureFile), 50, Image.SCALE_FAST);
             } catch (IOException e) {
-                System.err.println("[Picture::getSmallThumbnail()] - File didn't exist - " + pictureFile.getAbsolutePath());
+                System.err.println("[Picture::getSmallThumbnail()] - File didn't exist - "
+                        + pictureFile.getAbsolutePath());
             }
         }
     }
-    
+
     public BufferedImage getBigThumbnail() {
         return this.bigThumbnail;
     }
@@ -84,18 +90,22 @@ public class Picture implements PictureContainer, ImageObserver {
     public Image getSmallThumbnail() {
         return this.smallThumbnail;
     }
-    
-    public BufferedImage getImageWithSize(int maxPixel){
+
+    public BufferedImage getImageWithSize(int maxPixel) {
         BufferedImage buffImage = null;
         try {
             buffImage = Picture.getThumbOf(ImageIO.read(pictureFile), maxPixel, Image.SCALE_FAST);
-            //buffImage.getScaledInstance(width, height, hints);
+            // buffImage.getScaledInstance(width, height, hints);
         } catch (IOException e) {
             System.out.println("Can´t create and scale Image");
             e.printStackTrace();
         }
         return buffImage;
-        
+
+    }
+    
+    public Iterator<Picture> iterator() {
+        return this;
     }
 
     public String getPath() {
@@ -106,7 +116,7 @@ public class Picture implements PictureContainer, ImageObserver {
         return pictureFile.getName();
     }
 
-    public Object getExifParameter(ExifParameter exifParameter) {      
+    public Object getExifParameter(ExifParameter exifParameter) {
         return getAllExifParameter()[exifParameter.ordinal()][1];
     }
 
@@ -143,7 +153,7 @@ public class Picture implements PictureContainer, ImageObserver {
             ExifParameter[] parameters = ExifParameter.values();
 
             this.allExifParameter = new Object[parameters.length][2];
-            
+
             for (int i = 0; i < parameters.length; ++i) {
                 this.allExifParameter[i][0] = parameters[i];
                 this.allExifParameter[i][1] = exifAdapter.getExifParameter(parameters[i]);
@@ -158,7 +168,7 @@ public class Picture implements PictureContainer, ImageObserver {
 
         if (width >= height) {
             width = maxWidthOrHight;
-            height = -1; 
+            height = -1;
         } else {
             width = -1;
             height = maxWidthOrHight;
@@ -171,22 +181,18 @@ public class Picture implements PictureContainer, ImageObserver {
         return bThumb;
     }
 
-    public boolean imageUpdate(Image arg0, int arg1, int arg2, int arg3, int arg4, int arg5) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-	public Iterator<Picture> iterator() {
-		return this;
-	}
-
-	public int compareTo(PictureContainer pictureToCompare) {
-		if (this.getPath().hashCode() == ((Picture) pictureToCompare).getPath().hashCode()){
+    public int compareTo(PictureContainer pictureToCompare) {
+        if (this.getPath().hashCode() == ((Picture) pictureToCompare).getPath().hashCode()) {
             return 0;
         } else if (this.getName().compareTo(pictureToCompare.getName()) == 1) {
             return 1;
         } else {
-            return -1; 
-        } 
-	}
+            return -1;
+        }
+    }
+    
+    public boolean imageUpdate(Image arg0, int arg1, int arg2, int arg3, int arg4, int arg5) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }
