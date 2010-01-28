@@ -33,6 +33,13 @@ public class Boxplot {
     private String pictureSetName;
 
     /**
+     * Empty boxplot constructor only for testing.
+     */
+    public Boxplot(){
+        this(0, 0, 0, 0, 0, 0, null, 0, 0, null);
+    }
+    
+    /**
      * Generates a Boxplot with all parameters. Should only used for testing.
      * 
      * @param mean
