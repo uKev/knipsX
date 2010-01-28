@@ -48,7 +48,8 @@ public class DummyRepository implements Repository {
         pictureSetList.add(dummyPictureSet);
 
         /* create some dummy picture sets and add */
-        PictureSet test = new PictureSet("Urlaub", 3);        
+        PictureSet test = new PictureSet("Urlaub", 3);
+        test.addToChilds(dummyDirectory);
         pictureSetList.add(test);
         pictureSetList.add(new PictureSet("Golfen", 4));
         pictureSetList.add(new PictureSet("Weihnachten 2008", 5));
