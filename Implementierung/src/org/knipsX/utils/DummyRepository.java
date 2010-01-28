@@ -72,6 +72,14 @@ public class DummyRepository implements Repository {
         dummyReportThree.setzAxis(new Axis(ExifParameter.FOCALLENGTH));       
         
 
+        int numberOfElements = 0;    
+        
+        for (Picture picture : test) {                    
+            numberOfElements++;
+        }
+        
+        System.out.println(numberOfElements);
+        
         reportList.add(dummyReportThree);
         reportList.add(dummyReportOne);
         reportList.add(dummyReportTwo);
