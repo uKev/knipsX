@@ -35,10 +35,10 @@ public class Boxplot {
     /**
      * Empty boxplot constructor only for testing.
      */
-    public Boxplot(){
+    public Boxplot() {
         this(0, 0, 0, 0, 0, 0, null, 0, 0, null);
     }
-    
+
     /**
      * Generates a Boxplot with all parameters. Should only used for testing.
      * 
@@ -118,8 +118,8 @@ public class Boxplot {
 
         final ArrayList<Double> values = new ArrayList<Double>();
 
-        for (Picture pic : pictures) {
-            values.add((Double) pic.getExifParameter(exifParameter));            
+        for (final Picture pic : pictures) {
+            values.add((Double) pic.getExifParameter(exifParameter));
         }
 
         Collections.sort(values);

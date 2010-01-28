@@ -24,4 +24,15 @@
 2010-01-28
 	* AbstractReportModel
 		- getReportID()
-
+	* BoxplotModel
+		- BoxplotModel()
+		+ getWilcoxonTest()
+		- getWilcoxonPValue()
+		- getWilcoxonSignificance()
+		- getWilcoxonTestType()
+		- isWilcoxonTestActive()
+		- setWilcoxonSignificance()
+		- setWilcoxonTestActive()
+		- setWilcoxonTestType()
+		
+		

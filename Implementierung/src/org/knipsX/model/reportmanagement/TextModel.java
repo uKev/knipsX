@@ -32,7 +32,7 @@ public class TextModel extends AbstractReportModel{
 	}
 
     @Override
-    public PictureParameter[] getPicturesWithMissingExifParameter() {
+    public ArrayList<PictureParameter> getPicturesWithMissingExifParameter() {
         // TODO Auto-generated method stub
         return null;
     }
