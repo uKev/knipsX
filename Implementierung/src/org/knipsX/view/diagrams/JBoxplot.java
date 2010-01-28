@@ -1,5 +1,9 @@
 package org.knipsX.view.diagrams;
 
+import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+
 import javax.vecmath.Vector3d;
 
 import org.knipsX.model.reportmanagement.AbstractReportModel;
@@ -46,22 +50,18 @@ public class JBoxplot<M extends AbstractReportModel> extends JAbstract2DDiagram<
         //Boxplot boxplot = new Boxplot(0.05490246, 0.0775161, 0.7477903, -0.5993204, 2.797647, -2.462955, null, 2.797647, -2.462955, "BLA");
         double[] outlier = {75, 76, 85, 90};
         
+        Boxplot[] myboxplot = new Boxplot[2];
+        String test = "Strahlenschutzbelastungstest";
         
-        
-        
-
-        
-        Boxplot[] myboxplot = new Boxplot[20];
-        
-        for (int p = 0; p < myboxplot.length; p++) {
-            myboxplot[p] = new Boxplot(0.2784033, 10, 12.31617, -25 , 73.23535, -46.98489, outlier, 90,  -50, "BLA");
+        for (int p = 0; p < myboxplot.length; p++) {            
+            myboxplot[p] = new Boxplot(0.2784033, 10, 12.31617, -25 , 73.23535, -46.98489, outlier, 90,  -50, test);
         }        
         
         Boxplot boxplot = myboxplot[0];
         
         this.minValue = boxplot.getMinValue();
         this.maxValue = boxplot.getMaxValue();
-        this.axis3D[1].setAxisSize(Math.max(myboxplot.length, 10));
+        this.axis3D[1].setAxisSize(Math.max(myboxplot.length, 10));        
 
         
         double boxplotSpacing = this.axis3D[1].getAxisSize() /  (double) myboxplot.length;
@@ -72,49 +72,61 @@ public class JBoxplot<M extends AbstractReportModel> extends JAbstract2DDiagram<
         double whiskerScale = 0.05 * correctionFactor;
         double whiskerScaleWidth = 0.5 * correctionFactor;
         double boxWidth = 0.5 * correctionFactor;
+        Color[] boxplotColors = {Color.blue, Color.green, Color.cyan, Color.yellow};
         
         for (int i = 0; i < myboxplot.length; i++) {
+            
+            double xSpace = i * boxplotSpacing + 0.5 * boxplotSpacing;
+            
             double interquartileRange = Math.abs(myboxplot[i].getUpperQuartile()) + Math.abs(myboxplot[i].getLowerQuartile());
             double middleOfinterQuartileRange = (myboxplot[i].getLowerQuartile() + myboxplot[i].getUpperQuartile()) / 2;
            
             /* Create inner quartile range*/
-            this.createCube(new Vector3d(0, getAxisSpace(middleOfinterQuartileRange), i * boxplotSpacing + 0.5 * boxplotSpacing), new Vector3d(boxWidth, (interquartileRange / 2) * scaleFactor , boxWidth), this.basicMaterial(0.125f, 0.125f, 0.125f));        
+            this.createCube(new Vector3d(0, getAxisSpace(middleOfinterQuartileRange), xSpace), new Vector3d(boxWidth, (interquartileRange / 2) * scaleFactor , boxWidth), this.basicMaterial(boxplotColors[i % boxplotColors.length]));        
            
             
             double middleOfUpperWhiskerAndUpperQuartile = (myboxplot[i].getUpperQuartile() + myboxplot[i].getUpperWhisker()) / 2;
             double upperWhiskerRange = Math.abs(myboxplot[i].getUpperWhisker()) - Math.abs(myboxplot[i].getUpperQuartile());
             
             /* Create upper whisker */
-            this.createCube(new Vector3d(0, getAxisSpace(middleOfUpperWhiskerAndUpperQuartile), i * boxplotSpacing + 0.5 * boxplotSpacing), new Vector3d(whiskerScale, (upperWhiskerRange / 2) * scaleFactor , whiskerScale), this.basicMaterial(0.625f, 0.125f, 0.125f));
-            this.createCube(new Vector3d(0, getAxisSpace(myboxplot[i].getUpperWhisker()), i * boxplotSpacing + 0.5 * boxplotSpacing), new Vector3d(whiskerScaleWidth, whiskerScale , whiskerScale), this.basicMaterial(0.625f, 0.125f, 0.625f));
+            this.createCube(new Vector3d(0, getAxisSpace(middleOfUpperWhiskerAndUpperQuartile), xSpace), new Vector3d(whiskerScale, (upperWhiskerRange / 2) * scaleFactor , whiskerScale), this.basicMaterial(0, 0, 0));
+            this.createCube(new Vector3d(0, getAxisSpace(myboxplot[i].getUpperWhisker()), xSpace), new Vector3d(whiskerScaleWidth, whiskerScale , whiskerScale), this.basicMaterial(0, 0, 0));
             
             
             double middleOfLowerWhiskerAndLowerQuartile = (myboxplot[i].getLowerQuartile() + myboxplot[i].getLowerWhisker()) / 2;
             double lowerWhiskerRange = Math.abs(myboxplot[i].getLowerWhisker()) - Math.abs(myboxplot[i].getLowerQuartile());
             
             /* Create lower whisker */
-            this.createCube(new Vector3d(0, getAxisSpace(middleOfLowerWhiskerAndLowerQuartile), i * boxplotSpacing + 0.5 * boxplotSpacing), new Vector3d(whiskerScale, (lowerWhiskerRange / 2) * scaleFactor , whiskerScale), this.basicMaterial(0.625f, 0.125f, 0.125f));
-            this.createCube(new Vector3d(0, getAxisSpace(myboxplot[i].getLowerWhisker()), i * boxplotSpacing + 0.5 * boxplotSpacing), new Vector3d(whiskerScaleWidth, whiskerScale , whiskerScale), this.basicMaterial(0.625f, 0.125f, 0.625f));
-            
+            this.createCube(new Vector3d(0, getAxisSpace(middleOfLowerWhiskerAndLowerQuartile), xSpace), new Vector3d(whiskerScale, (lowerWhiskerRange / 2) * scaleFactor , whiskerScale), this.basicMaterial(0, 0, 0));
+            this.createCube(new Vector3d(0, getAxisSpace(myboxplot[i].getLowerWhisker()), xSpace), new Vector3d(whiskerScaleWidth, whiskerScale , whiskerScale), this.basicMaterial(0, 0, 0));            
             
             /* Create mean */
-            this.createSphere(new Vector3d(-boxWidth, getAxisSpace(myboxplot[i].getMean()), i * boxplotSpacing + 0.5 * boxplotSpacing), new Vector3d(boxWidth / 4, boxWidth / 4 , whiskerScale), this.basicMaterial(1, 0.125f, 0.125f));
+            this.createSphere(new Vector3d(-boxWidth, getAxisSpace(myboxplot[i].getMean()), xSpace), new Vector3d(boxWidth / 4, boxWidth / 4 , whiskerScale), this.basicMaterial(0, 0, 0));
 
             /* Create median */
-            this.createCube(new Vector3d(-boxWidth, getAxisSpace(myboxplot[i].getMedian()), i * boxplotSpacing + 0.5 * boxplotSpacing), new Vector3d(boxWidth, whiskerScale , whiskerScale), this.basicMaterial(1, 0.125f, 0.125f));
+            this.createCube(new Vector3d(-boxWidth, getAxisSpace(myboxplot[i].getMedian()), xSpace), new Vector3d(boxWidth, whiskerScale , whiskerScale), this.basicMaterial(1, 0, 0));
             
             
             /* Create outliers */
             if (myboxplot[i].getOutlier() != null) {
                 for (int p = 0; p < myboxplot[i].getOutlier().length; p++) {
-                    this.createSphere(new Vector3d(0, getAxisSpace(myboxplot[i].getOutlier()[p]), i * boxplotSpacing + 0.5 * boxplotSpacing), new Vector3d(boxWidth / 5, boxWidth / 5 , whiskerScale), this.basicMaterial(1, 1, 1));
+                    this.createSphere(new Vector3d(0, getAxisSpace(myboxplot[i].getOutlier()[p]), xSpace), new Vector3d(boxWidth / 5, boxWidth / 5 , whiskerScale), this.basicMaterial(1, 1, 1));
                 }
             }
+            
+            /* Create tick on the x axis */
+            this.createCube(new Vector3d(0, -0.25, xSpace), new Vector3d(0.025, 0.25 , 0.025), this.basicMaterial(1, 1, 1));
+            
+            
+            /* Create picture set text beneath boxplot */       
+            int stringLength = myboxplot[i].getPictureSetName().length();
+            assert stringLength > 0;
+            double textSize = Math.min(1,  2 * boxplotSpacing * (double) 1 / (double) stringLength);
+            this.createText(new Vector3d(0, -1, xSpace), new Vector3d(textSize, textSize , textSize), this.basicMaterial(1, 1, 1), myboxplot[i].getPictureSetName());
         }
         
         
-        this.axis3D[0].generateSegmentDescription(boxplot.getMinValue(), boxplot.getMaxValue(), 8);
-        this.axis3D[1].generateSegmentDescription(null, null, myboxplot.length + 1);
+        this.axis3D[0].generateSegmentDescription(boxplot.getMinValue(), boxplot.getMaxValue(), 8);       
 
     }
 
@@ -128,5 +140,9 @@ public class JBoxplot<M extends AbstractReportModel> extends JAbstract2DDiagram<
         return slope * reportSpace + yIntercept;
         
     }
+
+
+
+
 
 }
