@@ -15,7 +15,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
 
     private ArrayList<Boxplot> boxplots;
     private WilcoxonTest wilcoxonTest;
-    private ArrayList<PictureParameter> missingExifParameter;
+
     @Deprecated
     private boolean wilcoxonTestActive;
     @Deprecated
@@ -55,12 +55,10 @@ public class BoxplotModel extends AbstractSingleAxisModel {
         }
         this.wilcoxonTest = new WilcoxonTest(pictureContainers, xAxis.getParameter());
 
-        this.missingExifParameter = null;
-
         for (final PictureContainer pictureContainer : pictureContainers) {
             for (final Picture picture : pictureContainer) {
                 if (picture.getExifParameter(xAxis.getParameter()) == null) {
-                    this.missingExifParameter.add(new PictureParameter(xAxis.getParameter(), picture));
+                    this.addMissingExifPictureParameter(new PictureParameter(xAxis.getParameter(), picture));
                 }
             }
         }
@@ -82,7 +80,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      * @return the count of the boxplots
      */
     @Override
-    public Object getMaxX() {
+    public double getMaxX() {
 
         return this.boxplots.size();
     }
@@ -91,7 +89,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
     /**
      * return the maximum Y Value, return Double.MIN_VALUE if there are no boxplots
      */
-    public Object getMaxY() {
+    public double getMaxY() {
         Double maxY = Double.MIN_VALUE;
         for (final Boxplot boxplot : this.boxplots) {
             if (maxY < boxplot.getMaxValue()) {
@@ -105,7 +103,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
     /**
      * return 0 because there are no negative boxplots
      */
-    public Object getMinX() {
+    public double getMinX() {
         return 0;
     }
 
@@ -113,7 +111,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
     /**
      * return the minimum Y Value, return  Double.MAX_VALUE if there are nox boxplots
      */
-    public Object getMinY() {
+    public double getMinY() {
         Double minY = Double.MAX_VALUE;
         for (final Boxplot boxplot : this.boxplots) {
             if (minY > boxplot.getMinValue()) {
@@ -121,11 +119,6 @@ public class BoxplotModel extends AbstractSingleAxisModel {
             }
         }
         return minY;
-    }
-
-    @Override
-    public ArrayList<PictureParameter> getPicturesWithMissingExifParameter() {
-        return this.missingExifParameter;
     }
 
     /**

@@ -16,16 +16,20 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
     // needs to be protected because it's used in subclass
     protected Axis xAxis;
 
-    protected Object minX;
-    protected Object maxX;
-    protected Object minY;
-    protected Object maxY;
+    protected double minX;
+    protected double maxX;
+    protected double minY;
+    protected double maxY;
 
     /**
      * Constructor for an empty AbstractSingleAxisModel
      */
     public AbstractSingleAxisModel() {
         super();
+        minX = Double.MAX_VALUE;
+        maxX = Double.MIN_VALUE;
+        minY = Double.MAX_VALUE;
+        maxY = Double.MIN_VALUE;
     }
 
     /**
@@ -35,6 +39,7 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      */
     public AbstractSingleAxisModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis) {
         this(pictureContainer, xAxis, null, null, null);
+        
     }
 
     /**
@@ -73,6 +78,10 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
             final String reportName, final String reportDescription, final ArrayList<String> exifFilterKeywords) {
         super(pictureContainer, reportName, reportDescription, exifFilterKeywords);
         this.setxAxis(xAxis);
+        minX = Double.MAX_VALUE;
+        maxX = Double.MIN_VALUE;
+        minY = Double.MAX_VALUE;
+        maxY = Double.MIN_VALUE;
     }
 
     /**
@@ -80,28 +89,38 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      * 
      * @return the biggest value in the x-axis.
      */
-    public abstract Object getMaxX();
+    public double getMaxX(){
+        return this.maxX;
+        
+    }
 
     /**
      * Biggest value in y-axis
      * 
      * @return the biggest value in the y-axis.
      */
-    public abstract Object getMaxY();
-
+    public double getMaxY(){
+        return this.maxY;
+        
+    }
     /**
      * Smallest value in x-axis
      * 
      * @return the smallest value in the x-axis.
      */
-    public abstract Object getMinX();
+    public double getMinX(){
+        return this.minX;
+        
+    }
 
     /**
      * Smallest value in y-axis
      * 
      * @return the smallest value in the y-axis.
      */
-    public abstract Object getMinY();
+    public double getMinY(){
+        return this.minY;
+    }
 
     /**
      * Getter for the x-axis
