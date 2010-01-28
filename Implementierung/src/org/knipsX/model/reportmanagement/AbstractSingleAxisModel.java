@@ -82,6 +82,7 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
         maxX = Double.MIN_VALUE;
         minY = Double.MAX_VALUE;
         maxY = Double.MIN_VALUE;
+        this.dataIsCalculated(false);
     }
 
     /**
@@ -139,5 +140,6 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      */
     public void setxAxis(final Axis xAxis){
         this.xAxis = xAxis;
+        this.dataIsCalculated(false);
     }
 }

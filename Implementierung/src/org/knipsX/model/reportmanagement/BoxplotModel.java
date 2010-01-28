@@ -24,12 +24,13 @@ public class BoxplotModel extends AbstractSingleAxisModel {
     private float wilcoxonSignificance;
 
     /**
-     * @deprecated deprecated
-     * deprecated
+     * Constructor for the Boxplot Model
+     * 
      */
     public BoxplotModel() {
         super();
-        // TODO Auto-generated constructor stub
+        this.dataIsCalculated(false);
+
     }
 
     /**
@@ -44,25 +45,37 @@ public class BoxplotModel extends AbstractSingleAxisModel {
         super(pictureContainers, xAxis);
         this.boxplots = new ArrayList<Boxplot>(pictureContainers.size());
 
-        for (final PictureContainer pictures : pictureContainers) {
-            String boxplotName;
-            if (xAxis.getDescription() == null) {
-                boxplotName = xAxis.getParameter().toString();
-            } else {
-                boxplotName = xAxis.getDescription();
-            }
-            this.boxplots.add(new Boxplot(pictures, xAxis.getParameter(), boxplotName));
-        }
-        this.wilcoxonTest = new WilcoxonTest(pictureContainers, xAxis.getParameter());
+        this.calculateIfNeeded();
 
-        for (final PictureContainer pictureContainer : pictureContainers) {
-            for (final Picture picture : pictureContainer) {
-                if (picture.getExifParameter(xAxis.getParameter()) == null) {
-                    this.addMissingExifPictureParameter(new PictureParameter(xAxis.getParameter(), picture));
+    }
+
+    private void calculateIfNeeded() {
+
+        if (!this.isDataCalculated()) {
+            this.clearMissingExifPictureParameter();
+            this.boxplots.clear();
+
+            for (final PictureContainer pictures : this.getPictureContainer()) {
+                String boxplotName;
+                if (xAxis.getDescription() == null) {
+                    boxplotName = xAxis.getParameter().toString();
+                } else {
+                    boxplotName = xAxis.getDescription();
+                }
+                this.boxplots.add(new Boxplot(pictures, xAxis.getParameter(), boxplotName));
+            }
+
+            this.wilcoxonTest = new WilcoxonTest(this.getPictureContainer(), xAxis.getParameter());
+
+            for (final PictureContainer pictureContainer : this.getPictureContainer()) {
+                for (final Picture picture : pictureContainer) {
+                    if (picture.getExifParameter(xAxis.getParameter()) == null) {
+                        this.addMissingExifPictureParameter(new PictureParameter(xAxis.getParameter(), picture));
+                    }
                 }
             }
+            this.dataIsCalculated(true);
         }
-
     }
 
     /**
@@ -71,6 +84,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      * @return boxplots
      */
     public ArrayList<Boxplot> getBoxplots() {
+        this.calculateIfNeeded();
         return this.boxplots;
     }
 
@@ -81,6 +95,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      */
     @Override
     public double getMaxX() {
+        this.calculateIfNeeded();
 
         return this.boxplots.size();
     }
@@ -90,6 +105,8 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      * return the maximum Y Value, return Double.MIN_VALUE if there are no boxplots
      */
     public double getMaxY() {
+        this.calculateIfNeeded();
+        
         Double maxY = Double.MIN_VALUE;
         for (final Boxplot boxplot : this.boxplots) {
             if (maxY < boxplot.getMaxValue()) {
@@ -112,6 +129,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      * return the minimum Y Value, return  Double.MAX_VALUE if there are nox boxplots
      */
     public double getMinY() {
+        this.calculateIfNeeded();
         Double minY = Double.MAX_VALUE;
         for (final Boxplot boxplot : this.boxplots) {
             if (minY > boxplot.getMinValue()) {
@@ -150,6 +168,8 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      * @return the wilcoxonTest. Returns null if wilcoxonTest is not active.
      */
     public WilcoxonTest getWilcoxonTest() {
+        this.calculateIfNeeded();
+        
         WilcoxonTest wilcoxonTest = this.wilcoxonTest;
         if (wilcoxonTest != null) {
             if (wilcoxonTest.isValid()) {
@@ -195,9 +215,11 @@ public class BoxplotModel extends AbstractSingleAxisModel {
 
     /**
      * deprecated
+     * 
      * @deprecated
      *             deprecated
-     * @param wilcoxonTestActive deprecated
+     * @param wilcoxonTestActive
+     *            deprecated
      */
     public void setWilcoxonTestActive(final boolean wilcoxonTestActive) {
         this.wilcoxonTestActive = wilcoxonTestActive;
@@ -211,6 +233,11 @@ public class BoxplotModel extends AbstractSingleAxisModel {
     @Deprecated
     public void setWilcoxonTestType(final WilcoxonTestType wilcoxonTestType) {
         this.wilcoxonTestType = wilcoxonTestType;
+    }
+    
+    public void setxAxis(final Axis xAxis){
+        this.dataIsCalculated(false);
+        this.xAxis = xAxis;
     }
 
 }

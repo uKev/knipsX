@@ -22,6 +22,7 @@ public abstract class AbstractReportModel extends AbstractModel {
     // Tags of pictures that will be filtered
     private ArrayList<String> exifFilterKeywords;
     private ArrayList<PictureParameter> missingExifParameter;
+    private boolean dataIsCalculated;
 
     /**
      * Constructor for the AbstractReportModel
@@ -30,6 +31,7 @@ public abstract class AbstractReportModel extends AbstractModel {
         super();
         this.pictureContainer = new ArrayList<PictureContainer>();
         this.missingExifParameter = null;
+        this.dataIsCalculated(false);
     }
 
     /**
@@ -68,6 +70,7 @@ public abstract class AbstractReportModel extends AbstractModel {
         this.exifFilterKeywords = exifFilterKeywords;
         this.pictureContainer = new ArrayList<PictureContainer>();
         this.missingExifParameter = null;
+        this.dataIsCalculated(false);
     }
 
     /**
@@ -85,6 +88,7 @@ public abstract class AbstractReportModel extends AbstractModel {
     public AbstractReportModel(final ArrayList<PictureContainer> pictureContainer, final String reportName,
             final String reportDescription, final String[] exifFilterKeywords) {
         this(pictureContainer, reportName, reportDescription, new ArrayList<String>(Arrays.asList(exifFilterKeywords)));
+        this.dataIsCalculated(false);
     }
 
     /**
@@ -95,6 +99,7 @@ public abstract class AbstractReportModel extends AbstractModel {
      */
     public AbstractReportModel(ArrayList<PictureContainer> pictureContainer) {
         this(pictureContainer, null, null);
+        this.dataIsCalculated(false);
     }
 
     /**
@@ -107,6 +112,9 @@ public abstract class AbstractReportModel extends AbstractModel {
     public void addExifFilterKeyword(final String filterKeyword) {
         assert !this.exifFilterKeywords.contains(filterKeyword);
         this.exifFilterKeywords.add(filterKeyword);
+
+        this.dataIsCalculated(false);
+        
         this.updateViews();
     }
 
@@ -119,6 +127,9 @@ public abstract class AbstractReportModel extends AbstractModel {
     public void addPictureContainer(final PictureContainer pictureContainer) {
         assert !this.pictureContainer.contains(pictureContainer);
         this.pictureContainer.add(pictureContainer);
+
+        this.dataIsCalculated(false);
+        
         this.updateViews();
     }
 
@@ -157,6 +168,18 @@ public abstract class AbstractReportModel extends AbstractModel {
     
     protected void addMissingExifPictureParameter(PictureParameter exifParameter){
         this.missingExifParameter.add(exifParameter);
+        
+        this.dataIsCalculated(false);
+        
+        updateViews();
+    }
+    
+    protected void clearMissingExifPictureParameter() {
+        this.missingExifParameter.clear();
+        
+        this.dataIsCalculated(false);
+        
+        updateViews();
     }
 
     /**
@@ -188,6 +211,8 @@ public abstract class AbstractReportModel extends AbstractModel {
     public void removeExifFilterKeyword(final String filterKeyword) {
         assert this.exifFilterKeywords.contains(filterKeyword);
         this.exifFilterKeywords.remove(filterKeyword);
+
+        this.dataIsCalculated(false);
         this.updateViews();
     }
 
@@ -200,6 +225,8 @@ public abstract class AbstractReportModel extends AbstractModel {
     public void removePictureContainer(final PictureContainer pictureContainer) {
         assert this.pictureContainer.contains(pictureContainer);
         this.pictureContainer.remove(pictureContainer);
+
+        this.dataIsCalculated(false);
         this.updateViews();
     }
 
@@ -212,7 +239,9 @@ public abstract class AbstractReportModel extends AbstractModel {
      */
     public void setExifFilterKeywords(final ArrayList<String> exifFilterKeywords) {
         this.exifFilterKeywords = exifFilterKeywords;
+        this.dataIsCalculated(false);
         this.updateViews();
+
     }
 
     /**
@@ -224,6 +253,8 @@ public abstract class AbstractReportModel extends AbstractModel {
      */
     public void setExifFilterKeywords(final String[] exifFilterKeywords) {
         this.setExifFilterKeywords(new ArrayList<String>(Arrays.asList(exifFilterKeywords)));
+
+        this.dataIsCalculated(false);
         this.updateViews();
     }
 
@@ -235,6 +266,8 @@ public abstract class AbstractReportModel extends AbstractModel {
      */
     public void setPictureContainer(final ArrayList<PictureContainer> pictureContainer) {
         this.pictureContainer = pictureContainer;
+
+        this.dataIsCalculated(false);
         this.updateViews();
     }
 
@@ -246,6 +279,8 @@ public abstract class AbstractReportModel extends AbstractModel {
      */
     public void setReportDescription(final String reportDescription) {
         this.reportDescription = reportDescription;
+
+        this.dataIsCalculated(false);
         this.updateViews();
     }
 
@@ -257,6 +292,16 @@ public abstract class AbstractReportModel extends AbstractModel {
      */
     public void setReportName(final String reportName) {
         this.reportName = reportName;
+
+        this.dataIsCalculated(false);
         this.updateViews();
+    }
+    
+    protected boolean isDataCalculated() { 
+        return this.dataIsCalculated;
+    }
+    
+    protected void dataIsCalculated(boolean dataIsCalculated){
+        this.dataIsCalculated = dataIsCalculated;
     }
 }
