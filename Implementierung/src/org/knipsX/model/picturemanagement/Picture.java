@@ -83,6 +83,19 @@ public class Picture implements PictureContainer, ImageObserver {
     public Image getSmallThumbnail() {
         return this.smallThumbnail;
     }
+    
+    public BufferedImage getImageWithSize(int maxPixel){
+        BufferedImage buffImage = null;
+        try {
+            buffImage = Picture.getThumbOf(ImageIO.read(pictureFile), maxPixel, Image.SCALE_FAST);
+            //buffImage.getScaledInstance(width, height, hints);
+        } catch (IOException e) {
+            System.out.println("Can´t create and scale Image");
+            e.printStackTrace();
+        }
+        return buffImage;
+        
+    }
 
     public String getPath() {
         return pictureFile.getAbsolutePath();
