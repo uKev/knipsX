@@ -1,6 +1,7 @@
 package org.knipsX.model.picturemanagement;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,13 +25,13 @@ public class Directory implements PictureContainer {
         return directoryFile.getAbsolutePath();
     }
     
-    public PictureContainer next() {
+    public Picture next() {
         if (this.pictures.size() == 0) {
             this.currentPosition = 0;
             this.getAllPictures(directoryFile);
         }
 
-        PictureContainer picture = this.pictures.get(currentPosition);
+        Picture picture = this.pictures.get(currentPosition);
 
         this.currentPosition++;
 
@@ -75,13 +76,17 @@ public class Directory implements PictureContainer {
         /* not implemented */
     }
 
-    public int compareTo(PictureContainer directoryToCompare) {
-        if (this.getPath().hashCode() == ((Directory) directoryToCompare).getPath().hashCode()) {
+	public Iterator<Picture> iterator() {
+		return this;
+	}
+
+	public int compareTo(PictureContainer directoryToCompare) {
+		if (this.getPath().hashCode() == ((Directory) directoryToCompare).getPath().hashCode()) {
             return 0;
         } else if (this.getName().compareTo(directoryToCompare.getName()) == 1) {
             return 1;
         } else {
             return -1;
         }
-    }
+	}
 }
