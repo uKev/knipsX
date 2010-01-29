@@ -45,22 +45,20 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
     @Override
     public void generateContent() {
 
-        
-        //TODO uncomment when frequency3d point are implemented
-        
-        ArrayList<Integer> typesOfPoints = new ArrayList<Integer>();        
-        
-//        for (int i = 0; i < this.model.getFrequency3DPoints().length; i++) {
-//            if (!typesOfPoints.contains(this.model.getFrequency3DPoints()[i].getFrequency())) {
-//                typesOfPoints.add(this.model.getFrequency3DPoints()[i].getFrequency());
-//            }
-//        }
-//        
-//        assert typesOfPoints.size() > 0;
-//        
-//        Collections.sort(typesOfPoints);        
-        
-        
+        // TODO uncomment when frequency3d point are implemented
+
+        final ArrayList<Integer> typesOfPoints = new ArrayList<Integer>();
+
+        // for (int i = 0; i < this.model.getFrequency3DPoints().length; i++) {
+        // if (!typesOfPoints.contains(this.model.getFrequency3DPoints()[i].getFrequency())) {
+        // typesOfPoints.add(this.model.getFrequency3DPoints()[i].getFrequency());
+        // }
+        // }
+        //        
+        // assert typesOfPoints.size() > 0;
+        //        
+        // Collections.sort(typesOfPoints);
+
         /* TODO when implementing the controller, we must set this to the right data */
         for (int i = 0; i <= 200; i++) {
             final Random random = new Random();
@@ -75,13 +73,14 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
             final TransformGroup objData = new TransformGroup(dataTrans);
             objData.setCapability(PickInfo.PICK_GEOMETRY);
 
-            Selectable3DShape selectableShape = new Selectable3DShape(null);
-            float myfloat = (float) random.nextDouble();
-            selectableShape.setAppearance(basicMaterial(myfloat, myfloat * myfloat, myfloat));
-            
-            //TODO uncomment when frequency3d point are implemented
-            //selectableShape.setAppearance(basicMaterial(getColorAtPosition(this.model.getFrequency3DPoints()[i].getFrequency(), typesOfPoints.size())));
-            
+            final Selectable3DShape selectableShape = new Selectable3DShape(null);
+            final float myfloat = (float) random.nextDouble();
+            selectableShape.setAppearance(this.basicMaterial(myfloat, myfloat * myfloat, myfloat));
+
+            // TODO uncomment when frequency3d point are implemented
+            // selectableShape.setAppearance(basicMaterial(getColorAtPosition(this.model.getFrequency3DPoints()[i].getFrequency(),
+            // typesOfPoints.size())));
+
             objData.addChild(selectableShape);
 
             this.objRoot.addChild(objData);
@@ -121,62 +120,73 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
 
         private static final double EPSILON = 17;
 
-        private ArrayList<Integer> distribution;
+        private final ArrayList<Integer> distribution;
 
-        public GradientFrequencyPanel(ArrayList<Integer> distribution) {
+        public GradientFrequencyPanel(final ArrayList<Integer> distribution) {
             this.distribution = distribution;
             this.setPreferredSize(new Dimension(125, 0));
         }
 
         @Override
-        public void paintComponent(Graphics g) {
+        public void paintComponent(final Graphics g) {
             super.paintComponent(g);
 
             final int numberOfShades = this.distribution.size();
 
-            Graphics2D g2d = (Graphics2D) g;
+            final Graphics2D g2d = (Graphics2D) g;
 
             g2d.setPaint(Color.black);
 
             /* INTERNATIONALIZE */
             g2d.drawString("Häufigkeiten", GradientFrequencyPanel.LEFTSPACING, GradientFrequencyPanel.TOPSPACING + 5);
 
-            double segmentSize = (double) GradientFrequencyPanel.HEIGHT / (double) numberOfShades;
+            final double segmentSize = (double) GradientFrequencyPanel.HEIGHT / (double) numberOfShades;
 
+            /* generate all gradients */
             for (int i = 0; i < numberOfShades; ++i) {
 
                 /* convert to RGB color model and paint it */
-                g2d.setPaint(getColorAtPosition(i, numberOfShades));
+                g2d.setPaint(JCluster3D.this.getColorAtPosition(i, numberOfShades));
 
-                g2d.fill(new Rectangle2D.Double(GradientFrequencyPanel.LEFTSPACING + 25,
-                        GradientFrequencyPanel.TOPSPACING + segmentSize * (i) + 20, GradientFrequencyPanel.WIDTH,
-                        segmentSize));
+                /* paint background */
+                final double x = GradientFrequencyPanel.LEFTSPACING + 25;
+                final double y = GradientFrequencyPanel.TOPSPACING + segmentSize * (i) + 20;
+                final double width = GradientFrequencyPanel.WIDTH;
+                final double height = segmentSize;
 
+                g2d.fill(new Rectangle2D.Double(x, y, width, height));
+
+                /* set font color */
                 g2d.setPaint(Color.black);
 
+                /* determine if you can draw a text or not */
                 boolean draw = false;
 
                 if (segmentSize > GradientFrequencyPanel.EPSILON) {
                     draw = true;
-
                 } else {
-                    if (i == 0 || i == numberOfShades - 1) {
+                    if ((i == 0) || (i == numberOfShades - 1)) {
                         draw = true;
                     }
                 }
 
+                /* draw text */
                 if (draw) {
-                    g2d.drawString(Integer.toString(this.distribution.get(i)), GradientFrequencyPanel.LEFTSPACING,
-                            (int) (GradientFrequencyPanel.TOPSPACING + segmentSize * (i) + 20 + 0.66 * segmentSize));
+                    final String textToDraw = this.distribution.get(i).toString();
+
+                    final int leftPadding = GradientFrequencyPanel.LEFTSPACING;
+                    final int rightPadding = (int) (GradientFrequencyPanel.TOPSPACING + segmentSize * (i) + 20 + 0.66 * segmentSize);
+
+                    g2d.drawString(textToDraw, leftPadding, rightPadding);
                 }
             }
         }
     }
 
-    private Color getColorAtPosition(int i, int numberOfElements) {
-        float hue = 0.33f;
-        float saturation = 1f;
-        float brightness = (numberOfElements - i) * ((float) 1f / numberOfElements);
+    private Color getColorAtPosition(final int i, final int numberOfElements) {
+        final float hue = 0.33f;
+        final float saturation = 1f;
+        final float brightness = (numberOfElements - i) * (1f / numberOfElements);
 
         return Color.getHSBColor(hue, saturation, brightness);
     }
