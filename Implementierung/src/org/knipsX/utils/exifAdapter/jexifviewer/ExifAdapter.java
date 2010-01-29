@@ -43,7 +43,7 @@ public class ExifAdapter {
 	
 	private Object getKeywords() {
 		assert this.exifData != null;
-		return this.exifData.getKeywords(new String[1]);
+		return "";
 	}
 
 	public ExifAdapter() {
