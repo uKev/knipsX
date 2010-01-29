@@ -17,7 +17,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.knipsX.model.reportmanagement.AbstractSingleAxisModel;
 import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.Cluster3DModel;

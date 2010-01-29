@@ -10,7 +10,6 @@ import javax.vecmath.Point3d;
 
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 
-import com.sun.j3d.utils.behaviors.mouse.MouseTranslate;
 import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
 import com.sun.j3d.utils.universe.ViewingPlatform;
 

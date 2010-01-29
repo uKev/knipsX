@@ -67,9 +67,9 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
 
             final Transform3D dataTrans = new Transform3D();
 
-            dataTrans.setTranslation(new Vector3d(random.nextDouble() * this.axis3D[0].getAxisSize(), random
+            dataTrans.setTranslation(new Vector3d(random.nextDouble() * this.getyAxis().getAxisSize(), random
                     .nextDouble()
-                    * this.axis3D[1].getAxisSize(), random.nextDouble() * this.axis3D[2].getAxisSize()));
+                    * this.getxAxis().getAxisSize(), random.nextDouble() * this.getzAxis().getAxisSize()));
 
             /* create transformation group */
             final TransformGroup objData = new TransformGroup(dataTrans);
@@ -88,16 +88,16 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
         }
 
         /* setup y axis */
-        this.axis3D[0].generateSegmentDescription(200, 900, 5);
-        this.axis3D[0].setAxis(new Axis("Test", ExifParameter.CAMERAMODEL));
+        this.getyAxis().generateSegmentDescription(200, 900, 5);
+        this.getyAxis().setAxis(new Axis("Test", ExifParameter.CAMERAMODEL));
 
         /* setup x axis */
-        this.axis3D[1].generateSegmentDescription(100, 600, 5);
-        this.axis3D[1].setAxis(new Axis(ExifParameter.ISO));
+        this.getxAxis().generateSegmentDescription(100, 600, 5);
+        this.getxAxis().setAxis(new Axis(ExifParameter.ISO));
 
         /* setup z axis */
-        this.axis3D[2].generateSegmentDescription(10, 20, 5);
-        this.axis3D[2].setAxis(new Axis(ExifParameter.FLASH));
+        this.getzAxis().generateSegmentDescription(10, 20, 5);
+        this.getzAxis().setAxis(new Axis(ExifParameter.FLASH));
 
         /* set the left panel which shows you information about a selected picture */
         this.leftPanel = new JPanel();
@@ -116,7 +116,7 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
 
         private static final int HEIGHT = 400;
         private static final int WIDTH = 75;
-        private static final int RIGHTSPACING = 10;
+        private static final int LEFTSPACING = 10;
         private static final int TOPSPACING = 10;
 
         private static final double EPSILON = 17;
@@ -139,7 +139,7 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
             g2d.setPaint(Color.black);
 
             /* INTERNATIONALIZE */
-            g2d.drawString("Häufigkeiten", GradientFrequencyPanel.RIGHTSPACING, GradientFrequencyPanel.TOPSPACING + 5);
+            g2d.drawString("Häufigkeiten", GradientFrequencyPanel.LEFTSPACING, GradientFrequencyPanel.TOPSPACING + 5);
 
             double segmentSize = (double) GradientFrequencyPanel.HEIGHT / (double) numberOfShades;
 
@@ -148,7 +148,7 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
                 /* convert to RGB color model and paint it */
                 g2d.setPaint(getColorAtPosition(i, numberOfShades));
 
-                g2d.fill(new Rectangle2D.Double(GradientFrequencyPanel.RIGHTSPACING + 25,
+                g2d.fill(new Rectangle2D.Double(GradientFrequencyPanel.LEFTSPACING + 25,
                         GradientFrequencyPanel.TOPSPACING + segmentSize * (i) + 20, GradientFrequencyPanel.WIDTH,
                         segmentSize));
 
@@ -166,7 +166,7 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
                 }
 
                 if (draw) {
-                    g2d.drawString(Integer.toString(this.distribution.get(i)), GradientFrequencyPanel.RIGHTSPACING,
+                    g2d.drawString(Integer.toString(this.distribution.get(i)), GradientFrequencyPanel.LEFTSPACING,
                             (int) (GradientFrequencyPanel.TOPSPACING + segmentSize * (i) + 20 + 0.66 * segmentSize));
                 }
             }
