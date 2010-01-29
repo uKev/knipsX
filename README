@@ -20,7 +20,7 @@ Um alle neuen Dateien zur Versionsverwaltung hinzufügen und (mit Kommentar) zu 
 git commit -am "Kommentar"
 
 Neue Änderungen vom Server holen:
-git pull
+git pull origin master origin master
 
 Änderungen auf den Server übertragen:
 git push origin master

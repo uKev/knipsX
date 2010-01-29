@@ -35,6 +35,8 @@ public class Picture implements PictureContainer, ImageObserver {
     /* Thumbnails */
     private BufferedImage smallThumbnail;
     private BufferedImage bigThumbnail;
+    
+    boolean isReturned;
 
     /**
      * Create new Picture with a path.
@@ -46,6 +48,7 @@ public class Picture implements PictureContainer, ImageObserver {
         this.pictureFile = new File(path);
         this.isActiveorNot = isActiveorNot;
         this.allExifParameter = null;
+        this.isReturned = false;
     }
 
     /**
@@ -58,6 +61,7 @@ public class Picture implements PictureContainer, ImageObserver {
         this.pictureFile = file;
         this.isActiveorNot = isActiveorNot;
         this.allExifParameter = null;
+        this.isReturned = false;
     }
     
     /**
@@ -109,7 +113,12 @@ public class Picture implements PictureContainer, ImageObserver {
      * @return false because this is only one element
      */
     public boolean hasNext() {
-        return false;
+        if (this.isReturned){
+        	this.isReturned = false;
+        	return false;
+        } else {
+        	return true;
+        }
     }
 
     /**
@@ -117,6 +126,7 @@ public class Picture implements PictureContainer, ImageObserver {
      * @return the picture because this is one element
      */
     public Picture next() {
+    	this.isReturned = true;
         return this;
     }
 

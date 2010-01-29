@@ -68,7 +68,7 @@ public class Directory implements PictureContainer {
             this.getAllPictures(directoryFile);
         }
         this.currentPosition = currentPosition + 1;
-        return this.pictures.get(currentPosition);
+        return this.pictures.get(currentPosition-1);
     }
 
     /**
@@ -80,7 +80,7 @@ public class Directory implements PictureContainer {
             this.currentPosition = 0;
             this.getAllPictures(directoryFile);
         }
-        if ((currentPosition + 1) <= (pictures.size() - 1)) {
+        if ((currentPosition) < (pictures.size())) {
             return true;
         } else {
             this.currentPosition = 0;
@@ -122,7 +122,7 @@ public class Directory implements PictureContainer {
             }
         } else {
             if (file.isFile()
-                    && ((file.getAbsolutePath().endsWith(".jpg")) || file.getAbsolutePath().endsWith(".jpeg"))) {
+                    && ((file.getAbsolutePath().toLowerCase().endsWith(".jpg")) || file.getAbsolutePath().toLowerCase().endsWith(".jpeg"))) {
                 this.pictures.add(new Picture(file, true));
             }
         }

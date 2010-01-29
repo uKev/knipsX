@@ -138,6 +138,7 @@ public class PictureSet implements PictureContainer {
                     child++;
                     if (this.children.get(child).hasNext()) {
                         hasNext = true;
+                        currentChild = child;
                     } else {
                         currentChild = 0;
                     }
