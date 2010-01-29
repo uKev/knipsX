@@ -165,10 +165,19 @@ public class Boxplot {
         return lowerWhisker;
     }
 
+    /**
+     * calculate maximum Value
+     * @param values
+     * @return maximum value, 0 if there are no values.
+     */
     private double calculateMaxValue(final ArrayList<Double> values) {
         assert this.isSorted(values);
-
-        return values.get(values.size());
+        if (values != null && values.size() > 0){
+            return values.get(values.size() - 1);
+        } else {
+            return 0;
+        }
+        
     }
 
     private double calculateMean(final ArrayList<Double> values) {
@@ -193,10 +202,19 @@ public class Boxplot {
         return this.quantile(values, 0.5);
     }
 
+    /**
+     * 
+     * @param values
+     * @return 0 if values is null or empty
+     */
     private double calculateMinValue(final ArrayList<Double> values) {
         assert this.isSorted(values);
 
-        return values.get(0);
+        if (values != null && values.size() > 0){
+        return values.get(0);}
+        else {
+            return 0;
+        }
     }
 
     private ArrayList<Double> calculateOutlier(final ArrayList<Double> values) {
