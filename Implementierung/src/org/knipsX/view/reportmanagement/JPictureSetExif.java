@@ -1,6 +1,7 @@
 package org.knipsX.view.reportmanagement;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
@@ -22,8 +23,10 @@ import org.knipsX.controller.reportmanagement.ReportAddPictureSetController;
 import org.knipsX.controller.reportmanagement.ReportPictureSetRemoveController;
 import org.knipsX.controller.reportmanagement.ReportRemoveExifKeywordController;
 import org.knipsX.model.AbstractModel;
+import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
+import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.Resource;
 
 /**
@@ -156,7 +159,13 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
             if (value instanceof PictureSet) {
                 final PictureContainer pictureContainer = (PictureContainer) value;
-                theText = pictureContainer.getName();
+                int numberOfElements = 0;    
+                
+                for (Picture picture : pictureContainer) {                    
+                    numberOfElements++;
+                }
+                
+                theText = pictureContainer.getName() + " (" +  Integer.toString(numberOfElements) + ")";
             }
             renderer.setText(theText);
 

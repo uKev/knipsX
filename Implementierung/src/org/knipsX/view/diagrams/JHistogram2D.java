@@ -28,8 +28,9 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
     }
 
     @Override
-    public void generateContent() {
-        // TODO Auto-generated method stub
+    public void generateContent() {       
+        
+        
     }
 
 }

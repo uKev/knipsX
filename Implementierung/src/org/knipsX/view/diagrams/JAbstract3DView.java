@@ -128,10 +128,9 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     /**
      * Create three axis3D objects for each axis one axis3D object.
      * Note that all three axes have to be initialized even if only
-     * two axis are displayed. axis3D[0] denotes the y axis
-     * axis3D[1] the x axis, axis3D[2] the z axis
+     * two axis are displayed.
      */
-    protected Axis3D[] axis3D = { new Axis3D(), new Axis3D(), new Axis3D() };
+    private Axis3D[] axis3D = { new Axis3D(), new Axis3D(), new Axis3D() };
 
     /**
      * Stores the current perspective
@@ -142,8 +141,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      * The pick canvas which realizes object picking in the 3D view
      */
     private PickCanvas pickCanvas;
-    
-    
+
     /**
      * The root transform group
      */
@@ -167,14 +165,13 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         super(model, reportID);
 
         /* Initialize the object root branch group. All elements are in the view are added to this group */
-        this.objRoot = new BranchGroup(); 
-        
-        
+        this.objRoot = new BranchGroup();
+
         /* Initialize the root transform group */
         this.rootTransform = new TransformGroup();
         this.rootTransform.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
         this.rootTransform.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
-        
+
         /* Initialize the canvas 3D */
         this.canvas3D = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
 
@@ -245,7 +242,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         a.setMaterial(mat);
         return a;
     }
-    
+
     /**
      * Creates a basicMaterial with the specified color
      * 
@@ -287,7 +284,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     private void changeCamtoFaceXZPlane() {
         final TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
         final Transform3D transform3D = new Transform3D();
-        transform3D.setTranslation(new Vector3d(this.axis3D[0].getAxisSize() / 2.0, this.axis3D[1].getAxisSize() / 2.0,
+        transform3D.setTranslation(new Vector3d(this.getyAxis().getAxisSize() / 2.0, this.axis3D[1].getAxisSize() / 2.0,
                 3 * this.axis3D[2].getAxisSize()));
         vpTrans.setTransform(transform3D);
     }
@@ -297,7 +294,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         final TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
         final Transform3D transform3D = new Transform3D();
         transform3D.rotY(-90 * Math.PI / 180.0);
-        transform3D.setTranslation(new Vector3d(-2 * this.axis3D[0].getAxisSize(), this.axis3D[1].getAxisSize() / 2.0,
+        transform3D.setTranslation(new Vector3d(-2 * this.getyAxis().getAxisSize(), this.axis3D[1].getAxisSize() / 2.0,
                 this.axis3D[2].getAxisSize() / 2));
         vpTrans.setTransform(transform3D);
     }
@@ -307,7 +304,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         final TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
         final Transform3D transform3D = new Transform3D();
         transform3D.rotY(180 * Math.PI / 180.0);
-        transform3D.setTranslation(new Vector3d(this.axis3D[0].getAxisSize() / 2.0, this.axis3D[1].getAxisSize() / 2.0,
+        transform3D.setTranslation(new Vector3d(this.getyAxis().getAxisSize() / 2.0, this.axis3D[1].getAxisSize() / 2.0,
                 -2 * this.axis3D[2].getAxisSize()));
         vpTrans.setTransform(transform3D);
     }
@@ -318,7 +315,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         final Transform3D transform3D = new Transform3D();
         transform3D.rotY(60 * Math.PI / 180.0);
         transform3D.rotX(-12.5 * Math.PI / 180.0);
-        transform3D.setTranslation(new Vector3d(this.axis3D[0].getAxisSize() / 2.0,
+        transform3D.setTranslation(new Vector3d(this.getyAxis().getAxisSize() / 2.0,
                 2 * this.axis3D[1].getAxisSize() / 2.0, 3 * this.axis3D[2].getAxisSize()));
         vpTrans.setTransform(transform3D);
     }
@@ -342,8 +339,8 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
                 axisTrans.setScale(new Vector3d(0.15d, this.axis3D[1].getAxisSize(), 0.15d));
             } else if (i == 1) {
                 axisTrans.rotY(90 * Math.PI / 180.0d);
-                axisTrans.setTranslation(new Vector3d(0, this.axis3D[0].getAxisSize() / 2.0, 0));
-                axisTrans.setScale(new Vector3d(0.15d, this.axis3D[0].getAxisSize(), 0.15d));
+                axisTrans.setTranslation(new Vector3d(0, this.getyAxis().getAxisSize() / 2.0, 0));
+                axisTrans.setScale(new Vector3d(0.15d, this.getyAxis().getAxisSize(), 0.15d));
             } else {
                 axisTrans.rotZ(90 * Math.PI / 180.0d);
                 axisTrans.setTranslation(new Vector3d(this.axis3D[2].getAxisSize() / 2.0, 0, 0));
@@ -369,19 +366,18 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
                 final Transform3D segment = new Transform3D();
 
                 final double normDistance = i * this.axis3D[q].getSegmentSize();
-                
-                if (q == 0 && this.axis3D[0].isShowSegments()) {
+
+                if (q == 0 && this.getyAxis().isShowSegments()) {
                     segment.rotX(90 * Math.PI / 180.0d);
                     segment.setTranslation(new Vector3d(0, normDistance, 0));
-                } else if (q == 1 && this.axis3D[1].isShowSegments()) {                    
+                } else if (q == 1 && this.axis3D[1].isShowSegments()) {
                     segment.rotY(90 * Math.PI / 180.0d);
                     segment.setTranslation(new Vector3d(0, 0, normDistance));
-                } else if (q == 2 && this.axis3D[2].isShowSegments()) {                    
+                } else if (q == 2 && this.axis3D[2].isShowSegments()) {
                     segment.rotX(0 * Math.PI / 180.0d);
                     segment.setTranslation(new Vector3d(normDistance, 0, 0));
                 }
 
-                
                 if (this.axis3D[q].isShowSegments()) {
                     final TransformGroup objSeg = new TransformGroup(segment);
                     final Box myAxisGeo = new Box(0.0125f, 0.25f, 0.0125f, 1, this.basicMaterial(1f, 1f, 1f));
@@ -395,11 +391,11 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         for (int i = 0; i < this.numberOfAxes; i++) {
             final Transform3D coneTransformation = new Transform3D();
             Cone axisArrow = null;
-            /* The ratio between cone length and axis size*/
+            /* The ratio between cone length and axis size */
             final float percentage = 1.0f / 20.0f;
 
             final double normDistance = 0.5 * this.axis3D[i].getAxisSize() * percentage + this.axis3D[i].getAxisSize();
-            
+
             if (i == 1) {
                 coneTransformation.rotX(90 * Math.PI / 180.0d);
                 coneTransformation.setTranslation(new Vector3d(0, 0, normDistance));
@@ -464,7 +460,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     protected void createGrid() {
 
         final TransformGroup gridtransform = this.createTransformGroup(
-                new Vector3d(this.axis3D[0].getAxisSize(), 0, 0), new Vector3d(1, 1, 1));
+                new Vector3d(this.getyAxis().getAxisSize(), 0, 0), new Vector3d(1, 1, 1));
 
         if (this.numberOfAxes == 2) {
             final Transform3D mytemptrans = new Transform3D();
@@ -482,9 +478,9 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
                     if (p == 0) {
                         gridTrans.rotX(90 * Math.PI / 180.0d);
                         gridTrans.setTranslation(new Vector3d(
-                                (i * this.axis3D[0].getAxisSize() / JAbstract3DView.GRIDDENSITYFACTOR), 0,
-                                this.axis3D[0].getAxisSize() / 2.0));
-                        gridTrans.setScale(new Vector3d(0.025, this.axis3D[0].getAxisSize(), 0.025));
+                                (i * this.getyAxis().getAxisSize() / JAbstract3DView.GRIDDENSITYFACTOR), 0,
+                                this.getyAxis().getAxisSize() / 2.0));
+                        gridTrans.setScale(new Vector3d(0.025, this.getyAxis().getAxisSize(), 0.025));
                     } else if (p == 1) {
                         gridTrans.rotZ(90 * Math.PI / 180.0d);
                         gridTrans.setTranslation(new Vector3d(this.axis3D[1].getAxisSize() / 2.0, 0, i
@@ -519,7 +515,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         final double offset = 1.5;
         final double size = 0.42d;
         final Appearance myapp = this.basicMaterial(1, 1, 1);
-        this.createText(new Vector3d(0, 0, offset + this.axis3D[0].getAxisSize()), new Vector3d(size, size, size),
+        this.createText(new Vector3d(0, 0, offset + this.getyAxis().getAxisSize()), new Vector3d(size, size, size),
                 myapp, xAxis);
         this.createText(new Vector3d(offset + this.axis3D[1].getAxisSize(), 0, 0), new Vector3d(size, size, size),
                 myapp, yAxis);
@@ -710,15 +706,15 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         this.createSegmentDescription();
 
         /* Create labels */
-        this.createLabels(this.axis3D[0].getDescription(), this.axis3D[1].getDescription(), this.axis3D[2]
+        this.createLabels(this.getyAxis().getDescription(), this.axis3D[1].getDescription(), this.axis3D[2]
                 .getDescription());
 
         /* Create the off-screen Canvas3D object */
-        this.createOffScreenCanvas(this.canvas3D);       
-        
+        this.createOffScreenCanvas(this.canvas3D);
+
         /* Add the root transforum group to the object root */
         this.objRoot.addChild(this.rootTransform);
-        
+
         /* Add scene to branch graph */
         this.simpleU.addBranchGraph(this.objRoot);
 
@@ -773,42 +769,42 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      */
     public void setCurrentDescription(final Picture pic) {
 
-            // TWEAK
+        // TWEAK
+        if (pic != null) {
+            pic.initThumbnails();
+        }
+
+        if (this.leftPanel != null) {
+            this.leftPanel.removeAll();
+            this.leftPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+            this.leftPanel.setLayout(new BoxLayout(this.leftPanel, BoxLayout.PAGE_AXIS));
+
+            for (int i = 0; i < axis3D.length; i++) {
+                JLabel titleLabel = new JLabel(axis3D[i].getDescription().toString());
+                this.leftPanel.add(titleLabel);
+
+                if (axis3D[i].getExifParameter() != null && pic != null) {
+                    JLabel exifParametersLabel = new JLabel(pic.getExifParameter(axis3D[i].getExifParameter())
+                            .toString());
+                    Font f = exifParametersLabel.getFont();
+                    exifParametersLabel.setFont(f.deriveFont(f.getStyle() ^ Font.BOLD));
+
+                    this.leftPanel.add(exifParametersLabel);
+                } else {
+                    this.leftPanel.add(new JLabel("-"));
+                }
+
+                this.leftPanel.add(javax.swing.Box.createRigidArea(new Dimension(0, 20)));
+            }
+
             if (pic != null) {
-               pic.initThumbnails();
+                this.leftPanel.add(new JLabel(new ImageIcon(pic.getSmallThumbnail())));
             }
-    
-            if (this.leftPanel != null) {
-                this.leftPanel.removeAll();
-                this.leftPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-                this.leftPanel.setLayout(new BoxLayout(this.leftPanel, BoxLayout.PAGE_AXIS));
-    
-                for (int i = 0; i < axis3D.length; i++) {
-                    JLabel titleLabel = new JLabel(axis3D[i].getDescription().toString());
-                    this.leftPanel.add(titleLabel);
-    
-                    if (axis3D[i].getExifParameter() != null && pic != null) {
-                        JLabel exifParametersLabel = new JLabel(pic.getExifParameter(axis3D[i].getExifParameter())
-                                .toString());
-                        Font f = exifParametersLabel.getFont();
-                        exifParametersLabel.setFont(f.deriveFont(f.getStyle() ^ Font.BOLD));
-                        
-                        this.leftPanel.add(exifParametersLabel);
-                    } else {
-                        this.leftPanel.add(new JLabel("-"));
-                    }
-    
-                    this.leftPanel.add(javax.swing.Box.createRigidArea(new Dimension(0, 20)));
-                }
-    
-                if (pic != null) {
-                    this.leftPanel.add(new JLabel(new ImageIcon(pic.getSmallThumbnail())));
-                }
-                
-                this.pack();
-                repaint();
-            }
-       
+
+            this.pack();
+            repaint();
+        }
+
     }
 
     /**
@@ -819,38 +815,38 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         /* Define the size of each text label */
         final double size = 0.33d;
 
-        if (this.numberOfAxes >= 1 && this.axis3D[0].isShowSegments()) {
+        if (this.numberOfAxes >= 1 && this.getyAxis().isShowSegments()) {
             /* Create the y Axis */
-            final String[] yAxis = this.axis3D[0].getSegmentDescription();
+            final String[] yAxis = this.getyAxis().getSegmentDescription();
 
             for (int q = 0; q < yAxis.length; q++) {
                 if (yAxis[q] != null) {
-                    this.createText(new Vector3d(0, q * this.axis3D[0].getSegmentSize(), -0.75d), new Vector3d(size,
+                    this.createText(new Vector3d(0, q * this.getyAxis().getSegmentSize(), -0.75d), new Vector3d(size,
                             size, size), this.basicMaterial(1, 1, 1), yAxis[q]);
                 }
 
             }
         }
 
-        if (this.numberOfAxes >= 2 && this.axis3D[1].isShowSegments()) {
+        if (this.numberOfAxes >= 2 && this.getxAxis().isShowSegments()) {
             /* Create the x Axis */
-            final String[] xAxis = this.axis3D[1].getSegmentDescription();
+            final String[] xAxis = this.getxAxis().getSegmentDescription();
 
             for (int q = 0; q < xAxis.length; q++) {
                 if (xAxis[q] != null) {
-                    this.createText(new Vector3d(0, -0.75d, q * this.axis3D[1].getSegmentSize()), new Vector3d(size,
+                    this.createText(new Vector3d(0, -0.75d, q * this.getxAxis().getSegmentSize()), new Vector3d(size,
                             size, size), this.basicMaterial(1, 1, 1), xAxis[q]);
                 }
             }
         }
 
-        if (this.numberOfAxes >= 3 && this.axis3D[2].isShowSegments()) {
+        if (this.numberOfAxes >= 3 && this.getzAxis().isShowSegments()) {
             /* Create the z Axis */
-            final String[] zAxis = this.axis3D[2].getSegmentDescription();
+            final String[] zAxis = this.getzAxis().getSegmentDescription();
 
             for (int q = 0; q < zAxis.length; q++) {
                 if (zAxis[q] != null) {
-                    this.createText(new Vector3d(q * this.axis3D[2].getSegmentSize(), -0.5d, -0.5d), new Vector3d(size,
+                    this.createText(new Vector3d(q * this.getzAxis().getSegmentSize(), -0.5d, -0.5d), new Vector3d(size,
                             size, size), this.basicMaterial(1, 1, 1), zAxis[q]);
                 }
             }
@@ -882,6 +878,30 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+
+    /**
+     * Returns the x axis
+     * @return the x axis
+     */
+    public Axis3D getxAxis() {
+        return this.axis3D[1];
+    }
+
+    /**
+     * Returns the y axis
+     * @return the y axis
+     */
+    public Axis3D getyAxis() {
+        return this.axis3D[0];
+    }
+
+    /**
+     * Returns the z axis
+     * @return the z axis
+     */
+    public Axis3D getzAxis() {
+        return this.axis3D[2];
     }
 
     /**
