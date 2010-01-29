@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 
@@ -875,21 +876,32 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     /* generates the three sperated parts of picture set contents */
     private List<PictureContainer> extractPictureSetContents(final PictureSet pictureSet) {
 
+        final List<PictureContainer> allContents = new ArrayList<PictureContainer>();
+        
         /* we show three different types of picture containers */
-        final List<PictureContainer> list = new ArrayList<PictureContainer>();
+        List<PictureContainer> list = new ArrayList<PictureContainer>();
 
         for (final PictureSet element : this.model.getPictureSetsOfAPictureSet(pictureSet)) {
             list.add(element);
         }
-
+        Collections.sort(list);
+        allContents.addAll(list);
+        
+        list.clear();
         for (final Directory element : this.model.getDirectoriesOfAPictureSet(pictureSet)) {
             list.add(element);
         }
+        Collections.sort(list);
+        allContents.addAll(list);
 
+        list.clear();
         for (final Picture element : this.model.getPicturesOfAPictureSet(pictureSet)) {
             list.add(element);
         }
-        return list;
+        Collections.sort(list);
+        allContents.addAll(list);
+        
+        return allContents;
     }
 }
 
