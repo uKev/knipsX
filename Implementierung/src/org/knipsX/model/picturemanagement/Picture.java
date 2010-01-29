@@ -6,12 +6,13 @@ package org.knipsX.model.picturemanagement;
 /* import classes from the java sdk */
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
+
 import javax.imageio.ImageIO;
 
 /* import classes from our util source*/
@@ -21,7 +22,7 @@ import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
 /**************************************************************************************************
  * The Class Picture represents a picture with image and Exif-Metadata. It also has an thumbnail.
  *************************************************************************************************/
-public class Picture implements PictureContainer, ImageObserver {
+public class Picture extends Observable implements PictureContainer  {
 
     /* The abstract representation of this picture in filesystem */
     private File pictureFile;
@@ -155,6 +156,8 @@ public class Picture implements PictureContainer, ImageObserver {
                         + pictureFile.getAbsolutePath());
             }
         }
+        this.setChanged();
+        this.notifyAll();
     }
 
     public BufferedImage getBigThumbnail() {
@@ -204,6 +207,10 @@ public class Picture implements PictureContainer, ImageObserver {
         this.isActiveorNot = isActive;
     }
 
+    /**
+     * Uses the Exifadapter to get all Exif-values for the picture
+     * @return
+     */
     public Object[][] getAllExifParameter() {
         if (this.allExifParameter == null) {
             ExifAdapter exifAdapter = new ExifAdapter(pictureFile.getAbsolutePath());
@@ -220,6 +227,13 @@ public class Picture implements PictureContainer, ImageObserver {
         return allExifParameter;
     }
 
+    /**
+     * Returns a thumb of a BufferedImage with a specific size.
+     * @param bImage
+     * @param maxWidthOrHight
+     * @param hints
+     * @return
+     */
     private static BufferedImage getThumbOf(BufferedImage bImage, int maxWidthOrHight, int hints) {
         int width = bImage.getWidth();
         int height = bImage.getHeight();
@@ -255,10 +269,5 @@ public class Picture implements PictureContainer, ImageObserver {
         } else {
             return -1;
         }
-    }
-    
-    public boolean imageUpdate(Image arg0, int arg1, int arg2, int arg3, int arg4, int arg5) {
-        // TODO Auto-generated method stub
-        return false;
     }
 }

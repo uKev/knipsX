@@ -130,6 +130,19 @@ public enum ExifParameter {
         public boolean isOrdinal() {
             return true;
         }
+    },
+    
+    KEYWORDS {
+    	@Override
+        public String toString() {
+            // INTERNATIONALIZE
+            return "Stichwort";
+        }
+
+        @Override
+        public boolean isOrdinal() {
+            return true;
+        }
     };
 
     /**

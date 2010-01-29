@@ -33,12 +33,19 @@ public class ExifAdapter {
 			return getOriginalTime();
 		case OBJECTIVENAME:
 			return getObjective();
+		case KEYWORDS:
+			return getKeywords();
 		default:
 			assert false;
 		}
 		return null;		
 	}
 	
+	private Object getKeywords() {
+		assert this.exifData != null;
+		return this.exifData.getKeywords(new String[1]);
+	}
+
 	public ExifAdapter() {
 		this.exifData = new JIfdData();
 		this.strFilePath = "";
