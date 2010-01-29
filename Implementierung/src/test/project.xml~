@@ -1,0 +1,175 @@
+<project>
+	<id>123</id>
+	<name>Bla</name>
+	<description>Blubb</description>
+	<creationDate>123456</creationDate>
+	<pictureSets>
+		<pictureSet>
+			<id>289</id>
+			<name>Party 2009</name>
+			<children>
+				<pictureSet>12</pictureSet>
+				<directory>234</directory>
+				<picture>12345</picture>
+				<picture>5478</picture>
+			</children>			
+			<deactivatedPictures></deactivatedPictures>		
+		</pictureSet>
+		<pictureSet>
+			<id>12</id>
+			<name>Set 1</name>
+			<children>
+				<pictureSet>23</pictureSet>
+				<directory>42</directory>
+			</children>	
+			<deactivatedPictures>
+				<path>/home/test/vieleBilder/xml.jpg</path>
+				<path>/home/test/vieleBilder/xml_ganz_easy.jpg</path>
+			</deactivatedPictures>		
+		</pictureSet>
+		<pictureSet>
+			<id>23</id>
+			<name>Urlaub</name>
+			<children>
+				<picture>43</picture>
+			</children>
+			<deactivatedPictures></deactivatedPictures>
+		</pictureSet>
+	</pictureSets>
+	<directories>
+		<directory>
+			<id>42</id>
+			<path>/home/test/vieleBilder/</path>
+		</directory>
+		<directory>
+			<id>234</id>
+			<path>/home/test/nochMehrBilder/</path>
+		</directory>
+	</directories>
+	<pictures>
+		<picture>
+			<id>43</id>
+			<path>/home/test/bild1.jpg</path>
+		</picture>
+		<picture>
+			<id>12345</id>
+			<path>/home/test/bild1.jpg</path>
+		</picture>
+		<picture>
+			<id>5478</id>
+			<path>/home/test/bild1.jpg</path>
+		</picture>
+	</pictures>
+	<reports>
+		<report>
+			<type>boxplot</type>
+			<name>Goldfische 09</name>
+			<description>Meine tollen Goldfische neben dem Informatik Bau</description>
+			<axes>
+				<axis>
+					<type>x</type>
+					<parameter>ISO</parameter>
+					<description></description>
+				</axis>
+			</axes>
+			<pictureSets>
+				<pictureSet>12</pictureSet>
+				<pictureSet>23</pictureSet>
+			</pictureSets>
+			<exifFilterKeywords>
+				<exifFilterKeyword>roter Goldfisch</exifFilterKeyword>
+				<exifFilterKeyword>blauer Goldfisch</exifFilterKeyword>
+			</exifFilterKeywords>
+			<wilcoxonTest>
+				<isActive>true</isActive>
+				<testType>LOWER</testType>
+				<significance>3.145</significance>
+			</wilcoxonTest>
+		</report>
+		<report>
+			<type>boxplot</type>
+			<name>Goldfische 10</name>
+			<description>Meine nicht ganz so tollen Goldfische neben dem Informatik Bau</description>
+			<axes>
+				<axis>
+					<type>x</type>
+					<parameter>FNUMBER</parameter>
+					<description></description>
+				</axis>
+			</axes>
+			<pictureSets>
+				<pictureSet>12</pictureSet>
+			</pictureSets>
+			<exifFilterKeywords>
+				<exifFilterKeyword>blauer Goldfisch</exifFilterKeyword>
+			</exifFilterKeywords>
+			<wilcoxonTest>
+				<isActive>false</isActive>
+				<testType>UPPER</testType>
+				<significance>1.245</significance>
+			</wilcoxonTest>
+		</report>
+		<report>
+			<type>cluster3D</type>
+			<name>Goldfische 10</name>
+			<description>Meine nicht ganz so tollen Goldfische neben dem Informatik Bau</description>
+			<axes>
+				<axis>
+					<type>x</type>
+					<parameter>FNUMBER</parameter>
+					<description></description>
+				</axis>
+				<axis>
+					<type>y</type>
+					<parameter>ISO</parameter>
+					<description></description>
+				</axis>
+				<axis>
+					<type>z</type>
+					<parameter>FLASH</parameter>
+					<description></description>
+				</axis>
+			</axes>
+			<pictureSets>
+				<pictureSet>23</pictureSet>
+			</pictureSets>
+			<exifFilterKeywords>
+				<exifFilterKeyword></exifFilterKeyword>
+			</exifFilterKeywords>
+		</report>
+		<report>
+			<type>histogramm3D</type>
+			<name>Stunden im Haus</name>
+			<description>Ultimative Analyse</description>
+			<axes>
+				<axis>
+					<type>x</type>
+					<parameter>FNUMBER</parameter>
+					<description></description>
+				</axis>
+				<axis>
+					<type>z</type>
+					<parameter>FLASH</parameter>
+					<description></description>
+				</axis>
+			</axes>
+			<pictureSets>
+				<pictureSet>23</pictureSet>
+			</pictureSets>
+			<exifFilterKeywords>
+				<exifFilterKeyword></exifFilterKeyword>
+			</exifFilterKeywords>
+		</report>
+		<report>
+			<type>table</type>
+			<name>Stunden im Haus</name>
+			<description>Ultimative Analyse</description>
+			<pictureSets>
+				<pictureSet>289</pictureSet>
+			</pictureSets>
+			<exifFilterKeywords>
+				<exifFilterKeyword></exifFilterKeyword>
+			</exifFilterKeywords>
+		</report>
+	</reports>
+</project>
