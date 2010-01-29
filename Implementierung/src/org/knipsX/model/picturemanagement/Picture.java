@@ -157,7 +157,7 @@ public class Picture extends Observable implements PictureContainer  {
             }
         }
         this.setChanged();
-        this.notifyAll();
+        
     }
 
     public BufferedImage getBigThumbnail() {
