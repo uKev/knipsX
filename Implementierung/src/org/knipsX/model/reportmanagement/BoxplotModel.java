@@ -29,6 +29,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      */
     public BoxplotModel() {
         super();
+        this.boxplots = new ArrayList<Boxplot>();
         this.dataIsCalculated(false);
 
     }

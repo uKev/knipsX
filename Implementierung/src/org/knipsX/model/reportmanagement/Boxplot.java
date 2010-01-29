@@ -119,7 +119,7 @@ public class Boxplot {
         final ArrayList<Double> values = new ArrayList<Double>();
 
         for (final Picture pic : pictures) {
-            values.add((Double) pic.getExifParameter(exifParameter));
+            values.add(Double.valueOf(pic.getExifParameter(exifParameter).toString()));
         }
 
         Collections.sort(values);
@@ -144,20 +144,23 @@ public class Boxplot {
 
     private double calculateLowerWhisker(final ArrayList<Double> values) {
         assert this.isSorted(values);
+        double lowerWhisker = 0;
 
-        final double upperQuartile = this.calculateUpperQuartile(values);
-        final double lowerQuartile = this.calculateLowerQuartile(values);
-        final double interQuartileRange = Math.abs(upperQuartile - lowerQuartile);
+        if (values.size() > 1) {
+            final double upperQuartile = this.calculateUpperQuartile(values);
+            final double lowerQuartile = this.calculateLowerQuartile(values);
+            final double interQuartileRange = Math.abs(upperQuartile - lowerQuartile);
 
-        double value = lowerQuartile;
-        double lowerWhisker = value;
-
-        int i = (int) (values.size() * 0.25);
-
-        while ((value >= (lowerQuartile - (1.5 * interQuartileRange))) && (i >= 0)) {
+            double value = lowerQuartile;
             lowerWhisker = value;
-            value = values.get(i);
-            i--;
+
+            int i = (int) (values.size() * 0.25);
+
+            while ((value >= (lowerQuartile - (1.5 * interQuartileRange))) && (i >= 0)) {
+                lowerWhisker = value;
+                value = values.get(i);
+                i--;
+            }
         }
         return lowerWhisker;
     }
@@ -200,37 +203,39 @@ public class Boxplot {
         assert this.isSorted(values);
         final ArrayList<Double> outlier = new ArrayList<Double>();
 
-        /*
-         * calculate upper outlier
-         */
-        final double upperWhisker = this.calculateUpperWhisker(values);
-        final int lastElement = values.size() - 1;
-        if (upperWhisker < values.get(lastElement)) {
-            // There are outlier
-            int i = lastElement;
+        if (values.size() > 1) {
+            /*
+             * calculate upper outlier
+             */
+            final double upperWhisker = this.calculateUpperWhisker(values);
+            final int lastElement = values.size() - 1;
+            if (upperWhisker < values.get(lastElement)) {
+                // There are outlier
+                int i = lastElement;
 
-            while (upperWhisker < values.get(i)) {
-                outlier.add(values.get(i));
-                i--;
+                while (upperWhisker < values.get(i)) {
+                    outlier.add(values.get(i));
+                    i--;
+                }
+
             }
 
-        }
+            /*
+             * calculate lower outlier
+             */
 
-        /*
-         * calculate lower outlier
-         */
+            final double lowerWhisker = this.calculateLowerWhisker(values);
+            final int firstElement = 0;
+            if (lowerWhisker > values.get(firstElement)) {
+                // There are outlier
+                int i = firstElement;
 
-        final double lowerWhisker = this.calculateLowerWhisker(values);
-        final int firstElement = 0;
-        if (lowerWhisker > values.get(firstElement)) {
-            // There are outlier
-            int i = firstElement;
+                while (lowerWhisker > values.get(i)) {
+                    outlier.add(values.get(i));
+                    i++;
+                }
 
-            while (lowerWhisker > values.get(i)) {
-                outlier.add(values.get(i));
-                i++;
             }
-
         }
         return outlier;
     }
@@ -384,19 +389,21 @@ public class Boxplot {
         // here are small symbols better to read than long ones
         final int s = values.size();
 
-        // Epsilon
-        final double e = 0.000001;
-        final int k = (int) (p * (s));
+        if (s > 1) {
+            // Epsilon
+            final double e = 0.000001;
+            final int k = (int) (p * (s));
 
-        // s * p is element of N
-        if ((((s * p) % 1) < e) && (((s * p) % 1) > (-e))) {
+            // s * p is element of N
+            if ((((s * p) % 1) < e) && (((s * p) % 1) > (-e))) {
 
-            quantile = (((double) values.get(k - 1)) + ((double) values.get(k))) / 2;
+                quantile = (((double) values.get(k - 1)) + ((double) values.get(k))) / 2;
 
-        } else {
-            // s * p is not an element of N
-            quantile = values.get(k);
+            } else {
+                // s * p is not an element of N
+                quantile = values.get(k);
 
+            }
         }
 
         return quantile;
