@@ -240,7 +240,7 @@ public class Picture implements PictureContainer, ImageObserver {
     public int compareTo(PictureContainer pictureToCompare) {
         if (this.getPath().hashCode() == ((Picture) pictureToCompare).getPath().hashCode()) {
             return 0;
-        } else if (this.getName().compareTo(pictureToCompare.getName()) == 1) {
+        } else if (this.getName().compareTo(pictureToCompare.getName()) > 0) {
             return 1;
         } else {
             return -1;

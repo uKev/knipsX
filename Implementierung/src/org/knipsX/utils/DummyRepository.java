@@ -41,6 +41,9 @@ public class DummyRepository implements Repository {
         
         dummyPictureSet.addToChilds(dummyDirectory);
 
+        dummyPictureSet.addToChilds(new PictureSet("Fische", 12));
+        dummyPictureSet.addToChilds(new PictureSet("Oldfische", 13));
+        dummyPictureSet.addToChilds(new PictureSet("Abc", 14));
         dummyPictureSet.addToChilds(new PictureSet("Grillfest", 10));
         dummyPictureSet.addToChilds(new PictureSet("SuperGoldfische", 11));
 

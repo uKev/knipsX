@@ -184,9 +184,9 @@ public class PictureSet implements PictureContainer {
      *         the specified object
      */
     public int compareTo(PictureContainer picturesetToCompare) {
-        if (this.id == ((PictureSet) picturesetToCompare).getID()) {
+        if (this.id == ((PictureSet) picturesetToCompare).id) {
             return 0;
-        } else if (this.getName().compareTo(picturesetToCompare.getName()) == 1) {
+        } else if (this.name.compareTo(((PictureSet) picturesetToCompare).name) > 0) {
             return 1;
         } else {
             return -1;
