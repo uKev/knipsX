@@ -32,12 +32,14 @@ public class DummyRepository implements Repository {
         PictureSet dummyPictureSet = new PictureSet("Goldfische", 1);
 
         /* create some dummy picture containers and add to the picture set */
-        Picture dummyPicture = new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
-                + File.separator + "DSC00964.JPG", true);
+        String picturePath = System.getProperty("user.home" ) + File.separator + ".knipsX_test_bilder" + File.separator + "DSC00964.JPG";
+        System.out.println("Picture Path: " + picturePath);
+        Picture dummyPicture = new Picture(picturePath, true);
         dummyPictureSet.addToChilds(dummyPicture);
 
-        Directory dummyDirectory = new Directory(System.getProperty("user.dir") + File.separator + "testbilder"
-                + File.separator + "testordner");
+        String pictureDir = System.getProperty("user.home")  + File.separator + ".knipsX_test_bilder" + File.separator + "testordner";
+        System.out.println("Picture Dir:" + pictureDir);
+        Directory dummyDirectory = new Directory(pictureDir);
         
         dummyPictureSet.addToChilds(dummyDirectory);
 
@@ -50,7 +52,8 @@ public class DummyRepository implements Repository {
         /* add to list */
         pictureSetList.add(dummyPictureSet);
 
-        /* create some dummy picture sets and add */
+        /* create some dummy picture sets antem.getProperty("user.home")  + File.separator + ".knipsX_test_bilder" + File.separator + "testordner";
+        System.out.println(pictd add */
         PictureSet test = new PictureSet("Urlaub", 3);
         test.addToChilds(dummyDirectory);
         pictureSetList.add(test);
