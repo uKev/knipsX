@@ -30,7 +30,9 @@ public abstract class AbstractReportModel extends AbstractModel {
     public AbstractReportModel() {
         super();
         this.pictureContainer = new ArrayList<PictureContainer>();
-        this.missingExifParameter = null;
+        this.missingExifParameter = new ArrayList<PictureParameter>();
+        this.exifFilterKeywords = new ArrayList<String>();
+        
         this.dataIsCalculated(false);
     }
 
