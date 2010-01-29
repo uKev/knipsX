@@ -153,8 +153,11 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
                     .basicMaterial(1, 1, 1), boxplots[i].getPictureSetName());
         }
 
-        this.getyAxis().generateSegmentDescription(8);
-        // this.getyAxis().generateSegmentDescription(this.model.getMinY(), this.model.getMaxY(), 8);
+        if (this.model != null) {
+            this.getyAxis().generateSegmentDescription(this.model.getMinY(), this.model.getMaxY(), 8);            
+        } else {
+            this.getyAxis().generateSegmentDescription(8);
+        }
 
     }
 
