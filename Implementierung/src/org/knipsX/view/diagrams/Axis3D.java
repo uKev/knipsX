@@ -22,6 +22,7 @@ class Axis3D {
     private Axis axis;
     private double minReportSpace = 1;
     private double maxReportSpace = 1;
+    private boolean isReportSpaceInitialized = false;
 
     /**
      * Returns the assigned EXIF Parameter
@@ -164,7 +165,7 @@ class Axis3D {
             final String[] returnstring = new String[this.getNumberOfSegments() + 1];
 
             DecimalFormat format = new DecimalFormat("#.###");
-            
+
             for (int i = 0; i < this.getNumberOfSegments() + 1; i++) {
                 returnstring[i] = String.valueOf(format.format((Integer) minValue + pieces * i));
             }
@@ -202,7 +203,7 @@ class Axis3D {
      *            the number of segments for this description
      */
     protected void generateSegmentDescription(int numberOfSegments) {
-        checkNotEqual();
+        isReportSpaceInitialized();
         this.generateSegmentDescription(this.minReportSpace, this.maxReportSpace, numberOfSegments);
     }
 
@@ -217,11 +218,12 @@ class Axis3D {
      *            the maximum value in report space units
      */
     public void setReportSpace(double minValue, double maxValue) {
-
+        
+        /* Registeres that the report space has been set */
+        this.isReportSpaceInitialized = true;
+        
         this.minReportSpace = Math.min(minValue, maxValue);
         this.maxReportSpace = Math.max(minValue, maxValue);
-
-        checkNotEqual();
     }
 
     /**
@@ -237,7 +239,7 @@ class Axis3D {
      */
     public double getAxisSpace(double reportSpace) {
 
-        checkNotEqual();
+        isReportSpaceInitialized();
 
         double range = Math.abs(this.maxReportSpace) + Math.abs(this.minReportSpace);
         assert range > 0;
@@ -248,16 +250,13 @@ class Axis3D {
         return slope * reportSpace + yIntercept;
     }
 
-    private void checkNotEqual() {
+    private void isReportSpaceInitialized() {
 
-        if (Double.compare(this.minReportSpace, this.maxReportSpace) == 0) {
+        if (!isReportSpaceInitialized) {
             try {
-                throw new ArithmeticException(
-                        "The minimum and maximum report space values shouldn't be the same value. Are you sure you"
-                                + " have even set the values accordingly? " + Double.toString(this.minReportSpace)
-                                + " = " + Double.toString(this.maxReportSpace));
+                throw new ArithmeticException("The report space has not yet been initialized! "
+                		+ "Initialize it before you use a report space function");
             } catch (ArithmeticException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -273,7 +272,7 @@ class Axis3D {
      * @return the scale factor of the given axis
      */
     public double getScaleFactor() {
-        checkNotEqual();
+        isReportSpaceInitialized();
 
         double range = Math.abs(this.minReportSpace) + Math.abs(this.maxReportSpace);
         assert range > 0;

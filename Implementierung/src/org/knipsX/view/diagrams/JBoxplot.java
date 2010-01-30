@@ -8,6 +8,7 @@ import javax.vecmath.Vector3d;
 
 import org.knipsX.model.reportmanagement.Boxplot;
 import org.knipsX.model.reportmanagement.BoxplotModel;
+import org.knipsX.model.reportmanagement.TextModel;
 
 /**
  * This class implements how the BoxplotModel is to be drawn.
@@ -46,6 +47,24 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
         if (this.model != null) {
             boxplots = new Boxplot[this.model.getBoxplots().size()];
             this.model.getBoxplots().toArray(boxplots);
+            this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
+            
+            
+            String text = "Mean " + boxplots[0].getMean()
+                           + "\nMedian " + boxplots[0].getMedian()
+                           + "\nMax Value " + boxplots[0].getMaxValue()
+                           + "\nMin Value " + boxplots[0].getMinValue()
+                           + "\nLower Whisker " + boxplots[0].getLowerWhisker()
+                           + "\nUpper Whisker " + boxplots[0].getUpperWhisker()
+                           + "\nLower Quantil " + boxplots[0].getLowerQuartile()
+                           + "\nUpper Quantil " + boxplots[0].getUpperQuartile();
+            
+            
+            TextModel textModel = new TextModel();
+            textModel.setText(text);
+            JTextDiagram textDiagram = new JTextDiagram(textModel, -1);        
+            textDiagram.showDiagram();
+            
         } else {
 
             boxplots = new Boxplot[3];
@@ -146,11 +165,11 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
                     1, 1));
 
             /* Create picture set text beneath boxplot */
-            int stringLength = boxplots[i].getPictureSetName().length();
-            assert stringLength > 0;
-            double textSize = Math.min(1, 2 * boxplotSpacing * (double) 1 / (double) stringLength);
-            this.createText(new Vector3d(0, -1, xSpace), new Vector3d(textSize, textSize, textSize), this
-                    .basicMaterial(1, 1, 1), boxplots[i].getPictureSetName());
+//            int stringLength = boxplots[i].getPictureSetName().length();
+//            assert stringLength > 0;
+//            double textSize = Math.min(1, 2 * boxplotSpacing * (double) 1 / (double) stringLength);
+//            this.createText(new Vector3d(0, -1, xSpace), new Vector3d(textSize, textSize, textSize), this
+//                    .basicMaterial(1, 1, 1), boxplots[i].getPictureSetName());
         }
 
         if (this.model != null) {
@@ -158,6 +177,7 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
         } else {
             this.getyAxis().generateSegmentDescription(8);
         }
+
 
     }
 
