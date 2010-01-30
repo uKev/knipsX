@@ -1,3 +1,9 @@
+/**
+* Here the classes are created and marshalled. 
+* The Class Hello.java writes the data to 'output.xml'
+*
+*/
+
 public class Main {
 
 	/**
