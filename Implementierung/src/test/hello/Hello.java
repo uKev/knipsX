@@ -1,3 +1,10 @@
+/**
+*This file writes Objects from memory to an XML file.
+*
+*/
+
+
+
 import java.util.*;
 import javax.xml.bind.*;
 import hello.*;
