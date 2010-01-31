@@ -250,6 +250,7 @@ class Axis3D {
 
     private void checkNotEqual() {
 
+        // FIXME: Doch, sie können gleich sein, falls z.b. 10 Bilder mit ISO 100 analysiert werden. Das ist könnte durchaus häufig der Fall sein. Hier muss also irgendwas, mindestens ein Dialog, angezeigt werden. (Kev)
         if (Double.compare(this.minReportSpace, this.maxReportSpace) == 0) {
             try {
                 throw new ArithmeticException(

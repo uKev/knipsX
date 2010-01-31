@@ -46,6 +46,10 @@ public class Picture extends Observable implements PictureContainer  {
      * @param isActiveorNot the status of the picture
      */
     public Picture(String path, boolean isActiveorNot) {
+        /* TODO: Fehlerbehandlung, fall path nicht existiert
+         * -> Eigene Exception werfen und in benutzenden Klassen abfangen.
+         * (Von Kev eingetragen)
+         */
         this.pictureFile = new File(path);
         this.isActiveorNot = isActiveorNot;
         this.allExifParameter = null;
