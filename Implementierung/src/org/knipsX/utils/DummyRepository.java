@@ -36,10 +36,7 @@ public class DummyRepository implements Repository {
         System.out.println("Picture Path: " + picturePath);
         Picture dummyPicture = new Picture(picturePath, true);
         dummyPictureSet.addToChilds(dummyPicture);
-        String directoryPath = System.getProperty("user.home") + File.separator + ".knipsX_test_bilder";
-        Directory dummyDir = new Directory(directoryPath);
-        dummyPictureSet.addToChilds(dummyDir);
-
+        
         String pictureDir = System.getProperty("user.home")  + File.separator + ".knipsX_test_bilder" + File.separator + "testordner";
         System.out.println("Picture Dir:" + pictureDir);
         Directory dummyDirectory = new Directory(pictureDir);
