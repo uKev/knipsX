@@ -183,7 +183,7 @@ public class Boxplot {
     private double calculateMean(final ArrayList<Double> values) {
         assert values != null;
         assert values.size() > 0;
-        assert this.isSorted(values);
+
 
         double mean = 0;
 
@@ -193,7 +193,7 @@ public class Boxplot {
 
         mean = mean / (values.size());
 
-        return 0;
+        return mean;
     }
 
     private double calculateMedian(final ArrayList<Double> values) {
