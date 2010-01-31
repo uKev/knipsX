@@ -18,15 +18,15 @@ import org.knipsX.utils.ExifParameter;
  */
 public class Boxplot {
 
-    private final double mean;
-    private final double median;
-    private final double upperQuartile;
-    private final double lowerQuartile;
-    private final double upperWhisker;
-    private final double lowerWhisker;
-    private final ArrayList<Double> outlier;
-    private final double maxValue;
-    private final double minValue;
+    private double mean = Double.MIN_VALUE;
+    private double median = Double.MIN_VALUE;
+    private double upperQuartile = Double.MIN_VALUE;
+    private double lowerQuartile = Double.MIN_VALUE;
+    private double upperWhisker = Double.MIN_VALUE;
+    private double lowerWhisker = Double.MIN_VALUE;
+    private ArrayList<Double> outlier = new ArrayList<Double>();
+    private double maxValue = Double.MIN_VALUE;
+    private double minValue = Double.MAX_VALUE;
 
     // TODO: macht es sinn, hier den boxplot namen statt den picture-set namen zu verwenden?
     // Abstimmung mit david
@@ -133,6 +133,7 @@ public class Boxplot {
         this.outlier = this.calculateOutlier(values);
         this.maxValue = this.calculateMaxValue(values);
         this.minValue = this.calculateMinValue(values);
+        this.pictureSetName = pictureSetName;
 
     }
 
@@ -172,7 +173,7 @@ public class Boxplot {
      */
     private double calculateMaxValue(final ArrayList<Double> values) {
         assert this.isSorted(values);
-        if (values != null && values.size() > 0){
+        if (values != null && values.size() > 0) {
             return values.get(values.size() - 1);
         } else {
             return 0;
@@ -210,9 +211,9 @@ public class Boxplot {
     private double calculateMinValue(final ArrayList<Double> values) {
         assert this.isSorted(values);
 
-        if (values != null && values.size() > 0){
-        return values.get(0);}
-        else {
+        if (values != null && values.size() > 0) {
+            return values.get(0); 
+        } else {
             return 0;
         }
     }

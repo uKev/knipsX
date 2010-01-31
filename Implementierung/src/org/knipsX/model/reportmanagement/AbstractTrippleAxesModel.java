@@ -31,15 +31,25 @@ public abstract class AbstractTrippleAxesModel extends AbstractDoubleAxesModel {
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * creates an empty AbstractTrippleAxesModel
+	 */
 	public AbstractTrippleAxesModel() {
 		super();
 	}
 
-	
+	/**
+	 * Getter for the y axis
+	 * @return
+	 */
 	public Axis getyAxis() {
 		return yAxis;
 	}
 
+	/**
+	 * Setter for the y axis
+	 * @param yAxis
+	 */
 	public void setyAxis(Axis yAxis) {
 		this.yAxis = yAxis;
 	}

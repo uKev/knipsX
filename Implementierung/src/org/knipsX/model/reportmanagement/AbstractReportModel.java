@@ -21,7 +21,7 @@ public abstract class AbstractReportModel extends AbstractModel {
     private String reportDescription;
     // Tags of pictures that will be filtered
     private ArrayList<String> exifFilterKeywords;
-    private ArrayList<PictureParameter> missingExifParameter;
+    private final ArrayList<PictureParameter> missingExifParameter;
     private boolean dataIsCalculated;
 
     /**
@@ -32,7 +32,18 @@ public abstract class AbstractReportModel extends AbstractModel {
         this.pictureContainer = new ArrayList<PictureContainer>();
         this.missingExifParameter = new ArrayList<PictureParameter>();
         this.exifFilterKeywords = new ArrayList<String>();
-        
+
+        this.dataIsCalculated(false);
+    }
+
+    /**
+     * Constructor with pictreContainer
+     * 
+     * @param pictureContainer
+     *            a picture container
+     */
+    public AbstractReportModel(final ArrayList<PictureContainer> pictureContainer) {
+        this(pictureContainer, null, null);
         this.dataIsCalculated(false);
     }
 
@@ -94,17 +105,6 @@ public abstract class AbstractReportModel extends AbstractModel {
     }
 
     /**
-     * Constructor with pictreContainer
-     * 
-     * @param pictureContainer
-     *            a picture container
-     */
-    public AbstractReportModel(ArrayList<PictureContainer> pictureContainer) {
-        this(pictureContainer, null, null);
-        this.dataIsCalculated(false);
-    }
-
-    /**
      * Adds the exif keyword to the list of filteres keywords.
      * Only pictures containing these keywords will be included for the report.
      * 
@@ -116,7 +116,15 @@ public abstract class AbstractReportModel extends AbstractModel {
         this.exifFilterKeywords.add(filterKeyword);
 
         this.dataIsCalculated(false);
-        
+
+        this.updateViews();
+    }
+
+    protected void addMissingExifPictureParameter(final PictureParameter exifParameter) {
+        this.missingExifParameter.add(exifParameter);
+
+        this.dataIsCalculated(false);
+
         this.updateViews();
     }
 
@@ -131,8 +139,20 @@ public abstract class AbstractReportModel extends AbstractModel {
         this.pictureContainer.add(pictureContainer);
 
         this.dataIsCalculated(false);
-        
+
         this.updateViews();
+    }
+
+    protected void clearMissingExifPictureParameter() {
+        this.missingExifParameter.clear();
+
+        this.dataIsCalculated(false);
+
+        this.updateViews();
+    }
+
+    protected void dataIsCalculated(final boolean dataIsCalculated) {
+        this.dataIsCalculated = dataIsCalculated;
     }
 
     /**
@@ -148,7 +168,7 @@ public abstract class AbstractReportModel extends AbstractModel {
             return null;
         }
     }
-    
+
     /**
      * Getter for the PictureContainers
      * 
@@ -164,24 +184,8 @@ public abstract class AbstractReportModel extends AbstractModel {
      * 
      * @return pictures with missing exif parameters that are missing for the report
      */
-    public ArrayList<PictureParameter> getPicturesWithMissingExifParameter(){
-            return this.missingExifParameter;
-    }
-    
-    protected void addMissingExifPictureParameter(PictureParameter exifParameter){
-        this.missingExifParameter.add(exifParameter);
-        
-        this.dataIsCalculated(false);
-        
-        updateViews();
-    }
-    
-    protected void clearMissingExifPictureParameter() {
-        this.missingExifParameter.clear();
-        
-        this.dataIsCalculated(false);
-        
-        updateViews();
+    public ArrayList<PictureParameter> getPicturesWithMissingExifParameter() {
+        return this.missingExifParameter;
     }
 
     /**
@@ -193,7 +197,6 @@ public abstract class AbstractReportModel extends AbstractModel {
         return this.reportDescription;
     }
 
-
     /**
      * Getter for the name of the report.
      * 
@@ -201,6 +204,10 @@ public abstract class AbstractReportModel extends AbstractModel {
      */
     public String getReportName() {
         return this.reportName;
+    }
+
+    protected boolean isDataCalculated() {
+        return this.dataIsCalculated;
     }
 
     /**
@@ -297,13 +304,5 @@ public abstract class AbstractReportModel extends AbstractModel {
 
         this.dataIsCalculated(false);
         this.updateViews();
-    }
-    
-    protected boolean isDataCalculated() { 
-        return this.dataIsCalculated;
-    }
-    
-    protected void dataIsCalculated(boolean dataIsCalculated){
-        this.dataIsCalculated = dataIsCalculated;
     }
 }

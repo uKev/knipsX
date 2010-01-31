@@ -26,20 +26,21 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      */
     public AbstractSingleAxisModel() {
         super();
-        minX = Double.MAX_VALUE;
-        maxX = Double.MIN_VALUE;
-        minY = Double.MAX_VALUE;
-        maxY = Double.MIN_VALUE;
+        this.minX = Double.MAX_VALUE;
+        this.maxX = Double.MIN_VALUE;
+        this.minY = Double.MAX_VALUE;
+        this.maxY = Double.MIN_VALUE;
     }
 
     /**
      * Constructor for a AbstractSingleAxismodel
+     * 
      * @param pictureContainer
      * @param xAxis2
      */
     public AbstractSingleAxisModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis) {
         this(pictureContainer, xAxis, null, null, null);
-        
+
     }
 
     /**
@@ -78,10 +79,10 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
             final String reportName, final String reportDescription, final ArrayList<String> exifFilterKeywords) {
         super(pictureContainer, reportName, reportDescription, exifFilterKeywords);
         this.setxAxis(xAxis);
-        minX = Double.MAX_VALUE;
-        maxX = Double.MIN_VALUE;
-        minY = Double.MAX_VALUE;
-        maxY = Double.MIN_VALUE;
+        this.minX = Double.MAX_VALUE;
+        this.maxX = Double.MIN_VALUE;
+        this.minY = Double.MAX_VALUE;
+        this.maxY = Double.MIN_VALUE;
         this.dataIsCalculated(false);
     }
 
@@ -90,9 +91,9 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      * 
      * @return the biggest value in the x-axis.
      */
-    public double getMaxX(){
+    public double getMaxX() {
         return this.maxX;
-        
+
     }
 
     /**
@@ -100,18 +101,19 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      * 
      * @return the biggest value in the y-axis.
      */
-    public double getMaxY(){
+    public double getMaxY() {
         return this.maxY;
-        
+
     }
+
     /**
      * Smallest value in x-axis
      * 
      * @return the smallest value in the x-axis.
      */
-    public double getMinX(){
+    public double getMinX() {
         return this.minX;
-        
+
     }
 
     /**
@@ -119,7 +121,7 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      * 
      * @return the smallest value in the y-axis.
      */
-    public double getMinY(){
+    public double getMinY() {
         return this.minY;
     }
 
@@ -138,7 +140,7 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      * @param xAxis
      *            the x axis
      */
-    public void setxAxis(final Axis xAxis){
+    public void setxAxis(final Axis xAxis) {
         this.xAxis = xAxis;
         this.dataIsCalculated(false);
     }

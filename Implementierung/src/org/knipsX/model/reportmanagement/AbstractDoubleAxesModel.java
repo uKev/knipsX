@@ -10,58 +10,71 @@ import org.knipsX.model.picturemanagement.PictureContainer;
  * Axis is singular and axes is plural :).
  * 
  * @author Kevin Zuber
- *
+ * 
  */
-public abstract class AbstractDoubleAxesModel extends AbstractSingleAxisModel{
-	// need to be protected because will be used in subclass
-	protected Axis zAxis;
-	protected double minZ;
-	protected double maxZ;
+public abstract class AbstractDoubleAxesModel extends AbstractSingleAxisModel {
 
-	/**
-	 * Constructor with all parameters.
-	 * @param pictureContainer
-	 * @param xAxis
-	 * @param zAxis
-	 */
-	public AbstractDoubleAxesModel(
-			ArrayList<PictureContainer> pictureContainer, Axis xAxis, Axis zAxis) {
-		super(pictureContainer, xAxis);
-		this.zAxis = zAxis;
-		this.minZ = Double.MAX_VALUE;
-		this.maxZ = Double.MIN_VALUE;
-	}
-	
-	public AbstractDoubleAxesModel() {
-		super();
-	        this.minZ = Double.MAX_VALUE;
-	        this.maxZ = Double.MIN_VALUE;
-	}
+    protected Axis zAxis;
+    protected double minZ;
+    protected double maxZ;
 
-	public Axis getzAxis() {
-		return zAxis;
-	}
+    /**
+     * Creates an empty AbstractDobuleAxesModel.
+     */
+    public AbstractDoubleAxesModel() {
+        super();
+        this.minZ = Double.MAX_VALUE;
+        this.maxZ = Double.MIN_VALUE;
+    }
 
-	/**
-	 * Sets the zAxis .
-	 * @param a zAxis
-	 */
-	public void setzAxis(Axis zAxis) {
-		this.zAxis = zAxis;
-	}
+    /**
+     * Constructor with all parameters.
+     * 
+     * @param pictureContainer an ArrayList of PictureContainer on which this report is based
+     * @param xAxis the x-axis config
+     * @param zAxis the z-axis config
+     */
+    public AbstractDoubleAxesModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis,
+            final Axis zAxis) {
+        super(pictureContainer, xAxis);
+        this.zAxis = zAxis;
+        this.minZ = Double.MAX_VALUE;
+        this.maxZ = Double.MIN_VALUE;
+    }
 
-	/**
-	 * Give the smallest value in the z-axis.
-	 * @return the smallest value in the z-axis.
-	 */
-	public double getMinZ() {
-		return minZ;
-	}
-	/**
-	 * Give the biggest value in the z-axis.
-	 * @return the biggest value in the z-axis.
-	 */
-	public double getMaxZ() {
-		return maxZ;
-	}
+    /**
+     * Give the biggest value in the z-axis.
+     * 
+     * @return the biggest value in the z-axis.
+     */
+    public double getMaxZ() {
+        return this.maxZ;
+    }
+
+    /**
+     * Give the smallest value in the z-axis.
+     * 
+     * @return the smallest value in the z-axis.
+     */
+    public double getMinZ() {
+        return this.minZ;
+    }
+
+    /**
+     * Getter for the z-axis
+     * 
+     * @return the zAxis
+     */
+    public Axis getzAxis() {
+        return this.zAxis;
+    }
+
+    /**
+     * Sets the zAxis .
+     * 
+     * @param zAxis the zAxis
+     */
+    public void setzAxis(final Axis zAxis) {
+        this.zAxis = zAxis;
+    }
 }
