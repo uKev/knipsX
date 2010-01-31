@@ -32,10 +32,13 @@ public class DummyRepository implements Repository {
         PictureSet dummyPictureSet = new PictureSet("Goldfische", 1);
 
         /* create some dummy picture containers and add to the picture set */
-        String picturePath = System.getProperty("user.home" ) + File.separator + ".knipsX_test_bilder" + File.separator + "DSC00964.JPG";
+        String picturePath = System.getProperty("user.home") + File.separator + ".knipsX_test_bilder" + File.separator + "DSC00964.JPG";
         System.out.println("Picture Path: " + picturePath);
         Picture dummyPicture = new Picture(picturePath, true);
         dummyPictureSet.addToChilds(dummyPicture);
+        String directoryPath = System.getProperty("user.home") + File.separator + ".knipsX_test_bilder";
+        Directory dummyDir = new Directory(directoryPath);
+        dummyPictureSet.addToChilds(dummyDir);
 
         String pictureDir = System.getProperty("user.home")  + File.separator + ".knipsX_test_bilder" + File.separator + "testordner";
         System.out.println("Picture Dir:" + pictureDir);
@@ -76,15 +79,6 @@ public class DummyRepository implements Repository {
         dummyReportThree.setxAxis(new Axis(ExifParameter.DATE));
         dummyReportThree.setyAxis(new Axis(ExifParameter.ISO));
         dummyReportThree.setzAxis(new Axis(ExifParameter.FOCALLENGTH));       
-        
-
-        int numberOfElements = 0;    
-        
-        for (Picture picture : dummyPictureSet) {                    
-            numberOfElements++;
-        }
-        
-        System.out.println(numberOfElements);
         
         reportList.add(dummyReportThree);
         reportList.add(dummyReportOne);
