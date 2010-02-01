@@ -15,6 +15,7 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
+import org.knipsX.model.reportmanagement.Histogram3DModel;
 
 public class DummyRepository implements Repository {
 
@@ -72,9 +73,12 @@ public class DummyRepository implements Repository {
         dummyReportOne.setReportName("Blendenanalyse");
         dummyReportOne.setReportDescription("Analyse über Blenden");
 
-        AbstractReportModel dummyReportTwo = new BoxplotModel();
-        dummyReportTwo.setReportName("neue Blendenanalyse");
+        Histogram3DModel dummyReportTwo = new Histogram3DModel();
+        dummyReportTwo.setReportName("Histogram 3D");
         dummyReportTwo.setReportDescription("Analyse über Blenden - neu");
+        dummyReportTwo.addPictureContainer(test);
+        dummyReportTwo.setxAxis(new Axis(ExifParameter.FNUMBER));
+        dummyReportTwo.setzAxis(new Axis(ExifParameter.FOCALLENGTH));
         
         Cluster3DModel dummyReportThree = new Cluster3DModel();
         dummyReportThree.setReportName("Cluster ftw");

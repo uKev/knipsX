@@ -42,6 +42,63 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
             allocatePicturesToCategories();
             this.dataIsCalculated(true);
+
+            int count = 0;
+
+            
+            /* Check values */
+            for (int i = 0; i < this.categories.length; i++) {
+                for (int j = 0; j < this.categories[i].length; j++) {
+                    if (this.categories[i][j].getMaxValueX() >= this.maxX) {
+                        System.out.println("found biggest X value: " + this.categories[i][j].getMaxValueX() + " >= "
+                                + this.maxX + " (" + i + " " + j + ")");
+                    }
+                    if (this.categories[i][j].getMaxValueZ() >= this.maxZ) {
+                        System.out.println("found biggest Z value: " + this.categories[i][j].getMaxValueZ() + " >= "
+                                + this.maxZ + " (" + i + " " + j + ")");
+                    }
+                    if (this.categories[i][j].getMinValueX() <= this.minX) {
+                        System.out.println("found smallest X value: " + this.categories[i][j].getMinValueX() + " <= "
+                                + this.minX + " (" + i + " " + j + ")");
+                    }
+                    if (this.categories[i][j].getMinValueZ() <= this.minZ) {
+                        System.out.println("found smallest Z value: " + this.categories[i][j].getMinValueZ() + " <= "
+                                + this.minZ + " (" + i + " " + j + ")");
+                    }
+                    
+                    for (Bar bar : this.categories[i][j].getBars()) {
+                        count += bar.getHeight();
+                    }
+                }
+
+            }
+            
+            if (this.maxZ != this.getMaxZ()){
+                System.out.println(" this.maxZ != this.getMaxZ() :"+this.maxZ + " != " + this.getMaxZ());
+            }
+            if (this.maxY != this.getMaxY()){
+                System.out.println(" this.maxY != this.getMaxY() :"+this.maxY + " != " + this.getMaxY());
+            }
+            if (this.maxX != this.getMaxX()){
+                System.out.println(" this.maxX != this.getMaxX() :"+this.maxX + " != " + this.getMaxX());
+            }
+            
+            int pictureCount = 0; 
+            for (PictureContainer pictureContainer : this.getPictureContainer()) {
+                for (Picture picture : pictureContainer){
+                    picture.getClass();
+                    pictureCount++;
+                }
+            }
+            if (pictureCount == count) {
+                System.out.println("Alles in Butter, pictureCount == count !");
+            }
+            else if (this.getPicturesWithMissingExifParameter().size() == 0)
+            {
+                System.out.println("pictureCount != count    " + pictureCount+" != "+count+" , das riecht nach nem bug, da wurde was vergessen!");
+            } else {
+                System.out.println("pictureCount != count    " + pictureCount+" != "+count+" , aber vorsicht getPicturesWithMissingExifParameter enthält elemente, darin kann ein Bild auch mehrfach vertreten sein: " + this.getPicturesWithMissingExifParameter().size());
+            }
         }
 
     }
@@ -62,16 +119,16 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                 Double zValue = ((Float) picture.getExifParameter(this.getzAxis().getParameter())).doubleValue();
 
                 if (this.maxX < xValue) {
-                    maxX = xValue;
+                    this.maxX = xValue;
                 }
                 if (this.maxZ < zValue) {
-                    maxZ = zValue;
+                    this.maxZ = zValue;
                 }
                 if (this.minX > xValue) {
-                    minX = xValue;
+                    this.minX = xValue;
                 }
                 if (this.minZ > zValue) {
-                    minZ = zValue;
+                    this.minZ = zValue;
                 }
 
             }
@@ -86,7 +143,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         Category category;
         int barCount;
         this.minY = 0;
-        
+
         for (PictureContainer pictureContainer : this.getPictureContainer()) {
             /*
              * create a bar for each pictureContainer in each Category
@@ -104,29 +161,35 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                     category = categories[i][j];
 
                     for (Picture picture : pictureContainer) {
-                        
+
                         xValue = ((Float) picture.getExifParameter(this.getxAxis().getParameter())).doubleValue();
                         zValue = ((Float) picture.getExifParameter(this.getzAxis().getParameter())).doubleValue();
-                     
+
+                        // if x and z value fits between <= category <
                         if (xValue < category.getMaxValueX() && xValue >= category.getMinValueX()
                                 && zValue < category.getMaxValueZ() && zValue >= category.getMinValueZ()) {
-                            /* 
+                            /*
                              * Picture fits in the category, yeah!
                              */
+
+                            barCount++;
+                        
+                            // or if x or z is last and fits in category.maxValue ==
+                        } else if ((((i+1) == this.categories.length) && xValue == category.getMaxValueX() ) || (((j+i) == this.categories[i].length) && xValue == category.getMaxValueX())) {
                             barCount++;
                         }
-                        
+
                     }
                     category.addBar(new Bar(pictureContainer, barCount));
-                    
-                    if (this.maxY < barCount){
+
+                    if (this.maxY < barCount) {
                         this.maxY = barCount;
                     }
                 }
             }
         }
     }
-    
+
     private void generateCategories() {
         calculateExtremeValues();
         int numberOfCategories = 5;
