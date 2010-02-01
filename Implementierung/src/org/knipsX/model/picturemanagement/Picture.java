@@ -45,11 +45,10 @@ public class Picture extends Observable implements PictureContainer  {
      * @param path the filepath of the picture
      * @param isActiveorNot the status of the picture
      */
-    public Picture(String path, boolean isActiveorNot) {
-        /* TODO: Fehlerbehandlung, fall path nicht existiert
-         * -> Eigene Exception werfen und in benutzenden Klassen abfangen.
-         * (Von Kev eingetragen)
-         */
+    public Picture(String path, boolean isActiveorNot) throws PictureNotFoundException{
+        if ((path == null) || (new File(path).exists() == false)) {
+            throw new PictureNotFoundException();
+        }
         this.pictureFile = new File(path);
         this.isActiveorNot = isActiveorNot;
         this.allExifParameter = null;
@@ -142,12 +141,15 @@ public class Picture extends Observable implements PictureContainer  {
         /* not implemented */
     }
 
+    /**
+     * @throws IOException
+     */
     public void initThumbnails() {
         if (this.bigThumbnail == null) {
             try {
                 this.bigThumbnail = Picture.getThumbOf(ImageIO.read(pictureFile), 200, Image.SCALE_FAST);
             } catch (IOException e) {
-                System.err.println("[Picture::getBigThumbnail()] - File does not exist - "
+                System.err.println("[Picture::getBigThumbnail()] - Can not create Thumbnail from File - "
                         + pictureFile.getAbsolutePath());
             }
         }
@@ -156,7 +158,7 @@ public class Picture extends Observable implements PictureContainer  {
             try {
                 this.smallThumbnail = Picture.getThumbOf(ImageIO.read(pictureFile), 50, Image.SCALE_FAST);
             } catch (IOException e) {
-                System.err.println("[Picture::getSmallThumbnail()] - File does not exist - "
+                System.err.println("[Picture::getSmallThumbnail()] - Can not create Thumbnail from File - "
                         + pictureFile.getAbsolutePath());
             }
         }

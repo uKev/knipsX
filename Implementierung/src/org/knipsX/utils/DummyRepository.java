@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
+import org.knipsX.model.picturemanagement.PictureNotFoundException;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
@@ -34,7 +35,13 @@ public class DummyRepository implements Repository {
         /* create some dummy picture containers and add to the picture set */
         String picturePath = System.getProperty("user.home") + File.separator + ".knipsX_test_bilder" + File.separator + "DSC00964.JPG";
         System.out.println("Picture Path: " + picturePath);
-        Picture dummyPicture = new Picture(picturePath, true);
+        Picture dummyPicture = null;
+        try {
+            dummyPicture = new Picture(picturePath, true);
+        } catch (PictureNotFoundException e) {
+            System.out.println("Can not create Picture fom File: File not found");
+            e.printStackTrace();
+        }
         dummyPictureSet.addToChilds(dummyPicture);
         
         String pictureDir = System.getProperty("user.home")  + File.separator + ".knipsX_test_bilder" + File.separator + "testordner";
