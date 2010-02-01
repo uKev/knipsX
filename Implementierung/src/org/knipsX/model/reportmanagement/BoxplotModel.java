@@ -13,7 +13,11 @@ import org.knipsX.model.picturemanagement.PictureContainer;
  */
 public class BoxplotModel extends AbstractSingleAxisModel {
 
-    private ArrayList<Boxplot> boxplots;
+    /*
+     * TWEAK: remove deprecated functions
+     */
+
+    private final ArrayList<Boxplot> boxplots;
     private WilcoxonTest wilcoxonTest;
 
     @Deprecated
@@ -59,23 +63,23 @@ public class BoxplotModel extends AbstractSingleAxisModel {
             for (final PictureContainer pictures : this.getPictureContainer()) {
                 String boxplotName;
                 if (pictures.getName() == null) {
-                    boxplotName = xAxis.getParameter().toString();
+                    boxplotName = this.xAxis.getParameter().toString();
                     System.out.println("Warning in BoxplotModel.java: pictures.getName() was null");
                 } else {
                     boxplotName = pictures.getName();
                 }
-                
-                
-                this.boxplots.add(new Boxplot(pictures, xAxis.getParameter(), boxplotName));
+
+                this.boxplots.add(new Boxplot(pictures, this.xAxis.getParameter(), boxplotName));
             }
 
-            this.wilcoxonTest = new WilcoxonTest(this.getPictureContainer(), xAxis.getParameter());
+            this.wilcoxonTest = new WilcoxonTest(this.getPictureContainer(), this.xAxis.getParameter());
 
             for (final PictureContainer pictureContainer : this.getPictureContainer()) {
                 for (final Picture picture : pictureContainer) {
-                    if (picture.getExifParameter(xAxis.getParameter()) == null) {
-                        System.out.println("Missing Exif Parameter: " + picture.getPath() + xAxis.getParameter().toString());
-                        this.addMissingExifPictureParameter(new PictureParameter(xAxis.getParameter(), picture));
+                    if (picture.getExifParameter(this.xAxis.getParameter()) == null) {
+                        System.out.println("Missing Exif Parameter: " + picture.getPath()
+                                + this.xAxis.getParameter().toString());
+                        this.addMissingExifPictureParameter(new PictureParameter(this.xAxis.getParameter(), picture));
                     }
                 }
             }
@@ -111,7 +115,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      */
     public double getMaxY() {
         this.calculateIfNeeded();
-        
+
         Double maxY = -Double.MAX_VALUE;
         for (final Boxplot boxplot : this.boxplots) {
             if (maxY < boxplot.getMaxValue()) {
@@ -152,7 +156,6 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      */
     @Deprecated
     public float getWilcoxonPValue() {
-        // TODO: remove
         return 0f;
     }
 
@@ -174,7 +177,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      */
     public WilcoxonTest getWilcoxonTest() {
         this.calculateIfNeeded();
-        
+
         WilcoxonTest wilcoxonTest = this.wilcoxonTest;
         if (wilcoxonTest != null) {
             if (wilcoxonTest.isValid()) {
@@ -226,6 +229,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      * @param wilcoxonTestActive
      *            deprecated
      */
+    @Deprecated
     public void setWilcoxonTestActive(final boolean wilcoxonTestActive) {
         this.wilcoxonTestActive = wilcoxonTestActive;
     }
@@ -239,8 +243,15 @@ public class BoxplotModel extends AbstractSingleAxisModel {
     public void setWilcoxonTestType(final WilcoxonTestType wilcoxonTestType) {
         this.wilcoxonTestType = wilcoxonTestType;
     }
-    
-    public void setxAxis(final Axis xAxis){
+
+    /**
+     * Sets the xAxis for the boxplot model
+     * 
+     * @param xAxis
+     *            the xAxis for the boxplot model
+     */
+    @Override
+    public void setxAxis(final Axis xAxis) {
         this.dataIsCalculated(false);
         this.xAxis = xAxis;
     }
