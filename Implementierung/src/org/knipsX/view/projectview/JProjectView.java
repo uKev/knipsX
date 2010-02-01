@@ -913,6 +913,12 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                     "Bilder von Bildmenge " + model.getSelectedPictureSet().getName());
             this.jPanelPictureSetActive.setBorder(title);
         }
+        
+        if (this.model.getStatus() == ProjectModel.ACTIVE) {
+            this.setEnabled(true);
+        } else {
+            this.setEnabled(false);   
+        }
 
         /* refresh view */
         this.repaint();

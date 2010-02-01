@@ -11,6 +11,7 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.view.projectview.JProjectView;
 import org.knipsX.view.reportmanagement.AbstractReportCompilation;
 import org.knipsX.view.reportmanagement.JReportConfig;
+import org.knipsX.view.reportmanagement.ReportHelper;
 
 /**
  * Represents the Actions which are done by klicking on open report.
@@ -40,6 +41,8 @@ public class ReportOpenController<M extends ProjectModel, V extends JProjectView
     
     
     if(this.view.getSelectedReports().length > 0) {
+            ReportHelper.getProjectModel().setStatus(ProjectModel.INACTIVE);
+            
 	    new JReportConfig<AbstractReportModel,AbstractReportCompilation>((AbstractReportModel) this.model.getReports()[this.view.getSelectedReports()[0]], this.view.getSelectedReports()[0]);
     }
     
