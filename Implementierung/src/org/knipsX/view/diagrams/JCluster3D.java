@@ -87,21 +87,22 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
 
                 objData.addChild(selectableShape);
 
-                this.objRoot.addChild(objData);
+                this.objRoot.addChild(objData);                
+
             }
+            
+            /* setup y axis */
+            this.getyAxis().generateSegmentDescription(10);       
+
+            /* setup x axis */
+            this.getxAxis().generateSegmentDescription(10);
+
+            /* setup z axis */
+            this.getzAxis().generateSegmentDescription(10);
         }
 
-        /* setup y axis */
-        this.getyAxis().generateSegmentDescription(200, 900, 5);
-        this.getyAxis().setAxis(new Axis("Test", ExifParameter.CAMERAMODEL));
+        
 
-        /* setup x axis */
-        this.getxAxis().generateSegmentDescription(100, 600, 5);
-        this.getxAxis().setAxis(new Axis(ExifParameter.ISO));
-
-        /* setup z axis */
-        this.getzAxis().generateSegmentDescription(10, 20, 5);
-        this.getzAxis().setAxis(new Axis(ExifParameter.FLASH));
 
         /* set the left panel which shows information about a selected picture */
         this.leftPanel = new JPanel();
