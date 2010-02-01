@@ -13,13 +13,12 @@ import org.knipsX.model.picturemanagement.PictureContainer;
  */
 public class Cluster3DModel extends AbstractTrippleAxesModel {
 
-    private ArrayList<Frequency3DPoint> frequency3DPoints;
+    private ArrayList<Frequency3DPoint> frequency3DPoints = new ArrayList<Frequency3DPoint>();
+    private ArrayList<PictureContainer> pictureContainers = new ArrayList<PictureContainer>();
 
     /**
-     * @deprecated deprecated
-     *             deprecated
+     * creates an empty Cluster3DModel.
      */
-    @Deprecated
     public Cluster3DModel() {
         super();
     }
@@ -40,94 +39,103 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
     public Cluster3DModel(final ArrayList<PictureContainer> pictureContainers, final Axis xAxis, final Axis zAxis,
             final Axis yAxis) {
         super(pictureContainers, xAxis, zAxis, yAxis);
+        this.calculateIfNeeded();
 
-        Frequency3DPoint picPoint;
-        boolean pointIsAdded = false;
+    }
 
-        for (final PictureContainer pictureContainer : pictureContainers) {
-            for (final Picture pic : pictureContainer) {
+    private void calculateIfNeeded() {
+        if (!this.isDataCalculated()) {
+            Frequency3DPoint picPoint;
+            boolean pointIsAdded = false;
 
-                double x = 0, y = 0, z = 0;
-                boolean haveAllParameters = true;
-                pointIsAdded = false;
+            for (final PictureContainer pictureContainer : this.pictureContainers) {
+                for (final Picture pic : pictureContainer) {
 
-                if (pic.getExifParameter(xAxis.getParameter()) == null) {
-                    this.addMissingExifPictureParameter(new PictureParameter(xAxis.getParameter(), pic));
-                    haveAllParameters = false;
-                } else {
-                    x = (Double) pic.getExifParameter(xAxis.getParameter());
-                }
-                if (pic.getExifParameter(yAxis.getParameter()) == null) {
-                    this.addMissingExifPictureParameter(new PictureParameter(yAxis.getParameter(), pic));
-                    haveAllParameters = false;
-                } else {
-                    y = (Double) pic.getExifParameter(yAxis.getParameter());
-                }
+                    double x = 0, y = 0, z = 0;
+                    boolean haveAllParameters = true;
+                    pointIsAdded = false;
 
-                if (pic.getExifParameter(zAxis.getParameter()) == null) {
-                    this.addMissingExifPictureParameter(new PictureParameter(zAxis.getParameter(), pic));
-                    haveAllParameters = false;
-                } else {
-                    z = (Double) pic.getExifParameter(yAxis.getParameter());
-                }
-
-                /*
-                 * only if we have all three parameters,
-                 * the picture is valid and we will perfom actions on it
-                 */
-                if (haveAllParameters) {
-                    if (this.minX > x) {
-                        this.minX = x;
+                    if (pic.getExifParameter(xAxis.getParameter()) == null) {
+                        this.addMissingExifPictureParameter(new PictureParameter(xAxis.getParameter(), pic));
+                        haveAllParameters = false;
+                    } else {
+                        x = (Double) pic.getExifParameter(xAxis.getParameter());
                     }
-                    if (this.minY > y) {
-                        this.minY = y;
-                    }
-                    if (this.minZ > z) {
-                        this.minZ = z;
+                    if (pic.getExifParameter(yAxis.getParameter()) == null) {
+                        this.addMissingExifPictureParameter(new PictureParameter(yAxis.getParameter(), pic));
+                        haveAllParameters = false;
+                    } else {
+                        y = (Double) pic.getExifParameter(yAxis.getParameter());
                     }
 
-                    if (this.maxX < x) {
-                        this.maxX = x;
-                    }
-                    if (this.maxY < y) {
-                        this.maxY = y;
-                    }
-                    if (this.maxZ < z) {
-                        this.maxZ = z;
-                    }
-
-                    picPoint = new Frequency3DPoint(x, y, z, pic);
-
-                    for (final Frequency3DPoint freqPoint : this.frequency3DPoints) {
-
-                        if (freqPoint.equals(picPoint)) {
-                            freqPoint.addPicture(pic);
-                            pointIsAdded = true;
-                            // stop searching because we found an equal point.
-                            break;
-                        }
+                    if (pic.getExifParameter(zAxis.getParameter()) == null) {
+                        this.addMissingExifPictureParameter(new PictureParameter(zAxis.getParameter(), pic));
+                        haveAllParameters = false;
+                    } else {
+                        z = (Double) pic.getExifParameter(yAxis.getParameter());
                     }
 
                     /*
-                     * if we found no point which is equal, we did not add it, so we have a new unique point and add it
-                     * to the list.
+                     * only if we have all three parameters,
+                     * the picture is valid and we will perfom actions on it
                      */
-                    if (!pointIsAdded) {
-                        this.frequency3DPoints.add(picPoint);
+                    if (haveAllParameters) {
+                        if (this.minX > x) {
+                            this.minX = x;
+                        }
+                        if (this.minY > y) {
+                            this.minY = y;
+                        }
+                        if (this.minZ > z) {
+                            this.minZ = z;
+                        }
+
+                        if (this.maxX < x) {
+                            this.maxX = x;
+                        }
+                        if (this.maxY < y) {
+                            this.maxY = y;
+                        }
+                        if (this.maxZ < z) {
+                            this.maxZ = z;
+                        }
+
+                        picPoint = new Frequency3DPoint(x, y, z, pic);
+
+                        for (final Frequency3DPoint freqPoint : this.frequency3DPoints) {
+
+                            if (freqPoint.equals(picPoint)) {
+                                freqPoint.addPicture(pic);
+                                pointIsAdded = true;
+                                // stop searching because we found an equal point.
+                                break;
+                            }
+                        }
+
+                        /*
+                         * if we found no point which is equal, we did not add it, so we have a new unique point and add
+                         * it
+                         * to the list.
+                         */
+                        if (!pointIsAdded) {
+                            this.frequency3DPoints.add(picPoint);
+                        }
                     }
+
                 }
-
             }
+            this.dataIsCalculated(true);
         }
-
     }
 
     /**
      * returns the ArrayList of Frequency3DPoints
+     * 
      * @return an arrayList of Frequency3DPoints
      */
     public ArrayList<Frequency3DPoint> getFrequency3DPoints() {
+        this.isDataCalculated();
         return this.frequency3DPoints;
     }
-    
+
 }
