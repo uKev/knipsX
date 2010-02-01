@@ -86,7 +86,7 @@ public class Boxplot {
      */
     public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter) {
         this(pictures, exifParameter, null);
-        if (pictures == null){
+        if (pictures == null) {
             this.pictureSetName = "NULL";
             System.out.println("Warning in Boxplot.java: pictures was NULL");
         } else {
@@ -122,20 +122,18 @@ public class Boxplot {
         final ArrayList<Double> values = new ArrayList<Double>();
 
         for (final Picture pic : pictures) {
-            Object objectValue = pic.getExifParameter(exifParameter);
-            String stringValue = objectValue.toString();
-            double doubleValue = Double.valueOf(stringValue);
+            final Object objectValue = pic.getExifParameter(exifParameter);
+            final String stringValue = objectValue.toString();
+            final double doubleValue = Double.valueOf(stringValue);
             values.add(doubleValue);
             // TWEAK: if getExifParameter returns null instead of 0, remove this testing print outs.
-            System.out.println("Picture: " + pic.getPath());
-            System.out.println("object: " + objectValue);
-            System.out.println("string: " + stringValue);
-            System.out.println("double: " + doubleValue);
-            
+            System.out.println("Picture: " + pic.getPath() + "object: " + objectValue);
+            System.out.println("string: " + stringValue + "double: " + doubleValue);
+
         }
 
         Collections.sort(values);
-        
+
         System.out.println("Boxplot Values:" + values.toString());
 
         this.mean = this.calculateMean(values);
@@ -182,23 +180,23 @@ public class Boxplot {
 
     /**
      * calculate maximum Value
+     * 
      * @param values
      * @return maximum value, 0 if there are no values.
      */
     private double calculateMaxValue(final ArrayList<Double> values) {
         assert this.isSorted(values);
-        if (values != null && values.size() > 0) {
+        if ((values != null) && (values.size() > 0)) {
             return values.get(values.size() - 1);
         } else {
             return 0;
         }
-        
+
     }
 
     private double calculateMean(final ArrayList<Double> values) {
         assert values != null;
         assert values.size() > 0;
-
 
         double mean = 0;
 
@@ -225,8 +223,8 @@ public class Boxplot {
     private double calculateMinValue(final ArrayList<Double> values) {
         assert this.isSorted(values);
 
-        if (values != null && values.size() > 0) {
-            return values.get(0); 
+        if ((values != null) && (values.size() > 0)) {
+            return values.get(0);
         } else {
             return 0;
         }
