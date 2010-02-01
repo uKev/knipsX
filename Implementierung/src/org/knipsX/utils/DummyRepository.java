@@ -80,9 +80,9 @@ public class DummyRepository implements Repository {
         dummyReportThree.setReportName("Cluster ftw");
         dummyReportThree.setReportDescription("Analyse über Blenden - neu");    
         dummyReportThree.addPictureContainer(test);
-        dummyReportThree.setxAxis(new Axis(ExifParameter.DATE));
-        dummyReportThree.setyAxis(new Axis(ExifParameter.ISO));
-        dummyReportThree.setzAxis(new Axis(ExifParameter.FOCALLENGTH));       
+        dummyReportThree.setxAxis(new Axis(ExifParameter.FNUMBER));
+        dummyReportThree.setyAxis(new Axis(ExifParameter.FOCALLENGTH));
+        dummyReportThree.setzAxis(new Axis(ExifParameter.FNUMBER));       
         
         reportList.add(dummyReportThree);
         reportList.add(dummyReportOne);
