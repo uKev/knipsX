@@ -85,6 +85,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         Double zValue;
         Category category;
         int barCount;
+        this.minY = 0;
         
         for (PictureContainer pictureContainer : this.getPictureContainer()) {
             /*
@@ -113,6 +114,10 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                             barCount++;
                         }
                         category.addBar(new Bar(pictureContainer, barCount));
+                        
+                        if (this.maxY < barCount){
+                            this.maxY = barCount;
+                        }
                     }
                 }
             }
