@@ -197,7 +197,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         this.categories = new Category[numberOfCategories][numberOfCategories];
 
         this.xCategorySize = (Math.abs(this.maxX - this.minX) / numberOfCategories);
-        this.zCategorySize = (Math.abs(this.maxX - this.minX) / numberOfCategories);
+        this.zCategorySize = (Math.abs(this.maxZ - this.minZ) / numberOfCategories);
         double minValueX;
         double maxValueX;
         double minValueZ;
