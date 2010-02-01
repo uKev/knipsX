@@ -58,10 +58,11 @@ public class BoxplotModel extends AbstractSingleAxisModel {
 
             for (final PictureContainer pictures : this.getPictureContainer()) {
                 String boxplotName;
-                if (xAxis.getDescription() == null) {
+                if (pictures.getName() == null) {
                     boxplotName = xAxis.getParameter().toString();
+                    System.out.println("Warning in BoxplotModel.java: pictures.getName() was null");
                 } else {
-                    boxplotName = xAxis.getDescription();
+                    boxplotName = pictures.getName();
                 }
                 this.boxplots.add(new Boxplot(pictures, xAxis.getParameter(), boxplotName));
             }

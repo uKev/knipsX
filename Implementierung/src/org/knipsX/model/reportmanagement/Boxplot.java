@@ -28,8 +28,6 @@ public class Boxplot {
     private double maxValue = Double.MIN_VALUE;
     private double minValue = Double.MAX_VALUE;
 
-    // TODO: macht es sinn, hier den boxplot namen statt den picture-set namen zu verwenden?
-    // Abstimmung mit david
     private String pictureSetName;
 
     /**
@@ -88,7 +86,7 @@ public class Boxplot {
      */
     public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter) {
         this(pictures, exifParameter, null);
-        this.pictureSetName = pictures.getName() + " - " + exifParameter.toString();
+        this.pictureSetName = pictures.getName();
     }
 
     /**
