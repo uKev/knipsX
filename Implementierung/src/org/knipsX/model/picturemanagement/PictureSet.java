@@ -28,8 +28,10 @@ public class PictureSet implements PictureContainer {
     /**
      * Creates a new PictureSet from a name and an ID.
      * 
-     * @param pictureSetName the name of the pictureset
-     * @param freePictureSetID the id
+     * @param pictureSetName
+     *            the name of the pictureset
+     * @param freePictureSetID
+     *            the id
      */
     public PictureSet(String pictureSetName, int freePictureSetID) {
         this.name = pictureSetName;
@@ -39,9 +41,12 @@ public class PictureSet implements PictureContainer {
     /**
      * Creates a new PictureSet from another one.
      * 
-     * @param pictureSetToCopy the pictureset to copy
-     * @param pictureSetName the name of the pictureset
-     * @param freePictureSetID the ID
+     * @param pictureSetToCopy
+     *            the pictureset to copy
+     * @param pictureSetName
+     *            the name of the pictureset
+     * @param freePictureSetID
+     *            the ID
      */
     public PictureSet(PictureSet pictureSetToCopy, String pictureSetName, int freePictureSetID) {
         this.name = pictureSetName;
@@ -70,7 +75,8 @@ public class PictureSet implements PictureContainer {
     /**
      * Adds PictureContainer elements to this pictureset
      * 
-     * @param container the element to add
+     * @param container
+     *            the element to add
      * @return true if it can be added, false if not
      */
     public boolean addToChilds(PictureContainer container) {
@@ -95,7 +101,8 @@ public class PictureSet implements PictureContainer {
     /**
      * Removes Element from the pictureset.
      * 
-     * @param container the element which should be removed
+     * @param container
+     *            the element which should be removed
      * @return true if the element could be rempved false if not.
      */
     public boolean removeFromPictureSet(PictureContainer container) {
@@ -145,7 +152,7 @@ public class PictureSet implements PictureContainer {
                 }
                 return hasNext;
             }
-        }     
+        }
     }
 
     /**
@@ -180,14 +187,15 @@ public class PictureSet implements PictureContainer {
      * It also allows to compare over PictureContainer but it is not done in the basic version of our programm.
      * 
      * @see java.lang.Comparable#compareTo(java.lang.Object)
-     * @param picturesetToCompare other pictureset to compare
+     * @param picturesetToCompare
+     *            other pictureset to compare
      * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
      *         the specified object
      */
     public int compareTo(PictureContainer picturesetToCompare) {
         if (this.id == ((PictureSet) picturesetToCompare).id) {
             return 0;
-        } else if (this.name.compareTo(((PictureSet) picturesetToCompare).name) > 0) {
+        } else if (this.name.toLowerCase().compareTo(((PictureSet) picturesetToCompare).name.toLowerCase()) > 0) {
             return 1;
         } else {
             return -1;

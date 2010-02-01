@@ -3,6 +3,7 @@ package org.knipsX.model.projectview;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -289,6 +290,10 @@ public class ProjectModel extends AbstractModel {
         final boolean isAdded = this.pictureSetList.add(set);
 
         if (isAdded) {
+            
+            /* TWEAK sort maybe at another location */
+            Collections.sort(this.pictureSetList);
+            
             this.updateViews();
         }
         return isAdded;
@@ -318,8 +323,15 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return an amount of picture sets.
      */
-    public Object[] getPictureSets() {
-        return this.pictureSetList.toArray();
+    public PictureSet[] getPictureSets() {
+        
+        /* convert to array */
+        final PictureSet[] pictureSetArray = new PictureSet[this.pictureSetList.size()];
+
+        for (int i = 0; i < pictureSetArray.length; ++i) {
+            pictureSetArray[i] = this.pictureSetList.get(i);
+        }
+        return pictureSetArray;
     }
 
     /**

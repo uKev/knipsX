@@ -1,6 +1,7 @@
 package org.knipsX.controller.projectview;
 
 import java.awt.event.ActionEvent;
+import java.util.UUID;
 
 import javax.swing.JOptionPane;
 
@@ -13,59 +14,80 @@ import org.knipsX.view.projectview.JProjectView;
  * Represents the actions which are done by clicking on copy picture set.
  * 
  * Acts in harmony with a JProjectView.
+ * 
+ * @param <M>
+ *            a model.
+ * 
+ * @param <V>
+ *            a view.
  */
-public class PictureSetListCopyController<M extends ProjectModel, V extends JProjectView<M>> extends AbstractController<M, V> {
+public class PictureSetListCopyController<M extends ProjectModel, V extends JProjectView<M>> extends
+        AbstractController<M, V> {
 
-    public PictureSetListCopyController(M model, V view) {
-	super(model, view);
+    /**
+     * Creates a new controller which is connected to a view and a model.
+     * 
+     * @param model
+     *            the model.
+     * @param view
+     *            the view.
+     */
+    public PictureSetListCopyController(final M model, final V view) {
+        super(model, view);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-	
-	final int[] toCopy = this.view.getSelectedPictures();
+    public void actionPerformed(final ActionEvent e) {
 
-	/* only one project can copied at once */
-	if (toCopy.length == 1) {
+        final int[] toCopy = this.view.getSelectedPictures();
 
-	    /* get the selected project */
-	    final PictureSet pictureSetToCopy = (PictureSet) this.model.getPictureSets()[toCopy[0]];
+        /* only one project can copied at once */
+        if (toCopy.length == 1) {
 
-	    final int decision = JOptionPane.showConfirmDialog(null, "Soll das ausgewählte Projekt \""
-		    + pictureSetToCopy.getName() + "\" kopiert werden?", "Projekt kopieren", JOptionPane.YES_NO_OPTION);
+            /* get the selected project */
+            final PictureSet pictureSetToCopy = this.model.getPictureSets()[toCopy[0]];
 
-	    /* if user pressed "yes" */
-	    if (decision == 0) {
+            /* INTERNATIONALIZE */
+            final int decision = JOptionPane.showConfirmDialog(null, "Soll das ausgewählte Projekt \""
+                    + pictureSetToCopy.getName() + "\" kopiert werden?", "Projekt kopieren", JOptionPane.YES_NO_OPTION);
 
-		/* try to get a picture set name */
-		String pictureSetName = JOptionPane.showInputDialog(null, "Geben Sie einen Bildmengennamen ein.",
-			"Bildmenge kopieren", JOptionPane.INFORMATION_MESSAGE);
+            /* if user pressed "yes" */
+            if (decision == 0) {
 
-		/* while user is not pressing cancel and no text is given */
-		while ((pictureSetName != null) && pictureSetName.equals("")) {
+                /* try to get a picture set name */
+                /* INTERNATIONALIZE */
+                String pictureSetName = JOptionPane.showInputDialog(null, "Geben Sie einen Bildmengennamen ein.",
+                        "Bildmenge kopieren", JOptionPane.INFORMATION_MESSAGE);
 
-		    /* try to get a project name */
-		    pictureSetName = JOptionPane.showInputDialog(null, "Bildmengennamen darf nicht leer sein!",
-			    "Bildmenge kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
-		}
+                /* while user is not pressing cancel and no text is given */
+                while ((pictureSetName != null) && pictureSetName.equals("")) {
 
-		/* has user give in a project name? */
-		if (pictureSetName != null) {
-		    this.model.addPictureSet(new PictureSet(pictureSetName, 0));
-		}
-	    }
+                    /* try to get a project name */
+                    /* INTERNATIONALIZE */
+                    pictureSetName = JOptionPane.showInputDialog(null, "Bildmengennamen darf nicht leer sein!",
+                            "Bildmenge kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
+                }
 
-	} else if (toCopy.length == 0) {
+                /* has user give in a project name? */
+                if (pictureSetName != null) {
+                    this.model.addPictureSet(new PictureSet(pictureSetToCopy, pictureSetName, UUID.randomUUID()
+                            .hashCode()));
+                }
+            }
 
-	    /* gives the user a hint, that he has selected too much picture sets */
-	    JOptionPane.showMessageDialog(null, "Selektieren Sie eine Bildmenge, um sie zu kopieren.",
-		    "Bildmenge kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
-	} else {
+        } else if (toCopy.length == 0) {
 
-	    /* gives the user a hint, that he has selected too little picture sets */
-	    JOptionPane.showMessageDialog(null, "Selektieren Sie nur eine Bildmenge, um sie zu kopieren.",
-		    "Bildmenge kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
+            /* gives the user a hint, that he has selected too much picture sets */
+            /* INTERNATIONALIZE */
+            JOptionPane.showMessageDialog(null, "Selektieren Sie eine Bildmenge, um sie zu kopieren.",
+                    "Bildmenge kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
+        } else {
 
-	}
+            /* gives the user a hint, that he has selected too little picture sets */
+            /* INTERNATIONALIZE */
+            JOptionPane.showMessageDialog(null, "Selektieren Sie nur eine Bildmenge, um sie zu kopieren.",
+                    "Bildmenge kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
+
+        }
     }
 }

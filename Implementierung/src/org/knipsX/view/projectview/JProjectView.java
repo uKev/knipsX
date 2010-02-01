@@ -533,7 +533,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jListPictureSet = new JList(this.model.getPictureSets());
 
             this.jListPictureSet.setLayoutOrientation(JList.VERTICAL);
-            this.jListPictureSet.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            this.jListPictureSet.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
             this.jListPictureSet.setVisibleRowCount(-1);
 
             /* we store picture set objects in the list, so we have to set a special rendering */
