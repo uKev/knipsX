@@ -1,7 +1,10 @@
 package org.knipsX.view.reportmanagement;
 
+import java.awt.event.WindowEvent;
+
 import javax.swing.JButton;
 
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.view.JAbstractView;
 
@@ -124,6 +127,19 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
             this.saveButton.setEnabled(false);
         }
 
+    }
+    
+    /**
+     * Defines the default close operation when the view is closed by the user
+     */
+    protected void addCloseOperation() {
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(WindowEvent winEvt) {
+                /* Activate the current project view */
+                ReportHelper.getProjectModel().setStatus(ProjectModel.ACTIVE);
+                dispose();
+            }
+        });
     }
 
 }

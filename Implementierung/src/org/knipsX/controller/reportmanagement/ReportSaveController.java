@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 import org.knipsX.controller.AbstractController;
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
@@ -49,7 +50,10 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
 
         if (showDiagram) {
             ReportHelper.getCurrentReport().displayDiagram(this.model, this.view.getReportID()).showDiagram();
-        }
+        } 
+        
+        /* Activate the current project view */
+        ReportHelper.getProjectModel().setStatus(ProjectModel.ACTIVE);
 
     }
 

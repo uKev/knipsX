@@ -3,6 +3,9 @@ package org.knipsX.controller.reportmanagement;
 import java.awt.event.ActionEvent;
 
 import org.knipsX.controller.AbstractController;
+import org.knipsX.model.projectview.ProjectModel;
+import org.knipsX.view.reportmanagement.JAbstractReportUtil;
+import org.knipsX.view.reportmanagement.ReportHelper;
 
 /**
  * This controller manages the closure of the report wizard view.
@@ -12,7 +15,7 @@ import org.knipsX.controller.AbstractController;
  * @param <M>
  * @param <V>
  */
-public class WizardCloseController<M, V> extends AbstractController<M, V> {
+public class WizardCloseController<M, V extends JAbstractReportUtil<?>> extends AbstractController<M, V> {
 
     public WizardCloseController(V view) {
 	super(view);
@@ -20,7 +23,10 @@ public class WizardCloseController<M, V> extends AbstractController<M, V> {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-	// TODO Auto-generated method stub
+        /* Activate the current project view */
+        ReportHelper.getProjectModel().setStatus(ProjectModel.ACTIVE);
+        
+        this.view.dispose();
 
     }
 

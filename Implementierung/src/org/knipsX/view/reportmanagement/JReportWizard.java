@@ -1,6 +1,7 @@
 package org.knipsX.view.reportmanagement;
 
 import java.awt.Dimension;
+import java.awt.event.WindowEvent;
 import java.util.Observable;
 
 import javax.swing.Box;
@@ -14,6 +15,7 @@ import org.knipsX.controller.reportmanagement.ReportCloseController;
 import org.knipsX.controller.reportmanagement.ReportSaveController;
 import org.knipsX.controller.reportmanagement.WizardNextPanelController;
 import org.knipsX.controller.reportmanagement.WizardPreviousPanelController;
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 
 /**
@@ -44,15 +46,17 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
     public JReportWizard() {
         super(null);
         ReportHelper.setCurrentModel(null);
-        
+
         ReportHelper.setCurrentReportUtility(this);
-        
+
+        addCloseOperation();
+
         this.reportCompilation = ReportHelper.getDefaultReport().createReportCompilation();
 
-        //INTERNATIONALIZE
+        // INTERNATIONALIZE
         this.nextPanelButton = new JButton("Weiter");
-        
-        //INTERNATIONALIZE
+
+        // INTERNATIONALIZE
         this.previousPanelButton = new JButton("Zurück");
 
         this.closeButton.addActionListener(new ReportCloseController<AbstractReportModel, JReportWizard<?, ?>>(this));
@@ -71,6 +75,8 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
+
+
 
     private void initialize() {
 

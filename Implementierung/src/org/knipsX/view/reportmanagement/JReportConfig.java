@@ -3,6 +3,7 @@ package org.knipsX.view.reportmanagement;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.WindowEvent;
 import java.util.Observable;
 
 import javax.swing.BorderFactory;
@@ -14,6 +15,7 @@ import javax.swing.WindowConstants;
 import org.knipsX.controller.reportmanagement.ReportCloseController;
 import org.knipsX.controller.reportmanagement.ReportSaveController;
 import org.knipsX.model.AbstractModel;
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
@@ -33,7 +35,6 @@ import org.knipsX.model.reportmanagement.TableModel;
 public class JReportConfig<M extends AbstractReportModel, V extends AbstractReportCompilation> extends
         JAbstractReportUtil<M> {
 
-    
     private static final long serialVersionUID = 7028621688633924200L;
     private JTabbedPane tabbedpane;
     private JPanel basic;
@@ -41,10 +42,13 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
     private final int[] mysize = { 800, 600 };
 
     /**
-     * This constructor creates a new report configuration utility of an existing 
+     * This constructor creates a new report configuration utility of an existing
      * report model
-     * @param model the report model you want to configure
-     * @param reportID the report id of the report in the view
+     * 
+     * @param model
+     *            the report model you want to configure
+     * @param reportID
+     *            the report id of the report in the view
      */
     public JReportConfig(final M model, final int reportID) {
         super(model);
@@ -52,8 +56,8 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
         ReportHelper.setCurrentModel(this.model);
         ReportHelper.setCurrentReportUtility(this);
 
-        
-        
+        this.addCloseOperation();
+
         if (model instanceof BoxplotModel) {
             ReportHelper.setCurrentReport(ReportHelper.Boxplot);
         } else if (model instanceof TableModel) {
@@ -66,11 +70,10 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
             ReportHelper.setCurrentReport(ReportHelper.Histogram3D);
         }
 
-        this.reportCompilation = ReportHelper.getCurrentReport().createReportCompilation();     
-        
-        
+        this.reportCompilation = ReportHelper.getCurrentReport().createReportCompilation();
+
         this.tabbedpane = this.getJTabbedPane();
-        //INTERNATIONALIZE
+        // INTERNATIONALIZE
         this.setTitle("Auswertung konfigurieren");
 
         this.initialize();
@@ -96,7 +99,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
 
             /*
              * Revalidate the Wilcoxon panel because picture sets might have been registered
-             * with the current report and a non ordinal EXIF parameter might have been 
+             * with the current report and a non ordinal EXIF parameter might have been
              * associated with the available parameter
              */
 
@@ -121,8 +124,8 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
         this.mainpanel = new JPanel(new BorderLayout());
         this.mainpanel.setBorder(BorderFactory.createEmptyBorder(15, 25, 15, 25));
         this.mainpanel.add(this.tabbedpane);
-        
-        /* Resize this window properly*/
+
+        /* Resize this window properly */
         this.setPreferredSize(new Dimension(this.mysize[0], this.mysize[1]));
 
         this.basic.add(this.mainpanel);
@@ -135,9 +138,9 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
         this.basic.add(bottom);
 
         bottom.setMaximumSize(new Dimension(450, 0));
-        
+
         this.pack();
-        
+
         ReportHelper.getCurrentReportUtility().revalidateDisplayability();
         ReportHelper.getCurrentReportUtility().revalidateSaveability();
     }
@@ -150,15 +153,15 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
 
         /* Remove the basic panel from the view because it is no longer needed */
         this.remove(this.basic);
-        
-        /* Update necessary variables */        
+
+        /* Update necessary variables */
         this.reportCompilation = reportconfig;
-        
+
         /* Generate the JTabbedPane */
         this.tabbedpane = this.getJTabbedPane();
-        
+
         ReportHelper.setCurrentReportUtility(this);
-        
+
         /* Reinitialize the panel */
         this.initialize();
     }

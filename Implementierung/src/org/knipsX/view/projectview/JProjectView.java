@@ -933,6 +933,18 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                     "Bilder von Bildmenge " + model.getSelectedPictureSet().getName());
             this.jPanelPictureSetActive.setBorder(title);
         }
+        
+        if (this.model.getStatus() == ProjectModel.ACTIVE) {
+            this.setFocusableWindowState(true);
+            this.setFocusable(true);
+            this.setEnabled(true);
+            this.toFront();
+        } else {
+            this.setFocusableWindowState(false);
+            this.setEnabled(false);
+            this.setFocusable(false);
+            this.toBack();
+        }
 
         /* setup the exif-table */
         this.jTableExif = createExifTable();

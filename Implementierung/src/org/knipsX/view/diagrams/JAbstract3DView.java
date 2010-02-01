@@ -151,7 +151,14 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      * Specifies if the grid should be drawn
      */
     protected boolean showGrid = true;
-
+    
+    
+    /**
+     * Specifies if the buffered range on each axis should be used.
+     * Look at the axis3d class for more information
+     */
+    protected static boolean useBufferRange = true;
+    
     /**
      * Constructor initialized the canvas3D
      * 
