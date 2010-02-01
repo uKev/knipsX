@@ -100,12 +100,14 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                  */
                 for (int j = 0; j < this.categories[i].length; j++) {
 
+                    barCount = 0;
+                    category = categories[i][j];
+
                     for (Picture picture : pictureContainer) {
-                        barCount = 0;
+                        
                         xValue = ((Float) picture.getExifParameter(this.getxAxis().getParameter())).doubleValue();
                         zValue = ((Float) picture.getExifParameter(this.getzAxis().getParameter())).doubleValue();
-                        category = categories[i][j];
-
+                     
                         if (xValue < category.getMaxValueX() && xValue >= category.getMinValueX()
                                 && zValue < category.getMaxValueZ() && zValue >= category.getMinValueZ()) {
                             /* 
@@ -113,11 +115,12 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                              */
                             barCount++;
                         }
-                        category.addBar(new Bar(pictureContainer, barCount));
                         
-                        if (this.maxY < barCount){
-                            this.maxY;
-                        }
+                    }
+                    category.addBar(new Bar(pictureContainer, barCount));
+                    
+                    if (this.maxY < barCount){
+                        this.maxY = barCount;
                     }
                 }
             }
@@ -142,7 +145,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                 minValueX = this.minX + i * xCategorySize;
                 maxValueX = minValueX + xCategorySize;
                 minValueZ = this.minZ + i * zCategorySize;
-                maxValueZ = minValueZ;
+                maxValueZ = minValueZ + zCategorySize;
                 this.categories[i][j] = new Category(null, minValueX, maxValueX, minValueZ, maxValueZ);
             }
         }
