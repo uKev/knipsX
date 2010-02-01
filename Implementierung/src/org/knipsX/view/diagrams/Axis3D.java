@@ -23,6 +23,7 @@ class Axis3D {
     private double minReportSpace = 1;
     private double maxReportSpace = 1;
     private boolean isReportSpaceInitialized = false;
+    private static double offset = 0;
 
     /**
      * Returns the assigned EXIF Parameter
@@ -157,10 +158,10 @@ class Axis3D {
 
         if (minValue instanceof Integer && maxValue instanceof Integer) {
 
-            int temp = (Integer) maxValue - (Integer) minValue;
+            double range = (Integer) maxValue - (Integer) minValue + 2 * offset;
 
             /* Note that underflow might occur */
-            double pieces = (double) temp / (double) this.getNumberOfSegments();
+            double pieces = (double) range / (double) this.getNumberOfSegments();
 
             final String[] returnstring = new String[this.getNumberOfSegments() + 1];
 
@@ -176,16 +177,16 @@ class Axis3D {
 
         if (minValue instanceof Double && maxValue instanceof Double) {
 
-            double temp = (Double) maxValue - (Double) minValue;
+            double range = (Double) maxValue - (Double) minValue + 2 * offset;
 
-            double pieces = (double) temp / (double) this.getNumberOfSegments();
+            double pieces = (double) range / (double) this.getNumberOfSegments();
 
             final String[] returnstring = new String[this.getNumberOfSegments() + 1];
 
             DecimalFormat format = new DecimalFormat("#.###");
 
             for (int i = 0; i < this.getNumberOfSegments() + 1; i++) {
-                returnstring[i] = String.valueOf(format.format((Double) minValue + pieces * i));
+                returnstring[i] = String.valueOf(format.format((Double) minValue - offset + pieces * i));
             }
 
             this.setSegmentDescription(returnstring);
@@ -219,11 +220,13 @@ class Axis3D {
      */
     public void setReportSpace(double minValue, double maxValue) {
         
-        /* Registeres that the report space has been set */
+        /* Registeres that the report space has been set by the programmer */
         this.isReportSpaceInitialized = true;
         
         this.minReportSpace = Math.min(minValue, maxValue);
         this.maxReportSpace = Math.max(minValue, maxValue);
+        
+        Axis3D.offset = (this.maxReportSpace - this.minReportSpace) / 5;
     }
 
     /**
@@ -241,10 +244,10 @@ class Axis3D {
 
         isReportSpaceInitialized();
 
-        double range = Math.abs(this.maxReportSpace - this.minReportSpace);
+        double range = Math.abs((this.maxReportSpace + offset) - (this.minReportSpace - offset));
         assert range != 0;
         double slope = Math.abs(this.getAxisSize()) / range;
-        double yIntercept = this.getAxisSize() - slope * this.maxReportSpace;
+        double yIntercept = slope * -(this.minReportSpace - offset);
 
         /* m * x + c */
         return slope * reportSpace + yIntercept;

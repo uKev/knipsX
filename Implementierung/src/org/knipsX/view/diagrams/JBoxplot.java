@@ -34,7 +34,7 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
     public JBoxplot(final M model, final int reportID) {
         super(model, reportID);
         if (this.model != null) {
-            this.getyAxis().setReportSpace((Double) this.model.getMinY(), (Double) this.model.getMaxY());
+            this.getyAxis().setReportSpace((Double) this.model.getMinY() , (Double) this.model.getMaxY());
         }
 
     }
@@ -96,7 +96,7 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
         }
 
         if (this.model != null) {
-            this.getyAxis().generateSegmentDescription(this.model.getMinY(), this.model.getMaxY(), 8);
+            this.getyAxis().generateSegmentDescription(this.model.getMinY(), this.model.getMaxY(), 10);
         } else {
             this.getyAxis().generateSegmentDescription(8);
         }
