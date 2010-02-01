@@ -932,10 +932,12 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.setFocusableWindowState(true);
             this.setFocusable(true);
             this.setEnabled(true);
+            this.toFront();
         } else {
             this.setFocusableWindowState(false);
             this.setEnabled(false);
             this.setFocusable(false);
+            this.toBack();
         }
 
         /* refresh view */
