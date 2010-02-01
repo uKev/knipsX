@@ -16,11 +16,25 @@ import org.knipsX.model.picturemanagement.Picture;
 
 public class Frequency3DPoint {
 
-
     double x;
     double y;
     double z;
     private final ArrayList<Picture> pictures;
+
+    /**
+     * Creates a new Frequency3DPoint with:
+     * @param x x-coordinate of the point
+     * @param y y-coordinate of the point
+     * @param z z-coordinate of the point
+     * @param pic an initial picture which is represented by this point 
+     */
+    public Frequency3DPoint(final double x, final double y, final double z, final Picture pic) {
+        this.pictures = new ArrayList<Picture>();
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.pictures.add(pic);
+    }
 
     /**
      * Constructor to create a Frequency3DPoint with a basic ArrayList of Picture objects and the coordinates.
@@ -81,15 +95,7 @@ public class Frequency3DPoint {
         this.y = y;
         this.z = z;
         this.pictures = new ArrayList<Picture>(Arrays.asList(pictures));
-     
-    }
 
-    public Frequency3DPoint(double x, double y, double z, Picture pic) {
-        this.pictures = new ArrayList<Picture>();
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.pictures.add(pic);
     }
 
     /**
@@ -100,6 +106,23 @@ public class Frequency3DPoint {
      */
     public void addPicture(final Picture picture) {
         this.pictures.add(picture);
+    }
+
+    /**
+     * Test for equal point. Test if x, y and z are equal. Frequency is ignored.
+     * 
+     * @param frequency3DPoint
+     *            the other {@link Frequency3DPoint} it should be compared to.
+     * @return true if they are the same.
+     */
+    public boolean equals(final Frequency3DPoint frequency3DPoint) {
+        boolean isEqual = false;
+        if ((frequency3DPoint.x == this.x) && (frequency3DPoint.y == this.y) && (frequency3DPoint.z == this.z)) {
+            isEqual = true;
+        } else {
+            isEqual = false;
+        }
+        return isEqual;
     }
 
     /**
@@ -132,41 +155,29 @@ public class Frequency3DPoint {
     }
 
     /**
-     * Test for equal point. Test if x, y and z are equal. Frequency is ignored.
-     * @param frequency3DPoint the other {@link Frequency3DPoint} it should be compared to.
-     * @return true if they are the same.
+     * Getter for the x coodinate
+     * 
+     * @return the x coordinate of this point
      */
-   public boolean equals(Frequency3DPoint frequency3DPoint) {
-       boolean isEqual = false;
-       if (frequency3DPoint.x == this.x && frequency3DPoint.y == this.y && frequency3DPoint.z == this.z){
-           isEqual = true;
-       } else {
-           isEqual = false;
-       }
-       return isEqual;
-   }
-   
-   /**
-    * Getter for the x coodinate
-    * @return the x coordinate of this point
-    */
-   public double getX() {
-       return x;
-   }
+    public double getX() {
+        return this.x;
+    }
 
-   /**
-    * Getter for the y coordinate
-    * @return the y coordinate of this point
-    */
-   public double getY() {
-       return y;
-   }
+    /**
+     * Getter for the y coordinate
+     * 
+     * @return the y coordinate of this point
+     */
+    public double getY() {
+        return this.y;
+    }
 
-   /**
-    * Getter for the z coordinate
-    * @return the z coordinate of this point
-    */
-   public double getZ() {
-       return z;
-   }
+    /**
+     * Getter for the z coordinate
+     * 
+     * @return the z coordinate of this point
+     */
+    public double getZ() {
+        return this.z;
+    }
 }
