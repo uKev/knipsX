@@ -79,7 +79,7 @@ public class PictureSet implements PictureContainer {
      *            the element to add
      * @return true if it can be added, false if not
      */
-    public boolean addToChilds(PictureContainer container) {
+    public boolean add(PictureContainer container) {
         if (children.contains(container)) {
             System.out.println("Element is already in the PictureSet");
             return false;
@@ -105,7 +105,7 @@ public class PictureSet implements PictureContainer {
      *            the element which should be removed
      * @return true if the element could be rempved false if not.
      */
-    public boolean removeFromPictureSet(PictureContainer container) {
+    public boolean remove(PictureContainer container) {
         return children.remove(container);
     }
 
