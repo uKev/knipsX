@@ -241,8 +241,8 @@ class Axis3D {
 
         isReportSpaceInitialized();
 
-        double range = Math.abs(this.maxReportSpace) + Math.abs(this.minReportSpace);
-        assert range > 0;
+        double range = Math.abs(this.maxReportSpace - this.minReportSpace);
+        assert range != 0;
         double slope = Math.abs(this.getAxisSize()) / range;
         double yIntercept = this.getAxisSize() - slope * this.maxReportSpace;
 
@@ -261,22 +261,6 @@ class Axis3D {
             }
         }
 
-    }
-
-    /**
-     * Returns the scale factor between the axis and report space of the given axis.
-     * 
-     * Note that it uses the minimum / maximum report space values you should have specified
-     * earlier
-     * 
-     * @return the scale factor of the given axis
-     */
-    public double getScaleFactor() {
-        isReportSpaceInitialized();
-
-        double range = Math.abs(this.minReportSpace) + Math.abs(this.maxReportSpace);
-        assert range > 0;
-        return this.getAxisSize() / range;
     }
 
 }

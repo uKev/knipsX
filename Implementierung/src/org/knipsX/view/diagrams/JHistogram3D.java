@@ -31,7 +31,8 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
 
     @Override
     public void generateContent() {
-        createCube(new Vector3d(5, 0, 5), new Vector3d(1, 1, 1), this.basicMaterial(1, 1, 1));
+        createCube(new Vector3d(5, 5, 5), new Vector3d(1, 5, 1), this.basicMaterial(1, 1, 1));
+        createCube(new Vector3d(5, 0, 5), new Vector3d(1, 5, 1), this.basicMaterial(1, 0, 1));
     }
 
 }

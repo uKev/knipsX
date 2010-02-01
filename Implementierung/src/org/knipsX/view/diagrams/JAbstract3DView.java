@@ -438,7 +438,9 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     }
 
     /**
-     * Creates a Cube
+     * Creates a Cube at the desired position. Note that this cube, 
+     * when scaling on the y axis, doesn't grow uniformly, it rather
+     * grows only in the positive y direction 
      * 
      * @param position
      *            the position of the cube
@@ -448,7 +450,16 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      *            the material of the cube
      */
     public void createCube(final Vector3d position, final Vector3d scale, final Appearance material) {
-        final TransformGroup objMove = this.createTransformGroup(position, scale);
+        
+        /* Change the position to the right value */
+        Vector3d newPosition = new Vector3d(position);
+        newPosition.setY((scale.y) / 2 + position.y);
+        
+        /* Change the scale factor to the right value */
+        Vector3d newScale = new Vector3d(scale);
+        newScale.setY(scale.y / 2);       
+        
+        final TransformGroup objMove = this.createTransformGroup(newPosition, newScale);
         final Box myBox = new Box(1, 1, 1, material);
         objMove.addChild(myBox);
         this.rootTransform.addChild(objMove);
