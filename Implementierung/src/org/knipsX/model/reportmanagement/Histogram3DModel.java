@@ -47,9 +47,9 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
     }
 
     private void calculateExtremeValues() {
-        this.maxX = Double.MIN_VALUE;
-        this.maxY = Double.MIN_VALUE;
-        this.maxZ = Double.MIN_VALUE;
+        this.maxX = -Double.MAX_VALUE;
+        this.maxY = -Double.MAX_VALUE;
+        this.maxZ = -Double.MAX_VALUE;
         this.minX = Double.MAX_VALUE;
         this.minY = Double.MAX_VALUE;
         this.minZ = Double.MAX_VALUE;
@@ -116,7 +116,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                         category.addBar(new Bar(pictureContainer, barCount));
                         
                         if (this.maxY < barCount){
-                            this.maxY = barCount;
+                            this.maxY;
                         }
                     }
                 }

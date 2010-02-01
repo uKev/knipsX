@@ -112,7 +112,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
     public double getMaxY() {
         this.calculateIfNeeded();
         
-        Double maxY = Double.MIN_VALUE;
+        Double maxY = -Double.MAX_VALUE;
         for (final Boxplot boxplot : this.boxplots) {
             if (maxY < boxplot.getMaxValue()) {
                 maxY = boxplot.getMaxValue();
