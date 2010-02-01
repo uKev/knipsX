@@ -124,7 +124,7 @@ public abstract class AbstractReportModel extends AbstractModel {
      * Adds a missing Exif Picture Parameter pair. Should be uses in subclasses to indicate that a picture is not usable
      * because of a missing exif parameter in it.
      * 
-     * @param exifParameter
+     * @param exifParameter an pictureParameter object whith the combination that is missing.
      */
     protected void addMissingExifPictureParameter(final PictureParameter exifParameter) {
         this.missingExifParameter.add(exifParameter);
@@ -149,6 +149,9 @@ public abstract class AbstractReportModel extends AbstractModel {
         this.updateViews();
     }
 
+    /**
+     * clear all missing exif Parameters. Used from subclasses before rescanning pictures for exif parameters.
+     */
     protected void clearMissingExifPictureParameter() {
         this.missingExifParameter.clear();
 
@@ -157,6 +160,10 @@ public abstract class AbstractReportModel extends AbstractModel {
         this.updateViews();
     }
 
+    /**
+     * Sets the status to calculated. Indicates if something needs to be calculated before an getter returns something.
+     * @param dataIsCalculated true if all is ready for getter and false if something is changed and not calculated.
+     */
     protected void dataIsCalculated(final boolean dataIsCalculated) {
         this.dataIsCalculated = dataIsCalculated;
     }
@@ -212,6 +219,10 @@ public abstract class AbstractReportModel extends AbstractModel {
         return this.reportName;
     }
 
+    /**
+     * Returs if the data is calculated and ready for returning it.
+     * @return true if data is ready and false if some work needs to be done.
+     */
     protected boolean isDataCalculated() {
         return this.dataIsCalculated;
     }
