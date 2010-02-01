@@ -37,10 +37,7 @@ public class PictureSetListDeleteController<M extends ProjectModel, V extends JP
 
     @Override
     public void actionPerformed(final ActionEvent e) {
-
-        final int[] toDelete = this.view.getSelectedPictureSets();
-
-        final Object[] pictureSets = this.model.getPictureSets();
+        final PictureSet[] toDelete = this.view.getSelectedPictureSets();
 
         /* if we have indices */
         if ((toDelete == null) || (toDelete.length == 0)) {
@@ -53,26 +50,26 @@ public class PictureSetListDeleteController<M extends ProjectModel, V extends JP
 
             /* INTERNATIONALIZE */
             final int decision = JOptionPane.showConfirmDialog(null, "Sollen die ausgewählten Bildmengen:"
-                    + this.generateToDeleteText(pictureSets, toDelete) + " gelöscht werden?", "Bildmenge löschen",
+                    + this.generateToDeleteText(toDelete) + " gelöscht werden?", "Bildmenge löschen",
                     JOptionPane.YES_NO_OPTION);
 
             /* if user pressed "yes" */
             if (decision == 0) {
 
                 /* delete all selected projects */
-                for (final Integer item : toDelete) {
-                    this.model.removePictureSet((PictureSet) pictureSets[item]);
+                for (final PictureSet item : toDelete) {
+                    this.model.removePictureSet(item);
                 }
             }
         }
     }
 
-    private String generateToDeleteText(final Object[] pictureSets, final int[] toDelete) {
+    private String generateToDeleteText(final PictureSet[] toDelete) {
         String deleteText = "\n\n";
 
         /* add all names */
-        for (final Integer item : toDelete) {
-            deleteText += "- " + ((PictureSet) pictureSets[item]).getName() + "\n";
+        for (final PictureSet item : toDelete) {
+            deleteText += "- " + item.getName() + "\n";
         }
         return deleteText + "\n";
     }

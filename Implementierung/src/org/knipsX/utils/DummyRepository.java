@@ -42,19 +42,19 @@ public class DummyRepository implements Repository {
             System.out.println("Can not create Picture fom File: File not found");
             e.printStackTrace();
         }
-        dummyPictureSet.addToChilds(dummyPicture);
+        dummyPictureSet.add(dummyPicture);
         
         String pictureDir = System.getProperty("user.home")  + File.separator + ".knipsX_test_bilder" + File.separator + "testordner";
         System.out.println("Picture Dir:" + pictureDir);
         Directory dummyDirectory = new Directory(pictureDir);
         
-        dummyPictureSet.addToChilds(dummyDirectory);
+        dummyPictureSet.add(dummyDirectory);
 
-        dummyPictureSet.addToChilds(new PictureSet("Fische", 12));
-        dummyPictureSet.addToChilds(new PictureSet("Oldfische", 13));
-        dummyPictureSet.addToChilds(new PictureSet("Abc", 14));
-        dummyPictureSet.addToChilds(new PictureSet("Grillfest", 10));
-        dummyPictureSet.addToChilds(new PictureSet("SuperGoldfische", 11));
+        dummyPictureSet.add(new PictureSet("Fische", 12));
+        dummyPictureSet.add(new PictureSet("Oldfische", 13));
+        dummyPictureSet.add(new PictureSet("Abc", 14));
+        dummyPictureSet.add(new PictureSet("Grillfest", 10));
+        dummyPictureSet.add(new PictureSet("SuperGoldfische", 11));
 
         /* add to list */
         pictureSetList.add(dummyPictureSet);
@@ -62,7 +62,7 @@ public class DummyRepository implements Repository {
         /* create some dummy picture sets antem.getProperty("user.home")  + File.separator + ".knipsX_test_bilder" + File.separator + "testordner";
         System.out.println(pictd add */
         PictureSet test = new PictureSet("Urlaub", 3);
-        test.addToChilds(dummyDirectory);
+        test.add(dummyDirectory);
         pictureSetList.add(test);
         pictureSetList.add(new PictureSet("Golfen", 4));
         pictureSetList.add(new PictureSet("Weihnachten 2008", 5));

@@ -334,6 +334,10 @@ public class ProjectModel extends AbstractModel {
         return pictureSetArray;
     }
 
+    public PictureSet getActivePictureSet() {
+        return this.pictureSetList.get(0);
+    }
+    
     /**
      * Get all picture sets which a picture set handle with.
      * 
@@ -411,8 +415,13 @@ public class ProjectModel extends AbstractModel {
     public boolean addContentToPictureSet(final PictureSet set, final PictureContainer container) {
         assert (set != null) && (set instanceof PictureSet);
         assert (container != null) && (container instanceof PictureContainer);
-
-        return set.addToChilds(container);
+           
+        boolean isAdded = set.add(container);
+        
+        if(isAdded) {
+            this.updateViews();
+        }
+        return isAdded;
     }
 
     /**
@@ -429,7 +438,12 @@ public class ProjectModel extends AbstractModel {
         assert (set != null) && (set instanceof PictureSet);
         assert (container != null) && (container instanceof PictureContainer);
 
-        return set.removeFromPictureSet(container);
+        boolean isRemoved = set.remove(container);
+        
+        if(isRemoved) {
+            this.updateViews();
+        }
+        return isRemoved;
     }
 
     /*

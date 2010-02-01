@@ -807,9 +807,16 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
      * 
      * @return an array of indices.
      */
-    public int[] getSelectedPictureSets() {
+    public PictureSet[] getSelectedPictureSets() {
         assert this.jListPictureSet != null;
-        return this.jListPictureSet.getSelectedIndices();
+
+        Object[] values = this.jListPictureSet.getSelectedValues();
+        PictureSet[] sets = new PictureSet[values.length];
+
+        for (int i = 0; i < values.length; ++i) {
+            sets[i] = (PictureSet) values[i];
+        }
+        return sets;
     }
 
     /**
@@ -817,9 +824,16 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
      * 
      * @return an array of indices.
      */
-    public int[] getSelectedPictureSetContents() {
+    public PictureContainer[] getSelectedPictureSetContents() {
         assert this.jListPictureSetContent != null;
-        return this.jListPictureSetContent.getSelectedIndices();
+
+        Object[] values = this.jListPictureSetContent.getSelectedValues();
+        PictureContainer[] container = new PictureContainer[values.length];
+
+        for (int i = 0; i < values.length; ++i) {
+            container[i] = (PictureContainer) values[i];
+        }
+        return container;
     }
 
     /**
@@ -863,21 +877,31 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         this.jTextFieldProjectName.setText(model.getName());
         this.jEditorPaneProjectDescription.setText(model.getDescription());
 
+        int[] selectedPictureSets = this.jListPictureSet.getSelectedIndices();
+        int[] selectedPictureSetContents = this.jListPictureSetContent.getSelectedIndices();
+        int[] selectedPictures = this.jListPictureSetActive.getSelectedIndices();
+        int[] selectedReports = this.jListReport.getSelectedIndices();
+        
         /* setup the lists */
         this.jListPictureSet.setListData(model.getPictureSets());
-        // this.jListPictureSetContent.setListData(this.extractPictureSetContents((PictureSet)
-        // this.model.getPictureSets()[0]))
+        this.jListPictureSetContent.setListData(this.extractPictureSetContents(model.getActivePictureSet()).toArray());
+        this.jListPictureSetActive.setListData(model.getAllPictures());
         this.jListReport.setListData(model.getReports());
 
         /* refresh view */
         this.repaint();
+        
+        this.jListPictureSet.setSelectedIndices(selectedPictureSets);
+        this.jListPictureSetContent.setSelectedIndices(selectedPictureSetContents);
+        this.jListPictureSetActive.setSelectedIndices(selectedPictures);
+        this.jListReport.setSelectedIndices(selectedReports);
     }
 
-    /* generates the three sperated parts of picture set contents */
+    /* generates the three separated parts of picture set contents */
     private List<PictureContainer> extractPictureSetContents(final PictureSet pictureSet) {
 
         final List<PictureContainer> allContents = new ArrayList<PictureContainer>();
-        
+
         /* we show three different types of picture containers */
         List<PictureContainer> list = new ArrayList<PictureContainer>();
 
@@ -886,7 +910,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         }
         Collections.sort(list);
         allContents.addAll(list);
-        
+
         list.clear();
         for (final Directory element : this.model.getDirectoriesOfAPictureSet(pictureSet)) {
             list.add(element);
@@ -900,7 +924,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         }
         Collections.sort(list);
         allContents.addAll(list);
-        
+
         return allContents;
     }
 }
@@ -1010,18 +1034,19 @@ class MyPictureListCellRenderer implements ListCellRenderer {
 
     protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-    //private final Icon noImageIcon = new ImageIcon(System.getProperty("user.dir") + "\\src\\org\\knipsX\\images\\noimage.png"); 
+    // private final Icon noImageIcon = new ImageIcon(System.getProperty("user.dir") +
+    // "\\src\\org\\knipsX\\images\\noimage.png");
     private Icon noImageIcon = null;
-    
+
     public MyPictureListCellRenderer() {
         try {
-            
+
             this.noImageIcon = Resource.createImageIcon("../images/noimage.png", "");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Renders the cell.
      * 
@@ -1046,7 +1071,7 @@ class MyPictureListCellRenderer implements ListCellRenderer {
         /* generate the label which represents the cell */
         final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
                 isSelected, cellHasFocus);
-        
+
         /* if the selected item is a "Picture" -> set the name */
         if (value instanceof Picture) {
             final Picture picture = (Picture) value;
@@ -1158,59 +1183,59 @@ class MyTableCellRenderer extends JLabel implements TableCellRenderer {
  * ################################################################################################################
  */
 
-//class ImageToolTipListCellRenderer extends DefaultListCellRenderer {
+// class ImageToolTipListCellRenderer extends DefaultListCellRenderer {
 //
-//    private static final long serialVersionUID = 6235304707730082310L;
+// private static final long serialVersionUID = 6235304707730082310L;
 //
-//    private Image image;
+// private Image image;
 //    
-//    public void setImage(Image image) {
-//        this.image = image;
-//    }
+// public void setImage(Image image) {
+// this.image = image;
+// }
 //    
-//    @Override
-//    public JToolTip createToolTip() {
-//        return new ImageToolTip(this.image);
-//    }
-//}
+// @Override
+// public JToolTip createToolTip() {
+// return new ImageToolTip(this.image);
+// }
+// }
 //
-//class ImageToolTip extends JToolTip {
+// class ImageToolTip extends JToolTip {
 //    
-//    private static final long serialVersionUID = 9162241243828840210L;
+// private static final long serialVersionUID = 9162241243828840210L;
 //
-//    public ImageToolTip(Image image) {
-//        setUI(new ImageToolTipUI(image));
-//    }
-//}
+// public ImageToolTip(Image image) {
+// setUI(new ImageToolTipUI(image));
+// }
+// }
 //
-//class ImageToolTipUI extends MetalToolTipUI {
+// class ImageToolTipUI extends MetalToolTipUI {
 //
-//    private Image image;
+// private Image image;
 //
-//    public ImageToolTipUI(Image image) {
-//        super();
-//        this.image = image;
-//    }
+// public ImageToolTipUI(Image image) {
+// super();
+// this.image = image;
+// }
 //
-//    public void paint(Graphics g, JComponent c) {
-//        FontMetrics metrics = c.getFontMetrics(g.getFont());
-//        g.setColor(c.getForeground());
-//        g.drawString(((JToolTip) c).getTipText(), 1, 1);
-//        g.drawImage(this.image, 1, metrics.getHeight(), c);
-//    }
+// public void paint(Graphics g, JComponent c) {
+// FontMetrics metrics = c.getFontMetrics(g.getFont());
+// g.setColor(c.getForeground());
+// g.drawString(((JToolTip) c).getTipText(), 1, 1);
+// g.drawImage(this.image, 1, metrics.getHeight(), c);
+// }
 //
-//    public Dimension getPreferredSize(JComponent c) {
-//        FontMetrics metrics = c.getFontMetrics(c.getFont());
-//        String tipText = ((JToolTip) c).getTipText();
-//        if (tipText == null) {
-//            tipText = "";
-//        }
-//        int width = SwingUtilities.computeStringWidth(metrics, tipText);
-//        int height = metrics.getHeight() + this.image.getHeight(c);
+// public Dimension getPreferredSize(JComponent c) {
+// FontMetrics metrics = c.getFontMetrics(c.getFont());
+// String tipText = ((JToolTip) c).getTipText();
+// if (tipText == null) {
+// tipText = "";
+// }
+// int width = SwingUtilities.computeStringWidth(metrics, tipText);
+// int height = metrics.getHeight() + this.image.getHeight(c);
 //
-//        if (width < this.image.getWidth(c)) {
-//            width = this.image.getWidth(c);
-//        }
-//        return new Dimension(width, height);
-//    }
-//}
+// if (width < this.image.getWidth(c)) {
+// width = this.image.getWidth(c);
+// }
+// return new Dimension(width, height);
+// }
+// }
