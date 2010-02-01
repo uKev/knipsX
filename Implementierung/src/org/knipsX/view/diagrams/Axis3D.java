@@ -23,7 +23,7 @@ class Axis3D {
     private double minReportSpace = 1;
     private double maxReportSpace = 1;
     private boolean isReportSpaceInitialized = false;
-    private static double offset = 0;
+    private double offset = 0;
 
     /**
      * Returns the assigned EXIF Parameter
@@ -225,8 +225,9 @@ class Axis3D {
         
         this.minReportSpace = Math.min(minValue, maxValue);
         this.maxReportSpace = Math.max(minValue, maxValue);
-        
-        Axis3D.offset = (this.maxReportSpace - this.minReportSpace) / 5;
+
+        offset = (this.maxReportSpace - this.minReportSpace) / 5.0;  
+        offset = 0;
     }
 
     /**
