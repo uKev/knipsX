@@ -165,6 +165,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                         xValue = ((Float) picture.getExifParameter(this.getxAxis().getParameter())).doubleValue();
                         zValue = ((Float) picture.getExifParameter(this.getzAxis().getParameter())).doubleValue();
 
+                        // if x and z value fits between <= category <
                         if (xValue < category.getMaxValueX() && xValue >= category.getMinValueX()
                                 && zValue < category.getMaxValueZ() && zValue >= category.getMinValueZ()) {
                             /*
@@ -172,8 +173,10 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                              */
 
                             barCount++;
-                        } else if (false) {
-                            // FIXME: correct that biggest value is not <. it should be <=!
+                        
+                            // or if x or z is last and fits in category.maxValue ==
+                        } else if ((((i+1) == this.categories.length) && xValue == category.getMaxValueX() ) || (((j+i) == this.categories[i].length) && xValue == category.getMaxValueX())) {
+                            barCount++;
                         }
 
                     }
