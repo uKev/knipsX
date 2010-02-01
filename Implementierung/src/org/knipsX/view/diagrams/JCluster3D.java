@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import javax.media.j3d.PickInfo;
@@ -49,41 +50,45 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
 
         final ArrayList<Integer> typesOfPoints = new ArrayList<Integer>();
 
-        // for (int i = 0; i < this.model.getFrequency3DPoints().length; i++) {
-        // if (!typesOfPoints.contains(this.model.getFrequency3DPoints()[i].getFrequency())) {
-        // typesOfPoints.add(this.model.getFrequency3DPoints()[i].getFrequency());
-        // }
-        // }
-        //        
-        // assert typesOfPoints.size() > 0;
-        //        
-        // Collections.sort(typesOfPoints);
+        if (this.model != null) {
+            for (int i = 0; i < this.model.getFrequency3DPoints().size(); i++) {
+                if (!typesOfPoints.contains(this.model.getFrequency3DPoints().get(i).getFrequency())) {
+                    typesOfPoints.add(this.model.getFrequency3DPoints().get(i).getFrequency());
+                }
+            }
 
-        /* TODO when implementing the controller, we must set this to the right data */
-        for (int i = 0; i <= 200; i++) {
-            final Random random = new Random();
+            // assert typesOfPoints.size() > 0;
 
-            final Transform3D dataTrans = new Transform3D();
+            Collections.sort(typesOfPoints);
+            
+            this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
+            this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
+            this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
+            
+            
+        }
 
-            dataTrans.setTranslation(new Vector3d(random.nextDouble() * this.getyAxis().getAxisSize(), random
-                    .nextDouble()
-                    * this.getxAxis().getAxisSize(), random.nextDouble() * this.getzAxis().getAxisSize()));
+        if (this.model != null) {
+            /* TODO when implementing the controller, we must set this to the right data */
+            for (int i = 0; i < this.model.getFrequency3DPoints().size(); i++) {
+                final Transform3D dataTrans = new Transform3D();
 
-            /* create transformation group */
-            final TransformGroup objData = new TransformGroup(dataTrans);
-            objData.setCapability(PickInfo.PICK_GEOMETRY);
+                Vector3d position = new Vector3d(1, 1, 1);
+                dataTrans.setTranslation(position);
 
-            final Selectable3DShape selectableShape = new Selectable3DShape(null);
-            final float myfloat = (float) random.nextDouble();
-            selectableShape.setAppearance(this.basicMaterial(myfloat, myfloat * myfloat, myfloat));
+                /* create transformation group */
+                final TransformGroup objData = new TransformGroup(dataTrans);
+                objData.setCapability(PickInfo.PICK_GEOMETRY);
 
-            // TODO uncomment when frequency3d point are implemented
-            // selectableShape.setAppearance(basicMaterial(getColorAtPosition(this.model.getFrequency3DPoints()[i].getFrequency(),
-            // typesOfPoints.size())));
+                final Selectable3DShape selectableShape = new Selectable3DShape(this.model.getFrequency3DPoints().get(i));
 
-            objData.addChild(selectableShape);
+                // TODO uncomment when frequency3d point are implemented
+                selectableShape.setAppearance(this.basicMaterial(getColorAtPosition(this.model.getFrequency3DPoints().get(i).getFrequency(), typesOfPoints.size())));
 
-            this.objRoot.addChild(objData);
+                objData.addChild(selectableShape);
+
+                this.objRoot.addChild(objData);
+            }
         }
 
         /* setup y axis */
@@ -98,7 +103,7 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
         this.getzAxis().generateSegmentDescription(10, 20, 5);
         this.getzAxis().setAxis(new Axis(ExifParameter.FLASH));
 
-        /* set the left panel which shows you information about a selected picture */
+        /* set the left panel which shows information about a selected picture */
         this.leftPanel = new JPanel();
 
         /* when the diagram first appears, no shape is selected */
