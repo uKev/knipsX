@@ -67,6 +67,19 @@ public class ProjectModel extends AbstractModel {
         super.updateViews();
     }
 
+    /**
+     * The ACTIVE status means this part is available and you can do interactions with it. It is in the foreground.
+     */
+    public static final int ACTIVE = 1;
+    /**
+     * The INACTIVE status means this part is not available and you can not do interactions with it. It is in the
+     * background.
+     */
+    public static final int INACTIVE = 0;
+    
+    /* By default this view is active */
+    private int state = ACTIVE;
+    
     private final int id;
 
     private String name;
@@ -128,6 +141,28 @@ public class ProjectModel extends AbstractModel {
         // + File.separator + "DSC00964.JPG").getAllExifParameter();
     }
 
+    
+    /**
+     * Sets the actual state. It can only be ACTIVE or INACTIVE
+     * 
+     * @param state ACTIVE or INACTIVE
+     */
+    public void setStatus(int state) {
+        assert state < 2;
+        assert state >= 0;
+        this.state = state;
+        this.updateViews();
+    }
+    
+    /**
+     * Delivers the actual status
+     * 
+     * @return the status at the moment
+     */
+    public int getStatus() {
+        return this.state;
+    }
+    
     /**
      * Creates a new model based on an old one (with new id which must be unique).
      * 

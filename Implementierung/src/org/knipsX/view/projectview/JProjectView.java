@@ -929,9 +929,13 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         }
         
         if (this.model.getStatus() == ProjectModel.ACTIVE) {
+            this.setFocusableWindowState(true);
+            this.setFocusable(true);
             this.setEnabled(true);
         } else {
-            this.setEnabled(false);   
+            this.setFocusableWindowState(false);
+            this.setEnabled(false);
+            this.setFocusable(false);
         }
 
         /* refresh view */

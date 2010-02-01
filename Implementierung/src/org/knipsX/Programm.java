@@ -4,6 +4,8 @@
 package org.knipsX;
 
 /* import things from our programm */
+import java.awt.Color;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -42,6 +44,14 @@ public final class Programm {
             System.err.println("Error loading Look and Feel: " + e);
             e.printStackTrace();
         }
+        
+        /*
+         *  Change the contentAreaColor to a normal light grey color so it
+         *  fits in with the normal user interface 
+         */
+        
+        UIManager.put("TabbedPane.contentAreaColor", new Color(238, 238, 238));
+        
         
         /* create a model for the ProjectAdministration */
         final ProjectManagementModel projectManagementModel = new ProjectManagementModel();
