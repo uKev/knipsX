@@ -4,7 +4,6 @@ import javax.vecmath.Vector3d;
 
 import org.knipsX.model.reportmanagement.Histogram3DModel;
 
-
 /**
  * This class implements how the Histogram3DModel is to be drawn.
  * 
@@ -31,8 +30,23 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
 
     @Override
     public void generateContent() {
-        createCube(new Vector3d(5, 5, 5), new Vector3d(1, 5, 1), this.basicMaterial(1, 1, 1));
-        createCube(new Vector3d(5, 0, 5), new Vector3d(1, 5, 1), this.basicMaterial(1, 0, 1));
+        if (this.model != null) {
+            System.out.println(this.model.getMinX());
+            System.out.println(this.model.getMaxX());
+            
+            System.out.println(this.model.getMinZ());
+            System.out.println(this.model.getMaxZ());
+            
+            System.out.println(this.model.getMinY());
+            System.out.println(this.model.getMaxY());            
+            
+            this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
+            this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
+            this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());            
+            
+            this.getxAxis().generateSegmentDescription(10);
+            this.getzAxis().generateSegmentDescription(10);
+        }
     }
 
 }
