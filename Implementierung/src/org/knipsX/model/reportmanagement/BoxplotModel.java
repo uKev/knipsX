@@ -64,6 +64,8 @@ public class BoxplotModel extends AbstractSingleAxisModel {
                 } else {
                     boxplotName = pictures.getName();
                 }
+                
+                
                 this.boxplots.add(new Boxplot(pictures, xAxis.getParameter(), boxplotName));
             }
 
@@ -72,6 +74,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
             for (final PictureContainer pictureContainer : this.getPictureContainer()) {
                 for (final Picture picture : pictureContainer) {
                     if (picture.getExifParameter(xAxis.getParameter()) == null) {
+                        System.out.println("Missing Exif Parameter: " + picture.getPath() + xAxis.getParameter().toString());
                         this.addMissingExifPictureParameter(new PictureParameter(xAxis.getParameter(), picture));
                     }
                 }

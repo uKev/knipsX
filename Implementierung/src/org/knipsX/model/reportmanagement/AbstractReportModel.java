@@ -120,6 +120,12 @@ public abstract class AbstractReportModel extends AbstractModel {
         this.updateViews();
     }
 
+    /**
+     * Adds a missing Exif Picture Parameter pair. Should be uses in subclasses to indicate that a picture is not usable
+     * because of a missing exif parameter in it.
+     * 
+     * @param exifParameter
+     */
     protected void addMissingExifPictureParameter(final PictureParameter exifParameter) {
         this.missingExifParameter.add(exifParameter);
 

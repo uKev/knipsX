@@ -86,7 +86,12 @@ public class Boxplot {
      */
     public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter) {
         this(pictures, exifParameter, null);
-        this.pictureSetName = pictures.getName();
+        if (pictures == null){
+            this.pictureSetName = "NULL";
+            System.out.println("Warning in Boxplot.java: pictures was NULL");
+        } else {
+            this.pictureSetName = pictures.getName();
+        }
     }
 
     /**
@@ -117,10 +122,21 @@ public class Boxplot {
         final ArrayList<Double> values = new ArrayList<Double>();
 
         for (final Picture pic : pictures) {
-            values.add(Double.valueOf(pic.getExifParameter(exifParameter).toString()));
+            Object objectValue = pic.getExifParameter(exifParameter);
+            String stringValue = objectValue.toString();
+            double doubleValue = Double.valueOf(stringValue);
+            values.add(doubleValue);
+            // TWEAK: if getExifParameter returns null instead of 0, remove this testing print outs.
+            System.out.println("Picture: " + pic.getPath());
+            System.out.println("object: " + objectValue);
+            System.out.println("string: " + stringValue);
+            System.out.println("double: " + doubleValue);
+            
         }
 
         Collections.sort(values);
+        
+        System.out.println("Boxplot Values:" + values.toString());
 
         this.mean = this.calculateMean(values);
         this.median = this.calculateMedian(values);
