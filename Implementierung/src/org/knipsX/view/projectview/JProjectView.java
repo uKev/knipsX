@@ -48,6 +48,7 @@ import org.knipsX.controller.projectview.PictureSetListCreateController;
 import org.knipsX.controller.projectview.PictureSetListDeleteController;
 import org.knipsX.controller.projectview.ProjectSaveController;
 import org.knipsX.controller.projectview.ProjectSwitchController;
+import org.knipsX.controller.projectview.ReportClickOnController;
 import org.knipsX.controller.projectview.ReportCreateController;
 import org.knipsX.controller.projectview.ReportDeleteController;
 import org.knipsX.controller.projectview.ReportOpenController;
@@ -735,6 +736,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             this.jListReport.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             this.jListReport.setLayoutOrientation(JList.VERTICAL);
+            this.jListReport.addMouseListener(new ReportClickOnController<M, JProjectView<M>>(this.model,
+                    this));
 
             /* we store different objects in the list, so we have to set a special rendering */
             this.jListReport.setCellRenderer(new MyReportListCellRenderer());

@@ -144,6 +144,8 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         int barCount;
         this.minY = 0;
 
+        ArrayList<Picture> allreadyAllocatedPictures = new ArrayList<Picture>();
+        
         for (PictureContainer pictureContainer : this.getPictureContainer()) {
             /*
              * create a bar for each pictureContainer in each Category
@@ -171,11 +173,23 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                             /*
                              * Picture fits in the category, yeah!
                              */
-
+                            if (allreadyAllocatedPictures.contains(picture)){
+                                System.out.println("Error! Picture "+picture.getName()+" already einsortiert. x: "+xValue+" z: "+zValue);
+                                System.out.println("in Kategorie: "+ "max X: " + category.getMaxValueX() + "  min x: " + category.getMinValueX() + "  max z: "  + category.getMaxValueZ() + "  min z: "  + category.getMinValueZ());
+                            }
+                            allreadyAllocatedPictures.add(picture);
                             barCount++;
                         
                             // or if x or z is last and fits in category.maxValue ==
                         } else if ((((i+1) == this.categories.length) && xValue == category.getMaxValueX() ) || (((j+i) == this.categories[i].length) && xValue == category.getMaxValueX())) {
+                            
+                            if (allreadyAllocatedPictures.contains(picture)){
+                                System.out.println("\nError! Picture "+picture.getName()+" already einsortiert. x: "+xValue+" z: "+zValue);
+                                System.out.println("in Kategorie: "+ "max X: " + category.getMaxValueX() + "  min x: " + category.getMinValueX() + "  max z: "  + category.getMaxValueZ() + "  min z: "  + category.getMinValueZ());
+                            }
+                            allreadyAllocatedPictures.add(picture);
+                            
+                            
                             barCount++;
                         }
 
@@ -197,7 +211,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         this.categories = new Category[numberOfCategories][numberOfCategories];
 
         this.xCategorySize = (Math.abs(this.maxX - this.minX) / numberOfCategories);
-        this.zCategorySize = (Math.abs(this.maxX - this.minX) / numberOfCategories);
+        this.zCategorySize = (Math.abs(this.maxZ - this.minZ) / numberOfCategories);
         double minValueX;
         double maxValueX;
         double minValueZ;
