@@ -168,7 +168,7 @@ class Axis3D {
             DecimalFormat format = new DecimalFormat("#.###");
 
             for (int i = 0; i < this.getNumberOfSegments() + 1; i++) {
-                returnstring[i] = String.valueOf(format.format((Integer) minValue + pieces * i));
+                returnstring[i] = String.valueOf(format.format((Integer) minValue - offset + pieces * i));
             }
 
             this.setSegmentDescription(returnstring);
