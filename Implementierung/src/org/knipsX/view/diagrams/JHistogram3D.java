@@ -7,7 +7,6 @@ import javax.vecmath.Vector3d;
 import org.knipsX.model.reportmanagement.Category;
 import org.knipsX.model.reportmanagement.Histogram3DModel;
 
-import com.imagero.uio.ba.Position;
 
 /**
  * This class implements how the Histogram3DModel is to be drawn.
