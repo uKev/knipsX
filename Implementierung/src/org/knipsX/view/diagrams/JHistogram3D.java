@@ -31,6 +31,8 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
     @Override
     public void generateContent() {
         if (this.model != null) {
+            this.model.getCategories();
+            
             System.out.println(this.model.getMinX());
             System.out.println(this.model.getMaxX());
             
