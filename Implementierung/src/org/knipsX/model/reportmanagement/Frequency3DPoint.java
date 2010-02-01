@@ -16,6 +16,7 @@ import org.knipsX.model.picturemanagement.Picture;
 
 public class Frequency3DPoint {
 
+
     double x;
     double y;
     double z;
@@ -143,5 +144,29 @@ public class Frequency3DPoint {
            isEqual = false;
        }
        return isEqual;
+   }
+   
+   /**
+    * Getter for the x coodinate
+    * @return the x coordinate of this point
+    */
+   public double getX() {
+       return x;
+   }
+
+   /**
+    * Getter for the y coordinate
+    * @return the y coordinate of this point
+    */
+   public double getY() {
+       return y;
+   }
+
+   /**
+    * Getter for the z coordinate
+    * @return the z coordinate of this point
+    */
+   public double getZ() {
+       return z;
    }
 }
