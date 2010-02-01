@@ -23,13 +23,16 @@ import javax.swing.ListCellRenderer;
 import java.util.Observable;
 
 /* import things from our program */
+import org.knipsX.controller.projectmanagement.ProjectClickOnController;
 import org.knipsX.controller.projectmanagement.ProjectCopyController;
 import org.knipsX.controller.projectmanagement.ProjectCreateController;
 import org.knipsX.controller.projectmanagement.ProjectDeleteController;
 import org.knipsX.controller.projectmanagement.ProjectOpenController;
+import org.knipsX.controller.projectview.PictureSetListClickOnController;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.JAbstractView;
+import org.knipsX.view.projectview.JProjectView;
 
 /**
  * Represents the management view for all user projects.
@@ -294,6 +297,8 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 
             /* set a custom cell renderer */
             this.jListProject.setCellRenderer(new MyProjectListCellRenderer());
+            this.jListProject.addMouseListener(new ProjectClickOnController<M, JProjectManagement<M>>(this.model,
+                    this));
         }
 
         /* return the list */

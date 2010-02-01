@@ -17,13 +17,13 @@ public class PictureSet implements PictureContainer {
     private List<PictureContainer> children = new ArrayList<PictureContainer>();
 
     /* The ID of the pictureset */
-    private int id;
+    private final int id;
 
     /* The current position in the list */
     private int currentChild = 0;
 
     /* The name of the pictureset */
-    private String name;
+    private final String name;
 
     /**
      * Creates a new PictureSet from a name and an ID.
@@ -33,7 +33,7 @@ public class PictureSet implements PictureContainer {
      * @param freePictureSetID
      *            the id
      */
-    public PictureSet(String pictureSetName, int freePictureSetID) {
+    public PictureSet(final String pictureSetName, final int freePictureSetID) {
         this.name = pictureSetName;
         this.id = freePictureSetID;
     }
@@ -48,10 +48,14 @@ public class PictureSet implements PictureContainer {
      * @param freePictureSetID
      *            the ID
      */
-    public PictureSet(PictureSet pictureSetToCopy, String pictureSetName, int freePictureSetID) {
+    public PictureSet(final PictureSet pictureSetToCopy, final String pictureSetName, final int freePictureSetID) {
         this.name = pictureSetName;
         this.id = freePictureSetID;
         this.children = pictureSetToCopy.getItems();
+    }
+    
+    public void resetIterator() {
+        this.currentChild = 0;
     }
 
     /**
@@ -60,7 +64,7 @@ public class PictureSet implements PictureContainer {
      * @return the name
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 
     /**
@@ -69,7 +73,7 @@ public class PictureSet implements PictureContainer {
      * @return the id
      */
     public int getID() {
-        return id;
+        return this.id;
     }
 
     /**
@@ -79,8 +83,8 @@ public class PictureSet implements PictureContainer {
      *            the element to add
      * @return true if it can be added, false if not
      */
-    public boolean add(PictureContainer container) {
-        if (children.contains(container)) {
+    public boolean add(final PictureContainer container) {
+        if (this.children.contains(container)) {
             System.out.println("Element is already in the PictureSet");
             return false;
         } else {
@@ -89,11 +93,10 @@ public class PictureSet implements PictureContainer {
                     System.out.println("Can´t add PictureSet");
                     return false;
                 } else {
-                    return children.add(container);
+                    return this.children.add(container);
                 }
-
             } else {
-                return children.add(container);
+                return this.children.add(container);
             }
         }
     }
@@ -105,8 +108,8 @@ public class PictureSet implements PictureContainer {
      *            the element which should be removed
      * @return true if the element could be rempved false if not.
      */
-    public boolean remove(PictureContainer container) {
-        return children.remove(container);
+    public boolean remove(final PictureContainer container) {
+        return this.children.remove(container);
     }
 
     /**
@@ -135,19 +138,19 @@ public class PictureSet implements PictureContainer {
         if (this.children.isEmpty()) {
             return hasNext;
         } else {
-            if (this.children.get(currentChild).hasNext()) {
+            if (this.children.get(this.currentChild).hasNext()) {
                 hasNext = true;
                 return hasNext;
             } else {
-                int child = currentChild;
+                int child = this.currentChild;
 
-                while (!hasNext && child < this.children.size() - 1) {
+                while (!hasNext && (child < this.children.size() - 1)) {
                     child++;
                     if (this.children.get(child).hasNext()) {
                         hasNext = true;
-                        currentChild = child;
+                        this.currentChild = child;
                     } else {
-                        currentChild = 0;
+                        this.currentChild = 0;
                     }
                 }
                 return hasNext;
@@ -162,14 +165,14 @@ public class PictureSet implements PictureContainer {
     public Picture next() {
         Picture picture = null;
 
-        if (this.children.get(currentChild).hasNext()) {
-            picture = this.children.get(currentChild).next();
+        if (this.children.get(this.currentChild).hasNext()) {
+            picture = this.children.get(this.currentChild).next();
         } else {
 
-            while (picture == null && currentChild < this.children.size() - 1) {
+            while ((picture == null) && (this.currentChild < this.children.size() - 1)) {
                 this.currentChild++;
-                if (this.children.get(currentChild).hasNext()) {
-                    picture = this.children.get(currentChild).next();
+                if (this.children.get(this.currentChild).hasNext()) {
+                    picture = this.children.get(this.currentChild).next();
                 }
             }
         }
@@ -192,7 +195,7 @@ public class PictureSet implements PictureContainer {
      * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
      *         the specified object
      */
-    public int compareTo(PictureContainer picturesetToCompare) {
+    public int compareTo(final PictureContainer picturesetToCompare) {
         if (this.id == ((PictureSet) picturesetToCompare).id) {
             return 0;
         } else if (this.name.toLowerCase().compareTo(((PictureSet) picturesetToCompare).name.toLowerCase()) > 0) {

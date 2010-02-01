@@ -32,7 +32,7 @@ class GetExifDataThread extends Thread {
         }
 
         /* first get all exif data */
-        Thread thread = new CreateThumbnailThread(this.project);
+        final Thread thread = new CreateThumbnailThread(this.project);
         thread.start();
     }
 }
@@ -62,6 +62,7 @@ class CreateThumbnailThread extends Thread {
  */
 public class ProjectModel extends AbstractModel {
 
+    @Override
     protected void updateViews() {
         super.updateViews();
     }
@@ -70,6 +71,9 @@ public class ProjectModel extends AbstractModel {
 
     private String name;
     private String description;
+
+    private PictureSet selectedPictureSet;
+    private PictureContainer selectedPictureSetContent;
 
     private final GregorianCalendar creationDate;
 
@@ -334,8 +338,27 @@ public class ProjectModel extends AbstractModel {
         return pictureSetArray;
     }
 
-    public PictureSet getActivePictureSet() {
-        return this.pictureSetList.get(0);
+    /**
+     * Get the current selected PictureSet on which some actions depends.
+     * 
+     * @return the current selected PictureSet.
+     */
+    public PictureSet getSelectedPictureSet() {
+        if (this.selectedPictureSet == null) {
+            assert this.pictureSetList.size() > 0;
+            this.selectedPictureSet = this.pictureSetList.get(0);
+        }
+        return this.selectedPictureSet;
+    }
+
+    /**
+     * Set the current selected PictureSet on which some actions depends.
+     * 
+     * @return the current selected PictureSet.
+     */
+    public void setSelectedPictureSet(final PictureSet selected) {
+        this.selectedPictureSet = selected;
+        this.updateViews();
     }
 
     /**
@@ -445,7 +468,7 @@ public class ProjectModel extends AbstractModel {
         assert (set != null) && (set instanceof PictureSet);
         assert (container != null) && (container instanceof PictureContainer);
 
-        boolean isAdded = set.add(container);
+        final boolean isAdded = set.add(container);
 
         if (isAdded) {
             this.updateViews();
@@ -467,12 +490,31 @@ public class ProjectModel extends AbstractModel {
         assert (set != null) && (set instanceof PictureSet);
         assert (container != null) && (container instanceof PictureContainer);
 
-        boolean isRemoved = set.remove(container);
+        final boolean isRemoved = set.remove(container);
 
         if (isRemoved) {
             this.updateViews();
         }
         return isRemoved;
+    }
+
+    /**
+     * Get the current selected PictureSet on which some actions depends.
+     * 
+     * @return the current selected PictureSet, null if not set.
+     */
+    public PictureContainer getSelectedPictureSetContent() {
+        return this.selectedPictureSetContent;
+    }
+
+    /**
+     * Set the current selected PictureSet on which some actions depends.
+     * 
+     * @return the current selected PictureSet.
+     */
+    public void setSelectedPictureSetContent(final PictureContainer selected) {
+        this.selectedPictureSetContent = selected;
+        this.updateViews();
     }
 
     /*
@@ -482,15 +524,20 @@ public class ProjectModel extends AbstractModel {
      */
 
     /**
-     * Get all pictures which the model handle with.
+     * Get all pictures which the model handle with. Depends on the current active picture set and picture set content.
      * 
      * @return an amount of pictures.
      */
     public Picture[] getAllPictures() {
         final List<Picture> pictures = new ArrayList<Picture>();
 
-        for (final PictureSet pictureSet : this.pictureSetList) {
-            for (Picture picture : pictureSet) {
+        if (this.getSelectedPictureSetContent() != null) {
+            for (final Picture picture : this.getSelectedPictureSetContent()) {
+                pictures.add(picture);
+            }
+        } else {
+            this.getSelectedPictureSet().resetIterator();
+            for (final Picture picture : this.getSelectedPictureSet()) {
                 pictures.add(picture);
             }
         }

@@ -1,4 +1,4 @@
-package org.knipsX.controller.projectview;
+package org.knipsX.controller.projectmanagement;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
@@ -7,21 +7,21 @@ import java.awt.event.MouseListener;
 import javax.swing.JList;
 
 import org.knipsX.controller.AbstractController;
-import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.model.projectview.ProjectModel;
+import org.knipsX.view.projectmanagement.JProjectManagement;
 import org.knipsX.view.projectview.JProjectView;
 
 /**
  * Represents the Actions which are done by klicking on the picturesetcontentlist.
  * Acts in harmony with a JProjectview.
  */
-public class PictureSetContentListClickOnController<M extends ProjectModel, V extends JProjectView<M>> extends
+public class ProjectClickOnController<M extends ProjectManagementModel, V extends JProjectManagement<?>> extends
         AbstractController<M, V> implements MouseListener {
 
     private final int MOUSE_LEFT = 1;
-    private final int MOUSE_RIGHT = 3;
 
-    public PictureSetContentListClickOnController(M model, V view) {
+    public ProjectClickOnController(M model, V view) {
         super(model, view);
     }
 
@@ -37,11 +37,11 @@ public class PictureSetContentListClickOnController<M extends ProjectModel, V ex
                 int index = theList.locationToIndex(mouseEvent.getPoint());
                 if (index >= 0) {
                     Object o = theList.getModel().getElementAt(index);
-                    this.model.setSelectedPictureSetContent((PictureContainer) o);
+                    model.setStatus(ProjectManagementModel.INACTIVE);
+
+                    new JProjectView<ProjectModel>((ProjectModel) o);
                 }
             }
-        } else if (mouseEvent.getButton() == MOUSE_RIGHT) {
-            this.model.setSelectedPictureSetContent(null);
         }
     }
 

@@ -58,7 +58,7 @@ public class PictureSetContentListDeleteController<M extends ProjectModel, V ext
 
                 /* delete all selected projects */
                 for (final PictureContainer item : toDelete) {
-                    this.model.removeContentFromPictureSet(model.getActivePictureSet(), item);
+                    this.model.removeContentFromPictureSet(model.getSelectedPictureSet(), item);
                 }
             }
         }
