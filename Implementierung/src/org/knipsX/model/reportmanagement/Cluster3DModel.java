@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.utils.ExifParameter;
 
 /**
  * Represents the 3D-cluser and allocate the axes to it.
@@ -21,6 +22,7 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
      */
     public Cluster3DModel() {
         super();
+        this.dataIsCalculated(false);
     }
 
     /**
@@ -55,24 +57,28 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                     boolean haveAllParameters = true;
                     pointIsAdded = false;
 
-                    if (pic.getExifParameter(xAxis.getParameter()) == null) {
+                    Object xValue = pic.getExifParameter(xAxis.getParameter());
+                    Object yValue = pic.getExifParameter(yAxis.getParameter());
+                    Object zValue = pic.getExifParameter(zAxis.getParameter());
+
+                    if (xValue == null) {
                         this.addMissingExifPictureParameter(new PictureParameter(xAxis.getParameter(), pic));
                         haveAllParameters = false;
                     } else {
-                        x = (Double) pic.getExifParameter(xAxis.getParameter());
+                        x = (Double) xValue;
                     }
-                    if (pic.getExifParameter(yAxis.getParameter()) == null) {
+                    if (yValue == null) {
                         this.addMissingExifPictureParameter(new PictureParameter(yAxis.getParameter(), pic));
                         haveAllParameters = false;
                     } else {
-                        y = (Double) pic.getExifParameter(yAxis.getParameter());
+                        y = (Double) yValue;
                     }
 
-                    if (pic.getExifParameter(zAxis.getParameter()) == null) {
+                    if (zValue == null) {
                         this.addMissingExifPictureParameter(new PictureParameter(zAxis.getParameter(), pic));
                         haveAllParameters = false;
                     } else {
-                        z = (Double) pic.getExifParameter(yAxis.getParameter());
+                        z = (Double) zValue;
                     }
 
                     /*
@@ -120,6 +126,15 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                         if (!pointIsAdded) {
                             this.frequency3DPoints.add(picPoint);
                         }
+                        System.out.println("Pic has all parameters: ");
+                        System.out.println("X"+xValue);
+                        System.out.println("Y"+xValue);
+                        System.out.println("Z"+xValue);
+                    } else {
+                        System.out.println("Pic has not all parameters: ");
+                        System.out.println("X" + xValue);
+                        System.out.println("Y" + xValue);
+                        System.out.println("Z" + xValue);
                     }
 
                 }
