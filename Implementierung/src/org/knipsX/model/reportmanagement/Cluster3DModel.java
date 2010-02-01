@@ -15,7 +15,6 @@ import org.knipsX.utils.ExifParameter;
 public class Cluster3DModel extends AbstractTrippleAxesModel {
 
     private ArrayList<Frequency3DPoint> frequency3DPoints = new ArrayList<Frequency3DPoint>();
-    private ArrayList<PictureContainer> pictureContainers = new ArrayList<PictureContainer>();
 
     /**
      * creates an empty Cluster3DModel.
@@ -50,7 +49,7 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
             Frequency3DPoint picPoint;
             boolean pointIsAdded = false;
 
-            for (final PictureContainer pictureContainer : this.pictureContainers) {
+            for (final PictureContainer pictureContainer : this.getPictureContainer()) {
                 for (final Picture pic : pictureContainer) {
 
                     double x = 0, y = 0, z = 0;
@@ -65,20 +64,20 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                         this.addMissingExifPictureParameter(new PictureParameter(xAxis.getParameter(), pic));
                         haveAllParameters = false;
                     } else {
-                        x = (Double) xValue;
+                        x = ((Float)xValue).doubleValue();
                     }
                     if (yValue == null) {
                         this.addMissingExifPictureParameter(new PictureParameter(yAxis.getParameter(), pic));
                         haveAllParameters = false;
                     } else {
-                        y = (Double) yValue;
+                        y = ((Float)yValue).doubleValue();
                     }
 
                     if (zValue == null) {
                         this.addMissingExifPictureParameter(new PictureParameter(zAxis.getParameter(), pic));
                         haveAllParameters = false;
                     } else {
-                        z = (Double) zValue;
+                        z = ((Float)zValue).doubleValue();
                     }
 
                     /*
@@ -149,7 +148,7 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
      * @return an arrayList of Frequency3DPoints
      */
     public ArrayList<Frequency3DPoint> getFrequency3DPoints() {
-        this.isDataCalculated();
+        this.calculateIfNeeded();
         return this.frequency3DPoints;
     }
 
