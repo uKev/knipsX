@@ -33,10 +33,10 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
     }
 
     /**
-     * Constructor for a AbstractSingleAxismodel
+     * Constructor for a AbstractSingleAxisModel
      * 
-     * @param pictureContainer
-     * @param xAxis2
+     * @param pictureContainer pictureContainer which belongs to the model
+     * @param xAxis the xAxis which belongs to the model
      */
     public AbstractSingleAxisModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis) {
         this(pictureContainer, xAxis, null, null, null);
