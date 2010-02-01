@@ -226,8 +226,12 @@ class Axis3D {
         this.minReportSpace = Math.min(minValue, maxValue);
         this.maxReportSpace = Math.max(minValue, maxValue);
 
-        offset = (this.maxReportSpace - this.minReportSpace) / 5.0;  
-        offset = 0;
+        if (JAbstract3DView.useBufferRange) {
+            this.offset = (this.maxReportSpace - this.minReportSpace) / 5.0;
+        } else {
+            this.offset = 0;
+        }
+        
     }
 
     /**
