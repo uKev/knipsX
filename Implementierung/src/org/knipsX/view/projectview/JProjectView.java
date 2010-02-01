@@ -39,13 +39,16 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import org.knipsX.controller.projectview.PictureSetContentListAddController;
+import org.knipsX.controller.projectview.PictureSetContentListClickOnController;
 import org.knipsX.controller.projectview.PictureSetContentListDeleteController;
 import org.knipsX.controller.projectview.PictureSetContentListRefreshController;
+import org.knipsX.controller.projectview.PictureSetListClickOnController;
 import org.knipsX.controller.projectview.PictureSetListCopyController;
 import org.knipsX.controller.projectview.PictureSetListCreateController;
 import org.knipsX.controller.projectview.PictureSetListDeleteController;
 import org.knipsX.controller.projectview.ProjectSaveController;
 import org.knipsX.controller.projectview.ProjectSwitchController;
+import org.knipsX.controller.projectview.ReportClickOnController;
 import org.knipsX.controller.projectview.ReportCreateController;
 import org.knipsX.controller.projectview.ReportDeleteController;
 import org.knipsX.controller.projectview.ReportOpenController;
@@ -535,6 +538,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jListPictureSet.setLayoutOrientation(JList.VERTICAL);
             this.jListPictureSet.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
             this.jListPictureSet.setVisibleRowCount(-1);
+            this.jListPictureSet.addMouseListener(new PictureSetListClickOnController<M, JProjectView<M>>(this.model,
+                    this));
 
             /* we store picture set objects in the list, so we have to set a special rendering */
             this.jListPictureSet.setCellRenderer(new MyPictureSetListCellRenderer());
@@ -594,7 +599,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         /* create only if not set */
         if (this.jListPictureSetContent == null) {
             try {
-                final PictureSet pictureSet = (PictureSet) this.model.getPictureSets()[0];
+                final PictureSet pictureSet = this.model.getPictureSets()[0];
 
                 final List<PictureContainer> list = this.extractPictureSetContents(pictureSet);
 
@@ -607,6 +612,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             this.jListPictureSetContent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             this.jListPictureSetContent.setLayoutOrientation(JList.VERTICAL);
+            this.jListPictureSetContent
+                    .addMouseListener(new PictureSetContentListClickOnController<M, JProjectView<M>>(this.model, this));
 
             /* we store different objects in the list, so we have to set a special rendering */
             this.jListPictureSetContent.setCellRenderer(new MyPictureSetContentListCellRenderer());
@@ -654,8 +661,15 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             /* add a border to the panel */
             /* INTERNATIONALIZE */
-            final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "Bilder:");
-            this.jPanelPictureSetActive.setBorder(title);
+            if (this.model.getSelectedPictureSetContent() != null) {
+                final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
+                        "Bilder von Bildmengeninhalt " + this.model.getSelectedPictureSetContent().getName());
+                this.jPanelPictureSetActive.setBorder(title);
+            } else {
+                final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
+                        "Bilder von Bildmenge " + this.model.getSelectedPictureSet().getName());
+                this.jPanelPictureSetActive.setBorder(title);
+            }
 
             this.jPanelPictureSetActive.add(this.getPictureSetActiveList(), BorderLayout.CENTER);
         }
@@ -722,6 +736,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             this.jListReport.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             this.jListReport.setLayoutOrientation(JList.VERTICAL);
+            this.jListReport.addMouseListener(new ReportClickOnController<M, JProjectView<M>>(this.model,
+                    this));
 
             /* we store different objects in the list, so we have to set a special rendering */
             this.jListReport.setCellRenderer(new MyReportListCellRenderer());
@@ -810,8 +826,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     public PictureSet[] getSelectedPictureSets() {
         assert this.jListPictureSet != null;
 
-        Object[] values = this.jListPictureSet.getSelectedValues();
-        PictureSet[] sets = new PictureSet[values.length];
+        final Object[] values = this.jListPictureSet.getSelectedValues();
+        final PictureSet[] sets = new PictureSet[values.length];
 
         for (int i = 0; i < values.length; ++i) {
             sets[i] = (PictureSet) values[i];
@@ -827,8 +843,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     public PictureContainer[] getSelectedPictureSetContents() {
         assert this.jListPictureSetContent != null;
 
-        Object[] values = this.jListPictureSetContent.getSelectedValues();
-        PictureContainer[] container = new PictureContainer[values.length];
+        final Object[] values = this.jListPictureSetContent.getSelectedValues();
+        final PictureContainer[] container = new PictureContainer[values.length];
 
         for (int i = 0; i < values.length; ++i) {
             container[i] = (PictureContainer) values[i];
@@ -877,20 +893,33 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         this.jTextFieldProjectName.setText(model.getName());
         this.jEditorPaneProjectDescription.setText(model.getDescription());
 
-        int[] selectedPictureSets = this.jListPictureSet.getSelectedIndices();
-        int[] selectedPictureSetContents = this.jListPictureSetContent.getSelectedIndices();
-        int[] selectedPictures = this.jListPictureSetActive.getSelectedIndices();
-        int[] selectedReports = this.jListReport.getSelectedIndices();
-        
+        final int[] selectedPictureSets = this.jListPictureSet.getSelectedIndices();
+        final int[] selectedPictureSetContents = this.jListPictureSetContent.getSelectedIndices();
+        final int[] selectedPictures = this.jListPictureSetActive.getSelectedIndices();
+        final int[] selectedReports = this.jListReport.getSelectedIndices();
+
         /* setup the lists */
         this.jListPictureSet.setListData(model.getPictureSets());
-        this.jListPictureSetContent.setListData(this.extractPictureSetContents(model.getActivePictureSet()).toArray());
+        this.jListPictureSetContent
+                .setListData(this.extractPictureSetContents(model.getSelectedPictureSet()).toArray());
         this.jListPictureSetActive.setListData(model.getAllPictures());
         this.jListReport.setListData(model.getReports());
 
+        /* change border of the panel */
+        /* INTERNATIONALIZE */
+        if (model.getSelectedPictureSetContent() != null) {
+            final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
+                    "Bilder von Bildmengeninhalt " + model.getSelectedPictureSetContent().getName());
+            this.jPanelPictureSetActive.setBorder(title);
+        } else {
+            final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
+                    "Bilder von Bildmenge " + model.getSelectedPictureSet().getName());
+            this.jPanelPictureSetActive.setBorder(title);
+        }
+
         /* refresh view */
         this.repaint();
-        
+
         this.jListPictureSet.setSelectedIndices(selectedPictureSets);
         this.jListPictureSetContent.setSelectedIndices(selectedPictureSetContents);
         this.jListPictureSetActive.setSelectedIndices(selectedPictures);
@@ -903,7 +932,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         final List<PictureContainer> allContents = new ArrayList<PictureContainer>();
 
         /* we show three different types of picture containers */
-        List<PictureContainer> list = new ArrayList<PictureContainer>();
+        final List<PictureContainer> list = new ArrayList<PictureContainer>();
 
         for (final PictureSet element : this.model.getPictureSetsOfAPictureSet(pictureSet)) {
             list.add(element);
@@ -1042,7 +1071,7 @@ class MyPictureListCellRenderer implements ListCellRenderer {
         try {
 
             this.noImageIcon = Resource.createImageIcon("../images/noimage.png", "");
-        } catch (FileNotFoundException e) {
+        } catch (final FileNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -1081,7 +1110,7 @@ class MyPictureListCellRenderer implements ListCellRenderer {
             if (smallThumbnail != null) {
                 renderer.setIcon(new ImageIcon(smallThumbnail));
             } else {
-                renderer.setIcon(noImageIcon);
+                renderer.setIcon(this.noImageIcon);
             }
         }
         renderer.setText(theText);

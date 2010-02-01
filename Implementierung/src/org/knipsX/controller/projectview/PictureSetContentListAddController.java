@@ -6,6 +6,8 @@ import java.io.File;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
+import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.utils.FileChooser.JExtendedFileChooser;
 import org.knipsX.view.projectview.JProjectView;
@@ -40,12 +42,19 @@ public class PictureSetContentListAddController<M extends ProjectModel, V extend
     public void actionPerformed(final ActionEvent e) {
         final File[] files = JExtendedFileChooser.selectDirectoriesAndImages();
 
-        for (final File file : files) {
-            if (file.isDirectory()) {
-                this.model.addContentToPictureSet(this.model.getActivePictureSet(), new Directory(file
-                        .getAbsolutePath()));
-            } else {
-                this.model.addContentToPictureSet(this.model.getActivePictureSet(), new Picture(file, true));
+        if (files != null) {
+            
+            for (final File file : files) {
+                PictureSet pictureSet = this.model.getSelectedPictureSet();
+                PictureContainer newContent = null;
+                
+                if (file.isDirectory()) {
+                    newContent = new Directory(file.getAbsolutePath());
+                } else {
+                    newContent = new Picture(file, true);
+                }
+                this.model.addContentToPictureSet(pictureSet, newContent);
+                System.out.print("bla");
             }
         }
     }

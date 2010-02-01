@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 import javax.media.j3d.PickInfo;
 import javax.media.j3d.Transform3D;
@@ -15,9 +14,7 @@ import javax.media.j3d.TransformGroup;
 import javax.swing.JPanel;
 import javax.vecmath.Vector3d;
 
-import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
-import org.knipsX.utils.ExifParameter;
 
 /**
  * This class implements how the Cluster3DModel is to be drawn.
@@ -41,12 +38,11 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
      */
     public JCluster3D(final M model, final int reportId) {
         super(model, reportId);
+        JAbstract3DView.useBufferRange = false;
     }
 
     @Override
     public void generateContent() {
-
-        // TODO uncomment when frequency3d point are implemented
 
         final ArrayList<Integer> typesOfPoints = new ArrayList<Integer>();
 
@@ -76,14 +72,13 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
         }
 
         if (this.model != null) {
-            /* TODO when implementing the controller, we must set this to the right data */
             for (int i = 0; i < this.model.getFrequency3DPoints().size(); i++) {
                 final Transform3D dataTrans = new Transform3D();
 
-                Vector3d position = new Vector3d(this.getzAxis().getAxisSpace(
-                        this.model.getFrequency3DPoints().get(i).getZ()), this.getyAxis().getAxisSpace(
-                        this.model.getFrequency3DPoints().get(i).getY()), this.getxAxis().getAxisSpace(
-                        this.model.getFrequency3DPoints().get(i).getX()));
+                Vector3d position = new Vector3d(
+                        this.getzAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getZ()), 
+                        this.getyAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getY()), 
+                        this.getxAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getX()));
 
                 dataTrans.setTranslation(position);
 
@@ -94,7 +89,6 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
                 final Selectable3DShape selectableShape = new Selectable3DShape(this.model.getFrequency3DPoints()
                         .get(i));
 
-                // TODO uncomment when frequency3d point are implemented
                 selectableShape.setAppearance(this.basicMaterial(getColorAtPosition(typesOfPoints.indexOf(this.model
                         .getFrequency3DPoints().get(i).getFrequency()), typesOfPoints.size())));
 
