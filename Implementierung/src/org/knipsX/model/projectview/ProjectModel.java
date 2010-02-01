@@ -30,7 +30,7 @@ class GetExifDataThread extends Thread {
         for (final Picture picture : this.pictures) {
             picture.getAllExifParameter();
         }
-        
+
         /* first get all exif data */
         Thread thread = new CreateThumbnailThread(this.project);
         thread.start();
@@ -65,7 +65,7 @@ public class ProjectModel extends AbstractModel {
     protected void updateViews() {
         super.updateViews();
     }
-    
+
     private final int id;
 
     private String name;
@@ -118,10 +118,10 @@ public class ProjectModel extends AbstractModel {
         this.creationDate = date;
         this.pictureSetList = pictureSets;
         this.reportList = reports;
-        this.exifParameter = new Object[][]{};
-        //TODO Hier muss das erste Bilder der Liste mit den exif werten genommen werden
-        //this.exifParameter = new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
-        //        + File.separator + "DSC00964.JPG").getAllExifParameter();
+        this.exifParameter = new Object[][] {};
+        // TODO Hier muss das erste Bilder der Liste mit den exif werten genommen werden
+        // this.exifParameter = new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
+        // + File.separator + "DSC00964.JPG").getAllExifParameter();
     }
 
     /**
@@ -154,9 +154,9 @@ public class ProjectModel extends AbstractModel {
         this.pictureSetList = toCopy.pictureSetList;
         this.reportList = toCopy.reportList;
         this.exifParameter = new Object[][] {};
-        //TODO Hier muss das erste Bilder der Liste mit den exif werten genommen werden
-        //this.exifParameter = new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
-        //       + File.separator + "DSC00964.JPG").getAllExifParameter();
+        // TODO Hier muss das erste Bilder der Liste mit den exif werten genommen werden
+        // this.exifParameter = new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
+        // + File.separator + "DSC00964.JPG").getAllExifParameter();
     }
 
     /*
@@ -290,10 +290,10 @@ public class ProjectModel extends AbstractModel {
         final boolean isAdded = this.pictureSetList.add(set);
 
         if (isAdded) {
-            
+
             /* TWEAK sort maybe at another location */
             Collections.sort(this.pictureSetList);
-            
+
             this.updateViews();
         }
         return isAdded;
@@ -324,7 +324,7 @@ public class ProjectModel extends AbstractModel {
      * @return an amount of picture sets.
      */
     public PictureSet[] getPictureSets() {
-        
+
         /* convert to array */
         final PictureSet[] pictureSetArray = new PictureSet[this.pictureSetList.size()];
 
@@ -337,7 +337,7 @@ public class ProjectModel extends AbstractModel {
     public PictureSet getActivePictureSet() {
         return this.pictureSetList.get(0);
     }
-    
+
     /**
      * Get all picture sets which a picture set handle with.
      * 
@@ -396,6 +396,35 @@ public class ProjectModel extends AbstractModel {
         return directoryArray;
     }
 
+    /**
+     * Get pictures which a picture set handle with (only on root level).
+     * 
+     * @param pictureSet
+     *            the picture set which we use as root.
+     * 
+     * @return an amount of pictures.
+     */
+    public Picture[] getPicturesOfAPictureSet(final PictureSet pictureSet) {
+        final List<Picture> pictures = new ArrayList<Picture>();
+
+        /* get the directories */
+        final List<PictureContainer> items = pictureSet.getItems();
+
+        for (final PictureContainer item : items) {
+            if (item instanceof Picture) {
+                pictures.add((Picture) item);
+            }
+        }
+
+        /* convert to array */
+        final Picture[] pictureArray = new Picture[pictures.size()];
+
+        for (int i = 0; i < pictureArray.length; ++i) {
+            pictureArray[i] = pictures.get(i);
+        }
+        return pictureArray;
+    }
+
     /*
      * ################################################################################################################
      * -- THE PICTURE SET CONTENTS
@@ -415,10 +444,10 @@ public class ProjectModel extends AbstractModel {
     public boolean addContentToPictureSet(final PictureSet set, final PictureContainer container) {
         assert (set != null) && (set instanceof PictureSet);
         assert (container != null) && (container instanceof PictureContainer);
-           
+
         boolean isAdded = set.add(container);
-        
-        if(isAdded) {
+
+        if (isAdded) {
             this.updateViews();
         }
         return isAdded;
@@ -439,8 +468,8 @@ public class ProjectModel extends AbstractModel {
         assert (container != null) && (container instanceof PictureContainer);
 
         boolean isRemoved = set.remove(container);
-        
-        if(isRemoved) {
+
+        if (isRemoved) {
             this.updateViews();
         }
         return isRemoved;
@@ -452,25 +481,6 @@ public class ProjectModel extends AbstractModel {
      * ################################################################################################################
      */
 
-    /* recursive walk through the "kompositum" */
-    private List<Picture> extractPicturesFromContainer(final List<Picture> pictures,
-            final List<PictureContainer> container) {
-
-        for (final PictureContainer item : container) {
-            if (item instanceof Picture) {
-                pictures.add((Picture) item);
-            } else if (item instanceof Directory) {
-                final Directory directory = (Directory) item;
-                pictures.addAll(directory.getItems());
-            } else if (item instanceof PictureSet) {
-                final PictureSet pictureSet = (PictureSet) item;
-                final List<Picture> picturesInPictureSet = new ArrayList<Picture>();
-                pictures.addAll(this.extractPicturesFromContainer(picturesInPictureSet, pictureSet.getItems()));
-            }
-        }
-        return pictures;
-    }
-
     /**
      * Get all pictures which the model handle with.
      * 
@@ -480,30 +490,10 @@ public class ProjectModel extends AbstractModel {
         final List<Picture> pictures = new ArrayList<Picture>();
 
         for (final PictureSet pictureSet : this.pictureSetList) {
-            final List<Picture> picturesFromPictureSet = new ArrayList<Picture>();
-            pictures.addAll(this.extractPicturesFromContainer(picturesFromPictureSet, pictureSet.getItems()));
+            for (Picture picture : pictureSet) {
+                pictures.add(picture);
+            }
         }
-
-        /* convert to array */
-        final Picture[] pictureArray = new Picture[pictures.size()];
-
-        for (int i = 0; i < pictureArray.length; ++i) {
-            pictureArray[i] = pictures.get(i);
-        }
-        return pictureArray;
-    }
-
-    /**
-     * Get pictures which a picture set handle with (only on Rootlevel).
-     * 
-     * @param pictureSet
-     *            the picture set which we use as root.
-     * 
-     * @return an amount of pictures.
-     */
-    public Picture[] getPicturesOfAPictureSet(final PictureSet pictureSet) {
-        List<Picture> pictures = new ArrayList<Picture>();
-        pictures = this.extractPicturesFromContainer(pictures, pictureSet.getItems());
 
         /* convert to array */
         final Picture[] pictureArray = new Picture[pictures.size()];
