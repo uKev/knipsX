@@ -42,6 +42,25 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
             allocatePicturesToCategories();
             this.dataIsCalculated(true);
+            
+            /* Check values */
+            for (int i=0; i <this.categories.length; i++){
+                for (int j=0; j < this.categories[i].length; j++)
+                {
+                    if (this.categories[i][j].getMaxValueX() >= this.maxX) {
+                        System.out.println("found biggest X value: " + this.categories[i][j].getMaxValueX() + " >= " + this.maxX + " ("+i+" "+j+")");
+                    }
+                    if (this.categories[i][j].getMaxValueZ() >= this.maxZ) {
+                        System.out.println("found biggest Z value: " + this.categories[i][j].getMaxValueZ() + " >= " + this.maxZ + " ("+i+" "+j+")");
+                    }
+                    if (this.categories[i][j].getMinValueX() <= this.minX) {
+                        System.out.println("found smallest X value: " + this.categories[i][j].getMinValueX() + " <= " + this.minX + " ("+i+" "+j+")");
+                    }
+                    if (this.categories[i][j].getMinValueZ() <= this.minZ) {
+                        System.out.println("found smallest Z value: " + this.categories[i][j].getMinValueZ() + " <= " + this.minZ + " ("+i+" "+j+")");
+                    }
+                    }
+            }
         }
 
     }
@@ -62,16 +81,16 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                 Double zValue = ((Float) picture.getExifParameter(this.getzAxis().getParameter())).doubleValue();
 
                 if (this.maxX < xValue) {
-                    maxX = xValue;
+                    this.maxX = xValue;
                 }
                 if (this.maxZ < zValue) {
-                    maxZ = zValue;
+                    this.maxZ = zValue;
                 }
                 if (this.minX > xValue) {
-                    minX = xValue;
+                    this.minX = xValue;
                 }
                 if (this.minZ > zValue) {
-                    minZ = zValue;
+                    this.minZ = zValue;
                 }
 
             }
@@ -113,6 +132,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                             /* 
                              * Picture fits in the category, yeah!
                              */
+                            // FIXME: correct that biggest value is not <. it should be <=!
                             barCount++;
                         }
                         
