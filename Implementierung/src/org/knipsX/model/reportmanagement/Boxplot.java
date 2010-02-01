@@ -31,7 +31,7 @@ public class Boxplot {
     private String pictureSetName;
 
     /**
-     * Empty boxplot constructor only for testing.
+     * Empty boxplot constructor.
      */
     public Boxplot() {
         this(0, 0, 0, 0, 0, 0, null, 0, 0, null);

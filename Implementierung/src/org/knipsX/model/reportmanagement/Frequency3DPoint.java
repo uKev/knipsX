@@ -83,8 +83,11 @@ public class Frequency3DPoint {
      
     }
 
-    public Frequency3DPoint(double x2, double y2, double z2, Picture pic) {
+    public Frequency3DPoint(double x, double y, double z, Picture pic) {
         this.pictures = new ArrayList<Picture>();
+        this.x = x;
+        this.y = y;
+        this.z = z;
         this.pictures.add(pic);
     }
 
