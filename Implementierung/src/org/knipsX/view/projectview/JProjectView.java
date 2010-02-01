@@ -46,6 +46,8 @@ import org.knipsX.controller.projectview.PictureSetListClickOnController;
 import org.knipsX.controller.projectview.PictureSetListCopyController;
 import org.knipsX.controller.projectview.PictureSetListCreateController;
 import org.knipsX.controller.projectview.PictureSetListDeleteController;
+import org.knipsX.controller.projectview.ProjectEditDescriptionController;
+import org.knipsX.controller.projectview.ProjectEditNameController;
 import org.knipsX.controller.projectview.ProjectSaveController;
 import org.knipsX.controller.projectview.ProjectSwitchController;
 import org.knipsX.controller.projectview.ReportClickOnController;
@@ -461,6 +463,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         /* create only if not set */
         if (this.jTextFieldProjectName == null) {
             this.jTextFieldProjectName = new JTextField(this.model.getName());
+            this.jTextFieldProjectName.getDocument().addDocumentListener(
+                    new ProjectEditNameController<M, JProjectView<M>>(this.model, this));
         }
         return this.jTextFieldProjectName;
     }
@@ -496,6 +500,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         /* create only if not set */
         if (this.jEditorPaneProjectDescription == null) {
             this.jEditorPaneProjectDescription = new JEditorPane();
+            this.jEditorPaneProjectDescription.setText(this.model.getDescription());
+            this.jEditorPaneProjectDescription.getDocument().addDocumentListener(
+                    new ProjectEditDescriptionController<M, JProjectView<M>>(this.model, this));
         }
         return new JScrollPane(this.jEditorPaneProjectDescription);
     }
@@ -736,8 +743,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             this.jListReport.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             this.jListReport.setLayoutOrientation(JList.VERTICAL);
-            this.jListReport.addMouseListener(new ReportClickOnController<M, JProjectView<M>>(this.model,
-                    this));
+            this.jListReport.addMouseListener(new ReportClickOnController<M, JProjectView<M>>(this.model, this));
 
             /* we store different objects in the list, so we have to set a special rendering */
             this.jListReport.setCellRenderer(new MyReportListCellRenderer());
@@ -890,8 +896,13 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         this.setTitle("Projektansicht für " + model.getName());
 
         /* things about the project */
+        final int caretProjectName = this.jTextFieldProjectName.getCaretPosition();
         this.jTextFieldProjectName.setText(model.getName());
+        this.jTextFieldProjectName.setCaretPosition(caretProjectName);
+
+        final int caretProjectDescription = this.jEditorPaneProjectDescription.getCaretPosition();
         this.jEditorPaneProjectDescription.setText(model.getDescription());
+        this.jEditorPaneProjectDescription.setCaretPosition(caretProjectDescription);
 
         final int[] selectedPictureSets = this.jListPictureSet.getSelectedIndices();
         final int[] selectedPictureSetContents = this.jListPictureSetContent.getSelectedIndices();
