@@ -1,8 +1,8 @@
 package org.knipsX.utils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,15 +19,15 @@ import org.knipsX.model.reportmanagement.Cluster3DModel;
 public class DummyRepository implements Repository {
 
     /* the list */
-    private final List<ProjectModel> projects = new LinkedList<ProjectModel>();
+    private final List<ProjectModel> projects = new ArrayList<ProjectModel>();
 
     public DummyRepository() {
 
         /* create a list of picture sets */
-        List<PictureSet> pictureSetList = new LinkedList<PictureSet>();
+        List<PictureSet> pictureSetList = new ArrayList<PictureSet>();
 
         /* create a list of reports */
-        List<AbstractReportModel> reportList = new LinkedList<AbstractReportModel>();
+        List<AbstractReportModel> reportList = new ArrayList<AbstractReportModel>();
 
         /* create the first picture set an some picture containers */
         PictureSet dummyPictureSet = new PictureSet("Goldfische", 1);
@@ -96,7 +96,7 @@ public class DummyRepository implements Repository {
     }
 
     public List<ProjectModel> getProjects() {
-        return new LinkedList<ProjectModel>(this.projects);
+        return new ArrayList<ProjectModel>(this.projects);
     }
 
     public ProjectModel getProject(int projectId) {
