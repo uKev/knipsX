@@ -36,13 +36,18 @@ public class View3DClickController extends MouseAdapter {
     public void mouseClicked(final MouseEvent e) {
 
         this.view.getPickCanvas().setShapeLocation(e);
-
+        
+        /* get object which is at the nearest distance to an mouse click */
         final PickInfo result = this.view.getPickCanvas().pickClosest();
 
         if (result != null) {
+  
+            /* get the object */
             if (result.getNode() instanceof Selectable3DShape) {
                 final Selectable3DShape p = (Selectable3DShape) result.getNode();
                 if (p != null) {
+                    
+                    /* set the description to data from the object */
                     this.view.setCurrentDescription(p.getFrequence3DPoint().getPictures()[0]);
                 }
             }
