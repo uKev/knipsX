@@ -126,14 +126,14 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                             this.frequency3DPoints.add(picPoint);
                         }
                         System.out.println("Pic has all parameters: ");
-                        System.out.println("X"+xValue);
-                        System.out.println("Y"+xValue);
-                        System.out.println("Z"+xValue);
+                        System.out.println("X "+xValue);
+                        System.out.println("Y "+xValue);
+                        System.out.println("Z "+xValue);
                     } else {
                         System.out.println("Pic has not all parameters: ");
-                        System.out.println("X" + xValue);
-                        System.out.println("Y" + xValue);
-                        System.out.println("Z" + xValue);
+                        System.out.println("X: " + xValue);
+                        System.out.println("Y: " + xValue);
+                        System.out.println("Z: " + xValue);
                     }
 
                 }
