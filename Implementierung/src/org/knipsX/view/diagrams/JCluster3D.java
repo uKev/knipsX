@@ -60,12 +60,19 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
             // assert typesOfPoints.size() > 0;
 
             Collections.sort(typesOfPoints);
-            
+
+            /* setup y axis */
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
+            this.getyAxis().setAxis(this.model.getyAxis());
+
+            /* setup x axis */
             this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
+            this.getxAxis().setAxis(this.model.getxAxis());
+
+            /* setup z axis */
             this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
-            
-            
+            this.getzAxis().setAxis(this.model.getzAxis());
+
         }
 
         if (this.model != null) {
@@ -73,36 +80,38 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
             for (int i = 0; i < this.model.getFrequency3DPoints().size(); i++) {
                 final Transform3D dataTrans = new Transform3D();
 
-                Vector3d position = new Vector3d(1, 1, 1);
+                Vector3d position = new Vector3d(this.getzAxis().getAxisSpace(
+                        this.model.getFrequency3DPoints().get(i).getZ()), this.getyAxis().getAxisSpace(
+                        this.model.getFrequency3DPoints().get(i).getY()), this.getxAxis().getAxisSpace(
+                        this.model.getFrequency3DPoints().get(i).getX()));
+
                 dataTrans.setTranslation(position);
 
                 /* create transformation group */
                 final TransformGroup objData = new TransformGroup(dataTrans);
                 objData.setCapability(PickInfo.PICK_GEOMETRY);
 
-                final Selectable3DShape selectableShape = new Selectable3DShape(this.model.getFrequency3DPoints().get(i));
+                final Selectable3DShape selectableShape = new Selectable3DShape(this.model.getFrequency3DPoints()
+                        .get(i));
 
                 // TODO uncomment when frequency3d point are implemented
-                selectableShape.setAppearance(this.basicMaterial(getColorAtPosition(this.model.getFrequency3DPoints().get(i).getFrequency(), typesOfPoints.size())));
+                selectableShape.setAppearance(this.basicMaterial(getColorAtPosition(typesOfPoints.indexOf(this.model
+                        .getFrequency3DPoints().get(i).getFrequency()), typesOfPoints.size())));
 
                 objData.addChild(selectableShape);
 
-                this.objRoot.addChild(objData);                
+                this.objRoot.addChild(objData);
+
+                System.out.println(this.model.getFrequency3DPoints().get(i).getFrequency());
 
             }
-            
-            /* setup y axis */
-            this.getyAxis().generateSegmentDescription(10);       
 
-            /* setup x axis */
+            this.getyAxis().generateSegmentDescription(10);
+
             this.getxAxis().generateSegmentDescription(10);
 
-            /* setup z axis */
             this.getzAxis().generateSegmentDescription(10);
         }
-
-        
-
 
         /* set the left panel which shows information about a selected picture */
         this.leftPanel = new JPanel();
