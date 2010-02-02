@@ -2,8 +2,8 @@ package org.knipsX.model.reportmanagement;
 
 import java.util.ArrayList;
 
-import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.Picture;
+import org.knipsX.model.picturemanagement.PictureContainer;
 
 /**
  * Represents a bar which belongs to a picture category and PictureContainer.
@@ -16,7 +16,7 @@ public class Bar {
 
     private final PictureContainer pictureContainer;
 
-    private ArrayList<Picture> pictures = new ArrayList<Picture>();
+    private final ArrayList<Picture> pictures = new ArrayList<Picture>();
 
     /**
      * Constructor for the bar with pictureContainer argument
@@ -27,6 +27,17 @@ public class Bar {
     public Bar(final PictureContainer pictureContainer) {
         super();
         this.pictureContainer = pictureContainer;
+    }
+
+    /**
+     * A bar represents a set of pictures. This add another picture to the bar which will increase the height of the
+     * bar.
+     * 
+     * @param picture
+     *            a picture that should be added to the bar.
+     */
+    public void addPicture(final Picture picture) {
+        this.pictures.add(picture);
     }
 
     /**
@@ -46,21 +57,14 @@ public class Bar {
     public PictureContainer getPictureContainer() {
         return this.pictureContainer;
     }
-    
+
     /**
      * Getter for the pictures which are represented by this bar.
+     * 
      * @return all pictures which are represented by this bar.
      */
     public ArrayList<Picture> getPictures() {
         return this.pictures;
-    }
-    
-    /**
-     * A bar represents a set of pictures. This add another picture to the bar which will increase the height of the bar.
-     * @param picture a picture that should be added to the bar.
-     */
-    public void addPicture(Picture picture) {
-        this.pictures.add(picture);
     }
 
 }
