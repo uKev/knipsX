@@ -86,7 +86,7 @@ public class DummyRepository implements Repository {
         dummyReportThree.addPictureContainer(test);
         dummyReportThree.setxAxis(new Axis(ExifParameter.FNUMBER));
         dummyReportThree.setyAxis(new Axis(ExifParameter.FOCALLENGTH));
-        dummyReportThree.setzAxis(new Axis(ExifParameter.FNUMBER));       
+        dummyReportThree.setzAxis(new Axis(ExifParameter.ISO));       
         
         reportList.add(dummyReportThree);
         reportList.add(dummyReportOne);

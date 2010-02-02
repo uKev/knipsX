@@ -49,17 +49,14 @@ public class ProjectCreateController<M extends ProjectManagementModel, V extends
         String projectName = JOptionPane.showInputDialog(null, "Geben Sie einen Projektnamen ein.",
                 "Projekt erstellen", JOptionPane.INFORMATION_MESSAGE);
 
-        /* while user is not pressing cancel and no text is given */
-        while (!StringChecker.isStringOk(projectName)) {
+        /* user is not pressing cancel and no text or wrong text is given */
+        if (!StringChecker.isStringOk(projectName)) {
 
-            /* try to get a project name */
+            /* show the user that the name is incorrect */
             // INTERNATIONALIZE
-            projectName = JOptionPane.showInputDialog(null, "Projektname darf nicht leer sein!",
+            JOptionPane.showMessageDialog(null, "Projektname ungültig oder leer!",
                     "Projekt erstellen - Fehler", JOptionPane.ERROR_MESSAGE);
-        }
-
-        /* has user give in a project name? */
-        if (StringChecker.isStringOk(projectName)) {
+        } else {
             this.model.addProject(projectName);
         }
     }

@@ -1,7 +1,6 @@
 package org.knipsX.view.reportmanagement;
 
 import java.awt.Dimension;
-import java.awt.event.WindowEvent;
 import java.util.Observable;
 
 import javax.swing.Box;
@@ -15,7 +14,6 @@ import org.knipsX.controller.reportmanagement.ReportCloseController;
 import org.knipsX.controller.reportmanagement.ReportSaveController;
 import org.knipsX.controller.reportmanagement.WizardNextPanelController;
 import org.knipsX.controller.reportmanagement.WizardPreviousPanelController;
-import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 
 /**
