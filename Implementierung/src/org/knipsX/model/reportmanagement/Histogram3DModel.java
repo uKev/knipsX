@@ -304,11 +304,13 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
             this.xCategorySize = (deltaX / numberOfCategories);
         } else {
             deltaX = 1;
+            this.maxX = this.minX + 1;
         }
         if (deltaZ > 0) {
             this.zCategorySize = (deltaZ / numberOfCategories);
         } else {
             deltaZ = 1;
+            this.maxZ = this.minZ + 1;
         }
 
         double minValueX;
