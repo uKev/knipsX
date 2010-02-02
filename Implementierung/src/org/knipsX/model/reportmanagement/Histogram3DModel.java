@@ -71,7 +71,10 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                         final Object xParameter = picture.getExifParameter(this.getxAxis().getParameter());
                         final Object zParameter = picture.getExifParameter(this.getzAxis().getParameter());
 
-                        if (xParameter instanceof Float) {
+                        if (xParameter instanceof Double) {
+                            xValue = ((Double) xParameter);
+                        }
+                        else if (xParameter instanceof Float) {
                             xValue = ((Float) xParameter).doubleValue();
                         } else if (xParameter instanceof Integer) {
                             xValue = ((Integer) xParameter).doubleValue();
@@ -80,7 +83,11 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                             System.out.println("FIXME Histogram3DModel: can not handle ExifParameter from type "
                                     + xParameter.getClass().toString());
                         }
-                        if (zParameter instanceof Float) {
+                        
+                        if (zParameter instanceof Double) {
+                            zValue = ((Double) zParameter);
+                        }
+                        else if (zParameter instanceof Float) {
                             zValue = ((Float) zParameter).doubleValue();
                         } else if (zParameter instanceof Integer) {
                             zValue = ((Integer) zParameter).doubleValue();
@@ -156,7 +163,11 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                 final Double xValue;
 
                 // TWEAK: allow other types than double and int
-                if (xParameter instanceof Float) {
+                
+                if (xParameter instanceof Double) {
+                    xValue = ((Double) xParameter);
+                }
+                else if (xParameter instanceof Float) {
                     xValue = ((Float) xParameter).doubleValue();
                 } else if (xParameter instanceof Integer) {
                     xValue = ((Integer) xParameter).doubleValue();
@@ -165,6 +176,11 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                     System.out.println("FIXME Histogram3DModel: can not handle ExifParameter from type "
                             + xParameter.getClass().toString());
                 }
+                
+                if (zParameter instanceof Double) {
+                    zValue = ((Double) zParameter);
+                }
+                else 
                 if (zParameter instanceof Float) {
                     zValue = ((Float) zParameter).doubleValue();
                 } else if (zParameter instanceof Integer) {
