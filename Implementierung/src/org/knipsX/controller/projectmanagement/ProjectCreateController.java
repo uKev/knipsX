@@ -50,14 +50,16 @@ public class ProjectCreateController<M extends ProjectManagementModel, V extends
                 "Projekt erstellen", JOptionPane.INFORMATION_MESSAGE);
 
         /* user is not pressing cancel and no text or wrong text is given */
-        if (!StringChecker.isStringOk(projectName)) {
-
-            /* show the user that the name is incorrect */
-            // INTERNATIONALIZE
-            JOptionPane.showMessageDialog(null, "Projektname ungültig oder leer!",
-                    "Projekt erstellen - Fehler", JOptionPane.ERROR_MESSAGE);
-        } else {
-            this.model.addProject(projectName);
+        if (projectName != null) {
+            if (!StringChecker.isStringOk(projectName)) {
+    
+                /* show the user that the name is incorrect */
+                // INTERNATIONALIZE
+                JOptionPane.showMessageDialog(null, "Projektname ungültig oder leer!",
+                        "Projekt erstellen - Fehler", JOptionPane.ERROR_MESSAGE);
+            } else {
+                this.model.addProject(projectName);
+            }
         }
     }
 }

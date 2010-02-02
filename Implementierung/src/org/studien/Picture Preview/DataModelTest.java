@@ -16,13 +16,7 @@ import javax.swing.JPanel;
 
 public class DataModelTest
 {
-	public static void main(String[] args) {
-		
-		TableToolTipsDemo demo = new TableToolTipsDemo();
-		demo.createAndShowGUI();
-		
-		
-	}
+
 	
 	public static JFrame exectooltip(Point p){
 		
