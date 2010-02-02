@@ -229,8 +229,14 @@ class Axis3D {
         
         if (Double.compare(minValue, maxValue) == 0) {
             System.out.println("DRINNE, da " + minValue + " = " + maxValue);
-            this.minReportSpace = minValue - minValue / 10.0;
-            this.maxReportSpace = maxValue + maxValue / 10.0;
+            if (minValue != 0) {
+                this.minReportSpace = minValue - minValue / 10.0;
+                this.maxReportSpace = maxValue + maxValue / 10.0;
+            } else {
+                this.minReportSpace = 0;
+                this.maxReportSpace = 10;
+            }
+            
         } else {
             this.minReportSpace = Math.min(minValue, maxValue);
             this.maxReportSpace = Math.max(minValue, maxValue);
@@ -259,6 +265,7 @@ class Axis3D {
 
         isReportSpaceInitialized();
         double range = Math.abs((this.maxReportSpace + offset) - (this.minReportSpace - offset));
+        //System.out.println("Max Reportspace " + this.maxReportSpace + " Min ReportSpace " + this.minReportSpace);
         assert range != 0;
         double slope = Math.abs(this.getAxisSize()) / range;
         double yIntercept = slope * -(this.minReportSpace - offset);

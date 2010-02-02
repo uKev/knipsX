@@ -43,9 +43,13 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
                         - this.getxAxis().getAxisSpace(categories[i].getMinValueX()));
                 
                 double xPosition = this.getxAxis().getAxisSpace(categories[i].getMinValueX()) + xRange / 2;
-
+                
+             
+                
+                /* Create the actual bar */
                 this.createCube(new Vector3d(xPosition, 0, 0), new Vector3d(1, this.getyAxis().getAxisSpace(
-                        categories[i].getBars().get(0).getHeight()), xRange / 2), this.basicMaterial(Color.orange));
+                        categories[i].getBars().get(0).getHeight()), xRange / 2), this.basicMaterial(Color.orange));                
+
             }
 
         }
