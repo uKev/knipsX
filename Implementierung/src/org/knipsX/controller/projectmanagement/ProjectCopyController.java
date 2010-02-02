@@ -33,6 +33,7 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
 			final ProjectModel projectToCopy = this.model.getProjects().get(
 					toCopy[0]);
 
+			// INTERNATIONALIZE
 			final int decision = JOptionPane.showConfirmDialog(null,
 					"Soll das ausgewählte Projekt \""
 							+ projectToCopy.getName()
@@ -42,6 +43,8 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
 			/* if user pressed "yes" */
 			if (decision == 0) {
 
+			    
+			        // INTERNATIONALIZE
 				/* try to get a project name */
 				String projectName = JOptionPane.showInputDialog(null,
 						"Geben Sie einen Projektnamen ein.",
@@ -51,6 +54,7 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
 				while ((projectName != null) && projectName.equals("")) {
 
 					/* try to get a project name */
+				        // INTERNATIONALIZE
 					projectName = JOptionPane.showInputDialog(null,
 							"Projektname darf nicht leer sein!",
 							"Projekt kopieren - Fehler",
@@ -66,12 +70,14 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
 		} else if (toCopy.length == 0) {
 
 			/* gives the user a hint, that he has selected too little projects */
+		        // INTERNATIONALIZE
 			JOptionPane.showMessageDialog(null,
 					"Selektieren Sie ein Projekt, um es zu kopieren.",
 					"Projekt kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
 		} else {
 
 			/* gives the user a hint, that he has selected too much projects */
+		        // INTERNATIONALIZE
 			JOptionPane.showMessageDialog(null,
 					"Selektieren Sie nur ein Projekt, um es zu kopieren.",
 					"Projekt kopieren - Fehler", JOptionPane.ERROR_MESSAGE);

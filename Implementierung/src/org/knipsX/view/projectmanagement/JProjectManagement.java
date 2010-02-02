@@ -3,7 +3,7 @@
  */
 package org.knipsX.view.projectmanagement;
 
-/* import things from the java sdk */
+/* import classes from the java sdk */
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -28,11 +28,9 @@ import org.knipsX.controller.projectmanagement.ProjectCopyController;
 import org.knipsX.controller.projectmanagement.ProjectCreateController;
 import org.knipsX.controller.projectmanagement.ProjectDeleteController;
 import org.knipsX.controller.projectmanagement.ProjectOpenController;
-import org.knipsX.controller.projectview.PictureSetListClickOnController;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.JAbstractView;
-import org.knipsX.view.projectview.JProjectView;
 
 /**
  * Represents the management view for all user projects.

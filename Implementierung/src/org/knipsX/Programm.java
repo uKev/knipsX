@@ -12,11 +12,14 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
-/**
+/******************************************************************************
  * This class is the entry to our program.
- */
+ *****************************************************************************/
 public final class Programm {
 
+    /*
+     * Private constructor. This class should never have an instace.
+     */
     private Programm() {
     }
 
@@ -44,15 +47,14 @@ public final class Programm {
             System.err.println("Error loading Look and Feel: " + e);
             e.printStackTrace();
         }
-        
+
         /*
-         *  Change the contentAreaColor to a normal light grey color so it
-         *  fits in with the normal user interface 
+         * Change the contentAreaColor to a normal light grey color so it
+         * fits in with the normal user interface
          */
-        
+
         UIManager.put("TabbedPane.contentAreaColor", new Color(238, 238, 238));
-        
-        
+
         /* create a model for the ProjectAdministration */
         final ProjectManagementModel projectManagementModel = new ProjectManagementModel();
 
