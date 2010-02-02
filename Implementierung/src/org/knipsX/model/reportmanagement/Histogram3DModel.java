@@ -32,7 +32,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         Double xValue;
         Double zValue;
         Category category;
-        int barCount;
+        Bar bar;
         this.minY = 0;
 
         final ArrayList<Picture> allreadyAllocatedPictures = new ArrayList<Picture>();
@@ -50,7 +50,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                  */
                 for (int j = 0; j < this.categories[i].length; j++) {
 
-                    barCount = 0;
+                    bar = new Bar(pictureContainer);
                     category = this.categories[i][j];
 
                     for (final Picture picture : pictureContainer) {
@@ -72,7 +72,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                                         + category.getMinValueZ());
                             }
                             allreadyAllocatedPictures.add(picture);
-                            barCount++;
+                            bar.addPicture(picture);
 
                             // or if x or z is last
                         } else if (((i + 1) == this.categories.length) || ((j + i) == this.categories[i].length)) {
@@ -92,16 +92,16 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                                 }
                                 allreadyAllocatedPictures.add(picture);
 
-                                barCount++;
+                                bar.addPicture(picture);
                             }
                         }
                     }
 
-                    category.addBar(new Bar(pictureContainer, barCount));
-
-                    if (this.maxY < barCount) {
-                        this.maxY = barCount;
+                    if (this.maxY < bar.getHeight()) {
+                        this.maxY = bar.getHeight();
                     }
+                    
+                    category.addBar(bar);
                 }
             }
         }

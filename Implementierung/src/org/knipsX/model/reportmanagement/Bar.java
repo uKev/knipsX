@@ -1,6 +1,9 @@
 package org.knipsX.model.reportmanagement;
 
+import java.util.ArrayList;
+
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.Picture;
 
 /**
  * Represents a bar which belongs to a picture category and PictureContainer.
@@ -13,16 +16,13 @@ public class Bar {
 
     private final PictureContainer pictureContainer;
 
-    /*
-     * represents the absolute height of the bar.
-     */
-    private int height;
+    private ArrayList<Picture> pictures = new ArrayList<Picture>();
 
     /**
-     * Constructor for the bar with pictureContainer parameter
+     * Constructor for the bar with pictureContainer argument
      * 
      * @param pictureContainer
-     *            the picture container which is represented through the bar
+     *            the picture containter of the bar which is associated with the original images in this bar.
      */
     public Bar(final PictureContainer pictureContainer) {
         super();
@@ -30,35 +30,33 @@ public class Bar {
     }
 
     /**
-     * Constructor for the bar with pictureContainer and height parameter
-     * 
-     * @param pictureContainer
-     *            the picture container which is represented through the bar
-     * @param height
-     *            the absolute height of the bar
-     */
-    public Bar(final PictureContainer pictureContainer, final int height) {
-        super();
-        this.pictureContainer = pictureContainer;
-        this.height = height;
-    }
-
-    /**
-     * Getter for the Height of the bar.
+     * Getter for the Height of the bar. (Meaning the amount of pictures that are represented by this bar)
      * 
      * @return height the height of the bar.
      */
     public int getHeight() {
-        return this.height;
+        return this.pictures.size();
     }
 
     /**
-     * Getter for the PictureContainer which is represented trough this bar.
+     * Getter for the picture containter of the bar which is associated with the original images in this bar.
      * 
-     * @return pictureContainer the pictureContainer
+     * @return pictureContainer the picture container where all pictures of this bar come from
      */
     public PictureContainer getPictureContainer() {
         return this.pictureContainer;
+    }
+    
+    /**
+     * Getter for the pictures which are represented by this bar.
+     * @return all pictures which are represented by this bar.
+     */
+    public ArrayList<Picture> getPictures() {
+        return this.pictures;
+    }
+    
+    public void addPicture(Picture picture) {
+        this.pictures.add(picture);
     }
 
 }
