@@ -10,7 +10,7 @@ import org.knipsX.model.picturemanagement.PictureContainer;
  * 
  */
 
-public class TextModel extends AbstractReportModel{
+public class TextModel extends AbstractReportModel {
 
 	private String text;
 	
@@ -32,10 +32,10 @@ public class TextModel extends AbstractReportModel{
 	}
 
     @Override
-    public ArrayList<PictureParameter> getPicturesWithMissingExifParameter() {
-        // TODO Auto-generated method stub
-        return null;
+    protected void calculate() {
+        // FIXME Auto-generated method stub
+        
     }
 	
-
+	
 }

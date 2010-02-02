@@ -32,4 +32,10 @@ public class Histogram2DModel extends AbstractSingleAxisModel{
 		
 	}
 
+    @Override
+    protected void calculate() {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

@@ -73,8 +73,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
                         if (xParameter instanceof Double) {
                             xValue = ((Double) xParameter);
-                        }
-                        else if (xParameter instanceof Float) {
+                        } else if (xParameter instanceof Float) {
                             xValue = ((Float) xParameter).doubleValue();
                         } else if (xParameter instanceof Integer) {
                             xValue = ((Integer) xParameter).doubleValue();
@@ -83,11 +82,10 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                             System.out.println("FIXME Histogram3DModel: can not handle ExifParameter from type "
                                     + xParameter.getClass().toString());
                         }
-                        
+
                         if (zParameter instanceof Double) {
                             zValue = ((Double) zParameter);
-                        }
-                        else if (zParameter instanceof Float) {
+                        } else if (zParameter instanceof Float) {
                             zValue = ((Float) zParameter).doubleValue();
                         } else if (zParameter instanceof Integer) {
                             zValue = ((Integer) zParameter).doubleValue();
@@ -146,6 +144,76 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         }
     }
 
+    @Override
+    protected void calculate() {
+        this.allocatePicturesToCategories();
+        this.dataIsCalculated(true);
+
+        /* Check values */
+
+        int count = 0;
+
+        for (int i = 0; i < this.categories.length; i++) {
+            for (int j = 0; j < this.categories[i].length; j++) {
+                if (this.categories[i][j].getMaxValueX() > this.maxX) {
+                    System.out.println("found biggest X value: " + this.categories[i][j].getMaxValueX() + " >= "
+                            + this.maxX + " (" + i + " " + j + ")");
+                }
+                if (this.categories[i][j].getMaxValueZ() > this.maxZ) {
+                    System.out.println("found biggest Z value: " + this.categories[i][j].getMaxValueZ() + " >= "
+                            + this.maxZ + " (" + i + " " + j + ")");
+                }
+                if (this.categories[i][j].getMinValueX() < this.minX) {
+                    System.out.println("found smallest X value: " + this.categories[i][j].getMinValueX() + " <= "
+                            + this.minX + " (" + i + " " + j + ")");
+                }
+                if (this.categories[i][j].getMinValueZ() < this.minZ) {
+                    System.out.println("found smallest Z value: " + this.categories[i][j].getMinValueZ() + " <= "
+                            + this.minZ + " (" + i + " " + j + ")");
+                }
+
+                for (final Bar bar : this.categories[i][j].getBars()) {
+                    count += bar.getHeight();
+                }
+
+            }
+
+        }
+
+        if (this.maxZ != this.getMaxZ()) {
+            System.out.println(" this.maxZ != this.getMaxZ() :" + this.maxZ + " != " + this.getMaxZ());
+        }
+        if (this.maxY != this.getMaxY()) {
+            System.out.println(" this.maxY != this.getMaxY() :" + this.maxY + " != " + this.getMaxY());
+        }
+        if (this.maxX != this.getMaxX()) {
+            System.out.println(" this.maxX != this.getMaxX() :" + this.maxX + " != " + this.getMaxX());
+        }
+
+        int pictureCount = 0;
+        for (final PictureContainer pictureContainer : this.getPictureContainer()) {
+            for (final Picture picture : pictureContainer) {
+                picture.getClass();
+                pictureCount++;
+            }
+        }
+        if (pictureCount != count) {
+
+            if (this.getPicturesWithMissingExifParameter().isEmpty()) {
+                System.out.println("pictureCount != count    " + pictureCount + " != " + count
+                        + " , das riecht nach nem bug, da wurde was vergessen!");
+            } else {
+                System.out
+                        .println("pictureCount != count    "
+                                + pictureCount
+                                + " != "
+                                + count
+                                + " , aber vorsicht getPicturesWithMissingExifParameter enthält elemente, darin kann ein Bild auch mehrfach vertreten sein: "
+                                + this.getPicturesWithMissingExifParameter().size());
+            }
+        }
+    }
+
     private void calculateExtremeValues() {
         this.maxX = -Double.MAX_VALUE;
         this.maxY = -Double.MAX_VALUE;
@@ -163,11 +231,10 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                 final Double xValue;
 
                 // TWEAK: allow other types than double and int
-                
+
                 if (xParameter instanceof Double) {
                     xValue = ((Double) xParameter);
-                }
-                else if (xParameter instanceof Float) {
+                } else if (xParameter instanceof Float) {
                     xValue = ((Float) xParameter).doubleValue();
                 } else if (xParameter instanceof Integer) {
                     xValue = ((Integer) xParameter).doubleValue();
@@ -176,11 +243,10 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                     System.out.println("FIXME Histogram3DModel: can not handle ExifParameter from type "
                             + xParameter.getClass().toString());
                 }
-                
+
                 if (zParameter instanceof Double) {
                     zValue = ((Double) zParameter);
-                }
-                else if (zParameter instanceof Float) {
+                } else if (zParameter instanceof Float) {
                     zValue = ((Float) zParameter).doubleValue();
                 } else if (zParameter instanceof Integer) {
                     zValue = ((Integer) zParameter).doubleValue();
@@ -203,79 +269,6 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                     this.minZ = zValue;
                 }
 
-            }
-        }
-
-    }
-
-    private void calculateIfNeeded() {
-        if (!this.isDataCalculated()) {
-
-            this.allocatePicturesToCategories();
-            this.dataIsCalculated(true);
-
-            /* Check values */
-
-            int count = 0;
-
-            for (int i = 0; i < this.categories.length; i++) {
-                for (int j = 0; j < this.categories[i].length; j++) {
-                    if (this.categories[i][j].getMaxValueX() > this.maxX) {
-                        System.out.println("found biggest X value: " + this.categories[i][j].getMaxValueX() + " >= "
-                                + this.maxX + " (" + i + " " + j + ")");
-                    }
-                    if (this.categories[i][j].getMaxValueZ() > this.maxZ) {
-                        System.out.println("found biggest Z value: " + this.categories[i][j].getMaxValueZ() + " >= "
-                                + this.maxZ + " (" + i + " " + j + ")");
-                    }
-                    if (this.categories[i][j].getMinValueX() < this.minX) {
-                        System.out.println("found smallest X value: " + this.categories[i][j].getMinValueX() + " <= "
-                                + this.minX + " (" + i + " " + j + ")");
-                    }
-                    if (this.categories[i][j].getMinValueZ() < this.minZ) {
-                        System.out.println("found smallest Z value: " + this.categories[i][j].getMinValueZ() + " <= "
-                                + this.minZ + " (" + i + " " + j + ")");
-                    }
-
-                    for (final Bar bar : this.categories[i][j].getBars()) {
-                        count += bar.getHeight();
-                    }
-
-                }
-
-            }
-
-            if (this.maxZ != this.getMaxZ()) {
-                System.out.println(" this.maxZ != this.getMaxZ() :" + this.maxZ + " != " + this.getMaxZ());
-            }
-            if (this.maxY != this.getMaxY()) {
-                System.out.println(" this.maxY != this.getMaxY() :" + this.maxY + " != " + this.getMaxY());
-            }
-            if (this.maxX != this.getMaxX()) {
-                System.out.println(" this.maxX != this.getMaxX() :" + this.maxX + " != " + this.getMaxX());
-            }
-
-            int pictureCount = 0;
-            for (final PictureContainer pictureContainer : this.getPictureContainer()) {
-                for (final Picture picture : pictureContainer) {
-                    picture.getClass();
-                    pictureCount++;
-                }
-            }
-            if (pictureCount != count) {
-
-                if (this.getPicturesWithMissingExifParameter().isEmpty()) {
-                    System.out.println("pictureCount != count    " + pictureCount + " != " + count
-                            + " , das riecht nach nem bug, da wurde was vergessen!");
-                } else {
-                    System.out
-                            .println("pictureCount != count    "
-                                    + pictureCount
-                                    + " != "
-                                    + count
-                                    + " , aber vorsicht getPicturesWithMissingExifParameter enthält elemente, darin kann ein Bild auch mehrfach vertreten sein: "
-                                    + this.getPicturesWithMissingExifParameter().size());
-                }
             }
         }
 

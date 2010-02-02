@@ -43,131 +43,128 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
 
     }
 
-    private void calculateIfNeeded() {
-        if (!this.isDataCalculated()) {
-            Frequency3DPoint picPoint;
-            boolean pointIsAdded = false;
+    @Override
+    protected void calculate() {
+        Frequency3DPoint picPoint;
+        boolean pointIsAdded = false;
 
-            for (final PictureContainer pictureContainer : this.getPictureContainer()) {
-                for (final Picture pic : pictureContainer) {
+        for (final PictureContainer pictureContainer : this.getPictureContainer()) {
+            for (final Picture pic : pictureContainer) {
 
-                    double x = 0, y = 0, z = 0;
-                    boolean haveAllParameters = true;
-                    pointIsAdded = false;
+                double x = 0, y = 0, z = 0;
+                boolean haveAllParameters = true;
+                pointIsAdded = false;
 
-                    final Object xValue = pic.getExifParameter(this.xAxis.getParameter());
-                    final Object yValue = pic.getExifParameter(this.yAxis.getParameter());
-                    final Object zValue = pic.getExifParameter(this.zAxis.getParameter());
+                final Object xValue = pic.getExifParameter(this.xAxis.getParameter());
+                final Object yValue = pic.getExifParameter(this.yAxis.getParameter());
+                final Object zValue = pic.getExifParameter(this.zAxis.getParameter());
 
-                    if (xValue == null) {
-                        this.addMissingExifPictureParameter(new PictureParameter(this.xAxis.getParameter(), pic));
-                        haveAllParameters = false;
+                if (xValue == null) {
+                    this.addMissingExifPictureParameter(new PictureParameter(this.xAxis.getParameter(), pic));
+                    haveAllParameters = false;
+                } else {
+                    if (xValue instanceof Double) {
+                        x = ((Double) xValue);
+                    } else if (xValue instanceof Float) {
+                        x = ((Float) xValue).doubleValue();
+                    } else if (xValue instanceof Integer) {
+                        x = ((Integer) xValue).doubleValue();
                     } else {
-                        if (xValue instanceof Double) {
-                            x = ((Double) xValue);
-                        } else if (xValue instanceof Float) {
-                            x = ((Float) xValue).doubleValue();
-                        } else if (xValue instanceof Integer) {
-                            x = ((Integer) xValue).doubleValue();
-                        } else {
-                            x = 0.0;
-                            System.out.println("FIXME Cluster3DModel: can not handle ExifParameter from type "
-                                    + xValue.getClass().toString());
-                        }
+                        x = 0.0;
+                        System.out.println("FIXME Cluster3DModel: can not handle ExifParameter from type "
+                                + xValue.getClass().toString());
                     }
-                    if (yValue == null) {
-                        this.addMissingExifPictureParameter(new PictureParameter(this.yAxis.getParameter(), pic));
-                        haveAllParameters = false;
+                }
+                if (yValue == null) {
+                    this.addMissingExifPictureParameter(new PictureParameter(this.yAxis.getParameter(), pic));
+                    haveAllParameters = false;
+                } else {
+                    if (yValue instanceof Double) {
+                        y = ((Double) yValue);
+                    } else if (yValue instanceof Float) {
+                        y = ((Float) yValue).doubleValue();
+                    } else if (yValue instanceof Integer) {
+                        y = ((Integer) yValue).doubleValue();
                     } else {
-                        if (yValue instanceof Double) {
-                            y = ((Double) yValue);
-                        }
-                        else if (yValue instanceof Float) {
-                            y = ((Float) yValue).doubleValue();
-                        } else if (yValue instanceof Integer) {
-                            y = ((Integer) yValue).doubleValue();
-                        } else {
-                            y = 0.0;
-                            System.out.println("FIXME Cluster3DModel: can not handle ExifParameter from type "
-                                    + yValue.getClass().toString());
-                        }
-
+                        y = 0.0;
+                        System.out.println("FIXME Cluster3DModel: can not handle ExifParameter from type "
+                                + yValue.getClass().toString());
                     }
 
-                    if (zValue == null) {
-                        this.addMissingExifPictureParameter(new PictureParameter(this.zAxis.getParameter(), pic));
-                        haveAllParameters = false;
+                }
+
+                if (zValue == null) {
+                    this.addMissingExifPictureParameter(new PictureParameter(this.zAxis.getParameter(), pic));
+                    haveAllParameters = false;
+                } else {
+                    if (zValue instanceof Double) {
+                        z = ((Double) zValue);
+                    } else if (zValue instanceof Float) {
+                        z = ((Float) zValue).doubleValue();
+                    } else if (zValue instanceof Integer) {
+                        z = ((Integer) zValue).doubleValue();
                     } else {
-                        if (zValue instanceof Double) {
-                            z = ((Double) zValue);
-                        }
-                        else if (zValue instanceof Float) {
-                            z = ((Float) zValue).doubleValue();
-                        } else if (zValue instanceof Integer) {
-                            z = ((Integer) zValue).doubleValue();
-                        } else {
-                            z = 0.0;
-                            System.out.println("FIXME Cluster3DModel: can not handle ExifParameter from type "
-                                    + zValue.getClass().toString());
+                        z = 0.0;
+                        System.out.println("FIXME Cluster3DModel: can not handle ExifParameter from type "
+                                + zValue.getClass().toString());
+                    }
+                }
+
+                /*
+                 * only if we have all three parameters,
+                 * the picture is valid and we will perfom actions on it
+                 */
+                if (haveAllParameters) {
+                    if (this.minX > x) {
+                        this.minX = x;
+                    }
+                    if (this.minY > y) {
+                        this.minY = y;
+                    }
+                    if (this.minZ > z) {
+                        this.minZ = z;
+                    }
+
+                    if (this.maxX < x) {
+                        this.maxX = x;
+                    }
+                    if (this.maxY < y) {
+                        this.maxY = y;
+                    }
+                    if (this.maxZ < z) {
+                        this.maxZ = z;
+                    }
+
+                    picPoint = new Frequency3DPoint(x, y, z, pic);
+
+                    for (final Frequency3DPoint freqPoint : this.frequency3DPoints) {
+
+                        if (freqPoint.equals(picPoint)) {
+                            freqPoint.addPicture(pic);
+                            pointIsAdded = true;
+                            // stop searching because we found an equal point.
+                            break;
                         }
                     }
 
                     /*
-                     * only if we have all three parameters,
-                     * the picture is valid and we will perfom actions on it
+                     * if we found no point which is equal, we did not add it, so we have a new unique point and add
+                     * it
+                     * to the list.
                      */
-                    if (haveAllParameters) {
-                        if (this.minX > x) {
-                            this.minX = x;
-                        }
-                        if (this.minY > y) {
-                            this.minY = y;
-                        }
-                        if (this.minZ > z) {
-                            this.minZ = z;
-                        }
-
-                        if (this.maxX < x) {
-                            this.maxX = x;
-                        }
-                        if (this.maxY < y) {
-                            this.maxY = y;
-                        }
-                        if (this.maxZ < z) {
-                            this.maxZ = z;
-                        }
-
-                        picPoint = new Frequency3DPoint(x, y, z, pic);
-
-                        for (final Frequency3DPoint freqPoint : this.frequency3DPoints) {
-
-                            if (freqPoint.equals(picPoint)) {
-                                freqPoint.addPicture(pic);
-                                pointIsAdded = true;
-                                // stop searching because we found an equal point.
-                                break;
-                            }
-                        }
-
-                        /*
-                         * if we found no point which is equal, we did not add it, so we have a new unique point and add
-                         * it
-                         * to the list.
-                         */
-                        if (!pointIsAdded) {
-                            this.frequency3DPoints.add(picPoint);
-                        }
-                    } else {
-                        System.out.println("Pic has not all parameters: ");
-                        System.out.println("X: " + xValue);
-                        System.out.println("Y: " + xValue);
-                        System.out.println("Z: " + xValue);
+                    if (!pointIsAdded) {
+                        this.frequency3DPoints.add(picPoint);
                     }
-
+                } else {
+                    System.out.println("Pic has not all parameters: ");
+                    System.out.println("X: " + xValue);
+                    System.out.println("Y: " + xValue);
+                    System.out.println("Z: " + xValue);
                 }
+
             }
-            this.dataIsCalculated(true);
         }
+        this.dataIsCalculated(true);
     }
 
     /**
