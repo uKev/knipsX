@@ -38,6 +38,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import org.knipsX.controller.projectview.PictureListClickOnController;
 import org.knipsX.controller.projectview.PictureSetContentListAddController;
 import org.knipsX.controller.projectview.PictureSetContentListClickOnController;
 import org.knipsX.controller.projectview.PictureSetContentListDeleteController;
@@ -693,6 +694,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             this.jListPictureSetActive.setLayoutOrientation(JList.VERTICAL);
+            this.jListPictureSetActive.addMouseListener(new PictureListClickOnController<M, JProjectView<M>>(
+                    this.model, this));
 
             /* we store picture objects in the list, so we have to set a special rendering */
             this.jListPictureSetActive.setCellRenderer(new MyPictureListCellRenderer());
@@ -803,21 +806,24 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jTableExif == null) {
-
-            /* FIXME set from model */
-            final String[] columnNames = { "Parameter", "Wert" };
-            final Object[][] data = ((ProjectModel) this.model).getExifParameter();
-
-            /* create new table for the exif parameters of an active image */
-            this.jTableExif = new JTable(data, columnNames);
-            final TableColumn para = this.jTableExif.getColumnModel().getColumn(0);
-            final TableColumn value = this.jTableExif.getColumnModel().getColumn(1);
-            para.setCellRenderer(new MyTableCellRenderer());
-            value.setCellRenderer(new MyTableCellRenderer());
+            this.jTableExif = createExifTable();
         }
         return new JScrollPane(this.jTableExif);
     }
 
+    private JTable createExifTable() {
+        final String[] columnNames = { "Parameter", "Wert" };
+        final Object[][] data = this.model.getExifParameter();
+
+        /* create new table for the exif parameters of an active image */
+        JTable table = new JTable(data, columnNames);
+        final TableColumn para = table.getColumnModel().getColumn(0);
+        final TableColumn value = table.getColumnModel().getColumn(1);
+        para.setCellRenderer(new MyTableCellRenderer());
+        value.setCellRenderer(new MyTableCellRenderer());
+        
+        return table;
+    }
     /*
      * ################################################################################################################
      * SOME METHODS WHICH ARE USED BY THE CONNECTED MODEL
@@ -938,6 +944,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.setFocusable(false);
         }
 
+        /* setup the exif-table */
+        this.jTableExif = createExifTable();
+        
         /* refresh view */
         this.repaint();
 

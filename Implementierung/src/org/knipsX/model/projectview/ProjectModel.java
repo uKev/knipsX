@@ -85,6 +85,7 @@ public class ProjectModel extends AbstractModel {
     private String name;
     private String description;
 
+    private Picture selectedPicture;
     private PictureSet selectedPictureSet;
     private PictureContainer selectedPictureSetContent;
 
@@ -92,8 +93,6 @@ public class ProjectModel extends AbstractModel {
 
     private final List<PictureSet> pictureSetList;
     private final List<AbstractReportModel> reportList;
-
-    private final Object[][] exifParameter;
 
     /**
      * Creates a new project with basic informations.
@@ -135,10 +134,6 @@ public class ProjectModel extends AbstractModel {
         this.creationDate = date;
         this.pictureSetList = pictureSets;
         this.reportList = reports;
-        this.exifParameter = new Object[][] {};
-        // TODO Hier muss das erste Bilder der Liste mit den exif werten genommen werden
-        // this.exifParameter = new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
-        // + File.separator + "DSC00964.JPG").getAllExifParameter();
     }
 
     
@@ -192,10 +187,6 @@ public class ProjectModel extends AbstractModel {
         this.creationDate = new GregorianCalendar();
         this.pictureSetList = toCopy.pictureSetList;
         this.reportList = toCopy.reportList;
-        this.exifParameter = new Object[][] {};
-        // TODO Hier muss das erste Bilder der Liste mit den exif werten genommen werden
-        // this.exifParameter = new Picture(System.getProperty("user.dir") + File.separator + "testbilder"
-        // + File.separator + "DSC00964.JPG").getAllExifParameter();
     }
 
     /*
@@ -266,7 +257,7 @@ public class ProjectModel extends AbstractModel {
      * @return the parameters.
      */
     public Object[][] getExifParameter() {
-        return this.exifParameter.clone();
+        return this.getSelectedPicture().getAllExifParameter().clone();
     }
 
     /**
@@ -598,6 +589,29 @@ public class ProjectModel extends AbstractModel {
         return (Picture[]) directory.getItems().toArray();
     }
 
+    /**
+     * Get the current selected PictureSet on which some actions depends.
+     * 
+     * @return the current selected PictureSet.
+     */
+    public Picture getSelectedPicture() {
+        if (this.selectedPicture == null) {
+            assert this.pictureSetList.size() > 0;
+            this.selectedPicture = this.getAllPictures()[0];
+        }
+        return this.selectedPicture;
+    }
+
+    /**
+     * Set the current selected PictureSet on which some actions depends.
+     * 
+     * @return the current selected PictureSet.
+     */
+    public void setSelectedPicture(final Picture selected) {
+        this.selectedPicture = selected;
+        this.updateViews();
+    }
+    
     /*
      * ################################################################################################################
      * -- THE REPORTS
