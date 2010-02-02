@@ -55,6 +55,10 @@ public class Bar {
         return this.pictures;
     }
     
+    /**
+     * A bar represents a set of pictures. This add another picture to the bar which will increase the height of the bar.
+     * @param picture a picture that should be added to the bar.
+     */
     public void addPicture(Picture picture) {
         this.pictures.add(picture);
     }
