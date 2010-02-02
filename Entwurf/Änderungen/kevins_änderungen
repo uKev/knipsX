@@ -38,3 +38,6 @@
 		+ getx()
 		+ getY()
 		+ getZ()	
+2010-02-02
+	+ Converter
+		+ objectToDouble()
