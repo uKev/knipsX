@@ -64,27 +64,29 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                         haveAllParameters = false;
                     } else {
                         if (xValue instanceof Float) {
-                            x = ((Float) xValue).doubleValue(); }
-                            else if (xValue instanceof Integer) {
-                                x = ((Integer) xValue).doubleValue();
-                            } else {
-                                x = 0.0;
-                                System.out.println("FIXME Cluster3DModel: can not handle ExifParameter from type " + xValue.getClass().toString());
-                            }
+                            x = ((Float) xValue).doubleValue();
+                        } else if (xValue instanceof Integer) {
+                            x = ((Integer) xValue).doubleValue();
+                        } else {
+                            x = 0.0;
+                            System.out.println("FIXME Cluster3DModel: can not handle ExifParameter from type "
+                                    + xValue.getClass().toString());
+                        }
                     }
                     if (yValue == null) {
                         this.addMissingExifPictureParameter(new PictureParameter(this.yAxis.getParameter(), pic));
                         haveAllParameters = false;
                     } else {
                         if (yValue instanceof Float) {
-                            y = ((Float) yValue).doubleValue(); }
-                            else if (yValue instanceof Integer) {
-                                y = ((Integer) yValue).doubleValue();
-                            } else {
-                                y = 0.0;
-                                System.out.println("FIXME Cluster3DModel: can not handle ExifParameter from type " + yValue.getClass().toString());
-                            }
-                    
+                            y = ((Float) yValue).doubleValue();
+                        } else if (yValue instanceof Integer) {
+                            y = ((Integer) yValue).doubleValue();
+                        } else {
+                            y = 0.0;
+                            System.out.println("FIXME Cluster3DModel: can not handle ExifParameter from type "
+                                    + yValue.getClass().toString());
+                        }
+
                     }
 
                     if (zValue == null) {
@@ -92,12 +94,13 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                         haveAllParameters = false;
                     } else {
                         if (zValue instanceof Float) {
-                        z = ((Float) zValue).doubleValue(); }
-                        else if (zValue instanceof Integer) {
+                            z = ((Float) zValue).doubleValue();
+                        } else if (zValue instanceof Integer) {
                             z = ((Integer) zValue).doubleValue();
                         } else {
                             z = 0.0;
-                            System.out.println("FIXME Cluster3DModel: can not handle ExifParameter from type " + zValue.getClass().toString());
+                            System.out.println("FIXME Cluster3DModel: can not handle ExifParameter from type "
+                                    + zValue.getClass().toString());
                         }
                     }
 
