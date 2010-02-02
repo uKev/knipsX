@@ -63,7 +63,9 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                         this.addMissingExifPictureParameter(new PictureParameter(this.xAxis.getParameter(), pic));
                         haveAllParameters = false;
                     } else {
-                        if (xValue instanceof Float) {
+                        if (xValue instanceof Double) {
+                            x = ((Double) xValue);
+                        } else if (xValue instanceof Float) {
                             x = ((Float) xValue).doubleValue();
                         } else if (xValue instanceof Integer) {
                             x = ((Integer) xValue).doubleValue();
@@ -77,7 +79,10 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                         this.addMissingExifPictureParameter(new PictureParameter(this.yAxis.getParameter(), pic));
                         haveAllParameters = false;
                     } else {
-                        if (yValue instanceof Float) {
+                        if (yValue instanceof Double) {
+                            y = ((Double) yValue);
+                        }
+                        else if (yValue instanceof Float) {
                             y = ((Float) yValue).doubleValue();
                         } else if (yValue instanceof Integer) {
                             y = ((Integer) yValue).doubleValue();
@@ -93,7 +98,10 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                         this.addMissingExifPictureParameter(new PictureParameter(this.zAxis.getParameter(), pic));
                         haveAllParameters = false;
                     } else {
-                        if (zValue instanceof Float) {
+                        if (zValue instanceof Double) {
+                            z = ((Double) zValue);
+                        }
+                        else if (zValue instanceof Float) {
                             z = ((Float) zValue).doubleValue();
                         } else if (zValue instanceof Integer) {
                             z = ((Integer) zValue).doubleValue();
