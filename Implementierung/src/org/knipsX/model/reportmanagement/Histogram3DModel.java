@@ -237,8 +237,8 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                 }
             }
             if (pictureCount == count) {
-                System.out.println("Alles in Butter, pictureCount == count !");
-            } else if (this.getPicturesWithMissingExifParameter().size() == 0) {
+                /* Alles in Butter, pictureCount == count ! */
+            } else if (this.getPicturesWithMissingExifParameter().isEmpty()) {
                 System.out.println("pictureCount != count    " + pictureCount + " != " + count
                         + " , das riecht nach nem bug, da wurde was vergessen!");
             } else {
