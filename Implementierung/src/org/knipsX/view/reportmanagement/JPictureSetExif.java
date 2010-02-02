@@ -1,7 +1,6 @@
 package org.knipsX.view.reportmanagement;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
@@ -26,7 +25,6 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
-import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.Resource;
 
 /**
@@ -161,7 +159,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 final PictureContainer pictureContainer = (PictureContainer) value;
                 int numberOfElements = 0;    
                 
-                for (Picture picture : pictureContainer) {                    
+                for (@SuppressWarnings("unused") Picture picture : pictureContainer) {                    
                     numberOfElements++;
                 }
                 

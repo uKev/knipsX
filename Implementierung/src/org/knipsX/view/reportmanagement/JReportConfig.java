@@ -3,19 +3,16 @@ package org.knipsX.view.reportmanagement;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.WindowEvent;
 import java.util.Observable;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.WindowConstants;
 
 import org.knipsX.controller.reportmanagement.ReportCloseController;
 import org.knipsX.controller.reportmanagement.ReportSaveController;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
@@ -52,11 +49,29 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
      */
     public JReportConfig(final M model, final int reportID) {
         super(model);
-        this.reportID = reportID;
-        ReportHelper.setCurrentModel(this.model);
+        this.reportID = reportID;        
+        ReportHelper.setCurrentModel(this.model);        
         ReportHelper.setCurrentReportUtility(this);
+        this.addCloseOperation();        
+        this.addCurrentReportConfig();
+        this.reportCompilation = ReportHelper.getCurrentReport().createReportCompilation();
+        this.tabbedpane = this.getJTabbedPane();
+        // INTERNATIONALIZE
+        this.setTitle("Auswertung konfigurieren");
+        this.initialize();
+        this.closeButton.addActionListener(new ReportCloseController<AbstractModel, JReportConfig<?, ?>>(this));
+        this.saveButton.addActionListener(new ReportSaveController<AbstractReportModel, JReportConfig<?, ?>>(this,
+                false));
+        this.showButton
+                .addActionListener(new ReportSaveController<AbstractReportModel, JReportConfig<?, ?>>(this, true));
+        this.setSize(new Dimension(this.mysize[0], this.mysize[1]));
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
 
-        this.addCloseOperation();
+    }
+
+    
+    private void addCurrentReportConfig() {
 
         if (model instanceof BoxplotModel) {
             ReportHelper.setCurrentReport(ReportHelper.Boxplot);
@@ -69,27 +84,8 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
         } else if (model instanceof Histogram3DModel) {
             ReportHelper.setCurrentReport(ReportHelper.Histogram3D);
         }
-
-        this.reportCompilation = ReportHelper.getCurrentReport().createReportCompilation();
-
-        this.tabbedpane = this.getJTabbedPane();
-        // INTERNATIONALIZE
-        this.setTitle("Auswertung konfigurieren");
-
-        this.initialize();
-
-        this.closeButton.addActionListener(new ReportCloseController<AbstractModel, JReportConfig<?, ?>>(this));
-        this.saveButton.addActionListener(new ReportSaveController<AbstractReportModel, JReportConfig<?, ?>>(this,
-                false));
-        this.showButton
-                .addActionListener(new ReportSaveController<AbstractReportModel, JReportConfig<?, ?>>(this, true));
-        this.setSize(new Dimension(this.mysize[0], this.mysize[1]));
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-
     }
-
+    
     private JTabbedPane getJTabbedPane() {
         final JTabbedPane tabbedpane = new JTabbedPane();
 
