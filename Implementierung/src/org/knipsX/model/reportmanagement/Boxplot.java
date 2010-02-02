@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.utils.Converter;
 import org.knipsX.utils.ExifParameter;
 
 /**
@@ -96,6 +97,7 @@ public class Boxplot {
 
     /**
      * Construct and calculate a boxplot with the ExifParameter data from a PictureContainer
+     * isda
      * 
      * @param pictures
      *            the pictures that should be used for this boxplot
@@ -112,7 +114,7 @@ public class Boxplot {
          * Maybe use a Library, available:
          * http://commons.apache.org/math/
          * http://www.rforge.net/rJava/
-         * In Ubuntu Repo: r-cran-rjavaIn Ubuntu Repo: r-cran-rjava
+         * In Ubuntu Repo: r-cran-rjava
          * http://acs.lbl.gov/~hoschek/colt/
          * or we use library for testing the results
          */
@@ -122,13 +124,15 @@ public class Boxplot {
         final ArrayList<Double> values = new ArrayList<Double>();
 
         for (final Picture pic : pictures) {
+            
             final Object objectValue = pic.getExifParameter(exifParameter);
-            final String stringValue = objectValue.toString();
-            final double doubleValue = Double.valueOf(stringValue);
-            values.add(doubleValue);
-            // TWEAK: if getExifParameter returns null instead of 0, remove this testing print outs.
-            System.out.println("Picture: " + pic.getPath() + "object: " + objectValue);
-            System.out.println("string: " + stringValue + "double: " + doubleValue);
+            
+            if (objectValue != null) {
+
+                final double doubleValue = Converter.objectToDouble(objectValue);
+
+                values.add(doubleValue);
+            }
 
         }
 
