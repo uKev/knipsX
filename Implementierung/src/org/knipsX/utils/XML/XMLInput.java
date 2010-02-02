@@ -1,7 +1,6 @@
 package org.knipsX.utils.XML;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,12 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-
-import javax.swing.JOptionPane;
 
 import org.jdom.Document;
 import org.jdom.Element;
@@ -26,10 +21,8 @@ import org.knipsX.model.picturemanagement.PictureNotFoundException;
 import org.knipsX.model.picturemanagement.PictureSet;
 
 /**
- * This class reads the "data.xml" file and returns the information.
+ * This class reads a project file and returns the information.
  * 
- * @author Bouche, Kai (<a href="mailto:kai.bouche@kai-bouche.de">mail</a>)
- * @version 2.0 from 31.05.2005
  */
 public class XMLInput {
 
@@ -172,13 +165,15 @@ public class XMLInput {
                             pictureSets.get(rootId).add(directories.get(Integer.parseInt(container.getText())));
                         } else if (container.getName() == "picture") {
 
-                            /* get a picture set from the hashmap and connect a directory to it */
+                            /* get a picture set from the hashmap and connect a picture to it */
                             pictureSets.get(rootId).add(pictures.get(Integer.parseInt(container.getText())));
                         }
                     }
                 }
             }
         }
+        
+        /* create the list to return the values */
         List<PictureSet> returnList = new ArrayList<PictureSet>();
         for(PictureSet set : pictureSets.values()) {
             returnList.add(set);
