@@ -20,6 +20,10 @@ import org.knipsX.view.reportmanagement.ReportHelper;
  */
 public class ReportEditController<M, V extends JAbstractDiagram<?>> extends AbstractController<M, V> {
 
+        /**
+         * The constructor which registers this controller with the specified view
+         * @param view the view which you want to edit
+         */
 	public ReportEditController(V view) {
 		super(view);
 	}
