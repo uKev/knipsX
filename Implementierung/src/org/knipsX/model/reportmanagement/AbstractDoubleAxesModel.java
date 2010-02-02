@@ -30,9 +30,12 @@ public abstract class AbstractDoubleAxesModel extends AbstractSingleAxisModel {
     /**
      * Constructor with all parameters.
      * 
-     * @param pictureContainer an ArrayList of PictureContainer on which this report is based
-     * @param xAxis the x-axis config
-     * @param zAxis the z-axis config
+     * @param pictureContainer
+     *            an ArrayList of PictureContainer on which this report is based
+     * @param xAxis
+     *            the x-axis config
+     * @param zAxis
+     *            the z-axis config
      */
     public AbstractDoubleAxesModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis,
             final Axis zAxis) {
@@ -72,7 +75,8 @@ public abstract class AbstractDoubleAxesModel extends AbstractSingleAxisModel {
     /**
      * Sets the zAxis .
      * 
-     * @param zAxis the zAxis
+     * @param zAxis
+     *            the zAxis
      */
     public void setzAxis(final Axis zAxis) {
         this.zAxis = zAxis;
