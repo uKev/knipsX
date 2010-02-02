@@ -40,9 +40,9 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
 
             this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
             this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
-            this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());           
+            this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());          
 
-            System.out.println("Global Max Z " + this.model.getMaxZ() + " Global Min Z " + this.model.getMinZ());
+            
             double heigth = 0;
             for (int i = 0; i < categories.length; i++) {
                 for (int j = 0; j < categories[i].length; j++) {
@@ -50,25 +50,17 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
                     
                     
                     double xRange = Math.abs(this.getxAxis().getAxisSpace(categories[i][j].getMaxValueX()) - this.getxAxis().getAxisSpace(categories[i][j].getMinValueX()));
-                    double zRange = Math.abs(this.getzAxis().getAxisSpace(categories[i][j].getMaxValueZ()) - this.getzAxis().getAxisSpace(categories[i][j].getMinValueZ()));
-                    
-                    System.out.println("Max Z Value  " + this.getzAxis().getAxisSpace(categories[i][j].getMaxValueZ()) + " Report Space : " + categories[i][j].getMaxValueZ() + "\n");
+                    double zRange = Math.abs(this.getzAxis().getAxisSpace(categories[i][j].getMaxValueZ()) - this.getzAxis().getAxisSpace(categories[i][j].getMinValueZ()));                    
                     
                     double xPosition = this.getxAxis().getAxisSpace(categories[i][j].getMinValueX()) + xRange / 2;
                     double zPosition = this.getzAxis().getAxisSpace(categories[i][j].getMinValueZ()) + zRange / 2;
                     
-                    System.out.println("Min X " + categories[i][j].getMinValueX());
-                    System.out.println("Min z " + categories[i][j].getMinValueZ() + "\n");
-                    
-                    this.createCube(                            
-                    new Vector3d(xPosition, 0, zPosition), 
+                    this.createCube(new Vector3d(xPosition, 0, zPosition), 
                     new Vector3d(zRange / 2, this.getyAxis().getAxisSpace(categories[i][j].getBars().get(0).getHeight()), xRange / 2), 
                     this.basicMaterial(Color.orange));
                     
                 }
             }
-            
-            System.out.println("All " + heigth);
 
             this.getxAxis().generateSegmentDescription(5);
             this.getzAxis().generateSegmentDescription(5);
