@@ -48,11 +48,11 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
 
             double shrinkFactor = 0.85;
             
-            double heigth = 0;
+            int heigth = 0;
             for (int i = 0; i < categories.length; i++) {
-                for (int j = 0; j < categories[i].length; j++) {
-                    heigth = categories[i][j].getBars().get(0).getHeight() + heigth;                   
+                for (int j = 0; j < categories[i].length; j++) {                  
                     
+                    System.out.println("Category Number " + heigth);
                     System.out.println("Max Z  " + categories[i][j].getMaxValueZ() + " Min Z " + categories[i][j].getMinValueZ());
                     System.out.println("Max X  " + categories[i][j].getMaxValueX() + " Min X " + categories[i][j].getMinValueX());
                     
@@ -78,6 +78,8 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
                     new Vector3d(shrinkFactor * zRange / 2, this.getyAxis().getAxisSpace(categories[i][j].getBars().get(0).getHeight()), shrinkFactor * xRange / 2), 
                             //new Vector3d(1, this.getyAxis().getAxisSpace(categories[i][j].getBars().get(0).getHeight()), 1),
                     this.basicMaterial(Color.orange));
+                    
+                    heigth++;
                     
                     
                 }
