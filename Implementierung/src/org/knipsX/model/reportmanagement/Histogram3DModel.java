@@ -180,8 +180,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                 if (zParameter instanceof Double) {
                     zValue = ((Double) zParameter);
                 }
-                else 
-                if (zParameter instanceof Float) {
+                else if (zParameter instanceof Float) {
                     zValue = ((Float) zParameter).doubleValue();
                 } else if (zParameter instanceof Integer) {
                     zValue = ((Integer) zParameter).doubleValue();
