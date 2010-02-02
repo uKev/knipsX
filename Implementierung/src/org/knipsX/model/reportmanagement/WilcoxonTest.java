@@ -6,23 +6,38 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.utils.ExifParameter;
 
 public class WilcoxonTest {
-
+    
+    private boolean isActive = false;
+    private boolean isValid = false;
+    private WilcoxonTestType wilcoxenType;
+    private ArrayList<PictureContainer> pictureContainer;
+    private ExifParameter parameter;
+    private float significance = 0;
+    private float result;
+    
     public WilcoxonTest(ArrayList<PictureContainer> pictureContainer, ExifParameter parameter) {
-        // TODO Auto-generated constructor stub
-    }
-
-    public boolean isActive() {
-        // TODO Auto-generated method stub
-        return false;
+        this.pictureContainer = pictureContainer;
+        this.parameter = parameter;
+       
     }
     
-    public boolean setActive(boolean active) {
-        // TODO Auto-generated method stub
-        return false;
+    public WilcoxonTest(ArrayList<PictureContainer> pictureContainer, ExifParameter parameter, boolean isActive, float significance, WilcoxonTestType wilcoxenType) {
+        this.pictureContainer = pictureContainer;
+        this.parameter = parameter;
+        this.isActive = isActive;
+        this.significance = significance;
+        this.wilcoxenType = wilcoxenType;
     }
-    public boolean isValid() {
-        // TODO Auto-generated method stub
-        return false;
+
+    public boolean isActive() {      
+        return isActive;
     }
-    // TODO CLYDE, implement ME, add functions etc.
+    
+    public void setActiveStatus(boolean activeStatus) {       
+        isActive = activeStatus;
+    }
+    
+    public boolean isValid() {      
+        return isValid;
+    }
 }
