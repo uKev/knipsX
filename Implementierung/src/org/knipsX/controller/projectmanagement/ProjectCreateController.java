@@ -50,7 +50,7 @@ public class ProjectCreateController<M extends ProjectManagementModel, V extends
                 "Projekt erstellen", JOptionPane.INFORMATION_MESSAGE);
 
         /* while user is not pressing cancel and no text is given */
-        while (StringChecker.isStringOk(projectName)) {
+        while (!StringChecker.isStringOk(projectName)) {
 
             /* try to get a project name */
             // INTERNATIONALIZE

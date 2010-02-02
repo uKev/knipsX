@@ -107,7 +107,7 @@ public class DummyRepository implements Repository {
         assert this.projects.size() > 0;
 
         boolean goOn = true;
-        ProjectModel project = null;
+        ProjectModel project = new ProjectModel(projectId, "testproejekt2", "beschreibung des testproejekts2", new GregorianCalendar());
 
         /* delete the project */
         for (int i = 0; goOn && i < this.projects.size(); ++i) {
