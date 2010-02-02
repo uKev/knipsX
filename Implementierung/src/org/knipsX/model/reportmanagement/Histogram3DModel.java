@@ -18,10 +18,23 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
     private double zCategorySize;
     private double xCategorySize;
 
+    /**
+     * Creates a new empty Histogram3DModel. You need to set pictureContainer, xAxis and zAxis before you can use it.
+     */
     public Histogram3DModel() {
         super();
     }
 
+    /**
+     * Creates a new Hisogram3DModel with initial data.
+     * 
+     * @param pictureContainer
+     *            An ArrayList of pictureContainer which should be compared in this report.
+     * @param xAxis
+     *            the configuration for the xAxis.
+     * @param zAxis
+     *            the configuration for the zAxis.
+     */
     public Histogram3DModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis, final Axis zAxis) {
         super(pictureContainer, xAxis, zAxis);
 
@@ -58,25 +71,24 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                         final Object xParameter = picture.getExifParameter(this.getxAxis().getParameter());
                         final Object zParameter = picture.getExifParameter(this.getzAxis().getParameter());
 
-                        
                         if (xParameter instanceof Float) {
-                            xValue = ((Float) xParameter).doubleValue(); }
-                            else if (xParameter instanceof Integer) {
-                                xValue = ((Integer) xParameter).doubleValue();
-                            } else {
-                                xValue = 0.0;
-                                System.out.println("FIXME Histogram3DModel: can not handle ExifParameter from type " + xParameter.getClass().toString());
-                            }
+                            xValue = ((Float) xParameter).doubleValue();
+                        } else if (xParameter instanceof Integer) {
+                            xValue = ((Integer) xParameter).doubleValue();
+                        } else {
+                            xValue = 0.0;
+                            System.out.println("FIXME Histogram3DModel: can not handle ExifParameter from type "
+                                    + xParameter.getClass().toString());
+                        }
                         if (zParameter instanceof Float) {
-                            zValue = ((Float) zParameter).doubleValue(); }
-                            else if (zParameter instanceof Integer) {
-                                zValue = ((Integer) zParameter).doubleValue();
-                            } else {
-                                zValue = 0.0;
-                                System.out.println("FIXME Histogram3DModel: can not handle ExifParameter from type " + zParameter.getClass().toString());
-                            }
-                       
-                        
+                            zValue = ((Float) zParameter).doubleValue();
+                        } else if (zParameter instanceof Integer) {
+                            zValue = ((Integer) zParameter).doubleValue();
+                        } else {
+                            zValue = 0.0;
+                            System.out.println("FIXME Histogram3DModel: can not handle ExifParameter from type "
+                                    + zParameter.getClass().toString());
+                        }
 
                         // if x and z value fits between <= category <
                         if ((xValue < category.getMaxValueX()) && (xValue >= category.getMinValueX())
@@ -99,10 +111,10 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
                             // and fits in category.maxValue == and other value fits in other category
                             if (((xValue == category.getMaxValueX()) && (zValue == category.getMaxValueZ()))
-                                    || (xValue == category.getMaxValueX() && zValue > category.getMinValueZ() && zValue < category
-                                            .getMaxValueZ())
-                                    || (zValue == category.getMaxValueZ() && xValue > category.getMinValueX() && xValue < category
-                                            .getMaxValueX())) {
+                                    || ((xValue == category.getMaxValueX()) && (zValue > category.getMinValueZ()) && (zValue < category
+                                            .getMaxValueZ()))
+                                    || ((zValue == category.getMaxValueZ()) && (xValue > category.getMinValueX()) && (xValue < category
+                                            .getMaxValueX()))) {
                                 if (allreadyAllocatedPictures.contains(picture)) {
                                     System.out.println("\nError! Picture " + picture.getName()
                                             + " already einsortiert. x: " + xValue + " z: " + zValue);
@@ -142,7 +154,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                 final Object zParameter = picture.getExifParameter(this.getzAxis().getParameter());
                 final Double zValue;
                 final Double xValue;
-                
+
                 // TWEAK: allow other types than double and int
                 if (xParameter instanceof Float) {
                     xValue = ((Float) xParameter).doubleValue();
@@ -162,7 +174,6 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                     System.out.println("FIXME Histogram3DModel: can not handle ExifParameter from type "
                             + zParameter.getClass().toString());
                 }
-                
 
                 if (this.maxX < xValue) {
                     this.maxX = xValue;
@@ -236,19 +247,20 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                     pictureCount++;
                 }
             }
-            if (pictureCount == count) {
-                /* Alles in Butter, pictureCount == count ! */
-            } else if (this.getPicturesWithMissingExifParameter().isEmpty()) {
-                System.out.println("pictureCount != count    " + pictureCount + " != " + count
-                        + " , das riecht nach nem bug, da wurde was vergessen!");
-            } else {
-                System.out
-                        .println("pictureCount != count    "
-                                + pictureCount
-                                + " != "
-                                + count
-                                + " , aber vorsicht getPicturesWithMissingExifParameter enthält elemente, darin kann ein Bild auch mehrfach vertreten sein: "
-                                + this.getPicturesWithMissingExifParameter().size());
+            if (pictureCount != count) {
+
+                if (this.getPicturesWithMissingExifParameter().isEmpty()) {
+                    System.out.println("pictureCount != count    " + pictureCount + " != " + count
+                            + " , das riecht nach nem bug, da wurde was vergessen!");
+                } else {
+                    System.out
+                            .println("pictureCount != count    "
+                                    + pictureCount
+                                    + " != "
+                                    + count
+                                    + " , aber vorsicht getPicturesWithMissingExifParameter enthält elemente, darin kann ein Bild auch mehrfach vertreten sein: "
+                                    + this.getPicturesWithMissingExifParameter().size());
+                }
             }
         }
 
@@ -280,8 +292,10 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
     }
 
-    /*
-     * Berechnet die Statistik-Klassen und liefert die entsprechenden Objekte zurück
+    /**
+     * Caculates the statistic categories and give them back.
+     * 
+     * @return the statistic categories
      */
     public Category[][] getCategories() {
 
