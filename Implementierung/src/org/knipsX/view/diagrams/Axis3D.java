@@ -76,9 +76,9 @@ class Axis3D {
     public String getDescription() {
         if (this.axis != null) {
             if (this.axis.getDescription().equals("")) {
-                return this.axis.getParameter().toString(); 
-            } else {                
-                return axis.getDescription();                
+                return this.axis.getParameter().toString();
+            } else {
+                return axis.getDescription();
             }
         }
         return "";
@@ -158,7 +158,7 @@ class Axis3D {
 
         this.setNumberOfSegments(numberOfSegments);
         this.showSegments = true;
-
+        
         if (minValue instanceof Integer && maxValue instanceof Integer) {
 
             double range = (Integer) maxValue - (Integer) minValue + 2 * offset;
@@ -222,19 +222,26 @@ class Axis3D {
      *            the maximum value in report space units
      */
     public void setReportSpace(double minValue, double maxValue) {
-        
+
         /* Registeres that the report space has been set by the programmer */
         this.isReportSpaceInitialized = true;
+
         
-        this.minReportSpace = Math.min(minValue, maxValue);
-        this.maxReportSpace = Math.max(minValue, maxValue);
+        if (Double.compare(minValue, maxValue) == 0) {
+            System.out.println("DRINNE, da " + minValue + " = " + maxValue);
+            this.minReportSpace = minValue - minValue / 10.0;
+            this.maxReportSpace = maxValue + maxValue / 10.0;
+        } else {
+            this.minReportSpace = Math.min(minValue, maxValue);
+            this.maxReportSpace = Math.max(minValue, maxValue);
+        }
 
         if (JAbstract3DView.useBufferRange) {
             this.offset = (this.maxReportSpace - this.minReportSpace) / 5.0;
         } else {
             this.offset = 0;
         }
-        
+
     }
 
     /**
@@ -251,7 +258,6 @@ class Axis3D {
     public double getAxisSpace(double reportSpace) {
 
         isReportSpaceInitialized();
-
         double range = Math.abs((this.maxReportSpace + offset) - (this.minReportSpace - offset));
         assert range != 0;
         double slope = Math.abs(this.getAxisSize()) / range;
@@ -266,7 +272,7 @@ class Axis3D {
         if (!isReportSpaceInitialized) {
             try {
                 throw new ArithmeticException("The report space has not yet been initialized! "
-                		+ "Initialize it before you use a report space function");
+                        + "Initialize it before you use a report space function");
             } catch (ArithmeticException e) {
                 e.printStackTrace();
             }

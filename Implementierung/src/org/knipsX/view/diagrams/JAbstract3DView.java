@@ -814,11 +814,21 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
                 this.leftPanel.add(javax.swing.Box.createRigidArea(new Dimension(0, 20)));
             }
 
+            int size = 50;
             if (pic != null) {
                 this.leftPanel.add(new JLabel(pic.getName()));
                 this.leftPanel.add(new JLabel(new ImageIcon(pic.getSmallThumbnail())));
+                //this.leftPanel.add(new JLabel(new ImageIcon(pic.getImageWithSize(200))));
+                
             }
 
+            /* Define the space */
+            size = size + 75;
+            JLabel spacer = new JLabel();            
+            spacer.setPreferredSize(new Dimension(size, 0));
+            spacer.setMinimumSize(new Dimension(size, 0));
+            spacer.setMaximumSize(new Dimension(size, 0));
+            this.leftPanel.add(spacer);
             this.pack();
             repaint();
         }

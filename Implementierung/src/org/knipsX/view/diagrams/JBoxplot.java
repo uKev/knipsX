@@ -33,11 +33,7 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
      */
     public JBoxplot(final M model, final int reportID) {
         super(model, reportID);
-        
-        if (this.model != null) {
-            this.getyAxis().setReportSpace((Double) this.model.getMinY() , (Double) this.model.getMaxY());
-        }
-
+        JAbstract3DView.useBufferRange = true;
     }
 
     @Override
@@ -47,6 +43,9 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
 
         /* if we have a model show the right data, if not show dummy data */
         if (this.model != null) {
+            
+            this.getyAxis().setReportSpace((Double) this.model.getMinY() , (Double) this.model.getMaxY());
+            
             boxplots = new Boxplot[this.model.getBoxplots().size()];
             this.model.getBoxplots().toArray(boxplots);
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());

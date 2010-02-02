@@ -42,7 +42,7 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
             this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());          
 
-            
+            double shrinkFactor = 0.85;
             
             double heigth = 0;
             for (int i = 0; i < categories.length; i++) {
@@ -57,8 +57,9 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
                     double xPosition = this.getxAxis().getAxisSpace(categories[i][j].getMinValueX()) + xRange / 2;
                     double zPosition = this.getzAxis().getAxisSpace(categories[i][j].getMinValueZ()) + zRange / 2;
                     
+                    
                     this.createCube(new Vector3d(xPosition, 0, zPosition), 
-                    new Vector3d(zRange / 2, this.getyAxis().getAxisSpace(categories[i][j].getBars().get(0).getHeight()), xRange / 2), 
+                    new Vector3d(shrinkFactor * zRange / 2, this.getyAxis().getAxisSpace(categories[i][j].getBars().get(0).getHeight()), shrinkFactor * xRange / 2), 
                     this.basicMaterial(Color.orange));
                     
                 }
