@@ -75,9 +75,12 @@ class Axis3D {
      */
     public String getDescription() {
         if (this.axis != null) {
-            return axis.getDescription();
+            if (this.axis.getDescription().equals("")) {
+                return this.axis.getParameter().toString(); 
+            } else {                
+                return axis.getDescription();                
+            }
         }
-
         return "";
     }
 

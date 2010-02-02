@@ -43,7 +43,7 @@ public class PictureSetListClickOnController<M extends ProjectModel, V extends J
     public void actionPerformed(final ActionEvent e) {
     }
 
-    @Override
+
     public void mouseClicked(final MouseEvent mouseEvent) {
         if (mouseEvent.getButton() == this.MOUSE_LEFT) {
             final JList theList = (JList) mouseEvent.getSource();
@@ -57,19 +57,19 @@ public class PictureSetListClickOnController<M extends ProjectModel, V extends J
         }
     }
 
-    @Override
+
     public void mouseEntered(final MouseEvent arg0) {
     }
 
-    @Override
+
     public void mouseExited(final MouseEvent arg0) {
     }
 
-    @Override
+
     public void mousePressed(final MouseEvent arg0) {
     }
 
-    @Override
+
     public void mouseReleased(final MouseEvent arg0) {
     }
 }

@@ -43,11 +43,13 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());          
 
             
+            
             double heigth = 0;
             for (int i = 0; i < categories.length; i++) {
                 for (int j = 0; j < categories[i].length; j++) {
                     heigth = categories[i][j].getBars().get(0).getHeight() + heigth;                   
                     
+                    System.out.println("Max  " + categories[i][j].getMaxValueZ() + " Min " + categories[i][j].getMinValueZ());
                     
                     double xRange = Math.abs(this.getxAxis().getAxisSpace(categories[i][j].getMaxValueX()) - this.getxAxis().getAxisSpace(categories[i][j].getMinValueX()));
                     double zRange = Math.abs(this.getzAxis().getAxisSpace(categories[i][j].getMaxValueZ()) - this.getzAxis().getAxisSpace(categories[i][j].getMinValueZ()));                    
