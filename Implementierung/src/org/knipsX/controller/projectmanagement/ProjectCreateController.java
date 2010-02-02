@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
+import org.knipsX.utils.StringChecker;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
 /**
@@ -29,7 +30,7 @@ public class ProjectCreateController<M extends ProjectManagementModel, V extends
 				JOptionPane.INFORMATION_MESSAGE);
 
 		/* while user is not pressing cancel and no text is given */
-		while ((projectName != null) && projectName.equals("")) {
+		while (StringChecker.isStringOk(projectName) == false) {
 
 			/* try to get a project name */
 			projectName = JOptionPane.showInputDialog(null,
@@ -38,7 +39,7 @@ public class ProjectCreateController<M extends ProjectManagementModel, V extends
 		}
 
 		/* has user give in a project name? */
-		if (projectName != null) {
+		if (StringChecker.isStringOk(projectName)) {
 			this.model.addProject(projectName);
 		}
 	}
