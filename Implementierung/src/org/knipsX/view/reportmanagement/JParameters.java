@@ -370,8 +370,10 @@ public class JParameters extends JAbstractSinglePanel {
             } else if (ReportHelper.getCurrentModel() instanceof Histogram2DModel) {
                 this.axisParameters[0].setAxis(((Histogram2DModel) ReportHelper.getCurrentModel()).getxAxis());
             } else if (ReportHelper.getCurrentModel() instanceof Histogram3DModel) {
-                this.axisParameters[0].setAxis(((Histogram3DModel) ReportHelper.getCurrentModel()).getxAxis());                
-                this.axisParameters[1].setAxis(((Histogram3DModel) ReportHelper.getCurrentModel()).getzAxis());
+                this.axisParameters[0].setAxis(((Histogram3DModel) ReportHelper.getCurrentModel()).getxAxis());
+                if (this.axisParameters.length == 2) {
+                    this.axisParameters[1].setAxis(((Histogram3DModel) ReportHelper.getCurrentModel()).getzAxis());                    
+                }
             } else if (ReportHelper.getCurrentModel() instanceof Cluster3DModel) {
                 if (this.axisParameters.length >= 1) {
                     this.axisParameters[0].setAxis(((Cluster3DModel) ReportHelper.getCurrentModel()).getxAxis());

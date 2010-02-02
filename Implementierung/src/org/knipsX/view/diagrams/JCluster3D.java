@@ -53,7 +53,7 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
                 }
             }
 
-            // assert typesOfPoints.size() > 0;
+            System.out.println("Anzahl der Punkte " + typesOfPoints.size());
 
             Collections.sort(typesOfPoints);
 
@@ -61,13 +61,19 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
             this.getyAxis().setAxis(this.model.getyAxis());
 
+            System.out.println("Min Y " + this.model.getMinY() + " MAX Y" + this.model.getMaxY());
+
             /* setup x axis */
             this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
             this.getxAxis().setAxis(this.model.getxAxis());
 
+            System.out.println("Min X " + this.model.getMinX() + " MAX X" + this.model.getMaxX());
+
             /* setup z axis */
             this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
             this.getzAxis().setAxis(this.model.getzAxis());
+
+            System.out.println("Min Z " + this.model.getMinZ() + " MAX Z" + this.model.getMaxZ());
 
         }
 
@@ -75,20 +81,19 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
             for (int i = 0; i < this.model.getFrequency3DPoints().size(); i++) {
                 final Transform3D dataTrans = new Transform3D();
 
-                Vector3d position = new Vector3d(
-                        this.getzAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getZ()), 
-                        this.getyAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getY()), 
-                        this.getxAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getX()));
-                
+                Vector3d position = new Vector3d(this.getzAxis().getAxisSpace(
+                        this.model.getFrequency3DPoints().get(i).getZ()), this.getyAxis().getAxisSpace(
+                        this.model.getFrequency3DPoints().get(i).getY()), this.getxAxis().getAxisSpace(
+                        this.model.getFrequency3DPoints().get(i).getX()));
+
                 Double bla = this.getzAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getZ());
-                System.out.println(bla.getClass());                
+                System.out.println(bla.getClass());
                 System.out.println(this.getzAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getZ()));
                 System.out.println(this.getyAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getY()));
                 System.out.println(this.getxAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getX()));
                 System.out.println("\n");
 
                 dataTrans.setTranslation(position);
-                
 
                 /* create transformation group */
                 final TransformGroup objData = new TransformGroup(dataTrans);
@@ -108,11 +113,15 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
 
             }
 
-            this.getyAxis().generateSegmentDescription(10);
+            if (typesOfPoints.size() != 0 || this.model.getMinX() <= this.model.getMaxX()
+                    || this.model.getMinZ() <= this.model.getMaxZ() || this.model.getMinY() <= this.model.getMaxY()) {
 
-            this.getxAxis().generateSegmentDescription(10);
+                this.getyAxis().generateSegmentDescription(10);
 
-            this.getzAxis().generateSegmentDescription(10);
+                this.getxAxis().generateSegmentDescription(10);
+
+                this.getzAxis().generateSegmentDescription(10);
+            }
         }
 
         /* set the left panel which shows information about a selected picture */

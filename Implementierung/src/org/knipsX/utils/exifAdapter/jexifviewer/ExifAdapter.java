@@ -93,7 +93,7 @@ public class ExifAdapter {
 	
 	private double getExposureTime() {
 		assert this.exifData != null;
-		double returnValue = this.exifData.getExposureTime(new String[1]) / 100000.0;
+		double returnValue = this.exifData.getExposureTime(new String[1]) / 1000000.0;
 		assert returnValue != Double.NaN;
 		return returnValue;
 	}
@@ -108,6 +108,7 @@ public class ExifAdapter {
 	private Object getISOSpeedRatings() {
 		assert this.exifData != null;
 		int returnValue = this.exifData.getISOSpeedRatings();
+		
 		if (returnValue == 0) {
 		    return null;
 		} else {
