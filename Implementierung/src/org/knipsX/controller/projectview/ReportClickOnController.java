@@ -31,7 +31,7 @@ public class ReportClickOnController<M extends ProjectModel, V extends JProjectV
     public void actionPerformed(ActionEvent e) {
     }
 
-    @Override
+
     public void mouseClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getButton() == MOUSE_LEFT) {
             if (mouseEvent.getClickCount() == 2) {
@@ -45,19 +45,19 @@ public class ReportClickOnController<M extends ProjectModel, V extends JProjectV
         }
     }
 
-    @Override
+
     public void mouseEntered(MouseEvent arg0) {
     }
 
-    @Override
+
     public void mouseExited(MouseEvent arg0) {
     }
 
-    @Override
+
     public void mousePressed(MouseEvent arg0) {
     }
 
-    @Override
+
     public void mouseReleased(MouseEvent arg0) {
     }
 }

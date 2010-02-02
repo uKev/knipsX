@@ -79,8 +79,16 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
                         this.getzAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getZ()), 
                         this.getyAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getY()), 
                         this.getxAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getX()));
+                
+                Double bla = this.getzAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getZ());
+                System.out.println(bla.getClass());                
+                System.out.println(this.getzAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getZ()));
+                System.out.println(this.getyAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getY()));
+                System.out.println(this.getxAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getX()));
+                System.out.println("\n");
 
                 dataTrans.setTranslation(position);
+                
 
                 /* create transformation group */
                 final TransformGroup objData = new TransformGroup(dataTrans);

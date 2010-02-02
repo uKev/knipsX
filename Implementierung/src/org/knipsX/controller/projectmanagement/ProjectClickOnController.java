@@ -54,7 +54,6 @@ public class ProjectClickOnController<M extends ProjectManagementModel, V extend
      * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
      * @param mouseEvent The mouse event
      */
-    @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getButton() == MOUSE_LEFT) {
             JList theList = (JList) mouseEvent.getSource();
@@ -74,7 +73,6 @@ public class ProjectClickOnController<M extends ProjectManagementModel, V extend
      * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
      * @param e The mouse event
      */
-    @Override
     public void mouseEntered(MouseEvent e) {
         /* Not implemented */
     }
@@ -83,7 +81,6 @@ public class ProjectClickOnController<M extends ProjectManagementModel, V extend
      * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
      * @param e The mouse event
      */
-    @Override
     public void mouseExited(MouseEvent e) {
         /* Not implemented */
     }
@@ -92,7 +89,6 @@ public class ProjectClickOnController<M extends ProjectManagementModel, V extend
      * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
      * @param e The mouse event
      */
-    @Override
     public void mousePressed(MouseEvent e) {
         /* Not implemented */
     }
@@ -101,7 +97,6 @@ public class ProjectClickOnController<M extends ProjectManagementModel, V extend
      * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
      * @param e The mouse event
      */
-    @Override
     public void mouseReleased(MouseEvent e) {
         /* Not implemented */
     }

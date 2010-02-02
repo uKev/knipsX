@@ -39,17 +39,17 @@ public class ProjectEditDescriptionController<M extends ProjectModel, V extends 
     public void actionPerformed(final ActionEvent e) {
     }
 
-    @Override
+
     public void changedUpdate(final DocumentEvent documentEvent) {
         this.model.setProjectDescription(this.view.getProjectDescription());
     }
 
-    @Override
+
     public void insertUpdate(final DocumentEvent documentEvent) {
         this.model.setProjectDescription(this.view.getProjectDescription());
     }
 
-    @Override
+
     public void removeUpdate(final DocumentEvent documentEvent) {
         this.model.setProjectDescription(this.view.getProjectDescription());
     }

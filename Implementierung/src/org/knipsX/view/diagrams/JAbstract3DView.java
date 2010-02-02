@@ -151,14 +151,13 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      * Specifies if the grid should be drawn
      */
     protected boolean showGrid = true;
-    
-    
+
     /**
      * Specifies if the buffered range on each axis should be used.
      * Look at the axis3d class for more information
      */
     protected static boolean useBufferRange = true;
-    
+
     /**
      * Constructor initialized the canvas3D
      * 
@@ -291,8 +290,8 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     private void changeCamtoFaceXZPlane() {
         final TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
         final Transform3D transform3D = new Transform3D();
-        transform3D.setTranslation(new Vector3d(this.getyAxis().getAxisSize() / 2.0, this.axis3D[1].getAxisSize() / 2.0,
-                3 * this.axis3D[2].getAxisSize()));
+        transform3D.setTranslation(new Vector3d(this.getyAxis().getAxisSize() / 2.0,
+                this.axis3D[1].getAxisSize() / 2.0, 3 * this.axis3D[2].getAxisSize()));
         vpTrans.setTransform(transform3D);
     }
 
@@ -311,8 +310,8 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         final TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
         final Transform3D transform3D = new Transform3D();
         transform3D.rotY(180 * Math.PI / 180.0);
-        transform3D.setTranslation(new Vector3d(this.getyAxis().getAxisSize() / 2.0, this.axis3D[1].getAxisSize() / 2.0,
-                -2 * this.axis3D[2].getAxisSize()));
+        transform3D.setTranslation(new Vector3d(this.getyAxis().getAxisSize() / 2.0,
+                this.axis3D[1].getAxisSize() / 2.0, -2 * this.axis3D[2].getAxisSize()));
         vpTrans.setTransform(transform3D);
     }
 
@@ -445,9 +444,9 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     }
 
     /**
-     * Creates a Cube at the desired position. Note that this cube, 
+     * Creates a Cube at the desired position. Note that this cube,
      * when scaling on the y axis, doesn't grow uniformly, it rather
-     * grows only in the positive y direction 
+     * grows only in the positive y direction
      * 
      * @param position
      *            the position of the cube
@@ -457,15 +456,15 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      *            the material of the cube
      */
     public void createCube(final Vector3d position, final Vector3d scale, final Appearance material) {
-        
+
         /* Change the position to the right value */
         Vector3d newPosition = new Vector3d(position);
         newPosition.setY((scale.y) / 2 + position.y);
-        
+
         /* Change the scale factor to the right value */
         Vector3d newScale = new Vector3d(scale);
-        newScale.setY(scale.y / 2);       
-        
+        newScale.setY(scale.y / 2);
+
         final TransformGroup objMove = this.createTransformGroup(newPosition, newScale);
         final Box myBox = new Box(1, 1, 1, material);
         objMove.addChild(myBox);
@@ -496,8 +495,8 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
                     if (p == 0) {
                         gridTrans.rotX(90 * Math.PI / 180.0d);
                         gridTrans.setTranslation(new Vector3d(
-                                (i * this.getyAxis().getAxisSize() / JAbstract3DView.GRIDDENSITYFACTOR), 0,
-                                this.getyAxis().getAxisSize() / 2.0));
+                                (i * this.getyAxis().getAxisSize() / JAbstract3DView.GRIDDENSITYFACTOR), 0, this
+                                        .getyAxis().getAxisSize() / 2.0));
                         gridTrans.setScale(new Vector3d(0.025, this.getyAxis().getAxisSize(), 0.025));
                     } else if (p == 1) {
                         gridTrans.rotZ(90 * Math.PI / 180.0d);
@@ -724,7 +723,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         this.createSegmentDescription();
 
         /* Create labels */
-        this.createLabels(this.getyAxis().getDescription(), this.axis3D[1].getDescription(), this.axis3D[2]
+        this.createLabels(this.getxAxis().getDescription(), this.getyAxis().getDescription(), this.getzAxis()
                 .getDescription());
 
         /* Create the off-screen Canvas3D object */
@@ -816,6 +815,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             }
 
             if (pic != null) {
+                this.leftPanel.add(new JLabel(pic.getName()));
                 this.leftPanel.add(new JLabel(new ImageIcon(pic.getSmallThumbnail())));
             }
 
@@ -864,8 +864,8 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
             for (int q = 0; q < zAxis.length; q++) {
                 if (zAxis[q] != null) {
-                    this.createText(new Vector3d(q * this.getzAxis().getSegmentSize(), -0.5d, -0.5d), new Vector3d(size,
-                            size, size), this.basicMaterial(1, 1, 1), zAxis[q]);
+                    this.createText(new Vector3d(q * this.getzAxis().getSegmentSize(), -0.5d, -0.5d), new Vector3d(
+                            size, size, size), this.basicMaterial(1, 1, 1), zAxis[q]);
                 }
             }
         }
@@ -900,6 +900,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
     /**
      * Returns the x axis
+     * 
      * @return the x axis
      */
     public Axis3D getxAxis() {
@@ -908,6 +909,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
     /**
      * Returns the y axis
+     * 
      * @return the y axis
      */
     public Axis3D getyAxis() {
@@ -916,6 +918,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
     /**
      * Returns the z axis
+     * 
      * @return the z axis
      */
     public Axis3D getzAxis() {

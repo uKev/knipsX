@@ -39,17 +39,17 @@ public class ProjectEditNameController<M extends ProjectModel, V extends JProjec
     public void actionPerformed(final ActionEvent e) {
     }
 
-    @Override
+
     public void changedUpdate(final DocumentEvent documentEvent) {
         this.model.setName(this.view.getProjectName());
     }
 
-    @Override
+
     public void insertUpdate(final DocumentEvent documentEvent) {
         this.model.setName(this.view.getProjectName());
     }
 
-    @Override
+
     public void removeUpdate(final DocumentEvent documentEvent) {
         this.model.setName(this.view.getProjectName());
     }
