@@ -1092,14 +1092,10 @@ class MyPictureSetContentListCellRenderer implements ListCellRenderer {
 class MyPictureListCellRenderer implements ListCellRenderer {
 
     protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
-
-    // private final Icon noImageIcon = new ImageIcon(System.getProperty("user.dir") +
-    // "\\src\\org\\knipsX\\images\\noimage.png");
     private Icon noImageIcon = null;
 
     public MyPictureListCellRenderer() {
         try {
-
             this.noImageIcon = Resource.createImageIcon("../images/noimage.png", "");
         } catch (final FileNotFoundException e) {
             e.printStackTrace();
@@ -1142,9 +1138,11 @@ class MyPictureListCellRenderer implements ListCellRenderer {
             } else {
                 renderer.setIcon(this.noImageIcon);
             }
+            renderer.setToolTipText("Picture");
         }
         renderer.setText(theText);
         renderer.setPreferredSize(new Dimension(renderer.getWidth(), 40));
+        
 
         return renderer;
     }

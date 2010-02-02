@@ -5,6 +5,8 @@ package org.knipsX.model.picturemanagement;
 
 /* import classes from the java sdk */
 import java.awt.Image;
+import java.awt.MediaTracker;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +16,10 @@ import java.util.List;
 import java.util.Observable;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /* import classes from our util source*/
 import org.knipsX.utils.ExifParameter;
@@ -166,8 +172,22 @@ public class Picture extends Observable implements PictureContainer  {
         
     }
 
-    public BufferedImage getBigThumbnail() {
-        return this.bigThumbnail;
+    public String getBigThumbnail() {
+        ImageIcon icon = null;
+        icon = new ImageIcon(bigThumbnail);
+        while ( icon.getImageLoadStatus() == MediaTracker.LOADING );
+        
+        JLabel label = new JLabel(icon);
+        icon.setImageObserver(label);
+        
+        JFrame frame = new JFrame();
+        //frame.setLocation(point);
+        frame.setUndecorated(true);
+        JPanel panel = new JPanel();
+        panel.add(label);
+        frame.setContentPane(panel);            
+
+        return "";
     }
 
     public Image getSmallThumbnail() {
