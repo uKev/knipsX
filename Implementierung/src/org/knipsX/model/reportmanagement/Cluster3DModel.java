@@ -2,7 +2,6 @@ package org.knipsX.model.reportmanagement;
 
 import java.util.ArrayList;
 
-import org.hamcrest.core.IsInstanceOf;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 
