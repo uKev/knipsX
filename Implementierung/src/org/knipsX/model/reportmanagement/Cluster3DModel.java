@@ -2,6 +2,7 @@ package org.knipsX.model.reportmanagement;
 
 import java.util.ArrayList;
 
+import org.hamcrest.core.IsInstanceOf;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 
@@ -63,20 +64,42 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                         this.addMissingExifPictureParameter(new PictureParameter(this.xAxis.getParameter(), pic));
                         haveAllParameters = false;
                     } else {
-                        x = ((Float) xValue).doubleValue();
+                        if (xValue instanceof Float) {
+                            x = ((Float) xValue).doubleValue(); }
+                            else if (xValue instanceof Integer) {
+                                x = ((Integer) xValue).doubleValue();
+                            } else {
+                                x = 0.0;
+                                System.out.println("FIXME Cluster3DModel: can not handle ExifParameter from type " + xValue.getClass().toString());
+                            }
                     }
                     if (yValue == null) {
                         this.addMissingExifPictureParameter(new PictureParameter(this.yAxis.getParameter(), pic));
                         haveAllParameters = false;
                     } else {
-                        y = ((Float) yValue).doubleValue();
+                        if (yValue instanceof Float) {
+                            y = ((Float) yValue).doubleValue(); }
+                            else if (yValue instanceof Integer) {
+                                y = ((Integer) yValue).doubleValue();
+                            } else {
+                                y = 0.0;
+                                System.out.println("FIXME Cluster3DModel: can not handle ExifParameter from type " + yValue.getClass().toString());
+                            }
+                    
                     }
 
                     if (zValue == null) {
                         this.addMissingExifPictureParameter(new PictureParameter(this.zAxis.getParameter(), pic));
                         haveAllParameters = false;
                     } else {
-                        z = ((Float) zValue).doubleValue();
+                        if (zValue instanceof Float) {
+                        z = ((Float) zValue).doubleValue(); }
+                        else if (zValue instanceof Integer) {
+                            z = ((Integer) zValue).doubleValue();
+                        } else {
+                            z = 0.0;
+                            System.out.println("FIXME Cluster3DModel: can not handle ExifParameter from type " + zValue.getClass().toString());
+                        }
                     }
 
                     /*
