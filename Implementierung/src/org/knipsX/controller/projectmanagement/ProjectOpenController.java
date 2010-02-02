@@ -12,13 +12,13 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 import org.knipsX.view.projectview.JProjectView;
 
-/**
+/****************************************************************************************
  * Represents the actions which are done by pushing the project open button.
  * Acts in harmony with JProjectManagement.
  * 
  * @param <M> The related model
  * @param <V> The related view
- */
+ ***************************************************************************************/
 public class ProjectOpenController<M extends ProjectManagementModel, V extends JProjectManagement<M>> extends
         AbstractController<M, V> {
 
@@ -34,6 +34,8 @@ public class ProjectOpenController<M extends ProjectManagementModel, V extends J
 
     /**
      * A project has to be selected before.
+     * It creates the and initializes the model and the view of the selected project
+     * and disposes the projectmanagement view.
      * 
      * @see org.knipsX.controller.AbstractController#actionPerformed(java.awt.event.ActionEvent)
      * @param event The action event
