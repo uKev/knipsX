@@ -300,19 +300,15 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         double deltaX = Math.abs(this.maxX - this.minX);
         double deltaZ = Math.abs(this.maxZ - this.minZ);
 
-        if (deltaX > 0) {
-            this.xCategorySize = (deltaX / numberOfCategories);
-        } else {
+        if (deltaX == 0) {
             deltaX = 1;
-            this.maxX = this.minX + 1;
         }
-        if (deltaZ > 0) {
-            this.zCategorySize = (deltaZ / numberOfCategories);
-        } else {
+        if (deltaZ == 0) {
             deltaZ = 1;
-            this.maxZ = this.minZ + 1;
         }
-
+        this.xCategorySize = (deltaX / numberOfCategories);
+        this.zCategorySize = (deltaZ / numberOfCategories);
+        
         double minValueX;
         double maxValueX;
         double minValueZ;
