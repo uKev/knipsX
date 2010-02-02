@@ -276,12 +276,41 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
     private void generateCategories() {
         this.calculateExtremeValues();
-        final int numberOfCategories = 5;
+        int numberOfCategories = 5;
+
+        int pictureCount = 0;
+
+        for (final PictureContainer pictureContainer : this.getPictureContainer()) {
+            for (@SuppressWarnings("unused")
+            final Picture picture : pictureContainer) {
+                pictureCount++;
+            }
+        }
+
+        if (numberOfCategories > pictureCount) {
+            if (pictureCount > 0) {
+                numberOfCategories = pictureCount;
+            } else {
+                numberOfCategories = 1;
+            }
+        }
 
         this.categories = new Category[numberOfCategories][numberOfCategories];
 
-        this.xCategorySize = (Math.abs(this.maxX - this.minX) / numberOfCategories);
-        this.zCategorySize = (Math.abs(this.maxZ - this.minZ) / numberOfCategories);
+        double deltaX = Math.abs(this.maxX - this.minX);
+        double deltaZ = Math.abs(this.maxZ - this.minZ);
+
+        if (deltaX > 0) {
+            this.xCategorySize = (deltaX / numberOfCategories);
+        } else {
+            deltaX = 1;
+        }
+        if (deltaZ > 0) {
+            this.zCategorySize = (deltaZ / numberOfCategories);
+        } else {
+            deltaZ = 1;
+        }
+
         double minValueX;
         double maxValueX;
         double minValueZ;
