@@ -91,9 +91,11 @@ public class ExifAdapter {
 		return strBack[0];
 	}
 	
-	private int getExposureTime() {
+	private double getExposureTime() {
 		assert this.exifData != null;
-		return this.exifData.getExposureTime(new String[1]);
+		double returnValue = this.exifData.getExposureTime(new String[1]) / 100000.0;
+		assert returnValue != Double.NaN;
+		return returnValue;
 	}
 	
 	private String getExposureTimeAsFormattedString() {
@@ -103,10 +105,15 @@ public class ExifAdapter {
 		return strBack[0];
 	}
 	
-	private int getISOSpeedRatings() {
+	private Object getISOSpeedRatings() {
 		assert this.exifData != null;
-		return this.exifData.getISOSpeedRatings();
-	}
+		int returnValue = this.exifData.getISOSpeedRatings();
+		if (returnValue == 0) {
+		    return null;
+		} else {
+		    return returnValue;
+		}		
+	}	
 	
 	private float getFocalLength() {
 		assert this.exifData != null;
