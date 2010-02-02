@@ -193,7 +193,6 @@ public abstract class AbstractReportModel extends AbstractModel {
      * @return the picutreContainer which will be used in report
      */
     public ArrayList<PictureContainer> getPictureContainer() {
-        calculateIfNeeded();
         return this.pictureContainer;
     }
 
