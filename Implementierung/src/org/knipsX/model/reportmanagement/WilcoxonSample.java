@@ -6,7 +6,7 @@ class WilcoxonSample implements Comparable<WilcoxonSample>{
 	
 	private double value;
 	private PictureContainer source;
-	private int rank;
+	private double position;
 	private boolean isLessThan;
 	
 	public WilcoxonSample(double value, PictureContainer source) {
@@ -18,16 +18,16 @@ class WilcoxonSample implements Comparable<WilcoxonSample>{
 		return this.value;
 	}
 	
-	public int getRank() {
-		return this.rank;
+	public double getRank() {
+		return this.position;
 	}
 	
 	public PictureContainer getSource() {
 		return this.source;		
 	}
 	
-	public void setRank(int rankPosi){
-		this.rank = rankPosi;
+	public void setPosition(double posi){
+		this.position = posi;
 	}
 	
 	public boolean isLessTahn() {
