@@ -16,6 +16,10 @@ import org.knipsX.view.reportmanagement.JPictureSetExif;
  */
 public class ReportRemoveExifKeywordController<M, V extends JPictureSetExif> extends AbstractController<M, V> {
 
+    /**
+     * The constructor which registers the controller with the specified view
+     * @param view the view the controller operates on
+     */
     public ReportRemoveExifKeywordController(V view) {
 		super(view);
     }

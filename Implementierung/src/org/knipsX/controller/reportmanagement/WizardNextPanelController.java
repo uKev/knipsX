@@ -17,6 +17,10 @@ import org.knipsX.view.reportmanagement.JReportWizard;
  */
 public class WizardNextPanelController<M extends AbstractReportModel, V extends JReportWizard<?, ?>> extends AbstractController<M, V> {
 
+    /**
+     * The constructor which registers the controller with the specified view
+     * @param view the view the controller operates on
+     */
     public WizardNextPanelController(V view) {
 	super(view);
     }
