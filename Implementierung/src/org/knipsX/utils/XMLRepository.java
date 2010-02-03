@@ -1,14 +1,18 @@
 package org.knipsX.utils;
  
+import java.util.ArrayList;
 import java.util.List;
  
+import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
  
 public class XMLRepository implements Repository {
  
     public int createProject() {
-        // TODO Auto-generated method stub
-        return 0;
+        /* create a list of picture sets */
+        List<PictureSet> pictureSetList = new ArrayList<PictureSet>();
+        
+        return pictureSetList;
     }
  
     public int createProject(ProjectModel toCopy) {
