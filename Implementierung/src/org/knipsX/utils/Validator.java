@@ -2,8 +2,6 @@ package org.knipsX.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
@@ -15,6 +13,10 @@ import org.knipsX.model.picturemanagement.PictureContainer;
  */
 public final class Validator {
 
+    private Validator() {
+        
+    }
+    
     /**
      * Checks all pictures in an ArrayList of PictureContainers if it has all needed ExifParameters.
      * 
@@ -44,6 +46,18 @@ public final class Validator {
 
         }
         return validPictures;
+    }
+    
+    /**
+     * Checks all pictures in an ArrayList of PictureContainers if it has all needed ExifParameters.
+     * 
+     * @param pictureContainers an ArrayList of PictureContainers that should be validated
+     * @param exifParameters an ArrayList of exifParameters that will be checked in the pictures
+     * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
+     */
+    public static ArrayList<Picture> getValidPictures(final ArrayList<PictureContainer> pictureContainers, final ExifParameter [] exifParameters) {
+        
+        return Validator.getValidPictures(pictureContainers, new ArrayList<ExifParameter>(Arrays.asList(exifParameters)));
     }
     
     /**
