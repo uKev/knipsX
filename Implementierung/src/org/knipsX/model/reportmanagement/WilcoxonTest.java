@@ -40,4 +40,12 @@ public class WilcoxonTest {
     public boolean isValid() {      
         return isValid;
     }
+    
+    public WilcoxonTestType getWilcoxonTestType(){
+        return wilcoxenType;
+        
+    }
+    public void setWilcoxonTestType(WilcoxonTestType wilcoxenType){
+        this.wilcoxenType = wilcoxenType;
+    }
 }

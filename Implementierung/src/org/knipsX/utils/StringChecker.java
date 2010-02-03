@@ -20,6 +20,8 @@ public final class StringChecker {
             return false;
         } else if (toCheck.equals("")) {
             return false;
+        } else if (toCheck.length() > 255){
+            return false;
         } else {
             return true;
         }
