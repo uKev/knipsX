@@ -4,6 +4,8 @@ import java.awt.Color;
 
 import javax.vecmath.Vector3d;
 
+import org.apache.log4j.Logger;
+import org.knipsX.Programm;
 import org.knipsX.model.reportmanagement.Category;
 import org.knipsX.model.reportmanagement.Histogram2DModel;
 
@@ -37,6 +39,11 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
 
         if (model != null) {
             
+            
+            Logger logger = Logger.getLogger(this.getClass());
+            logger.debug("Min X " + this.model.getMinX() + " Max X " + this.model.getMaxX());
+            logger.debug("Min Y " + this.model.getMinY() + " Max Y " + this.model.getMaxY());
+            
             this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
                 
@@ -55,6 +62,9 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
                         categories[i].getBars().get(0).getHeight()), xRange / 2), this.basicMaterial(Color.orange));                
 
             }
+            
+            this.getxAxis().generateSegmentDescription(10);
+            this.getyAxis().generateSegmentDescription(10);
 
         }
 
