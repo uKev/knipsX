@@ -1,11 +1,12 @@
+echo "<SKRIPT> start!"
 git pull origin master
-echo "add..."
+echo "<SKRIPT> add..."
 git add .
-echo "commit..."
+echo "<SKRIPT> commit..."
 git commit -am "XML update"
-echo "push..."
+echo "<SKRIPT> push..."
 git push origin master
-echo "pull..."
+echo "<SKRIPT> pull..."
 git pull origin master
-echo "ready..."
+echo "<SKRIPT> ready..."
 
