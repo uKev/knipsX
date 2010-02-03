@@ -47,6 +47,14 @@ public class WilcoxonTest {
         return isValid;
     }
     
+    public WilcoxonTestType getWilcoxonTestType(){
+        return this.wilcoxenType;    
+    }
+    
+    public void setWilcoxonTestType(WilcoxonTestType testType){
+        this.wilcoxenType = testType;
+    }
+    
     public double getResult() {
         return this.result;
     }
@@ -87,6 +95,7 @@ public class WilcoxonTest {
             }
             double chance = calcChanceOfSpecificRangeSum(rangeSum, wilcoxonSamplesList.size(), partVectors);
             result = calcPValue(chance, partVectors);
+            this.isValid = true;
 
         }
     }
