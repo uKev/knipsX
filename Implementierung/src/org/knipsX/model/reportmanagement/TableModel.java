@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.utils.ExifParameter;
 
 /**
  * A simple Table of the exif Data. Gives every Picture with all Data.
@@ -40,9 +41,14 @@ public class TableModel extends AbstractReportModel {
         for (final PictureContainer pictureContainer : this.getPictureContainer()) {
             for (final Picture picture : pictureContainer) {
                 this.pictures.add(picture);
+                for (final ExifParameter exifParameter : ExifParameter.values()) {
+                    if (picture.getExifParameter(exifParameter) == null) {
+                        this.addMissingExifPictureParameter(new PictureParameter(exifParameter, picture));
+                    }
+
+                }
             }
         }
-        // FIXME: calculate the missing exif parameters
 
     }
 

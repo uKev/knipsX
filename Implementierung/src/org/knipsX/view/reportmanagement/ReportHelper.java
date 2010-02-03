@@ -255,8 +255,8 @@ public enum ReportHelper {
          * {@inheritDoc}
          */
         @Override
-        public JAbstractDiagram<AbstractReportModel> displayDiagram(final AbstractReportModel model, final int reportID) {
-            return new JTableDiagram<AbstractReportModel>(model, reportID);
+        public JAbstractDiagram<TableModel> displayDiagram(final AbstractReportModel model, final int reportID) {
+            return new JTableDiagram<TableModel>((TableModel) model, reportID);
         }
 
         /**
@@ -264,7 +264,7 @@ public enum ReportHelper {
          */
         @Override
         public Component getDiagramView() {
-            return new JTableDiagram<AbstractReportModel>(null, -1).getDiagram();
+            return new JTableDiagram<TableModel>(null, -1).getDiagram();
         };
 
         /**

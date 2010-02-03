@@ -91,10 +91,16 @@ public class ExifAdapter {
 		return strBack[0];
 	}
 	
-	private double getExposureTime() {
+	private Object getExposureTime() {
 		assert this.exifData != null;
-		double returnValue = this.exifData.getExposureTime(new String[1]) / 1000000.0;
-		assert returnValue != Double.NaN;
+		double exposureTime = this.exifData.getExposureTime(new String[1]) / 1000000.0;
+		assert exposureTime!= Double.NaN;
+		Object returnValue;
+		if (exposureTime == 0){
+		    returnValue = null;
+		} else {
+		    returnValue = exposureTime;
+		}
 		return returnValue;
 	}
 	
