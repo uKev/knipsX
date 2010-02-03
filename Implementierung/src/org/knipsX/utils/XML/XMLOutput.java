@@ -1,24 +1,15 @@
 package org.knipsX.utils.XML;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.jdom.Document;
 import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
-import org.knipsX.model.picturemanagement.PictureNotFoundException;
+import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
+import org.knipsX.model.projectview.ProjectModel;
 
 /**
  * This class reads a project file and returns the information.
@@ -26,138 +17,139 @@ import org.knipsX.model.picturemanagement.PictureSet;
  */
 public class XMLOutput {
 
-    private File xml;
+    private Document xmlDocument;
+    
+    private ProjectModel project;
 
-    private Element project;
-
-    /**
-     * Constructs a MyXmlHandler.
-     */
-    public XMLOutput(final File xml) {
-        this.xml = xml;
-    }
-
-    public int getId() {
-        return Integer.parseInt(this.project.getChildText("id"));
-    }
-
-    public String getName() {
-        return this.project.getChildText("name");
-    }
-
-    public String getDescription() {
-        return this.project.getChildText("description");
-    }
-
-    public GregorianCalendar getCreationDate() {
-        try {
-            return parseTimestamp(this.project.getChildText("creationDate"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return new GregorianCalendar();
-        }
-    }
-
-    private static GregorianCalendar parseTimestamp(String timestamp) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
-        Date d = sdf.parse(timestamp);
-        GregorianCalendar cal = new GregorianCalendar();
-        cal.setTime(d);
-        return cal;
-    }
-
-    public List<PictureSet> getPictureSets() {
-
-        /*
-         * store all picture sets in a hashmap like:
-         * 1 -> picset1
-         * 1234 -> picset2
-         */
-        Map<Integer, PictureSet> pictureSets = new HashMap<Integer, PictureSet>();
-        for (Object item : this.project.getChild("pictureSets").getChildren("pictureSet")) {
-            if (item instanceof Element) {
-                Element set = (Element) item;
-
-                int id = Integer.parseInt(set.getChildText("id"));
-                String name = set.getChildText("name");
-
-                pictureSets.put(id, new PictureSet(name, id));
-            }
-        }
-
-        /*
-         * store all directories in a hashmap like:
-         * 1 -> dir1
-         * 1234 -> dir2
-         */
-        Map<Integer, Directory> directories = new HashMap<Integer, Directory>();
-        for (Object item : this.project.getChild("directories").getChildren("directory")) {
-            if (item instanceof Element) {
-                Element set = (Element) item;
-
-                int id = Integer.parseInt(set.getChildText("id"));
-                String path = set.getChildText("path");
-
-                directories.put(id, new Directory(path));
-            }
-        }
-
-        /*
-         * store all pictures in a hashmap like:
-         * 1 -> pic1
-         * 1234 -> pic2
-         */
-        Map<Integer, Picture> pictures = new HashMap<Integer, Picture>();
-        for (Object item : this.project.getChild("pictures").getChildren("picture")) {
-            if (item instanceof Element) {
-                Element set = (Element) item;
-
-                int id = Integer.parseInt(set.getChildText("id"));
-                String path = set.getChildText("path");
-
-                try {
-                    pictures.put(id, new Picture(path, true));
-                } catch (PictureNotFoundException e) {
-                    System.err.println("[XMLInput::getPictureSets()] - Picture not found -> " + path);
-                }
-            }
-        }
-
-        /* walk through the picture sets an connect them to their children */
-        for (Object item : this.project.getChild("pictureSets").getChildren("pictureSet")) {
-            if (item instanceof Element) {
-                Element set = (Element) item;
-
-                int rootId = Integer.parseInt(set.getChildText("id"));
-
-                for (Object child : set.getChild("children").getChildren()) {
-                    if (child instanceof Element) {
-                        Element container = (Element) child;
-
-                        if (container.getName() == "pictureSet") {
-
-                            /* get a picture set from the hashmap and connect another to it */
-                            pictureSets.get(rootId).add(pictureSets.get(Integer.parseInt(container.getText())));
-                        } else if (container.getName() == "directory") {
-
-                            /* get a picture set from the hashmap and connect a directory to it */
-                            pictureSets.get(rootId).add(directories.get(Integer.parseInt(container.getText())));
-                        } else if (container.getName() == "picture") {
-
-                            /* get a picture set from the hashmap and connect a picture to it */
-                            pictureSets.get(rootId).add(pictures.get(Integer.parseInt(container.getText())));
-                        }
-                    }
-                }
-            }
-        }
+    public XMLOutput(final ProjectModel project) {
+        this.project = project;
         
-        /* create the list to return the values */
-        List<PictureSet> returnList = new ArrayList<PictureSet>();
-        for(PictureSet set : pictureSets.values()) {
-            returnList.add(set);
-        }
-        return returnList;
+        Element root = new Element("project");
+        
+        root.addContent(this.resolveId());
+        root.addContent(this.resolveName());
+        root.addContent(this.resolveDescription());
+        root.addContent(this.resolveCreationDate());
+        root.addContent(this.resolvePictureSets());
+        root.addContent(this.resolveDirectories());
+        root.addContent(this.resolvePictures());
+        
+        this.xmlDocument = new Document(root);
     }
 
+    public Document getDocument() {
+        return this.xmlDocument;
+    }
+
+    /* #########################################################
+     * META
+     * #########################################################
+     */
+    
+    private Element resolveId() {
+        return new Element("id").setText("" + this.project.getId());
+    }
+
+    private Element resolveName() {
+        return new Element("name").setText(this.project.getName());
+    }
+    
+    private Element resolveDescription() {
+        return new Element("description").setText(this.project.getDescription());
+    }
+    
+    private Element resolveCreationDate() {
+        return new Element("creationDate").setText(XMLOutput.parseDate(this.project.getCreationDate()));
+    }
+    
+    private static String parseDate(GregorianCalendar calendar) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+        return sdf.format(calendar.getTime());
+    }
+    
+    /* #########################################################
+     * PICTURE SETS
+     * #########################################################
+     */
+
+    private Element resolvePictureSets() {
+        Element pictureSets = new Element("pictureSets");
+        
+        for(PictureSet set : this.project.getPictureSets()) {
+            pictureSets.addContent(this.resolvePictureSet(set));
+        }
+        return pictureSets;
+    }
+    
+    private Element resolvePictureSet(PictureSet set) {
+        Element pictureSet = new Element("pictureSet");
+        
+        pictureSet.addContent(new Element("id").setText("" + set.hashCode()));
+        pictureSet.addContent(new Element("name").setText(set.getName()));
+        pictureSet.addContent(this.getChildrenFromPictureSet(set));
+        return pictureSet;
+    }
+    
+    private Element getChildrenFromPictureSet(PictureSet set) {
+        Element children = new Element("children");
+        
+        for(PictureContainer child : set.getItems()) {
+            if(child instanceof PictureSet) {
+                children.addContent(new Element("pictureSet").setText("" + child.hashCode()));
+            } else if(child instanceof Directory) {
+                children.addContent(new Element("directory").setText("" + child.hashCode()));
+            } else if(child instanceof Picture) {
+                children.addContent(new Element("picture").setText("" + child.hashCode()));
+            } 
+        }        
+        return children;
+    }
+    
+    /* #########################################################
+     * DIRECTORIES
+     * #########################################################
+     */
+    
+    private Element resolveDirectories() {
+        Element directories = new Element("directories");
+        
+        for(PictureSet set : this.project.getPictureSets()) {
+            for(Directory dir : this.project.getDirectoriesOfAPictureSet(set)) {
+                directories.addContent(this.resolveDirectory(dir));
+            }
+        }        
+        return directories;
+    }
+    
+    private Element resolveDirectory(Directory dir) {
+        Element directory = new Element("directory");
+        
+        directory.addContent(new Element("id").setText("" + dir.hashCode()));
+        directory.addContent(new Element("path").setText(dir.getPath()));
+        return directory;
+    }
+    
+    /* #########################################################
+     * PICTURES
+     * #########################################################
+     */
+    
+    private Element resolvePictures() {
+        Element pictures = new Element("pictures");
+        
+        for(PictureSet set : this.project.getPictureSets()) {
+            for(Picture pic : this.project.getPicturesOfAPictureSet(set)) {
+                pictures.addContent(this.resolvePicture(pic));
+            }
+        }        
+        return pictures;
+    }
+    
+    private Element resolvePicture(Picture pic) {
+        Element picture = new Element("picture");
+        
+        picture.addContent(new Element("id").setText("" + pic.hashCode()));
+        picture.addContent(new Element("path").setText(pic.getPath()));
+        return picture;
+    }    
 }

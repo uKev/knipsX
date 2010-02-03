@@ -1,14 +1,19 @@
 package org.knipsX.utils;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.UUID;
 
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.utils.XML.XMLInput;
+import org.knipsX.utils.XML.XMLOutput;
 
 public class XMLRepositoryBackup implements Repository {
 
@@ -40,19 +45,7 @@ public class XMLRepositoryBackup implements Repository {
         /* get the contents of the project Folder */
         File[] xmlFiles = new File(RepositoryHandler.PROJECTS_PATH + File.separator + projectId).listFiles();
 
-        /* we must have only one XML File */
-        XMLInput xmlData = new XMLInput(getXML(xmlFiles));
-
-        /* check if we have the right project */
-        if (projectId == xmlData.getId()) {
-            String name = xmlData.getName();
-            String description = xmlData.getDescription();
-            GregorianCalendar creationDate = xmlData.getCreationDate();
-
-            project = new ProjectModel(projectId, name, description, creationDate, xmlData.getPictureSets(),
-                    new ArrayList<AbstractReportModel>());
-        }
-        return project;
+        return new XMLInput(getXML(xmlFiles)).getProject(projectId);
     }
 
     private File getXML(File[] files) {
@@ -119,6 +112,23 @@ public class XMLRepositoryBackup implements Repository {
     }
 
     public void saveProject(ProjectModel toSave) {
-        System.err.println("PROJEKT SICHERN FEHLT NOCH");
+        XMLOutput xmlFile = new XMLOutput(toSave);
+        File projectFile = new File(RepositoryHandler.PROJECTS_PATH + File.separator + toSave.getId() + File.separator + "project.xml");
+        
+        try {
+            FileWriter writer = new FileWriter(projectFile);
+            XMLOutputter outputter = new XMLOutputter();
+            try {
+                outputter.setFormat(Format.getPrettyFormat());
+              outputter.output(xmlFile.getDocument(), writer);       
+            }
+            catch (IOException e) {
+              System.err.println(e);
+            }
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        
     }
 }
