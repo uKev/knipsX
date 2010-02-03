@@ -1,15 +1,11 @@
 package org.knipsX.view.diagrams;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Random;
-
 import javax.vecmath.Vector3d;
 
 import org.apache.log4j.Logger;
 import org.knipsX.model.reportmanagement.Boxplot;
 import org.knipsX.model.reportmanagement.BoxplotModel;
-import org.knipsX.model.reportmanagement.TextModel;
 
 /**
  * This class implements how the BoxplotModel is to be drawn.
@@ -44,7 +40,6 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
 
         Logger logger = Logger.getLogger(this.getClass());
 
-        /* if we have a model show the right data, if not show dummy data */
         if (this.model != null && this.model.isModelValid()) {
 
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
@@ -53,7 +48,6 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
             this.model.getBoxplots().toArray(boxplots);
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
 
-            /* INTERNATIONALIZE */
             logger.debug("Report Space Min Value " + this.model.getMinY() + "\nReport Space Max Value "
                     + this.model.getMaxY() + "\nMean " + boxplots[0].getMean() + "\nMedian " + boxplots[0].getMedian()
                     + "\nMax Value " + boxplots[0].getMaxValue() + "\nMin Value " + boxplots[0].getMinValue()
