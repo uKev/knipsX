@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.utils.Converter;
+import org.knipsX.utils.ExifParameter;
+import org.knipsX.utils.Validator;
 
 /**
  * The model auf the Histogram3D which calculate the statistic categories and allocate the axes to the Data.
@@ -68,58 +71,34 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
                     for (final Picture picture : pictureContainer) {
 
-                        final Object xParameter = picture.getExifParameter(this.getxAxis().getParameter());
-                        final Object zParameter = picture.getExifParameter(this.getzAxis().getParameter());
+                        boolean pictureValid = true;
 
-                        if (xParameter instanceof Double) {
-                            xValue = ((Double) xParameter);
-                        } else if (xParameter instanceof Float) {
-                            xValue = ((Float) xParameter).doubleValue();
-                        } else if (xParameter instanceof Integer) {
-                            xValue = ((Integer) xParameter).doubleValue();
-                        } else {
-                            xValue = 0.0;
-                            System.out.println("FIXME Histogram3DModel: can not handle ExifParameter from type "
-                                    + xParameter.getClass().toString());
+                        final ExifParameter xParameter = this.getxAxis().getParameter();
+                        final ExifParameter zParameter = this.getzAxis().getParameter();
+
+                        final Object xValueObject = picture.getExifParameter(xParameter);
+                        final Object zValueObject = picture.getExifParameter(zParameter);
+
+                        if (xValueObject == null) {
+                            this.addMissingExifPictureParameter(new PictureParameter(xParameter, picture));
+                            pictureValid = false;
+                        }
+                        if (zValueObject == null) {
+                            this.addMissingExifPictureParameter(new PictureParameter(zParameter, picture));
+                            pictureValid = false;
                         }
 
-                        if (zParameter instanceof Double) {
-                            zValue = ((Double) zParameter);
-                        } else if (zParameter instanceof Float) {
-                            zValue = ((Float) zParameter).doubleValue();
-                        } else if (zParameter instanceof Integer) {
-                            zValue = ((Integer) zParameter).doubleValue();
-                        } else {
-                            zValue = 0.0;
-                            System.out.println("FIXME Histogram3DModel: can not handle ExifParameter from type "
-                                    + zParameter.getClass().toString());
-                        }
+                        if (pictureValid) {
+                            xValue = Converter.objectToDouble(xValueObject);
 
-                        // if x and z value fits between <= category <
-                        if ((xValue < category.getMaxValueX()) && (xValue >= category.getMinValueX())
-                                && (zValue < category.getMaxValueZ()) && (zValue >= category.getMinValueZ())) {
-                            /*
-                             * Picture fits in the category, yeah!
-                             */
-                            if (allreadyAllocatedPictures.contains(picture)) {
-                                System.out.println("\nError! Picture " + picture.getName()
-                                        + " already einsortiert. x: " + xValue + " z: " + zValue);
-                                System.out.println("in Kategorie: " + "max X: " + category.getMaxValueX() + "  min x: "
-                                        + category.getMinValueX() + "  max z: " + category.getMaxValueZ() + "  min z: "
-                                        + category.getMinValueZ());
-                            }
-                            allreadyAllocatedPictures.add(picture);
-                            bar.addPicture(picture);
+                            zValue = Converter.objectToDouble(zValueObject);
 
-                            // or if x or z is last
-                        } else if (((i + 1) == this.categories.length) || ((j + i) == this.categories[i].length)) {
-
-                            // and fits in category.maxValue == and other value fits in other category
-                            if (((xValue == category.getMaxValueX()) && (zValue == category.getMaxValueZ()))
-                                    || ((xValue == category.getMaxValueX()) && (zValue > category.getMinValueZ()) && (zValue < category
-                                            .getMaxValueZ()))
-                                    || ((zValue == category.getMaxValueZ()) && (xValue > category.getMinValueX()) && (xValue < category
-                                            .getMaxValueX()))) {
+                            // if x and z value fits between <= category <
+                            if ((xValue < category.getMaxValueX()) && (xValue >= category.getMinValueX())
+                                    && (zValue < category.getMaxValueZ()) && (zValue >= category.getMinValueZ())) {
+                                /*
+                                 * Picture fits in the category, yeah!
+                                 */
                                 if (allreadyAllocatedPictures.contains(picture)) {
                                     System.out.println("\nError! Picture " + picture.getName()
                                             + " already einsortiert. x: " + xValue + " z: " + zValue);
@@ -128,8 +107,28 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                                             + category.getMaxValueZ() + "  min z: " + category.getMinValueZ());
                                 }
                                 allreadyAllocatedPictures.add(picture);
-
                                 bar.addPicture(picture);
+
+                                // or if x or z is last
+                            } else if (((i + 1) == this.categories.length) || ((j + 1) == this.categories[i].length)) {
+
+                                // and fits in category.maxValue == and other value fits in other category
+                                if (((xValue == category.getMaxValueX()) && (zValue == category.getMaxValueZ()))
+                                        || ((xValue == category.getMaxValueX()) && (zValue >= category.getMinValueZ()) && (zValue < category
+                                                .getMaxValueZ()))
+                                        || ((zValue == category.getMaxValueZ()) && (xValue >= category.getMinValueX()) && (xValue < category
+                                                .getMaxValueX()))) {
+                                    if (allreadyAllocatedPictures.contains(picture)) {
+                                        System.out.println("\nError! Picture " + picture.getName()
+                                                + " already einsortiert. x: " + xValue + " z: " + zValue);
+                                        System.out.println("in Kategorie: " + "max X: " + category.getMaxValueX()
+                                                + "  min x: " + category.getMinValueX() + "  max z: "
+                                                + category.getMaxValueZ() + "  min z: " + category.getMinValueZ());
+                                    }
+                                    allreadyAllocatedPictures.add(picture);
+
+                                    bar.addPicture(picture);
+                                }
                             }
                         }
                     }
@@ -190,13 +189,11 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
             System.out.println(" this.maxX != this.getMaxX() :" + this.maxX + " != " + this.getMaxX());
         }
 
-        int pictureCount = 0;
-        for (final PictureContainer pictureContainer : this.getPictureContainer()) {
-            for (final Picture picture : pictureContainer) {
-                picture.getClass();
-                pictureCount++;
-            }
-        }
+        final ArrayList<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
+        exifParameters.add(this.getxAxis().getParameter());
+        exifParameters.add(this.getzAxis().getParameter());
+        final int pictureCount = Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters);
+
         if (pictureCount != count) {
 
             if (this.getPicturesWithMissingExifParameter().isEmpty()) {
@@ -222,54 +219,34 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         this.minY = Double.MAX_VALUE;
         this.minZ = Double.MAX_VALUE;
 
-        for (final PictureContainer pictureContainer : this.getPictureContainer()) {
-            for (final Picture picture : pictureContainer) {
+        final ArrayList<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
+        exifParameters.add(this.getxAxis().getParameter());
+        exifParameters.add(this.getzAxis().getParameter());
 
-                final Object xParameter = picture.getExifParameter(this.getxAxis().getParameter());
-                final Object zParameter = picture.getExifParameter(this.getzAxis().getParameter());
-                final Double zValue;
-                final Double xValue;
+        for (final Picture picture : Validator.getValidPictures(this.getPictureContainer(), exifParameters)) {
 
-                // TWEAK: allow other types than double and int
+            final Object xParameter = picture.getExifParameter(this.getxAxis().getParameter());
+            final Object zParameter = picture.getExifParameter(this.getzAxis().getParameter());
 
-                if (xParameter instanceof Double) {
-                    xValue = ((Double) xParameter);
-                } else if (xParameter instanceof Float) {
-                    xValue = ((Float) xParameter).doubleValue();
-                } else if (xParameter instanceof Integer) {
-                    xValue = ((Integer) xParameter).doubleValue();
-                } else {
-                    xValue = 0.0;
-                    System.out.println("FIXME Histogram3DModel: can not handle ExifParameter from type "
-                            + xParameter.getClass().toString());
-                }
+            // TWEAK: allow other types than double and int
 
-                if (zParameter instanceof Double) {
-                    zValue = ((Double) zParameter);
-                } else if (zParameter instanceof Float) {
-                    zValue = ((Float) zParameter).doubleValue();
-                } else if (zParameter instanceof Integer) {
-                    zValue = ((Integer) zParameter).doubleValue();
-                } else {
-                    zValue = 0.0;
-                    System.out.println("FIXME Histogram3DModel: can not handle ExifParameter from type "
-                            + zParameter.getClass().toString());
-                }
+            final Double xValue = Converter.objectToDouble(xParameter);
 
-                if (this.maxX < xValue) {
-                    this.maxX = xValue;
-                }
-                if (this.maxZ < zValue) {
-                    this.maxZ = zValue;
-                }
-                if (this.minX > xValue) {
-                    this.minX = xValue;
-                }
-                if (this.minZ > zValue) {
-                    this.minZ = zValue;
-                }
+            final Double zValue = Converter.objectToDouble(zParameter);
 
+            if (this.maxX < xValue) {
+                this.maxX = xValue;
             }
+            if (this.maxZ < zValue) {
+                this.maxZ = zValue;
+            }
+            if (this.minX > xValue) {
+                this.minX = xValue;
+            }
+            if (this.minZ > zValue) {
+                this.minZ = zValue;
+            }
+
         }
 
     }
@@ -280,12 +257,11 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
         int pictureCount = 0;
 
-        for (final PictureContainer pictureContainer : this.getPictureContainer()) {
-            for (@SuppressWarnings("unused")
-            final Picture picture : pictureContainer) {
-                pictureCount++;
-            }
-        }
+        final ArrayList<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
+        exifParameters.add(this.getxAxis().getParameter());
+        exifParameters.add(this.getzAxis().getParameter());
+
+        pictureCount = Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters);
 
         if (numberOfCategories > pictureCount) {
             if (pictureCount > 0) {
@@ -302,15 +278,15 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
         if (deltaX == 0) {
             deltaX = 1;
-            this.maxX = this.minX+deltaX;
+            this.maxX = this.minX + deltaX;
         }
         if (deltaZ == 0) {
             deltaZ = 1;
-            this.maxZ = this.minZ+deltaZ;
+            this.maxZ = this.minZ + deltaZ;
         }
         this.xCategorySize = (deltaX / numberOfCategories);
         this.zCategorySize = (deltaZ / numberOfCategories);
-        
+
         double minValueX;
         double maxValueX;
         double minValueZ;

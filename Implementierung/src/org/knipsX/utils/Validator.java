@@ -42,5 +42,10 @@ public final class Validator {
         }
         return validPictures;
     }
+    
+    public static int getValidPicturesCount(final ArrayList<PictureContainer> pictureContainers,
+            final ArrayList<ExifParameter> exifParameters) {
+        return Validator.getValidPictures(pictureContainers, exifParameters).size();
+    }
 
 }
