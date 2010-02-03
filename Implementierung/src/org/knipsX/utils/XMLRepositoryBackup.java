@@ -15,7 +15,7 @@ public class XMLRepositoryBackup implements Repository {
     public List<ProjectModel> getProjects() {
 
         List<ProjectModel> projects = new ArrayList<ProjectModel>();
-        
+
         File projectDir = new File(RepositoryHandler.PROJECTS_PATH);
 
         /* if dir not exist, try to create it */
@@ -37,34 +37,41 @@ public class XMLRepositoryBackup implements Repository {
     public ProjectModel getProject(int projectId) {
         ProjectModel project = null;
 
-        /* get the project Folder */
+        /* get the contents of the project Folder */
         File[] xmlFiles = new File(RepositoryHandler.PROJECTS_PATH + File.separator + projectId).listFiles();
 
         /* we must have only one XML File */
-        if (xmlFiles.length == 1 && xmlFiles[0].isFile()) {
-            XMLInput xmlData = new XMLInput(xmlFiles[0]);
+        XMLInput xmlData = new XMLInput(getXML(xmlFiles));
 
-            /* check if we have the right project */
-            if (projectId == xmlData.getId()) {
-                String name = xmlData.getName();
-                String description = xmlData.getDescription();
-                GregorianCalendar creationDate = xmlData.getCreationDate();
+        /* check if we have the right project */
+        if (projectId == xmlData.getId()) {
+            String name = xmlData.getName();
+            String description = xmlData.getDescription();
+            GregorianCalendar creationDate = xmlData.getCreationDate();
 
-                project = new ProjectModel(projectId, name, description, creationDate, xmlData.getPictureSets(),
-                        new ArrayList<AbstractReportModel>());
-            }
+            project = new ProjectModel(projectId, name, description, creationDate, xmlData.getPictureSets(),
+                    new ArrayList<AbstractReportModel>());
         }
         return project;
     }
 
+    private File getXML(File[] files) {
+        for (File file : files) {
+            if (file.isFile() && file.getName().equals("project.xml")) {
+                return file;
+            }
+        }
+        return null;
+    }
+
     public int createProject() {
-        
+
         /* call the createProject with a dummy ProjectModel */
         return createProject(new ProjectModel(0, "", "", new GregorianCalendar()));
     }
 
     public int createProject(ProjectModel toCopy) {
-        
+
         /* create a new unique id */
         int projectId = UUID.randomUUID().hashCode();
         File projectDir = new File(RepositoryHandler.PROJECTS_PATH + File.separator + projectId);
@@ -92,7 +99,7 @@ public class XMLRepositoryBackup implements Repository {
 
     /* delete recursiv */
     private static void treeDelete(File file) {
-        
+
         /* if we have a directory, delete first all files */
         if (file.isDirectory()) {
             File[] children = file.listFiles();
