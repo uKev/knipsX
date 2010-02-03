@@ -313,14 +313,14 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
      */
     public Category[][] getCategories() {
 
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
         return this.categories;
 
     }
 
     @Override
     public boolean isModelValid() {
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
         
         Logger log = Logger.getLogger(this.getClass());
         

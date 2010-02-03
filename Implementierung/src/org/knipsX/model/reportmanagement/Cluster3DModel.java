@@ -42,7 +42,7 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
     public Cluster3DModel(final ArrayList<PictureContainer> pictureContainers, final Axis xAxis, final Axis zAxis,
             final Axis yAxis) {
         super(pictureContainers, xAxis, zAxis, yAxis);
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
 
     }
 
@@ -176,7 +176,7 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
      * @return an arrayList of Frequency3DPoints
      */
     public ArrayList<Frequency3DPoint> getFrequency3DPoints() {
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
         return this.frequency3DPoints;
     }
 

@@ -253,14 +253,14 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
      * @return the statistic categories
      */
     public Category[] getCategories() {
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
         return this.categories;
 
     }
 
     @Override
     public boolean isModelValid() {
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
         Logger logger = Logger.getLogger(this.getClass());
         
         if (this.maxX < this.minX) {
