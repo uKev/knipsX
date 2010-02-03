@@ -85,8 +85,8 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
                 }
             }
 
-            this.getxAxis().generateSegmentDescription(5);
-            this.getzAxis().generateSegmentDescription(5);
+            this.getxAxis().generateSegmentDescription(categories.length);
+            this.getzAxis().generateSegmentDescription(categories[0].length);
             this.getyAxis().generateSegmentDescription(5);
         }
     }

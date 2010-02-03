@@ -410,9 +410,11 @@ public class JParameters extends JAbstractSinglePanel {
     public boolean isDiagramDisplayable() {
         for (final AxisParameter axisParam : this.axisParameters) {
             if (axisParam.invalid) {
+                this.showErrorIcon();
                 return false;
             }
         }
+        this.resetIcon();
         return true;
     }
 

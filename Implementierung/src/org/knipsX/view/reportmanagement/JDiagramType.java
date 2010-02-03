@@ -233,9 +233,11 @@ public class JDiagramType extends JAbstractSinglePanel {
     @Override
     public boolean isDiagramDisplayable() {
         if (this.reportname.getText().length() > 0) {
+            this.resetIcon();
             return true;
         }
 
+        this.showErrorIcon();
         return false;
     }
 

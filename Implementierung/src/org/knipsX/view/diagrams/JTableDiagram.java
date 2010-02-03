@@ -47,7 +47,7 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
 
         AbstractTableModel dataModel = null;
         
-        if (this.model != null) {
+        if (this.model != null && this.model.isModelValid()) {
             final ArrayList<Picture> pictures = this.model.getPictures();
             
             dataModel = new AbstractTableModel() {
@@ -78,12 +78,14 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
                     }
                 }
             };
-        }
         
-
+        
+        }
         this.table = new JTable(dataModel);
 
         this.scrollpane = new JScrollPane(this.table);
+        
+        
 
         this.mainpanel = new JPanel();
         this.mainpanel.setLayout(new BoxLayout(this.mainpanel, BoxLayout.PAGE_AXIS));
