@@ -19,7 +19,7 @@ import org.knipsX.view.projectmanagement.JProjectManagement;
  *****************************************************************************/
 public final class Programm {
 
-    static Logger logger = Logger.getLogger(Programm.class);
+    public static Logger logger = Logger.getLogger(Programm.class);
 
     /*
      * TODO: rename Programm(.java) either to Program or better knipsX.
