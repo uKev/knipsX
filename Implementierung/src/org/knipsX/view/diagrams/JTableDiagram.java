@@ -13,6 +13,7 @@ import javax.swing.table.AbstractTableModel;
 
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.model.reportmanagement.TableModel;
 import org.knipsX.utils.ExifParameter;
 
 /**
@@ -22,7 +23,7 @@ import org.knipsX.utils.ExifParameter;
  * 
  * @param <M>
  */
-public class JTableDiagram<M extends AbstractReportModel> extends JAbstractDiagram<M> {
+public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
 
     private static final long serialVersionUID = 2423794061738381566L;
 
@@ -44,44 +45,41 @@ public class JTableDiagram<M extends AbstractReportModel> extends JAbstractDiagr
     public JTableDiagram(final M model, final int reportId) {
         super(model, reportId);
 
-        final ArrayList<Picture> pictures = new ArrayList<Picture>();
+        AbstractTableModel dataModel = null;
         
-        //TODO uncomment when model has been implemented
-//        for (PictureContainer pictureContainer : this.model.getPictureContainer()) {
-//            for (Picture picture : pictureContainer) {
-//                pictures.add(picture);                
-//            }
-//        }
-        
-        /* TODO when implementing the controller, we must set this to the right data */
-        final AbstractTableModel dataModel = new AbstractTableModel() {
+        if (this.model != null) {
+            final ArrayList<Picture> pictures = this.model.getPictures();
             
-            private static final long serialVersionUID = -136606257319989327L;
-           
-            
-            public int getColumnCount() {
-                return ExifParameter.values().length + 1;
-            }
-
-            public int getRowCount() {
-                return pictures.size();
-            }
-
-            public Object getValueAt(final int row, final int col) { 
-                if (col == 0) {
-                    return pictures.get(row).getName();
-                }                
-                return pictures.get(row).getExifParameter(ExifParameter.values()[col - 1]);
-            }
-            
-            public String getColumnName(int column) {
-                if (column == 0) {
-                    return "Name";
-                } else {
-                    return ExifParameter.values()[column - 1].toString();
+            dataModel = new AbstractTableModel() {
+                
+                private static final long serialVersionUID = -136606257319989327L;
+               
+                
+                public int getColumnCount() {
+                    return ExifParameter.values().length + 1;
                 }
-            }
-        };
+
+                public int getRowCount() {
+                    return pictures.size();
+                }
+
+                public Object getValueAt(final int row, final int col) { 
+                    if (col == 0) {
+                        return pictures.get(row).getName();
+                    }                
+                    return pictures.get(row).getExifParameter(ExifParameter.values()[col - 1]);
+                }
+                
+                public String getColumnName(int column) {
+                    if (column == 0) {
+                        return "Name";
+                    } else {
+                        return ExifParameter.values()[column - 1].toString();
+                    }
+                }
+            };
+        }
+        
 
         this.table = new JTable(dataModel);
 
