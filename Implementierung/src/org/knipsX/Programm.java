@@ -9,6 +9,8 @@ import java.awt.Color;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
@@ -16,6 +18,12 @@ import org.knipsX.view.projectmanagement.JProjectManagement;
  * This class is the entry to our program.
  *****************************************************************************/
 public final class Programm {
+
+    static Logger logger = Logger.getLogger(Programm.class);
+
+    /*
+     * TODO: rename Programm(.java) either to Program or better knipsX.
+     */
 
     /*
      * Private constructor. This class should never have an instace.
@@ -28,9 +36,21 @@ public final class Programm {
      * 
      * This function shows the first knipsX window.
      * 
-     * @param args stores parameters which are set up by a user during program start.
+     * @param args
+     *            stores parameters which are set up by a user during program start.
      */
     public static void main(final String[] args) {
+
+        // Setting up the logger
+        BasicConfigurator.configure();
+
+        /*
+         * LogLevel chain:
+         * TRACE > DEBUG > INFO > WARN > ERROR > FATAL
+         * 
+         */
+
+        logger.info("Starting knipsX");
 
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -63,5 +83,7 @@ public final class Programm {
          * model
          */
         new JProjectManagement<ProjectManagementModel>(projectManagementModel);
+
+        logger.info("Closing knipsX");
     }
 }
