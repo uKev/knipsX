@@ -29,6 +29,7 @@ import org.knipsX.model.reportmanagement.Cluster3DModel;
 import org.knipsX.model.reportmanagement.Histogram2DModel;
 import org.knipsX.model.reportmanagement.Histogram3DModel;
 import org.knipsX.model.reportmanagement.TableModel;
+import org.knipsX.model.reportmanagement.WilcoxonTestType;
 import org.knipsX.utils.ExifParameter;
 
 /**
@@ -123,16 +124,6 @@ public class XMLInput {
          * 1234 -> picset2
          */
         final Map<Integer, PictureSet> pictureSets = new HashMap<Integer, PictureSet>();
-        // for (Object item : this.project.getChild("pictureSets").getChildren("pictureSet")) {
-        // if (item instanceof Element) {
-        // Element set = (Element) item;
-        //
-        // int id = Integer.parseInt(set.getChildText("id"));
-        // String name = set.getChildText("name");
-        //
-        // pictureSets.put(id, new PictureSet(name, id));
-        // }
-        // }
         for (final Element set : XMLHelper.convertList(this.project.getChild("pictureSets").getChildren("pictureSet"))) {
 
             final int id = Integer.parseInt(set.getChildText("id"));
@@ -288,13 +279,15 @@ public class XMLInput {
             }
         }
 
-        // item = this.project.getChild("wilcoxonTest");
-        // if (item instanceof Element) {
-        // Element wilcoxonTest = (Element) item;
-        // model.getWilcoxonTest().setActiveStatus(Boolean.parseBoolean(wilcoxonTest.getChildText("isActive")));
-        // model.getWilcoxonTest().(WilcoxonTestType.valueOf(wilcoxonTest.getChildText("testType")));
-        //            
-        // }
+        Object item = report.getChild("wilcoxonTest");
+        if (item instanceof Element) {
+            Element wilcoxonTest = (Element) item;
+            model.getWilcoxonTest().setActiveStatus(Boolean.parseBoolean(wilcoxonTest.getChildText("isActive")));
+            model.getWilcoxonTest()
+                    .setWilcoxonTestType(WilcoxonTestType.valueOf(wilcoxonTest.getChildText("testType")));
+            model.getWilcoxonTest().setSignificance(Double.parseDouble(wilcoxonTest.getChildText("significance")));
+
+        }
         return model;
     }
 
