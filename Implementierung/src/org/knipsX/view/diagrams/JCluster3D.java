@@ -14,6 +14,7 @@ import javax.media.j3d.TransformGroup;
 import javax.swing.JPanel;
 import javax.vecmath.Vector3d;
 
+import org.apache.log4j.Logger;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
 
 /**
@@ -44,16 +45,18 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
     @Override
     public void generateContent() {
 
+        Logger logger = Logger.getLogger(this.getClass());
+
         final ArrayList<Integer> typesOfPoints = new ArrayList<Integer>();
 
-        if (this.model != null) {
+        if (this.model != null && this.model.isModelValid()) {
             for (int i = 0; i < this.model.getFrequency3DPoints().size(); i++) {
                 if (!typesOfPoints.contains(this.model.getFrequency3DPoints().get(i).getFrequency())) {
                     typesOfPoints.add(this.model.getFrequency3DPoints().get(i).getFrequency());
                 }
             }
 
-            System.out.println("Anzahl der Punkte " + typesOfPoints.size());
+            logger.debug("Number of Points " + typesOfPoints.size());
 
             Collections.sort(typesOfPoints);
 
@@ -61,23 +64,20 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
             this.getyAxis().setAxis(this.model.getyAxis());
 
-            System.out.println("Min Y " + this.model.getMinY() + " MAX Y" + this.model.getMaxY());
+            logger.debug("Min Y " + this.model.getMinY() + " MAX Y" + this.model.getMaxY());
 
             /* setup x axis */
             this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
             this.getxAxis().setAxis(this.model.getxAxis());
 
-            System.out.println("Min X " + this.model.getMinX() + " MAX X" + this.model.getMaxX());
+            logger.debug("Min X " + this.model.getMinX() + " MAX X" + this.model.getMaxX());
 
             /* setup z axis */
             this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
             this.getzAxis().setAxis(this.model.getzAxis());
 
-            System.out.println("Min Z " + this.model.getMinZ() + " MAX Z" + this.model.getMaxZ());
+            logger.debug("Min Z " + this.model.getMinZ() + " MAX Z" + this.model.getMaxZ());
 
-        }
-
-        if (this.model != null) {
             for (int i = 0; i < this.model.getFrequency3DPoints().size(); i++) {
                 final Transform3D dataTrans = new Transform3D();
 
@@ -85,13 +85,6 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
                         this.model.getFrequency3DPoints().get(i).getZ()), this.getyAxis().getAxisSpace(
                         this.model.getFrequency3DPoints().get(i).getY()), this.getxAxis().getAxisSpace(
                         this.model.getFrequency3DPoints().get(i).getX()));
-
-                Double bla = this.getzAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getZ());
-                System.out.println(bla.getClass());
-                System.out.println(this.getzAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getZ()));
-                System.out.println(this.getyAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getY()));
-                System.out.println(this.getxAxis().getAxisSpace(this.model.getFrequency3DPoints().get(i).getX()));
-                System.out.println("\n");
 
                 dataTrans.setTranslation(position);
 
@@ -108,20 +101,14 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
                 objData.addChild(selectableShape);
 
                 this.objRoot.addChild(objData);
-
-                System.out.println(this.model.getFrequency3DPoints().get(i).getFrequency());
-
             }
 
-            if (typesOfPoints.size() != 0 || this.model.getMinX() <= this.model.getMaxX()
-                    || this.model.getMinZ() <= this.model.getMaxZ() || this.model.getMinY() <= this.model.getMaxY()) {
+            this.getyAxis().generateSegmentDescription(10);
 
-                this.getyAxis().generateSegmentDescription(10);
+            this.getxAxis().generateSegmentDescription(10);
 
-                this.getxAxis().generateSegmentDescription(10);
+            this.getzAxis().generateSegmentDescription(10);
 
-                this.getzAxis().generateSegmentDescription(10);
-            }
         }
 
         /* set the left panel which shows information about a selected picture */
