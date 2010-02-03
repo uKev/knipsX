@@ -1,6 +1,7 @@
 package org.knipsX.view.reportmanagement;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 /**
@@ -17,6 +18,11 @@ public abstract class JAbstractSinglePanel extends JComponent {
      * The title which is registered with this panel.
      */
     protected String title;
+    
+    /**
+     * The icon which is placed in every tab
+     */
+    protected ImageIcon icon = new ImageIcon();
 
     /**
      * The default constructor of the class which is invoked by every subclass
@@ -36,6 +42,15 @@ public abstract class JAbstractSinglePanel extends JComponent {
         return this.title;
     }
 
+    /**
+     * Returns the  of the current panel
+     * @return the icon
+     */
+    public ImageIcon getIcon() {
+        return this.icon;
+    }
+    
+    
     /**
      * Specifies if the current panel has all the specified information to display the report
      * 

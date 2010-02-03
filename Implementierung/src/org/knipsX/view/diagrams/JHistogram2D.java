@@ -38,36 +38,36 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
     public void generateContent() {
 
         if (model != null) {
-            
-            
+
             Logger logger = Logger.getLogger(this.getClass());
             logger.debug("Min X " + this.model.getMinX() + " Max X " + this.model.getMaxX());
             logger.debug("Min Y " + this.model.getMinY() + " Max Y " + this.model.getMaxY());
-            
-            this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
-            this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
+           
+            if (this.model.isModelValid()) {
                 
-            Category[] categories = this.model.getCategories();
+                this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
+                this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
 
-            for (int i = 0; i < categories.length; i++) {
-                double xRange = Math.abs(this.getxAxis().getAxisSpace(categories[i].getMaxValueX())
-                        - this.getxAxis().getAxisSpace(categories[i].getMinValueX()));
-                
-                double xPosition = this.getxAxis().getAxisSpace(categories[i].getMinValueX()) + xRange / 2;
-                
-             
-                
-                /* Create the actual bar */
-                this.createCube(new Vector3d(xPosition, 0, 0), new Vector3d(1, this.getyAxis().getAxisSpace(
-                        categories[i].getBars().get(0).getHeight()), xRange / 2), this.basicMaterial(Color.orange));                
+                Category[] categories = this.model.getCategories();
+
+                for (int i = 0; i < categories.length; i++) {
+                    double xRange = Math.abs(this.getxAxis().getAxisSpace(categories[i].getMaxValueX())
+                            - this.getxAxis().getAxisSpace(categories[i].getMinValueX()));
+
+                    double xPosition = this.getxAxis().getAxisSpace(categories[i].getMinValueX()) + xRange / 2;
+
+                    /* Create the actual bar */
+                    this.createCube(new Vector3d(xPosition, 0, 0), new Vector3d(1, this.getyAxis().getAxisSpace(
+                            categories[i].getBars().get(0).getHeight()), xRange / 2), this.basicMaterial(Color.orange));
+
+                }
+
+                this.getxAxis().generateSegmentDescription(10);
+                this.getyAxis().generateSegmentDescription(10);
 
             }
-            
-            this.getxAxis().generateSegmentDescription(10);
-            this.getyAxis().generateSegmentDescription(10);
 
         }
-
     }
 
 }

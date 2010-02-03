@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -323,7 +325,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         /* Set the title name of this panel */
         // INTERNATIONALIZE
         this.title = "Bildmenge";
-
+        
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         /* Initialize the top row panel */
@@ -441,7 +443,11 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                     this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
                     // INTERNATIONALIZE
                     this.errorMessage
-                            .setToolTipText("In den Bilder, die ausgewählt wurden befinden sich leider nur ungültige Exif-Daten");
+                            .setToolTipText("In den Bilder, die ausgewählt wurden befinden sich, mit der ausgewählten Exif-Parameter Konfiguration, leider nur ungültige Exif-Daten");
+                    this.icon.setImage(Resource.createImageIcon("../images/userwarning_small.png", null).getImage());
+                    
+                    /* Force the report utility to update */
+                    ReportHelper.getCurrentReportUtility().repaint();
                     return false;
                 }
 
@@ -451,6 +457,15 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 this.errorMessage.setPreferredSize(new Dimension(32, 32));
                 this.errorMessage.setMaximumSize(new Dimension(32, 32));
                 this.errorMessage.setToolTipText(null);
+                
+                if (this.icon != null) {
+                    //TODO 
+//                    Image image = new ImageIcon().getImage();
+//                    this.icon.setImage(image);                    
+                }
+                
+                /* Force the report utility to update */
+                ReportHelper.getCurrentReportUtility().repaint();
 
                 return true;
 

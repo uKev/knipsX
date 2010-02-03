@@ -90,8 +90,8 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
         final JTabbedPane tabbedpane = new JTabbedPane();
 
         for (final JAbstractSinglePanel item : this.reportCompilation.getRegisteredPanels()) {
-
-            tabbedpane.addTab(item.getTitle(), item);
+            
+            tabbedpane.addTab(item.getTitle(), item.getIcon(), item);
 
             /*
              * Revalidate the Wilcoxon panel because picture sets might have been registered
