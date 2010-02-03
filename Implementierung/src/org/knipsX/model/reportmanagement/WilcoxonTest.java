@@ -27,7 +27,7 @@ public class WilcoxonTest {
     }
 
     public WilcoxonTest(ArrayList<PictureContainer> pictureContainer, ExifParameter parameter, boolean isActive,
-            float significance, WilcoxonTestType wilcoxenType) {
+            double significance, WilcoxonTestType wilcoxenType) {
         this.pictureContainer = pictureContainer;
         this.parameter = parameter;
         this.isActive = isActive;
