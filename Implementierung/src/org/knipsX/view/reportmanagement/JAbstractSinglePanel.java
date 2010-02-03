@@ -1,8 +1,13 @@
 package org.knipsX.view.reportmanagement;
 
+import java.awt.Image;
+import java.io.FileNotFoundException;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+
+import org.knipsX.utils.Resource;
 
 /**
  * This class represents a single panel in a report configuration.
@@ -18,7 +23,7 @@ public abstract class JAbstractSinglePanel extends JComponent {
      * The title which is registered with this panel.
      */
     protected String title;
-    
+
     /**
      * The icon which is placed in every tab
      */
@@ -43,14 +48,27 @@ public abstract class JAbstractSinglePanel extends JComponent {
     }
 
     /**
-     * Returns the  of the current panel
+     * Returns the of the current panel
+     * 
      * @return the icon
      */
     public ImageIcon getIcon() {
         return this.icon;
     }
-    
-    
+
+    /**
+     * Resets the current icon to an empty image
+     */
+    public void resetIcon() {
+        if (this.icon != null) {
+            byte[] someData = new byte[1];
+            Image image = new ImageIcon(someData).getImage();
+            this.icon.setImage(image);
+            /* Force the report utility to update */
+            ReportHelper.getCurrentReportUtility().repaint();
+        }
+    }
+
     /**
      * Specifies if the current panel has all the specified information to display the report
      * 
@@ -73,6 +91,19 @@ public abstract class JAbstractSinglePanel extends JComponent {
     public void revalidateReport() {
         ReportHelper.getCurrentReportUtility().revalidateDisplayability();
         ReportHelper.getCurrentReportUtility().revalidateSaveability();
+    }
+
+    /**
+     * Sets the current icon of the panel to a error icon
+     */
+    public void showErrorIcon() {
+        try {
+            this.icon.setImage(Resource.createImageIcon("../images/userwarning_small.png", null).getImage());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        /* Force the report utility to update */
+        ReportHelper.getCurrentReportUtility().repaint();
     }
 
     /**
