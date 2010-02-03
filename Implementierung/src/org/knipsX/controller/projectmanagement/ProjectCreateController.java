@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
-import org.knipsX.utils.StringChecker;
+import org.knipsX.utils.Validator;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
 /****************************************************************************************
@@ -51,7 +51,7 @@ public class ProjectCreateController<M extends ProjectManagementModel, V extends
 
         /* user is not pressing cancel and no text or wrong text is given */
         if (projectName != null) {
-            if (!StringChecker.isStringOk(projectName)) {
+            if (!Validator.isStringOk(projectName)) {
     
                 /* show the user that the name is incorrect */
                 // INTERNATIONALIZE
