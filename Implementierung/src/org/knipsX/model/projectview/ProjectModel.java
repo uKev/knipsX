@@ -7,12 +7,15 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.knipsX.Programm;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.utils.RepositoryHandler;
+import org.knipsX.utils.RepositoryInterfaceException;
 
 /* scans the exif data of all pictures */
 class GetExifDataThread extends Thread {
@@ -76,10 +79,10 @@ public class ProjectModel extends AbstractModel {
      * background.
      */
     public static final int INACTIVE = 0;
-    
+
     /* By default this view is active */
     private int state = ACTIVE;
-    
+
     private final int id;
 
     private String name;
@@ -136,11 +139,11 @@ public class ProjectModel extends AbstractModel {
         this.reportList = reports;
     }
 
-    
     /**
      * Sets the actual state. It can only be ACTIVE or INACTIVE
      * 
-     * @param state ACTIVE or INACTIVE
+     * @param state
+     *            ACTIVE or INACTIVE
      */
     public void setStatus(int state) {
         assert state < 2;
@@ -148,7 +151,7 @@ public class ProjectModel extends AbstractModel {
         this.state = state;
         this.updateViews();
     }
-    
+
     /**
      * Delivers the actual status
      * 
@@ -157,7 +160,7 @@ public class ProjectModel extends AbstractModel {
     public int getStatus() {
         return this.state;
     }
-    
+
     /**
      * Creates a new model based on an old one (with new id which must be unique).
      * 
@@ -297,7 +300,11 @@ public class ProjectModel extends AbstractModel {
     }
 
     public void saveProjectModel() {
-        // RepositoryHandler.writeProjectToFile(this);
+        try {
+            RepositoryHandler.getRepository().saveProject(this);
+        } catch (RepositoryInterfaceException e) {
+            Programm.logger.fatal("[ProjectModel::saveProjectModel()] - Can't save because:" + e.getStackTrace());
+        }
     }
 
     /*
@@ -611,7 +618,7 @@ public class ProjectModel extends AbstractModel {
         this.selectedPicture = selected;
         this.updateViews();
     }
-    
+
     /*
      * ################################################################################################################
      * -- THE REPORTS

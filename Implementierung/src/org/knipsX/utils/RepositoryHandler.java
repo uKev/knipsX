@@ -9,7 +9,7 @@ public final class RepositoryHandler {
      */
     public static final String PROJECTS_PATH = System.getProperty("user.home") + File.separator + ".knipsX";
     
-    private static Repository currentRepo = new DummyRepository();
+    private static Repository currentRepo = new XMLRepositoryBackup();
 
     public static Repository getRepository(){
         return RepositoryHandler.currentRepo;

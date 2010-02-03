@@ -33,6 +33,7 @@ public class XMLOutput {
         root.addContent(this.resolvePictureSets());
         root.addContent(this.resolveDirectories());
         root.addContent(this.resolvePictures());
+        root.addContent(new Element("reports"));
         
         this.xmlDocument = new Document(root);
     }
@@ -42,7 +43,7 @@ public class XMLOutput {
     }
 
     /* #########################################################
-     * META
+     * META DATA
      * #########################################################
      */
     
