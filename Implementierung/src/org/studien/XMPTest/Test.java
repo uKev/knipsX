@@ -1,37 +1,41 @@
 package org.studien.XMPTest;
+
+import java.io.File;
 import java.io.IOException;
 
 import com.adobe.xmp.XMPException;
-import com.adobe.xmp.impl.XMPMetaParser;
-import com.imagero.reader.IOParameterBlock;
-import com.imagero.reader.marker.JpegMetadataReader;
+import com.drew.imaging.jpeg.JpegProcessingException;
+import com.drew.metadata.xmp.XmpDirectory;
+import com.drew.metadata.xmp.XmpReader;
 
 public class Test {
 
-	/**
-	 * @param args
-	 * @throws IOException
-	 * @throws XMPException
-	 */
-	public static void main(String[] args) throws IOException, XMPException {
+    /**
+     * 
+     * 
+     * @param args
+     * @throws IOException
+     * @throws XMPException
+     * @throws JpegProcessingException 
+     */
+    public static void main(String[] args) throws IOException, XMPException, JpegProcessingException {
+        XmpReader bla;
+        try {
+            bla = new XmpReader(new File("/home/david/Bilder/Fotos/2008/01/25/CIMG3145.JPG"));
+            XmpDirectory dir = (XmpDirectory) bla.extract().getDirectory(new XmpDirectory().getClass());
+            String[] array = dir.getStringArray(XmpDirectory.TAG_KEYWORDS);
+            for (int i = 0; i < array.length; i++) {
+                System.out.println(array[i]);
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    
+        //System.out.println(dir.getObject(XmpDirectory.TAG_KEYWORDS));
+        
 
-		String source = "/home/anopheles/Bilder/Fotos/2009/12/09/DSC00964.JPG";
-		IOParameterBlock iopb = new IOParameterBlock(source);
-		JpegMetadataReader meta = new JpegMetadataReader(iopb.getSourceStream());
-
-		System.out.println(meta.getXMP());
-		// System.out.println(XMLUtil.fromXML(meta.getXMP()).length);
-
-		String test = meta.getXMP().replaceAll("uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b", "");
-		//String test = meta.getXMP();
-		System.out.println(XMPMetaParser.parse(test, null).dumpObject());
-		System.out.println(XMPMetaParser.parse(test, null).getPropertyString(
-				"http://ns.adobe.com/photoshop/1.0/", "subject"));
-		System.out.println(XMPMetaParser.parse(test, null).getArrayItem(
-				"http://purl.org/dc/elements/1.1/", "subject", 1));
-		System.out.println(XMPMetaParser.parse(test, null).getArrayItem(
-				"http://purl.org/dc/elements/1.1/", "subject", 3));
-
-	}
+        
+    }
 
 }

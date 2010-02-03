@@ -2,8 +2,10 @@ package org.knipsX.model.reportmanagement;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.utils.Validator;
 
 /**
  * Model which contain the Boxplots and name them with an Axis.
@@ -50,7 +52,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
         super(pictureContainers, xAxis);
         this.boxplots = new ArrayList<Boxplot>(pictureContainers.size());
 
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
 
     }
 
@@ -92,7 +94,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      * @return boxplots
      */
     public ArrayList<Boxplot> getBoxplots() {
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
         return this.boxplots;
     }
 
@@ -103,7 +105,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      */
     @Override
     public double getMaxX() {
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
 
         return this.boxplots.size();
     }
@@ -113,7 +115,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      * return the maximum Y Value, return Double.MIN_VALUE if there are no boxplots
      */
     public double getMaxY() {
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
 
         Double maxY = -Double.MAX_VALUE;
         for (final Boxplot boxplot : this.boxplots) {
@@ -137,7 +139,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      * return the minimum Y Value, return  Double.MAX_VALUE if there are nox boxplots
      */
     public double getMinY() {
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
         Double minY = Double.MAX_VALUE;
         for (final Boxplot boxplot : this.boxplots) {
             if (minY > boxplot.getMinValue()) {
@@ -175,7 +177,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      * @return the wilcoxonTest. Returns null if wilcoxonTest is not active.
      */
     public WilcoxonTest getWilcoxonTest() {
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
 
         WilcoxonTest wilcoxonTest = this.wilcoxonTest;
         if (wilcoxonTest != null) {
@@ -253,6 +255,23 @@ public class BoxplotModel extends AbstractSingleAxisModel {
     public void setxAxis(final Axis xAxis) {
         this.dataIsCalculated(false);
         this.xAxis = xAxis;
+    }
+
+    @Override
+    public boolean isModelValid() {
+        Logger logger = Logger.getLogger(this.getClass());
+        this.calculateIfRequired();
+        
+        if (this.maxX < this.minX) {
+            logger.info("maxX < minX");
+            return false;
+        }
+        if (Validator.getValidPicturesCount(this.getPictureContainer(), this.xAxis.getParameter()) == 0) {
+            logger.info("validPictureCount == 0");
+            return false;
+        }
+        
+        return true;
     }
 
 }

@@ -36,6 +36,12 @@ public class TextModel extends AbstractReportModel {
         // FIXME Auto-generated method stub
         
     }
+
+    @Override
+    public boolean isModelValid() {
+        this.calculateIfRequired();
+        return true;
+    }
 	
 	
 }

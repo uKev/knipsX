@@ -1,8 +1,10 @@
 package org.knipsX.view.reportmanagement;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -10,6 +12,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -25,7 +28,10 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
+import org.knipsX.model.reportmanagement.Axis;
+import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.Resource;
+import org.knipsX.utils.Validator;
 
 /**
  * This class represents the panel where the user is able to assign
@@ -157,13 +163,15 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
             if (value instanceof PictureSet) {
                 final PictureContainer pictureContainer = (PictureContainer) value;
-                int numberOfElements = 0;    
-                
-                for (@SuppressWarnings("unused") Picture picture : pictureContainer) {                    
+                int numberOfElements = 0;
+
+                for (@SuppressWarnings("unused")
+                Picture picture : pictureContainer) {
                     numberOfElements++;
                 }
-                
-                theText = pictureContainer.getName() + " (" +  Integer.toString(numberOfElements) + ")";
+
+                theText = pictureContainer.getName() + " (" + Integer.toString(numberOfElements) + ")";
+
             }
             renderer.setText(theText);
 
@@ -176,7 +184,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     private void addAvaialablePictureSetsPanel(JPanel toppanel) {
         final JPanel availablePictureSetsPanel = new JPanel();
         availablePictureSetsPanel.setLayout(new BorderLayout());
-        //INTERNATIONALIZE
+        // INTERNATIONALIZE
         final JLabel availablePictureSetsLabel = new JLabel("Verfügbare Bildermengen");
         availablePictureSetsPanel.add(availablePictureSetsLabel, BorderLayout.NORTH);
         this.availablePictureSets = new JFlexibleList(ReportHelper.getProjectModel().getPictureSets());
@@ -187,8 +195,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         toppanel.add(availablePictureSetsPanel);
     }
 
-   
-    //TODO Hier müssen noch die richtigen EXIF Keywords reingeladen werden
+    // TODO Hier müssen noch die richtigen EXIF Keywords reingeladen werden
     private final String[] exifFilterKeywords = { "asas", "HAÖÖP" };
     private JFlexibleList availablePictureSets;
     private JFlexibleList associatedPictureSets;
@@ -198,9 +205,9 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
     /* Add button panel top button panel to the specified panel */
     private void addTopButtonPanel(JPanel topbuttonpanel) {
-        /* to prevent popping and fixing alignment of layout add fixed dimension */       
+        /* to prevent popping and fixing alignment of layout add fixed dimension */
         Dimension size = new Dimension(32, 32);
-        topbuttonpanel.add(new Box.Filler(size, size, size));        
+        topbuttonpanel.add(new Box.Filler(size, size, size));
         final JButton insertpictureset = new JButton(">>");
         insertpictureset.setAlignmentX(Component.CENTER_ALIGNMENT);
         insertpictureset.addActionListener(new ReportAddPictureSetController<AbstractModel, JPictureSetExif>(this));
@@ -219,7 +226,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     private void addAssociatedPictureSetsPanel(JPanel toppanel) {
         final JPanel associatedPictureSetsPanel = new JPanel();
         associatedPictureSetsPanel.setLayout(new BorderLayout());
-        //INTERNATIONALIZE
+        // INTERNATIONALIZE
         final JLabel associatedPictureSetsLabel = new JLabel("Verwendete Bildermengen");
         this.associatedPictureSets = new JFlexibleList();
         this.associatedPictureSets.setCellRenderer(new PictureSetListCellRenderer());
@@ -232,8 +239,8 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     private void addAvailableExifTagsPanel(JPanel bottompanel) {
         final JPanel availableExifTagsPanel = new JPanel();
         availableExifTagsPanel.setLayout(new BorderLayout());
-        //INTERNATIONALIZE
-        final JLabel availableExifTagsLabel = new JLabel("Verfügbare Exif-Keywords");
+        // INTERNATIONALIZE
+        final JLabel availableExifTagsLabel = new JLabel("Verfügbare XMP-Keywords");
         this.availableExifTags = new JFlexibleList(this.exifFilterKeywords);
         this.availableExifTags.setFixedCellWidth(250);
         availableExifTagsPanel.add(availableExifTagsLabel, BorderLayout.NORTH);
@@ -255,8 +262,8 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     private void addAssociatedExifTagsPanel(JPanel bottompanel) {
         final JPanel associatedExifTagsPanel = new JPanel();
         associatedExifTagsPanel.setLayout(new BorderLayout());
-        //INTERNATIONALIZE
-        final JLabel associatedExifTagsLabel = new JLabel("Verwendete Exif-Keywords");
+        // INTERNATIONALIZE
+        final JLabel associatedExifTagsLabel = new JLabel("Verwendete XMP-Keywords");
         this.associatedExifTags = new JFlexibleList();
         this.associatedExifTags.setFixedCellWidth(250);
         associatedExifTagsPanel.add(associatedExifTagsLabel, BorderLayout.NORTH);
@@ -302,7 +309,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         addBottomButtonPanel(bottombuttonpanel);
 
         bottompanel.add(bottombuttonpanel);
-        
+
         /* Add a spacer to relax the layout */
         bottompanel.add(Box.createRigidArea(new Dimension(20, 0)));
 
@@ -315,10 +322,10 @@ public class JPictureSetExif extends JAbstractSinglePanel {
      */
     public JPictureSetExif() {
 
-        /* Set the title name of this panel */       
-        //INTERNATIONALIZE
+        /* Set the title name of this panel */
+        // INTERNATIONALIZE
         this.title = "Bildmenge";
-
+        
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         /* Initialize the top row panel */
@@ -396,24 +403,86 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
     @Override
     public boolean isDiagramDisplayable() {
-        if (this.associatedPictureSets.getContents().size() > 0) {
-            this.errorMessage.setIcon(null);
-            /* to prevent popping of layout add fixed dimension */
-            this.errorMessage.setMinimumSize(new Dimension(32, 32));
-            this.errorMessage.setPreferredSize(new Dimension(32, 32));
-            this.errorMessage.setMaximumSize(new Dimension(32, 32));
-            this.errorMessage.setToolTipText(null);
-            return true;
-        } else {
-            try {
+
+        try {
+            if (this.associatedPictureSets.getContents().size() > 0) {
+
+                /* Check to see if there are images in the specified image set */
+                for (PictureContainer pictureContainer : this.getPictureContainer()) {
+                    int numberOfElements = 0;
+
+                    for (Picture picture : pictureContainer) {
+                        numberOfElements++;
+                    }
+
+                    if (numberOfElements == 0) {
+                        this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                        // INTERNATIONALIZE
+                        this.errorMessage
+                                .setToolTipText("Es muss mindestens ein Bild vorhanden sein, damit die Auswertung angezeigt werden kann");
+                        return false;
+                    }
+                }
+
+                /* Check to see if there is at least one picture which contains valid EXIF data */
+                ArrayList<ExifParameter> exifParameters = new ArrayList<ExifParameter>();
+
+                for (JAbstractSinglePanel singlepanel : ReportHelper.getCurrentReportUtility().reportCompilation
+                        .getRegisteredPanels()) {
+                    if (singlepanel instanceof JParameters) {
+                        JParameters parameters = (JParameters) singlepanel;
+                        for (Axis axis : parameters.getAxes()) {
+                            if (axis.getParameter() != null) {
+                                exifParameters.add(axis.getParameter());
+                            }
+                        }
+                    }
+                }
+
+                if (Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters) == 0) {
+                    this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                    // INTERNATIONALIZE
+                    this.errorMessage
+                            .setToolTipText("In den Bilder, die ausgewählt wurden befinden sich, mit der ausgewählten Exif-Parameter Konfiguration, leider nur ungültige Exif-Daten");
+                    this.icon.setImage(Resource.createImageIcon("../images/userwarning_small.png", null).getImage());
+                    
+                    /* Force the report utility to update */
+                    ReportHelper.getCurrentReportUtility().repaint();
+                    return false;
+                }
+
+                this.errorMessage.setIcon(null);
+                /* to prevent popping of layout add fixed dimension */
+                this.errorMessage.setMinimumSize(new Dimension(32, 32));
+                this.errorMessage.setPreferredSize(new Dimension(32, 32));
+                this.errorMessage.setMaximumSize(new Dimension(32, 32));
+                this.errorMessage.setToolTipText(null);
+                
+                if (this.icon != null) {
+                    //TODO 
+//                    Image image = new ImageIcon().getImage();
+//                    this.icon.setImage(image);                    
+                }
+                
+                /* Force the report utility to update */
+                ReportHelper.getCurrentReportUtility().repaint();
+
+                return true;
+
+            } else {
                 this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                // INTERNATIONALIZE
+                this.errorMessage
+                        .setToolTipText("Um die Auswertung anzeigen zu können muss mindestens eine Bildmenge der Auswertung hinzugefügt werden");
+                return false;
             }
-            this.errorMessage
-                    .setToolTipText("Um die Auswertung anzeigen zu können muss mindestens eine Bildmenge der Auswertung hinzugefügt werden");
-            return false;
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
+        
+        return false;
+
     };
 
     @Override
@@ -468,12 +537,12 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         if (ReportHelper.getCurrentModel() != null) {
             if (ReportHelper.getCurrentModel().getPictureContainer() != null) {
                 this.associatedPictureSets.addElements(ReportHelper.getCurrentModel().getPictureContainer().toArray());
-                this.availablePictureSets.removeElements(ReportHelper.getCurrentModel().getPictureContainer().toArray());
+                this.availablePictureSets
+                        .removeElements(ReportHelper.getCurrentModel().getPictureContainer().toArray());
             }
-            
-          
-            
-            if (ReportHelper.getCurrentModel().getExifFilterKeywords() != null && ReportHelper.getCurrentModel().getExifFilterKeywords().length > 0) {
+
+            if (ReportHelper.getCurrentModel().getExifFilterKeywords() != null
+                    && ReportHelper.getCurrentModel().getExifFilterKeywords().length > 0) {
                 System.out.println(ReportHelper.getCurrentModel().getExifFilterKeywords());
                 this.associatedExifTags.addElements((ReportHelper.getCurrentModel().getExifFilterKeywords()));
                 this.availableExifTags.removeElements((ReportHelper.getCurrentModel().getExifFilterKeywords()));

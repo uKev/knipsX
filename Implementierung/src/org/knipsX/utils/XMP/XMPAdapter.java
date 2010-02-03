@@ -1,7 +1,11 @@
 package org.knipsX.utils.XMP;
 
 import java.io.File;
-import java.util.ArrayList;
+
+//import com.drew.imaging.jpeg.JpegProcessingException;
+//import com.drew.metadata.MetadataException;
+//import com.drew.metadata.xmp.XmpDirectory;
+//import com.drew.metadata.xmp.XmpReader;
 
 
 /**
@@ -26,8 +30,21 @@ public class XMPAdapter {
      * Returns an array list of strings containing the XMP keywords
      * @return the list of keywords
      */
-    public ArrayList<String> getKeywords() {
-        return null;        
+    public String[] getKeywords() {        
+        
+//        try {
+//            XmpReader bla = new XmpReader(imageFile);
+//            XmpDirectory dir = (XmpDirectory) bla.extract().getDirectory(new XmpDirectory().getClass());            
+//            return dir.getStringArray(XmpDirectory.TAG_KEYWORDS);            
+//        } catch (JpegProcessingException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (MetadataException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+        
+        return null;         
     }
     
 }

@@ -2,6 +2,7 @@ package org.knipsX.model.reportmanagement;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.utils.Converter;
@@ -312,8 +313,36 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
      */
     public Category[][] getCategories() {
 
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
         return this.categories;
 
+    }
+
+    @Override
+    public boolean isModelValid() {
+        this.calculateIfRequired();
+        
+        Logger log = Logger.getLogger(this.getClass());
+        
+        if (this.maxX < this.minX) {
+            log.info("maxX < minX");
+            return false;
+        }
+        if (this.maxZ < this.minZ) {
+            log.info("maxZ < minZ");
+            return false;
+        }
+        if (this.maxY < this.minY) {
+            log.info("maxY < minY");
+            return false;
+        }
+        
+        if (0 == Validator.getValidPicturesCount(this.getPictureContainer(), 
+                new ExifParameter [] { this.xAxis.getParameter(), this.zAxis.getParameter() }
+        )){
+            log.info("0 == Validator.getValidPicturesCount");
+        }
+        
+        return true;
     }
 }
