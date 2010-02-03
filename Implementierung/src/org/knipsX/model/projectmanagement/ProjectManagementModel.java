@@ -9,6 +9,7 @@ import java.util.List;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.utils.RepositoryHandler;
+import org.knipsX.utils.RepositoryInterfaceException;
 
 /******************************************************************************
  * Manages all the projects data the user has.
@@ -37,7 +38,12 @@ public class ProjectManagementModel extends AbstractModel {
      * Scans the project folder for projects.
      */
     public ProjectManagementModel() {
-        this.projects = RepositoryHandler.getRepository().getProjects();
+        try {
+            this.projects = RepositoryHandler.getRepository().getProjects();
+        } catch (RepositoryInterfaceException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         this.updateViews();
     }
 
@@ -98,20 +104,29 @@ public class ProjectManagementModel extends AbstractModel {
      */
     public void addProject(String name) {
 
-        /* create new project with a new id*/
-        int id = RepositoryHandler.getRepository().createProject();
-
         /* gets the new project */
-        ProjectModel newProject = RepositoryHandler.getRepository().getProject(id);
+        ProjectModel newProject;
+        try {
+            /* create new project with a new id*/
+            int id = RepositoryHandler.getRepository().createProject();
 
-        /*sets the pojectname*/
-        newProject.setName(name);
+            newProject = RepositoryHandler.getRepository().getProject(id);
 
-        /*saves the new project after name is set*/
-        RepositoryHandler.getRepository().saveProject(newProject);
+            /*sets the pojectname*/
+            newProject.setName(name);
 
-        /* add new project */
-        this.projects.add(0, newProject);
+            /*saves the new project after name is set*/
+            RepositoryHandler.getRepository().saveProject(newProject);
+            
+            /* add new project */
+            this.projects.add(0, newProject);
+        
+        } catch (RepositoryInterfaceException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
 
         /*updates the view to display the new entry in the list*/
         this.updateViews();
@@ -125,7 +140,12 @@ public class ProjectManagementModel extends AbstractModel {
     public void removeProject(int toDelete) {
         ProjectModel project = this.projects.remove(toDelete);
 
-        RepositoryHandler.getRepository().deleteProject(project.getId());
+        try {
+            RepositoryHandler.getRepository().deleteProject(project.getId());
+        } catch (RepositoryInterfaceException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         /*updates the view to display the new list*/
         this.updateViews();
@@ -141,20 +161,25 @@ public class ProjectManagementModel extends AbstractModel {
      */
     public void copyProject(ProjectModel projectToCopy, String name) {
 
-        /* create new project from an old one */
-        int id = RepositoryHandler.getRepository().createProject(projectToCopy);
+        try {
+            /* create new project from an old one */
+            int id = RepositoryHandler.getRepository().createProject(projectToCopy);
 
-        /* get and modify the copied project */
-        ProjectModel newProject = RepositoryHandler.getRepository().getProject(id);
+            /* get and modify the copied project */
+            ProjectModel newProject = RepositoryHandler.getRepository().getProject(id);
 
-        /*sets the pojectname*/
-        newProject.setName(name);
+            /*sets the pojectname*/
+            newProject.setName(name);
 
-        /* add copied project */
-        this.projects.add(0, newProject);
+            /* add copied project */
+            this.projects.add(0, newProject);
 
-        /*saves the new project after name is set*/
-        RepositoryHandler.getRepository().saveProject(newProject);
+            /*saves the new project after name is set*/
+            RepositoryHandler.getRepository().saveProject(newProject);
+        } catch (RepositoryInterfaceException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         /*updates the view to display the new entry in the list*/
         this.updateViews();

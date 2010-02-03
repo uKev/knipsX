@@ -27,7 +27,7 @@ public class XMPAdapter {
      * @return the list of keywords
      */
     public ArrayList<String> getKeywords() {
-        return null;        
+        return null;
     }
     
 }

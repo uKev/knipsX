@@ -1,3 +1,5 @@
+package org.knipsX.studien.XML4.hello;
+
 import java.io.*;
 class FileWrite 
 {

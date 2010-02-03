@@ -1,6 +1,6 @@
 import java.util.*;
 import javax.xml.bind.*;
-import project.*;
+import hello.*;
 import java.io.*;
 
 
@@ -15,14 +15,14 @@ public Hello2() {
 public void unmarshal() {
 	try {
 
-		JAXBContext jc = JAXBContext.newInstance( "project" );
+		JAXBContext jc = JAXBContext.newInstance( "hello" );
        		Unmarshaller u = jc.createUnmarshaller();
 		//u.setValidating(true);
        		//Object o = u.unmarshal( new File( "nosferatu.xml" ) );
 
 		//Object collection = u.unmarshal(new File( "output.xml"));
 
-		JAXBElement collection = (JAXBElement)u.unmarshal(new File( "project.xml"));
+		JAXBElement collection = (JAXBElement)u.unmarshal(new File( "output.xml"));
 			System.out.println("getValue(): " + collection.getValue() + "\n");
 			System.out.println("getName(): " + collection.getName() + "\n");
 			System.out.println("getScope(): " + collection.getScope() + "\n");
@@ -31,13 +31,11 @@ public void unmarshal() {
 		
 		//List grList = collection.getValue().getText();
 		//System.out.println("size():" + grList + "\n");
-/*
+
 	GreetingListType greetType = (hello.GreetingListType) collection.getValue();
 		List greetZ = greetType.getGreeting();
 		System.out.println("size: " + greetZ.size() + "\n");
-*/
 
-/*
 		for (int i= 0; i<greetZ.size();i++) {
 
 			System.out.println("Element: " + i + "\n");
@@ -48,7 +46,6 @@ public void unmarshal() {
 			System.out.println("Language: " + greetRecord.getLanguage() + "\n");
 
 		}
-*/
     //        List greetList = greetType.getBook();
 
 
