@@ -40,8 +40,9 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
         if (model != null) {
 
             Logger logger = Logger.getLogger(this.getClass());
-            logger.debug("Min X " + this.model.getMinX() + " Max X " + this.model.getMaxX());
-            logger.debug("Min Y " + this.model.getMinY() + " Max Y " + this.model.getMaxY());
+            
+            logger.debug("Gloabl Min X " + this.model.getMinX() + " Global Max X " + this.model.getMaxX());
+            logger.debug("Global Min Y " + this.model.getMinY() + " Gloabl Max Y " + this.model.getMaxY() + " \n");
            
             if (this.model.isModelValid()) {
                 
@@ -50,7 +51,12 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
 
                 Category[] categories = this.model.getCategories();
 
+                int category = 0;
                 for (int i = 0; i < categories.length; i++) {
+                    
+                    logger.debug("Category Number " + category + " Min X " + this.getxAxis().getAxisSpace(categories[i].getMinValueX()) + " Max X " 
+                           + this.getxAxis().getAxisSpace(categories[i].getMaxValueX()) + " Heigth of 1. Bar " + categories[i].getBars().get(0).getHeight() + "\n");
+                    
                     double xRange = Math.abs(this.getxAxis().getAxisSpace(categories[i].getMaxValueX())
                             - this.getxAxis().getAxisSpace(categories[i].getMinValueX()));
 
@@ -59,6 +65,8 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
                     /* Create the actual bar */
                     this.createCube(new Vector3d(xPosition, 0, 0), new Vector3d(1, this.getyAxis().getAxisSpace(
                             categories[i].getBars().get(0).getHeight()), xRange / 2), this.basicMaterial(Color.orange));
+                    
+                    category++;
 
                 }
 
