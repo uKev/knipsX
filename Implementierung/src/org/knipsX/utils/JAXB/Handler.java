@@ -3,16 +3,19 @@ package org.knipsX.utils.JAXB;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.knipsX.utils.JAXB.parser.*;
 
 abstract class Handler {
 	protected static Map<Class<?>,Handler> ourClass2Conv = 
 	new HashMap<Class<?>,Handler>();
 
 	static {
-		ourClass2Conv.put( PersonType.class, new PersonHandler() );
-		ourClass2Conv.put( NameTypeclass, new NameHandler() );
-		ourClass2Conv.put( AddrType.class, new AddHandler() );
-		ourClass2Conv.put( ChildType.class, new Child Handler() );
+		
+		ourClass2Conv.put( Directory.class, new DirectoryHandler() );
+		ourClass2Conv.put( Directories.class, new DirectoriesHandler() );
+		ourClass2Conv.put( Picture.class, new PictureHandler() );
+		ourClass2Conv.put( PictureSet.class, new PictureSetHandler() );
+		ourClass2Conv.put( PictureSets.class, new PictureSetsHandler() );
 		//...
 
 	}
@@ -35,4 +38,6 @@ abstract class Handler {
 			h.process( obj );
 		}
 	}
+	
+
 }
