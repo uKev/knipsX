@@ -88,6 +88,6 @@ public final class Programm {
          */
         new JProjectManagement<ProjectManagementModel>(projectManagementModel);
 
-        logger.info("Closing knipsX");
+        logger.info("knipsX started");
     }
 }
