@@ -39,7 +39,7 @@ public class TextModel extends AbstractReportModel {
 
     @Override
     public boolean isModelValid() {
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
         return true;
     }
 	

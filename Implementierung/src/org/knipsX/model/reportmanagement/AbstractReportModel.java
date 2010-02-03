@@ -203,7 +203,7 @@ public abstract class AbstractReportModel extends AbstractModel {
      * @return pictures with missing exif parameters that are missing for the report
      */
     public ArrayList<PictureParameter> getPicturesWithMissingExifParameter() {
-        calculateIfNeeded();
+        calculateIfRequired();
         return this.missingExifParameter;
     }
 
@@ -353,7 +353,7 @@ public abstract class AbstractReportModel extends AbstractModel {
     /**
      * calculates the data if it is not already calculated.
      */
-    protected void calculateIfNeeded() {
+    protected void calculateIfRequired() {
         if (!this.isDataCalculated()) {
             this.calculate();
             this.dataIsCalculated(true);

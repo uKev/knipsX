@@ -60,7 +60,7 @@ public class TableModel extends AbstractReportModel {
      */
     public ArrayList<Picture> getPictures() {
 
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
 
         return this.pictures;
 
@@ -70,7 +70,7 @@ public class TableModel extends AbstractReportModel {
     public boolean isModelValid() {
 
         Logger log = Logger.getLogger(this.getClass());
-        calculateIfNeeded();
+        calculateIfRequired();
         
         if (this.pictures.isEmpty()) {
             log.info("this.pictures.isEmpty()");

@@ -51,7 +51,7 @@ public abstract class AbstractDoubleAxesModel extends AbstractSingleAxisModel {
      * @return the biggest value in the z-axis.
      */
     public double getMaxZ() {
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
         return this.maxZ;
     }
 
@@ -61,7 +61,7 @@ public abstract class AbstractDoubleAxesModel extends AbstractSingleAxisModel {
      * @return the smallest value in the z-axis.
      */
     public double getMinZ() {
-        this.calculateIfNeeded();
+        this.calculateIfRequired();
         return this.minZ;
     }
 
