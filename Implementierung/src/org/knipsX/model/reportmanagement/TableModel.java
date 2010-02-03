@@ -2,6 +2,7 @@ package org.knipsX.model.reportmanagement;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.utils.ExifParameter;
@@ -63,5 +64,18 @@ public class TableModel extends AbstractReportModel {
 
         return this.pictures;
 
+    }
+
+    @Override
+    public boolean isModelValid() {
+
+        Logger log = Logger.getLogger(this.getClass());
+        calculateIfNeeded();
+        
+        if (this.pictures.isEmpty()) {
+            log.info("this.pictures.isEmpty()");
+            return false;
+        }
+        return true;
     }
 }

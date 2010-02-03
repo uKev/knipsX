@@ -2,8 +2,10 @@ package org.knipsX.model.reportmanagement;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.utils.Validator;
 
 /**
  * Model which contain the Boxplots and name them with an Axis.
@@ -253,6 +255,23 @@ public class BoxplotModel extends AbstractSingleAxisModel {
     public void setxAxis(final Axis xAxis) {
         this.dataIsCalculated(false);
         this.xAxis = xAxis;
+    }
+
+    @Override
+    public boolean isModelValid() {
+        Logger logger = Logger.getLogger(this.getClass());
+        this.calculateIfNeeded();
+        
+        if (this.maxX < this.minX) {
+            logger.info("maxX < minX");
+            return false;
+        }
+        if (Validator.getValidPicturesCount(this.getPictureContainer(), this.xAxis.getParameter()) == 0) {
+            logger.info("validPictureCount == 0");
+            return false;
+        }
+        
+        return true;
     }
 
 }
