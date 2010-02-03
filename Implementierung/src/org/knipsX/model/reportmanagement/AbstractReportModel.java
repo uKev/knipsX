@@ -21,7 +21,7 @@ public abstract class AbstractReportModel extends AbstractModel {
     private String reportDescription;
     // Tags of pictures that will be filtered
     private ArrayList<String> exifFilterKeywords;
-    private final ArrayList<PictureParameter> missingExifParameter = new ArrayList<PictureParameter>();;
+    private final ArrayList<PictureParameter> missingExifParameter;
     private boolean dataIsCalculated;
 
     /**
@@ -30,6 +30,7 @@ public abstract class AbstractReportModel extends AbstractModel {
     public AbstractReportModel() {
         super();
         this.pictureContainer = new ArrayList<PictureContainer>();
+        this.missingExifParameter = new ArrayList<PictureParameter>();
         this.exifFilterKeywords = new ArrayList<String>();
 
         this.dataIsCalculated(false);
@@ -82,6 +83,7 @@ public abstract class AbstractReportModel extends AbstractModel {
         this.reportDescription = reportDescription;
         this.exifFilterKeywords = exifFilterKeywords;
         this.pictureContainer = new ArrayList<PictureContainer>();
+        this.missingExifParameter = null;
         this.dataIsCalculated(false);
 
     }
