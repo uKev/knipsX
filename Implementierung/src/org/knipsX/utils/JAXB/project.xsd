@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="project">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="id"/>
+        <xs:element ref="name"/>
+        <xs:element ref="description"/>
+        <xs:element ref="creationDate"/>
+        <xs:element ref="pictureSets"/>
+        <xs:element ref="directories"/>
+        <xs:element ref="pictures"/>
+        <xs:element ref="reports"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="creationDate" type="xs:integer"/>
+  <xs:element name="directories">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="directory"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="pictures">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="picture"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="reports">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="report"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="report">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="type"/>
+        <xs:element ref="name"/>
+        <xs:element ref="description"/>
+        <xs:element minOccurs="0" ref="axes"/>
+        <xs:element ref="pictureSets"/>
+        <xs:element ref="exifFilterKeywords"/>
+        <xs:element minOccurs="0" ref="wilcoxonTest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="axes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="axis"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="axis">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="type"/>
+        <xs:element ref="parameter"/>
+        <xs:element ref="description"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="parameter" type="xs:NCName"/>
+  <xs:element name="exifFilterKeywords">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="exifFilterKeyword"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="exifFilterKeyword" type="xs:string"/>
+  <xs:element name="wilcoxonTest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="isActive"/>
+        <xs:element ref="testType"/>
+        <xs:element ref="significance"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="isActive" type="xs:boolean"/>
+  <xs:element name="testType" type="xs:NCName"/>
+  <xs:element name="significance" type="xs:decimal"/>
+  <xs:element name="id" type="xs:integer"/>
+  <xs:element name="name" type="xs:string"/>
+  <xs:element name="description" type="xs:string"/>
+  <xs:element name="pictureSets">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="pictureSet"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="directory">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="id"/>
+        <xs:element ref="path"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="picture">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="id"/>
+        <xs:element ref="path"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="type" type="xs:NCName"/>
+  <xs:element name="pictureSet">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="id"/>
+        <xs:element ref="name"/>
+        <xs:element ref="children"/>
+        <xs:element ref="deactivatedPictures"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="children">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:sequence minOccurs="0">
+          <xs:element ref="pictureSet"/>
+          <xs:element ref="directory"/>
+        </xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="picture"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="deactivatedPictures">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="path"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="path" type="xs:string"/>
+</xs:schema>
