@@ -2,8 +2,11 @@ package org.knipsX.model.reportmanagement;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.utils.Validator;
+import org.knipsX.utils.ExifParameter;
 
 /**
  * Represents the 3D-cluser and allocate the axes to it.
@@ -175,6 +178,20 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
     public ArrayList<Frequency3DPoint> getFrequency3DPoints() {
         this.calculateIfNeeded();
         return this.frequency3DPoints;
+    }
+
+    @Override
+    public boolean isModelValid() {
+        Logger logger = Logger.getLogger(this.getClass());
+    
+        if (0 == Validator.getValidPicturesCount(this.getPictureContainer(), 
+                new ExifParameter [] { this.getxAxis().getParameter(), this.getyAxis().getParameter(), this.getzAxis().getParameter()} )) 
+        {
+            logger.info("getValidPicturesCount == 0");
+            return false;
+        }
+        
+        return true;
     }
 
 }

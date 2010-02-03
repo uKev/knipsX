@@ -345,6 +345,12 @@ public abstract class AbstractReportModel extends AbstractModel {
     abstract protected void calculate();
     
     /**
+     * Checks if the model is valid which mean it make sense to display it.
+     * @return true if it make sense to display it, otherwise false
+     */
+    abstract public boolean isModelValid();
+    
+    /**
      * calculates the data if it is not already calculated.
      */
     protected void calculateIfNeeded() {
