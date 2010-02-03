@@ -1,19 +1,20 @@
 package org.knipsX.utils;
 
-class RepositoryInterfaceException extends Exception {
+public class RepositoryInterfaceException extends Exception {
 
-	private Throwable cause;
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	public RepositoryInterfaceException(Throwable cause) {
-		this.cause = cause;
+		super(cause);
 		
 	}
-	public Throwable getCause(){
-		return cause;
-		
-	}
+	public RepositoryInterfaceException(String message, Throwable cause) {
+            super(message, cause);
+            
+    }
+	
 }
