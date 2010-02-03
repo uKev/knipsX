@@ -38,7 +38,6 @@ class WilcoxonSample implements Comparable<WilcoxonSample>{
 		this.isLessThan = bool;
 	}
 	
-	@Override
 	public int compareTo(WilcoxonSample otherSample) {
 		if (this.value < otherSample.getvalue()) {
 			return -1;
