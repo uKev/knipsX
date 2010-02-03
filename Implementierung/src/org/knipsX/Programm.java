@@ -19,6 +19,10 @@ import org.knipsX.view.projectmanagement.JProjectManagement;
  *****************************************************************************/
 public final class Programm {
 
+    /*
+     * the logger.
+     * See http://logging.apache.org/log4j/1.2/manual.html for usage.
+     */
     public static Logger logger = Logger.getLogger(Programm.class);
 
     /*
