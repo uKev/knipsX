@@ -92,6 +92,7 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      * @return the biggest value in the x-axis.
      */
     public double getMaxX() {
+        this.calculateIfNeeded();
         return this.maxX;
 
     }
@@ -102,6 +103,7 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      * @return the biggest value in the y-axis.
      */
     public double getMaxY() {
+        this.calculateIfNeeded();
         return this.maxY;
 
     }
@@ -112,6 +114,7 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      * @return the smallest value in the x-axis.
      */
     public double getMinX() {
+        this.calculateIfNeeded();
         return this.minX;
 
     }
@@ -122,6 +125,7 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      * @return the smallest value in the y-axis.
      */
     public double getMinY() {
+        this.calculateIfNeeded();
         return this.minY;
     }
 
