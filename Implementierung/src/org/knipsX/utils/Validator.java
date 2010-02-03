@@ -1,6 +1,9 @@
 package org.knipsX.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
@@ -43,9 +46,34 @@ public final class Validator {
         return validPictures;
     }
     
+    /**
+     * returns the number of pictures in the pictureContainers that have valid Exif-Parameters exifParameters
+     * @param pictureContainers pictureContainers where the pictures come from.
+     * @param exifParameters the Exif-Parameters that should be checked in the pictures.
+     * @return the number of valid pictures.
+     */
     public static int getValidPicturesCount(final ArrayList<PictureContainer> pictureContainers,
             final ArrayList<ExifParameter> exifParameters) {
         return Validator.getValidPictures(pictureContainers, exifParameters).size();
+    }
+    
+    /**
+     * returns the number of pictures in the pictureContainers that have valid Exif-Parameters exifParameters
+     * @param pictureContainers pictureContainers where the pictures come from.
+     * @param exifParameters the Exif-Parameters that should be checked in the pictures.
+     * @return the number of valid pictures.
+     */
+    public static int getValidPicturesCount(final ArrayList<PictureContainer> pictureContainers, final ExifParameter [] exifParameters) {
+        return Validator.getValidPicturesCount(pictureContainers, new ArrayList<ExifParameter>(Arrays.asList(exifParameters)));
+    }
+    /**
+     * returns the number of pictures in the pictureContainers that have a valid Exif-Parameter exifParameter
+     * @param pictureContainers pictureContainers where the pictures come from.
+     * @param exifParameter the Exif-Parameter that should be checked in the pictures.
+     * @return the number of valid pictures.
+     */
+    public static int getValidPicturesCount(final ArrayList<PictureContainer> pictureContainers, final ExifParameter exifParameter) {
+        return Validator.getValidPicturesCount(pictureContainers, new ExifParameter [] { exifParameter });
     }
 
 }
