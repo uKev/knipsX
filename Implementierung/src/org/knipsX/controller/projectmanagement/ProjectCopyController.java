@@ -5,13 +5,12 @@ package org.knipsX.controller.projectmanagement;
 
 /* import classes from java sdk */
 import java.awt.event.ActionEvent;
-
 import javax.swing.JOptionPane;
 
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.model.projectview.ProjectModel;
-import org.knipsX.utils.StringChecker;
+import org.knipsX.utils.Validator;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
 /****************************************************************************************
@@ -71,7 +70,7 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
 
                 /* user is not pressing cancel and no text or wrong text is given */
                 if (projectName != null) {
-                    if (!StringChecker.isStringOk(projectName)) {
+                    if (!Validator.isStringOk(projectName)) {
 
                         /* show the user that the name is incorrect */
                         // INTERNATIONALIZE
@@ -80,7 +79,7 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
                     }
 
                     /* user has given a correct name */
-                    if (StringChecker.isStringOk(projectName)) {
+                    if (Validator.isStringOk(projectName)) {
                         this.model.copyProject(projectToCopy, projectName);
                     }
                 }

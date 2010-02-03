@@ -120,6 +120,25 @@ public final class Validator {
         return Validator.getValidPicturesCount(pictureContainers, new ArrayList<ExifParameter>(Arrays
                 .asList(exifParameters)));
     }
+    
+    /**
+     * Checks the string which is committed for validation.
+     * 
+     * @param toCheck
+     *            the String to check.
+     * @return true if it validates, false if not.
+     */
+    public static boolean isStringOk(String toCheck) {
+        if (toCheck == null) {
+            return false;
+        } else if (toCheck.equals("")) {
+            return false;
+        } else if (toCheck.length() > 255){
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     private Validator() {
 

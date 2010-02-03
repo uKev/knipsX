@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
-import org.knipsX.utils.StringChecker;
+import org.knipsX.utils.Validator;
 import org.knipsX.view.projectview.JProjectView;
 
 /**
@@ -47,7 +47,7 @@ public class PictureSetListCreateController<M extends ProjectModel, V extends JP
 
         /* while user is not pressing cancel and no text is given */
         /* FIXME use StringChecker */
-        while (StringChecker.isStringOk(pictureSetName) == false) {
+        while (Validator.isStringOk(pictureSetName) == false) {
 
             /* try to get a project name */
             pictureSetName = JOptionPane.showInputDialog(null, "Bildmengennamen darf nicht leer sein!",
@@ -55,7 +55,7 @@ public class PictureSetListCreateController<M extends ProjectModel, V extends JP
         }
 
         /* has user give in a project name? */
-        if (StringChecker.isStringOk(pictureSetName) == true) {
+        if (Validator.isStringOk(pictureSetName) == true) {
             this.model.addPictureSet(new PictureSet(pictureSetName, UUID.randomUUID().hashCode()));
         }
     }
