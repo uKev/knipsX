@@ -182,7 +182,7 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
         this.minX = Double.MAX_VALUE;
         this.minY = Double.MAX_VALUE;
 
-        final ArrayList<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
+        final ArrayList<ExifParameter> exifParameters = new ArrayList<ExifParameter>(1);
         exifParameters.add(this.getxAxis().getParameter());
 
         for (final Picture picture : Validator.getValidPictures(this.getPictureContainer(), exifParameters)) {
