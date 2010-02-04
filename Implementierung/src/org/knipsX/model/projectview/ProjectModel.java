@@ -81,6 +81,7 @@ public class ProjectModel extends AbstractModel {
      * The ACTIVE status means this part is available and you can do interactions with it. It is in the foreground.
      */
     public static final int ACTIVE = 1;
+    
     /**
      * The INACTIVE status means this part is not available and you can not do interactions with it. It is in the
      * background.
@@ -364,6 +365,13 @@ public class ProjectModel extends AbstractModel {
         final boolean isRemoved = this.pictureSetList.remove(pictureSet);
 
         if (isRemoved) {
+            
+            /* kill internal references */
+            if(this.pictureSetList.size() == 0) {
+                this.selectedPicture = null;
+                this.selectedPictureSet = null;
+                this.selectedPictureSetContent = null;                
+            }
             this.updateViews();
         }
         return isRemoved;
