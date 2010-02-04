@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import javax.vecmath.Vector3d;
 
 import org.apache.log4j.Logger;
+import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.model.reportmanagement.Category;
 import org.knipsX.model.reportmanagement.Histogram3DModel;
 
@@ -46,8 +47,11 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
             logger.debug("Model min Y " + this.model.getMinY() + "  Model max Y " + this.model.getMaxY());
 
             this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
+            this.getxAxis().setAxis(this.model.getxAxis());
             this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
+            this.getzAxis().setAxis(this.model.getzAxis());            
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
+            this.getyAxis().setDescription("Anzahl");
 
             double shrinkFactor = 0.85;
 
@@ -69,11 +73,20 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
                     double xPosition = this.getxAxis().getAxisSpace(categories[i][j].getMinValueX()) + xRange / 2;
                     double zPosition = this.getzAxis().getAxisSpace(categories[i][j].getMinValueZ()) + zRange / 2;
 
-                    this.createCube(new Vector3d(xPosition, 0, zPosition), new Vector3d(shrinkFactor * zRange / 2, this
-                            .getyAxis().getAxisSpace(categories[i][j].getBars().get(0).getHeight()), shrinkFactor
-                            * xRange / 2), this.basicMaterial(Color.orange));
+                    double barHeight = this.getyAxis().getAxisSpace(categories[i][j].getBars().get(0).getHeight());
 
-                    heigth++;
+                    if (categories[i][j].getBars().get(0).getHeight() > 0) {
+                        this.createCube(new Vector3d(xPosition, 0, zPosition), new Vector3d(shrinkFactor * zRange / 2,
+                                barHeight, shrinkFactor * xRange / 2), this.basicMaterial(Color.orange));
+
+                        /* Create the actual number of elements on top of the bar */
+                        double size = 0.33d;
+                        this.createText(new Vector3d(xPosition, barHeight, zPosition), new Vector3d(size, size, size),
+                                this.basicMaterial(Color.white), Integer.toString((int) categories[i][j].getBars().get(
+                                        0).getHeight()));
+
+                        heigth++;
+                    }
 
                 }
             }
@@ -92,5 +105,4 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
 
         }
     }
-
 }
