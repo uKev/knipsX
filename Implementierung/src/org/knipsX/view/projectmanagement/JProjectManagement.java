@@ -73,9 +73,9 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
         /* show main panel */
         this.setContentPane(this.getJContentPane());
 
-        this.setMinimumSize(new Dimension(600, 75));
+        this.setMinimumSize(new Dimension(700, 75));
 
-        this.setPreferredSize(new Dimension(600, 300));
+        this.setPreferredSize(new Dimension(700, 300));
 
         /* set standard close action */
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
