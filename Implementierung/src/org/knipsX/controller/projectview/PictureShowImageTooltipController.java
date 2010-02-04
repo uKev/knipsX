@@ -46,7 +46,18 @@ AbstractController<M, V> implements MouseListener {
 		pictureFrame.setUndecorated(true);
 		
 		JPanel panel = new JPanel();
-		pictureFrame.setContentPane(panel);		
+		pictureFrame.setContentPane(panel);	
+		
+		(JLable).getComponent().getParent()		
+		ImageIcon icon = new ImageIcon();
+        while ( icon.getImageLoadStatus() == MediaTracker.LOADING );
+        
+        
+        JLabel label = new JLabel(icon);
+        icon.setImageObserver(label);
+        
+        JLabel label = new JLabel(icon);
+        icon.setImageObserver(label);
 				
 		ImageIcon image = new ImageIcon();
 	
