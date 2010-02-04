@@ -51,7 +51,7 @@ public class WilcoxonTest {
         this.pictureContainer = pictureContainer;
         this.isCalculated = false;
     }
-    
+
     /**
      * Activates and deactivates the test
      * 
@@ -70,7 +70,6 @@ public class WilcoxonTest {
     public boolean isActive() {
         return this.isActive;
     }
-
 
     /**
      * Returns and shows if the test is calculated
@@ -138,6 +137,11 @@ public class WilcoxonTest {
     public WilcoxonTestType getWilcoxonTestType() {
         return this.wilcoxenType;
     }
+    
+    public void setSignificance(double value) {
+        this.significance = value;
+        this.isCalculated = false;
+    }
 
     /**
      * Calculate and initialize the whole test
@@ -199,7 +203,7 @@ public class WilcoxonTest {
         }
         return numberOfElementsInSet;
     }
-    
+
     private double calcPValue(final double chanceOfPosition, final int partVectors, final double rangeSum) {
         double pValue = 0;
         if (this.wilcoxenType == WilcoxonTestType.TWO_SIDED) {
@@ -253,7 +257,7 @@ public class WilcoxonTest {
             }
         }
     }
-    
+
     /*
      * Returns if this Wilcoxontest is active or not
      * 
@@ -275,7 +279,7 @@ public class WilcoxonTest {
     /*
      * Chance of all possible ranksums to be greater than the significance
      */
-    
+
     /**
      * Returns the specific testtype. It can be LESS, GREATER and TWO_SIDED.
      * 
@@ -307,7 +311,7 @@ public class WilcoxonTest {
         }
         return chance;
     }
-    
+
     /*
      * The mathematical faculty
      */
