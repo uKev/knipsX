@@ -20,6 +20,7 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
 
     private Category[] categories;
     private double xCategorySize;
+    Logger log = Logger.getLogger(this.getClass());
 
     /**
      * Creates a new empty Histogram2DModel. You need to set pictureContainer and xAxis before you can use it.
@@ -40,24 +41,39 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
         super(pictureContainer, xAxis);
     }
 
+    /*
+     * Iterate over all pictures from the different picture sets and allocate each picture in the corresponding category
+     */
     private void allocatePicturesToCategories() {
+        /*
+         * Before we can allocate pictures to categories, we need to compute the categories first.
+         */
         this.generateCategories();
+        
+        
         Double xValue;
         Category category;
         Bar bar;
+
+        // there is no negative count of pictures, so the minum is zero.
         this.minY = 0;
 
+        /*
+         * We will memorise each picture, we have allocated, in a list. 
+         * So we can detect if a picture may have been allocated into more than one category.
+         * If a picture is allocated into more than one category it is very likely that the generateCategories() method does not work properly.
+         */
         final ArrayList<Picture> allreadyAllocatedPictures = new ArrayList<Picture>();
 
         for (final PictureContainer pictureContainer : this.getPictureContainer()) {
+
             /*
-             * create a bar for each pictureContainer in each Category
-             */
-            /*
-             * each x coordinate
+             * each x coordinate = each category
              */
             for (int i = 0; i < this.categories.length; i++) {
-
+                /*
+                 * create a bar for each pictureContainer in each Category
+                 */
                 bar = new Bar(pictureContainer);
                 category = this.categories[i];
 
@@ -77,31 +93,27 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
                     if (pictureValid) {
                         xValue = Converter.objectToDouble(xValueObject);
 
-                        // if x and z value fits between <= category <
+                        // if x value fits between <= category <
                         if ((xValue < category.getMaxValueX()) && (xValue >= category.getMinValueX())) {
                             /*
                              * Picture fits in the category, yeah!
                              */
                             if (allreadyAllocatedPictures.contains(picture)) {
-                                System.out.println("\nError! Picture " + picture.getName()
-                                        + " already einsortiert. x: " + xValue);
-                                System.out.println("in Kategorie: " + "max X: " + category.getMaxValueX() + "  min x: "
-                                        + category.getMinValueX() + "  max z: " + category.getMaxValueZ() + "  min z: "
-                                        + category.getMinValueZ());
+                                this.log.error("Picture " + picture.getName() + " already classified. x: " + xValue);
+                                this.log.error("in Category: " + "max X: " + category.getMaxValueX() + "  min x: ");
                             }
                             allreadyAllocatedPictures.add(picture);
                             bar.addPicture(picture);
 
-                            // or if x or z is last
+                            // or if x is last
                         } else if (((i + 1) == this.categories.length)) {
 
-                            // and fits in category.maxValue == and other value fits in other category
+                            // and fits in category.maxValue == value
                             if (xValue == category.getMaxValueX()) {
                                 if (allreadyAllocatedPictures.contains(picture)) {
-                                    System.out.println("\nError! Picture " + picture.getName()
-                                            + " already einsortiert. x: " + xValue);
-                                    System.out.println("in Kategorie: " + "max X: " + category.getMaxValueX()
-                                            + "  min x: " + category.getMinValueX());
+                                    this.log
+                                            .error("Picture " + picture.getName() + " already classified. x: " + xValue);
+                                    this.log.error("in Category: " + "max X: " + category.getMaxValueX() + "  min x: ");
                                 }
                                 allreadyAllocatedPictures.add(picture);
 
@@ -131,12 +143,12 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
 
         for (int i = 0; i < this.categories.length; i++) {
             if (this.categories[i].getMaxValueX() > this.maxX) {
-                System.out.println("found biggest X value: " + this.categories[i].getMaxValueX() + " >= " + this.maxX
+                this.log.error("found biggest X value: " + this.categories[i].getMaxValueX() + " >= " + this.maxX
                         + " (" + i + ")");
             }
 
             if (this.categories[i].getMinValueX() < this.minX) {
-                System.out.println("found smallest X value: " + this.categories[i].getMinValueX() + " <= " + this.minX
+                this.log.error("found smallest X value: " + this.categories[i].getMinValueX() + " <= " + this.minX
                         + " (" + i + ")");
             }
 
@@ -147,10 +159,10 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
         }
 
         if (this.maxY != this.getMaxY()) {
-            System.out.println(" this.maxY != this.getMaxY() :" + this.maxY + " != " + this.getMaxY());
+            this.log.error(" this.maxY != this.getMaxY() :" + this.maxY + " != " + this.getMaxY());
         }
         if (this.maxX != this.getMaxX()) {
-            System.out.println(" this.maxX != this.getMaxX() :" + this.maxX + " != " + this.getMaxX());
+            this.log.error(" this.maxX != this.getMaxX() :" + this.maxX + " != " + this.getMaxX());
         }
 
         final ArrayList<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
@@ -160,11 +172,11 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
         if (pictureCount != count) {
 
             if (this.getPicturesWithMissingExifParameter().isEmpty()) {
-                System.out.println("pictureCount != count    " + pictureCount + " != " + count
+                this.log.error("pictureCount != count    " + pictureCount + " != " + count
                         + " , das riecht nach nem bug, da wurde was vergessen!");
             } else {
-                System.out
-                        .println("pictureCount != count    "
+                this.log
+                        .error("pictureCount != count    "
                                 + pictureCount
                                 + " != "
                                 + count
@@ -176,16 +188,22 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
     }
 
     private void calculateExtremeValues() {
+
+        /*
+         * initializing maximum with the smallest possible and the minimum with the largest possible number.
+         */
         this.maxX = -Double.MAX_VALUE;
         this.maxY = -Double.MAX_VALUE;
 
         this.minX = Double.MAX_VALUE;
         this.minY = Double.MAX_VALUE;
 
-        final ArrayList<ExifParameter> exifParameters = new ArrayList<ExifParameter>(1);
-        exifParameters.add(this.getxAxis().getParameter());
-
-        for (final Picture picture : Validator.getValidPictures(this.getPictureContainer(), exifParameters)) {
+        /*
+         * Find the biggest and smallest value on all valid pictures.
+         * It is needed e.g. for scaling the categories.
+         */
+        for (final Picture picture : Validator.getValidPictures(this.getPictureContainer(), this.getxAxis()
+                .getParameter())) {
 
             final Object xParameter = picture.getExifParameter(this.getxAxis().getParameter());
 
@@ -210,11 +228,11 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
 
         int pictureCount = 0;
 
-        final ArrayList<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
-        exifParameters.add(this.getxAxis().getParameter());
+        pictureCount = Validator.getValidPicturesCount(this.getPictureContainer(), this.getxAxis().getParameter());
 
-        pictureCount = Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters);
-
+        /*
+         * Reduce the number of categories if we have only a few pictures
+         */
         if (numberOfCategories > pictureCount) {
             if (pictureCount > 0) {
                 numberOfCategories = pictureCount;
@@ -225,8 +243,14 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
 
         this.categories = new Category[numberOfCategories];
 
+        /*
+         * calculate the range of the values for finding a good category size
+         */
         double deltaX = Math.abs(this.maxX - this.minX);
 
+        /*
+         * if we have only one picture, we should have at least one category to put it in
+         */
         if (deltaX == 0) {
             deltaX = 1;
             this.maxX = this.minX + deltaX;
@@ -234,6 +258,11 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
 
         this.xCategorySize = (deltaX / numberOfCategories);
 
+        /*
+         * Calculate the range of each category.
+         * Minimum is inclusive and maximum is exclusive 
+         * except the last category which must contain the last element.
+         */
         double minValueX;
         double maxValueX;
 
@@ -253,26 +282,27 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
      * @return the statistic categories
      */
     public Category[] getCategories() {
+        
         this.calculateIfRequired();
+        
         return this.categories;
-
     }
 
     @Override
     public boolean isModelValid() {
         this.calculateIfRequired();
-        Logger logger = Logger.getLogger(this.getClass());
-        
+        final Logger logger = Logger.getLogger(this.getClass());
+
         if (this.maxX < this.minX) {
             logger.info("maxX < minX");
             return false;
         }
-        
+
         if (Validator.getValidPicturesCount(this.getPictureContainer(), this.getxAxis().getParameter()) == 0) {
             logger.info("getValidPicturesCount == 0");
             return false;
         }
-        
+
         return true;
     }
 

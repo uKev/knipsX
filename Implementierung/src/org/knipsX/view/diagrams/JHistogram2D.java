@@ -5,7 +5,6 @@ import java.awt.Color;
 import javax.vecmath.Vector3d;
 
 import org.apache.log4j.Logger;
-import org.knipsX.Programm;
 import org.knipsX.model.reportmanagement.Category;
 import org.knipsX.model.reportmanagement.Histogram2DModel;
 
@@ -37,14 +36,12 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
     @Override
     public void generateContent() {
 
-        if (model != null) {
+        if (model != null && this.model.isModelValid()) {
 
             Logger logger = Logger.getLogger(this.getClass());
             
             logger.debug("Gloabl Min X " + this.model.getMinX() + " Global Max X " + this.model.getMaxX());
             logger.debug("Global Min Y " + this.model.getMinY() + " Gloabl Max Y " + this.model.getMaxY() + " \n");
-           
-            if (this.model.isModelValid()) {
                 
                 this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
                 this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
@@ -75,7 +72,6 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
 
             }
 
-        }
     }
 
 }

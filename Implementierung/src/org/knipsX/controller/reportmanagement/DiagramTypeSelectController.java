@@ -18,10 +18,17 @@ public class DiagramTypeSelectController implements ListSelectionListener {
 
     private JDiagramType view;
 
+    /**
+     * The constructor which registers the controller with the specified view
+     * @param view the view the controller operates on
+     */
     public DiagramTypeSelectController(JDiagramType view) {
         this.view = view;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void valueChanged(ListSelectionEvent e) {
         ReportHelper.setCurrentModel(ReportSaveController.createSavableModel(ReportHelper.getCurrentReportUtility().getReportCompilation().getRegisteredPanels()));
         ReportHelper.updateReport(ReportHelper.values()[this.view.getSelectedDiagramType()]);

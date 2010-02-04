@@ -5,7 +5,6 @@ package org.knipsX.controller.projectmanagement;
 
 /* import classes from java sdk */
 import java.awt.event.ActionEvent;
-
 import javax.swing.JOptionPane;
 
 import org.knipsX.controller.AbstractController;

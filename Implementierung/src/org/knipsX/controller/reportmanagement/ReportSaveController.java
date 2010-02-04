@@ -28,21 +28,26 @@ import org.knipsX.view.reportmanagement.ReportHelper;
  * @param <M>
  * @param <V>
  */
-public class ReportSaveController<M extends AbstractReportModel, V extends JAbstractReportUtil<?>> extends
-        AbstractController<M, V> {
+public class ReportSaveController<M extends AbstractReportModel, V extends JAbstractReportUtil<?>> extends AbstractController<M, V> {
 
     private boolean showDiagram;
 
+    /**
+     * The constructor which registers the controller with the specified view
+     * @param view the view the controller operates on
+     * @param showDiagram specifies if the diagram should be displayed after the report has been saved
+     */
     public ReportSaveController(V view, boolean showDiagram) {
         super(view);
         this.showDiagram = showDiagram;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void actionPerformed(ActionEvent e) {
         ArrayList<JAbstractSinglePanel> registeredPanels = this.view.getReportCompilation().getRegisteredPanels();
 
-        this.model = (M) this.createSavableModel(registeredPanels);
+        this.model = (M) ReportSaveController.createSavableModel(registeredPanels);
 
         ReportHelper.getProjectModel().addReport(this.model, this.view.getReportID());
 
@@ -57,6 +62,11 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
 
     }
 
+    /**
+     * This function takes in registered panel from a report compilation and returns a model
+     * @param registeredPanels the registers panels from the report compilation
+     * @return a saveable model
+     */
     public static AbstractReportModel createSavableModel(ArrayList<JAbstractSinglePanel> registeredPanels) {
 
         AbstractReportModel model = ReportHelper.getCurrentReport().createReportModel();
@@ -96,9 +106,11 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
                 JWilcoxon wilcoxonPanel = (JWilcoxon) singlepanel;
 
                 if (model instanceof BoxplotModel) {
-                    ((BoxplotModel) model).setWilcoxonSignificance(wilcoxonPanel.getStatisticalSignificance());
-                    ((BoxplotModel) model).setWilcoxonTestType(wilcoxonPanel.getTestType());
-                    ((BoxplotModel) model).setWilcoxonTestActive(wilcoxonPanel.getStatus());
+                    BoxplotModel boxplotModel = ((BoxplotModel) model);
+                    boxplotModel.getWilcoxonTest().setSignificance(wilcoxonPanel.getStatisticalSignificance());
+                    boxplotModel.getWilcoxonTest().setActiveStatus(wilcoxonPanel.getStatus());
+                    boxplotModel.getWilcoxonTest().setWilcoxonTestType(wilcoxonPanel.getTestType());
+                    
                 }
 
             }
