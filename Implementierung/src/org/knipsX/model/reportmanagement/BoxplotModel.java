@@ -29,6 +29,8 @@ public class BoxplotModel extends AbstractSingleAxisModel {
     @Deprecated
     private float wilcoxonSignificance;
 
+    
+    Logger log = Logger.getLogger(this.getClass());
     /**
      * Constructor for the Boxplot Model
      * 
@@ -66,7 +68,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
             String boxplotName;
             if (pictures.getName() == null) {
                 boxplotName = this.xAxis.getParameter().toString();
-                System.out.println("Warning in BoxplotModel.java: pictures.getName() was null");
+                log.warn("Warning in BoxplotModel.java: pictures.getName() was null");
             } else {
                 boxplotName = pictures.getName();
             }
@@ -79,7 +81,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
         for (final PictureContainer pictureContainer : this.getPictureContainer()) {
             for (final Picture picture : pictureContainer) {
                 if (picture.getExifParameter(this.xAxis.getParameter()) == null) {
-                    System.out.println("Missing Exif Parameter: " + picture.getPath()
+                    log.info("Missing Exif Parameter: " + picture.getPath()
                             + this.xAxis.getParameter().toString());
                     this.addMissingExifPictureParameter(new PictureParameter(this.xAxis.getParameter(), picture));
                 }
@@ -263,11 +265,11 @@ public class BoxplotModel extends AbstractSingleAxisModel {
         this.calculateIfRequired();
         
         if (this.maxX < this.minX) {
-            logger.info("maxX < minX");
+            logger.info("Model invalid: maxX < minX");
             return false;
         }
         if (Validator.getValidPicturesCount(this.getPictureContainer(), this.xAxis.getParameter()) == 0) {
-            logger.info("validPictureCount == 0");
+            logger.info("Model invalid: validPictureCount == 0");
             return false;
         }
         
