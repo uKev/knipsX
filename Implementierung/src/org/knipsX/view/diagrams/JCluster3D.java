@@ -114,7 +114,7 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
             if (this.model != null) {
                 /* Output some kind of error message */
                 //INTERNATIONALIZE
-                JOptionPane.showMessageDialog(this, "Das Diagramm kann nicht angezeigt werden, da es ein Fehler bei der Berechnung gab.");
+                JOptionPane.showMessageDialog(this, "Das Diagramm kann nicht angezeigt werden, da es einen Fehler bei der Berechnung gab.");
                 this.displayDiagram = false;
             }
             
