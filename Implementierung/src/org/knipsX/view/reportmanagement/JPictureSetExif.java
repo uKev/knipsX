@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -398,12 +399,14 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     /* adds the xmp data if a picture enters the associated picture sets list */
     private void addXMPData() {
         ArrayList<String> xmpKeywords = new ArrayList<String>();
+        ArrayList<String> associatedXMPKeywords = new ArrayList<String>(Arrays.asList(this.getExifFilterKeywords()));
 
         for (PictureContainer pictureContainer : this.getPictureContainer()) {
             for (Picture picture : pictureContainer) {
                 String[] xmpPictureKeyword = (String[]) picture.getExifParameter(ExifParameter.KEYWORDS);
                 for (int i = 0; i < xmpPictureKeyword.length; i++) {
-                    if (!xmpKeywords.contains(xmpPictureKeyword[i])) {
+                    if (!xmpKeywords.contains(xmpPictureKeyword[i])
+                            && !associatedXMPKeywords.contains(xmpPictureKeyword[i])) {
                         xmpKeywords.add(xmpPictureKeyword[i]);
                     }
                 }
@@ -431,7 +434,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 String[] xmpPictureKeyword = (String[]) picture.getExifParameter(ExifParameter.KEYWORDS);
                 for (int i = 0; i < xmpPictureKeyword.length; i++) {
                     if (!removeXMPKeywords.contains(xmpPictureKeyword[i])) {
-                        removeXMPKeywords.add(xmpPictureKeyword[i]);                        
+                        removeXMPKeywords.add(xmpPictureKeyword[i]);
                     }
                 }
 
@@ -609,16 +612,14 @@ public class JPictureSetExif extends JAbstractSinglePanel {
             }
 
             if (ReportHelper.getCurrentModel().getExifFilterKeywords() != null
-                    && ReportHelper.getCurrentModel().getExifFilterKeywords().length > 0) {                
+                    && ReportHelper.getCurrentModel().getExifFilterKeywords().length > 0) {
                 this.associatedExifTags.addElements((ReportHelper.getCurrentModel().getExifFilterKeywords()));
                 this.availableExifTags.removeElements((ReportHelper.getCurrentModel().getExifFilterKeywords()));
             }
 
-        }        
+        }
 
         this.updateXMPData();
     }
-    
-    
 
 }
