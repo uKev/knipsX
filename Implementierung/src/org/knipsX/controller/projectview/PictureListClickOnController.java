@@ -49,11 +49,11 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
     public void mouseClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getButton() == MOUSE_LEFT) {
             JList theList = (JList) mouseEvent.getSource();
-            if (mouseEvent.getClickCount() == 2) {
+            if (mouseEvent.getClickCount() == 1) {
                 int index = theList.locationToIndex(mouseEvent.getPoint());
                 if (index >= 0) {
-                    Object o = theList.getModel().getElementAt(index);
-                    this.model.setSelectedPicture((Picture) o);
+                    Picture pic = (Picture)theList.getModel().getElementAt(index);               
+                    this.model.setSelectedPicture(pic);
                 }
             }
         }

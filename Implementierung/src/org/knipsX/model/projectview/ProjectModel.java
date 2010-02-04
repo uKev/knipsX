@@ -401,6 +401,7 @@ public class ProjectModel extends AbstractModel {
      */
     public void setSelectedPictureSet(final PictureSet selected) {
         this.selectedPictureSet = selected;
+        this.hasChanged();
         this.updateViews();
     }
 
