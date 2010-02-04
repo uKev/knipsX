@@ -145,11 +145,11 @@ public class PictureSet implements PictureContainer {
             } else {
                 int child = this.currentChild;
 
-                while ((!hasNext) || (child < this.children.size() - 1)) {
+                while ((!hasNext) && (child < this.children.size() - 1)) {
                     child++;
                     if (this.children.get(child).hasNext()) {
                     	hasNext = true;
-                        //this.currentChild = child;
+                        this.currentChild = child;
                     } else {
                     	hasNext = false;
                     }
