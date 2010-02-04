@@ -18,7 +18,7 @@ Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigke
 
 # Dinge, die vor dem _öffentlichen_ Release 1.0 erledigt / behoben werden müssen
 * Umbenennung des Repository von tempX in knipsX
-* Schreiben einer README für den Benutzer inkl. Verwendung von Markdown
+* Schreiben einer README für den Benutzer inkl. Verwendung von [Markdown](http://daringfireball.net/projects/markdown/syntax)
 * Möglichst komfortable Paketierung mindestens als .exe für Windows sowie .deb für Ubuntu (Debian)
 * Aufräumen des Repository
 * (bebilderte) grobe Anleitung für den Benutzer mit Erklärung PictureContainer-Konzept.
