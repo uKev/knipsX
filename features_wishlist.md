@@ -7,6 +7,7 @@ Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigke
 * Bei neuer Bildmenge und ausgewähltem Ordner muss der Thread für die Thumbnailgenerierung (neu) gestartet werden
 * Im FileChooser sollten auch versteckte Ordner (bei Linux mit "." beginnend) auswählbar sein.
 * Internationalisierung?
+* Use Exif-Filter Keywords in Model ?
 
 # Probleme, die vor dem 1.0 RC1 (Ende Validierungsphase) behoben werden sollten #
 
