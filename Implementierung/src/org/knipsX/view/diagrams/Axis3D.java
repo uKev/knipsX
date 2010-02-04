@@ -1,9 +1,9 @@
 package org.knipsX.view.diagrams;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.utils.ExifParameter;
@@ -190,20 +190,10 @@ class Axis3D {
                     
                     Date tempDate = new Date();
                     tempDate.setTime((long) ((Double) minValue - offset + pieces * i));
-                    
-                    GregorianCalendar date = new GregorianCalendar();
-                    date.setTime(tempDate);                    
-                    
-                    final int year = date.get(Calendar.YEAR);
-                    final int month = date.get(Calendar.MONTH) + 1;
-                    final int day = date.get(Calendar.DAY_OF_MONTH);
-                    final int hour = date.get(Calendar.HOUR_OF_DAY);
-                    final int minute = date.get(Calendar.MINUTE);
-                    final int second = date.get(Calendar.SECOND);
 
-                    final DecimalFormat df = new DecimalFormat("00");
-                    returnstring[i] = day + "." + month + "." + year + " - " + df.format(hour) + ":" + df.format(minute) + ":"
-                    + df.format(second);
+                    DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                    
+                    returnstring[i] = dateFormat.format(tempDate);
                 }
                 
                 

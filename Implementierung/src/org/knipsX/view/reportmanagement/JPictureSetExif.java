@@ -522,18 +522,23 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 logger.trace("Validator : correct Pictures found: "
                         + Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters));
 
-                if (Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters) == 0
-                        && ReportHelper.getCurrentReport() != ReportHelper.Table) {
-                    this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                ArrayList<String> associatedXMPKeywords = new ArrayList<String>(Arrays.asList(this.getExifFilterKeywords()));
+                
+                for (PictureContainer pictureContainer : this.getPictureContainer()) {
+                    if (Validator.getValidPictures(pictureContainer, exifParameters, associatedXMPKeywords).size() == 0
+                            && ReportHelper.getCurrentReport() != ReportHelper.Table) {
+                        this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
 
-                    // INTERNATIONALIZE
-                    this.errorMessage.setToolTipText("In den Bilder, die ausgewählt wurden befinden sich, mit der "
-                            + "ausgewählten Exif-Parameter Konfiguration, leider nur ungültige Exif-Daten");
+                        // INTERNATIONALIZE
+                        this.errorMessage.setToolTipText("In den Bilder, die ausgewählt wurden befinden sich, mit der "
+                                + "ausgewählten Exif-Parameter und XMP Konfiguration, leider nur ungültige Meta-Daten");
 
-                    this.showErrorIcon();
-                    return false;
+                        this.showErrorIcon();
+                        return false;
+                    }
                 }
 
+                
                 this.errorMessage.setIcon(null);
                 /* to prevent popping of layout add fixed dimension */
                 this.errorMessage.setMinimumSize(new Dimension(32, 32));
@@ -613,8 +618,10 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
             if (ReportHelper.getCurrentModel().getExifFilterKeywords() != null
                     && ReportHelper.getCurrentModel().getExifFilterKeywords().size() > 0) {
-                this.associatedExifTags.addElements((ReportHelper.getCurrentModel().getExifFilterKeywords().toArray(new String[] {})));
-                this.availableExifTags.removeElements((ReportHelper.getCurrentModel().getExifFilterKeywords().toArray(new String[] {})));
+                this.associatedExifTags.addElements((ReportHelper.getCurrentModel().getExifFilterKeywords()
+                        .toArray(new String[] {})));
+                this.availableExifTags.removeElements((ReportHelper.getCurrentModel().getExifFilterKeywords()
+                        .toArray(new String[] {})));
             }
 
         }

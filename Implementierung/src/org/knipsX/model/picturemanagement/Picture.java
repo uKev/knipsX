@@ -17,7 +17,6 @@ import javax.imageio.ImageIO;
 
 /* import classes from our util source*/
 import org.apache.log4j.Logger;
-import org.knipsX.Programm;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
 
@@ -217,24 +216,18 @@ public class Picture extends Observable implements PictureContainer {
      * @return true if a picture contain at least one keyword.
      *         It returns also true if filterKeywordsArrayList is empty and contains no keyword.
      */
-    public boolean hasMinOneKeywordOf(ArrayList<String> filterKeywordsArrayList) {
+    public boolean hasMinOneKeywordOf(ArrayList<String> filterKeywords) {
         boolean hasMinOneKeyword = false;
         
-        if (filterKeywordsArrayList.isEmpty()) {
+        if (filterKeywords.isEmpty()) {
             hasMinOneKeyword = true;
         
         } else {
 
-            /*
-             * TODO: Rename filterKeywordsArrayList to filterKeywords and use it direct
-             * without converting it to an array first. Don't use an array anymore!
-             */
-            final String[] filterKeywords = filterKeywordsArrayList.toArray(new String[] {});
-
             String[] keys = (String[]) getExifParameter(ExifParameter.KEYWORDS);
             for (int n = 0; n < keys.length; n++) {
-                for (int i = 0; i < filterKeywords.length; i++) {
-                    if (keys[n].equals(filterKeywords[i])) {
+                for (int i = 0; i < filterKeywords.size(); i++) {
+                    if (keys[n].equals(filterKeywords.get(i))) {
                         hasMinOneKeyword = true;
                     }
                 }
