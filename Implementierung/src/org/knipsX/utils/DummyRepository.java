@@ -3,6 +3,7 @@ package org.knipsX.utils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -93,10 +94,8 @@ public class DummyRepository implements Repository {
         reportList.add(dummyReportTwo);
 
         /* add some dummy projects */
-        this.projects.add(new ProjectModel(UUID.randomUUID().hashCode(), "Testprojekt mit Realbildern",
-                "Keine Beschreibung.", new GregorianCalendar(2009, 11, 12, 7, 9, 3), pictureSetList, reportList));
         this.projects.add(new ProjectModel(UUID.randomUUID().hashCode(), "Der Ehhhhhhhmer", "", new GregorianCalendar(
-                2009, 11, 12, 12, 42, 43), pictureSetList, reportList));
+                2009, 11, 12, 12, 42, 43), new LinkedList<PictureSet>(), new LinkedList<AbstractReportModel>()));
     }
 
     public List<ProjectModel> getProjects() {

@@ -175,9 +175,9 @@ public class XMLOutput {
     private Element resolveReports() {
         Element reports = new Element("reports");
 
-        for(AbstractReportModel report : this.project.getReports()) {
+        for (AbstractReportModel report : this.project.getReports()) {
             reports.addContent(this.resolveReport(report));
-        }        
+        }
         return reports;
     }
 
@@ -200,112 +200,132 @@ public class XMLOutput {
 
     private Element resolveAxis(Axis axis, String axisType) {
         Element elementAxis = new Element("axis");
-        
+
         elementAxis.addContent(new Element("type").setText(axisType));
-        elementAxis.addContent(new Element("parameter").setText(axis.getParameter().toString().toUpperCase()));
+
+        if (axis.getParameter() != null) {
+            elementAxis.addContent(new Element("parameter").setText(axis.getParameter().toString().toUpperCase()));
+        } else {
+            elementAxis.addContent(new Element("parameter"));
+        }
         elementAxis.addContent(new Element("description").setText(axis.getDescription()));
         return elementAxis;
     }
-    
+
     private Element resolveReportPictureSets(List<PictureContainer> container) {
         Element pictureSets = new Element("pictureSets");
-     
-        for(PictureContainer set : container) {
+
+        for (PictureContainer set : container) {
             pictureSets.addContent(new Element("pictureSet").setText("" + set.hashCode()));
         }
         return pictureSets;
     }
-    
+
     private Element resolveReportExifFilterKeywords(String[] exifFilterKeywords) {
         Element pictureSets = new Element("exifFilterKeywords");
-     
-        for(String exifFilterKeyword : exifFilterKeywords) {
+
+        for (String exifFilterKeyword : exifFilterKeywords) {
             pictureSets.addContent(new Element("exifFilterKeyword").setText(exifFilterKeyword));
         }
         return pictureSets;
     }
-    
+
     private Element resolveWilcoxonTest(BoxplotModel model) {
         Element wilcoxonTest = new Element("wilcoxonTest");
-       
+
         wilcoxonTest.addContent(new Element("isActive").setText("" + model.getWilcoxonTest().isActive()));
-        wilcoxonTest.addContent(new Element("testType").setText(model.getWilcoxonTest().getWilcoxonTestType().toString().toUpperCase()));
+        wilcoxonTest.addContent(new Element("testType").setText(model.getWilcoxonTest().getWilcoxonTestType()
+                .toString().toUpperCase()));
         wilcoxonTest.addContent(new Element("significance").setText("" + model.getWilcoxonTest().getSignificance()));
         return wilcoxonTest;
     }
-    
+
     private Element resolveBoxplotReport(BoxplotModel model) {
         Element report = new Element("report");
 
         report.addContent(new Element("type").setText("boxplot"));
         report.addContent(new Element("name").setText(model.getReportName()));
         report.addContent(new Element("description").setText(model.getReportName()));
-        
+
         Element axes = new Element("axes");
-        axes.addContent(resolveAxis(model.getxAxis(), "x"));
+        if (model.getxAxis() != null) {
+            axes.addContent(resolveAxis(model.getxAxis(), "x"));
+        }
         report.addContent(axes);
-        
+
         report.addContent(this.resolveReportPictureSets(model.getPictureContainer()));
         report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords()));
         report.addContent(this.resolveWilcoxonTest(model));
         return report;
     }
-    
+
     private Element resolveHistogram2DReport(Histogram2DModel model) {
         Element report = new Element("report");
 
         report.addContent(new Element("type").setText("histogram2D"));
         report.addContent(new Element("name").setText(model.getReportName()));
         report.addContent(new Element("description").setText(model.getReportName()));
-        
+
         Element axes = new Element("axes");
-        axes.addContent(resolveAxis(model.getxAxis(), "x"));
+        if (model.getxAxis() != null) {
+            axes.addContent(resolveAxis(model.getxAxis(), "x"));
+        }
         report.addContent(axes);
-        
+
         report.addContent(this.resolveReportPictureSets(model.getPictureContainer()));
         report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords()));
         return report;
     }
-    
+
     private Element resolveHistogram3DReport(Histogram3DModel model) {
         Element report = new Element("report");
 
-        report.addContent(new Element("type").setText("histogram2D"));
+        report.addContent(new Element("type").setText("histogram3D"));
         report.addContent(new Element("name").setText(model.getReportName()));
         report.addContent(new Element("description").setText(model.getReportName()));
-        
+
         Element axes = new Element("axes");
-        axes.addContent(resolveAxis(model.getxAxis(), "x"));
-        axes.addContent(resolveAxis(model.getzAxis(), "z"));
+        if (model.getxAxis() != null) {
+            axes.addContent(resolveAxis(model.getxAxis(), "x"));
+        }
+        if (model.getzAxis() != null) {
+            axes.addContent(resolveAxis(model.getzAxis(), "z"));
+        }
         report.addContent(axes);
-        
+
         report.addContent(this.resolveReportPictureSets(model.getPictureContainer()));
         report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords()));
         return report;
     }
-    
+
     private Element resolveCluster3DReport(Cluster3DModel model) {
         Element report = new Element("report");
 
         report.addContent(new Element("type").setText("cluster3D"));
         report.addContent(new Element("name").setText(model.getReportName()));
         report.addContent(new Element("description").setText(model.getReportName()));
-        
+
         Element axes = new Element("axes");
-        axes.addContent(resolveAxis(model.getxAxis(), "x"));
-        axes.addContent(resolveAxis(model.getzAxis(), "z"));
-        axes.addContent(resolveAxis(model.getyAxis(), "y"));
+        if (model.getxAxis() != null) {
+            axes.addContent(resolveAxis(model.getxAxis(), "x"));
+        }
+        if (model.getzAxis() != null) {
+            axes.addContent(resolveAxis(model.getzAxis(), "z"));
+        }
+        if (model.getyAxis() != null) {
+            axes.addContent(resolveAxis(model.getyAxis(), "y"));
+        }
         report.addContent(axes);
-        
+
         report.addContent(this.resolveReportPictureSets(model.getPictureContainer()));
         report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords()));
         return report;
     }
-    
+
     private Element resolveTableReport(TableModel model) {
         Element report = new Element("report");
 
-        report.addContent(new Element("type").setText("boxplot"));
+        report.addContent(new Element("type").setText("table"));
         report.addContent(new Element("name").setText(model.getReportName()));
         report.addContent(new Element("description").setText(model.getReportName()));
         report.addContent(this.resolveReportPictureSets(model.getPictureContainer()));
