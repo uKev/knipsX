@@ -1,7 +1,5 @@
 package org.knipsX.view.diagrams;
 
-import java.awt.Color;
-
 import javax.swing.JOptionPane;
 import javax.vecmath.Vector3d;
 

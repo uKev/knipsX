@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.knipsX.Programm;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.Directory;
@@ -102,6 +103,8 @@ public class ProjectModel extends AbstractModel {
 
     private final List<PictureSet> pictureSetList;
     private final List<AbstractReportModel> reportList;
+    
+    private Logger log = Logger.getLogger(this.getClass());
 
     /**
      * Creates a new project with basic informations.
@@ -314,7 +317,7 @@ public class ProjectModel extends AbstractModel {
         try {
             RepositoryHandler.getRepository().saveProject(this);
         } catch (RepositoryInterfaceException e) {
-            Programm.logger.fatal("[ProjectModel::saveProjectModel()] - Can't save because:" + e.getStackTrace());
+            log.fatal("[saveProjectModel()] - Can't save because:" + e.getStackTrace());
         }
     }
 

@@ -79,8 +79,6 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
                 double xPosition = this.getzAxis().getAxisSpace(categories[i].getMinValueX()) + xRange / 2;
 
                 logger.debug("xPosition " + xPosition);
-
-                Color[] histogramColors = { Color.BLUE, Color.GREEN, Color.ORANGE, Color.YELLOW, Color.RED};
                 
                 for (int j = 0; j < categories[i].getBars().size(); j++) {
                     

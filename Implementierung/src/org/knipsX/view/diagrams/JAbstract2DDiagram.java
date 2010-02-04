@@ -57,8 +57,7 @@ public abstract class JAbstract2DDiagram<M extends AbstractReportModel> extends 
 
         this.addLights();
 
-        /* Make view orthographic. Note that zooming of the view will not work */
-        java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
+        /* Make view orthographic. Note that zooming of the view will not work */        
         this.canvas3D.getView().setProjectionPolicy(View.PARALLEL_PROJECTION);
         this.canvas3D.getView().setScreenScale(0.02);
         this.canvas3D.getView().setScreenScalePolicy(View.SCALE_EXPLICIT);

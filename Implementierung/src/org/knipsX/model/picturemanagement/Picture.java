@@ -15,6 +15,7 @@ import java.util.Observable;
 import javax.imageio.ImageIO;
 
 /* import classes from our util source*/
+import org.apache.log4j.Logger;
 import org.knipsX.Programm;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
@@ -36,6 +37,8 @@ public class Picture extends Observable implements PictureContainer  {
     /* Thumbnails */
     private BufferedImage smallThumbnail;
     private BufferedImage bigThumbnail;
+    
+    private Logger log = Logger.getLogger(this.getClass());
     
     boolean isReturned;
 
@@ -152,7 +155,7 @@ public class Picture extends Observable implements PictureContainer  {
                 this.bigThumbnail = Picture.getThumbOf(ImageIO.read(pictureFile), 200, Image.SCALE_FAST);
                 isInitialized = true;
             } catch (IOException e) {
-                Programm.logger.error("[Picture::getBigThumbnail()] - Can not create Thumbnail from File - "
+                log.error("[Picture::getBigThumbnail()] - Can not create Thumbnail from File - "
                         + pictureFile.getAbsolutePath());
             }
         }
@@ -162,7 +165,7 @@ public class Picture extends Observable implements PictureContainer  {
                 this.smallThumbnail = Picture.getThumbOf(ImageIO.read(pictureFile), 50, Image.SCALE_FAST);
                 isInitialized = true;
             } catch (IOException e) {
-                Programm.logger.error("[Picture::getSmallThumbnail()] - Can not create Thumbnail from File - "
+                log.error("[Picture::getSmallThumbnail()] - Can not create Thumbnail from File - "
                         + pictureFile.getAbsolutePath());
             }
         }

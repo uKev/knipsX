@@ -23,7 +23,7 @@ public final class Programm {
      * the logger.
      * See http://logging.apache.org/log4j/1.2/manual.html for usage.
      */
-    public static Logger logger = Logger.getLogger(Programm.class);
+    private static Logger logger = Logger.getLogger(Programm.class);
 
     /*
      * TODO: rename Programm(.java) either to Program or better knipsX.

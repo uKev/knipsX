@@ -54,8 +54,7 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
             //INTERNATIONALIZE
             this.getyAxis().setDescription("Anzahl");
 
-            double shrinkFactor = 0.85;
-            Color[] histogramColors = { Color.BLUE, Color.GREEN, Color.ORANGE, Color.YELLOW, Color.RED};
+            double shrinkFactor = 0.85;            
             
             int heigth = 0;
             for (int i = 0; i < categories.length; i++) {
