@@ -16,25 +16,20 @@ import org.knipsX.model.picturemanagement.PictureContainer;
  */
 public abstract class AbstractReportModel extends AbstractModel {
 
-    private ArrayList<PictureContainer> pictureContainer;
+    private ArrayList<PictureContainer> pictureContainer= new ArrayList<PictureContainer>();;
     private String reportName;
     private String reportDescription;
     // Tags of pictures that will be filtered
-    private ArrayList<String> exifFilterKeywords;
-    private final ArrayList<PictureParameter> missingExifParameter;
-    private boolean dataIsCalculated;
+    private ArrayList<String> exifFilterKeywords = new ArrayList<String>();;
+    private final ArrayList<PictureParameter> missingExifParameter = new ArrayList<PictureParameter>();
+    private boolean dataIsCalculated = false;
 
     /**
      * Constructor for the AbstractReportModel
      */
     public AbstractReportModel() {
         super();
-        this.pictureContainer = new ArrayList<PictureContainer>();
-        this.missingExifParameter = new ArrayList<PictureParameter>();
-        this.exifFilterKeywords = new ArrayList<String>();
-
         this.dataIsCalculated(false);
-
     }
 
     /**
@@ -82,8 +77,6 @@ public abstract class AbstractReportModel extends AbstractModel {
         this.reportName = reportName;
         this.reportDescription = reportDescription;
         this.exifFilterKeywords = exifFilterKeywords;
-        this.pictureContainer = new ArrayList<PictureContainer>();
-        this.missingExifParameter = null;
         this.dataIsCalculated(false);
 
     }
