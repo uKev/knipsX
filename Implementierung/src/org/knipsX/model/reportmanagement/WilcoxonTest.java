@@ -51,57 +51,26 @@ public class WilcoxonTest {
         this.pictureContainer = pictureContainer;
         this.isCalculated = false;
     }
-
-    /**
-     * Returns if this Wilcoxontest is active or not
-     * 
-     * @return the active status
-     */
-    private double calcChanceOfSpecificRankeSum(final double rangeSum, final int numberOfAllSamples,
-            final int partVectors) {
-        int vectors = 0;
-        for (int n = 1; n < numberOfAllSamples; n++) {
-            for (int i = 1; i < numberOfAllSamples; i++) {
-                if ((n != i) && (n + i == rangeSum)) {
-                    vectors++;
-                }
-            }
-        }
-        return vectors / partVectors;
-    }
-
+    
     /**
      * Activates and deactivates the test
      * 
      * @param activeStatus
      *            The active status
      */
-    private double calcPValue(final double chanceOfPosition, final int partVectors, final double rangeSum) {
-        double pValue = 0;
-        if (this.wilcoxenType == WilcoxonTestType.TWO_SIDED) {
-            if ((chanceOfPosition <= this.significance / 200) || (chanceOfPosition >= (1 - (this.significance / 200)))) {
-                this.testIsRejected = true;
-            } else {
-                this.testIsRejected = false;
-            }
-            pValue = this.chanceToBeLess(partVectors) + this.chanceToBeGreater(partVectors);
-        } else if (this.wilcoxenType == WilcoxonTestType.LESS) {
-            if (chanceOfPosition <= (this.significance / 200)) {
-                this.testIsRejected = true;
-            } else {
-                this.testIsRejected = false;
-            }
-            pValue = this.chanceToBeLess(partVectors);
-        } else {
-            if (chanceOfPosition >= (1 - (this.significance / 200))) {
-                this.testIsRejected = true;
-            } else {
-                this.testIsRejected = false;
-            }
-            pValue = this.chanceToBeGreater(partVectors);
-        }
-        return pValue;
+    public void setActiveStatus(final boolean activeStatus) {
+        this.isActive = activeStatus;
     }
+
+    /**
+     * Returns if this Wilcoxontest is active or not
+     * 
+     * @return the active status
+     */
+    public boolean isActive() {
+        return this.isActive;
+    }
+
 
     /**
      * Returns and shows if the test is calculated
@@ -109,7 +78,10 @@ public class WilcoxonTest {
      * @return The validation status
      */
     public boolean isValid() {
-        return isValid;
+        if (!this.isCalculated) {
+            this.calculate();
+        }
+        return this.isValid;
     }
 
     /**
@@ -123,25 +95,6 @@ public class WilcoxonTest {
             calculate();
         }
         return this.testIsRejected;
-    }
-
-    /**
-     * Returns the specific testtype. It can be LESS, GREATER and TWO_SIDED.
-     * 
-     * @return specific testtype
-     */
-    private double chanceToBeLess(final int partVectors) {
-        final double significanceChance = this.significance / 200;
-        double chance = 0;
-        for (int n = 3; n <= ((this.wilcoxonSamplesList.size() * 2) - 1); n++) {
-            if (chance <= significanceChance) {
-                chance = chance + this.calcChanceOfSpecificRankeSum(n, this.wilcoxonSamplesList.size(), partVectors);
-            } else {
-                break;
-            }
-        }
-        return chance;
-
     }
 
     /**
@@ -246,39 +199,32 @@ public class WilcoxonTest {
         }
         return numberOfElementsInSet;
     }
-
-    /**
-     * Returns if this Wilcoxontest is active or not
-     * 
-     * @return the active status
-     */
-    public boolean isActive() {
-        return this.isActive;
-    }
-
-    /**
-     * Shows if the Wilcoxontest is passed by the selected pictures and the significance. efore calling getResult() it
-     * has to be checked if the test is valid
-     * 
-     * @return passed statsu
-     */
-    public boolean isRejected() {
-        if (!this.isCalculated) {
-            this.calculate();
+    
+    private double calcPValue(final double chanceOfPosition, final int partVectors, final double rangeSum) {
+        double pValue = 0;
+        if (this.wilcoxenType == WilcoxonTestType.TWO_SIDED) {
+            if ((chanceOfPosition <= this.significance / 200) || (chanceOfPosition >= (1 - (this.significance / 200)))) {
+                this.testIsRejected = true;
+            } else {
+                this.testIsRejected = false;
+            }
+            pValue = this.chanceToBeLess(partVectors) + this.chanceToBeGreater(partVectors);
+        } else if (this.wilcoxenType == WilcoxonTestType.LESS) {
+            if (chanceOfPosition <= (this.significance / 200)) {
+                this.testIsRejected = true;
+            } else {
+                this.testIsRejected = false;
+            }
+            pValue = this.chanceToBeLess(partVectors);
+        } else {
+            if (chanceOfPosition >= (1 - (this.significance / 200))) {
+                this.testIsRejected = true;
+            } else {
+                this.testIsRejected = false;
+            }
+            pValue = this.chanceToBeGreater(partVectors);
         }
-        return this.testIsRejected;
-    }
-
-    /**
-     * Returns and shows if the test is calculated
-     * 
-     * @return The validation status
-     */
-    public boolean isValid() {
-        if (!this.isCalculated) {
-            this.calculate();
-        }
-        return this.isValid;
+        return pValue;
     }
 
     /*
@@ -307,39 +253,47 @@ public class WilcoxonTest {
             }
         }
     }
-
-    /**
-     * Activates and deactivates the test
+    
+    /*
+     * Returns if this Wilcoxontest is active or not
      * 
-     * @param activeStatus
-     *            The active status
+     * @return the active status
      */
-    public void setActiveStatus(final boolean activeStatus) {
-        this.isActive = activeStatus;
-    }
-
-    /**
-     * Setter for the exifParameter
-     * @param parameter the exif parameter which should be evaluated
-     */
-    public void setExifparameter(final ExifParameter parameter) {
-        this.parameter = parameter;
-        this.isCalculated = false;
-
-    }
-
-    /**
-     * Setter for the ArrayList of pcitureContainer which shold be evaluated
-     * @param pictureContainer the ArrayList of pcitureContainer which shold be evaluated
-     */
-    public void setPictureContainer(final ArrayList<PictureContainer> pictureContainer) {
-        this.pictureContainer = pictureContainer;
-        this.isCalculated = false;
+    private double calcChanceOfSpecificRankeSum(final double rangeSum, final int numberOfAllSamples,
+            final int partVectors) {
+        int vectors = 0;
+        for (int n = 1; n < numberOfAllSamples; n++) {
+            for (int i = 1; i < numberOfAllSamples; i++) {
+                if ((n != i) && (n + i == rangeSum)) {
+                    vectors++;
+                }
+            }
+        }
+        return vectors / partVectors;
     }
 
     /*
      * Chance of all possible ranksums to be greater than the significance
      */
+    
+    /**
+     * Returns the specific testtype. It can be LESS, GREATER and TWO_SIDED.
+     * 
+     * @return specific testtype
+     */
+    private double chanceToBeLess(final int partVectors) {
+        final double significanceChance = this.significance / 200;
+        double chance = 0;
+        for (int n = 3; n <= ((this.wilcoxonSamplesList.size() * 2) - 1); n++) {
+            if (chance <= significanceChance) {
+                chance = chance + this.calcChanceOfSpecificRankeSum(n, this.wilcoxonSamplesList.size(), partVectors);
+            } else {
+                break;
+            }
+        }
+        return chance;
+
+    }
 
     private double chanceToBeGreater(int partVectors) {
         double significanceChance = 1 - (significance / 200);
@@ -353,15 +307,16 @@ public class WilcoxonTest {
         }
         return chance;
     }
-
-    /**
-     * Sets the actual testtype for the Wilcoxontest
-     * 
-     * @param testType
-     *            The type
+    
+    /*
+     * The mathematical faculty
      */
-    public void setWilcoxonTestType(final WilcoxonTestType testType) {
-        this.isCalculated = false;
-        this.wilcoxenType = testType;
+    private int fakultaet(final int n) {
+        int fakultaet = 1;
+        int faktor = 1;
+        while (faktor <= n) {
+            fakultaet = fakultaet * faktor++;
+        }
+        return fakultaet;
     }
 }
