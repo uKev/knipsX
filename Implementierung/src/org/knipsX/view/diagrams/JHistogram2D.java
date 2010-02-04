@@ -78,7 +78,7 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
                 /* Output some kind of error message */
                 // INTERNATIONALIZE
                 JOptionPane.showMessageDialog(this,
-                        "Das Diagramm kann nicht angezeigt werden, da es ein Fehler bei der Berechnung gab.");
+                        "Das Diagramm kann nicht angezeigt werden, da es einen Fehler bei der Berechnung gab.");
                 this.displayDiagram = false;
             }
 

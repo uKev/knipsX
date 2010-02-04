@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.vecmath.Vector3d;
 
+import org.apache.log4j.Logger;
 import org.knipsX.model.reportmanagement.Category;
 import org.knipsX.model.reportmanagement.Histogram3DModel;
 
@@ -38,9 +39,11 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
         if (this.model != null) {
             Category[][] categories = this.model.getCategories();
 
-            System.out.println("Model min X " + this.model.getMinX() + "  Model max X " + this.model.getMaxX());
-            System.out.println("Model min Z " + this.model.getMinZ() + "  Model max Z " + this.model.getMaxZ());
-            System.out.println("Model min Y " + this.model.getMinY() + "  Model max Y " + this.model.getMaxY());
+            Logger logger = Logger.getLogger(this.getClass());
+
+            logger.debug("Model min X " + this.model.getMinX() + "  Model max X " + this.model.getMaxX());
+            logger.debug("Model min Z " + this.model.getMinZ() + "  Model max Z " + this.model.getMaxZ());
+            logger.debug("Model min Y " + this.model.getMinY() + "  Model max Y " + this.model.getMaxY());
 
             this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
             this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
@@ -52,16 +55,11 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
             for (int i = 0; i < categories.length; i++) {
                 for (int j = 0; j < categories[i].length; j++) {
 
-                    System.out.println("Category Number " + heigth);
-                    System.out.println("Max Z  " + categories[i][j].getMaxValueZ() + " Min Z "
+                    logger.debug("Category Number " + heigth);
+                    logger.debug("Max Z  " + categories[i][j].getMaxValueZ() + " Min Z "
                             + categories[i][j].getMinValueZ());
-                    System.out.println("Max X  " + categories[i][j].getMaxValueX() + " Min X "
+                    logger.debug("Max X  " + categories[i][j].getMaxValueX() + " Min X "
                             + categories[i][j].getMinValueX());
-
-                    assert categories[i][j].getMaxValueX() != Double.NaN;
-                    assert categories[i][j].getMinValueX() != Double.NaN;
-                    assert categories[i][j].getMaxValueZ() != Double.NaN;
-                    assert categories[i][j].getMinValueZ() != Double.NaN;
 
                     double xRange = Math.abs(this.getxAxis().getAxisSpace(categories[i][j].getMaxValueX())
                             - this.getxAxis().getAxisSpace(categories[i][j].getMinValueX()));
@@ -70,11 +68,6 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
 
                     double xPosition = this.getxAxis().getAxisSpace(categories[i][j].getMinValueX()) + xRange / 2;
                     double zPosition = this.getzAxis().getAxisSpace(categories[i][j].getMinValueZ()) + zRange / 2;
-
-                    System.out.println("XPOS " + xPosition);
-                    System.out.println("ZPOS " + zPosition);
-                    System.out.println("HEIGTH "
-                            + this.getyAxis().getAxisSpace(categories[i][j].getBars().get(0).getHeight()) + "\n");
 
                     this.createCube(new Vector3d(xPosition, 0, zPosition), new Vector3d(shrinkFactor * zRange / 2, this
                             .getyAxis().getAxisSpace(categories[i][j].getBars().get(0).getHeight()), shrinkFactor
@@ -93,7 +86,7 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
                 /* Output some kind of error message */
                 // INTERNATIONALIZE
                 JOptionPane.showMessageDialog(this,
-                        "Das Diagramm kann nicht angezeigt werden, da es ein Fehler bei der Berechnung gab.");
+                        "Das Diagramm kann nicht angezeigt werden, da es einen Fehler bei der Berechnung gab.");
                 this.displayDiagram = false;
             }
 

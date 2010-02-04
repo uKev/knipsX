@@ -440,7 +440,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 }
 
                 Logger logger = Logger.getLogger(this.getClass());
-                logger.debug("Validator : correct Pictures found: " + Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters));
+                logger.trace("Validator : correct Pictures found: " + Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters));
                 
                 if (Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters) == 0
                         && ReportHelper.getCurrentReport() != ReportHelper.Table) {
