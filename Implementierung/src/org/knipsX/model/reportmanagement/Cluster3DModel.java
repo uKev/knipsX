@@ -1,6 +1,7 @@
 package org.knipsX.model.reportmanagement;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.Picture;
@@ -19,6 +20,8 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
 
     private final ArrayList<Frequency3DPoint> frequency3DPoints = new ArrayList<Frequency3DPoint>();
 
+    private Logger log = Logger.getLogger(this.getClass());
+    
     /**
      * creates an empty Cluster3DModel.
      */
@@ -46,7 +49,7 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
         this.calculateIfRequired();
 
     }
-
+    boolean hasMinOneKeyword = false;
     @Override
     protected void calculate() {
         Frequency3DPoint picPoint;
@@ -57,6 +60,7 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
 
                 double x = 0, y = 0, z = 0;
                 boolean haveAllParameters = true;
+                boolean haveKeyword = true;
                 pointIsAdded = false;
 
                 final Object xValue = pic.getExifParameter(this.xAxis.getParameter());
@@ -82,12 +86,20 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                 } else {
                     z = Converter.objectToDouble(zValue);
                 }
+                
+                
+                /*
+                 * Filter the pictures with the keywords
+                 */
+                if (!pic.hasMinOneKeywordOf(this.getExifFilterKeywords())) {
+                    haveKeyword = false;
+                }
 
                 /*
                  * only if we have all three parameters,
                  * the picture is valid and we will perfom actions on it
                  */
-                if (haveAllParameters) {
+                if (haveAllParameters && haveKeyword) {
                     if (this.minX > x) {
                         this.minX = x;
                     }
@@ -129,10 +141,16 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                         this.frequency3DPoints.add(picPoint);
                     }
                 } else {
-                    System.out.println("Pic has not all parameters: ");
-                    System.out.println("X: " + xValue);
-                    System.out.println("Y: " + xValue);
-                    System.out.println("Z: " + xValue);
+                    if (hasMinOneKeyword) {
+                    log.debug("Pic has not all parameters: ");
+                    log.debug("X: " + xValue);
+                    log.debug("Y: " + xValue);
+                    log.debug("Z: " + xValue);
+                    } else {
+                        log.debug("Picture is filtered by keyword: " + this.getExifFilterKeywords());
+                        log.debug("It has only the following keywords: " + new ArrayList<String>(Arrays.asList((String[])pic.getExifParameter(ExifParameter.KEYWORDS))));
+                        
+                    }
                 }
 
             }

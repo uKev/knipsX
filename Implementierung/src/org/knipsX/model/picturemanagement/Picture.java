@@ -8,13 +8,14 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 import javax.imageio.ImageIO;
 
-/* import classes from our util source*/
+/* import classes from our util source */
 import org.knipsX.Programm;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
@@ -22,7 +23,7 @@ import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
 /**************************************************************************************************
  * The Class Picture represents a picture with image and Exif-Metadata. It also has an thumbnail.
  *************************************************************************************************/
-public class Picture extends Observable implements PictureContainer  {
+public class Picture extends Observable implements PictureContainer {
 
     /* The abstract representation of this picture in filesystem */
     private File pictureFile;
@@ -36,16 +37,18 @@ public class Picture extends Observable implements PictureContainer  {
     /* Thumbnails */
     private BufferedImage smallThumbnail;
     private BufferedImage bigThumbnail;
-    
+
     boolean isReturned;
 
     /**
      * Create new Picture with a path.
      * 
-     * @param path the filepath of the picture
-     * @param isActiveorNot the status of the picture
+     * @param path
+     *            the filepath of the picture
+     * @param isActiveorNot
+     *            the status of the picture
      */
-    public Picture(String path, boolean isActiveorNot) throws PictureNotFoundException{
+    public Picture(String path, boolean isActiveorNot) throws PictureNotFoundException {
         if ((path == null) || (new File(path).exists() == false)) {
             throw new PictureNotFoundException();
         }
@@ -58,8 +61,10 @@ public class Picture extends Observable implements PictureContainer  {
     /**
      * Create new Picture with a file.
      * 
-     * @param file the file to create from
-     * @param isActiveorNot the status of the picture
+     * @param file
+     *            the file to create from
+     * @param isActiveorNot
+     *            the status of the picture
      */
     public Picture(File file, boolean isActiveorNot) {
         this.pictureFile = file;
@@ -67,27 +72,31 @@ public class Picture extends Observable implements PictureContainer  {
         this.allExifParameter = null;
         this.isReturned = false;
     }
-    
+
     /**
      * Gets the name from the picture
+     * 
      * @return the name
-     */  
+     */
     public String getName() {
         return pictureFile.getName();
     }
-    
+
     /**
      * Gets the path from the picture
+     * 
      * @return the path
      */
-    
+
     public String getPath() {
         return pictureFile.getAbsolutePath();
     }
 
     /**
      * Gets a specific Exif parameter from the picture
-     * @param specific exifParameter
+     * 
+     * @param specific
+     *            exifParameter
      * @return value of the parameter
      */
     public Object getExifParameter(ExifParameter exifParameter) {
@@ -96,6 +105,7 @@ public class Picture extends Observable implements PictureContainer  {
 
     /**
      * Returns a List with the picture in it
+     * 
      * @return the list with the picture
      */
     public List<PictureContainer> getItems() {
@@ -103,7 +113,7 @@ public class Picture extends Observable implements PictureContainer  {
         items.add(this);
         return items;
     }
-    
+
     /**
      * @see java.lang.Iterable#iterator()
      * @return the iterator over this
@@ -117,11 +127,11 @@ public class Picture extends Observable implements PictureContainer  {
      * @return false because this is only one element
      */
     public boolean hasNext() {
-        if (this.isReturned){
-        	this.isReturned = false;
-        	return false;
+        if (this.isReturned) {
+            this.isReturned = false;
+            return false;
         } else {
-        	return true;
+            return true;
         }
     }
 
@@ -130,7 +140,7 @@ public class Picture extends Observable implements PictureContainer  {
      * @return the picture because this is one element
      */
     public Picture next() {
-    	this.isReturned = true;
+        this.isReturned = true;
         return this;
     }
 
@@ -170,7 +180,7 @@ public class Picture extends Observable implements PictureContainer  {
         return isInitialized;
     }
 
-    public BufferedImage getBigThumbnail() {      
+    public BufferedImage getBigThumbnail() {
         return this.bigThumbnail;
     }
 
@@ -193,44 +203,65 @@ public class Picture extends Observable implements PictureContainer  {
 
     public boolean hasExifKeyword(String keyword) {
         boolean hasKeyword = false;
-        String[] keys = (String[])getExifParameter(ExifParameter.KEYWORDS);
+        String[] keys = (String[]) getExifParameter(ExifParameter.KEYWORDS);
         for (int n = 0; n < keys.length; n++) {
-        	if (keys[n].equals(keyword)) {
-        		hasKeyword = true;
-        	}
+            if (keys[n].equals(keyword)) {
+                hasKeyword = true;
+            }
         }
         return hasKeyword;
     }
 
-    public boolean hasMinOneKeywordOf(String[] keywords) {
+    /**
+     * Checks if the picture contain min one keyword of the given list. Also return true if the keyword list is empty.
+     * Return false if the keywordlist is not empty and the picture contains no keywords.
+     * 
+     * @param filterKeywordsArrayList
+     * @return true if a picture contain at least one keyword.
+     *         It returns also true if filterKeywordsArrayList is empty and contains no keyword.
+     */
+    public boolean hasMinOneKeywordOf(ArrayList<String> filterKeywordsArrayList) {
         boolean hasMinOneKeyword = false;
-        String[] keys = (String[])getExifParameter(ExifParameter.KEYWORDS);
-        for (int n = 0; n < keys.length; n++) {
-        	for (int i = 0; i < keywords.length; i++) {
-        		if (keys[n].equals(keywords[i])) {
-        			hasMinOneKeyword = true;
-        		}
-        	}     	
-        }     
+        
+        if (filterKeywordsArrayList.isEmpty()) {
+            hasMinOneKeyword = true;
+        
+        } else {
+
+            /*
+             * TODO: Rename filterKeywordsArrayList to filterKeywords and use it direct
+             * without converting it to an array first. Don't use an array anymore!
+             */
+            final String[] filterKeywords = filterKeywordsArrayList.toArray(new String[] {});
+
+            String[] keys = (String[]) getExifParameter(ExifParameter.KEYWORDS);
+            for (int n = 0; n < keys.length; n++) {
+                for (int i = 0; i < filterKeywords.length; i++) {
+                    if (keys[n].equals(filterKeywords[i])) {
+                        hasMinOneKeyword = true;
+                    }
+                }
+            }
+        }
         return hasMinOneKeyword;
     }
 
     public boolean hasAllKeywords(String[] keywords) {
         boolean hasAllKeyword = false;
         int counter = 0;
-        String[] keys = (String[])getExifParameter(ExifParameter.KEYWORDS);
+        String[] keys = (String[]) getExifParameter(ExifParameter.KEYWORDS);
         int allAmount = keywords.length;
         for (int n = 0; n < keys.length; n++) {
-        	for (int i = 0; i < keywords.length; i++) {
-        		if (keys[n].equals(keywords[i])) {
-        			counter = counter + 1;    			
-        		}
-        	}     	
-        }     
+            for (int i = 0; i < keywords.length; i++) {
+                if (keys[n].equals(keywords[i])) {
+                    counter = counter + 1;
+                }
+            }
+        }
         if (counter >= allAmount) {
-        	hasAllKeyword = true;
+            hasAllKeyword = true;
         } else {
-        	hasAllKeyword = false;
+            hasAllKeyword = false;
         }
 
         return hasAllKeyword;
@@ -246,6 +277,7 @@ public class Picture extends Observable implements PictureContainer  {
 
     /**
      * Uses the Exifadapter to get all Exif-values for the picture
+     * 
      * @return
      */
     public Object[][] getAllExifParameter() {
@@ -266,6 +298,7 @@ public class Picture extends Observable implements PictureContainer  {
 
     /**
      * Returns a thumb of a BufferedImage with a specific size.
+     * 
      * @param bImage
      * @param maxWidthOrHight
      * @param hints
@@ -291,13 +324,14 @@ public class Picture extends Observable implements PictureContainer  {
     }
 
     /**
-    * It also allows to compare over PictureContainer but it is not done in the basic version of our programm.
-    * 
-    * @see java.lang.Comparable#compareTo(java.lang.Object)
-    * @param pictureToCompare other picture to compare
-    * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
-    *         the specified object
-    */
+     * It also allows to compare over PictureContainer but it is not done in the basic version of our programm.
+     * 
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     * @param pictureToCompare
+     *            other picture to compare
+     * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
+     *         the specified object
+     */
     public int compareTo(PictureContainer pictureToCompare) {
         if (this.getPath().hashCode() == ((Picture) pictureToCompare).getPath().hashCode()) {
             return 0;

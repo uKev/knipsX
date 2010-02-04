@@ -15,6 +15,44 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 public final class Validator {
 
     /**
+     * Checks all pictures in an ArrayList of PictureContainers if it has all needed ExifParameters and contain at least one FilterKeyword
+     * 
+     * 
+     * @param pictureContainers
+     *            an ArrayList of PictureContainers that should be validated
+     * @param exifParameters
+     *            an ArrayList of exifParameters that will be checked in the pictures
+     * @param filterKeywords an ArrayList of keywords. All return pictures contain at least one picture keyword.
+     * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
+     */
+    public static ArrayList<Picture> getValidPictures(final ArrayList<PictureContainer> pictureContainers,
+            final ArrayList<ExifParameter> exifParameters, ArrayList<String> filterKeywords) {
+
+        final ArrayList<Picture> validPictures = new ArrayList<Picture>();
+        boolean valid = false;
+
+        for (final PictureContainer pictureContainer : pictureContainers) {
+            for (final Picture picture : pictureContainer) {
+                valid = true;
+                for (final ExifParameter exifParameter : exifParameters) {
+                    if (picture.getExifParameter(exifParameter) == null) {
+                        valid = false;
+                    } else if (!picture.hasMinOneKeywordOf(filterKeywords)) {
+                        valid = false;
+                    }
+                }
+                if (valid) {
+                    validPictures.add(picture);
+                }
+
+            }
+
+        }
+        return validPictures;
+    }
+    
+    
+    /**
      * Checks all pictures in an ArrayList of PictureContainers if it has all needed ExifParameters.
      * 
      * @param pictureContainers
