@@ -46,10 +46,11 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
         if (this.model != null && this.model.isModelValid()) {
 
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
+            this.getyAxis().setAxis(this.model.getxAxis());           
 
             boxplots = new Boxplot[this.model.getBoxplots().size()];
             this.model.getBoxplots().toArray(boxplots);
-            this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
+            
 
             logger.debug("Report Space Min Value " + this.model.getMinY() + "\nReport Space Max Value "
                     + this.model.getMaxY() + "\nMean " + boxplots[0].getMean() + "\nMedian " + boxplots[0].getMedian()
