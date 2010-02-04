@@ -263,7 +263,7 @@ public class ProjectModel extends AbstractModel {
         if (this.getSelectedPicture() != null) {
             return this.getSelectedPicture().getAllExifParameter().clone();
         }
-        
+
         /* INTERNATIONALIZE */
         return new Object[][] { new String[] { "no Data", "no Data" } };
     }
@@ -410,14 +410,16 @@ public class ProjectModel extends AbstractModel {
         final List<PictureSet> pictureSets = new ArrayList<PictureSet>();
 
         /* get the picture sets */
-        final List<PictureContainer> items = pictureSet.getItems();
+        if (pictureSet != null) {
 
-        for (final PictureContainer container : items) {
-            if (container instanceof PictureSet) {
-                pictureSets.add((PictureSet) container);
+            final List<PictureContainer> items = pictureSet.getItems();
+
+            for (final PictureContainer container : items) {
+                if (container instanceof PictureSet) {
+                    pictureSets.add((PictureSet) container);
+                }
             }
         }
-
         /* convert to array */
         final PictureSet[] pictureSetArray = new PictureSet[pictureSets.size()];
 
@@ -439,14 +441,15 @@ public class ProjectModel extends AbstractModel {
         final List<Directory> directories = new ArrayList<Directory>();
 
         /* get the directories */
-        final List<PictureContainer> items = pictureSet.getItems();
+        if (pictureSet != null) {
+            final List<PictureContainer> items = pictureSet.getItems();
 
-        for (final PictureContainer item : items) {
-            if (item instanceof Directory) {
-                directories.add((Directory) item);
+            for (final PictureContainer item : items) {
+                if (item instanceof Directory) {
+                    directories.add((Directory) item);
+                }
             }
         }
-
         /* convert to array */
         final Directory[] directoryArray = new Directory[directories.size()];
 
@@ -467,12 +470,14 @@ public class ProjectModel extends AbstractModel {
     public Picture[] getPicturesOfAPictureSet(final PictureSet pictureSet) {
         final List<Picture> pictures = new ArrayList<Picture>();
 
-        /* get the directories */
-        final List<PictureContainer> items = pictureSet.getItems();
+        /* get the pictures */
+        if (pictureSet != null) {
+            final List<PictureContainer> items = pictureSet.getItems();
 
-        for (final PictureContainer item : items) {
-            if (item instanceof Picture) {
-                pictures.add((Picture) item);
+            for (final PictureContainer item : items) {
+                if (item instanceof Picture) {
+                    pictures.add((Picture) item);
+                }
             }
         }
 
