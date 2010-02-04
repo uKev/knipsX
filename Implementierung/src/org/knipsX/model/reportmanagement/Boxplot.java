@@ -79,7 +79,9 @@ public class Boxplot {
         this.minValue = minValue;
         this.pictureSetName = pictureSetName;
     }
-
+    
+    
+    
     /**
      * Construct and calculate a boxplot with the ExifParameter data from a PictureContainer
      * 

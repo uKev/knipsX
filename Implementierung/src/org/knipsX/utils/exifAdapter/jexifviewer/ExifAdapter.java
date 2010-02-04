@@ -13,6 +13,7 @@ import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.metadata.IIOMetadataNode;
 import javax.imageio.stream.ImageInputStream;
 
+import org.apache.log4j.Logger;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.XMP.XMPAdapter;
 import org.w3c.dom.Node;
@@ -21,6 +22,8 @@ import sun.util.calendar.Gregorian;
 
 public class ExifAdapter {
 	
+        private Logger log = Logger.getLogger(this.getClass());
+    
 	private JIfdData exifData;
 	
 	private String strFilePath;
@@ -106,7 +109,9 @@ public class ExifAdapter {
 		Object returnValue;
 		if (exposureTime == 0){
 		    returnValue = null;
-		} else {
+		} else {   
+		        
+		     
 		    returnValue = exposureTime;
 		}
 		return returnValue;
@@ -140,9 +145,19 @@ public class ExifAdapter {
 		return this.exifData.getFocalLength35mm();
 	}
 	
-	private long getOriginalDate() {
+	private Object getOriginalDate() {
 		assert this.exifData != null;
-		return JIfd.getDateFromString(this.exifData.getOriginalDateTime()).getTime();		
+		
+		Date date = JIfd.getDateFromString(this.exifData.getOriginalDateTime());
+		Object time;
+		
+		if (date == null) {
+		    log.warn("date == null");
+		    time = null;
+		} else {
+		    time = date.getTime();
+		}
+		return time; 		
 	}
 	
 	private String[] getKeywords() {
