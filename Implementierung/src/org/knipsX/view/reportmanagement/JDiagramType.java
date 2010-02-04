@@ -19,8 +19,10 @@ import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 
+import org.apache.log4j.Logger;
 import org.knipsX.controller.reportmanagement.DiagramTypeSelectController;
 import org.knipsX.utils.Resource;
+import org.knipsX.utils.Validator;
 
 /**
  * This class represents the panel where the user can choose the diagram type
@@ -232,35 +234,40 @@ public class JDiagramType extends JAbstractSinglePanel {
     
     @Override
     public boolean isDiagramDisplayable() {
-        if (this.reportname.getText().length() > 0) {
-            this.resetIcon();
-            return true;
-        }
-
-        this.showErrorIcon();
-        return false;
+        return checkReportName();
     }
 
     @Override
     public boolean isDiagramSaveable() {
-        if (this.reportname.getText().length() > 0) {
+        return checkReportName();
+    }
+
+    
+    /* Checks if report name is valid if it is invalid display an error message*/
+    private boolean checkReportName() {
+        
+        Logger logger = Logger.getLogger(this.getClass());        
+        logger.trace("Is Reportname okay: " + Validator.isStringOk(this.reportname.getText()));
+        
+        if (Validator.isStringOk(this.reportname.getText())) {
             this.reportNameErrorLabel.setIcon(null);
             this.reportNameErrorLabel.setText(null);
+            this.resetIcon();
             return true;
-
         } else {
+            
             try {
                 this.reportNameErrorLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
             } catch (FileNotFoundException e) {                
                 e.printStackTrace();
             }
+            this.showErrorIcon();
             //INTERNATIONALIZE
-            this.reportNameErrorLabel
-                    .setToolTipText("Um die Auswertung speichern zu können muss ein Auswertungsname definiert werden");
+            this.reportNameErrorLabel.setToolTipText("Um die Auswertung speichern zu können muss ein gültiger Auswertungsname definiert werden");
             return false;
         }
     }
-
+    
     /**
      * {@inheritDoc}}
      */

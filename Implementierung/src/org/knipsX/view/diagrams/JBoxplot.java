@@ -6,6 +6,7 @@ import javax.vecmath.Vector3d;
 import org.apache.log4j.Logger;
 import org.knipsX.model.reportmanagement.Boxplot;
 import org.knipsX.model.reportmanagement.BoxplotModel;
+import org.knipsX.model.reportmanagement.TextModel;
 
 /**
  * This class implements how the BoxplotModel is to be drawn.
@@ -62,6 +63,26 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
             }
 
             this.getyAxis().generateSegmentDescription(this.model.getMinY(), this.model.getMaxY(), 10);
+            
+            if (this.model.getWilcoxonTest() != null && this.model.getWilcoxonTest().isValid()) {
+                
+                
+                String pValueResultText = "Der p-Wert ist " + this.model.getWilcoxonTest().getResult();
+                String hypothesisResultText = "Abgelehnt? ";
+                String rejected = "";
+                if (this.model.getWilcoxonTest().isRejected()) {
+                    rejected = "Die Hypothese wurde abglehnt";
+                } else {
+                    rejected = "Die Hypothese trifft zu";
+                }
+                
+                String output = pValueResultText + "\n" + hypothesisResultText + " " + rejected + "\n";
+                
+                TextModel textModel = new TextModel(null, output);
+                JTextDiagram<TextModel> diagram = new JTextDiagram<TextModel>(textModel, -1);
+                diagram.showDiagram();
+                
+            }
 
         }
 

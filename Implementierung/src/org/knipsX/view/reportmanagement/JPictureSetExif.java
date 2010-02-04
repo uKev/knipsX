@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 
+import org.apache.log4j.Logger;
 import org.knipsX.controller.reportmanagement.ReportAddExifKeywordController;
 import org.knipsX.controller.reportmanagement.ReportAddPictureSetController;
 import org.knipsX.controller.reportmanagement.ReportPictureSetRemoveController;
@@ -438,6 +439,9 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                     }
                 }
 
+                Logger logger = Logger.getLogger(this.getClass());
+                logger.debug("Validator : correct Pictures found: " + Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters));
+                
                 if (Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters) == 0
                         && ReportHelper.getCurrentReport() != ReportHelper.Table) {
                     this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
