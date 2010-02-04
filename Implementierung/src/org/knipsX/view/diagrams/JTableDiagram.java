@@ -12,7 +12,6 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import org.knipsX.model.picturemanagement.Picture;
-import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.TableModel;
 import org.knipsX.utils.ExifParameter;
 

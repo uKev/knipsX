@@ -20,7 +20,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.knipsX.model.reportmanagement.BoxplotModel;
+import org.knipsX.model.reportmanagement.WilcoxonTest;
 import org.knipsX.model.reportmanagement.WilcoxonTestType;
+import org.knipsX.utils.Converter;
 import org.knipsX.utils.Resource;
 
 /**
@@ -265,18 +267,17 @@ public class JWilcoxon extends JAbstractSinglePanel {
     public void fillViewWithModelInfo() {
         if (ReportHelper.getCurrentModel() != null) {
             if (ReportHelper.getCurrentModel() instanceof BoxplotModel) {
-                this.wilcoxonCheckBox.setSelected(((BoxplotModel) ReportHelper.getCurrentModel())
-                        .isWilcoxonTestActive());
-                this.significanceSlider.floatSlider.setFloatValue(((BoxplotModel) ReportHelper.getCurrentModel())
-                        .getWilcoxonSignificance());
-                if (((BoxplotModel) ReportHelper.getCurrentModel()).getWilcoxonTestType() != null) {
-                    this.wilcoxoncombobox.setSelectedItem(((BoxplotModel) ReportHelper.getCurrentModel())
-                            .getWilcoxonTestType());
-                }
+                WilcoxonTest wilcoxonTest = ((BoxplotModel) ReportHelper.getCurrentModel()).getWilcoxonTest();
+                
+                if (wilcoxonTest != null) {
+                    this.wilcoxonCheckBox.setSelected(wilcoxonTest.isActive());
+                    this.significanceSlider.floatSlider.setFloatValue((float) wilcoxonTest.getSignificance());
+                    if (wilcoxonTest.getWilcoxonTestType() != null) {
+                        this.wilcoxoncombobox.setSelectedItem(wilcoxonTest.getWilcoxonTestType());
+                    }                    
+                }                
             }
-
         }
-
     }
 
     /**
