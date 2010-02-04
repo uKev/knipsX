@@ -15,12 +15,11 @@ import org.knipsX.utils.Validator;
  */
 public class BoxplotModel extends AbstractSingleAxisModel {
 
-    /*
-     * TWEAK: remove deprecated functions
-     */
-
     private final ArrayList<Boxplot> boxplots;
-    private WilcoxonTest wilcoxonTest;
+    
+
+   private WilcoxonTest wilcoxonTest = new WilcoxonTest();
+
 
     Logger log = Logger.getLogger(this.getClass());
     /**
@@ -60,7 +59,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
             String boxplotName;
             if (pictures.getName() == null) {
                 boxplotName = this.xAxis.getParameter().toString();
-                log.warn("Warning in BoxplotModel.java: pictures.getName() was null");
+                log.warn("pictures.getName() was null");
             } else {
                 boxplotName = pictures.getName();
             }
@@ -68,7 +67,10 @@ public class BoxplotModel extends AbstractSingleAxisModel {
             this.boxplots.add(new Boxplot(pictures, this.xAxis.getParameter(), boxplotName));
         }
 
-        this.wilcoxonTest = new WilcoxonTest(this.getPictureContainer(), this.xAxis.getParameter());
+
+         this.wilcoxonTest.setPictureContainer(this.getPictureContainer());
+         this.wilcoxonTest.setExifparameter(this.xAxis.getParameter());
+
 
         for (final PictureContainer pictureContainer : this.getPictureContainer()) {
             for (final Picture picture : pictureContainer) {
