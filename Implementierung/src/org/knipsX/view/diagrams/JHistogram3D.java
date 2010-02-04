@@ -6,7 +6,6 @@ import javax.swing.JOptionPane;
 import javax.vecmath.Vector3d;
 
 import org.apache.log4j.Logger;
-import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.model.reportmanagement.Category;
 import org.knipsX.model.reportmanagement.Histogram3DModel;
 
@@ -77,12 +76,12 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
                     double barHeight = this.getyAxis().getAxisSpace(categories[i][j].getBars().get(0).getHeight());
 
                     if (categories[i][j].getBars().get(0).getHeight() > 0) {
-                        this.createCube(new Vector3d(xPosition, 0, zPosition), new Vector3d(shrinkFactor * zRange / 2,
-                                barHeight, shrinkFactor * xRange / 2), this.basicMaterial(Color.orange));
+                        this.createCube(new Vector3d(xPosition, 0, zPosition), new Vector3d(shrinkFactor * xRange / 2,
+                                barHeight, shrinkFactor * zRange / 2), this.basicMaterial(Color.orange));
 
                         /* Create the actual number of elements on top of the bar */
                         double size = 0.33d;
-                        this.createText(new Vector3d(xPosition, barHeight, zPosition), new Vector3d(size, size, size),
+                        this.createText(new Vector3d(xPosition, barHeight + 0.125, zPosition), new Vector3d(size, size, size),
                                 this.basicMaterial(Color.white), Integer.toString((int) categories[i][j].getBars().get(
                                         0).getHeight()));
 
