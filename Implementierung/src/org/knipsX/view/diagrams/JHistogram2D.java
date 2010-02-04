@@ -47,6 +47,7 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
             this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
             this.getyAxis().setAxis(this.model.getxAxis());
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
+            //INTERNATIONALIZE
             this.getyAxis().setDescription("Anzahl");
 
             Category[] categories = this.model.getCategories();

@@ -14,7 +14,10 @@ Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigke
 
 
 # Probleme, die vor dem 1.0 RC1 (Ende Validierungsphase) behoben werden sollten #
+(_Nachdem_ die automatisierten Tests stehen!)
 
+* ExifAdapter in MetaDataAdapter refactorn
+* Pakethirarchy refactorn
 
 
 # Probleme, die vor dem 1.0 RC2 (Abnahme) behoben werden sollten #
@@ -35,4 +38,6 @@ Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigke
 
 
 # größere Wünsche für eine kommende neue Version 1.5 oder 2.0 - Major Update #
+
+* Bars bestehen aus Bilder die drin sind und sind durchscrollbar zum Anschauen der Bilder
 

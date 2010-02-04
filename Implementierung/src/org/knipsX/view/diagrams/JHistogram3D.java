@@ -51,6 +51,7 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
             this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
             this.getzAxis().setAxis(this.model.getzAxis());            
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
+            //INTERNATIONALIZE
             this.getyAxis().setDescription("Anzahl");
 
             double shrinkFactor = 0.85;
