@@ -11,12 +11,12 @@ abstract class Handler {
 
 	static {
 		
-		ourClass2Conv.put( Directory.class, new DirectoryHandler() );
-		ourClass2Conv.put( Directories.class, new DirectoriesHandler() );
-		ourClass2Conv.put( Picture.class, new PictureHandler() );
-		ourClass2Conv.put( PictureSet.class, new PictureSetHandler() );
-		ourClass2Conv.put( PictureSets.class, new PictureSetsHandler() );
-		//...
+//		ourClass2Conv.put( Directory.class, new DirectoryHandler() );
+//		ourClass2Conv.put( Directories.class, new DirectoriesHandler() );
+//		ourClass2Conv.put( Picture.class, new PictureHandler() );
+//		ourClass2Conv.put( PictureSet.class, new PictureSetHandler() );
+//		ourClass2Conv.put( PictureSets.class, new PictureSetsHandler() );
+//		//...
 
 	}
 	
@@ -34,8 +34,8 @@ abstract class Handler {
 
 	protected <T> void processList( List<T> list ){
 		for( T obj: list ) {
-			Handler h = this.getHandler( obj );
-			h.process( obj );
+			//Handler h = this.getHandler( obj );
+			//h.process( obj );
 		}
 	}
 	
