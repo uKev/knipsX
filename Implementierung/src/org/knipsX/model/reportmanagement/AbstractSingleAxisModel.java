@@ -16,20 +16,16 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
     // needs to be protected because it's used in subclass
     protected Axis xAxis;
 
-    protected double minX;
-    protected double maxX;
-    protected double minY;
-    protected double maxY;
+    protected double minX = Double.MAX_VALUE;
+    protected double maxX = -Double.MAX_VALUE;
+    protected double minY = Double.MAX_VALUE;
+    protected double maxY = -Double.MAX_VALUE;
 
     /**
      * Constructor for an empty AbstractSingleAxisModel
      */
     public AbstractSingleAxisModel() {
         super();
-        this.minX = Double.MAX_VALUE;
-        this.maxX = Double.MIN_VALUE;
-        this.minY = Double.MAX_VALUE;
-        this.maxY = Double.MIN_VALUE;
     }
 
     /**
@@ -79,10 +75,6 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
             final String reportName, final String reportDescription, final ArrayList<String> exifFilterKeywords) {
         super(pictureContainer, reportName, reportDescription, exifFilterKeywords);
         this.setxAxis(xAxis);
-        this.minX = Double.MAX_VALUE;
-        this.maxX = Double.MIN_VALUE;
-        this.minY = Double.MAX_VALUE;
-        this.maxY = Double.MIN_VALUE;
         this.dataIsCalculated(false);
     }
 

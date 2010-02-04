@@ -55,17 +55,28 @@ public class BoxplotModel extends AbstractSingleAxisModel {
         this.clearMissingExifPictureParameter();
         this.boxplots.clear();
 
-        for (final PictureContainer pictures : this.getPictureContainer()) {
+        for (final PictureContainer pictureContainer : this.getPictureContainer()) {
             String boxplotName;
-            if (pictures.getName() == null) {
+            if (pictureContainer.getName() == null) {
                 boxplotName = this.xAxis.getParameter().toString();
                 log.warn("pictures.getName() was null");
             } else {
-                boxplotName = pictures.getName();
+                boxplotName = pictureContainer.getName();
             }
-
-            this.boxplots.add(new Boxplot(pictures, this.xAxis.getParameter(), boxplotName));
+            Boxplot boxplot = new Boxplot(pictureContainer, this.xAxis.getParameter(), boxplotName);
+            
+            if (this.maxY < boxplot.getMaxValue()) {
+                this.maxY = boxplot.getMaxValue();
+            }
+            if (this.minY > boxplot.getMinValue()) {
+                this.minY = boxplot.getMinValue();
+            }
+            
+            this.boxplots.add(boxplot);
         }
+        
+        this.maxX = this.boxplots.size();
+        this.minX = 0;
 
 
          this.wilcoxonTest.setPictureContainer(this.getPictureContainer());
@@ -76,7 +87,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
             for (final Picture picture : pictureContainer) {
                 if (picture.getExifParameter(this.xAxis.getParameter()) == null) {
                     log.info("Missing Exif Parameter: " + picture.getPath()
-                            + this.xAxis.getParameter().toString());
+                            + " : " + this.xAxis.getParameter().toString());
                     this.addMissingExifPictureParameter(new PictureParameter(this.xAxis.getParameter(), picture));
                 }
             }
@@ -93,58 +104,6 @@ public class BoxplotModel extends AbstractSingleAxisModel {
         this.calculateIfRequired();
         return this.boxplots;
     }
-
-    /**
-     * getter for the maximum x-value the boxplots
-     * 
-     * @return the count of the boxplots
-     */
-    @Override
-    public double getMaxX() {
-        this.calculateIfRequired();
-
-        return this.boxplots.size();
-    }
-
-    @Override
-    /**
-     * return the maximum Y Value, return Double.MIN_VALUE if there are no boxplots
-     */
-    public double getMaxY() {
-        this.calculateIfRequired();
-
-        Double maxY = -Double.MAX_VALUE;
-        for (final Boxplot boxplot : this.boxplots) {
-            if (maxY < boxplot.getMaxValue()) {
-                maxY = boxplot.getMaxValue();
-            }
-        }
-        return maxY;
-    }
-
-    @Override
-    /**
-     * return 0 because there are no negative boxplots
-     */
-    public double getMinX() {
-        return 0;
-    }
-
-    @Override
-    /**
-     * return the minimum Y Value, return  Double.MAX_VALUE if there are nox boxplots
-     */
-    public double getMinY() {
-        this.calculateIfRequired();
-        Double minY = Double.MAX_VALUE;
-        for (final Boxplot boxplot : this.boxplots) {
-            if (minY > boxplot.getMinValue()) {
-                minY = boxplot.getMinValue();
-            }
-        }
-        return minY;
-    }
-
 
     /**
      * Getter for the WilcoxonTest.
@@ -175,7 +134,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
         this.calculateIfRequired();
         
         if (this.maxX < this.minX) {
-            logger.info("Model invalid: maxX < minX");
+            logger.info("Model invalid: maxX < minX : " + this.maxX + " < " + this.minX);
             return false;
         }
         if (Validator.getValidPicturesCount(this.getPictureContainer(), this.xAxis.getParameter()) == 0) {
