@@ -63,6 +63,32 @@ public final class Validator {
     }
 
     /**
+     * Checks all pictures in a PictureContainer if it has all needed ExifParameters.
+     * 
+     * @param pictureContainer
+     *            a PictureContainer that should be validated
+     * @param exifParameters
+     *            an exifParameters that will be checked in the pictures
+     * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
+     */
+    public static ArrayList<Picture> getValidPictures(PictureContainer pictures, ExifParameter exifParameter) {
+        return Validator.getValidPictures(new PictureContainer [] {pictures}, exifParameter);
+    }
+
+    /**
+     * Checks all pictures in an ArrayList of PictureContainers if it has all needed ExifParameters.
+     * 
+     * @param pictureContainers
+     *            an ArrayList of PictureContainers that should be validated
+     * @param exifParameters
+     *            an exifParameters that will be checked in the pictures
+     * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
+     */
+    private static ArrayList<Picture> getValidPictures(PictureContainer[] pictureContainers, ExifParameter exifParameter) {
+        return Validator.getValidPictures(new ArrayList<PictureContainer>(Arrays.asList(pictureContainers)), exifParameter);
+    }
+
+    /**
      * Checks all pictures in an ArrayList of PictureContainers if it has all needed ExifParameters.
      * 
      * @param pictureContainers
