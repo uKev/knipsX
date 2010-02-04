@@ -21,7 +21,7 @@ import org.knipsX.view.projectview.JProjectView;
  *            a view.
  */
 public class PictureSetContentListDeleteController<M extends ProjectModel, V extends JProjectView<M>> extends
-	AbstractController<M, V> {
+        AbstractController<M, V> {
 
     /**
      * Creates a new controller which is connected to a view and a model.
@@ -32,38 +32,46 @@ public class PictureSetContentListDeleteController<M extends ProjectModel, V ext
      *            the view.
      */
     public PictureSetContentListDeleteController(M model, V view) {
-	super(model, view);
+        super(model, view);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        final PictureContainer[] toDelete = this.view.getSelectedPictureSetContents();
+        if (this.model.getPictureSets().length > 0) {
+            final PictureContainer[] toDelete = this.view.getSelectedPictureSetContents();
 
-        /* if we have indices */
-        if ((toDelete == null) || (toDelete.length == 0)) {
+            /* if we have indices */
+            if ((toDelete == null) || (toDelete.length == 0)) {
 
-            /* gives the user a hint, that he has selected too little projects */
-            /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(null, "Selektieren Sie mindestens einen Bildmengeninhalt, um ihn zu löschen.",
-                    "Bildmengeninhalt löschen - Fehler", JOptionPane.ERROR_MESSAGE);
+                /* gives the user a hint, that he has selected too little projects */
+                /* INTERNATIONALIZE */
+                JOptionPane.showMessageDialog(null,
+                        "Selektieren Sie mindestens einen Bildmengeninhalt, um ihn zu löschen.",
+                        "Bildmengeninhalt löschen - Fehler", JOptionPane.ERROR_MESSAGE);
+            } else {
+
+                /* INTERNATIONALIZE */
+                final int decision = JOptionPane.showConfirmDialog(null, "Sollen die ausgewählten Bildmengeninhalte:"
+                        + this.generateToDeleteText(toDelete) + " gelöscht werden?", "Bildmengeninhalte löschen",
+                        JOptionPane.YES_NO_OPTION);
+
+                /* if user pressed "yes" */
+                if (decision == 0) {
+
+                    /* delete all selected projects */
+                    for (final PictureContainer item : toDelete) {
+                        this.model.removeContentFromPictureSet(model.getSelectedPictureSet(), item);
+                    }
+                }
+            }
         } else {
 
             /* INTERNATIONALIZE */
-            final int decision = JOptionPane.showConfirmDialog(null, "Sollen die ausgewählten Bildmengeninhalte:"
-                    + this.generateToDeleteText(toDelete) + " gelöscht werden?", "Bildmengeninhalte löschen",
-                    JOptionPane.YES_NO_OPTION);
-
-            /* if user pressed "yes" */
-            if (decision == 0) {
-
-                /* delete all selected projects */
-                for (final PictureContainer item : toDelete) {
-                    this.model.removeContentFromPictureSet(model.getSelectedPictureSet(), item);
-                }
-            }
+            JOptionPane.showMessageDialog(null, "Erstellen Sie erst eine Bildmenge!", "Bildmengeninhalt löschen",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
+
     private String generateToDeleteText(final PictureContainer[] toDelete) {
         String deleteText = "\n\n";
 
