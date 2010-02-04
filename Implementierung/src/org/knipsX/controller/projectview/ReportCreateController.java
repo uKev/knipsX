@@ -10,11 +10,21 @@ import org.knipsX.view.reportmanagement.JReportWizard;
 import org.knipsX.view.reportmanagement.ReportHelper;
 
 /**
- * Represents the Actions which are done by klicking on create report.
- * Acts in harmony with JProjectView.
+ * 
+ * Represents the action which is executed by clicking on the open report button.
+ * Acts in harmony with a JProjectView.
+ *
+ * @param <M>
+ * @param <V>
  */
 public class ReportCreateController<M extends ProjectModel, V extends JProjectView<M>> extends AbstractController<M, V> {
 
+    /**
+     * The constructor which registers the controller with the specified view
+     * 
+     * @param model the model the controller operates on
+     * @param view the view the controller operates on
+     */
     public ReportCreateController(M model, V view) {
 	super(model, view);
     }

@@ -79,9 +79,15 @@ public class ExifAdapter {
 		return this.exifData.getFlash();
 	}
 	
-	private float getFNumber() {
+	private Object getFNumber() {
 		assert this.exifData != null;
-		return this.exifData.getFNumber(new String[1]);
+		float result = this.exifData.getFNumber(new String[1]);
+		
+		if (Float.compare(result, 0) == 0) {
+		    return result;
+		}
+		
+		return null;
 	}
 	
 	private String getFNumberAsFormattedString() {
