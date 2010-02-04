@@ -41,10 +41,17 @@ public class TableModel extends AbstractReportModel {
 
         for (final PictureContainer pictureContainer : this.getPictureContainer()) {
             for (final Picture picture : pictureContainer) {
-                this.pictures.add(picture);
-                for (final ExifParameter exifParameter : ExifParameter.values()) {
-                    if (picture.getExifParameter(exifParameter) == null) {
-                        this.addMissingExifPictureParameter(new PictureParameter(exifParameter, picture));
+                
+                if (picture.hasMinOneKeywordOf(this.getExifFilterKeywords())) {
+                    this.pictures.add(picture);
+                    for (final ExifParameter exifParameter : ExifParameter.values()) {
+                        
+                        if (picture.getExifParameter(exifParameter) == null) {
+
+                            this.addMissingExifPictureParameter(new PictureParameter(exifParameter, picture));
+                        
+                        }
+                        
                     }
 
                 }
@@ -71,7 +78,7 @@ public class TableModel extends AbstractReportModel {
 
         Logger log = Logger.getLogger(this.getClass());
         calculateIfRequired();
-        
+
         if (this.pictures.isEmpty()) {
             log.info("this.pictures.isEmpty()");
             return false;

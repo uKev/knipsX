@@ -91,7 +91,7 @@ public class Boxplot {
      *            the exif-parameter of the pictures which are analysed by this boxplot
      */
     public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter) {
-        this(pictures, exifParameter, null);
+        this(pictures, exifParameter, null, new ArrayList<String>());
         if (pictures == null) {
             this.pictureSetName = "NULL";
             System.out.println("Warning in Boxplot.java: pictures was NULL");
@@ -111,7 +111,7 @@ public class Boxplot {
      * @param pictureSetName
      *            the name of the picture set and - in result - of this boxplot
      */
-    public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter, final String pictureSetName) {
+    public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter, final String pictureSetName, final ArrayList<String> filterKeywords) {
 
         // calculate the Boxplot from the pictures in the pictureSet
         // add private methods to calculate the stuff
@@ -128,7 +128,7 @@ public class Boxplot {
 
         final ArrayList<Double> values = new ArrayList<Double>();
 
-        for (final Picture pic : Validator.getValidPictures(pictures, exifParameter)) {
+        for (final Picture pic : Validator.getValidPictures(pictures, exifParameter, filterKeywords)) {
 
             values.add(Converter.objectToDouble(pic.getExifParameter(exifParameter)));
         }

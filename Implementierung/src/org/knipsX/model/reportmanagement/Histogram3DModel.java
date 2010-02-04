@@ -88,6 +88,10 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                             this.addMissingExifPictureParameter(new PictureParameter(zParameter, picture));
                             pictureValid = false;
                         }
+                        
+                        if (!picture.hasMinOneKeywordOf(this.getExifFilterKeywords())) {
+                            pictureValid = false;
+                        }
 
                         if (pictureValid) {
                             xValue = Converter.objectToDouble(xValueObject);
