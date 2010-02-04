@@ -14,6 +14,7 @@ import javax.swing.table.AbstractTableModel;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.reportmanagement.TableModel;
 import org.knipsX.utils.ExifParameter;
+import org.knipsX.view.projectview.MyExifTableCellRenderer;
 
 /**
  * This class implements how the TableModel is to be drawn.
@@ -80,7 +81,10 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
         
         
         }
+        
         this.table = new JTable(dataModel);
+        this.table.setDefaultRenderer(Object.class, new MyExifTableCellRenderer());
+        
 
         this.scrollpane = new JScrollPane(this.table);
 

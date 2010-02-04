@@ -14,7 +14,7 @@ Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigke
 
 
 # Probleme, die vor dem 1.0 RC1 (Ende Validierungsphase) behoben werden sollten #
-(_Nachdem_ die automatisierten Tests stehen!)
+(Nach dem die automatisierten Tests stehen!)
 
 * ExifAdapter in MetaDataAdapter refactorn
 * Pakethirarchy refactorn

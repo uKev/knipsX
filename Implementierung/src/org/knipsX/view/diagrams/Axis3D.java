@@ -24,6 +24,7 @@ class Axis3D {
     private double maxReportSpace = 1;
     private boolean isReportSpaceInitialized = false;
     private double offset = 0;
+    private String description = "";
 
     /**
      * Returns the assigned EXIF Parameter
@@ -81,9 +82,20 @@ class Axis3D {
                 return axis.getDescription();
             }
         }
-        return "";
+        return this.description;
     }
 
+    
+    /**
+     * Sets the description to the specified value
+     * @param description the description
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    
+    
     /**
      * Returns the number of segments
      * 

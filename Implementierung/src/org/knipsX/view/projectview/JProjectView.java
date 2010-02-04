@@ -34,8 +34,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import org.knipsX.controller.projectview.PictureListClickOnController;
@@ -673,7 +671,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                 final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
                         "Bilder von Bildmengeninhalt " + this.model.getSelectedPictureSetContent().getName());
                 this.jPanelPictureSetActive.setBorder(title);
-            } else if(this.model.getSelectedPictureSet() != null) {
+            } else if (this.model.getSelectedPictureSet() != null) {
                 final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
                         "Bilder von Bildmenge " + this.model.getSelectedPictureSet().getName());
                 this.jPanelPictureSetActive.setBorder(title);
@@ -812,6 +810,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     }
 
     private JTable createExifTable() {
+        //INTERNATIONALIZE
         final String[] columnNames = { "Parameter", "Wert" };
         final Object[][] data = this.model.getExifParameter();
 
@@ -819,11 +818,12 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         JTable table = new JTable(data, columnNames);
         final TableColumn para = table.getColumnModel().getColumn(0);
         final TableColumn value = table.getColumnModel().getColumn(1);
-        para.setCellRenderer(new MyTableCellRenderer());
-        value.setCellRenderer(new MyTableCellRenderer());
-        
+        para.setCellRenderer(new MyExifTableCellRenderer());
+        value.setCellRenderer(new MyExifTableCellRenderer());
+
         return table;
     }
+
     /*
      * ################################################################################################################
      * SOME METHODS WHICH ARE USED BY THE CONNECTED MODEL
@@ -933,7 +933,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                     "Bilder von Bildmenge " + model.getSelectedPictureSet().getName());
             this.jPanelPictureSetActive.setBorder(title);
         }
-        
+
         if (this.model.getStatus() == ProjectModel.ACTIVE) {
             this.setFocusableWindowState(true);
             this.setFocusable(true);
@@ -946,7 +946,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* setup the exif-table */
         this.jTableExif = createExifTable();
-        
+
         /* refresh view */
         this.repaint();
 
@@ -1142,7 +1142,6 @@ class MyPictureListCellRenderer implements ListCellRenderer {
         }
         renderer.setText(theText);
         renderer.setPreferredSize(new Dimension(renderer.getWidth(), 40));
-        
 
         return renderer;
     }
@@ -1191,47 +1190,7 @@ class MyReportListCellRenderer implements ListCellRenderer {
     }
 }
 
-/**
- * Renders a table cell for the table which shows the exif parameters of an active picture.
- */
-class MyTableCellRenderer extends JLabel implements TableCellRenderer {
 
-    private static final long serialVersionUID = -5528480925908374362L;
-
-    protected DefaultTableCellRenderer defaultRenderer = new DefaultTableCellRenderer();
-
-    /**
-     * Renders the cell of a JTable.
-     * 
-     * @param table
-     *            the JTable we're painting.
-     * @param value
-     *            the value of a cell.
-     * @param isSelected
-     *            true if the specified cell was selected.
-     * @param hasFocus
-     *            true if the specified cell has the focus.
-     * @param row
-     *            the selected row index.
-     * @param column
-     *            the selected column index.
-     * 
-     * @return the representation of the cell.
-     */
-    public Component getTableCellRendererComponent(final JTable table, final Object value, final boolean isSelected,
-            final boolean hasFocus, final int row, final int column) {
-
-        /* generate the label which represents the cell */
-        final JLabel renderer = (JLabel) this.defaultRenderer.getTableCellRendererComponent(table, value, isSelected,
-                hasFocus, row, column);
-
-        if (value != null) {
-            renderer.setText(value.toString());
-            renderer.setToolTipText(value.toString());
-        }
-        return renderer;
-    }
-}
 
 /*
  * ################################################################################################################

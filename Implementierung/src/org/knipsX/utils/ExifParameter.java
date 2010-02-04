@@ -1,5 +1,16 @@
 package org.knipsX.utils;
 
+import java.awt.Component;
+
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
+
+import org.knipsX.model.picturemanagement.Picture;
+import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureSet;
+
 public enum ExifParameter {
 
     CAMERAMODEL {
@@ -157,4 +168,5 @@ public enum ExifParameter {
      * @return Returns true if EXIF parameter is ordinal, false otherwise
      */
     public abstract boolean isOrdinal();
+    
 }

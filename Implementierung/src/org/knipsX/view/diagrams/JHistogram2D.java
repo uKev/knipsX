@@ -45,7 +45,10 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
             logger.debug("Global Min Y " + this.model.getMinY() + " Gloabl Max Y " + this.model.getMaxY() + " \n");
 
             this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
-            this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
+            this.getxAxis().setAxis(this.model.getxAxis());
+            this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());            
+            //INTERNATIONALIZE
+            this.getyAxis().setDescription("Anzahl");
 
             Category[] categories = this.model.getCategories();
 
@@ -55,15 +58,21 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
                 logger.debug("Category Number " + category + " Min X "
                         + this.getxAxis().getAxisSpace(categories[i].getMinValueX()) + " Max X "
                         + this.getxAxis().getAxisSpace(categories[i].getMaxValueX()) + " Heigth of 1. Bar "
-                        + categories[i].getBars().get(0).getHeight() + "\n");
+                        + categories[i].getBars().get(0).getHeight() + "\n");              
+              
+                
 
                 double xRange = Math.abs(this.getxAxis().getAxisSpace(categories[i].getMaxValueX())
                         - this.getxAxis().getAxisSpace(categories[i].getMinValueX()));
+                
+                logger.debug("xRange " + xRange);
 
                 double xPosition = this.getxAxis().getAxisSpace(categories[i].getMinValueX()) + xRange / 2;
+                
+                logger.debug("xPosition " + xPosition);
 
                 /* Create the actual bar */
-                this.createCube(new Vector3d(xPosition, 0, 0), new Vector3d(1, this.getyAxis().getAxisSpace(
+                this.createCube(new Vector3d(0, 0, xPosition), new Vector3d(1, this.getyAxis().getAxisSpace(
                         categories[i].getBars().get(0).getHeight()), xRange / 2), this.basicMaterial(Color.orange));
 
                 category++;
