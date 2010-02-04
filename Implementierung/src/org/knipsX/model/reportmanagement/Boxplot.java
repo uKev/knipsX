@@ -3,10 +3,12 @@ package org.knipsX.model.reportmanagement;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.utils.Converter;
 import org.knipsX.utils.ExifParameter;
+import org.knipsX.utils.Validator;
 
 /**
  * Represents the boxplot with all parts containing to it and calculate them.
@@ -28,6 +30,7 @@ public class Boxplot {
     private ArrayList<Double> outlier = new ArrayList<Double>();
     private double maxValue = Double.MIN_VALUE;
     private double minValue = Double.MAX_VALUE;
+    Logger log = Logger.getLogger(this.getClass());
 
     private String pictureSetName;
 
@@ -123,22 +126,17 @@ public class Boxplot {
 
         final ArrayList<Double> values = new ArrayList<Double>();
 
-        for (final Picture pic : pictures) {
+        for (final Picture pic : Validator.getValidPictures(pictures, exifParameter)) {
             
-            final Object objectValue = pic.getExifParameter(exifParameter);
-            
-            if (objectValue != null) {
-
-                final double doubleValue = Converter.objectToDouble(objectValue);
-
-                values.add(doubleValue);
-            }
-
+                values.add(Converter.objectToDouble(pic.getExifParameter(exifParameter)));
         }
 
         Collections.sort(values);
+        
+        
+        
 
-        System.out.println("Boxplot Values:" + values.toString());
+        log.debug("Boxplot Values:" + values.toString());
 
         this.mean = this.calculateMean(values);
         this.median = this.calculateMedian(values);
@@ -150,6 +148,17 @@ public class Boxplot {
         this.maxValue = this.calculateMaxValue(values);
         this.minValue = this.calculateMinValue(values);
         this.pictureSetName = pictureSetName;
+        
+        log.debug(this.mean);
+        log.debug(this.median);
+        log.debug(this.upperQuartile);
+        log.debug(this.lowerQuartile);
+        log.debug(this.upperWhisker);
+        log.debug(this.lowerWhisker);
+        log.debug(this.outlier);
+        log.debug(this.maxValue);
+        log.debug(this.minValue);
+        log.debug(this.pictureSetName);
 
     }
 
