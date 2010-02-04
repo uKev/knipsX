@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -123,6 +124,13 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 this.getContents().removeElement(element);
             }
         }
+
+        /**
+         * Removes all elements in the list
+         */
+        public void removeAllElements() {
+            this.getContents().clear();
+        }
     }
 
     /**
@@ -194,7 +202,6 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     }
 
     // TODO Hier müssen noch die richtigen EXIF Keywords reingeladen werden
-    private final String[] exifFilterKeywords = { "asas", "HAÖÖP" };
     private JFlexibleList availablePictureSets;
     private JFlexibleList associatedPictureSets;
     private JFlexibleList availableExifTags;
@@ -239,7 +246,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         availableExifTagsPanel.setLayout(new BorderLayout());
         // INTERNATIONALIZE
         final JLabel availableExifTagsLabel = new JLabel("Verfügbare XMP-Keywords");
-        this.availableExifTags = new JFlexibleList(this.exifFilterKeywords);
+        this.availableExifTags = new JFlexibleList();
         this.availableExifTags.setFixedCellWidth(250);
         availableExifTagsPanel.add(availableExifTagsLabel, BorderLayout.NORTH);
         availableExifTagsPanel.add(new JScrollPane(this.availableExifTags), BorderLayout.CENTER);
@@ -365,6 +372,78 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         this.availablePictureSets.removeElements(this.availablePictureSets.getSelectedValues());
         this.revalidateReport();
         this.revalidateWilcoxon();
+        this.updateXMPData();
+    }
+
+    /**
+     * This method is responsible for removing the selected picture sets keywords from the report
+     */
+    public void removePictureSet() {
+        this.availablePictureSets.addElements(this.associatedPictureSets.getSelectedValues());
+        this.associatedPictureSets.removeElements(this.associatedPictureSets.getSelectedValues());
+        this.revalidateReport();
+        this.revalidateWilcoxon();
+        this.updateXMPData();
+    }
+
+    /**
+     * Writes the XMP Data into the available XMP data list
+     */
+    private void updateXMPData() {
+
+        addXMPData();
+        removeXMPData();
+
+    }
+
+    /* adds the xmp data if a picture enters the associated picture sets list */
+    private void addXMPData() {
+        ArrayList<String> xmpKeywords = new ArrayList<String>();
+        ArrayList<String> associatedXMPKeywords = new ArrayList<String>(Arrays.asList(this.getExifFilterKeywords()));
+
+        for (PictureContainer pictureContainer : this.getPictureContainer()) {
+            for (Picture picture : pictureContainer) {
+                String[] xmpPictureKeyword = (String[]) picture.getExifParameter(ExifParameter.KEYWORDS);
+                for (int i = 0; i < xmpPictureKeyword.length; i++) {
+                    if (!xmpKeywords.contains(xmpPictureKeyword[i])
+                            && !associatedXMPKeywords.contains(xmpPictureKeyword[i])) {
+                        xmpKeywords.add(xmpPictureKeyword[i]);
+                    }
+                }
+
+            }
+        }
+
+        this.availableExifTags.removeElements(xmpKeywords.toArray());
+        this.availableExifTags.addElements(xmpKeywords.toArray());
+    }
+
+    /* removes the xmp data if a picture set leaves the associated picture sets list */
+    private void removeXMPData() {
+        final Object[] tempObject = this.availablePictureSets.getElements();
+        final ArrayList<PictureContainer> availablePictureContainer = new ArrayList<PictureContainer>();
+
+        for (final Object element : tempObject) {
+            availablePictureContainer.add((PictureContainer) element);
+        }
+
+        ArrayList<String> removeXMPKeywords = new ArrayList<String>();
+
+        for (PictureContainer pictureContainer : availablePictureContainer) {
+            for (Picture picture : pictureContainer) {
+                String[] xmpPictureKeyword = (String[]) picture.getExifParameter(ExifParameter.KEYWORDS);
+                for (int i = 0; i < xmpPictureKeyword.length; i++) {
+                    if (!removeXMPKeywords.contains(xmpPictureKeyword[i])) {
+                        removeXMPKeywords.add(xmpPictureKeyword[i]);
+                    }
+                }
+
+            }
+        }
+
+        this.availableExifTags.removeElements(removeXMPKeywords.toArray());
+        this.associatedExifTags.removeElements(removeXMPKeywords.toArray());
+
     }
 
     /**
@@ -440,8 +519,9 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 }
 
                 Logger logger = Logger.getLogger(this.getClass());
-                logger.trace("Validator : correct Pictures found: " + Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters));
-                
+                logger.trace("Validator : correct Pictures found: "
+                        + Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters));
+
                 if (Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters) == 0
                         && ReportHelper.getCurrentReport() != ReportHelper.Table) {
                     this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
@@ -471,8 +551,8 @@ public class JPictureSetExif extends JAbstractSinglePanel {
             } else {
                 this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
                 // INTERNATIONALIZE
-                this.errorMessage
-                        .setToolTipText("Um die Auswertung anzeigen zu können muss mindestens eine Bildmenge der Auswertung hinzugefügt werden");
+                this.errorMessage.setToolTipText("Um die Auswertung anzeigen zu können muss in jeder "
+                        + "zugewiesenen Bildmenge mindestens ein gültiges Bild vorhanden sein");
                 this.showErrorIcon();
                 return false;
             }
@@ -496,16 +576,6 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     public void removeExifFilterKeywords() {
         this.availableExifTags.addElements(this.associatedExifTags.getSelectedValues());
         this.associatedExifTags.removeElements(this.associatedExifTags.getSelectedValues());
-    }
-
-    /**
-     * This method is responsible for removing the selected picture sets keywords from the report
-     */
-    public void removePictureSet() {
-        this.availablePictureSets.addElements(this.associatedPictureSets.getSelectedValues());
-        this.associatedPictureSets.removeElements(this.associatedPictureSets.getSelectedValues());
-        this.revalidateReport();
-        this.revalidateWilcoxon();
     }
 
     /**
@@ -543,13 +613,13 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
             if (ReportHelper.getCurrentModel().getExifFilterKeywords() != null
                     && ReportHelper.getCurrentModel().getExifFilterKeywords().length > 0) {
-                System.out.println(ReportHelper.getCurrentModel().getExifFilterKeywords());
                 this.associatedExifTags.addElements((ReportHelper.getCurrentModel().getExifFilterKeywords()));
                 this.availableExifTags.removeElements((ReportHelper.getCurrentModel().getExifFilterKeywords()));
             }
 
         }
 
+        this.updateXMPData();
     }
 
 }

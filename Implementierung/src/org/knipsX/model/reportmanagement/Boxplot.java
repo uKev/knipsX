@@ -127,14 +127,11 @@ public class Boxplot {
         final ArrayList<Double> values = new ArrayList<Double>();
 
         for (final Picture pic : Validator.getValidPictures(pictures, exifParameter)) {
-            
-                values.add(Converter.objectToDouble(pic.getExifParameter(exifParameter)));
+
+            values.add(Converter.objectToDouble(pic.getExifParameter(exifParameter)));
         }
 
         Collections.sort(values);
-        
-        
-        
 
         log.debug("Boxplot Values:" + values.toString());
 
@@ -148,7 +145,7 @@ public class Boxplot {
         this.maxValue = this.calculateMaxValue(values);
         this.minValue = this.calculateMinValue(values);
         this.pictureSetName = pictureSetName;
-        
+
         log.debug(this.mean);
         log.debug(this.median);
         log.debug(this.upperQuartile);
@@ -166,29 +163,6 @@ public class Boxplot {
         assert this.isSorted(values);
 
         return this.quantile(values, 0.25);
-    }
-
-    private double calculateLowerWhisker(final ArrayList<Double> values) {
-        assert this.isSorted(values);
-        double lowerWhisker = 0;
-
-        if (values.size() > 1) {
-            final double upperQuartile = this.calculateUpperQuartile(values);
-            final double lowerQuartile = this.calculateLowerQuartile(values);
-            final double interQuartileRange = Math.abs(upperQuartile - lowerQuartile);
-
-            double value = lowerQuartile;
-            lowerWhisker = value;
-
-            int i = (int) (values.size() * 0.25);
-
-            while ((value >= (lowerQuartile - (1.5 * interQuartileRange))) && (i >= 0)) {
-                lowerWhisker = value;
-                value = values.get(i);
-                i--;
-            }
-        }
-        return lowerWhisker;
     }
 
     /**
@@ -290,22 +264,59 @@ public class Boxplot {
         return this.quantile(values, 0.75);
     }
 
+    private double calculateLowerWhisker(final ArrayList<Double> values) {
+        log.debug("calculateLowerWhisker, Values:" + values.toString());
+
+        assert this.isSorted(values);
+        double lowerWhisker = 0;
+
+        if (values.size() > 1) {
+            final double upperQuartile = this.calculateUpperQuartile(values);
+            final double lowerQuartile = this.calculateLowerQuartile(values);
+            final double interQuartileRange = Math.abs(upperQuartile - lowerQuartile);
+
+            /*
+             * searching for the lowerWhisker, starting at the lowerQuartile and searching downwards
+             */
+            double lowerWhiskerCandidate = lowerQuartile;
+            lowerWhisker = lowerQuartile;
+
+            int i = (int) (values.size() * 0.25);
+
+            while ((lowerWhiskerCandidate >= (lowerQuartile - (1.5 * interQuartileRange))) && (i >= 0)) {
+                lowerWhisker = lowerWhiskerCandidate;
+                i--;
+                if (i >= 0) {
+                    lowerWhiskerCandidate = values.get(i);
+                }
+            }
+        }
+        return lowerWhisker;
+    }
+
     private double calculateUpperWhisker(final ArrayList<Double> values) {
         assert this.isSorted(values);
+
+        log.debug("calculateUpperWhisker, Values:" + values.toString());
 
         final double upperQuartile = this.calculateUpperQuartile(values);
         final double lowerQuartile = this.calculateLowerQuartile(values);
         final double interQuartileRange = Math.abs(upperQuartile - lowerQuartile);
 
-        double value = upperQuartile;
-        double upperWhisker = value;
+        /*
+         * searching for the upperWhisker, starting at the upperQuartile and searching upwards
+         */
+        double upperWhiskerCandidate = upperQuartile;
+        double upperWhisker = upperQuartile;
 
         int i = (int) (values.size() * 0.75);
 
-        while ((value <= (upperQuartile + (1.5 * interQuartileRange))) && (i < values.size())) {
-            upperWhisker = value;
-            value = values.get(i);
+        while ((upperWhiskerCandidate <= (upperQuartile + (1.5 * interQuartileRange))) && (i <= values.size())) {
+            upperWhisker = upperWhiskerCandidate;
             i++;
+            if (i < values.size()) {
+                upperWhiskerCandidate = values.get(i);
+            }
         }
         return upperWhisker;
     }
