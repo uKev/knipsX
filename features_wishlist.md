@@ -22,7 +22,7 @@ Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigke
 * Möglichst komfortable Paketierung mindestens als .exe für Windows sowie .deb für Ubuntu (Debian)
 * Aufräumen des Repository
 * (bebilderte) grobe Anleitung für den Benutzer mit Erklärung PictureContainer-Konzept.
-
+* Hinzufügen eines "About"-Knopfes
 
 # Wünsche für die erste verbesserte Version nach der Abnahme (1.1 oder 1.2) - Minor Update #
 
