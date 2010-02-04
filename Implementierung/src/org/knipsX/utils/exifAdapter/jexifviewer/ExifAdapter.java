@@ -3,6 +3,9 @@ package org.knipsX.utils.exifAdapter.jexifviewer;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
@@ -13,6 +16,8 @@ import javax.imageio.stream.ImageInputStream;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.XMP.XMPAdapter;
 import org.w3c.dom.Node;
+
+import sun.util.calendar.Gregorian;
 
 public class ExifAdapter {
 	
@@ -37,10 +42,6 @@ public class ExifAdapter {
 			return getFocalLength();
 		case DATE:
 			return getOriginalDate();
-		case DAYOFWEEK:
-			return getOriginalDayOfWeek();
-		case TIME:
-			return getOriginalTime();
 		case OBJECTIVENAME:
 			return getObjective();
 		case KEYWORDS:
@@ -139,9 +140,9 @@ public class ExifAdapter {
 		return this.exifData.getFocalLength35mm();
 	}
 	
-	private String getOriginalDate() {
+	private long getOriginalDate() {
 		assert this.exifData != null;
-		return this.exifData.getOriginalDateTime();
+		return JIfd.getDateFromString(this.exifData.getOriginalDateTime()).getTime();		
 	}
 	
 	private String[] getKeywords() {

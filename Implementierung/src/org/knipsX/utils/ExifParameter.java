@@ -104,31 +104,6 @@ public enum ExifParameter {
         }
     },
     
-    DAYOFWEEK {
-        @Override
-        public String toString() {
-            // INTERNATIONALIZE
-            return "Dayofweek";
-        }
-
-        @Override
-        public boolean isOrdinal() {
-            return true;
-        }
-    },
-    
-    TIME {
-        @Override
-        public String toString() {
-            // INTERNATIONALIZE
-            return "Time";
-        }
-
-        @Override
-        public boolean isOrdinal() {
-            return true;
-        }
-    },
     
     OBJECTIVENAME {
         @Override
