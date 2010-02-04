@@ -48,7 +48,12 @@ public class MyExifTableCellRenderer extends JLabel implements TableCellRenderer
             if (value instanceof Object[]) {
                 Object[] objectArray = (Object[]) value;
                 for (int i = 0; i < objectArray.length; i++) {
-                    theText = objectArray[i].toString() + " ,";
+                    if (i == 0) {
+                        theText = objectArray[i].toString();
+                    } else {
+                        theText = theText + ", " + objectArray[i].toString();
+                    }
+                    
                 }
 
             } else {
