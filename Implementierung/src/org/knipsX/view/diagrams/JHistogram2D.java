@@ -1,13 +1,3 @@
-package org.knipsX.view.diagrams;
-
-import java.awt.Color;
-
-import javax.swing.JOptionPane;
-import javax.vecmath.Vector3d;
-
-import org.apache.log4j.Logger;
-import org.knipsX.model.reportmanagement.Category;
-import org.knipsX.model.reportmanagement.Histogram2DModel;
 
 /**
  * This class implements how the Histogram2DModel is to be drawn.
@@ -113,5 +103,3 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
         }
 
     }
-
-}
