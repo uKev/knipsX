@@ -83,7 +83,7 @@ public class ExifAdapter {
 		assert this.exifData != null;
 		float result = this.exifData.getFNumber(new String[1]);
 		
-		if (Float.compare(result, 0) == 0) {
+		if (Float.compare(result, 0) != 0) {
 		    return result;
 		}
 		
