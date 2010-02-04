@@ -143,12 +143,12 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
 
         for (int i = 0; i < this.categories.length; i++) {
             if (this.categories[i].getMaxValueX() > this.maxX) {
-                this.log.error("found biggest X value: " + this.categories[i].getMaxValueX() + " >= " + this.maxX
+                this.log.error("found bigger X value in category: " + this.categories[i].getMaxValueX() + " >= " + this.maxX
                         + " (" + i + ")");
             }
 
             if (this.categories[i].getMinValueX() < this.minX) {
-                this.log.error("found smallest X value: " + this.categories[i].getMinValueX() + " <= " + this.minX
+                this.log.error("found smaller X value in category: " + this.categories[i].getMinValueX() + " <= " + this.minX
                         + " (" + i + ")");
             }
 
@@ -165,9 +165,7 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
             this.log.error(" this.maxX != this.getMaxX() :" + this.maxX + " != " + this.getMaxX());
         }
 
-        final ArrayList<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
-        exifParameters.add(this.getxAxis().getParameter());
-        final int pictureCount = Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters);
+        final int pictureCount = Validator.getValidPicturesCount(this.getPictureContainer(), this.getxAxis().getParameter());
 
         if (pictureCount != count) {
 
@@ -258,6 +256,9 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
 
         this.xCategorySize = (deltaX / numberOfCategories);
 
+        log.trace("MinX: " + this.minX);
+        log.trace("MaxX: " + this.maxX);
+        
         /*
          * Calculate the range of each category.
          * Minimum is inclusive and maximum is exclusive 
@@ -270,8 +271,15 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
 
             minValueX = this.minX + i * this.xCategorySize;
             maxValueX = minValueX + this.xCategorySize;
+            
+            log.trace("MinValue X: " + minValueX);
+            log.trace("MaxValue X: " + maxValueX);
 
             this.categories[i] = new Category(null, minValueX, maxValueX);
+            
+            log.trace("this.categories[i].getMinValueX(): " + this.categories[i].getMinValueX());
+            log.trace("this.categories[i].getMaxValueX(): " + this.categories[i].getMaxValueX());
+
         }
 
     }
