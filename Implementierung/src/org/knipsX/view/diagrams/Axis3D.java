@@ -1,6 +1,9 @@
 package org.knipsX.view.diagrams;
 
 import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.utils.ExifParameter;
@@ -24,7 +27,8 @@ class Axis3D {
     private double maxReportSpace = 1;
     private boolean isReportSpaceInitialized = false;
     private double offset = 0;
-    private String description = "";
+    private String description = "";    
+    
 
     /**
      * Returns the assigned EXIF Parameter
@@ -169,26 +173,7 @@ class Axis3D {
     protected void generateSegmentDescription(final Object minValue, final Object maxValue, int numberOfSegments) {
 
         this.setNumberOfSegments(numberOfSegments);
-        this.showSegments = true;
-        
-        if (minValue instanceof Integer && maxValue instanceof Integer) {
-
-            double range = (Integer) maxValue - (Integer) minValue + 2 * offset;
-
-            /* Note that underflow might occur */
-            double pieces = (double) range / (double) this.getNumberOfSegments();
-
-            final String[] returnstring = new String[this.getNumberOfSegments() + 1];
-
-            DecimalFormat format = new DecimalFormat("#.###");
-
-            for (int i = 0; i < this.getNumberOfSegments() + 1; i++) {
-                returnstring[i] = String.valueOf(format.format((Integer) minValue - offset + pieces * i));
-            }
-
-            this.setSegmentDescription(returnstring);
-
-        }
+        this.showSegments = true; 
 
         if (minValue instanceof Double && maxValue instanceof Double) {
 
@@ -196,17 +181,44 @@ class Axis3D {
 
             double pieces = (double) range / (double) this.getNumberOfSegments();
 
-            final String[] returnstring = new String[this.getNumberOfSegments() + 1];
+            final String[] returnstring = new String[this.getNumberOfSegments() + 1];            
+            
+            if (this.axis != null && this.axis.getParameter() == ExifParameter.DATE) {
+                /* Draw dates instead of numbers */                
+                
+                for (int i = 0; i < this.getNumberOfSegments() + 1; i++) {                    
+                    
+                    Date tempDate = new Date();
+                    tempDate.setTime((long) ((Double) minValue - offset + pieces * i));
+                    
+                    GregorianCalendar date = new GregorianCalendar();
+                    date.setTime(tempDate);                    
+                    
+                    final int year = date.get(Calendar.YEAR);
+                    final int month = date.get(Calendar.MONTH) + 1;
+                    final int day = date.get(Calendar.DAY_OF_MONTH);
+                    final int hour = date.get(Calendar.HOUR_OF_DAY);
+                    final int minute = date.get(Calendar.MINUTE);
+                    final int second = date.get(Calendar.SECOND);
 
-            DecimalFormat format = new DecimalFormat("#.###");
-
-            for (int i = 0; i < this.getNumberOfSegments() + 1; i++) {
-                returnstring[i] = String.valueOf(format.format((Double) minValue - offset + pieces * i));
+                    final DecimalFormat df = new DecimalFormat("00");
+                    returnstring[i] = day + "." + month + "." + year + " - " + df.format(hour) + ":" + df.format(minute) + ":"
+                    + df.format(second);
+                }
+                
+                
+            } else {
+                DecimalFormat format = new DecimalFormat("#.###");
+                
+                for (int i = 0; i < this.getNumberOfSegments() + 1; i++) {
+                    returnstring[i] = String.valueOf(format.format((Double) minValue - offset + pieces * i));
+                }
+                
             }
-
+            
             this.setSegmentDescription(returnstring);
+            
         }
-
     }
 
     /**

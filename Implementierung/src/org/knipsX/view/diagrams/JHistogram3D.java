@@ -8,6 +8,7 @@ import javax.vecmath.Vector3d;
 import org.apache.log4j.Logger;
 import org.knipsX.model.reportmanagement.Category;
 import org.knipsX.model.reportmanagement.Histogram3DModel;
+import org.knipsX.utils.Resource;
 
 /**
  * This class implements how the Histogram3DModel is to be drawn.
@@ -53,8 +54,8 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
             //INTERNATIONALIZE
             this.getyAxis().setDescription("Anzahl");
 
-            double shrinkFactor = 0.85;
-
+            double shrinkFactor = 0.85;            
+            
             int heigth = 0;
             for (int i = 0; i < categories.length; i++) {
                 for (int j = 0; j < categories[i].length; j++) {
@@ -67,24 +68,30 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
 
                     double xRange = Math.abs(this.getxAxis().getAxisSpace(categories[i][j].getMaxValueX())
                             - this.getxAxis().getAxisSpace(categories[i][j].getMinValueX()));
+                    xRange = xRange / categories[i][j].getBars().size();
+                    
                     double zRange = Math.abs(this.getzAxis().getAxisSpace(categories[i][j].getMaxValueZ())
                             - this.getzAxis().getAxisSpace(categories[i][j].getMinValueZ()));
 
+                    zRange = zRange / categories[i][j].getBars().size();
+                    
                     double xPosition = this.getxAxis().getAxisSpace(categories[i][j].getMinValueX()) + xRange / 2;
                     double zPosition = this.getzAxis().getAxisSpace(categories[i][j].getMinValueZ()) + zRange / 2;
 
                     double barHeight = this.getyAxis().getAxisSpace(categories[i][j].getBars().get(0).getHeight());
 
-                    if (categories[i][j].getBars().get(0).getHeight() > 0) {
-                        this.createCube(new Vector3d(xPosition, 0, zPosition), new Vector3d(shrinkFactor * xRange / 2,
-                                barHeight, shrinkFactor * zRange / 2), this.basicMaterial(Color.orange));
+               for (int k = 0; k < categories[i][j].getBars().size(); k++) {
+                    if (categories[i][j].getBars().get(k).getHeight() > 0) {
+                        this.createCube(new Vector3d(xPosition + k * xRange, 0, zPosition + k * zRange), new Vector3d(shrinkFactor * xRange / 2,
+                                barHeight, shrinkFactor * zRange / 2), this.basicMaterial(Resource.getColor(k)));
 
                         /* Create the actual number of elements on top of the bar */
                         double size = 0.33d;
-                        this.createText(new Vector3d(xPosition, barHeight + 0.125, zPosition), new Vector3d(size, size, size),
+                        this.createText(new Vector3d(xPosition + k * xRange, barHeight + 0.125, zPosition + k * zRange), new Vector3d(size, size, size),
                                 this.basicMaterial(Color.white), Integer.toString((int) categories[i][j].getBars().get(
                                         0).getHeight()));
-
+                    }
+                    
                         heigth++;
                     }
 

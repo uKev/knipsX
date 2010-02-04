@@ -15,7 +15,8 @@ import java.util.List;
 import java.util.Observable;
 import javax.imageio.ImageIO;
 
-/* import classes from our util source */
+/* import classes from our util source*/
+import org.apache.log4j.Logger;
 import org.knipsX.Programm;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
@@ -37,16 +38,16 @@ public class Picture extends Observable implements PictureContainer {
     /* Thumbnails */
     private BufferedImage smallThumbnail;
     private BufferedImage bigThumbnail;
-
+    
+    private Logger log = Logger.getLogger(this.getClass());
+    
     boolean isReturned;
 
     /**
      * Create new Picture with a path.
      * 
-     * @param path
-     *            the filepath of the picture
-     * @param isActiveorNot
-     *            the status of the picture
+     * @param path the filepath of the picture
+     * @param isActiveorNot the status of the picture
      */
     public Picture(String path, boolean isActiveorNot) throws PictureNotFoundException {
         if ((path == null) || (new File(path).exists() == false)) {
@@ -61,10 +62,8 @@ public class Picture extends Observable implements PictureContainer {
     /**
      * Create new Picture with a file.
      * 
-     * @param file
-     *            the file to create from
-     * @param isActiveorNot
-     *            the status of the picture
+     * @param file the file to create from
+     * @param isActiveorNot the status of the picture
      */
     public Picture(File file, boolean isActiveorNot) {
         this.pictureFile = file;
@@ -72,12 +71,12 @@ public class Picture extends Observable implements PictureContainer {
         this.allExifParameter = null;
         this.isReturned = false;
     }
-
+    
     /**
      * Gets the name from the picture
      * 
      * @return the name
-     */
+     */  
     public String getName() {
         return pictureFile.getName();
     }
@@ -87,16 +86,14 @@ public class Picture extends Observable implements PictureContainer {
      * 
      * @return the path
      */
-
+    
     public String getPath() {
         return pictureFile.getAbsolutePath();
     }
 
     /**
      * Gets a specific Exif parameter from the picture
-     * 
-     * @param specific
-     *            exifParameter
+     * @param specific exifParameter
      * @return value of the parameter
      */
     public Object getExifParameter(ExifParameter exifParameter) {
@@ -113,7 +110,7 @@ public class Picture extends Observable implements PictureContainer {
         items.add(this);
         return items;
     }
-
+    
     /**
      * @see java.lang.Iterable#iterator()
      * @return the iterator over this
@@ -162,7 +159,7 @@ public class Picture extends Observable implements PictureContainer {
                 this.bigThumbnail = Picture.getThumbOf(ImageIO.read(pictureFile), 200, Image.SCALE_FAST);
                 isInitialized = true;
             } catch (IOException e) {
-                Programm.logger.error("[Picture::getBigThumbnail()] - Can not create Thumbnail from File - "
+                log.error("[Picture::getBigThumbnail()] - Can not create Thumbnail from File - "
                         + pictureFile.getAbsolutePath());
             }
         }
@@ -172,7 +169,7 @@ public class Picture extends Observable implements PictureContainer {
                 this.smallThumbnail = Picture.getThumbOf(ImageIO.read(pictureFile), 50, Image.SCALE_FAST);
                 isInitialized = true;
             } catch (IOException e) {
-                Programm.logger.error("[Picture::getSmallThumbnail()] - Can not create Thumbnail from File - "
+                log.error("[Picture::getSmallThumbnail()] - Can not create Thumbnail from File - "
                         + pictureFile.getAbsolutePath());
             }
         }
@@ -324,14 +321,13 @@ public class Picture extends Observable implements PictureContainer {
     }
 
     /**
-     * It also allows to compare over PictureContainer but it is not done in the basic version of our programm.
-     * 
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     * @param pictureToCompare
-     *            other picture to compare
-     * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
-     *         the specified object
-     */
+    * It also allows to compare over PictureContainer but it is not done in the basic version of our programm.
+    * 
+    * @see java.lang.Comparable#compareTo(java.lang.Object)
+    * @param pictureToCompare other picture to compare
+    * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
+    *         the specified object
+    */
     public int compareTo(PictureContainer pictureToCompare) {
         if (this.getPath().hashCode() == ((Picture) pictureToCompare).getPath().hashCode()) {
             return 0;

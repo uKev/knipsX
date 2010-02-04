@@ -8,15 +8,17 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
-import org.knipsX.Programm;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.utils.XML.XMLInput;
 import org.knipsX.utils.XML.XMLOutput;
 
 public class XMLRepositoryBackup implements Repository {
 
+    private static Logger log = Logger.getLogger(XMLRepositoryBackup.class); 
+    
     public List<ProjectModel> getProjects() {
 
         final List<ProjectModel> projects = new ArrayList<ProjectModel>();
@@ -26,8 +28,7 @@ public class XMLRepositoryBackup implements Repository {
         /* if dir not exist, try to create it */
         if (!projectDir.exists()) {
             if (!projectDir.mkdir()) {
-                Programm.logger
-                        .error("[XMLRepository::getProjects()] - I have no rights to create the project directory -> "
+                log.error("[getProjects()] - I have no rights to create the project directory -> "
                                 + RepositoryHandler.PROJECTS_PATH);
             }
         }
@@ -76,8 +77,8 @@ public class XMLRepositoryBackup implements Repository {
         /* save the project and return the unique id */
         if (!projectDir.mkdir()) {
             /* INTERNATIONALIZE */
-            Programm.logger
-                    .error("[XMLRepository::createProject()] - I have no rights to create the project directory -> "
+            log
+                    .error("[createProject()] - I have no rights to create the project directory -> "
                             + RepositoryHandler.PROJECTS_PATH);
         } else {
             this.saveProject(new ProjectModel(toCopy, projectId, ""));
@@ -100,13 +101,13 @@ public class XMLRepositoryBackup implements Repository {
             }
             if (!file.delete()) {
                 /* INTERNATIONALIZE */
-                Programm.logger.error("[XMLRepository::treeDelete()] - I have no rights to delete the directory -> "
+                log.error("[treeDelete()] - I have no rights to delete the directory -> "
                         + file.getAbsolutePath());
             }
         } else {
             if (!file.delete()) {
                 /* INTERNATIONALIZE */
-                Programm.logger.error("[XMLRepository::treeDelete()] - I have no rights to delete the file -> "
+                log.error("[treeDelete()] - I have no rights to delete the file -> "
                         + file.getAbsolutePath());
             }
         }
@@ -124,7 +125,7 @@ public class XMLRepositoryBackup implements Repository {
                 outputter.setFormat(Format.getPrettyFormat());
                 outputter.output(xmlFile.getDocument(), writer);
             } catch (final IOException e) {
-                System.err.println(e);
+                log.error(e.toString());
             }
         } catch (final IOException e1) {
             // TODO Auto-generated catch block

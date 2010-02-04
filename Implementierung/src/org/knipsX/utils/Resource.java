@@ -1,5 +1,6 @@
 package org.knipsX.utils;
 
+import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.net.URL;
 
@@ -44,6 +45,17 @@ public final class Resource {
 
         return imageIcon;
     }
+    
+    /**
+     * Returns a color for a position i
+     * @param i the position i
+     * @return a color
+     */
+    public static Color getColor(int i) {
+        Color[] histogramColors = { Color.BLUE, Color.GREEN, Color.ORANGE, Color.YELLOW, Color.RED};
+        return histogramColors[i % histogramColors.length];
+    }
+    
     
     /* To satisfy checkstyle */
     private Resource() {
