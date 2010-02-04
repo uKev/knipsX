@@ -10,9 +10,10 @@ public class XMLRepository implements Repository {
  
     public int createProject() {
         /* create a list of picture sets */
-        List<PictureSet> pictureSetList = new ArrayList<PictureSet>();
-        
-        return pictureSetList;
+//        List<PictureSet> pictureSetList = new ArrayList<PictureSet>();
+//        
+//        return pictureSetList;
+    	return 0;
     }
  
     public int createProject(ProjectModel toCopy) {
