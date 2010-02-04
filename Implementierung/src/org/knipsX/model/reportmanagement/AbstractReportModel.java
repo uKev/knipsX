@@ -16,7 +16,7 @@ import org.knipsX.model.picturemanagement.PictureContainer;
  */
 public abstract class AbstractReportModel extends AbstractModel {
 
-    private ArrayList<PictureContainer> pictureContainer= new ArrayList<PictureContainer>();;
+    private ArrayList<PictureContainer> pictureContainer = new ArrayList<PictureContainer>();;
     private String reportName;
     private String reportDescription;
     // Tags of pictures that will be filtered
