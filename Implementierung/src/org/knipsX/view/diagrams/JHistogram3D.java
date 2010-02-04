@@ -2,6 +2,7 @@ package org.knipsX.view.diagrams;
 
 import java.awt.Color;
 
+import javax.swing.JOptionPane;
 import javax.vecmath.Vector3d;
 
 import org.knipsX.model.reportmanagement.Category;
@@ -77,8 +78,7 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
 
                     this.createCube(new Vector3d(xPosition, 0, zPosition), new Vector3d(shrinkFactor * zRange / 2, this
                             .getyAxis().getAxisSpace(categories[i][j].getBars().get(0).getHeight()), shrinkFactor
-                            * xRange / 2),
-                            this.basicMaterial(Color.orange));
+                            * xRange / 2), this.basicMaterial(Color.orange));
 
                     heigth++;
 
@@ -88,6 +88,15 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
             this.getxAxis().generateSegmentDescription(categories.length);
             this.getzAxis().generateSegmentDescription(categories[0].length);
             this.getyAxis().generateSegmentDescription(5);
+        } else {
+            if (this.model != null) {
+                /* Output some kind of error message */
+                // INTERNATIONALIZE
+                JOptionPane.showMessageDialog(this,
+                        "Das Diagramm kann nicht angezeigt werden, da es ein Fehler bei der Berechnung gab.");
+                this.displayDiagram = false;
+            }
+
         }
     }
 

@@ -818,13 +818,13 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             if (pic != null) {
                 this.leftPanel.add(new JLabel(pic.getName()));
                 this.leftPanel.add(new JLabel(new ImageIcon(pic.getSmallThumbnail())));
-                //this.leftPanel.add(new JLabel(new ImageIcon(pic.getImageWithSize(200))));
-                
+                // this.leftPanel.add(new JLabel(new ImageIcon(pic.getImageWithSize(200))));
+
             }
 
             /* Define the space */
             size = size + 75;
-            JLabel spacer = new JLabel();            
+            JLabel spacer = new JLabel();
             spacer.setPreferredSize(new Dimension(size, 0));
             spacer.setMinimumSize(new Dimension(size, 0));
             spacer.setMaximumSize(new Dimension(size, 0));
@@ -884,28 +884,30 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     @Override
     public void showDiagram() {
 
-        this.setLayout(new BorderLayout());
+        if (displayDiagram) {
+            this.setLayout(new BorderLayout());
 
-        final Component diagramView = this.canvas3D;
-        diagramView.setPreferredSize(new Dimension(800, 600));
+            final Component diagramView = this.canvas3D;
+            diagramView.setPreferredSize(new Dimension(800, 600));
 
-        this.add(diagramView, BorderLayout.CENTER);
+            this.add(diagramView, BorderLayout.CENTER);
 
-        if (this.registeredButtons != null) {
-            this.add(this.registeredButtons, BorderLayout.SOUTH);
+            if (this.registeredButtons != null) {
+                this.add(this.registeredButtons, BorderLayout.SOUTH);
+            }
+
+            if (this.leftPanel != null) {
+                this.add(this.leftPanel, BorderLayout.WEST);
+            }
+
+            if (this.rightPanel != null) {
+                this.add(this.rightPanel, BorderLayout.EAST);
+            }
+
+            this.pack();
+            this.setLocationRelativeTo(null);
+            this.setVisible(true);
         }
-
-        if (this.leftPanel != null) {
-            this.add(this.leftPanel, BorderLayout.WEST);
-        }
-
-        if (this.rightPanel != null) {
-            this.add(this.rightPanel, BorderLayout.EAST);
-        }
-
-        this.pack();
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
     }
 
     /**

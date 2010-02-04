@@ -2,6 +2,7 @@ package org.knipsX.view.diagrams;
 
 import java.awt.Color;
 
+import javax.swing.JOptionPane;
 import javax.vecmath.Vector3d;
 
 import org.apache.log4j.Logger;
@@ -39,38 +40,49 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
         if (model != null && this.model.isModelValid()) {
 
             Logger logger = Logger.getLogger(this.getClass());
-            
+
             logger.debug("Gloabl Min X " + this.model.getMinX() + " Global Max X " + this.model.getMaxX());
             logger.debug("Global Min Y " + this.model.getMinY() + " Gloabl Max Y " + this.model.getMaxY() + " \n");
-                
-                this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
-                this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
 
-                Category[] categories = this.model.getCategories();
+            this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
+            this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
 
-                int category = 0;
-                for (int i = 0; i < categories.length; i++) {
-                    
-                    logger.debug("Category Number " + category + " Min X " + this.getxAxis().getAxisSpace(categories[i].getMinValueX()) + " Max X " 
-                           + this.getxAxis().getAxisSpace(categories[i].getMaxValueX()) + " Heigth of 1. Bar " + categories[i].getBars().get(0).getHeight() + "\n");
-                    
-                    double xRange = Math.abs(this.getxAxis().getAxisSpace(categories[i].getMaxValueX())
-                            - this.getxAxis().getAxisSpace(categories[i].getMinValueX()));
+            Category[] categories = this.model.getCategories();
 
-                    double xPosition = this.getxAxis().getAxisSpace(categories[i].getMinValueX()) + xRange / 2;
+            int category = 0;
+            for (int i = 0; i < categories.length; i++) {
 
-                    /* Create the actual bar */
-                    this.createCube(new Vector3d(xPosition, 0, 0), new Vector3d(1, this.getyAxis().getAxisSpace(
-                            categories[i].getBars().get(0).getHeight()), xRange / 2), this.basicMaterial(Color.orange));
-                    
-                    category++;
+                logger.debug("Category Number " + category + " Min X "
+                        + this.getxAxis().getAxisSpace(categories[i].getMinValueX()) + " Max X "
+                        + this.getxAxis().getAxisSpace(categories[i].getMaxValueX()) + " Heigth of 1. Bar "
+                        + categories[i].getBars().get(0).getHeight() + "\n");
 
-                }
+                double xRange = Math.abs(this.getxAxis().getAxisSpace(categories[i].getMaxValueX())
+                        - this.getxAxis().getAxisSpace(categories[i].getMinValueX()));
 
-                this.getxAxis().generateSegmentDescription(10);
-                this.getyAxis().generateSegmentDescription(10);
+                double xPosition = this.getxAxis().getAxisSpace(categories[i].getMinValueX()) + xRange / 2;
+
+                /* Create the actual bar */
+                this.createCube(new Vector3d(xPosition, 0, 0), new Vector3d(1, this.getyAxis().getAxisSpace(
+                        categories[i].getBars().get(0).getHeight()), xRange / 2), this.basicMaterial(Color.orange));
+
+                category++;
 
             }
+
+            this.getxAxis().generateSegmentDescription(10);
+            this.getyAxis().generateSegmentDescription(10);
+
+        } else {
+            if (this.model != null) {
+                /* Output some kind of error message */
+                // INTERNATIONALIZE
+                JOptionPane.showMessageDialog(this,
+                        "Das Diagramm kann nicht angezeigt werden, da es ein Fehler bei der Berechnung gab.");
+                this.displayDiagram = false;
+            }
+
+        }
 
     }
 

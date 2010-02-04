@@ -1,6 +1,8 @@
 package org.knipsX.view.diagrams;
 
 import java.awt.Color;
+
+import javax.swing.JOptionPane;
 import javax.vecmath.Vector3d;
 
 import org.apache.log4j.Logger;
@@ -84,6 +86,14 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
                 
             }
 
+        } else {
+            if (this.model != null) {
+                /* Output some kind of error message */
+                //INTERNATIONALIZE
+                JOptionPane.showMessageDialog(this, "Das Diagramm kann nicht angezeigt werden, da es ein Fehler bei der Berechnung gab.");
+                this.displayDiagram = false;
+            }
+            
         }
 
     }
