@@ -59,6 +59,15 @@ public class Directory implements PictureContainer {
     }
 
     /**
+     * Refresh the directory. (That means get all Pictures from all subdirs). 
+     */
+    public void refresh() {
+        this.pictures.clear();
+        this.currentPosition = 0;
+        this.getAllPictures(directoryFile);
+    }
+    
+    /**
      * @see java.util.Iterator#next()
      * @return the next picture
      */

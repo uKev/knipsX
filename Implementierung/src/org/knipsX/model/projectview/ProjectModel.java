@@ -54,8 +54,9 @@ class CreateThumbnailThread extends Thread {
     @Override
     public void run() {
         for (final Picture picture : this.pictures) {
-            picture.initThumbnails();
-            this.project.updateViews();
+            if(picture.initThumbnails()) {
+                this.project.updateViews();    
+            }            
         }
     }
 }
@@ -514,6 +515,7 @@ public class ProjectModel extends AbstractModel {
 
         if (isAdded) {
             this.updateViews();
+            this.loadData();
         }
         return isAdded;
     }
@@ -557,6 +559,18 @@ public class ProjectModel extends AbstractModel {
     public void setSelectedPictureSetContent(final PictureContainer selected) {
         this.selectedPictureSetContent = selected;
         this.updateViews();
+    }
+    
+    /**
+     * Refresh all directories. (That means get all Pictures from all subdirs). 
+     */
+    public void refreshAllDirectories() {
+        for(PictureSet set : this.getPictureSets()) {
+            for(Directory dir : this.getDirectoriesOfAPictureSet(set)) {
+                dir.refresh();
+                this.updateViews();
+            }
+        }
     }
 
     /*
