@@ -533,6 +533,20 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                     this.showErrorIcon();
                     return false;
                 }
+                
+                
+                /* Check to see if there is at least one picture with valid XMP Data */
+                //TODO
+                
+                if (false && ReportHelper.getCurrentReport() != ReportHelper.Table) {
+                        this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+
+                        // INTERNATIONALIZE
+                        this.errorMessage.setToolTipText("Mit den ausgewählten XMP Keywoards kann keine Auswertung erstellt werden");
+
+                        this.showErrorIcon();
+                        return false;
+                }
 
                 this.errorMessage.setIcon(null);
                 /* to prevent popping of layout add fixed dimension */
