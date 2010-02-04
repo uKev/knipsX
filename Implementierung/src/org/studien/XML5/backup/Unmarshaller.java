@@ -2,7 +2,7 @@ package org.knipsX.utils.JAXB;
 
 import java.util.*;
 import javax.xml.bind.*;
-import parser.*;
+import org.knipsX.utils.JAXB.parser.*;
 import java.io.*;
 
 
@@ -22,12 +22,20 @@ public void unmarshal() {
                 jc.createUnmarshaller();
 	 */              
 public <T> T unmarshal( Class<T> docClass, InputStream inputStream )
-	throws JAXBException { 
+	throws JAXBException {
+	
 		//String packageName = docClass.getPackage().getName();
-		JAXBContext jc = JAXBContext.newInstance( org.knipsX.utils.JAXB.parser );
+	
+		JAXBContext jc = JAXBContext.newInstance( "org.knipsX.utils.JAXB.parser" );
 		javax.xml.bind.Unmarshaller u = jc.createUnmarshaller();
-		JAXBElement<T> doc = (JAXBElement<T>)u.unmarshal( inputStream );
+		
+		//JAXBElement<T> doc = (JAXBElement<T>)u.unmarshal( inputStream );
+		
+		JAXBElement<T> doc = (JAXBElement<T>)u.unmarshal( new File("project.xml") );
+		
+		System.out.println("unmarshaller !!!");
 		return doc.getValue();
+		
 	}
 
 

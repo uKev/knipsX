@@ -10,9 +10,10 @@ public final class RepositoryHandler {
     public static final String PROJECTS_PATH = System.getProperty("user.home") + File.separator + ".knipsX";
     
     /*
-     * Set which repository should be used.
-     */
-    private static Repository currentRepo = new XMLRepositoryBackup();
+    * Set which repository should be used.
+    */
+    private static Repository currentRepo = new XMLRepository();
+    
     // private static Repository currentRepo = new XMLRepository();
     // private static Repository currentRepo = new DummyRepository();
 
