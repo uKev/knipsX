@@ -27,6 +27,11 @@ class GetExifDataThread extends Thread {
         this.pictures = project.getAllPictures();
         this.project = project;
     }
+    
+    GetExifDataThread(final ProjectModel project, final Directory directory) {
+        this.pictures = directory.getItems().toArray(new Picture[]{});
+        this.project = project;
+    }
 
     @Override
     public void run() {
@@ -35,8 +40,8 @@ class GetExifDataThread extends Thread {
         }
 
         /* first get all exif data */
-        final Thread thread = new CreateThumbnailThread(this.project);
-        thread.start();
+        Thread thread = new CreateThumbnailThread(this.project, this.pictures);
+        thread.run();
     }
 }
 
@@ -46,8 +51,8 @@ class CreateThumbnailThread extends Thread {
     Picture[] pictures;
     ProjectModel project;
 
-    CreateThumbnailThread(final ProjectModel project) {
-        this.pictures = project.getAllPictures();
+    CreateThumbnailThread(final ProjectModel project, final Picture[] pictures) {
+        this.pictures = pictures;
         this.project = project;
     }
 
@@ -569,6 +574,8 @@ public class ProjectModel extends AbstractModel {
             for(Directory dir : this.getDirectoriesOfAPictureSet(set)) {
                 dir.refresh();
                 this.updateViews();
+//                Thread thread = new GetExifDataThread(this, dir);
+//                thread.run();
             }
         }
     }
