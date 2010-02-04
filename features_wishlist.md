@@ -7,7 +7,6 @@ Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigke
 * Bei neuer Bildmenge und ausgewähltem Ordner muss der Thread für die Thumbnailgenerierung (neu) gestartet werden (Kai/Benni)
 * Im FileChooser sollten auch versteckte Ordner (bei Linux mit "." beginnend) auswählbar sein.
 * Internationalisierung?
-* Use Exif-Filter Keywords in Model ?
 * (Lower)Whisker Berechnung im Boxplot falsch
 
 
