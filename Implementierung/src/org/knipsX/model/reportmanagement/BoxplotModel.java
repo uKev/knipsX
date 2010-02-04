@@ -22,14 +22,6 @@ public class BoxplotModel extends AbstractSingleAxisModel {
     private final ArrayList<Boxplot> boxplots;
     private WilcoxonTest wilcoxonTest;
 
-    @Deprecated
-    private boolean wilcoxonTestActive;
-    @Deprecated
-    private WilcoxonTestType wilcoxonTestType;
-    @Deprecated
-    private float wilcoxonSignificance;
-
-    
     Logger log = Logger.getLogger(this.getClass());
     /**
      * Constructor for the Boxplot Model
@@ -151,27 +143,6 @@ public class BoxplotModel extends AbstractSingleAxisModel {
         return minY;
     }
 
-    /**
-     * deprecated
-     * 
-     * @deprecated Wilcoxon Test is externalized, use getWilcoxonTest()
-     * @return the result of the Wilcoxon test
-     */
-    @Deprecated
-    public float getWilcoxonPValue() {
-        return 0f;
-    }
-
-    /**
-     * deprecated
-     * 
-     * @deprecated Wilcoxon Test is externalized
-     * @return deprecated
-     */
-    @Deprecated
-    public float getWilcoxonSignificance() {
-        return this.wilcoxonSignificance;
-    }
 
     /**
      * Getter for the WilcoxonTest.
@@ -181,70 +152,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
     public WilcoxonTest getWilcoxonTest() {
         this.calculateIfRequired();
 
-        WilcoxonTest wilcoxonTest = this.wilcoxonTest;
-        if (wilcoxonTest != null) {
-            if (wilcoxonTest.isValid()) {
-                wilcoxonTest = null;
-            }
-        }
         return wilcoxonTest;
-    }
-
-    /**
-     * deprecated
-     * 
-     * @deprecated Wilcoxon Test is externalized
-     * @return deprecated
-     */
-    @Deprecated
-    public WilcoxonTestType getWilcoxonTestType() {
-        return this.wilcoxonTestType;
-    }
-
-    /**
-     * deprecated
-     * 
-     * @deprecated deprecated
-     * @return if the wilcoxon test is used
-     */
-    @Deprecated
-    public boolean isWilcoxonTestActive() {
-        return this.wilcoxonTestActive;
-    }
-
-    /**
-     * deprecated
-     * 
-     * @deprecated Wilcoxon Test is externalized
-     * @param wilcoxonSignificance
-     *            deprecated
-     */
-    @Deprecated
-    public void setWilcoxonSignificance(final float wilcoxonSignificance) {
-        this.wilcoxonSignificance = wilcoxonSignificance;
-    }
-
-    /**
-     * deprecated
-     * 
-     * @deprecated
-     *             deprecated
-     * @param wilcoxonTestActive
-     *            deprecated
-     */
-    @Deprecated
-    public void setWilcoxonTestActive(final boolean wilcoxonTestActive) {
-        this.wilcoxonTestActive = wilcoxonTestActive;
-    }
-
-    /**
-     * @deprecated Wilcoxon Test is externalized
-     * @param wilcoxonTestType
-     *            deprecated
-     */
-    @Deprecated
-    public void setWilcoxonTestType(final WilcoxonTestType wilcoxonTestType) {
-        this.wilcoxonTestType = wilcoxonTestType;
     }
 
     /**
