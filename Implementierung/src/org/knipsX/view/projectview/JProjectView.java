@@ -1191,15 +1191,6 @@ class MyReportListCellRenderer implements ListCellRenderer {
 }
 
 
-<<<<<<< HEAD:Implementierung/src/org/knipsX/view/projectview/JProjectView.java
-        if (value != null) {
-            renderer.setText(value.toString());
-            renderer.setToolTipText(value.toString());
-        }
-        return renderer;
-    }
-}
-=======
 
 /*
  * ################################################################################################################
