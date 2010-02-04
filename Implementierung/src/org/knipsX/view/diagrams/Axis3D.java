@@ -3,9 +3,7 @@ package org.knipsX.view.diagrams;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.utils.ExifParameter;
@@ -192,8 +190,8 @@ class Axis3D {
                     
                     Date tempDate = new Date();
                     tempDate.setTime((long) ((Double) minValue - offset + pieces * i));
-                    
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");                   
+
+                    DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
                     
                     returnstring[i] = dateFormat.format(tempDate);
                 }
