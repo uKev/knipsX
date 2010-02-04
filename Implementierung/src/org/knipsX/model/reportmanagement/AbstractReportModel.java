@@ -20,7 +20,7 @@ public abstract class AbstractReportModel extends AbstractModel {
     private String reportName;
     private String reportDescription;
     // Tags of pictures that will be filtered
-    private ArrayList<String> exifFilterKeywords = new ArrayList<String>();;
+    private ArrayList<String> exifFilterKeywords = new ArrayList<String>();
     private final ArrayList<PictureParameter> missingExifParameter = new ArrayList<PictureParameter>();
     private boolean dataIsCalculated = false;
 
@@ -172,9 +172,9 @@ public abstract class AbstractReportModel extends AbstractModel {
      * 
      * @return the exif keywords which will be filtered in the report.
      */
-    public String[] getExifFilterKeywords() {
+    public ArrayList<String> getExifFilterKeywords() {
         if (this.exifFilterKeywords != null) {
-            return this.exifFilterKeywords.toArray(new String[] {});
+            return this.exifFilterKeywords;
         } else {
             return null;
         }

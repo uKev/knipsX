@@ -626,9 +626,9 @@ public class JPictureSetExif extends JAbstractSinglePanel {
             }
 
             if (ReportHelper.getCurrentModel().getExifFilterKeywords() != null
-                    && ReportHelper.getCurrentModel().getExifFilterKeywords().length > 0) {
-                this.associatedExifTags.addElements((ReportHelper.getCurrentModel().getExifFilterKeywords()));
-                this.availableExifTags.removeElements((ReportHelper.getCurrentModel().getExifFilterKeywords()));
+                    && ReportHelper.getCurrentModel().getExifFilterKeywords().size() > 0) {
+                this.associatedExifTags.addElements((ReportHelper.getCurrentModel().getExifFilterKeywords().toArray(new String[] {})));
+                this.availableExifTags.removeElements((ReportHelper.getCurrentModel().getExifFilterKeywords().toArray(new String[] {})));
             }
 
         }

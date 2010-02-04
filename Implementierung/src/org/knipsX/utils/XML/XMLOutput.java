@@ -254,7 +254,7 @@ public class XMLOutput {
         report.addContent(axes);
 
         report.addContent(this.resolveReportPictureSets(model.getPictureContainer()));
-        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords()));
+        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords().toArray(new String [] {})));
         report.addContent(this.resolveWilcoxonTest(model));
         return report;
     }
@@ -273,7 +273,7 @@ public class XMLOutput {
         report.addContent(axes);
 
         report.addContent(this.resolveReportPictureSets(model.getPictureContainer()));
-        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords()));
+        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords().toArray(new String [] {})));
         return report;
     }
 
@@ -294,7 +294,7 @@ public class XMLOutput {
         report.addContent(axes);
 
         report.addContent(this.resolveReportPictureSets(model.getPictureContainer()));
-        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords()));
+        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords().toArray(new String [] {})));
         return report;
     }
 
@@ -318,7 +318,7 @@ public class XMLOutput {
         report.addContent(axes);
 
         report.addContent(this.resolveReportPictureSets(model.getPictureContainer()));
-        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords()));
+        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords().toArray(new String [] {})));
         return report;
     }
 
@@ -329,7 +329,7 @@ public class XMLOutput {
         report.addContent(new Element("name").setText(model.getReportName()));
         report.addContent(new Element("description").setText(model.getReportName()));
         report.addContent(this.resolveReportPictureSets(model.getPictureContainer()));
-        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords()));
+        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords().toArray(new String [] {})));
         return report;
     }
 }
