@@ -341,16 +341,16 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
             if (i == 0) {
                 axisTrans.rotX(90 * Math.PI / 180.0d);
-                axisTrans.setTranslation(new Vector3d(0, 0, this.axis3D[1].getAxisSize() / 2.0));
-                axisTrans.setScale(new Vector3d(0.15d, this.axis3D[1].getAxisSize(), 0.15d));
+                axisTrans.setTranslation(new Vector3d(0, 0, this.getzAxis().getAxisSize() / 2.0));
+                axisTrans.setScale(new Vector3d(0.15d, this.getzAxis().getAxisSize(), 0.15d));
             } else if (i == 1) {
                 axisTrans.rotY(90 * Math.PI / 180.0d);
                 axisTrans.setTranslation(new Vector3d(0, this.getyAxis().getAxisSize() / 2.0, 0));
                 axisTrans.setScale(new Vector3d(0.15d, this.getyAxis().getAxisSize(), 0.15d));
             } else {
                 axisTrans.rotZ(90 * Math.PI / 180.0d);
-                axisTrans.setTranslation(new Vector3d(this.axis3D[2].getAxisSize() / 2.0, 0, 0));
-                axisTrans.setScale(new Vector3d(0.15d, this.axis3D[2].getAxisSize(), 0.15d));
+                axisTrans.setTranslation(new Vector3d(this.getxAxis().getAxisSize() / 2.0, 0, 0));
+                axisTrans.setScale(new Vector3d(0.15d, this.getxAxis().getAxisSize(), 0.15d));
             }
 
             /* Create transformation group */
@@ -400,23 +400,25 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             /* The ratio between cone length and axis size */
             final float percentage = 1.0f / 20.0f;
 
-            final double normDistance = 0.5 * this.axis3D[i].getAxisSize() * percentage + this.axis3D[i].getAxisSize();
+            double normDistance = 0;
 
-            if (i == 1) {
+            if (i == 2) {
                 coneTransformation.rotX(90 * Math.PI / 180.0d);
-                coneTransformation.setTranslation(new Vector3d(0, 0, normDistance));
-                axisArrow = new Cone(0.125f, (float) this.axis3D[i].getAxisSize() * percentage, this.basicMaterial(0,
+                normDistance = 0.5 * this.axis3D[1].getAxisSize() * percentage + this.axis3D[1].getAxisSize();
+                coneTransformation.setTranslation(new Vector3d(normDistance, 0, 0));
+                axisArrow = new Cone(0.125f, (float) this.axis3D[1].getAxisSize() * percentage, this.basicMaterial(0,
                         0, 0));
             } else if (i == 0) {
-
+                normDistance = 0.5 * this.axis3D[0].getAxisSize() * percentage + this.axis3D[0].getAxisSize();
                 coneTransformation.setTranslation(new Vector3d(0, normDistance, 0));
                 axisArrow = new Cone(0.125f, (float) this.axis3D[i].getAxisSize() * percentage, this.basicMaterial(0,
                         0, 0));
-            } else if (i == 2) {
-
+            } else if (i == 1) {
+                normDistance = 0.5 * this.axis3D[2].getAxisSize() * percentage + this.axis3D[2].getAxisSize();
                 coneTransformation.rotZ(270 * Math.PI / 180.0d);
-                coneTransformation.setTranslation(new Vector3d(normDistance, 0, 0));
-                axisArrow = new Cone(0.125f, (float) this.axis3D[i].getAxisSize() * percentage, this.basicMaterial(0,
+                coneTransformation.rotX(90 * Math.PI / 180.0d);
+                coneTransformation.setTranslation(new Vector3d(0, 0, normDistance));
+                axisArrow = new Cone(0.125f, (float) this.axis3D[2].getAxisSize() * percentage, this.basicMaterial(0,
                         0, 0));
             }
 
@@ -528,16 +530,16 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      * @param yAxis
      *            The label of the yAxis
      */
-    protected void createLabels(final String xAxis, final String zAxis, final String yAxis) {
+    protected void createLabels(final String xAxis, final String yAxis, final String zAxis) {
         final double offset = 1.5;
         final double size = 0.42d;
         final Appearance myapp = this.basicMaterial(1, 1, 1);
-        this.createText(new Vector3d(0, 0, offset + this.getyAxis().getAxisSize()), new Vector3d(size, size, size),
+        this.createText(new Vector3d(offset + this.getxAxis().getAxisSize(), 0, 0), new Vector3d(size, size, size),
                 myapp, xAxis);
-        this.createText(new Vector3d(offset + this.axis3D[1].getAxisSize(), 0, 0), new Vector3d(size, size, size),
-                myapp, yAxis);
-        this.createText(new Vector3d(0, offset + this.axis3D[2].getAxisSize(), 0), new Vector3d(size, size, size),
+        this.createText(new Vector3d(0, 0, offset + this.getzAxis().getAxisSize()), new Vector3d(size, size, size),
                 myapp, zAxis);
+        this.createText(new Vector3d(0, offset + this.getyAxis().getAxisSize(), 0), new Vector3d(size, size, size),
+                myapp, yAxis);
     }
 
     private OffScreenCanvas3D createOffScreenCanvas(final Canvas3D onScreenCanvas3D) {
