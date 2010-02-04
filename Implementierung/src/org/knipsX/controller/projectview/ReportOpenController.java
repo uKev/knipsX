@@ -11,22 +11,30 @@ import org.knipsX.view.reportmanagement.JReportConfig;
 import org.knipsX.view.reportmanagement.ReportHelper;
 
 /**
- * Represents the Actions which are done by klicking on open report.
+ * 
+ * Represents the action which is executed by clicking on a report.
  * Acts in harmony with a JProjectView.
+ *
+ * @param <M>
+ * @param <V>
  */
 public class ReportOpenController<M extends ProjectModel, V extends JProjectView<M>> extends AbstractController<M, V> {
 
+    /**
+     * The constructor which registers the controller with the specified view
+     * 
+     * @param model the model the controller operates on
+     * @param view the view the controller operates on
+     */
     public ReportOpenController(M model, V view) {
         super(model, view);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        /*
-         * TODO: Achtung: Falls sich irgendwann einmal die Listenreihenfolge
-         * in der View ändert und von der Reihenfolge im Model abweicht wird unter
-         * Umständen die falsche Auswertung konfiguriert
+        
+        /* Note that if the list order changes in the view and differs from the
+         * one saved in the model it might configure the wrong report
          */
 
         if (this.view.getSelectedReports().length > 0) {
