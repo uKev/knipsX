@@ -34,28 +34,21 @@ import org.knipsX.utils.ExifParameter;
 
 /**
  * This class reads a project file and returns the information.
- * 
  */
 public class XMLInput {
 
     private Element project;
 
-    /**
-     * Constructs a MyXmlHandler.
-     */
     public XMLInput(final File xml) {
         final SAXBuilder saxBuilder = new SAXBuilder();
 
-        Document docXml;
         try {
-            docXml = saxBuilder.build(xml);
+            final Document docXml = saxBuilder.build(xml);
             this.project = docXml.getRootElement();
         } catch (final JDOMException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Programm.logger.error("[XMLInput::constructor()] - " + e.getStackTrace());
         } catch (final IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Programm.logger.error("[XMLInput::constructor()] - " + e.getStackTrace());
         }
     }
 
@@ -97,7 +90,7 @@ public class XMLInput {
         try {
             return XMLInput.parseTimestamp(this.project.getChildText("creationDate"));
         } catch (final ParseException e) {
-            e.printStackTrace();
+            Programm.logger.error("[XMLInput::getCreationDate()] - " + e.getStackTrace());
             return new GregorianCalendar();
         }
     }
@@ -279,9 +272,10 @@ public class XMLInput {
             }
         }
 
-        Object item = report.getChild("wilcoxonTest");
+        /* FIXME set the willcoxon */
+        final Object item = report.getChild("wilcoxonTest");
         if (item instanceof Element) {
-            Element wilcoxonTest = (Element) item;
+            final Element wilcoxonTest = (Element) item;
             model.getWilcoxonTest().setActiveStatus(Boolean.parseBoolean(wilcoxonTest.getChildText("isActive")));
             model.getWilcoxonTest()
                     .setWilcoxonTestType(WilcoxonTestType.valueOf(wilcoxonTest.getChildText("testType")));

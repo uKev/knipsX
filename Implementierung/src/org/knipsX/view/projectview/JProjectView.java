@@ -673,7 +673,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                 final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
                         "Bilder von Bildmengeninhalt " + this.model.getSelectedPictureSetContent().getName());
                 this.jPanelPictureSetActive.setBorder(title);
-            } else {
+            } else if(this.model.getSelectedPictureSet() != null) {
                 final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
                         "Bilder von Bildmenge " + this.model.getSelectedPictureSet().getName());
                 this.jPanelPictureSetActive.setBorder(title);

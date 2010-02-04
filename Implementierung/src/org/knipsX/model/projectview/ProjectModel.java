@@ -260,7 +260,12 @@ public class ProjectModel extends AbstractModel {
      * @return the parameters.
      */
     public Object[][] getExifParameter() {
-        return this.getSelectedPicture().getAllExifParameter().clone();
+        if (this.getSelectedPicture() != null) {
+            return this.getSelectedPicture().getAllExifParameter().clone();
+        }
+        
+        /* INTERNATIONALIZE */
+        return new Object[][] { new String[] { "no Data", "no Data" } };
     }
 
     /**
@@ -377,8 +382,7 @@ public class ProjectModel extends AbstractModel {
      * @return the current selected PictureSet.
      */
     public PictureSet getSelectedPictureSet() {
-        if (this.selectedPictureSet == null) {
-            assert this.pictureSetList.size() > 0;
+        if (this.selectedPictureSet == null && this.pictureSetList.size() > 0) {
             this.selectedPictureSet = this.pictureSetList.get(0);
         }
         return this.selectedPictureSet;
@@ -568,7 +572,7 @@ public class ProjectModel extends AbstractModel {
             for (final Picture picture : this.getSelectedPictureSetContent()) {
                 pictures.add(picture);
             }
-        } else {
+        } else if (this.getSelectedPictureSet() != null) {
             this.getSelectedPictureSet().resetIterator();
             for (final Picture picture : this.getSelectedPictureSet()) {
                 pictures.add(picture);
@@ -602,9 +606,9 @@ public class ProjectModel extends AbstractModel {
      * @return the current selected PictureSet.
      */
     public Picture getSelectedPicture() {
-        if (this.selectedPicture == null) {
-            assert this.pictureSetList.size() > 0;
-            this.selectedPicture = this.getAllPictures()[0];
+        Picture[] allPictures = this.getAllPictures();
+        if (this.selectedPicture == null && allPictures.length > 0) {
+            this.selectedPicture = allPictures[0];
         }
         return this.selectedPicture;
     }
@@ -671,7 +675,7 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return an amount of picture sets.
      */
-    public Object[] getReports() {
-        return this.reportList.toArray();
+    public AbstractReportModel[] getReports() {
+        return this.reportList.toArray(new AbstractReportModel[] {});
     }
 }
