@@ -25,10 +25,19 @@ public class DummyRepository implements Repository {
     public DummyRepository() {
 
         /* create a list of picture sets */
-        List<PictureSet> pictureSetList = new ArrayList<PictureSet>();
+        
 
         /* create a list of reports */
-        List<AbstractReportModel> reportList = new ArrayList<AbstractReportModel>();
+        
+        
+    }
+
+    public List<ProjectModel> getProjects() {
+    	System.out.println("getProjects() initiated...");
+    	
+    	/* add some dummy projects */
+    	List<PictureSet> pictureSetList = new ArrayList<PictureSet>();
+    	List<AbstractReportModel> reportList = new ArrayList<AbstractReportModel>();
 
         /* create the first picture set an some picture containers */
         PictureSet dummyPictureSet = new PictureSet("Goldfische", 1);
@@ -40,7 +49,7 @@ public class DummyRepository implements Repository {
         try {
             dummyPicture = new Picture(picturePath, true);
         } catch (PictureNotFoundException e) {
-            System.out.println("Can not create Picture fom File: File not found");
+            System.out.println("Can not create Picture from File: File not found");
             e.printStackTrace();
         }
         dummyPictureSet.add(dummyPicture);
@@ -58,16 +67,14 @@ public class DummyRepository implements Repository {
         dummyPictureSet.add(new PictureSet("SuperGoldfische", 11));
 
         /* add to list */
-        pictureSetList.add(dummyPictureSet);
+        
 
         /* create some dummy picture sets antem.getProperty("user.home")  + File.separator + ".knipsX_test_bilder" + File.separator + "testordner";
         System.out.println(pictd add */
+        
         PictureSet test = new PictureSet("Urlaub", 3);
         test.add(dummyDirectory);
-        pictureSetList.add(test);
-        pictureSetList.add(new PictureSet("Golfen", 4));
-        pictureSetList.add(new PictureSet("Weihnachten 2008", 5));
-
+        
         /* create some dummy reports */
         AbstractReportModel dummyReportOne = new BoxplotModel();
         dummyReportOne.setReportName("Blendenanalyse");
@@ -92,14 +99,19 @@ public class DummyRepository implements Repository {
         reportList.add(dummyReportOne);
         reportList.add(dummyReportTwo);
 
-        /* add some dummy projects */
+    	
+    	
+    	
         this.projects.add(new ProjectModel(UUID.randomUUID().hashCode(), "Testprojekt mit Realbildern",
                 "Keine Beschreibung.", new GregorianCalendar(2009, 11, 12, 7, 9, 3), pictureSetList, reportList));
         this.projects.add(new ProjectModel(UUID.randomUUID().hashCode(), "Der Ehhhhhhhmer", "", new GregorianCalendar(
                 2009, 11, 12, 12, 42, 43), pictureSetList, reportList));
-    }
+        
+        pictureSetList.add(dummyPictureSet);
+        pictureSetList.add(test);
+        pictureSetList.add(new PictureSet("Golfen", 4));
+        pictureSetList.add(new PictureSet("Weihnachten 2008", 5));
 
-    public List<ProjectModel> getProjects() {
         return new ArrayList<ProjectModel>(this.projects);
     }
 
@@ -107,7 +119,7 @@ public class DummyRepository implements Repository {
         assert this.projects.size() > 0;
 
         boolean goOn = true;
-        ProjectModel project = new ProjectModel(projectId, "testproejekt2", "beschreibung des testproejekts2", new GregorianCalendar());
+        ProjectModel project = new ProjectModel(projectId, "Name_of_a_project", "Descr. of a project", new GregorianCalendar());
 
         /* delete the project */
         for (int i = 0; goOn && i < this.projects.size(); ++i) {
