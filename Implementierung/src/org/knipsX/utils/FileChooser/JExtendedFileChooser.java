@@ -24,7 +24,7 @@ public final class JExtendedFileChooser {
 
     /* The initialization routine which configures the file chooser */
     private static void initialize() {
-        
+
         /* Create a new file chooser object */
         JExtendedFileChooser.filechooser = new JFileChooser();
 
@@ -44,28 +44,17 @@ public final class JExtendedFileChooser {
      */
     public static void saveBufferedImage(final BufferedImage imageToBeSaved) {
 
-        /* Initialize the file chooser */
         JExtendedFileChooser.initialize();
-
-        /* Add a custom file filter */
-        JExtendedFileChooser.filechooser.addChoosableFileFilter(new PNGImageFilter());        
-
-        /* Prohibit multi selection */
+        JExtendedFileChooser.filechooser.setCurrentDirectory(new File(JExtendedFileChooser.lastSaveDir));
+        JExtendedFileChooser.filechooser.addChoosableFileFilter(new PNGImageFilter());
+        JExtendedFileChooser.filechooser.setFileHidingEnabled(false);
         JExtendedFileChooser.filechooser.setMultiSelectionEnabled(false);
 
-        /* Set the current directory to the last save directory */
-        JExtendedFileChooser.filechooser.setCurrentDirectory(new File(JExtendedFileChooser.lastSaveDir));
+        /* handle save button action */
+        if (JExtendedFileChooser.filechooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
 
-        /* Show save dialog and store the result in returnVal */
-        final int returnVal = JExtendedFileChooser.filechooser.showSaveDialog(null);
-
-        /* Handle save button action. */
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-
-            /* Get file object */
             final File file = JExtendedFileChooser.filechooser.getSelectedFile();
 
-            /* Store the last save directory in its respective variable */
             JExtendedFileChooser.lastSaveDir = file.getAbsolutePath();
 
             /* Prepare file name to be stored on hard drive */
@@ -73,12 +62,12 @@ public final class JExtendedFileChooser {
             final File outputfile = new File(file.getParent() + "/" + fileName);
 
             try {
+
                 /* Write image to disk */
                 ImageIO.write(imageToBeSaved, "png", outputfile);
             } catch (final IOException e1) {
                 e1.printStackTrace();
             }
-
         }
     }
 
@@ -91,43 +80,27 @@ public final class JExtendedFileChooser {
     public static File[] selectDirectoriesAndImages() {
         File[] selectedFilesandDirectories = null;
 
-        /* Initialize the file chooser */
         JExtendedFileChooser.initialize();
-
-        /* Add a custom file filter and disable the default */
+        JExtendedFileChooser.filechooser.setCurrentDirectory(new File(JExtendedFileChooser.lastOpenDir));
         JExtendedFileChooser.filechooser.addChoosableFileFilter(new JPEGImageFilter());
+        JExtendedFileChooser.filechooser.setFileHidingEnabled(false);
         JExtendedFileChooser.filechooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         JExtendedFileChooser.filechooser.setMultiSelectionEnabled(true);
 
-        /* Set the current directory to the last open directory */
-        JExtendedFileChooser.filechooser.setCurrentDirectory(new File(JExtendedFileChooser.lastOpenDir));
-
-        /* Show open dialog and store the result in returnVal */
-        // INTERNATIONALIZE
-        final int returnVal = JExtendedFileChooser.filechooser.showDialog(JExtendedFileChooser.filechooser,
-                "Hinzufügen");
-
         /* Process the results */
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            
-            /* Get the selected files */
+        /* INTERNATIONALIZE */
+        if (JExtendedFileChooser.filechooser.showDialog(JExtendedFileChooser.filechooser, "Hinzufügen") == JFileChooser.APPROVE_OPTION) {
             selectedFilesandDirectories = JExtendedFileChooser.filechooser.getSelectedFiles();
-
-            /* Store the first open directory in its respective variable */
             JExtendedFileChooser.lastOpenDir = selectedFilesandDirectories[0].getAbsolutePath();
-            
         }
 
         /* Reset the file chooser for the next time it's shown. */
         JExtendedFileChooser.filechooser.setSelectedFile(null);
 
         return selectedFilesandDirectories;
-
     }
 
     /* To satisfy checkstyle */
     private JExtendedFileChooser() {
-
     }
-
 }

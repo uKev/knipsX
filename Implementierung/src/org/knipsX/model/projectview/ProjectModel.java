@@ -554,6 +554,11 @@ public class ProjectModel extends AbstractModel {
         final boolean isRemoved = set.remove(container);
 
         if (isRemoved) {
+            if(set.getItems().size() == 0) {
+                this.selectedPicture = null;
+                this.selectedPictureSet = null;
+                this.selectedPictureSetContent = null; 
+            }
             this.updateViews();
         }
         return isRemoved;
