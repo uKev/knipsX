@@ -33,20 +33,23 @@ public class WilcoxonTest {
 
     /**
      * Constructor for a new Wilcoxontest without any settings
-     * 
-     * @param pictureContainer
-     *            The Picturesets (Here they have two be a number of two)
-     * @param parameter
-     *            The selected Exif-parameter
      */
     public WilcoxonTest() {
     }
 
+    /**
+     * Setter to set the Exifparamter
+     * @param parameter Exif parameter
+     */
     public void setExifparameter(ExifParameter parameter) {
         this.parameter = parameter;
         this.isCalculated = false;
     }
 
+    /**
+     * Setter for the picturesets
+     * @param pictureContainer The Picturesets
+     */
     public void setPictureContainer(ArrayList<PictureContainer> pictureContainer) {
         this.pictureContainer = pictureContainer;
         this.isCalculated = false;
@@ -55,8 +58,7 @@ public class WilcoxonTest {
     /**
      * Activates and deactivates the test
      * 
-     * @param activeStatus
-     *            The active status
+     * @param activeStatus The active status
      */
     public void setActiveStatus(final boolean activeStatus) {
         this.isActive = activeStatus;
@@ -131,13 +133,16 @@ public class WilcoxonTest {
     /**
      * Sets the actual test significance
      * 
-     * @param value
-     *            test significance
+     * @return value test significance
      */
     public WilcoxonTestType getWilcoxonTestType() {
         return this.wilcoxenType;
     }
-    
+
+    /**
+     * Sets the significance 
+     * @param value significance
+     */
     public void setSignificance(double value) {
         this.significance = value;
         this.isCalculated = false;
@@ -147,7 +152,7 @@ public class WilcoxonTest {
      * Calculate and initialize the whole test
      */
     public void calculate() {
-        if ((isActive == false) || (wilcoxenType == null) || (pictureContainer == null) || (parameter == null)
+        if ((!isActive) || (wilcoxenType == null) || (pictureContainer == null) || (parameter == null)
                 || (pictureContainer.size() != 2)) {
             this.isValid = false;
         } else {
