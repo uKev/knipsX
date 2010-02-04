@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JToolTip;
 import javax.swing.LayoutStyle;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
@@ -59,6 +61,7 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.Resource;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.reportmanagement.ReportHelper;
@@ -106,6 +109,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     private JList jListPictureSetActive = null;
     private JList jListReport = null;
     private JTable jTableExif = null;
+    
 
     /**
      * Creates a project view connected with an appropriate model.
@@ -1122,15 +1126,15 @@ class MyPictureListCellRenderer implements ListCellRenderer {
             final boolean isSelected, final boolean cellHasFocus) {
 
         String theText = null;
-
+        
         /* generate the label which represents the cell */
-        final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
-                isSelected, cellHasFocus);
+        final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
         /* if the selected item is a "Picture" -> set the name */
         if (value instanceof Picture) {
             final Picture picture = (Picture) value;
             theText = picture.getName();
+            
 
             final Image smallThumbnail = picture.getSmallThumbnail();
             if (smallThumbnail != null) {
@@ -1138,11 +1142,11 @@ class MyPictureListCellRenderer implements ListCellRenderer {
             } else {
                 renderer.setIcon(this.noImageIcon);
             }
-            renderer.setToolTipText("Picture");
         }
+        renderer.setToolTipText("Picture");
         renderer.setText(theText);
         renderer.setPreferredSize(new Dimension(renderer.getWidth(), 40));
-
+             
         return renderer;
     }
 }

@@ -140,8 +140,8 @@ public class WilcoxonTest {
         if (wilcoxenType != null && pictureContainer.size() == 2) {
             double rangeSum = 0;
             int numberOfElementsInFirstSet = initTest();
-            if (wilcoxonSamplesList.size() >= 2)  {
             int numberOfElementsInSecondSet = wilcoxonSamplesList.size() - numberOfElementsInFirstSet;
+            if (wilcoxonSamplesList.size() >= 2 && numberOfElementsInFirstSet > 1 && numberOfElementsInSecondSet > 1)  {         
             int partVectors = fakultaet(numberOfElementsInFirstSet + numberOfElementsInSecondSet)
                     / ((fakultaet(numberOfElementsInFirstSet)) * (fakultaet(numberOfElementsInSecondSet)));
             Collections.sort(wilcoxonSamplesList);

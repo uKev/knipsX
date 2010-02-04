@@ -193,18 +193,45 @@ public class Picture extends Observable implements PictureContainer  {
 
     public boolean hasExifKeyword(String keyword) {
         boolean hasKeyword = false;
-
+        String[] keys = (String[])getExifParameter(ExifParameter.KEYWORDS);
+        for (int n = 0; n < keys.length; n++) {
+        	if (keys[n].equals(keyword)) {
+        		hasKeyword = true;
+        	}
+        }
         return hasKeyword;
     }
 
     public boolean hasMinOneKeywordOf(String[] keywords) {
         boolean hasMinOneKeyword = false;
-
+        String[] keys = (String[])getExifParameter(ExifParameter.KEYWORDS);
+        for (int n = 0; n < keys.length; n++) {
+        	for (int i = 0; i < keywords.length; i++) {
+        		if (keys[n].equals(keywords[i])) {
+        			hasMinOneKeyword = true;
+        		}
+        	}     	
+        }     
         return hasMinOneKeyword;
     }
 
     public boolean hasAllKeywords(String[] keywords) {
         boolean hasAllKeyword = false;
+        int counter = 0;
+        String[] keys = (String[])getExifParameter(ExifParameter.KEYWORDS);
+        int allAmount = keywords.length;
+        for (int n = 0; n < keys.length; n++) {
+        	for (int i = 0; i < keywords.length; i++) {
+        		if (keys[n].equals(keywords[i])) {
+        			counter = counter + 1;    			
+        		}
+        	}     	
+        }     
+        if (counter >= allAmount) {
+        	hasAllKeyword = true;
+        } else {
+        	hasAllKeyword = false;
+        }
 
         return hasAllKeyword;
     }
