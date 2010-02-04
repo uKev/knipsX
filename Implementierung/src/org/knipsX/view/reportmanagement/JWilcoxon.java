@@ -22,7 +22,6 @@ import javax.swing.event.ChangeListener;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.WilcoxonTest;
 import org.knipsX.model.reportmanagement.WilcoxonTestType;
-import org.knipsX.utils.Converter;
 import org.knipsX.utils.Resource;
 
 /**
