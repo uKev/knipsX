@@ -11,6 +11,7 @@ import javax.imageio.metadata.IIOMetadataNode;
 import javax.imageio.stream.ImageInputStream;
 
 import org.knipsX.utils.ExifParameter;
+import org.knipsX.utils.XMP.XMPAdapter;
 import org.w3c.dom.Node;
 
 public class ExifAdapter {
@@ -143,46 +144,9 @@ public class ExifAdapter {
 		return this.exifData.getOriginalDateTime();
 	}
 	
-	private String getKeywords() {
-	    String strFilePath = "";
-	    /*try {
-            ImageInputStream imageStream = ImageIO.createImageInputStream(new File(strFilePath));
-            ImageReader reader = ImageIO.getImageReadersByFormatName("jpeg").next();
-            reader.setInput(imageStream,true,false);         
-            //here's the metadata
-            IIOMetadata meta = reader.getImageMetadata(0);
-            Node root = meta.getAsTree(meta.getNativeMetadataFormatName());
-            
-            Node jpegVariety = root.getFirstChild();  //JPEGvariety node
-            Node markerSeq = jpegVariety.getNextSibling();      //markerSequence node
-             
-            //search for IPTC data
-            Node iptc = null;
-             
-            Node child = markerSeq.getFirstChild();
-            while(child != null) {
-                if("unkown".equals(child.getNodeName())) {
-                    Node marker = child.getAttributes().getNamedItem("MarkerTag");
-                    if("237".equals(marker.getNodeValue())) {
-                        iptc = child;
-                        break;
-                    }
-                }
-                child = child.getNextSibling();
-            }
-
-            byte[] iptcData = (byte[]) ((IIOMetadataNode) iptc).getUserObject();
-            
-
-        } catch (IOException e) {
-            System.out.println("Can not read the Keywords beacause IPTC Metadata creation failed");
-            e.printStackTrace();
-        }
-        
-        iptcData.*/
-        return strFilePath;
-
-
+	private String[] getKeywords() {
+		XMPAdapter xmp = new XMPAdapter(new File(strFilePath));
+	    return xmp.getKeywords();
     }
 	
 	private String getOriginalDayOfWeek() {
