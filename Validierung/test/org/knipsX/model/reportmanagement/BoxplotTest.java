@@ -192,28 +192,35 @@ public class BoxplotTest {
          */
         assertEquals("median with more numbers, even", 4.5, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(2.0, 3.0, 4.0, 5.0, 7.0, 9.0)), 0.5), 0.000001);
 
-        /*
-         * R:
-         * > elements <- sample(1:10, 6, replace=F)
-         * > elements
-         * [1] 4 3 2 9 5 7
-         * > quantile(elements, prob=0.25, type=5)
-         * 25%
-         * 3 
-         */
-        assertEquals("Lower Quartile with even number", 3, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(2.0, 3.0, 4.0, 5.0, 7.0, 9.0)), 0.25), 0.000001);
         
         /*
-         * R:
-         * > elements <- sample(1:15, 11, replace=F)
-         * > elements
-         * [1] 13 15 10  6  1 12  2 11  7  5  3
-         * > quantile(elements, prob=0.25, type=5)
-         * 25%
-         * 3.5
+         * 1 2 3 4
+         * 0.25 quantil must be 1.5
          */
-        assertEquals("Lower Quartile with uneven number", 3.5, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 5.0, 6.0, 7.0, 10.0, 11.0, 12.0,13.0, 15.0)), 0.25), 0.000001);
+        assertEquals("Lower Quartile with even number", 1.5, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 4.0)), 0.25), 0.000001);
+
+        /*
+         * 1 2 3 4
+         * 0.75 quantil must be 3.5
+         */
+        assertEquals("Lower Quartile with even number", 3.5, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 4.0)), 0.75), 0.000001);
+
         
+        
+        /*
+         * 100 100 200 400 400 800 1600
+         * -> lower quartile is 
+         * 100
+         */
+        assertEquals("Lower Quartile with uneven number", 100, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(100.0, 100.0, 200.0, 400.0, 400.0, 800.0, 1600.0)), 0.25), 0.000001);
+        
+        /*
+         * 100 100 200 400 400 800 1600
+         * -> upper quartile is 
+         * 800
+         */
+        assertEquals("Upper Quartile with uneven number", 800, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(100.0, 100.0, 200.0, 400.0, 400.0, 800.0, 1600.0)), 0.75), 0.000001);
+     
     }
 
 }
