@@ -134,28 +134,29 @@ public class PictureSet implements PictureContainer {
      * @return true if there is an element left , false if not
      */
     public boolean hasNext() {
-        boolean hasNext = false;
+    	boolean hasNext = false;
+     
         if (this.children.isEmpty()) {
-            return hasNext;
+        	hasNext = false;
+        	this.currentChild = 0;
         } else {
             if (this.children.get(this.currentChild).hasNext()) {
-                hasNext = true;
-                return hasNext;
+            	hasNext = true;
             } else {
                 int child = this.currentChild;
 
-                while (!hasNext && (child < this.children.size() - 1)) {
+                while ((!hasNext) || (child < this.children.size() - 1)) {
                     child++;
                     if (this.children.get(child).hasNext()) {
-                        hasNext = true;
+                    	hasNext = true;
                         //this.currentChild = child;
                     } else {
-                        this.currentChild = 0;
+                    	hasNext = false;
                     }
                 }
-                return hasNext;
             }
         }
+		return hasNext;
     }
 
     /**
