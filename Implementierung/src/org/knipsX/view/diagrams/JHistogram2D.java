@@ -8,6 +8,7 @@ import javax.vecmath.Vector3d;
 import org.apache.log4j.Logger;
 import org.knipsX.model.reportmanagement.Category;
 import org.knipsX.model.reportmanagement.Histogram2DModel;
+import org.knipsX.utils.Resource;
 
 
 /**
@@ -49,8 +50,11 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
             logger.debug("Global Min Y " + this.model.getMinY() + " Gloabl Max Y " + this.model.getMaxY() + " \n");
 
             this.getzAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
+            this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
+            this.getxAxis().setAxis(this.model.getxAxis());
             this.getzAxis().setAxis(this.model.getxAxis());
             this.getzAxis().setAxisSize(Math.max(4 * this.model.getCategories().length, 10));
+            this.getxAxis().setAxisSize(Math.max(4 * this.model.getCategories().length, 10));
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
             
             // INTERNATIONALIZE
@@ -86,7 +90,7 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
                         logger.debug("Bar Heigth of Category " + category + "  of " + j + ". Bar with heigth "   + categories[i].getBars().get(j).getHeight());                        
                         
                         /* Create the actual bar */
-                        this.createCube(new Vector3d(0, 0, xPosition + j * xRange), new Vector3d(xRange / 2 * shrinkFactor, barHeight, 1), this.basicMaterial(histogramColors[j % histogramColors.length]));
+                        this.createCube(new Vector3d(0, 0, xPosition + j * xRange), new Vector3d(xRange / 2 * shrinkFactor, barHeight, 1), this.basicMaterial(Resource.getColor(j)));
                         
                         /* Create the actual number of elements on top of the bar */
                         double size = 0.33d;
@@ -99,7 +103,7 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
 
             }
 
-            this.getzAxis().generateSegmentDescription(this.model.getCategories().length);
+            this.getxAxis().generateSegmentDescription(this.model.getCategories().length);
             this.getyAxis().generateSegmentDescription(10);
 
         } else {

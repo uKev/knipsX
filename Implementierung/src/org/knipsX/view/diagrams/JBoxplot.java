@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.knipsX.model.reportmanagement.Boxplot;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.TextModel;
+import org.knipsX.utils.Resource;
 
 /**
  * This class implements how the BoxplotModel is to be drawn.
@@ -107,8 +108,6 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
         double whiskerScaleWidth = 0.5 * correctionFactor;
         double boxWidth = 0.5 * correctionFactor;
 
-        Color[] boxplotColors = { Color.BLUE, Color.GREEN, Color.ORANGE, Color.YELLOW };
-
         /* the space between each boxplot at position i */
         double xSpace = i * boxplotSpacing + 0.5 * boxplotSpacing;
 
@@ -117,8 +116,7 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
                 - this.getyAxis().getAxisSpace(boxplot.getLowerQuartile()));
 
         this.createCube(new Vector3d(0, this.getyAxis().getAxisSpace(boxplot.getLowerQuartile()), xSpace),
-                new Vector3d(boxWidth, interQuartilRange, boxWidth), this.basicMaterial(boxplotColors[i
-                        % boxplotColors.length]));
+                new Vector3d(boxWidth, interQuartilRange, boxWidth), this.basicMaterial(Resource.getColor(i)));
 
         /* create upper whisker */
         double upperWhiskerRange = Math.abs(this.getyAxis().getAxisSpace(boxplot.getUpperWhisker()))

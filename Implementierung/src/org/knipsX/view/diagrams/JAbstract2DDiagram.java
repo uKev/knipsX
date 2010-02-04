@@ -60,7 +60,7 @@ public abstract class JAbstract2DDiagram<M extends AbstractReportModel> extends 
         /* Make view orthographic. Note that zooming of the view will not work */
         java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
         this.canvas3D.getView().setProjectionPolicy(View.PARALLEL_PROJECTION);
-        this.canvas3D.getView().setScreenScale(toolkit.getScreenSize().width * (0.01d / 300d) - 0.0333);
+        this.canvas3D.getView().setScreenScale(0.02);
         this.canvas3D.getView().setScreenScalePolicy(View.SCALE_EXPLICIT);
         this.canvas3D.getView().setBackClipDistance(20);
         this.canvas3D.getView().setFrontClipDistance(-2);
