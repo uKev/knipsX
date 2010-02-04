@@ -16,12 +16,11 @@ import org.knipsX.utils.Validator;
 public class BoxplotModel extends AbstractSingleAxisModel {
 
     private final ArrayList<Boxplot> boxplots;
-    
 
-   private WilcoxonTest wilcoxonTest = new WilcoxonTest();
-
+    private WilcoxonTest wilcoxonTest = new WilcoxonTest();
 
     Logger log = Logger.getLogger(this.getClass());
+
     /**
      * Constructor for the Boxplot Model
      * 
@@ -63,34 +62,31 @@ public class BoxplotModel extends AbstractSingleAxisModel {
             } else {
                 boxplotName = pictureContainer.getName();
             }
-            Boxplot boxplot = new Boxplot(pictureContainer, this.xAxis.getParameter(), boxplotName);
-            
+            Boxplot boxplot = new Boxplot(pictureContainer, this.xAxis.getParameter(), boxplotName, this
+                    .getExifFilterKeywords());
+
             if (this.maxY < boxplot.getMaxValue()) {
                 this.maxY = boxplot.getMaxValue();
             }
             if (this.minY > boxplot.getMinValue()) {
                 this.minY = boxplot.getMinValue();
             }
-            
+
             this.boxplots.add(boxplot);
         }
-        
+
         this.maxX = this.boxplots.size();
         this.minX = 0;
 
+        this.wilcoxonTest.setPictureContainer(this.getPictureContainer());
+        this.wilcoxonTest.setExifparameter(this.xAxis.getParameter());
 
-         this.wilcoxonTest.setPictureContainer(this.getPictureContainer());
-         this.wilcoxonTest.setExifparameter(this.xAxis.getParameter());
+        for (Picture picture : Validator.getValidPictures(this.getPictureContainer(), this.xAxis.getParameter(), this
+                .getExifFilterKeywords())) {
 
+            log.info("Missing Exif Parameter: " + picture.getPath() + " : " + this.xAxis.getParameter().toString());
+            this.addMissingExifPictureParameter(new PictureParameter(this.xAxis.getParameter(), picture));
 
-        for (final PictureContainer pictureContainer : this.getPictureContainer()) {
-            for (final Picture picture : pictureContainer) {
-                if (picture.getExifParameter(this.xAxis.getParameter()) == null) {
-                    log.info("Missing Exif Parameter: " + picture.getPath()
-                            + " : " + this.xAxis.getParameter().toString());
-                    this.addMissingExifPictureParameter(new PictureParameter(this.xAxis.getParameter(), picture));
-                }
-            }
         }
         this.dataIsCalculated(true);
     }
@@ -132,7 +128,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
     public boolean isModelValid() {
         Logger logger = Logger.getLogger(this.getClass());
         this.calculateIfRequired();
-        
+
         if (this.maxX < this.minX) {
             logger.info("Model invalid: maxX < minX : " + this.maxX + " < " + this.minX);
             return false;
@@ -141,7 +137,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
             logger.info("Model invalid: validPictureCount == 0");
             return false;
         }
-        
+
         return true;
     }
 

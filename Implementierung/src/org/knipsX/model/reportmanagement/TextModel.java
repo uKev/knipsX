@@ -1,9 +1,5 @@
 package org.knipsX.model.reportmanagement;
 
-import java.util.ArrayList;
-
-import org.knipsX.model.picturemanagement.PictureContainer;
-
 /**
  * A simple text model which solely contains text
  * @author David Kaufman
@@ -12,35 +8,52 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 
 public class TextModel extends AbstractReportModel {
 
-	private String text;
+	private String text = new String();
 	
-	public TextModel(ArrayList<PictureContainer> pictureContainer, String text) {
-		super(pictureContainer);
+	/**
+	 * Creates a new TextModel from text
+	 * @param text the text which is the heart of the TextModel
+	 */
+	public TextModel(String text) {
 		this.setText(text);
 	}
 	
+	/**
+	 * Creates a new empty TextModel.
+	 */
 	public TextModel() {
 		super();
 	}
 
+	/**
+	 * Setter for the text inside the TextModel
+	 * @param text the text inside the TextModel
+	 */
 	public void setText(String text) {
 		this.text = text;
 	}
 
+	/**
+	 * Getter for the text inside the TextModel
+	 * @return the text inside the TextModel
+	 */
 	public String getText() {
 		return text;
 	}
 
     @Override
     protected void calculate() {
-        // FIXME Auto-generated method stub
+        // Do nothing because we don't need to calculate something
         
     }
 
     @Override
     public boolean isModelValid() {
+        // let's calculate nothing.
         this.calculateIfRequired();
-        return true;
+        
+        // Do we have some text?
+        return !this.text.isEmpty();
     }
 	
 	

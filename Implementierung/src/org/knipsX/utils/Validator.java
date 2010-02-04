@@ -15,59 +15,6 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 public final class Validator {
 
     /**
-     * Checks all pictures in an ArrayList of PictureContainers if it has all needed ExifParameters and contain at least one FilterKeyword
-     * 
-     * 
-     * @param pictureContainers
-     *            an ArrayList of PictureContainers that should be validated
-     * @param exifParameters
-     *            an ArrayList of exifParameters that will be checked in the pictures
-     * @param filterKeywords an ArrayList of keywords. All return pictures contain at least one picture keyword.
-     * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
-     */
-    public static ArrayList<Picture> getValidPictures(final ArrayList<PictureContainer> pictureContainers,
-            final ArrayList<ExifParameter> exifParameters, ArrayList<String> filterKeywords) {
-
-        final ArrayList<Picture> validPictures = new ArrayList<Picture>();
-        boolean valid = false;
-
-        for (final PictureContainer pictureContainer : pictureContainers) {
-            for (final Picture picture : pictureContainer) {
-                valid = true;
-                for (final ExifParameter exifParameter : exifParameters) {
-                    if (picture.getExifParameter(exifParameter) == null) {
-                        valid = false;
-                    } else if (!picture.hasMinOneKeywordOf(filterKeywords)) {
-                        valid = false;
-                    }
-                }
-                if (valid) {
-                    validPictures.add(picture);
-                }
-
-            }
-
-        }
-        return validPictures;
-    }
-    
-    /**
-     * Checks all pictures in a PictureContainer if it has all needed ExifParameters and contain at least one FilterKeyword
-     * 
-     * 
-     * @param pictureContainers
-     *            a PictureContainer that should be validated
-     * @param exifParameters
-     *            an ArrayList of exifParameters that will be checked in the pictures
-     * @param filterKeywords an ArrayList of keywords. All return pictures contain at least one picture keyword.
-     * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
-     */
-    public static ArrayList<Picture> getValidPictures(final PictureContainer pictureContainer,
-            final ArrayList<ExifParameter> exifParameters, ArrayList<String> filterKeywords) {
-        return Validator.getValidPictures(new ArrayList<PictureContainer>(Arrays.asList(new PictureContainer[] {pictureContainer})), exifParameters, filterKeywords);
-    }
-    
-    /**
      * Checks all pictures in an ArrayList of PictureContainers if it has all needed ExifParameters.
      * 
      * @param pictureContainers
@@ -125,7 +72,7 @@ public final class Validator {
      * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
      */
     public static ArrayList<Picture> getValidPictures(PictureContainer pictures, ExifParameter exifParameter) {
-        return Validator.getValidPictures(new PictureContainer [] {pictures}, exifParameter);
+        return Validator.getValidPictures(new PictureContainer[] { pictures }, exifParameter);
     }
 
     /**
@@ -138,7 +85,8 @@ public final class Validator {
      * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
      */
     private static ArrayList<Picture> getValidPictures(PictureContainer[] pictureContainers, ExifParameter exifParameter) {
-        return Validator.getValidPictures(new ArrayList<PictureContainer>(Arrays.asList(pictureContainers)), exifParameter);
+        return Validator.getValidPictures(new ArrayList<PictureContainer>(Arrays.asList(pictureContainers)),
+                exifParameter);
     }
 
     /**
@@ -155,6 +103,99 @@ public final class Validator {
 
         return Validator.getValidPictures(pictureContainers,
                 new ArrayList<ExifParameter>(Arrays.asList(exifParameters)));
+    }
+
+    /**
+     * Checks all pictures in a PictureContainer if it has all needed ExifParameters and contain at least one
+     * FilterKeyword
+     * 
+     * 
+     * @param pictureContainers
+     *            a PictureContainer that should be validated
+     * @param exifParameters
+     *            an ArrayList of exifParameters that will be checked in the pictures
+     * @param filterKeywords
+     *            an ArrayList of keywords. All return pictures contain at least one picture keyword.
+     * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
+     */
+    public static ArrayList<Picture> getValidPictures(final PictureContainer pictureContainer,
+            final ArrayList<ExifParameter> exifParameters, ArrayList<String> filterKeywords) {
+        return Validator.getValidPictures(new ArrayList<PictureContainer>(Arrays
+                .asList(new PictureContainer[] { pictureContainer })), exifParameters, filterKeywords);
+    }
+
+    /**
+     * Checks all pictures in an ArrayList of PictureContainers if it has all needed ExifParameters and contain at least
+     * one FilterKeyword
+     * 
+     * 
+     * @param pictureContainers
+     *            an ArrayList of PictureContainers that should be validated
+     * @param exifParameters
+     *            an ArrayList of exifParameters that will be checked in the pictures
+     * @param filterKeywords
+     *            an ArrayList of keywords. All return pictures contain at least one picture keyword.
+     * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
+     */
+    public static ArrayList<Picture> getValidPictures(final ArrayList<PictureContainer> pictureContainers,
+            final ArrayList<ExifParameter> exifParameters, ArrayList<String> filterKeywords) {
+    
+        final ArrayList<Picture> validPictures = new ArrayList<Picture>();
+        boolean valid = false;
+    
+        for (final PictureContainer pictureContainer : pictureContainers) {
+            for (final Picture picture : pictureContainer) {
+                valid = true;
+                for (final ExifParameter exifParameter : exifParameters) {
+                    if (picture.getExifParameter(exifParameter) == null) {
+                        valid = false;
+                    } else if (!picture.hasMinOneKeywordOf(filterKeywords)) {
+                        valid = false;
+                    }
+                }
+                if (valid) {
+                    validPictures.add(picture);
+                }
+    
+            }
+    
+        }
+        return validPictures;
+    }
+
+    /**
+     * FIXME: Check javadoc here!
+     * Checks all pictures in a ArrayList of PictureContainer if it has all needed ExifParameters and contain at least one
+     * FilterKeyword
+     * 
+     * 
+     * @param pictureContainers
+     *            a PictureContainer that should be validated
+     * @param exifParameters
+     *            an ArrayList of exifParameters that will be checked in the pictures
+     * @param filterKeywords
+     *            an ArrayList of keywords. All return pictures contain at least one picture keyword.
+     * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
+     */
+    public static ArrayList<Picture> getValidPictures(ArrayList<PictureContainer> pictureContainer, ExifParameter parameter,
+            ArrayList<String> filterKeywords) {
+    
+    
+        return Validator.getValidPictures(pictureContainer, new ArrayList<ExifParameter>(Arrays
+                .asList(new ExifParameter[] { parameter })), filterKeywords);
+    
+    }
+
+    /**
+     * FIXME: add javadoc here
+     * @param pictures sth
+     * @param exifParameter sth
+     * @param filterKeywords sth
+     * @return sth
+     */
+    public static ArrayList<Picture> getValidPictures(PictureContainer pictures, ExifParameter exifParameter,
+            ArrayList<String> filterKeywords) {
+        return Validator.getValidPictures(new ArrayList<PictureContainer>(Arrays.asList(new PictureContainer[] {pictures})), exifParameter, filterKeywords);
     }
 
     /**
@@ -199,7 +240,7 @@ public final class Validator {
         return Validator.getValidPicturesCount(pictureContainers, new ArrayList<ExifParameter>(Arrays
                 .asList(exifParameters)));
     }
-    
+
     /**
      * Checks the string which is committed for validation.
      * 
@@ -212,7 +253,7 @@ public final class Validator {
             return false;
         } else if (toCheck.equals("")) {
             return false;
-        } else if (toCheck.length() > 255){
+        } else if (toCheck.length() > 255) {
             return false;
         } else {
             return true;

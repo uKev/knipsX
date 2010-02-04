@@ -79,9 +79,7 @@ public class Boxplot {
         this.minValue = minValue;
         this.pictureSetName = pictureSetName;
     }
-    
-    
-    
+
     /**
      * Construct and calculate a boxplot with the ExifParameter data from a PictureContainer
      * 
@@ -91,7 +89,7 @@ public class Boxplot {
      *            the exif-parameter of the pictures which are analysed by this boxplot
      */
     public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter) {
-        this(pictures, exifParameter, null);
+        this(pictures, exifParameter, null, new ArrayList<String>());
         if (pictures == null) {
             this.pictureSetName = "NULL";
             System.out.println("Warning in Boxplot.java: pictures was NULL");
@@ -101,8 +99,7 @@ public class Boxplot {
     }
 
     /**
-     * Construct and calculate a boxplot with the ExifParameter data from a PictureContainer
-     * isda
+     * Construct and calculate a boxplot with the ExifParameter data from a filtered PictureContainer
      * 
      * @param pictures
      *            the pictures that should be used for this boxplot
@@ -110,8 +107,12 @@ public class Boxplot {
      *            the ordinal(!) exif-parameter of the pictures which are analysed by this boxplot
      * @param pictureSetName
      *            the name of the picture set and - in result - of this boxplot
+     * @param filterKeywords
+     *            keywords which should each picture have at least one of
+     * 
      */
-    public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter, final String pictureSetName) {
+    public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter, final String pictureSetName,
+            final ArrayList<String> filterKeywords) {
 
         // calculate the Boxplot from the pictures in the pictureSet
         // add private methods to calculate the stuff
@@ -128,14 +129,14 @@ public class Boxplot {
 
         final ArrayList<Double> values = new ArrayList<Double>();
 
-        for (final Picture pic : Validator.getValidPictures(pictures, exifParameter)) {
+        for (final Picture pic : Validator.getValidPictures(pictures, exifParameter, filterKeywords)) {
 
             values.add(Converter.objectToDouble(pic.getExifParameter(exifParameter)));
         }
 
         Collections.sort(values);
 
-        log.debug("Boxplot Values:" + values.toString());
+        this.log.debug("Boxplot Values:" + values.toString());
 
         this.mean = this.calculateMean(values);
         this.median = this.calculateMedian(values);
@@ -148,16 +149,11 @@ public class Boxplot {
         this.minValue = this.calculateMinValue(values);
         this.pictureSetName = pictureSetName;
 
-        log.debug(this.mean);
-        log.debug(this.median);
-        log.debug(this.upperQuartile);
-        log.debug(this.lowerQuartile);
-        log.debug(this.upperWhisker);
-        log.debug(this.lowerWhisker);
-        log.debug(this.outlier);
-        log.debug(this.maxValue);
-        log.debug(this.minValue);
-        log.debug(this.pictureSetName);
+        this.log.debug(this.mean + " " + this.median);
+        this.log.debug(this.upperQuartile + " " + this.lowerQuartile);
+        this.log.debug(this.upperWhisker + " " + this.lowerWhisker);
+        this.log.debug(this.outlier + " " + this.maxValue);
+        this.log.debug(this.minValue + " " + this.pictureSetName);
 
     }
 
@@ -165,6 +161,36 @@ public class Boxplot {
         assert this.isSorted(values);
 
         return this.quantile(values, 0.25);
+    }
+
+    private double calculateLowerWhisker(final ArrayList<Double> values) {
+        this.log.debug("calculateLowerWhisker, Values:" + values.toString());
+
+        assert this.isSorted(values);
+        double lowerWhisker = 0;
+
+        if (values.size() > 1) {
+            final double upperQuartile = this.calculateUpperQuartile(values);
+            final double lowerQuartile = this.calculateLowerQuartile(values);
+            final double interQuartileRange = Math.abs(upperQuartile - lowerQuartile);
+
+            /*
+             * searching for the lowerWhisker, starting at the lowerQuartile and searching downwards
+             */
+            double lowerWhiskerCandidate = lowerQuartile;
+            lowerWhisker = lowerQuartile;
+
+            int i = (int) (values.size() * 0.25);
+
+            while ((lowerWhiskerCandidate >= (lowerQuartile - (1.5 * interQuartileRange))) && (i >= 0)) {
+                lowerWhisker = lowerWhiskerCandidate;
+                i--;
+                if (i >= 0) {
+                    lowerWhiskerCandidate = values.get(i);
+                }
+            }
+        }
+        return lowerWhisker;
     }
 
     /**
@@ -266,40 +292,10 @@ public class Boxplot {
         return this.quantile(values, 0.75);
     }
 
-    private double calculateLowerWhisker(final ArrayList<Double> values) {
-        log.debug("calculateLowerWhisker, Values:" + values.toString());
-
-        assert this.isSorted(values);
-        double lowerWhisker = 0;
-
-        if (values.size() > 1) {
-            final double upperQuartile = this.calculateUpperQuartile(values);
-            final double lowerQuartile = this.calculateLowerQuartile(values);
-            final double interQuartileRange = Math.abs(upperQuartile - lowerQuartile);
-
-            /*
-             * searching for the lowerWhisker, starting at the lowerQuartile and searching downwards
-             */
-            double lowerWhiskerCandidate = lowerQuartile;
-            lowerWhisker = lowerQuartile;
-
-            int i = (int) (values.size() * 0.25);
-
-            while ((lowerWhiskerCandidate >= (lowerQuartile - (1.5 * interQuartileRange))) && (i >= 0)) {
-                lowerWhisker = lowerWhiskerCandidate;
-                i--;
-                if (i >= 0) {
-                    lowerWhiskerCandidate = values.get(i);
-                }
-            }
-        }
-        return lowerWhisker;
-    }
-
     private double calculateUpperWhisker(final ArrayList<Double> values) {
         assert this.isSorted(values);
 
-        log.debug("calculateUpperWhisker, Values:" + values.toString());
+        this.log.debug("calculateUpperWhisker, Values:" + values.toString());
 
         final double upperQuartile = this.calculateUpperQuartile(values);
         final double lowerQuartile = this.calculateLowerQuartile(values);

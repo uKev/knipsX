@@ -89,6 +89,10 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
                         this.addMissingExifPictureParameter(new PictureParameter(xParameter, picture));
                         pictureValid = false;
                     }
+                    
+                    if (!picture.hasMinOneKeywordOf(this.getExifFilterKeywords())) {
+                        pictureValid = false;
+                    }
 
                     if (pictureValid) {
                         xValue = Converter.objectToDouble(xValueObject);

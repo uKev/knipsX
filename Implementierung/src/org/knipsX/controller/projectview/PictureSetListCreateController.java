@@ -46,8 +46,7 @@ public class PictureSetListCreateController<M extends ProjectModel, V extends JP
                 "Bildmenge erstellen", JOptionPane.INFORMATION_MESSAGE);
 
         /* while user is not pressing cancel and no text is given */
-        /* FIXME use StringChecker */
-        while (Validator.isStringOk(pictureSetName) == false) {
+        while (pictureSetName != null && Validator.isStringOk(pictureSetName) == false) {
 
             /* try to get a project name */
             pictureSetName = JOptionPane.showInputDialog(null, "Bildmengennamen darf nicht leer sein!",

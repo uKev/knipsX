@@ -2,14 +2,10 @@ Hier können fehlende/gewünschte Features festgehalten werden.
 Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigkeit sortieren.
 
 # kleine Probleme, die vor der ersten 1.0 Beta (Abgabe Implementierungsphase) behoben werden sollten - Bugfix #
-
 (Alias: bekannte bugs, die noch behoben werden müssen, falls neue auftreten, hier bitte eintragen)
-* XMLOuput -> Achsen -> auf NULL prüfen (ToDo: Kai)
-* Referenz auf letztes PictureSet löschen, wenn kein PictureSet mehr da ist. (ToDo: Kai)
+
 * Bei neuer Bildmenge und ausgewähltem Ordner muss der Thread für die Thumbnailgenerierung (neu) gestartet werden (Kai/Benni)
-* Im FileChooser sollten auch versteckte Ordner (bei Linux mit "." beginnend) auswählbar sein.
 * Internationalisierung?
-* Use Exif-Filter Keywords in Model ?
 * (Lower)Whisker Berechnung im Boxplot falsch
 
 

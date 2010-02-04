@@ -57,8 +57,17 @@ public class WilcoxonTest {
      * 
      * @return the active status
      */
-    public boolean isActive() {
-        return isActive;
+    private double calcChanceOfSpecificRankeSum(final double rangeSum, final int numberOfAllSamples,
+            final int partVectors) {
+        int vectors = 0;
+        for (int n = 1; n < numberOfAllSamples; n++) {
+            for (int i = 1; i < numberOfAllSamples; i++) {
+                if ((n != i) && (n + i == rangeSum)) {
+                    vectors++;
+                }
+            }
+        }
+        return vectors / partVectors;
     }
 
     /**
@@ -67,8 +76,31 @@ public class WilcoxonTest {
      * @param activeStatus
      *            The active status
      */
-    public void setActiveStatus(boolean activeStatus) {
-        isActive = activeStatus;
+    private double calcPValue(final double chanceOfPosition, final int partVectors, final double rangeSum) {
+        double pValue = 0;
+        if (this.wilcoxenType == WilcoxonTestType.TWO_SIDED) {
+            if ((chanceOfPosition <= this.significance / 200) || (chanceOfPosition >= (1 - (this.significance / 200)))) {
+                this.testIsRejected = true;
+            } else {
+                this.testIsRejected = false;
+            }
+            pValue = this.chanceToBeLess(partVectors) + this.chanceToBeGreater(partVectors);
+        } else if (this.wilcoxenType == WilcoxonTestType.LESS) {
+            if (chanceOfPosition <= (this.significance / 200)) {
+                this.testIsRejected = true;
+            } else {
+                this.testIsRejected = false;
+            }
+            pValue = this.chanceToBeLess(partVectors);
+        } else {
+            if (chanceOfPosition >= (1 - (this.significance / 200))) {
+                this.testIsRejected = true;
+            } else {
+                this.testIsRejected = false;
+            }
+            pValue = this.chanceToBeGreater(partVectors);
+        }
+        return pValue;
     }
 
     /**
@@ -98,8 +130,18 @@ public class WilcoxonTest {
      * 
      * @return specific testtype
      */
-    public WilcoxonTestType getWilcoxonTestType() {
-        return this.wilcoxenType;
+    private double chanceToBeLess(final int partVectors) {
+        final double significanceChance = this.significance / 200;
+        double chance = 0;
+        for (int n = 3; n <= ((this.wilcoxonSamplesList.size() * 2) - 1); n++) {
+            if (chance <= significanceChance) {
+                chance = chance + this.calcChanceOfSpecificRankeSum(n, this.wilcoxonSamplesList.size(), partVectors);
+            } else {
+                break;
+            }
+        }
+        return chance;
+
     }
 
     /**
@@ -140,9 +182,8 @@ public class WilcoxonTest {
      * @param value
      *            test significance
      */
-    public void setSignificance(double value) {
-        this.significance = value;
-        this.isCalculated = false;
+    public WilcoxonTestType getWilcoxonTestType() {
+        return this.wilcoxenType;
     }
 
     /**
@@ -193,87 +234,107 @@ public class WilcoxonTest {
      * @return The number off elemnets in the first list
      */
     private int initTest() {
-        for (Picture picture : pictureContainer.get(0)) {
-            wilcoxonSamplesList.add(new WilcoxonSample(Converter.objectToDouble(picture.getExifParameter(parameter)),
-                    pictureContainer.get(0)));
+        for (final Picture picture : this.pictureContainer.get(0)) {
+            this.wilcoxonSamplesList.add(new WilcoxonSample(Converter.objectToDouble(picture
+                    .getExifParameter(this.parameter)), this.pictureContainer.get(0)));
         }
-        int numberOfElementsInSet = wilcoxonSamplesList.size();
-        for (Picture picture : pictureContainer.get(1)) {
-            wilcoxonSamplesList.add(new WilcoxonSample(Converter.objectToDouble(picture.getExifParameter(parameter)),
-                    pictureContainer.get(1)));
+        final int numberOfElementsInSet = this.wilcoxonSamplesList.size();
+        for (final Picture picture : this.pictureContainer.get(1)) {
+            this.wilcoxonSamplesList.add(new WilcoxonSample(Converter.objectToDouble(picture
+                    .getExifParameter(this.parameter)), this.pictureContainer.get(1)));
 
         }
         return numberOfElementsInSet;
     }
 
-    /*
-     * Calculates the chance to happen for specific rankesum in given constellation
+    /**
+     * Returns if this Wilcoxontest is active or not
+     * 
+     * @return the active status
      */
-    private double calcChanceOfSpecificRankeSum(double rangeSum, int numberOfAllSamples, int partVectors) {
-        int vectors = 0;
-        for (int n = 1; n < numberOfAllSamples; n++) {
-            for (int i = 1; i < numberOfAllSamples; i++) {
-                if ((n != i) && (n + i == rangeSum)) {
-                    vectors++;
-                }
-            }
+    public boolean isActive() {
+        return this.isActive;
+    }
+
+    /**
+     * Shows if the Wilcoxontest is passed by the selected pictures and the significance. efore calling getResult() it
+     * has to be checked if the test is valid
+     * 
+     * @return passed statsu
+     */
+    public boolean isRejected() {
+        if (!this.isCalculated) {
+            this.calculate();
         }
-        return vectors / partVectors;
+        return this.testIsRejected;
+    }
+
+    /**
+     * Returns and shows if the test is calculated
+     * 
+     * @return The validation status
+     */
+    public boolean isValid() {
+        if (!this.isCalculated) {
+            this.calculate();
+        }
+        return this.isValid;
     }
 
     /*
      * Does the ranking
      */
-    private void rankSample(int index) {
-        if (index == (wilcoxonSamplesList.size() - 1)) {
-            if (wilcoxonSamplesList.get(index).getvalue() == wilcoxonSamplesList.get(index - 1).getvalue()) {
-                wilcoxonSamplesList.get(index).setPosition(index + 1.5);
+    private void rankSample(final int index) {
+        if (index == (this.wilcoxonSamplesList.size() - 1)) {
+            if (this.wilcoxonSamplesList.get(index).getvalue() == this.wilcoxonSamplesList.get(index - 1).getvalue()) {
+                this.wilcoxonSamplesList.get(index).setPosition(index + 1.5);
             } else {
-                wilcoxonSamplesList.get(index).setPosition(index + 1);
+                this.wilcoxonSamplesList.get(index).setPosition(index + 1);
             }
         } else if (index == 0) {
-            if (wilcoxonSamplesList.get(index).getvalue() == wilcoxonSamplesList.get(index + 1).getvalue()) {
-                wilcoxonSamplesList.get(index).setPosition(index + 1.5);
+            if (this.wilcoxonSamplesList.get(index).getvalue() == this.wilcoxonSamplesList.get(index + 1).getvalue()) {
+                this.wilcoxonSamplesList.get(index).setPosition(index + 1.5);
             } else {
-                wilcoxonSamplesList.get(index).setPosition(index + 1);
+                this.wilcoxonSamplesList.get(index).setPosition(index + 1);
             }
         } else {
-            if ((wilcoxonSamplesList.get(index).getvalue() == wilcoxonSamplesList.get(index + 1).getvalue())
-                    || (wilcoxonSamplesList.get(index).getvalue() == wilcoxonSamplesList.get(index - 1).getvalue())) {
-                wilcoxonSamplesList.get(index).setPosition(index + 1.5);
+            if ((this.wilcoxonSamplesList.get(index).getvalue() == this.wilcoxonSamplesList.get(index + 1).getvalue())
+                    || (this.wilcoxonSamplesList.get(index).getvalue() == this.wilcoxonSamplesList.get(index - 1)
+                            .getvalue())) {
+                this.wilcoxonSamplesList.get(index).setPosition(index + 1.5);
             } else {
-                wilcoxonSamplesList.get(index).setPosition(index + 1);
+                this.wilcoxonSamplesList.get(index).setPosition(index + 1);
             }
         }
     }
 
-    /*
-     * The mathematical faculty
+    /**
+     * Activates and deactivates the test
+     * 
+     * @param activeStatus
+     *            The active status
      */
-    private int fakultaet(int n) {
-        int fakultaet = 1;
-        int faktor = 1;
-        while (faktor <= n) {
-            fakultaet = fakultaet * faktor++;
-        }
-        return fakultaet;
+    public void setActiveStatus(final boolean activeStatus) {
+        this.isActive = activeStatus;
     }
 
-    /*
-     * Chance of all possible ranksums to be less than the significance
+    /**
+     * Setter for the exifParameter
+     * @param parameter the exif parameter which should be evaluated
      */
-    private double chanceToBeLess(int partVectors) {
-        double significanceChance = significance / 200;
-        double chance = 0;
-        for (int n = 3; n <= ((wilcoxonSamplesList.size() * 2) - 1); n++) {
-            if (chance <= significanceChance) {
-                chance = chance + calcChanceOfSpecificRankeSum(n, wilcoxonSamplesList.size(), partVectors);
-            } else {
-                break;
-            }
-        }
-        return chance;
+    public void setExifparameter(final ExifParameter parameter) {
+        this.parameter = parameter;
+        this.isCalculated = false;
 
+    }
+
+    /**
+     * Setter for the ArrayList of pcitureContainer which shold be evaluated
+     * @param pictureContainer the ArrayList of pcitureContainer which shold be evaluated
+     */
+    public void setPictureContainer(final ArrayList<PictureContainer> pictureContainer) {
+        this.pictureContainer = pictureContainer;
+        this.isCalculated = false;
     }
 
     /*
@@ -293,33 +354,14 @@ public class WilcoxonTest {
         return chance;
     }
 
-    /*
-     * Calculates the p value
+    /**
+     * Sets the actual testtype for the Wilcoxontest
+     * 
+     * @param testType
+     *            The type
      */
-    private double calcPValue(double chanceOfPosition, int partVectors, double rangeSum) {
-        double pValue = 0;
-        if (wilcoxenType == WilcoxonTestType.TWO_SIDED) {
-            if ((chanceOfPosition <= significance / 200) || (chanceOfPosition >= (1 - (significance / 200)))) {
-                testIsRejected = true;
-            } else {
-                testIsRejected = false;
-            }
-            pValue = chanceToBeLess(partVectors) + chanceToBeGreater(partVectors);
-        } else if (wilcoxenType == WilcoxonTestType.LESS) {
-            if (chanceOfPosition <= (significance / 200)) {
-                testIsRejected = true;
-            } else {
-                testIsRejected = false;
-            }
-            pValue = chanceToBeLess(partVectors);
-        } else {
-            if (chanceOfPosition >= (1 - (significance / 200))) {
-                testIsRejected = true;
-            } else {
-                testIsRejected = false;
-            }
-            pValue = chanceToBeGreater(partVectors);
-        }
-        return pValue;
+    public void setWilcoxonTestType(final WilcoxonTestType testType) {
+        this.isCalculated = false;
+        this.wilcoxenType = testType;
     }
 }
