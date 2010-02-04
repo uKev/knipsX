@@ -83,8 +83,6 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
         this.table = new JTable(dataModel);
 
         this.scrollpane = new JScrollPane(this.table);
-        
-        
 
         this.mainpanel = new JPanel();
         this.mainpanel.setLayout(new BoxLayout(this.mainpanel, BoxLayout.PAGE_AXIS));
@@ -111,8 +109,7 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
 
     @Override
     public void showDiagram() {
-
-        /* set the diagramm to the center of the screen */
+        /* set the diagram to the center of the screen */
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }

@@ -15,6 +15,7 @@ import java.util.Observable;
 import javax.imageio.ImageIO;
 
 /* import classes from our util source*/
+import org.knipsX.Programm;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
 
@@ -141,14 +142,17 @@ public class Picture extends Observable implements PictureContainer  {
     }
 
     /**
+     * @return true if thumbnails were generated, false else.
      * @throws IOException
      */
-    public void initThumbnails() {
+    public synchronized boolean initThumbnails() {
+        boolean isInitialized = false;
         if (this.bigThumbnail == null) {
             try {
                 this.bigThumbnail = Picture.getThumbOf(ImageIO.read(pictureFile), 200, Image.SCALE_FAST);
+                isInitialized = true;
             } catch (IOException e) {
-                System.err.println("[Picture::getBigThumbnail()] - Can not create Thumbnail from File - "
+                Programm.logger.error("[Picture::getBigThumbnail()] - Can not create Thumbnail from File - "
                         + pictureFile.getAbsolutePath());
             }
         }
@@ -156,13 +160,14 @@ public class Picture extends Observable implements PictureContainer  {
         if (this.smallThumbnail == null) {
             try {
                 this.smallThumbnail = Picture.getThumbOf(ImageIO.read(pictureFile), 50, Image.SCALE_FAST);
+                isInitialized = true;
             } catch (IOException e) {
-                System.err.println("[Picture::getSmallThumbnail()] - Can not create Thumbnail from File - "
+                Programm.logger.error("[Picture::getSmallThumbnail()] - Can not create Thumbnail from File - "
                         + pictureFile.getAbsolutePath());
             }
         }
         this.setChanged();
-        
+        return isInitialized;
     }
 
     public BufferedImage getBigThumbnail() {      

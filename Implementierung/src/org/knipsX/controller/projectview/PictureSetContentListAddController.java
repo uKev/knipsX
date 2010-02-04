@@ -3,6 +3,8 @@ package org.knipsX.controller.projectview;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
+import javax.swing.JOptionPane;
+
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
@@ -40,22 +42,28 @@ public class PictureSetContentListAddController<M extends ProjectModel, V extend
 
     @Override
     public void actionPerformed(final ActionEvent e) {
-        final File[] files = JExtendedFileChooser.selectDirectoriesAndImages();
+        if(this.model.getPictureSets().length > 0) {
+            final File[] files = JExtendedFileChooser.selectDirectoriesAndImages();
 
-        if (files != null) {
-            
-            for (final File file : files) {
-                PictureSet pictureSet = this.model.getSelectedPictureSet();
-                PictureContainer newContent = null;
+            if (files != null) {
                 
-                if (file.isDirectory()) {
-                    newContent = new Directory(file.getAbsolutePath());
-                } else {
-                    newContent = new Picture(file, true);
+                for (final File file : files) {
+                    PictureSet pictureSet = this.model.getSelectedPictureSet();
+                    PictureContainer newContent = null;
+                    
+                    if (file.isDirectory()) {
+                        newContent = new Directory(file.getAbsolutePath());
+                    } else {
+                        newContent = new Picture(file, true);
+                    }
+                    this.model.addContentToPictureSet(pictureSet, newContent);
                 }
-                this.model.addContentToPictureSet(pictureSet, newContent);
-                System.out.print("bla");
-            }
-        }
+            }    
+        } else {
+            
+            /* INTERNATIONALIZE */
+            JOptionPane.showMessageDialog(null, "Erstellen Sie zuerst eine Bildmenge!",
+                    "Bildmengeninhalt hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+        }   
     }
 }

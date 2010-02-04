@@ -28,14 +28,18 @@ import org.knipsX.view.reportmanagement.ReportHelper;
  * @param <M>
  * @param <V>
  */
-public class ReportSaveController<M extends AbstractReportModel, V extends JAbstractReportUtil<?>> extends AbstractController<M, V> {
+public class ReportSaveController<M extends AbstractReportModel, V extends JAbstractReportUtil<?>> extends
+        AbstractController<M, V> {
 
     private boolean showDiagram;
 
     /**
      * The constructor which registers the controller with the specified view
-     * @param view the view the controller operates on
-     * @param showDiagram specifies if the diagram should be displayed after the report has been saved
+     * 
+     * @param view
+     *            the view the controller operates on
+     * @param showDiagram
+     *            specifies if the diagram should be displayed after the report has been saved
      */
     public ReportSaveController(V view, boolean showDiagram) {
         super(view);
@@ -55,8 +59,8 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
 
         if (showDiagram) {
             ReportHelper.getCurrentReport().displayDiagram(this.model, this.view.getReportID()).showDiagram();
-        } 
-        
+        }
+
         /* Activate the current project view */
         ReportHelper.getProjectModel().setStatus(ProjectModel.ACTIVE);
 
@@ -64,7 +68,9 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
 
     /**
      * This function takes in registered panel from a report compilation and returns a model
-     * @param registeredPanels the registers panels from the report compilation
+     * 
+     * @param registeredPanels
+     *            the registers panels from the report compilation
      * @return a saveable model
      */
     public static AbstractReportModel createSavableModel(ArrayList<JAbstractSinglePanel> registeredPanels) {
@@ -86,14 +92,15 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
                 if (model instanceof BoxplotModel) {
                     ((BoxplotModel) model).setxAxis(parametersPanel.getAxes().get(0));
                 } else if (model instanceof Histogram2DModel) {
-                    ((Histogram2DModel) model).setxAxis(parametersPanel.getAxes().get(0));                    
+                    ((Histogram2DModel) model).setxAxis(parametersPanel.getAxes().get(0));
                 } else if (model instanceof Histogram3DModel) {
                     ((Histogram3DModel) model).setxAxis(parametersPanel.getAxes().get(0));
                     ((Histogram3DModel) model).setzAxis(parametersPanel.getAxes().get(1));
                 } else if (model instanceof Cluster3DModel) {
-                    ((Cluster3DModel) model).setxAxis(parametersPanel.getAxes().get(0));
-                    ((Cluster3DModel) model).setzAxis(parametersPanel.getAxes().get(1));
-                    ((Cluster3DModel) model).setyAxis(parametersPanel.getAxes().get(2));
+                    Cluster3DModel cluster3DModel = ((Cluster3DModel) model);
+                    cluster3DModel.setxAxis(parametersPanel.getAxes().get(0));
+                    cluster3DModel.setzAxis(parametersPanel.getAxes().get(1));
+                    cluster3DModel.setyAxis(parametersPanel.getAxes().get(2));
                 }
 
             } else if (singlepanel instanceof JPictureSetExif) {
@@ -110,7 +117,7 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
                     boxplotModel.getWilcoxonTest().setSignificance(wilcoxonPanel.getStatisticalSignificance());
                     boxplotModel.getWilcoxonTest().setActiveStatus(wilcoxonPanel.getStatus());
                     boxplotModel.getWilcoxonTest().setWilcoxonTestType(wilcoxonPanel.getTestType());
-                    
+
                 }
 
             }

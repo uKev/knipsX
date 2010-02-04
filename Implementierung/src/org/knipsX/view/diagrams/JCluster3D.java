@@ -11,6 +11,7 @@ import java.util.Collections;
 import javax.media.j3d.PickInfo;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.vecmath.Vector3d;
 
@@ -109,7 +110,18 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
 
             this.getzAxis().generateSegmentDescription(10);
 
+        } else {
+            if (this.model != null) {
+                /* Output some kind of error message */
+                //INTERNATIONALIZE
+                JOptionPane.showMessageDialog(this, "Das Diagramm kann nicht angezeigt werden, da es einen Fehler bei der Berechnung gab.");
+                this.displayDiagram = false;
+            }
+            
         }
+        
+        
+        
 
         /* set the left panel which shows information about a selected picture */
         this.leftPanel = new JPanel();

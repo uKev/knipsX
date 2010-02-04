@@ -32,6 +32,14 @@ public abstract class JAbstractDiagram<M extends AbstractReportModel> extends JA
      */
     protected JComponent registeredButtons;
 
+    
+    
+    /**
+     * Specifies if the diagram should pop up.
+     */
+    protected boolean displayDiagram = true; 
+    
+    
     /**
      * Constructor
      * 
