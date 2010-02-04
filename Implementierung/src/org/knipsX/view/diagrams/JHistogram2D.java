@@ -45,7 +45,9 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
             logger.debug("Global Min Y " + this.model.getMinY() + " Gloabl Max Y " + this.model.getMaxY() + " \n");
 
             this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
+            this.getyAxis().setAxis(this.model.getxAxis());
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
+            this.getyAxis().setDescription("Anzahl");
 
             Category[] categories = this.model.getCategories();
 
