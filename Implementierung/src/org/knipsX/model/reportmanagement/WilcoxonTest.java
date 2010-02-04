@@ -22,23 +22,33 @@ public class WilcoxonTest {
 
     private boolean isActive = false;
     private boolean isValid = false;
+    private boolean isCalculated = false;
     private WilcoxonTestType wilcoxenType;
-    private ArrayList<PictureContainer> pictureContainer;
+    private ArrayList<PictureContainer> pictureContainer = new ArrayList<PictureContainer>();
     private ExifParameter parameter;
     private double significance = 1.00;
-    private double result;
+    private double result = 0;
     private boolean testIsRejected = false;
     private List<WilcoxonSample> wilcoxonSamplesList = new LinkedList<WilcoxonSample>();
-
+ 
     /**
      * Constructor for a new Wilcoxontest without any settings
      * @param pictureContainer The Picturesets (Here they have two be a number of two)
      * @param parameter The selected Exif-parameter
      */
-    public WilcoxonTest(ArrayList<PictureContainer> pictureContainer, ExifParameter parameter) {
-        this.pictureContainer = pictureContainer;
-        this.parameter = parameter;
+    public WilcoxonTest() {    	
     }
+    
+    public void setExifparameter(ExifParameter parameter) {
+    	this.parameter = parameter;
+    	this.isCalculated = false;
+    	
+    }
+    
+    public void setPictureContainer(ArrayList<PictureContainer> pictureContainer) {
+    	this.pictureContainer = pictureContainer;
+    	this.isCalculated = false;
+    }  
 
     /**
      * Returns if this Wilcoxontest is active or not
@@ -61,14 +71,20 @@ public class WilcoxonTest {
      * @return The validation status
      */
     public boolean isValid() {
+    	if(!isCalculated) {
+    		calculate();
+    	} 		
         return isValid;
     }
 
     /**
-     * Shows if the Wilcoxontest is passed by the selected pictures and the significance
+     * Shows if the Wilcoxontest is passed by the selected pictures and the significance. efore calling getResult() it has to be checked if the test is valid
      * @return passed statsu
      */
     public boolean isRejected() {
+    	if(!isCalculated) {
+    		calculate();
+    	}
         return this.testIsRejected;
     }
 
@@ -85,14 +101,18 @@ public class WilcoxonTest {
      * @param testType The type
      */
     public void setWilcoxonTestType(WilcoxonTestType testType) {
+    	this.isCalculated = false;
         this.wilcoxenType = testType;
     }
 
     /**
-     * Returns the result for the p value
+     * Returns the result for the p value. Before calling getResult() it has to be checked if the test is valid
      * @return p value
      */
     public double getResult() {
+    	if (!isCalculated) {
+    		calculate();
+    	}
         return this.result;
     }
 
@@ -110,16 +130,17 @@ public class WilcoxonTest {
      */
     public void setSignificance(double value) {
         this.significance = value;
+        this.isCalculated = false;
     }
 
     /**
      * Calculate and initialize the whole test
      */
     public void calculate() {
-        if (wilcoxenType != null) {
+        if (wilcoxenType != null && pictureContainer.size() == 2) {
             double rangeSum = 0;
             int numberOfElementsInFirstSet = initTest();
-            assert wilcoxonSamplesList.size() >= 2;
+            if (wilcoxonSamplesList.size() >= 2)  {
             int numberOfElementsInSecondSet = wilcoxonSamplesList.size() - numberOfElementsInFirstSet;
             int partVectors = fakultaet(numberOfElementsInFirstSet + numberOfElementsInSecondSet)
                     / ((fakultaet(numberOfElementsInFirstSet)) * (fakultaet(numberOfElementsInSecondSet)));
@@ -144,7 +165,13 @@ public class WilcoxonTest {
             double chance = calcChanceOfSpecificRankeSum(rangeSum, wilcoxonSamplesList.size(), partVectors);
             result = calcPValue(chance, partVectors, rangeSum);
             this.isValid = true;
-
+            } else {
+            	this.isValid = false;
+            	this.isCalculated = true;
+            }
+        } else {
+        	this.isValid = false;
+        	this.isCalculated = true;      	
         }
     }
 
