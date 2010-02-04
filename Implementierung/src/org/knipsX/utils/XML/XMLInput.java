@@ -16,6 +16,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
+import org.knipsX.Programm;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureNotFoundException;
@@ -24,51 +25,54 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.model.reportmanagement.BoxplotModel;
+import org.knipsX.model.reportmanagement.Cluster3DModel;
+import org.knipsX.model.reportmanagement.Histogram2DModel;
+import org.knipsX.model.reportmanagement.Histogram3DModel;
+import org.knipsX.model.reportmanagement.TableModel;
 import org.knipsX.model.reportmanagement.WilcoxonTestType;
 import org.knipsX.utils.ExifParameter;
 
 /**
  * This class reads a project file and returns the information.
- * 
  */
 public class XMLInput {
 
     private Element project;
 
-    /**
-     * Constructs a MyXmlHandler.
-     */
     public XMLInput(final File xml) {
         final SAXBuilder saxBuilder = new SAXBuilder();
 
-        Document docXml;
         try {
-            docXml = saxBuilder.build(xml);
+            final Document docXml = saxBuilder.build(xml);
             this.project = docXml.getRootElement();
-        } catch (JDOMException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (final JDOMException e) {
+            Programm.logger.error("[XMLInput::constructor()] - " + e.getStackTrace());
+        } catch (final IOException e) {
+            Programm.logger.error("[XMLInput::constructor()] - " + e.getStackTrace());
         }
     }
 
-    public ProjectModel getProject(int projectId) {
+    public ProjectModel getProject(final int projectId) {
         ProjectModel project = null;
 
         /* check if we have the right project */
         if (projectId == this.getId()) {
-            String name = this.getName();
-            String description = this.getDescription();
-            GregorianCalendar creationDate = this.getCreationDate();
-            List<PictureSet> pictureSets = this.getPictureSets();
-            List<AbstractReportModel> reports = this.getReports(pictureSets);
+            final String name = this.getName();
+            final String description = this.getDescription();
+            final GregorianCalendar creationDate = this.getCreationDate();
+            final List<PictureSet> pictureSets = this.getPictureSets();
+            final List<AbstractReportModel> reports = this.getReports(pictureSets);
 
             project = new ProjectModel(projectId, name, description, creationDate, pictureSets, reports);
         }
         return project;
     }
+
+    /*
+     * #########################################################
+     * META DATA
+     * #########################################################
+     */
 
     private int getId() {
         return Integer.parseInt(this.project.getChildText("id"));
@@ -84,20 +88,26 @@ public class XMLInput {
 
     private GregorianCalendar getCreationDate() {
         try {
-            return parseTimestamp(this.project.getChildText("creationDate"));
-        } catch (ParseException e) {
-            e.printStackTrace();
+            return XMLInput.parseTimestamp(this.project.getChildText("creationDate"));
+        } catch (final ParseException e) {
+            Programm.logger.error("[XMLInput::getCreationDate()] - " + e.getStackTrace());
             return new GregorianCalendar();
         }
     }
 
-    private static GregorianCalendar parseTimestamp(String timestamp) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
-        Date d = sdf.parse(timestamp);
-        GregorianCalendar cal = new GregorianCalendar();
+    private static GregorianCalendar parseTimestamp(final String timestamp) throws ParseException {
+        final SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+        final Date d = sdf.parse(timestamp);
+        final GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(d);
         return cal;
     }
+
+    /*
+     * #########################################################
+     * PICTURE SETS
+     * #########################################################
+     */
 
     private List<PictureSet> getPictureSets() {
 
@@ -106,16 +116,13 @@ public class XMLInput {
          * 1 -> picset1
          * 1234 -> picset2
          */
-        Map<Integer, PictureSet> pictureSets = new HashMap<Integer, PictureSet>();
-        for (Object item : this.project.getChild("pictureSets").getChildren("pictureSet")) {
-            if (item instanceof Element) {
-                Element set = (Element) item;
+        final Map<Integer, PictureSet> pictureSets = new HashMap<Integer, PictureSet>();
+        for (final Element set : XMLHelper.convertList(this.project.getChild("pictureSets").getChildren("pictureSet"))) {
 
-                int id = Integer.parseInt(set.getChildText("id"));
-                String name = set.getChildText("name");
+            final int id = Integer.parseInt(set.getChildText("id"));
+            final String name = set.getChildText("name");
 
-                pictureSets.put(id, new PictureSet(name, id));
-            }
+            pictureSets.put(id, new PictureSet(name, id));
         }
 
         /*
@@ -123,16 +130,13 @@ public class XMLInput {
          * 1 -> dir1
          * 1234 -> dir2
          */
-        Map<Integer, Directory> directories = new HashMap<Integer, Directory>();
-        for (Object item : this.project.getChild("directories").getChildren("directory")) {
-            if (item instanceof Element) {
-                Element set = (Element) item;
+        final Map<Integer, Directory> directories = new HashMap<Integer, Directory>();
+        for (final Element set : XMLHelper.convertList(this.project.getChild("directories").getChildren("directory"))) {
 
-                int id = Integer.parseInt(set.getChildText("id"));
-                String path = set.getChildText("path");
+            final int id = Integer.parseInt(set.getChildText("id"));
+            final String path = set.getChildText("path");
 
-                directories.put(id, new Directory(path));
-            }
+            directories.put(id, new Directory(path));
         }
 
         /*
@@ -140,87 +144,114 @@ public class XMLInput {
          * 1 -> pic1
          * 1234 -> pic2
          */
-        Map<Integer, Picture> pictures = new HashMap<Integer, Picture>();
-        for (Object item : this.project.getChild("pictures").getChildren("picture")) {
-            if (item instanceof Element) {
-                Element set = (Element) item;
+        final Map<Integer, Picture> pictures = new HashMap<Integer, Picture>();
+        for (final Element picture : XMLHelper.convertList(this.project.getChild("pictures").getChildren("picture"))) {
 
-                int id = Integer.parseInt(set.getChildText("id"));
-                String path = set.getChildText("path");
+            final int id = Integer.parseInt(picture.getChildText("id"));
+            final String path = picture.getChildText("path");
 
-                try {
-                    pictures.put(id, new Picture(path, true));
-                } catch (PictureNotFoundException e) {
-                    System.err.println("[XMLInput::getPictureSets()] - Picture not found -> " + path);
-                }
+            try {
+                pictures.put(id, new Picture(path, true));
+            } catch (final PictureNotFoundException e) {
+                Programm.logger.error("[XMLInput::getPictureSets()] - Picture not found -> " + path);
             }
+
         }
 
-        for (Object item : this.project.getChild("pictureSets").getChildren("pictureSet")) {
-            if (item instanceof Element) {
-                Element set = (Element) item;
+        for (final Element set : XMLHelper.convertList(this.project.getChild("pictureSets").getChildren("pictureSet"))) {
+            final int rootId = Integer.parseInt(set.getChildText("id"));
 
-                int rootId = Integer.parseInt(set.getChildText("id"));
+            /* walk through the picture sets an connect them to their children */
+            for (final Element container : XMLHelper.convertList(set.getChild("children").getChildren())) {
 
-                /* walk through the picture sets an connect them to their children */
-                for (Object child : set.getChild("children").getChildren()) {
-                    if (child instanceof Element) {
-                        Element container = (Element) child;
+                if (container.getName() == "pictureSet") {
 
-                        if (container.getName() == "pictureSet") {
+                    /* get a picture set from the hashmap and connect another to it */
+                    pictureSets.get(rootId).add(pictureSets.get(Integer.parseInt(container.getText())));
+                } else if (container.getName() == "directory") {
 
-                            /* get a picture set from the hashmap and connect another to it */
-                            pictureSets.get(rootId).add(pictureSets.get(Integer.parseInt(container.getText())));
-                        } else if (container.getName() == "directory") {
+                    /* get a picture set from the hashmap and connect a directory to it */
+                    pictureSets.get(rootId).add(directories.get(Integer.parseInt(container.getText())));
+                } else if (container.getName() == "picture") {
 
-                            /* get a picture set from the hashmap and connect a directory to it */
-                            pictureSets.get(rootId).add(directories.get(Integer.parseInt(container.getText())));
-                        } else if (container.getName() == "picture") {
-
-                            /* get a picture set from the hashmap and connect a picture to it */
-                            pictureSets.get(rootId).add(pictures.get(Integer.parseInt(container.getText())));
-                        }
-                    }
+                    /* get a picture set from the hashmap and connect a picture to it */
+                    pictureSets.get(rootId).add(pictures.get(Integer.parseInt(container.getText())));
                 }
+
             }
         }
 
         /* create the list to return the values */
-        List<PictureSet> returnList = new ArrayList<PictureSet>();
-        for (PictureSet set : pictureSets.values()) {
+        final List<PictureSet> returnList = new ArrayList<PictureSet>();
+        for (final PictureSet set : pictureSets.values()) {
             returnList.add(set);
         }
         return returnList;
     }
 
-    private List<AbstractReportModel> getReports(List<PictureSet> pictureSets) {
-        List<AbstractReportModel> reports = new LinkedList<AbstractReportModel>();
+    /*
+     * #########################################################
+     * REPORTS
+     * #########################################################
+     */
 
-        for (Object item : this.project.getChild("reports").getChildren("report")) {
-            if (item instanceof Element) {
-                Element report = (Element) item;
+    private List<AbstractReportModel> getReports(final List<PictureSet> pictureSets) {
+        final List<AbstractReportModel> reports = new LinkedList<AbstractReportModel>();
 
-                String type = report.getChildText("type");
+        for (final Element report : XMLHelper.convertList(this.project.getChild("reports").getChildren("report"))) {
+            final String type = report.getChildText("type");
 
-                if (type.equals("boxplot")) {
-                    reports.add(this.getBoxplotReport(pictureSets, report));
-                }
-
+            if (type.equals("boxplot")) {
+                reports.add(this.getBoxplotReport(pictureSets, report));
+            } else if (type.equals("histogram2D")) {
+                reports.add(this.getHistogram2DReport(pictureSets, report));
+            } else if (type.equals("histogram3D")) {
+                reports.add(this.getHistogram3DReport(pictureSets, report));
+            } else if (type.equals("cluster3D")) {
+                reports.add(this.getCluster3DReport(pictureSets, report));
+            } else if (type.equals("table")) {
+                reports.add(this.getTableReport(pictureSets, report));
             }
         }
         return reports;
     }
 
-    private Axis getAxis(Element axis) {
-        Axis newAxis = new Axis(ExifParameter.valueOf(axis.getChildText("parameter")));
+    private <T extends AbstractReportModel> T setupCommonData(final T model, final List<PictureSet> pictureSets,
+            final Element report) {
+
+        /* set the meta data */
+        model.setReportName(report.getChildText("name"));
+        model.setReportDescription(report.getChildText("description"));
+
+        /* connect the model with picture sets */
+        for (final Element pictureSet : XMLHelper.convertList(report.getChild("pictureSets").getChildren("pictureSet"))) {
+            for (final PictureSet set : pictureSets) {
+                if (Integer.parseInt(pictureSet.getText()) == set.getID()) {
+                    model.addPictureContainer(set);
+                }
+            }
+        }
+
+        /* extract the keywords */
+        final Object exifFilterKeywordsItem = report.getChild("exifFilterKeywords");
+        if (exifFilterKeywordsItem instanceof Element) {
+            for (final String keyword : this.getExifFilterKeywords((Element) exifFilterKeywordsItem)) {
+                model.addExifFilterKeyword(keyword);
+            }
+        }
+        return model;
+    }
+
+    private Axis getAxis(final Element axis) {
+        final Axis newAxis = new Axis(ExifParameter.valueOf(axis.getChildText("parameter")));
         newAxis.setDescription(axis.getChildText("description"));
         return newAxis;
     }
 
-    private List<String> getExifFilterKeywords(Element keywords) {
-        List<String> allKeywords = new LinkedList<String>();
+    private List<String> getExifFilterKeywords(final Element keywords) {
+        final List<String> allKeywords = new LinkedList<String>();
 
-        for (Object item : keywords.getChildren("exifFilterKeyword")) {
+        for (final Object item : keywords.getChildren("exifFilterKeyword")) {
             if (item instanceof Element) {
                 allKeywords.add(((Element) item).getText());
             }
@@ -228,49 +259,78 @@ public class XMLInput {
         return allKeywords;
     }
 
-    private BoxplotModel getBoxplotReport(List<PictureSet> pictureSets, Element report) {
-        BoxplotModel model = new BoxplotModel();
-
-        /* set the meta data */
-        model.setReportName(report.getChildText("name"));
-        model.setReportDescription(report.getChildText("description"));
+    private BoxplotModel getBoxplotReport(final List<PictureSet> pictureSets, final Element report) {
+        final BoxplotModel model = this.setupCommonData(new BoxplotModel(), pictureSets, report);
 
         /* extract the axes */
-        Object axisItem = report.getChild("axes").getChild("axis");
+        final Object axisItem = report.getChild("axes").getChild("axis");
         if (axisItem instanceof Element) {
-            Element axis = (Element) axisItem;
+            final Element axis = (Element) axisItem;
 
             if (axis.getChildText("type").equalsIgnoreCase("x")) {
-                model.setxAxis(getAxis(axis));
+                model.setxAxis(this.getAxis(axis));
             }
         }
 
-        /* connect the model with picture sets */
-        for (Object pictureSetItem : report.getChild("pictureSets").getChildren("pictureSet")) {
-            if (pictureSetItem instanceof Element) {
-                Element pictureSet = (Element) pictureSetItem;
-                for (PictureSet set : pictureSets) {
-                    if (Integer.parseInt(pictureSet.getText()) == set.getID()) {
-                        model.addPictureContainer(set);
-                    }
-                }
-            }
-        }
+        /* FIXME set the willcoxon */
+        final Object item = report.getChild("wilcoxonTest");
+        if (item instanceof Element) {
+            final Element wilcoxonTest = (Element) item;
+            model.getWilcoxonTest().setActiveStatus(Boolean.parseBoolean(wilcoxonTest.getChildText("isActive")));
+            model.getWilcoxonTest()
+                    .setWilcoxonTestType(WilcoxonTestType.valueOf(wilcoxonTest.getChildText("testType")));
+            model.getWilcoxonTest().setSignificance(Double.parseDouble(wilcoxonTest.getChildText("significance")));
 
-        /* extract the keywords */
-        Object exifFilterKeywordsItem = report.getChild("exifFilterKeywords");
-        if (exifFilterKeywordsItem instanceof Element) {
-            for (String keyword : this.getExifFilterKeywords((Element) exifFilterKeywordsItem)) {
-                model.addExifFilterKeyword(keyword);
-            }
         }
-        // item = this.project.getChild("wilcoxonTest");
-        // if (item instanceof Element) {
-        // Element wilcoxonTest = (Element) item;
-        // model.getWilcoxonTest().setActiveStatus(Boolean.parseBoolean(wilcoxonTest.getChildText("isActive")));
-        // model.getWilcoxonTest().(WilcoxonTestType.valueOf(wilcoxonTest.getChildText("testType")));
-        //            
-        // }
         return model;
+    }
+
+    private Histogram2DModel getHistogram2DReport(final List<PictureSet> pictureSets, final Element report) {
+        final Histogram2DModel model = this.setupCommonData(new Histogram2DModel(), pictureSets, report);
+
+        /* extract the axes */
+        final Object axisItem = report.getChild("axes").getChild("axis");
+        if (axisItem instanceof Element) {
+            final Element axis = (Element) axisItem;
+
+            if (axis.getChildText("type").equalsIgnoreCase("x")) {
+                model.setxAxis(this.getAxis(axis));
+            }
+        }
+        return model;
+    }
+
+    private Histogram3DModel getHistogram3DReport(final List<PictureSet> pictureSets, final Element report) {
+        final Histogram3DModel model = this.setupCommonData(new Histogram3DModel(), pictureSets, report);
+
+        /* extract the axes */
+        for (final Element axis : XMLHelper.convertList(report.getChild("axes").getChildren("axis"))) {
+            if (axis.getChildText("type").equalsIgnoreCase("x")) {
+                model.setxAxis(this.getAxis(axis));
+            } else if (axis.getChildText("type").equalsIgnoreCase("z")) {
+                model.setzAxis(this.getAxis(axis));
+            }
+        }
+        return model;
+    }
+
+    private Cluster3DModel getCluster3DReport(final List<PictureSet> pictureSets, final Element report) {
+        final Cluster3DModel model = this.setupCommonData(new Cluster3DModel(), pictureSets, report);
+
+        /* extract the axes */
+        for (final Element axis : XMLHelper.convertList(report.getChild("axes").getChildren("axis"))) {
+            if (axis.getChildText("type").equalsIgnoreCase("x")) {
+                model.setxAxis(this.getAxis(axis));
+            } else if (axis.getChildText("type").equalsIgnoreCase("z")) {
+                model.setzAxis(this.getAxis(axis));
+            } else if (axis.getChildText("type").equalsIgnoreCase("y")) {
+                model.setyAxis(this.getAxis(axis));
+            }
+        }
+        return model;
+    }
+
+    private TableModel getTableReport(final List<PictureSet> pictureSets, final Element report) {
+        return this.setupCommonData(new TableModel(), pictureSets, report);
     }
 }

@@ -7,12 +7,15 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.knipsX.Programm;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.utils.RepositoryHandler;
+import org.knipsX.utils.RepositoryInterfaceException;
 
 /* scans the exif data of all pictures */
 class GetExifDataThread extends Thread {
@@ -76,10 +79,10 @@ public class ProjectModel extends AbstractModel {
      * background.
      */
     public static final int INACTIVE = 0;
-    
+
     /* By default this view is active */
     private int state = ACTIVE;
-    
+
     private final int id;
 
     private String name;
@@ -136,11 +139,11 @@ public class ProjectModel extends AbstractModel {
         this.reportList = reports;
     }
 
-    
     /**
      * Sets the actual state. It can only be ACTIVE or INACTIVE
      * 
-     * @param state ACTIVE or INACTIVE
+     * @param state
+     *            ACTIVE or INACTIVE
      */
     public void setStatus(int state) {
         assert state < 2;
@@ -148,7 +151,7 @@ public class ProjectModel extends AbstractModel {
         this.state = state;
         this.updateViews();
     }
-    
+
     /**
      * Delivers the actual status
      * 
@@ -157,7 +160,7 @@ public class ProjectModel extends AbstractModel {
     public int getStatus() {
         return this.state;
     }
-    
+
     /**
      * Creates a new model based on an old one (with new id which must be unique).
      * 
@@ -257,7 +260,12 @@ public class ProjectModel extends AbstractModel {
      * @return the parameters.
      */
     public Object[][] getExifParameter() {
-        return this.getSelectedPicture().getAllExifParameter().clone();
+        if (this.getSelectedPicture() != null) {
+            return this.getSelectedPicture().getAllExifParameter().clone();
+        }
+
+        /* INTERNATIONALIZE */
+        return new Object[][] { new String[] { "no Data", "no Data" } };
     }
 
     /**
@@ -297,7 +305,11 @@ public class ProjectModel extends AbstractModel {
     }
 
     public void saveProjectModel() {
-        // RepositoryHandler.writeProjectToFile(this);
+        try {
+            RepositoryHandler.getRepository().saveProject(this);
+        } catch (RepositoryInterfaceException e) {
+            Programm.logger.fatal("[ProjectModel::saveProjectModel()] - Can't save because:" + e.getStackTrace());
+        }
     }
 
     /*
@@ -370,8 +382,7 @@ public class ProjectModel extends AbstractModel {
      * @return the current selected PictureSet.
      */
     public PictureSet getSelectedPictureSet() {
-        if (this.selectedPictureSet == null) {
-            assert this.pictureSetList.size() > 0;
+        if (this.selectedPictureSet == null && this.pictureSetList.size() > 0) {
             this.selectedPictureSet = this.pictureSetList.get(0);
         }
         return this.selectedPictureSet;
@@ -399,14 +410,16 @@ public class ProjectModel extends AbstractModel {
         final List<PictureSet> pictureSets = new ArrayList<PictureSet>();
 
         /* get the picture sets */
-        final List<PictureContainer> items = pictureSet.getItems();
+        if (pictureSet != null) {
 
-        for (final PictureContainer container : items) {
-            if (container instanceof PictureSet) {
-                pictureSets.add((PictureSet) container);
+            final List<PictureContainer> items = pictureSet.getItems();
+
+            for (final PictureContainer container : items) {
+                if (container instanceof PictureSet) {
+                    pictureSets.add((PictureSet) container);
+                }
             }
         }
-
         /* convert to array */
         final PictureSet[] pictureSetArray = new PictureSet[pictureSets.size()];
 
@@ -428,14 +441,15 @@ public class ProjectModel extends AbstractModel {
         final List<Directory> directories = new ArrayList<Directory>();
 
         /* get the directories */
-        final List<PictureContainer> items = pictureSet.getItems();
+        if (pictureSet != null) {
+            final List<PictureContainer> items = pictureSet.getItems();
 
-        for (final PictureContainer item : items) {
-            if (item instanceof Directory) {
-                directories.add((Directory) item);
+            for (final PictureContainer item : items) {
+                if (item instanceof Directory) {
+                    directories.add((Directory) item);
+                }
             }
         }
-
         /* convert to array */
         final Directory[] directoryArray = new Directory[directories.size()];
 
@@ -456,12 +470,14 @@ public class ProjectModel extends AbstractModel {
     public Picture[] getPicturesOfAPictureSet(final PictureSet pictureSet) {
         final List<Picture> pictures = new ArrayList<Picture>();
 
-        /* get the directories */
-        final List<PictureContainer> items = pictureSet.getItems();
+        /* get the pictures */
+        if (pictureSet != null) {
+            final List<PictureContainer> items = pictureSet.getItems();
 
-        for (final PictureContainer item : items) {
-            if (item instanceof Picture) {
-                pictures.add((Picture) item);
+            for (final PictureContainer item : items) {
+                if (item instanceof Picture) {
+                    pictures.add((Picture) item);
+                }
             }
         }
 
@@ -561,7 +577,7 @@ public class ProjectModel extends AbstractModel {
             for (final Picture picture : this.getSelectedPictureSetContent()) {
                 pictures.add(picture);
             }
-        } else {
+        } else if (this.getSelectedPictureSet() != null) {
             this.getSelectedPictureSet().resetIterator();
             for (final Picture picture : this.getSelectedPictureSet()) {
                 pictures.add(picture);
@@ -595,9 +611,9 @@ public class ProjectModel extends AbstractModel {
      * @return the current selected PictureSet.
      */
     public Picture getSelectedPicture() {
-        if (this.selectedPicture == null) {
-            assert this.pictureSetList.size() > 0;
-            this.selectedPicture = this.getAllPictures()[0];
+        Picture[] allPictures = this.getAllPictures();
+        if (this.selectedPicture == null && allPictures.length > 0) {
+            this.selectedPicture = allPictures[0];
         }
         return this.selectedPicture;
     }
@@ -611,7 +627,7 @@ public class ProjectModel extends AbstractModel {
         this.selectedPicture = selected;
         this.updateViews();
     }
-    
+
     /*
      * ################################################################################################################
      * -- THE REPORTS
@@ -664,7 +680,7 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return an amount of picture sets.
      */
-    public Object[] getReports() {
-        return this.reportList.toArray();
+    public AbstractReportModel[] getReports() {
+        return this.reportList.toArray(new AbstractReportModel[] {});
     }
 }

@@ -10,8 +10,8 @@ import java.util.UUID;
 
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+import org.knipsX.Programm;
 import org.knipsX.model.projectview.ProjectModel;
-import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.utils.XML.XMLInput;
 import org.knipsX.utils.XML.XMLOutput;
 
@@ -19,37 +19,35 @@ public class XMLRepositoryBackup implements Repository {
 
     public List<ProjectModel> getProjects() {
 
-        List<ProjectModel> projects = new ArrayList<ProjectModel>();
+        final List<ProjectModel> projects = new ArrayList<ProjectModel>();
 
-        File projectDir = new File(RepositoryHandler.PROJECTS_PATH);
+        final File projectDir = new File(RepositoryHandler.PROJECTS_PATH);
 
         /* if dir not exist, try to create it */
         if (!projectDir.exists()) {
             if (!projectDir.mkdir()) {
-                System.err
-                        .println("[XMLRepository::getProjects()] - I have no rights to create the project directory -> "
+                Programm.logger
+                        .error("[XMLRepository::getProjects()] - I have no rights to create the project directory -> "
                                 + RepositoryHandler.PROJECTS_PATH);
             }
         }
 
         /* get all projects */
-        for (File item : projectDir.listFiles()) {
-            projects.add(getProject(Integer.parseInt(item.getName())));
+        for (final File item : projectDir.listFiles()) {
+            projects.add(this.getProject(Integer.parseInt(item.getName())));
         }
         return projects;
     }
 
-    public ProjectModel getProject(int projectId) {
-        ProjectModel project = null;
-
+    public ProjectModel getProject(final int projectId) {
         /* get the contents of the project Folder */
-        File[] xmlFiles = new File(RepositoryHandler.PROJECTS_PATH + File.separator + projectId).listFiles();
+        final File[] xmlFiles = new File(RepositoryHandler.PROJECTS_PATH + File.separator + projectId).listFiles();
 
-        return new XMLInput(getXML(xmlFiles)).getProject(projectId);
+        return new XMLInput(this.getXML(xmlFiles)).getProject(projectId);
     }
 
-    private File getXML(File[] files) {
-        for (File file : files) {
+    private File getXML(final File[] files) {
+        for (final File file : files) {
             if (file.isFile() && file.getName().equals("project.xml")) {
                 return file;
             }
@@ -60,10 +58,10 @@ public class XMLRepositoryBackup implements Repository {
     public int createProject() {
 
         /* call the createProject with a dummy ProjectModel */
-        return createProject(new ProjectModel(0, "", "", new GregorianCalendar()));
+        return this.createProject(new ProjectModel(0, "", "", new GregorianCalendar()));
     }
 
-    public int createProject(ProjectModel toCopy) {
+    public int createProject(final ProjectModel toCopy) {
 
         /* create a new unique id */
         int projectId = UUID.randomUUID().hashCode();
@@ -77,58 +75,61 @@ public class XMLRepositoryBackup implements Repository {
 
         /* save the project and return the unique id */
         if (!projectDir.mkdir()) {
-            System.err
-                    .println("[XMLRepository::createProject()] - I have no rights to create the project directory -> "
+            /* INTERNATIONALIZE */
+            Programm.logger
+                    .error("[XMLRepository::createProject()] - I have no rights to create the project directory -> "
                             + RepositoryHandler.PROJECTS_PATH);
         } else {
-            saveProject(new ProjectModel(toCopy, projectId, ""));
+            this.saveProject(new ProjectModel(toCopy, projectId, ""));
         }
         return projectId;
     }
 
-    public void deleteProject(int projectId) {
-        treeDelete(new File(RepositoryHandler.PROJECTS_PATH + File.separator + projectId));
+    public void deleteProject(final int projectId) {
+        XMLRepositoryBackup.treeDelete(new File(RepositoryHandler.PROJECTS_PATH + File.separator + projectId));
     }
 
     /* delete recursiv */
-    private static void treeDelete(File file) {
+    private static void treeDelete(final File file) {
 
         /* if we have a directory, delete first all files */
         if (file.isDirectory()) {
-            File[] children = file.listFiles();
-            for (int i = 0; i < children.length; i++) {
-                treeDelete(children[i]);
+            final File[] children = file.listFiles();
+            for (final File element : children) {
+                XMLRepositoryBackup.treeDelete(element);
             }
             if (!file.delete()) {
-                System.err.println("[XMLRepository::treeDelete()] - I have no rights to delete the directory -> "
+                /* INTERNATIONALIZE */
+                Programm.logger.error("[XMLRepository::treeDelete()] - I have no rights to delete the directory -> "
                         + file.getAbsolutePath());
             }
         } else {
             if (!file.delete()) {
-                System.err.println("[XMLRepository::treeDelete()] - I have no rights to delete the file -> "
+                /* INTERNATIONALIZE */
+                Programm.logger.error("[XMLRepository::treeDelete()] - I have no rights to delete the file -> "
                         + file.getAbsolutePath());
             }
         }
     }
 
-    public void saveProject(ProjectModel toSave) {
-        XMLOutput xmlFile = new XMLOutput(toSave);
-        File projectFile = new File(RepositoryHandler.PROJECTS_PATH + File.separator + toSave.getId() + File.separator + "project.xml");
-        
+    public void saveProject(final ProjectModel toSave) {
+        final XMLOutput xmlFile = new XMLOutput(toSave);
+        final File projectFile = new File(RepositoryHandler.PROJECTS_PATH + File.separator + toSave.getId()
+                + File.separator + "project.xml");
+
         try {
-            FileWriter writer = new FileWriter(projectFile);
-            XMLOutputter outputter = new XMLOutputter();
+            final FileWriter writer = new FileWriter(projectFile);
+            final XMLOutputter outputter = new XMLOutputter();
             try {
                 outputter.setFormat(Format.getPrettyFormat());
-              outputter.output(xmlFile.getDocument(), writer);       
+                outputter.output(xmlFile.getDocument(), writer);
+            } catch (final IOException e) {
+                System.err.println(e);
             }
-            catch (IOException e) {
-              System.err.println(e);
-            }
-        } catch (IOException e1) {
+        } catch (final IOException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-        
+
     }
 }

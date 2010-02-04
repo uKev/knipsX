@@ -106,9 +106,10 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
                 JWilcoxon wilcoxonPanel = (JWilcoxon) singlepanel;
 
                 if (model instanceof BoxplotModel) {
-                    ((BoxplotModel) model).setWilcoxonSignificance(wilcoxonPanel.getStatisticalSignificance());
-                    ((BoxplotModel) model).setWilcoxonTestType(wilcoxonPanel.getTestType());
-                    ((BoxplotModel) model).setWilcoxonTestActive(wilcoxonPanel.getStatus());
+                    BoxplotModel boxplotModel = ((BoxplotModel) model);
+                    boxplotModel.getWilcoxonTest().setSignificance(wilcoxonPanel.getStatisticalSignificance());
+                    boxplotModel.getWilcoxonTest().setActiveStatus(wilcoxonPanel.getStatus());
+                    boxplotModel.getWilcoxonTest().setWilcoxonTestType(wilcoxonPanel.getTestType());
                     
                 }
 
