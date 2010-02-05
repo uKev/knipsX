@@ -362,6 +362,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     public void associateExifFilterKeywords() {
         this.associatedExifTags.addElements(this.availableExifTags.getSelectedValues());
         this.availableExifTags.removeElements(this.availableExifTags.getSelectedValues());
+        this.updateXMPData();
     }
 
     /**
