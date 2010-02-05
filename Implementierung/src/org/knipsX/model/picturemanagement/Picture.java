@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Observable;
 import javax.imageio.ImageIO;
 
-/* import classes from our util source*/
+/* import classes from our util source */
 import org.apache.log4j.Logger;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
@@ -37,21 +37,23 @@ public class Picture extends Observable implements PictureContainer {
     /* Thumbnails */
     private BufferedImage smallThumbnail;
     private BufferedImage bigThumbnail;
-    
+
     /* Creates a logger for logging */
     private Logger log = Logger.getLogger(this.getClass());
-    
-    /* Should be considered or not*/
+
+    /* Should be considered or not */
     boolean isReturned;
 
     /**
      * Create new Picture with a path.
      * 
-     * @param path the filepath of the picture
-     * @param isActiveorNot the status of the picture
+     * @param path The filepath of the picture
+     * @param isActiveorNot The status of the picture
+     * @throws PictureNotFoundException
      */
+    
     public Picture(String path, boolean isActiveorNot) throws PictureNotFoundException {
-        if ((path == null) || (new File(path).exists() == false)) {
+        if ((path == null) || (!new File(path).exists())) {
             throw new PictureNotFoundException();
         }
         this.pictureFile = new File(path);
@@ -63,8 +65,9 @@ public class Picture extends Observable implements PictureContainer {
     /**
      * Create new Picture with a file.
      * 
-     * @param file the file to create from
-     * @param isActiveorNot the status of the picture
+     * @param file The file to create from
+     * @param isActiveorNot
+     *            the status of the picture
      */
     public Picture(File file, boolean isActiveorNot) {
         this.pictureFile = file;
@@ -72,12 +75,12 @@ public class Picture extends Observable implements PictureContainer {
         this.allExifParameter = null;
         this.isReturned = false;
     }
-    
+
     /**
      * Gets the name from the picture
      * 
      * @return the name
-     */  
+     */
     public String getName() {
         return pictureFile.getName();
     }
@@ -87,14 +90,15 @@ public class Picture extends Observable implements PictureContainer {
      * 
      * @return the path
      */
-    
+
     public String getPath() {
         return pictureFile.getAbsolutePath();
     }
 
     /**
      * Gets a specific Exif parameter from the picture
-     * @param specific exifParameter
+     * 
+     * @param exifParameter Specific ExifParameter
      * @return value of the parameter
      */
     public Object getExifParameter(ExifParameter exifParameter) {
@@ -111,7 +115,7 @@ public class Picture extends Observable implements PictureContainer {
         items.add(this);
         return items;
     }
-    
+
     /**
      * @see java.lang.Iterable#iterator()
      * @return the iterator over this
@@ -179,7 +183,8 @@ public class Picture extends Observable implements PictureContainer {
     }
 
     /**
-     * Returns an image as a converted image to the version of the natural one. "bigThumbnail" ist mostly used for the tooltip
+     * Returns an image as a converted image to the version of the natural one. "bigThumbnail" ist mostly used for the
+     * tooltip
      * @return the image
      */
     public BufferedImage getBigThumbnail() {
@@ -187,17 +192,19 @@ public class Picture extends Observable implements PictureContainer {
     }
 
     /**
-     *  Returns an image as a converted image to the version of the natural one. "smallThumbnail" ist mostly used for the thumbnail
+     * Returns an image as a converted image to the version of the natural one. "smallThumbnail" ist mostly used for the
+     * thumbnail
+     * 
      * @return the image
      */
     public Image getSmallThumbnail() {
         return this.smallThumbnail;
     }
 
-
     /**
      * Checks if the picture contains the keyword
-     * @param keyword keyword which the picture should have
+     * 
+     * @param keyword Keyword which the picture should have
      * @return true if the picture has the keyword, false if not
      */
     public boolean hasExifKeyword(String keyword) {
@@ -212,19 +219,20 @@ public class Picture extends Observable implements PictureContainer {
     }
 
     /**
-     * Checks if the picture contains minimum one keyword of the given list. Also return true if the keyword list is empty.
+     * Checks if the picture contains minimum one keyword of the given list. Also return true if the keyword list is
+     * empty.
      * Return false if the keywordlist is not empty and the picture contains no keywords.
      * 
-     * @param filterKeywordsArrayList keywords which the picture should have
+     * @param filterKeywords Keywords which the picture should have
      * @return true if a picture contains at least one keyword.
      *         It returns also true if filterKeywordsArrayList is empty and contains no keyword.
      */
     public boolean hasMinOneKeywordOf(ArrayList<String> filterKeywords) {
         boolean hasMinOneKeyword = false;
-        
+
         if (filterKeywords.isEmpty()) {
             hasMinOneKeyword = true;
-        
+
         } else {
 
             String[] keys = (String[]) getExifParameter(ExifParameter.KEYWORDS);
@@ -241,6 +249,7 @@ public class Picture extends Observable implements PictureContainer {
 
     /**
      * Checks if the picture contains all keywords of the given list. Also return true if the keyword list is empty.
+     * 
      * @param keywords Keywords which the picture should have
      * @return only true if a picture contains all keywords, false if not.
      */
@@ -264,11 +273,11 @@ public class Picture extends Observable implements PictureContainer {
 
         return hasAllKeyword;
     }
-    
 
     /**
      * Shows the active status of a picture
-     * @return active status
+     * 
+     * @return Active status
      */
     public boolean isActive() {
         return isActiveorNot;
@@ -276,7 +285,8 @@ public class Picture extends Observable implements PictureContainer {
 
     /**
      * Sets the active status of the picture
-     * @param isActive true or false
+     * 
+     * @param isActive True or false
      */
     public void setActive(boolean isActive) {
         this.isActiveorNot = isActive;
@@ -284,6 +294,7 @@ public class Picture extends Observable implements PictureContainer {
 
     /**
      * Uses the Exifadapter to get all Exif-values for the picture
+     * 
      * @return The exif paramters
      */
     public Object[][] getAllExifParameter() {
@@ -305,10 +316,10 @@ public class Picture extends Observable implements PictureContainer {
     /**
      * Returns a thumb of a BufferedImage with a specific size.
      * 
-     * @param bImage
-     * @param maxWidthOrHight
-     * @param hints
-     * @return the new image
+     * @param bImage The image to scale
+     * @param maxWidthOrHight Maximum pixel side
+     * @param hints Type of image
+     * @return The new image
      */
     private static BufferedImage getThumbOf(BufferedImage bImage, int maxWidthOrHight, int hints) {
         int width = bImage.getWidth();
@@ -330,13 +341,13 @@ public class Picture extends Observable implements PictureContainer {
     }
 
     /**
-    * It also allows to compare over PictureContainer but it is not done in the basic version of our programm.
-    * 
-    * @see java.lang.Comparable#compareTo(java.lang.Object)
-    * @param pictureToCompare other picture to compare
-    * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
-    *         the specified object
-    */
+     * It also allows to compare over PictureContainer but it is not done in the basic version of our programm.
+     * 
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     * @param pictureToCompare Other picture to compare
+     * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
+     *         the specified object
+     */
     public int compareTo(PictureContainer pictureToCompare) {
         if (this.getPath().hashCode() == ((Picture) pictureToCompare).getPath().hashCode()) {
             return 0;
