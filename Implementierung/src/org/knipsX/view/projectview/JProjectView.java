@@ -8,7 +8,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,6 +16,7 @@ import java.util.Observable;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.DropMode;
 import javax.swing.GroupLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -29,10 +29,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JToolTip;
 import javax.swing.LayoutStyle;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
+import javax.swing.TransferHandler;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.border.TitledBorder;
@@ -42,11 +42,13 @@ import org.knipsX.controller.projectview.PictureListClickOnController;
 import org.knipsX.controller.projectview.PictureSetContentListAddController;
 import org.knipsX.controller.projectview.PictureSetContentListClickOnController;
 import org.knipsX.controller.projectview.PictureSetContentListDeleteController;
+import org.knipsX.controller.projectview.PictureSetContentListDropController;
 import org.knipsX.controller.projectview.PictureSetContentListRefreshController;
 import org.knipsX.controller.projectview.PictureSetListClickOnController;
 import org.knipsX.controller.projectview.PictureSetListCopyController;
 import org.knipsX.controller.projectview.PictureSetListCreateController;
 import org.knipsX.controller.projectview.PictureSetListDeleteController;
+import org.knipsX.controller.projectview.PictureSetListDragController;
 import org.knipsX.controller.projectview.ProjectEditDescriptionController;
 import org.knipsX.controller.projectview.ProjectEditNameController;
 import org.knipsX.controller.projectview.ProjectSaveController;
@@ -61,7 +63,6 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
-import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.Resource;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.reportmanagement.ReportHelper;
@@ -109,7 +110,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     private JList jListPictureSetActive = null;
     private JList jListReport = null;
     private JTable jTableExif = null;
-    
 
     /**
      * Creates a project view connected with an appropriate model.
@@ -545,11 +545,14 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* creates a new list with options */
             this.jListPictureSet = new JList(this.model.getPictureSets());
 
+            this.jListPictureSet.setDragEnabled(true);
             this.jListPictureSet.setLayoutOrientation(JList.VERTICAL);
-            this.jListPictureSet.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-            this.jListPictureSet.setVisibleRowCount(-1);
             this.jListPictureSet.addMouseListener(new PictureSetListClickOnController<M, JProjectView<M>>(this.model,
                     this));
+            this.jListPictureSet.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+            this.jListPictureSet.setTransferHandler(new PictureSetListDragController<M, JProjectView<M>>(this.model,
+                    this).getFromTransferHandler());
+            this.jListPictureSet.setVisibleRowCount(-1);
 
             /* we store picture set objects in the list, so we have to set a special rendering */
             this.jListPictureSet.setCellRenderer(new MyPictureSetListCellRenderer());
@@ -620,10 +623,13 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                 this.jListPictureSetContent = new JList();
             }
 
-            this.jListPictureSetContent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            this.jListPictureSetContent.setLayoutOrientation(JList.VERTICAL);
             this.jListPictureSetContent
                     .addMouseListener(new PictureSetContentListClickOnController<M, JProjectView<M>>(this.model, this));
+            this.jListPictureSetContent.setDropMode(DropMode.INSERT);
+            this.jListPictureSetContent.setLayoutOrientation(JList.VERTICAL);
+            this.jListPictureSetContent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            this.jListPictureSetContent.setTransferHandler(new PictureSetContentListDropController<M, JProjectView<M>>(
+                    this.model, this).getToTransferHandler(TransferHandler.COPY));
 
             /* we store different objects in the list, so we have to set a special rendering */
             this.jListPictureSetContent.setCellRenderer(new MyPictureSetContentListCellRenderer());
@@ -808,18 +814,18 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jTableExif == null) {
-            this.jTableExif = createExifTable();
+            this.jTableExif = this.createExifTable();
         }
         return new JScrollPane(this.jTableExif);
     }
 
     private JTable createExifTable() {
-        //INTERNATIONALIZE
+        // INTERNATIONALIZE
         final String[] columnNames = { "Parameter", "Wert" };
         final Object[][] data = this.model.getExifParameter();
 
         /* create new table for the exif parameters of an active image */
-        JTable table = new JTable(data, columnNames);
+        final JTable table = new JTable(data, columnNames);
         final TableColumn para = table.getColumnModel().getColumn(0);
         final TableColumn value = table.getColumnModel().getColumn(1);
         para.setCellRenderer(new MyExifTableCellRenderer());
@@ -888,6 +894,14 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         return this.jListReport.getSelectedIndices();
     }
 
+    public int getSelectedPictureSetIndex() {
+        return this.jListPictureSet.getSelectedIndex();
+    }
+
+    public PictureSet getSelectedPictureSetValue() {
+        return (PictureSet) this.jListPictureSet.getSelectedValue();
+    }
+
     public String getProjectName() {
         return new String(this.jTextFieldProjectName.getText());
     }
@@ -949,7 +963,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         }
 
         /* setup the exif-table */
-        this.jTableExif = createExifTable();
+        this.jTableExif = this.createExifTable();
 
         /* refresh view */
         this.repaint();
@@ -1126,15 +1140,15 @@ class MyPictureListCellRenderer implements ListCellRenderer {
             final boolean isSelected, final boolean cellHasFocus) {
 
         String theText = null;
-        
+
         /* generate the label which represents the cell */
-        final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
+                isSelected, cellHasFocus);
 
         /* if the selected item is a "Picture" -> set the name */
         if (value instanceof Picture) {
             final Picture picture = (Picture) value;
             theText = picture.getName();
-            
 
             final Image smallThumbnail = picture.getSmallThumbnail();
             if (smallThumbnail != null) {
@@ -1146,7 +1160,7 @@ class MyPictureListCellRenderer implements ListCellRenderer {
         renderer.setToolTipText("Picture");
         renderer.setText(theText);
         renderer.setPreferredSize(new Dimension(renderer.getWidth(), 40));
-             
+
         return renderer;
     }
 }
