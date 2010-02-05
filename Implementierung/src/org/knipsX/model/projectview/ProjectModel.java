@@ -271,7 +271,12 @@ public class ProjectModel extends AbstractModel {
 
     public void loadData() {
         if (this.initializePictureWorkers == null) {
-            final int numberOfThreads = Runtime.getRuntime().availableProcessors() + 1;
+            int numberOfThreads = Runtime.getRuntime().availableProcessors() - 1;
+            
+            if (numberOfThreads == 0) {
+                numberOfThreads = 1;
+            }
+            
             this.log.debug("Number of Threads: " + numberOfThreads);
             this.initializePictureWorkers = new LinkedList<InitializePictureThread>();
             for (int i = 0; i < numberOfThreads; ++i) {

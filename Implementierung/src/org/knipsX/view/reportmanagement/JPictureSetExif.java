@@ -171,8 +171,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 final PictureContainer pictureContainer = (PictureContainer) value;
                 int numberOfElements = 0;
 
-                for (@SuppressWarnings("unused")
-                Picture picture : pictureContainer) {
+                for (@SuppressWarnings("unused") Picture picture : pictureContainer) {
                     numberOfElements++;
                 }
 
