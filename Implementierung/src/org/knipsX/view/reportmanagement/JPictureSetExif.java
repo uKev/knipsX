@@ -362,6 +362,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     public void associateExifFilterKeywords() {
         this.associatedExifTags.addElements(this.availableExifTags.getSelectedValues());
         this.availableExifTags.removeElements(this.availableExifTags.getSelectedValues());
+        this.revalidateReport();
         this.updateXMPData();
     }
 
@@ -388,29 +389,37 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     }
 
     /**
+     * This method is responsible for removing the selected EXIF filter keywords from the report
+     */
+    public void removeExifFilterKeywords() {
+        this.availableExifTags.addElements(this.associatedExifTags.getSelectedValues());
+        this.associatedExifTags.removeElements(this.associatedExifTags.getSelectedValues());
+        this.revalidateReport();
+        this.updateXMPData();
+    }
+
+    /**
      * Writes the XMP Data into the available XMP data list
      */
     private void updateXMPData() {
 
-        addXMPData();
-        removeXMPData();
-
-    }
+    
 
     /* adds the xmp data if a picture enters the associated picture sets list */
-    private void addXMPData() {
+
         ArrayList<String> xmpKeywords = new ArrayList<String>();
         ArrayList<String> associatedXMPKeywords = new ArrayList<String>(Arrays.asList(this.getExifFilterKeywords()));
 
         for (PictureContainer pictureContainer : this.getPictureContainer()) {
             for (Picture picture : pictureContainer) {
-                
+
                 String[] xmpPictureKeyword = new String[0];
-                
-                if (picture.getExifParameter(ExifParameter.KEYWORDS) != null && picture.getExifParameter(ExifParameter.KEYWORDS) instanceof String[]) {
+
+                if (picture.getExifParameter(ExifParameter.KEYWORDS) != null
+                        && picture.getExifParameter(ExifParameter.KEYWORDS) instanceof String[]) {
                     xmpPictureKeyword = (String[]) picture.getExifParameter(ExifParameter.KEYWORDS);
                 }
-                
+
                 for (int i = 0; i < xmpPictureKeyword.length; i++) {
                     if (!xmpKeywords.contains(xmpPictureKeyword[i])
                             && !associatedXMPKeywords.contains(xmpPictureKeyword[i])) {
@@ -423,10 +432,9 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
         this.availableExifTags.removeElements(xmpKeywords.toArray());
         this.availableExifTags.addElements(xmpKeywords.toArray());
-    }
+    
 
-    /* removes the xmp data if a picture set leaves the associated picture sets list */
-    private void removeXMPData() {
+        /* removes the xmp data if a picture enters the associated picture sets list */
         final Object[] tempObject = this.availablePictureSets.getElements();
         final ArrayList<PictureContainer> availablePictureContainer = new ArrayList<PictureContainer>();
 
@@ -439,13 +447,16 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         for (PictureContainer pictureContainer : availablePictureContainer) {
             for (Picture picture : pictureContainer) {
                 String[] xmpPictureKeyword = new String[0];
-                
-                if (picture.getExifParameter(ExifParameter.KEYWORDS) != null && picture.getExifParameter(ExifParameter.KEYWORDS) instanceof String[]) {                
+
+                if (picture.getExifParameter(ExifParameter.KEYWORDS) != null
+                        && picture.getExifParameter(ExifParameter.KEYWORDS) instanceof String[]) {
                     xmpPictureKeyword = (String[]) picture.getExifParameter(ExifParameter.KEYWORDS);
                 }
-                
+
                 for (int i = 0; i < xmpPictureKeyword.length; i++) {
-                    if (!removeXMPKeywords.contains(xmpPictureKeyword[i])) {
+                    //TODO When two identical XMP picture sets are added an error occurs
+                   // if (!removeXMPKeywords.contains(xmpPictureKeyword[i]) && !xmpKeywords.contains(xmpPictureKeyword[i])) {
+                    if (!removeXMPKeywords.contains(xmpPictureKeyword[i]) && !xmpKeywords.contains(xmpPictureKeyword[i])) {
                         removeXMPKeywords.add(xmpPictureKeyword[i]);
                     }
                 }
@@ -530,7 +541,6 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                     }
                 }
 
-                
                 Logger logger = Logger.getLogger(this.getClass());
                 logger.debug("Validator : correct Pictures found: "
                         + Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters));
@@ -540,8 +550,9 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
                 for (PictureContainer pictureContainer : this.getPictureContainer()) {
                     logger.debug("Validator : correct Pictures found: "
-                            + Validator.getValidPictures(pictureContainer, exifParameters, associatedXMPKeywords).size());
-                            
+                            + Validator.getValidPictures(pictureContainer, exifParameters, associatedXMPKeywords)
+                                    .size());
+
                     if (Validator.getValidPictures(pictureContainer, exifParameters, associatedXMPKeywords).size() == 0
                             && ReportHelper.getCurrentReport() != ReportHelper.Table) {
                         this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
@@ -589,14 +600,6 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     @Override
     public boolean isDiagramSaveable() {
         return true;
-    }
-
-    /**
-     * This method is responsible for removing the selected EXIF filter keywords from the report
-     */
-    public void removeExifFilterKeywords() {
-        this.availableExifTags.addElements(this.associatedExifTags.getSelectedValues());
-        this.associatedExifTags.removeElements(this.associatedExifTags.getSelectedValues());
     }
 
     /**
