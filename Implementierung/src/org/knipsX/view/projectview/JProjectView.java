@@ -467,6 +467,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         /* create only if not set */
         if (this.jTextFieldProjectName == null) {
             this.jTextFieldProjectName = new JTextField(this.model.getName());
+            this.jTextFieldProjectName.setTransferHandler(null);
             this.jTextFieldProjectName.getDocument().addDocumentListener(
                     new ProjectEditNameController<M, JProjectView<M>>(this.model, this));
         }
@@ -505,6 +506,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         if (this.jEditorPaneProjectDescription == null) {
             this.jEditorPaneProjectDescription = new JEditorPane();
             this.jEditorPaneProjectDescription.setText(this.model.getDescription());
+            this.jEditorPaneProjectDescription.setTransferHandler(null);
             this.jEditorPaneProjectDescription.getDocument().addDocumentListener(
                     new ProjectEditDescriptionController<M, JProjectView<M>>(this.model, this));
         }
@@ -829,6 +831,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         }
         return new JScrollPane(this.jTableExif);
     }
+
 
     /*
      * ################################################################################################################
