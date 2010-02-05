@@ -5,7 +5,6 @@ Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigke
 (Alias: bekannte bugs, die noch behoben werden müssen, falls neue auftreten, hier bitte eintragen)
 
 * Bei neuer Bildmenge und ausgewähltem Ordner muss der Thread für die Thumbnailgenerierung (neu) gestartet werden (Kai/Benni)
-* Im FileChooser sollten auch versteckte Ordner (bei Linux mit "." beginnend) auswählbar sein.
 * Internationalisierung?
 * (Lower)Whisker Berechnung im Boxplot falsch
 * fehlender exifparameter log gibt falschen parameter zurück

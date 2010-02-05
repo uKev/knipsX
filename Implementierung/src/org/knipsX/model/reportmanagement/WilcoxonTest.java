@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/* import classes */
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.utils.Converter;
@@ -28,34 +29,186 @@ public class WilcoxonTest {
     private double significance = 1.00;
     private double result = 0;
     private boolean testIsRejected = false;
-    private final List<WilcoxonSample> wilcoxonSamplesList = new LinkedList<WilcoxonSample>();
+    private List<WilcoxonSample> wilcoxonSamplesList = new LinkedList<WilcoxonSample>();
 
     /**
-     * Empty constructor for a new Wilcoxontest without any settings
-     * 
+     * Constructor for a new Wilcoxontest without any settings
      */
     public WilcoxonTest() {
     }
 
-    /*
-     * Calculates the chance to happen for specific rankesum in given constellation
+    /**
+     * Setter to set the Exifparamter
+     * @param parameter Exif parameter
      */
-    private double calcChanceOfSpecificRankeSum(final double rangeSum, final int numberOfAllSamples,
-            final int partVectors) {
-        int vectors = 0;
-        for (int n = 1; n < numberOfAllSamples; n++) {
-            for (int i = 1; i < numberOfAllSamples; i++) {
-                if ((n != i) && (n + i == rangeSum)) {
-                    vectors++;
+    public void setExifparameter(ExifParameter parameter) {
+        this.parameter = parameter;
+        this.isCalculated = false;
+    }
+
+    /**
+     * Setter for the picturesets
+     * @param pictureContainer The Picturesets
+     */
+    public void setPictureContainer(ArrayList<PictureContainer> pictureContainer) {
+        this.pictureContainer = pictureContainer;
+        this.isCalculated = false;
+    }
+
+    /**
+     * Activates and deactivates the test
+     * 
+     * @param activeStatus The active status
+     */
+    public void setActiveStatus(final boolean activeStatus) {
+        this.isActive = activeStatus;
+    }
+
+    /**
+     * Returns if this Wilcoxontest is active or not
+     * 
+     * @return the active status
+     */
+    public boolean isActive() {
+        return this.isActive;
+    }
+
+    /**
+     * Returns and shows if the test is calculated
+     * 
+     * @return The validation status
+     */
+    public boolean isValid() {
+        if (!this.isCalculated) {
+            this.calculate();
+        }
+        return this.isValid;
+    }
+
+    /**
+     * Shows if the Wilcoxontest is passed by the selected pictures and the significance. efore calling getResult() it
+     * has to be checked if the test is valid
+     * 
+     * @return passed statsu
+     */
+    public boolean isRejected() {
+        if (!isCalculated) {
+            calculate();
+        }
+        return this.testIsRejected;
+    }
+
+    /**
+     * Sets the actual testtype for the Wilcoxontest
+     * 
+     * @param testType
+     *            The type
+     */
+    public void setWilcoxonTestType(WilcoxonTestType testType) {
+        this.wilcoxenType = testType;
+        this.isCalculated = false;
+    }
+
+    /**
+     * Returns the result for the p value. Before calling getResult() it has to be checked if the test is valid
+     * 
+     * @return p value
+     */
+    public double getResult() {
+        if (!isCalculated) {
+            calculate();
+        }
+        return this.result;
+    }
+
+    /**
+     * Returns the actual significance
+     * 
+     * @return the actual significance
+     */
+    public double getSignificance() {
+        return this.significance;
+    }
+
+    /**
+     * Sets the actual test significance
+     * 
+     * @return value test significance
+     */
+    public WilcoxonTestType getWilcoxonTestType() {
+        return this.wilcoxenType;
+    }
+
+    /**
+     * Sets the significance 
+     * @param value significance
+     */
+    public void setSignificance(double value) {
+        this.significance = value;
+        this.isCalculated = false;
+    }
+
+    /**
+     * Calculate and initialize the whole test
+     */
+    public void calculate() {
+        if ((!isActive) || (wilcoxenType == null) || (pictureContainer == null) || (parameter == null)
+                || (pictureContainer.size() != 2)) {
+            this.isValid = false;
+        } else {
+            double rankSum = 0;
+            int numberOfElementsInFirstSet = initTest();
+            int numberOfElementsInSecondSet = wilcoxonSamplesList.size() - numberOfElementsInFirstSet;
+            if ((numberOfElementsInFirstSet < 2) || (numberOfElementsInSecondSet < 2)) {
+                this.isValid = false;
+            } else {
+                this.isValid = true;
+                int partVectors = (fakultaet(numberOfElementsInFirstSet + numberOfElementsInSecondSet))
+                        / ((fakultaet(numberOfElementsInFirstSet)) * (fakultaet(numberOfElementsInSecondSet)));
+                Collections.sort(wilcoxonSamplesList);
+                if (numberOfElementsInFirstSet < numberOfElementsInSecondSet) {
+                    for (int n = 0; n < wilcoxonSamplesList.size(); n++) {
+                        rankSample(n);
+                        if (wilcoxonSamplesList.get(n).getSource() == pictureContainer.get(0)) {
+                            wilcoxonSamplesList.get(n).setIsLessThan(true);
+                            rankSum = rankSum + wilcoxonSamplesList.get(n).getRank();
+                        }
+                    }
+                } else {
+                    for (int i = 0; i < wilcoxonSamplesList.size(); i++) {
+                        rankSample(i);
+                        if (wilcoxonSamplesList.get(i).getSource() == pictureContainer.get(1)) {
+                            wilcoxonSamplesList.get(i).setIsLessThan(true);
+                            rankSum = rankSum + wilcoxonSamplesList.get(i).getRank();
+                        }
+                    }
                 }
+                double chance = calcChanceOfSpecificRankeSum(rankSum, wilcoxonSamplesList.size(), partVectors);
+                result = calcPValue(chance, partVectors, rankSum);
+                this.isCalculated = true;
             }
         }
-        return vectors / partVectors;
     }
 
     /*
-     * Calculates the p value
+     * Initializes the test with all pictures and the specific exif values
+     * 
+     * @return The number off elemnets in the first list
      */
+    private int initTest() {
+        for (final Picture picture : this.pictureContainer.get(0)) {
+            this.wilcoxonSamplesList.add(new WilcoxonSample(Converter.objectToDouble(picture
+                    .getExifParameter(this.parameter)), this.pictureContainer.get(0)));
+        }
+        final int numberOfElementsInSet = this.wilcoxonSamplesList.size();
+        for (final Picture picture : this.pictureContainer.get(1)) {
+            this.wilcoxonSamplesList.add(new WilcoxonSample(Converter.objectToDouble(picture
+                    .getExifParameter(this.parameter)), this.pictureContainer.get(1)));
+
+        }
+        return numberOfElementsInSet;
+    }
+
     private double calcPValue(final double chanceOfPosition, final int partVectors, final double rangeSum) {
         double pValue = 0;
         if (this.wilcoxenType == WilcoxonTestType.TWO_SIDED) {
@@ -81,175 +234,6 @@ public class WilcoxonTest {
             pValue = this.chanceToBeGreater(partVectors);
         }
         return pValue;
-    }
-
-    /**
-     * Calculate and initialize the whole test
-     */
-    public void calculate() {
-        if ((this.wilcoxenType != null) && (this.pictureContainer.size() == 2)) {
-            double rangeSum = 0;
-            final int numberOfElementsInFirstSet = this.initTest();
-            final int numberOfElementsInSecondSet = this.wilcoxonSamplesList.size() - numberOfElementsInFirstSet;
-            if ((this.wilcoxonSamplesList.size() >= 2) && (numberOfElementsInFirstSet > 1)
-                    && (numberOfElementsInSecondSet > 1)) {
-                final int partVectors = this.fakultaet(numberOfElementsInFirstSet + numberOfElementsInSecondSet)
-                        / ((this.fakultaet(numberOfElementsInFirstSet)) * (this.fakultaet(numberOfElementsInSecondSet)));
-                Collections.sort(this.wilcoxonSamplesList);
-                if (numberOfElementsInFirstSet < numberOfElementsInSecondSet) {
-                    for (int n = 0; n < this.wilcoxonSamplesList.size(); n++) {
-                        this.rankSample(n);
-                        if (this.wilcoxonSamplesList.get(n).getSource() == this.pictureContainer.get(0)) {
-                            this.wilcoxonSamplesList.get(n).setIsLessThan(true);
-                            rangeSum = rangeSum + this.wilcoxonSamplesList.get(n).getRank();
-                        }
-                    }
-                } else {
-                    for (int i = 0; i < this.wilcoxonSamplesList.size(); i++) {
-                        this.rankSample(i);
-                        if (this.wilcoxonSamplesList.get(i).getSource() == this.pictureContainer.get(1)) {
-                            this.wilcoxonSamplesList.get(i).setIsLessThan(true);
-                            rangeSum = rangeSum + this.wilcoxonSamplesList.get(i).getRank();
-                        }
-                    }
-                }
-                final double chance = this.calcChanceOfSpecificRankeSum(rangeSum, this.wilcoxonSamplesList.size(),
-                        partVectors);
-                this.result = this.calcPValue(chance, partVectors, rangeSum);
-                this.isValid = true;
-            } else {
-                this.isValid = false;
-                this.isCalculated = true;
-            }
-        } else {
-            this.isValid = false;
-            this.isCalculated = true;
-        }
-    }
-
-    private double chanceToBeGreater(final int partVectors) {
-        final double significanceChance = 1 - (this.significance / 200);
-        double chance = 0;
-        for (int n = ((this.wilcoxonSamplesList.size() * 2) - 1); n > 3; n--) {
-            if (chance >= significanceChance) {
-                chance = chance + this.calcChanceOfSpecificRankeSum(n, this.wilcoxonSamplesList.size(), partVectors);
-            } else {
-                break;
-            }
-        }
-        return chance;
-    }
-
-    /*
-     * Chance of all possible ranksums to be less than the significance
-     */
-    private double chanceToBeLess(final int partVectors) {
-        final double significanceChance = this.significance / 200;
-        double chance = 0;
-        for (int n = 3; n <= ((this.wilcoxonSamplesList.size() * 2) - 1); n++) {
-            if (chance <= significanceChance) {
-                chance = chance + this.calcChanceOfSpecificRankeSum(n, this.wilcoxonSamplesList.size(), partVectors);
-            } else {
-                break;
-            }
-        }
-        return chance;
-
-    }
-
-    /*
-     * The mathematical faculty
-     */
-    private int fakultaet(final int n) {
-        int fakultaet = 1;
-        int faktor = 1;
-        while (faktor <= n) {
-            fakultaet = fakultaet * faktor++;
-        }
-        return fakultaet;
-    }
-
-    /**
-     * Returns the result for the p value. Before calling getResult() it has to be checked if the test is valid
-     * 
-     * @return p value
-     */
-    public double getResult() {
-        if (!this.isCalculated) {
-            this.calculate();
-        }
-        return this.result;
-    }
-
-    /**
-     * Returns the actual significance
-     * 
-     * @return the actual significance
-     */
-    public double getSignificance() {
-        return this.significance;
-    }
-
-    /**
-     * Returns the specific testtype. It can be LESS, GREATER and TWO_SIDED.
-     * 
-     * @return specific testtype
-     */
-    public WilcoxonTestType getWilcoxonTestType() {
-        return this.wilcoxenType;
-    }
-
-    /*
-     * Initializes the test with all pictures and the specific exif values
-     * 
-     * @return The number off elemnets in the first list
-     */
-    private int initTest() {
-        for (final Picture picture : this.pictureContainer.get(0)) {
-            this.wilcoxonSamplesList.add(new WilcoxonSample(Converter.objectToDouble(picture
-                    .getExifParameter(this.parameter)), this.pictureContainer.get(0)));
-        }
-        final int numberOfElementsInSet = this.wilcoxonSamplesList.size();
-        for (final Picture picture : this.pictureContainer.get(1)) {
-            this.wilcoxonSamplesList.add(new WilcoxonSample(Converter.objectToDouble(picture
-                    .getExifParameter(this.parameter)), this.pictureContainer.get(1)));
-
-        }
-        return numberOfElementsInSet;
-    }
-
-    /**
-     * Returns if this Wilcoxontest is active or not
-     * 
-     * @return the active status
-     */
-    public boolean isActive() {
-        return this.isActive;
-    }
-
-    /**
-     * Shows if the Wilcoxontest is passed by the selected pictures and the significance. efore calling getResult() it
-     * has to be checked if the test is valid
-     * 
-     * @return passed statsu
-     */
-    public boolean isRejected() {
-        if (!this.isCalculated) {
-            this.calculate();
-        }
-        return this.testIsRejected;
-    }
-
-    /**
-     * Returns and shows if the test is calculated
-     * 
-     * @return The validation status
-     */
-    public boolean isValid() {
-        if (!this.isCalculated) {
-            this.calculate();
-        }
-        return this.isValid;
     }
 
     /*
@@ -279,33 +263,22 @@ public class WilcoxonTest {
         }
     }
 
-    /**
-     * Activates and deactivates the test
+    /*
+     * Returns if this Wilcoxontest is active or not
      * 
-     * @param activeStatus
-     *            The active status
+     * @return the active status
      */
-    public void setActiveStatus(final boolean activeStatus) {
-        this.isActive = activeStatus;
-    }
-
-    /**
-     * Setter for the exifParameter
-     * @param parameter the exif parameter which should be evaluated
-     */
-    public void setExifparameter(final ExifParameter parameter) {
-        this.parameter = parameter;
-        this.isCalculated = false;
-
-    }
-
-    /**
-     * Setter for the ArrayList of pcitureContainer which shold be evaluated
-     * @param pictureContainer the ArrayList of pcitureContainer which shold be evaluated
-     */
-    public void setPictureContainer(final ArrayList<PictureContainer> pictureContainer) {
-        this.pictureContainer = pictureContainer;
-        this.isCalculated = false;
+    private double calcChanceOfSpecificRankeSum(final double rangeSum, final int numberOfAllSamples,
+            final int partVectors) {
+        int vectors = 0;
+        for (int n = 1; n < numberOfAllSamples; n++) {
+            for (int i = 1; i < numberOfAllSamples; i++) {
+                if ((n != i) && (n + i == rangeSum)) {
+                    vectors++;
+                }
+            }
+        }
+        return vectors / partVectors;
     }
 
     /*
@@ -313,24 +286,46 @@ public class WilcoxonTest {
      */
 
     /**
-     * Sets the actual test significance
+     * Returns the specific testtype. It can be LESS, GREATER and TWO_SIDED.
      * 
-     * @param value
-     *            test significance
+     * @return specific testtype
      */
-    public void setSignificance(final double value) {
-        this.significance = value;
-        this.isCalculated = false;
+    private double chanceToBeLess(final int partVectors) {
+        final double significanceChance = this.significance / 200;
+        double chance = 0;
+        for (int n = 3; n <= ((this.wilcoxonSamplesList.size() * 2) - 1); n++) {
+            if (chance <= significanceChance) {
+                chance = chance + this.calcChanceOfSpecificRankeSum(n, this.wilcoxonSamplesList.size(), partVectors);
+            } else {
+                break;
+            }
+        }
+        return chance;
+
     }
 
-    /**
-     * Sets the actual testtype for the Wilcoxontest
-     * 
-     * @param testType
-     *            The type
+    private double chanceToBeGreater(int partVectors) {
+        double significanceChance = 1 - (significance / 200);
+        double chance = 0;
+        for (int n = ((wilcoxonSamplesList.size() * 2) - 1); n > 3; n--) {
+            if (chance >= significanceChance) {
+                chance = chance + calcChanceOfSpecificRankeSum(n, wilcoxonSamplesList.size(), partVectors);
+            } else {
+                break;
+            }
+        }
+        return chance;
+    }
+
+    /*
+     * The mathematical faculty
      */
-    public void setWilcoxonTestType(final WilcoxonTestType testType) {
-        this.isCalculated = false;
-        this.wilcoxenType = testType;
+    private int fakultaet(final int n) {
+        int fakultaet = 1;
+        int faktor = 1;
+        while (faktor <= n) {
+            fakultaet = fakultaet * faktor++;
+        }
+        return fakultaet;
     }
 }

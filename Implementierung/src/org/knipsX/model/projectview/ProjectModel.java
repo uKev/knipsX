@@ -8,7 +8,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.knipsX.Programm;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
@@ -28,9 +27,9 @@ class GetExifDataThread extends Thread {
         this.pictures = project.getAllPictures();
         this.project = project;
     }
-    
+
     GetExifDataThread(final ProjectModel project, final Directory directory) {
-        this.pictures = directory.getItems().toArray(new Picture[]{});
+        this.pictures = directory.getItems().toArray(new Picture[] {});
         this.project = project;
     }
 
@@ -41,7 +40,7 @@ class GetExifDataThread extends Thread {
         }
 
         /* first get all exif data */
-        Thread thread = new CreateThumbnailThread(this.project, this.pictures);
+        final Thread thread = new CreateThumbnailThread(this.project, this.pictures);
         thread.run();
     }
 }
@@ -60,9 +59,9 @@ class CreateThumbnailThread extends Thread {
     @Override
     public void run() {
         for (final Picture picture : this.pictures) {
-            if(picture.initThumbnails()) {
-                this.project.updateViews();    
-            }            
+            if (picture.initThumbnails()) {
+                this.project.updateViews();
+            }
         }
     }
 }
@@ -81,7 +80,7 @@ public class ProjectModel extends AbstractModel {
      * The ACTIVE status means this part is available and you can do interactions with it. It is in the foreground.
      */
     public static final int ACTIVE = 1;
-    
+
     /**
      * The INACTIVE status means this part is not available and you can not do interactions with it. It is in the
      * background.
@@ -89,7 +88,7 @@ public class ProjectModel extends AbstractModel {
     public static final int INACTIVE = 0;
 
     /* By default this view is active */
-    private int state = ACTIVE;
+    private int state = ProjectModel.ACTIVE;
 
     private final int id;
 
@@ -104,8 +103,8 @@ public class ProjectModel extends AbstractModel {
 
     private final List<PictureSet> pictureSetList;
     private final List<AbstractReportModel> reportList;
-    
-    private Logger log = Logger.getLogger(this.getClass());
+
+    private final Logger log = Logger.getLogger(this.getClass());
 
     /**
      * Creates a new project with basic informations.
@@ -155,7 +154,7 @@ public class ProjectModel extends AbstractModel {
      * @param state
      *            ACTIVE or INACTIVE
      */
-    public void setStatus(int state) {
+    public void setStatus(final int state) {
         assert state < 2;
         assert state >= 0;
         this.state = state;
@@ -317,8 +316,8 @@ public class ProjectModel extends AbstractModel {
     public void saveProjectModel() {
         try {
             RepositoryHandler.getRepository().saveProject(this);
-        } catch (RepositoryInterfaceException e) {
-            log.fatal("[saveProjectModel()] - Can't save because:" + e.getStackTrace());
+        } catch (final RepositoryInterfaceException e) {
+            this.log.fatal("[saveProjectModel()] - Can't save because:" + e.getStackTrace());
         }
     }
 
@@ -365,12 +364,14 @@ public class ProjectModel extends AbstractModel {
         final boolean isRemoved = this.pictureSetList.remove(pictureSet);
 
         if (isRemoved) {
-            
+
             /* kill internal references */
-            if(this.pictureSetList.size() == 0) {
+            if (this.pictureSetList.size() <= 0) {
                 this.selectedPicture = null;
                 this.selectedPictureSet = null;
-                this.selectedPictureSetContent = null;                
+                this.selectedPictureSetContent = null;
+            } else {
+                this.selectedPictureSet = this.pictureSetList.get(0);
             }
             this.updateViews();
         }
@@ -399,7 +400,7 @@ public class ProjectModel extends AbstractModel {
      * @return the current selected PictureSet.
      */
     public PictureSet getSelectedPictureSet() {
-        if (this.selectedPictureSet == null && this.pictureSetList.size() > 0) {
+        if ((this.selectedPictureSet == null) && (this.pictureSetList.size() > 0)) {
             this.selectedPictureSet = this.pictureSetList.get(0);
         }
         return this.selectedPictureSet;
@@ -532,7 +533,6 @@ public class ProjectModel extends AbstractModel {
 
         if (isAdded) {
             this.updateViews();
-            this.loadData();
         }
         return isAdded;
     }
@@ -554,6 +554,10 @@ public class ProjectModel extends AbstractModel {
         final boolean isRemoved = set.remove(container);
 
         if (isRemoved) {
+            if (set.getItems().size() <= 0) {
+                this.selectedPicture = null;
+                this.selectedPictureSetContent = null;
+            }
             this.updateViews();
         }
         return isRemoved;
@@ -577,17 +581,15 @@ public class ProjectModel extends AbstractModel {
         this.selectedPictureSetContent = selected;
         this.updateViews();
     }
-    
+
     /**
-     * Refresh all directories. (That means get all Pictures from all subdirs). 
+     * Refresh all directories. (That means get all Pictures from all subdirs).
      */
     public void refreshAllDirectories() {
-        for(PictureSet set : this.getPictureSets()) {
-            for(Directory dir : this.getDirectoriesOfAPictureSet(set)) {
+        for (final PictureSet set : this.getPictureSets()) {
+            for (final Directory dir : this.getDirectoriesOfAPictureSet(set)) {
                 dir.refresh();
                 this.updateViews();
-//                Thread thread = new GetExifDataThread(this, dir);
-//                thread.run();
             }
         }
     }
@@ -644,8 +646,8 @@ public class ProjectModel extends AbstractModel {
      * @return the current selected PictureSet.
      */
     public Picture getSelectedPicture() {
-        Picture[] allPictures = this.getAllPictures();
-        if (this.selectedPicture == null && allPictures.length > 0) {
+        final Picture[] allPictures = this.getAllPictures();
+        if ((this.selectedPicture == null) && (allPictures.length > 0)) {
             this.selectedPicture = allPictures[0];
         }
         return this.selectedPicture;
