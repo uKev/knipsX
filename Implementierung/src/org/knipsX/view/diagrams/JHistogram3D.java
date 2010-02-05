@@ -2,9 +2,7 @@ package org.knipsX.view.diagrams;
 
 import java.awt.Color;
 
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.vecmath.Vector3d;
 
 import org.apache.log4j.Logger;

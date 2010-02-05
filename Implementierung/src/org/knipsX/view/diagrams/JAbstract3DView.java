@@ -982,10 +982,19 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         
     }
     
-    public class ColorRectangle implements Icon{
+    /**
+     * Defines a simple colored rectangle
+     *  
+     * @author David Kaufman
+     *
+     */
+    public class ColorRectangle implements Icon {
         
         private Color color;
-        
+      /**
+       * This constructor initialized a Icon with the given color  
+       * @param color the color of the rectangle
+       */
         public ColorRectangle(Color color) {
             this.color = color;
         }
@@ -993,15 +1002,24 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         private int width = 16;
         private int height = 16;
         
+
+        /**
+         * {@inheritDoc}
+         */
         public int getIconWidth() {
             return width;
         }
         
+        /**
+         * {@inheritDoc}
+         */
         public int getIconHeight() {
             return height;
         }
 
-        
+        /**
+         * {@inheritDoc}
+         */        
         public void paintIcon(Component c, Graphics g, int x, int y) {
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.setColor(this.color);
