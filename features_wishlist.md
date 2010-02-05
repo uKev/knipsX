@@ -13,8 +13,6 @@ Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigke
 # Probleme, die vor dem 1.0 RC1 (Ende Validierungsphase) behoben werden sollten #
 (_Nachdem_ die automatisierten Tests stehen!)
 
-* Exif Parameter werden noch als toString() gespeichert und nicht als Zahl oder eindeutige Representation
-
 * ExifAdapter in MetaDataAdapter refactorn
 * Pakethirarchy refactorn
 
@@ -41,4 +39,3 @@ Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigke
 * Bars bestehen aus Bilder die drin sind und sind durchscrollbar zum Anschauen der Bilder
 * JTree soll die Bildmengenliste und Liste der Bildmengeninhalte ersetzen
 * Hinzufügen einer Caching-Funktion (de-/aktivierbar irgendwo in der GUI), die Thumbnails zwischenspeichert
-* Hinzufügen einer synchronisierte Map in ProjectModel um eine gemeinsame Struktur zu haben, auf der Threads arbeiten
