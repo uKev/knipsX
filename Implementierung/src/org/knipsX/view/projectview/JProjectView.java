@@ -466,6 +466,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         /* create only if not set */
         if (this.jTextFieldProjectName == null) {
             this.jTextFieldProjectName = new JTextField(this.model.getName());
+            this.jTextFieldProjectName.setTransferHandler(null);
             this.jTextFieldProjectName.getDocument().addDocumentListener(
                     new ProjectEditNameController<M, JProjectView<M>>(this.model, this));
         }
@@ -504,6 +505,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         if (this.jEditorPaneProjectDescription == null) {
             this.jEditorPaneProjectDescription = new JEditorPane();
             this.jEditorPaneProjectDescription.setText(this.model.getDescription());
+            this.jEditorPaneProjectDescription.setTransferHandler(null);
             this.jEditorPaneProjectDescription.getDocument().addDocumentListener(
                     new ProjectEditDescriptionController<M, JProjectView<M>>(this.model, this));
         }
@@ -825,7 +827,14 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         final Object[][] data = this.model.getExifParameter();
 
         /* create new table for the exif parameters of an active image */
-        final JTable table = new JTable(data, columnNames);
+        final JTable table = new JTable(data, columnNames){
+           
+            private static final long serialVersionUID = 5662805360459747753L;
+
+            public boolean isCellEditable(int x, int y) {
+                return false;
+            }
+        };
         final TableColumn para = table.getColumnModel().getColumn(0);
         final TableColumn value = table.getColumnModel().getColumn(1);
         para.setCellRenderer(new MyExifTableCellRenderer());

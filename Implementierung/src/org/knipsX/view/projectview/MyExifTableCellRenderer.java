@@ -59,7 +59,7 @@ public class MyExifTableCellRenderer extends JLabel implements TableCellRenderer
             } else {
                 theText = value.toString();
             }
-
+            
             renderer.setText(theText);
             renderer.setToolTipText(value.toString());
 
