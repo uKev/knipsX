@@ -36,7 +36,7 @@ public final class Resource {
 
         /* return the path, where knipsX is installed, connected with the relative path to the icon */
         final URL imgURL = Resource.class.getResource(path);
-
+        
         if (imgURL == null) {
             throw new FileNotFoundException("[createImageIcon()] - Couldn't find file: " + imgURL);
         } else {

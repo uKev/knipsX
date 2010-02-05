@@ -241,12 +241,11 @@ class Axis3D {
         this.isReportSpaceInitialized = true;
 
         
-        if (Double.compare(minValue, maxValue) == 0) {
-            System.out.println("DRINNE, da " + minValue + " = " + maxValue);
+        if (Double.compare(minValue, maxValue) == 0) {            
             if (minValue != 0) {
                 this.minReportSpace = minValue - minValue / 10.0;
                 this.maxReportSpace = maxValue + maxValue / 10.0;
-            } else {
+            } else {                
                 this.minReportSpace = 0;
                 this.maxReportSpace = 10;
             }
@@ -261,7 +260,6 @@ class Axis3D {
         } else {
             this.offset = 0;
         }
-
     }
 
     /**

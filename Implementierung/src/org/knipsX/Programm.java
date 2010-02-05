@@ -71,7 +71,7 @@ public final class Programm {
             System.err.println("Error loading Look and Feel: " + e);
             e.printStackTrace();
         }
-
+        
         /*
          * Change the contentAreaColor to a normal light grey color so it
          * fits in with the normal user interface

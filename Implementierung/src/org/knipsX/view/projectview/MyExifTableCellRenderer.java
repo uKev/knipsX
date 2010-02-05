@@ -1,11 +1,16 @@
 package org.knipsX.view.projectview;
 
 import java.awt.Component;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
+
+import org.knipsX.utils.ExifParameter;
 
 /**
  * Renders a table cell for the table which shows the EXIF parameters of an active picture.
@@ -60,6 +65,18 @@ public class MyExifTableCellRenderer extends JLabel implements TableCellRenderer
                 theText = value.toString();
             }
             
+            //TWEAK: Might split this renderer up into two, not every long value is a date
+            
+            if (value instanceof Long && (column == ExifParameter.DATE.ordinal() + 1 ||  row == ExifParameter.DATE.ordinal())) {
+                Date tempDate = new Date();
+                tempDate.setTime(((Long) value));
+
+                DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                
+                theText = dateFormat.format(tempDate);
+            }
+
+
             renderer.setText(theText);
             renderer.setToolTipText(value.toString());
 

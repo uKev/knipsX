@@ -73,7 +73,7 @@ public abstract class JAbstract2DDiagram<M extends AbstractReportModel> extends 
         viewingPlatform.setViewPlatformBehavior(orbit);
 
         /* Set default camera perspective to face the x y plane */
-        this.setCameraPerspective(Perspectives.XYPLANE);
+        this.perspective = Perspectives.XYPLANE;
 
         /*
          * Note that when using PARALLEL_PROJECTION as a projection policy native zooming is not

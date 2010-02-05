@@ -110,6 +110,10 @@ public class JDiagramType extends JAbstractSinglePanel {
         final Component diagramView = ReportHelper.getCurrentReport().getDiagramView();
         diagramView.setPreferredSize(new Dimension(300, 150));
         rightpanel.add(diagramView);
+        //INTERNATIONALIZE
+        JLabel userWarning = new JLabel("Das Vorschaufenster stellt lediglich Testdaten dar");
+        userWarning.setAlignmentX(Component.CENTER_ALIGNMENT);
+        rightpanel.add(userWarning);
         /* Add a spacer to relax the layout */
         rightpanel.add(Box.createRigidArea(new Dimension(0, 20)));
     }
