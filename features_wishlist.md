@@ -7,7 +7,7 @@ Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigke
 * Bei neuer Bildmenge und ausgewähltem Ordner muss der Thread für die Thumbnailgenerierung (neu) gestartet werden (Kai/Benni)
 * Internationalisierung?
 * (Lower)Whisker Berechnung im Boxplot falsch
-* fehlender exifparameter log gibt falschen parameter zurück
+* Initialisierung des BoxplotModel am Anfang verhindern.
 
 
 # Probleme, die vor dem 1.0 RC1 (Ende Validierungsphase) behoben werden sollten #

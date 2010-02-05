@@ -152,6 +152,7 @@ public class PictureSet implements PictureContainer {
                         this.currentChild = child;
                     } else {
                     	hasNext = false;
+                    	this.currentChild = 0;
                     }
                 }
             }
