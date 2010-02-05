@@ -962,13 +962,31 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         }
 
         if (model.getSelectedPicture() != null) {
-            final TableModel exifModel = this.jTableExif.getModel();
+            final TableModel exifModel = this.jTableExif.getModel();            
 
             final Object[][] values = model.getSelectedPicture().getAllExifParameter();
             for (int i = 0; i < values.length; ++i) {
                 if (values[i].length == 2) {
+                    
+                String theText = "";
+                    if (values[i][1] instanceof Object[]) {
+                        Object[] objectArray = (Object[]) values[i][1];
+                        for (int j = 0; j < objectArray.length; j++) {
+                            if (j == 0) {
+                                theText = objectArray[j].toString();
+                            } else {
+                                theText = theText + ", " + objectArray[j].toString();
+                            }
+                        }
+                    
+                    } else {
+                        if (values[i][1] != null) {
+                            theText = values[i][1].toString();
+                        }
+                    }
+                    
                     exifModel.setValueAt(values[i][0].toString(), i, 0);
-                    exifModel.setValueAt(values[i][1].toString(), i, 1);
+                    exifModel.setValueAt(theText, i, 1);
                 }
             }
         }

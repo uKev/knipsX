@@ -73,7 +73,13 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                     this.addMissingExifPictureParameter(new PictureParameter(this.xAxis.getParameter(), pic));
                     haveAllParameters = false;
                 } else {
+                    try {
                     x = Converter.objectToDouble(xValue);
+                    }
+                    catch (ClassCastException e) {
+                        log.error("Exif Parameter " + this.xAxis.getParameter());
+                        e.printStackTrace();
+                    }
                 }
                 if (yValue == null) {
                     this.addMissingExifPictureParameter(new PictureParameter(this.yAxis.getParameter(), pic));

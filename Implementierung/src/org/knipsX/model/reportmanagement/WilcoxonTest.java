@@ -324,7 +324,8 @@ public class WilcoxonTest {
         int fakultaet = 1;
         int faktor = 1;
         while (faktor <= n) {
-            fakultaet = fakultaet * faktor++;
+            fakultaet = fakultaet * faktor;
+            faktor = faktor + 1;
         }
         return fakultaet;
     }
