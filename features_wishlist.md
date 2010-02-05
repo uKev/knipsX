@@ -37,4 +37,6 @@ Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigke
 # größere Wünsche für eine kommende neue Version 1.5 oder 2.0 - Major Update #
 
 * Bars bestehen aus Bilder die drin sind und sind durchscrollbar zum Anschauen der Bilder
-
+* JTree soll die Bildmengenliste und Liste der Bildmengeninhalte ersetzen
+* Hinzufügen einer Caching-Funktion (de-/aktivierbar irgendwo in der GUI), die Thumbnails zwischenspeichert
+* Hinzufügen einer synchronisierte Map in ProjectModel um eine gemeinsame Struktur zu haben, auf der Threads arbeiten

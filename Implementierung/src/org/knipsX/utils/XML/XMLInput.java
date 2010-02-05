@@ -244,7 +244,7 @@ public class XMLInput {
     }
 
     private Axis getAxis(final Element axis) {
-        final Axis newAxis = new Axis(ExifParameter.valueOf(axis.getChildText("parameter")));
+        final Axis newAxis = new Axis(ExifParameter.values()[Integer.parseInt(axis.getChildText("parameter"))]);
         newAxis.setDescription(axis.getChildText("description"));
         return newAxis;
     }

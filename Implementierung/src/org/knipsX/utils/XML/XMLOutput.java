@@ -204,7 +204,7 @@ public class XMLOutput {
         elementAxis.addContent(new Element("type").setText(axisType));
 
         if (axis.getParameter() != null) {
-            elementAxis.addContent(new Element("parameter").setText(axis.getParameter().toString().toUpperCase()));
+            elementAxis.addContent(new Element("parameter").setText("" + axis.getParameter().ordinal()));
         } else {
             elementAxis.addContent(new Element("parameter"));
         }
