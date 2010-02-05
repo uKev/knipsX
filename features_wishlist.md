@@ -4,11 +4,10 @@ Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigke
 # kleine Probleme, die vor der ersten 1.0 Beta (Abgabe Implementierungsphase) behoben werden sollten - Bugfix #
 (Alias: bekannte bugs, die noch behoben werden müssen, falls neue auftreten, hier bitte eintragen)
 
-* Bei neuer Bildmenge und ausgewähltem Ordner muss der Thread für die Thumbnailgenerierung (neu) gestartet werden (Kai/Benni)
 * Internationalisierung?
 * (Lower)Whisker Berechnung im Boxplot falsch
 * Initialisierung des BoxplotModel am Anfang verhindern.
-
+* Bei mehreren Directories in einem PictureSet, wird im Report anscheinend nur das letzte beachtet!
 
 # Probleme, die vor dem 1.0 RC1 (Ende Validierungsphase) behoben werden sollten #
 (_Nachdem_ die automatisierten Tests stehen!)
