@@ -83,7 +83,7 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
                 
                 String output = pValueResultText + "\n" + hypothesisResultText + " " + rejected + "\n";
                 
-                TextModel textModel = new TextModel(null, output);
+                TextModel textModel = new TextModel(output);
                 JTextDiagram<TextModel> diagram = new JTextDiagram<TextModel>(textModel, -1);
                 diagram.showDiagram();
                 

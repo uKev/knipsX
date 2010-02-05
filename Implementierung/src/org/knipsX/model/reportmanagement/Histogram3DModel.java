@@ -88,7 +88,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                             this.addMissingExifPictureParameter(new PictureParameter(zParameter, picture));
                             pictureValid = false;
                         }
-                        
+
                         if (!picture.hasMinOneKeywordOf(this.getExifFilterKeywords())) {
                             pictureValid = false;
                         }
@@ -325,9 +325,9 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
     @Override
     public boolean isModelValid() {
         this.calculateIfRequired();
-        
-        Logger log = Logger.getLogger(this.getClass());
-        
+
+        final Logger log = Logger.getLogger(this.getClass());
+
         if (this.maxX < this.minX) {
             log.info("maxX < minX");
             return false;
@@ -340,13 +340,12 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
             log.info("maxY < minY");
             return false;
         }
-        
-        if (0 == Validator.getValidPicturesCount(this.getPictureContainer(), 
-                new ExifParameter [] { this.xAxis.getParameter(), this.zAxis.getParameter() }
-        )){
+
+        if (0 == Validator.getValidPicturesCount(this.getPictureContainer(), new ExifParameter[] {
+                this.xAxis.getParameter(), this.zAxis.getParameter() })) {
             log.info("0 == Validator.getValidPicturesCount");
         }
-        
+
         return true;
     }
 }

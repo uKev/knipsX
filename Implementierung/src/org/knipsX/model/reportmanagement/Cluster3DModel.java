@@ -7,8 +7,8 @@ import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.utils.Converter;
-import org.knipsX.utils.Validator;
 import org.knipsX.utils.ExifParameter;
+import org.knipsX.utils.Validator;
 
 /**
  * Represents the 3D-cluser and allocate the axes to it.
@@ -20,8 +20,10 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
 
     private final ArrayList<Frequency3DPoint> frequency3DPoints = new ArrayList<Frequency3DPoint>();
 
-    private Logger log = Logger.getLogger(this.getClass());
-    
+    private final Logger log = Logger.getLogger(this.getClass());
+
+    boolean hasMinOneKeyword = false;
+
     /**
      * creates an empty Cluster3DModel.
      */
@@ -49,7 +51,7 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
         this.calculateIfRequired();
 
     }
-    boolean hasMinOneKeyword = false;
+
     @Override
     protected void calculate() {
         Frequency3DPoint picPoint;
@@ -86,8 +88,7 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                 } else {
                     z = Converter.objectToDouble(zValue);
                 }
-                
-                
+
                 /*
                  * Filter the pictures with the keywords
                  */
@@ -141,15 +142,17 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                         this.frequency3DPoints.add(picPoint);
                     }
                 } else {
-                    if (hasMinOneKeyword) {
-                    log.debug("Pic has not all parameters: ");
-                    log.debug("X: " + xValue);
-                    log.debug("Y: " + xValue);
-                    log.debug("Z: " + xValue);
+                    if (this.hasMinOneKeyword) {
+                        this.log.debug("Pic has not all parameters: ");
+                        this.log.debug("X: " + xValue);
+                        this.log.debug("Y: " + xValue);
+                        this.log.debug("Z: " + xValue);
                     } else {
-                        log.debug("Picture is filtered by keyword: " + this.getExifFilterKeywords());
-                        log.debug("It has only the following keywords: " + new ArrayList<String>(Arrays.asList((String[])pic.getExifParameter(ExifParameter.KEYWORDS))));
-                        
+                        this.log.debug("Picture is filtered by keyword: " + this.getExifFilterKeywords());
+                        this.log.debug("It has only the following keywords: "
+                                + new ArrayList<String>(Arrays.asList((String[]) pic
+                                        .getExifParameter(ExifParameter.KEYWORDS))));
+
                     }
                 }
 
@@ -170,15 +173,14 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
 
     @Override
     public boolean isModelValid() {
-        Logger logger = Logger.getLogger(this.getClass());
-    
-        if (0 == Validator.getValidPicturesCount(this.getPictureContainer(), 
-                new ExifParameter [] { this.getxAxis().getParameter(), this.getyAxis().getParameter(), this.getzAxis().getParameter()} )) 
-        {
+        final Logger logger = Logger.getLogger(this.getClass());
+
+        if (0 == Validator.getValidPicturesCount(this.getPictureContainer(), new ExifParameter[] {
+                this.getxAxis().getParameter(), this.getyAxis().getParameter(), this.getzAxis().getParameter() })) {
             logger.info("getValidPicturesCount == 0");
             return false;
         }
-        
+
         return true;
     }
 
