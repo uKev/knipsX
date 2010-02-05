@@ -35,10 +35,16 @@ public final class Converter {
         } else if (object instanceof Long) {
             returnValue = ((Long) object).doubleValue();
         } else if (object instanceof String) {
-            returnValue = Double.valueOf(((String) object));
-        }
-
-        else {
+         
+            String stringValue = ((String) object);
+            if (!stringValue.isEmpty()){
+            returnValue = Double.valueOf((stringValue));
+            } else {
+                returnValue = 0.0;
+                throw new ClassCastException("Converter.objectToDouble: can not handle empty String");
+            }
+            
+        } else {
 
             returnValue = 0.0;
             throw new ClassCastException("Converter.objectToDouble: can not handle object from type "
