@@ -302,18 +302,19 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     private void changeCamtoFaceXZPlane() {
         final TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
         final Transform3D transform3D = new Transform3D();
-        transform3D.setTranslation(new Vector3d(this.getyAxis().getAxisSize() / 2.0,
-                this.getxAxis().getAxisSize() / 2.0, 3 * this.getzAxis().getAxisSize()));
+        transform3D.rotY(-90 * Math.PI / 180.0);
+        transform3D.setTranslation(new Vector3d(-2 * this.getyAxis().getAxisSize(), this.getxAxis().getAxisSize() / 2.0,
+                this.getzAxis().getAxisSize() / 2));
         vpTrans.setTransform(transform3D);
     }
 
     /* change the camera to a position where it faces the y x plane */
     private void changeCamtoFaceYXPlane() {
+        System.out.println("YX");
         final TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
         final Transform3D transform3D = new Transform3D();
-        transform3D.rotY(-90 * Math.PI / 180.0);
-        transform3D.setTranslation(new Vector3d(-2 * this.getyAxis().getAxisSize(), this.axis3D[1].getAxisSize() / 2.0,
-                this.axis3D[2].getAxisSize() / 2));
+        transform3D.setTranslation(new Vector3d(this.getxAxis().getAxisSize() / 2.0,
+                this.getyAxis().getAxisSize() / 2.0, 3 * this.getyAxis().getAxisSize()));
         vpTrans.setTransform(transform3D);
     }
 

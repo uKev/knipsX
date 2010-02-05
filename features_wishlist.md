@@ -13,6 +13,8 @@ Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigke
 # Probleme, die vor dem 1.0 RC1 (Ende Validierungsphase) behoben werden sollten #
 (_Nachdem_ die automatisierten Tests stehen!)
 
+* Exif Parameter werden noch als toString() gespeichert und nicht als Zahl oder eindeutige Representation
+
 * ExifAdapter in MetaDataAdapter refactorn
 * Pakethirarchy refactorn
 

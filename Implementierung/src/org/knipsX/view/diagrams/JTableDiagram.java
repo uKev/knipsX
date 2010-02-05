@@ -91,7 +91,7 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
         this.mainpanel = new JPanel();
         this.mainpanel.setLayout(new BoxLayout(this.mainpanel, BoxLayout.PAGE_AXIS));
         this.mainpanel.add(this.scrollpane);
-        this.mainpanel.add(new JDiagramButtonsPlain(this));
+        this.mainpanel.add(new JDiagramButtonsTable(this));
         this.add(this.mainpanel);
 
         /* set the size of the diagram based on the preferred size of its components */
