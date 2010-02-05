@@ -275,7 +275,11 @@ public class ProjectModel extends AbstractModel {
             this.log.debug("Number of Threads: " + numberOfThreads);
             this.initializePictureWorkers = new LinkedList<InitializePictureThread>();
             for (int i = 0; i < numberOfThreads; ++i) {
-                this.initializePictureWorkers.add(new InitializePictureThread());
+                InitializePictureThread newThread = new InitializePictureThread();
+                log.debug("old priority: " + newThread.getPriority());
+                newThread.setPriority(Thread.MIN_PRIORITY);
+                log.debug("new priority: " + newThread.getPriority());
+                this.initializePictureWorkers.add(newThread);
             }
         }
 
