@@ -1,5 +1,6 @@
 package org.knipsX.utils;
 
+
 public enum ExifParameter {
 
     CAMERAMODEL {
@@ -10,11 +11,11 @@ public enum ExifParameter {
         }
 
         @Override
-        public boolean isOrdinal() {            
+        public boolean isOrdinal() {
             return false;
         }
     },
-    
+
     FLASH {
         @Override
         public String toString() {
@@ -23,11 +24,11 @@ public enum ExifParameter {
         }
 
         @Override
-        public boolean isOrdinal() {            
+        public boolean isOrdinal() {
             return false;
         }
     },
-    
+
     FNUMBER {
         @Override
         public String toString() {
@@ -40,7 +41,7 @@ public enum ExifParameter {
             return true;
         }
     },
-    
+
     EXPOSURETIME {
         @Override
         public String toString() {
@@ -53,7 +54,7 @@ public enum ExifParameter {
             return true;
         }
     },
-    
+
     ISO {
         @Override
         public String toString() {
@@ -66,7 +67,7 @@ public enum ExifParameter {
             return true;
         }
     },
-    
+
     FOCALLENGTH {
         @Override
         public String toString() {
@@ -79,7 +80,7 @@ public enum ExifParameter {
             return true;
         }
     },
-    
+
     DATE {
         @Override
         public String toString() {
@@ -92,8 +93,7 @@ public enum ExifParameter {
             return true;
         }
     },
-    
-    
+
     OBJECTIVENAME {
         @Override
         public String toString() {
@@ -106,9 +106,9 @@ public enum ExifParameter {
             return true;
         }
     },
-    
+
     KEYWORDS {
-    	@Override
+        @Override
         public String toString() {
             // INTERNATIONALIZE
             return "Stichwort";
@@ -123,8 +123,9 @@ public enum ExifParameter {
     /**
      * {@inheritDoc}
      */
+    @Override
     public abstract String toString();
-    
+
     /**
      * Denotes if the specified EXIF parameter is ordinal. Thus is able
      * to be sorted in any way.
@@ -132,5 +133,5 @@ public enum ExifParameter {
      * @return Returns true if EXIF parameter is ordinal, false otherwise
      */
     public abstract boolean isOrdinal();
-    
+
 }

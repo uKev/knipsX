@@ -37,6 +37,7 @@ import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 import org.knipsX.controller.projectview.PictureListClickOnController;
 import org.knipsX.controller.projectview.PictureSetContentListAddController;
@@ -466,6 +467,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         /* create only if not set */
         if (this.jTextFieldProjectName == null) {
             this.jTextFieldProjectName = new JTextField(this.model.getName());
+            this.jTextFieldProjectName.setTransferHandler(null);
             this.jTextFieldProjectName.getDocument().addDocumentListener(
                     new ProjectEditNameController<M, JProjectView<M>>(this.model, this));
         }
@@ -504,6 +506,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         if (this.jEditorPaneProjectDescription == null) {
             this.jEditorPaneProjectDescription = new JEditorPane();
             this.jEditorPaneProjectDescription.setText(this.model.getDescription());
+            this.jEditorPaneProjectDescription.setTransferHandler(null);
             this.jEditorPaneProjectDescription.getDocument().addDocumentListener(
                     new ProjectEditDescriptionController<M, JProjectView<M>>(this.model, this));
         }
@@ -814,25 +817,21 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jTableExif == null) {
-            this.jTableExif = this.createExifTable();
+
+            // INTERNATIONALIZE
+            final String[] columnNames = { "Parameter", "Wert" };
+            final Object[][] data = this.model.getExifParameter();
+
+            /* create new table for the exif parameters of an active image */
+            this.jTableExif = new JTable(data, columnNames);
+            final TableColumn para = this.jTableExif.getColumnModel().getColumn(0);
+            final TableColumn value = this.jTableExif.getColumnModel().getColumn(1);
+            para.setCellRenderer(new MyExifTableCellRenderer());
+            value.setCellRenderer(new MyExifTableCellRenderer());
         }
         return new JScrollPane(this.jTableExif);
     }
 
-    private JTable createExifTable() {
-        // INTERNATIONALIZE
-        final String[] columnNames = { "Parameter", "Wert" };
-        final Object[][] data = this.model.getExifParameter();
-
-        /* create new table for the exif parameters of an active image */
-        final JTable table = new JTable(data, columnNames);
-        final TableColumn para = table.getColumnModel().getColumn(0);
-        final TableColumn value = table.getColumnModel().getColumn(1);
-        para.setCellRenderer(new MyExifTableCellRenderer());
-        value.setCellRenderer(new MyExifTableCellRenderer());
-
-        return table;
-    }
 
     /*
      * ################################################################################################################
@@ -962,9 +961,17 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.setFocusable(false);
         }
 
-        /* setup the exif-table */
-        this.jTableExif = this.createExifTable();
+        if (model.getSelectedPicture() != null) {
+            final TableModel exifModel = this.jTableExif.getModel();
 
+            final Object[][] values = model.getSelectedPicture().getAllExifParameter();
+            for (int i = 0; i < values.length; ++i) {
+                if (values[i].length == 2) {
+                    exifModel.setValueAt(values[i][0].toString(), i, 0);
+                    exifModel.setValueAt(values[i][1].toString(), i, 1);
+                }
+            }
+        }
         /* refresh view */
         this.repaint();
 

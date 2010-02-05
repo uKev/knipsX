@@ -76,6 +76,7 @@ public class MyExifTableCellRenderer extends JLabel implements TableCellRenderer
                 theText = dateFormat.format(tempDate);
             }
 
+
             renderer.setText(theText);
             renderer.setToolTipText(value.toString());
 
