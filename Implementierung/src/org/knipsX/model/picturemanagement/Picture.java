@@ -66,8 +66,7 @@ public class Picture extends Observable implements PictureContainer {
      * Create new Picture with a file.
      * 
      * @param file The file to create from
-     * @param isActiveorNot
-     *            the status of the picture
+     * @param isActiveorNot The status of the picture
      */
     public Picture(File file, boolean isActiveorNot) {
         this.pictureFile = file;
