@@ -38,8 +38,10 @@ public class Picture extends Observable implements PictureContainer {
     private BufferedImage smallThumbnail;
     private BufferedImage bigThumbnail;
     
+    /* Creates a logger for logging */
     private Logger log = Logger.getLogger(this.getClass());
     
+    /* Should be considered or not*/
     boolean isReturned;
 
     /**
@@ -176,27 +178,28 @@ public class Picture extends Observable implements PictureContainer {
         return isInitialized;
     }
 
+    /**
+     * Returns an image as a converted image to the version of the natural one. "bigThumbnail" ist mostly used for the tooltip
+     * @return the image
+     */
     public BufferedImage getBigThumbnail() {
         return this.bigThumbnail;
     }
 
+    /**
+     *  Returns an image as a converted image to the version of the natural one. "smallThumbnail" ist mostly used for the thumbnail
+     * @return the image
+     */
     public Image getSmallThumbnail() {
         return this.smallThumbnail;
     }
 
-    public BufferedImage getImageWithSize(int maxPixel) {
-        BufferedImage buffImage = null;
-        try {
-            buffImage = Picture.getThumbOf(ImageIO.read(pictureFile), maxPixel, Image.SCALE_FAST);
-            // buffImage.getScaledInstance(width, height, hints);
-        } catch (IOException e) {
-            System.out.println("Can´t create and scale Image");
-            e.printStackTrace();
-        }
-        return buffImage;
 
-    }
-
+    /**
+     * Checks if the picture contains the keyword
+     * @param keyword keyword which the picture should have
+     * @return true if the picture has the keyword, false if not
+     */
     public boolean hasExifKeyword(String keyword) {
         boolean hasKeyword = false;
         String[] keys = (String[]) getExifParameter(ExifParameter.KEYWORDS);
@@ -209,11 +212,11 @@ public class Picture extends Observable implements PictureContainer {
     }
 
     /**
-     * Checks if the picture contain min one keyword of the given list. Also return true if the keyword list is empty.
+     * Checks if the picture contains minimum one keyword of the given list. Also return true if the keyword list is empty.
      * Return false if the keywordlist is not empty and the picture contains no keywords.
      * 
-     * @param filterKeywordsArrayList
-     * @return true if a picture contain at least one keyword.
+     * @param filterKeywordsArrayList keywords which the picture should have
+     * @return true if a picture contains at least one keyword.
      *         It returns also true if filterKeywordsArrayList is empty and contains no keyword.
      */
     public boolean hasMinOneKeywordOf(ArrayList<String> filterKeywords) {
@@ -236,6 +239,11 @@ public class Picture extends Observable implements PictureContainer {
         return hasMinOneKeyword;
     }
 
+    /**
+     * Checks if the picture contains all keywords of the given list. Also return true if the keyword list is empty.
+     * @param keywords Keywords which the picture should have
+     * @return only true if a picture contains all keywords, false if not.
+     */
     public boolean hasAllKeywords(String[] keywords) {
         boolean hasAllKeyword = false;
         int counter = 0;
@@ -256,19 +264,27 @@ public class Picture extends Observable implements PictureContainer {
 
         return hasAllKeyword;
     }
+    
 
+    /**
+     * Shows the active status of a picture
+     * @return active status
+     */
     public boolean isActive() {
         return isActiveorNot;
     }
 
+    /**
+     * Sets the active status of the picture
+     * @param isActive true or false
+     */
     public void setActive(boolean isActive) {
         this.isActiveorNot = isActive;
     }
 
     /**
      * Uses the Exifadapter to get all Exif-values for the picture
-     * 
-     * @return
+     * @return The exif paramters
      */
     public Object[][] getAllExifParameter() {
         if (this.allExifParameter == null) {
@@ -292,7 +308,7 @@ public class Picture extends Observable implements PictureContainer {
      * @param bImage
      * @param maxWidthOrHight
      * @param hints
-     * @return
+     * @return the new image
      */
     private static BufferedImage getThumbOf(BufferedImage bImage, int maxWidthOrHight, int hints) {
         int width = bImage.getWidth();
