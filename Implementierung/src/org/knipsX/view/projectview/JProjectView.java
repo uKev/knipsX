@@ -504,6 +504,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         if (this.jEditorPaneProjectDescription == null) {
             this.jEditorPaneProjectDescription = new JEditorPane();
             this.jEditorPaneProjectDescription.setText(this.model.getDescription());
+            this.jEditorPaneProjectDescription.setDragEnabled(false);
             this.jEditorPaneProjectDescription.getDocument().addDocumentListener(
                     new ProjectEditDescriptionController<M, JProjectView<M>>(this.model, this));
         }
@@ -547,6 +548,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             this.jListPictureSet.setLayoutOrientation(JList.VERTICAL);
             this.jListPictureSet.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+            this.jListPictureSet.setDragEnabled(true);
             this.jListPictureSet.setVisibleRowCount(-1);
             this.jListPictureSet.addMouseListener(new PictureSetListClickOnController<M, JProjectView<M>>(this.model,
                     this));
