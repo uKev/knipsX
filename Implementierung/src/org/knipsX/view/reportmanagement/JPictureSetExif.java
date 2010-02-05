@@ -391,8 +391,8 @@ public class JPictureSetExif extends JAbstractSinglePanel {
      */
     private void updateXMPData() {
 
-//        addXMPData();
-//        removeXMPData();
+        addXMPData();
+        removeXMPData();
 
     }
 
@@ -529,14 +529,18 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                     }
                 }
 
+                
                 Logger logger = Logger.getLogger(this.getClass());
-                logger.trace("Validator : correct Pictures found: "
+                logger.debug("Validator : correct Pictures found: "
                         + Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters));
 
                 ArrayList<String> associatedXMPKeywords = new ArrayList<String>(Arrays.asList(this
                         .getExifFilterKeywords()));
 
                 for (PictureContainer pictureContainer : this.getPictureContainer()) {
+                    logger.debug("Validator : correct Pictures found: "
+                            + Validator.getValidPictures(pictureContainer, exifParameters, associatedXMPKeywords).size());
+                            
                     if (Validator.getValidPictures(pictureContainer, exifParameters, associatedXMPKeywords).size() == 0
                             && ReportHelper.getCurrentReport() != ReportHelper.Table) {
                         this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));

@@ -827,17 +827,19 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
                 if (axis3D[i].getExifParameter() != null && pic != null) {
                     
                     String displayText = "";
+                    
                     if (axis3D[i].getExifParameter() == ExifParameter.DATE) {
+                        
                         Date tempDate = new Date();
-                        tempDate.setTime((((Double) pic.getExifParameter(axis3D[i].getExifParameter())).longValue()));
-
+                        tempDate.setTime((Long) pic.getExifParameter(axis3D[i].getExifParameter()));
                         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");                        
                         displayText = dateFormat.format(tempDate);
+                        
                     } else {
                         displayText = pic.getExifParameter(axis3D[i].getExifParameter()).toString();
                     }
                     
-                    JLabel exifParametersLabel = new JLabel();
+                    JLabel exifParametersLabel = new JLabel(displayText);
                     Font f = exifParametersLabel.getFont();
                     exifParametersLabel.setFont(f.deriveFont(f.getStyle() ^ Font.BOLD));
 

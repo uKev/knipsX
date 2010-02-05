@@ -980,7 +980,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                         }
                     
                     } else {
-                        theText = values[i][1].toString();
+                        if (values[i][1] != null) {
+                            theText = values[i][1].toString();
+                        }
                     }
                     
                     exifModel.setValueAt(values[i][0].toString(), i, 0);
