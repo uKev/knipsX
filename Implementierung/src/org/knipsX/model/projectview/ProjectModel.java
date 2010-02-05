@@ -7,6 +7,9 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
 import org.knipsX.model.AbstractModel;
@@ -19,64 +22,10 @@ import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.RepositoryHandler;
 import org.knipsX.utils.RepositoryInterfaceException;
 
-/* scans the exif data of all pictures */
-class GetExifDataThread extends Thread {
-
-    Picture[] pictures;
-    ProjectModel project;
-
-    GetExifDataThread(final ProjectModel project) {
-        this.pictures = project.getAllPictures();
-        this.project = project;
-    }
-
-    GetExifDataThread(final ProjectModel project, final Directory directory) {
-        this.pictures = directory.getItems().toArray(new Picture[] {});
-        this.project = project;
-    }
-
-    @Override
-    public void run() {
-        for (final Picture picture : this.pictures) {
-            picture.getAllExifParameter();
-        }
-
-        /* first get all exif data */
-        final Thread thread = new CreateThumbnailThread(this.project, this.pictures);
-        thread.run();
-    }
-}
-
-/* creates thumbnails for all pictures */
-class CreateThumbnailThread extends Thread {
-
-    Picture[] pictures;
-    ProjectModel project;
-
-    CreateThumbnailThread(final ProjectModel project, final Picture[] pictures) {
-        this.pictures = pictures;
-        this.project = project;
-    }
-
-    @Override
-    public void run() {
-        for (final Picture picture : this.pictures) {
-            if (picture.initThumbnails()) {
-                this.project.updateViews();
-            }
-        }
-    }
-}
-
 /**
  * Manages all the data for an active project.
  */
 public class ProjectModel extends AbstractModel {
-
-    @Override
-    protected void updateViews() {
-        super.updateViews();
-    }
 
     /**
      * The ACTIVE status means this part is available and you can do interactions with it. It is in the foreground.
@@ -105,6 +54,12 @@ public class ProjectModel extends AbstractModel {
 
     private final List<PictureSet> pictureSetList;
     private final List<AbstractReportModel> reportList;
+
+    private final ExecutorService threadPool = Executors.newCachedThreadPool();
+
+    private final ConcurrentLinkedQueue<Picture> pictureQueue = new ConcurrentLinkedQueue<Picture>();
+
+    private List<InitializePictureThread> initializePictureWorkers;
 
     private final Logger log = Logger.getLogger(this.getClass());
 
@@ -151,28 +106,6 @@ public class ProjectModel extends AbstractModel {
     }
 
     /**
-     * Sets the actual state. It can only be ACTIVE or INACTIVE
-     * 
-     * @param state
-     *            ACTIVE or INACTIVE
-     */
-    public void setStatus(final int state) {
-        assert state < 2;
-        assert state >= 0;
-        this.state = state;
-        this.updateViews();
-    }
-
-    /**
-     * Delivers the actual status
-     * 
-     * @return the status at the moment
-     */
-    public int getStatus() {
-        return this.state;
-    }
-
-    /**
      * Creates a new model based on an old one (with new id which must be unique).
      * 
      * @param toCopy
@@ -208,6 +141,28 @@ public class ProjectModel extends AbstractModel {
      * GETTER/SETTER
      * ################################################################################################################
      */
+
+    /**
+     * Sets the actual state. It can only be ACTIVE or INACTIVE
+     * 
+     * @param state
+     *            ACTIVE or INACTIVE
+     */
+    public void setStatus(final int state) {
+        assert state < 2;
+        assert state >= 0;
+        this.state = state;
+        this.updateViews();
+    }
+
+    /**
+     * Delivers the actual status
+     * 
+     * @return the status at the moment
+     */
+    public int getStatus() {
+        return this.state;
+    }
 
     /**
      * Get the creation date of the project.
@@ -275,10 +230,10 @@ public class ProjectModel extends AbstractModel {
             return this.getSelectedPicture().getAllExifParameter().clone();
         }
 
-        List<String[]> exifParameter = new LinkedList<String[]>();
+        final List<String[]> exifParameter = new LinkedList<String[]>();
         /* INTERNATIONALIZE */
-        for(ExifParameter parameter : ExifParameter.values()) {
-            exifParameter.add(new String[] {parameter.toString(), "no data"});
+        for (final ExifParameter parameter : ExifParameter.values()) {
+            exifParameter.add(new String[] { parameter.toString(), "no data" });
         }
         return exifParameter.toArray(new Object[][] { new String[] { "no Data", "no Data" } });
     }
@@ -315,8 +270,22 @@ public class ProjectModel extends AbstractModel {
      */
 
     public void loadData() {
-        final Thread thread = new GetExifDataThread(this);
-        thread.start();
+        if (this.initializePictureWorkers == null) {
+            final int numberOfThreads = Runtime.getRuntime().availableProcessors() + 1;
+            this.log.debug("Number of Threads: " + numberOfThreads);
+            this.initializePictureWorkers = new LinkedList<InitializePictureThread>();
+            for (int i = 0; i < numberOfThreads; ++i) {
+                this.initializePictureWorkers.add(new InitializePictureThread());
+            }
+        }
+
+        for (final Picture pic : this.getAllPictures()) {
+            this.pictureQueue.add(pic);
+        }
+
+        for (final InitializePictureThread worker : this.initializePictureWorkers) {
+            this.threadPool.execute(worker);
+        }
     }
 
     public void saveProjectModel() {
@@ -325,6 +294,11 @@ public class ProjectModel extends AbstractModel {
         } catch (final RepositoryInterfaceException e) {
             this.log.fatal("[saveProjectModel()] - Can't save because:" + e.getStackTrace());
         }
+    }
+
+    @Override
+    protected void updateViews() {
+        super.updateViews();
     }
 
     /*
@@ -538,6 +512,9 @@ public class ProjectModel extends AbstractModel {
         final boolean isAdded = set.add(container);
 
         if (isAdded) {
+            for (final Picture pic : container) {
+                this.pictureQueue.add(pic);
+            }
             this.updateViews();
         }
         return isAdded;
@@ -595,6 +572,9 @@ public class ProjectModel extends AbstractModel {
         for (final PictureSet set : this.getPictureSets()) {
             for (final Directory dir : this.getDirectoriesOfAPictureSet(set)) {
                 dir.refresh();
+                for (final Picture pic : dir) {
+                    this.pictureQueue.add(pic);
+                }
                 this.updateViews();
             }
         }
@@ -723,5 +703,35 @@ public class ProjectModel extends AbstractModel {
      */
     public AbstractReportModel[] getReports() {
         return this.reportList.toArray(new AbstractReportModel[] {});
+    }
+
+    /*
+     * ################################################################################################################
+     * NESTED CLASSES
+     * ################################################################################################################
+     */
+
+    private class InitializePictureThread extends Thread {
+
+        @Override
+        public void run() {
+            while (true) {
+                while (!ProjectModel.this.pictureQueue.isEmpty()) {
+
+                    final Picture pic = ProjectModel.this.pictureQueue.remove();
+                    pic.getAllExifParameter();
+
+                    if (pic.initThumbnails()) {
+                        ProjectModel.this.updateViews();
+                    }
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (final InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
