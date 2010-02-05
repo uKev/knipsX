@@ -22,11 +22,9 @@ import org.knipsX.view.projectview.JProjectView;
  * 
  * Acts in harmony with a JProjectview.
  * 
- * @param <M>
- *            a model.
+ * @param <M> a model.
  * 
- * @param <V>
- *            a view.
+ * @param <V> a view.
  */
 public class PictureListClickOnController<M extends ProjectModel, V extends JProjectView<M>> extends
         AbstractController<M, V> implements MouseListener {
@@ -69,6 +67,7 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
 
     public void mouseEntered(final MouseEvent mouseEvent) {
     	
+    	   	
     	final JList theList = (JList) mouseEvent.getSource();
     	
     	final int index = theList.locationToIndex(mouseEvent.getPoint());
