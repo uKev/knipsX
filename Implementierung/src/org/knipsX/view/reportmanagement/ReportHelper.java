@@ -137,7 +137,7 @@ public enum ReportHelper {
         @Override
         public String toString() {
             //INTERNATIONALIZE
-            return "2D Histogram";
+            return "2D Histogramm";
         }
     },
 
@@ -191,7 +191,7 @@ public enum ReportHelper {
         @Override
         public String toString() {
             //INTERNATIONALIZE
-            return "3D Histogram";
+            return "3D Histogramm";
         }
 
     },
@@ -247,7 +247,7 @@ public enum ReportHelper {
         @Override
         public String toString() {
             //INTERNATIONALIZE
-            return "3D Cluster";
+            return "Punktewolke";
         }
 
     },
@@ -301,7 +301,7 @@ public enum ReportHelper {
         @Override
         public String toString() {
             //INTERNATIONALIZE
-            return "Tabel";
+            return "Tabelle";
         }
     };
 

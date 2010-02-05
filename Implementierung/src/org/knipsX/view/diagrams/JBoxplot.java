@@ -87,9 +87,10 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
                 JTextDiagram<TextModel> diagram = new JTextDiagram<TextModel>(textModel, -1);
                 diagram.showDiagram();
                 
-                this.setCameraPerspective(Perspectives.XYPLANE);
                 
             }
+            
+            this.setCameraPerspective(Perspectives.XYPLANE);
 
         } else {
             if (this.model != null) {

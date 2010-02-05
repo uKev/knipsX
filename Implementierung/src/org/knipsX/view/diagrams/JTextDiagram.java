@@ -45,7 +45,7 @@ public class JTextDiagram<M extends TextModel> extends JAbstractDiagram<M> {
         mainpanel.setLayout(new BoxLayout(mainpanel, BoxLayout.PAGE_AXIS));
         mainpanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         mainpanel.add(this.textArea);
-        mainpanel.add(new JDiagramButtonsPlain(this));
+        mainpanel.add(new JDiagramButtonsText(this));
         this.add(mainpanel);
 
         /* set the size of the diagram based on the preferred size of its components */

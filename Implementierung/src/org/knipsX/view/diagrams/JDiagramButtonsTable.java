@@ -8,13 +8,12 @@ import org.knipsX.controller.diagrams.DiagramExportAsBufferedImageController;
 import org.knipsX.controller.diagrams.ReportEditController;
 
 /**
- * This class represents the buttons which are available in the text and table
- * diagram.
+ * This class represents the buttons which are available in the table diagram.
  * 
  * @author David Kaufman
  * 
  */
-public class JDiagramButtonsPlain extends JPanel {
+public class JDiagramButtonsTable extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,7 +26,7 @@ public class JDiagramButtonsPlain extends JPanel {
      *            the view on which the controllers work on
      */
 
-    public JDiagramButtonsPlain(JAbstractDiagram<?> view) {
+    public JDiagramButtonsTable(JAbstractDiagram<?> view) {
         
         /* Define the close button and associate the controller */
         //INTERNATIONALIZE
