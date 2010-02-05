@@ -391,8 +391,8 @@ public class JPictureSetExif extends JAbstractSinglePanel {
      */
     private void updateXMPData() {
 
-        addXMPData();
-        removeXMPData();
+//        addXMPData();
+//        removeXMPData();
 
     }
 
@@ -403,7 +403,13 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
         for (PictureContainer pictureContainer : this.getPictureContainer()) {
             for (Picture picture : pictureContainer) {
-                String[] xmpPictureKeyword = (String[]) picture.getExifParameter(ExifParameter.KEYWORDS);
+                
+                String[] xmpPictureKeyword = new String[0];
+                
+                if (picture.getExifParameter(ExifParameter.KEYWORDS) != null && picture.getExifParameter(ExifParameter.KEYWORDS) instanceof String[]) {
+                    xmpPictureKeyword = (String[]) picture.getExifParameter(ExifParameter.KEYWORDS);
+                }
+                
                 for (int i = 0; i < xmpPictureKeyword.length; i++) {
                     if (!xmpKeywords.contains(xmpPictureKeyword[i])
                             && !associatedXMPKeywords.contains(xmpPictureKeyword[i])) {
@@ -433,7 +439,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
             for (Picture picture : pictureContainer) {
                 String[] xmpPictureKeyword = new String[0];
                 
-                if ((String[]) picture.getExifParameter(ExifParameter.KEYWORDS) != null) {
+                if (picture.getExifParameter(ExifParameter.KEYWORDS) != null && picture.getExifParameter(ExifParameter.KEYWORDS) instanceof String[]) {                
                     xmpPictureKeyword = (String[]) picture.getExifParameter(ExifParameter.KEYWORDS);
                 }
                 
@@ -527,8 +533,9 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 logger.trace("Validator : correct Pictures found: "
                         + Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters));
 
-                ArrayList<String> associatedXMPKeywords = new ArrayList<String>(Arrays.asList(this.getExifFilterKeywords()));
-                
+                ArrayList<String> associatedXMPKeywords = new ArrayList<String>(Arrays.asList(this
+                        .getExifFilterKeywords()));
+
                 for (PictureContainer pictureContainer : this.getPictureContainer()) {
                     if (Validator.getValidPictures(pictureContainer, exifParameters, associatedXMPKeywords).size() == 0
                             && ReportHelper.getCurrentReport() != ReportHelper.Table) {
@@ -543,7 +550,6 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                     }
                 }
 
-                
                 this.errorMessage.setIcon(null);
                 /* to prevent popping of layout add fixed dimension */
                 this.errorMessage.setMinimumSize(new Dimension(32, 32));

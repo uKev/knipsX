@@ -12,7 +12,10 @@ import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
@@ -50,6 +53,7 @@ import org.knipsX.controller.diagrams.View3DClickController;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.Resource;
 
 import com.sun.j3d.utils.geometry.Box;
@@ -309,8 +313,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     }
 
     /* change the camera to a position where it faces the y x plane */
-    private void changeCamtoFaceYXPlane() {
-        System.out.println("YX");
+    private void changeCamtoFaceYXPlane() {        
         final TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
         final Transform3D transform3D = new Transform3D();
         transform3D.setTranslation(new Vector3d(this.getxAxis().getAxisSize() / 2.0,
@@ -822,8 +825,19 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
                 this.leftPanel.add(titleLabel);
 
                 if (axis3D[i].getExifParameter() != null && pic != null) {
-                    JLabel exifParametersLabel = new JLabel(pic.getExifParameter(axis3D[i].getExifParameter())
-                            .toString());
+                    
+                    String displayText = "";
+                    if (axis3D[i].getExifParameter() == ExifParameter.DATE) {
+                        Date tempDate = new Date();
+                        tempDate.setTime((((Double) pic.getExifParameter(axis3D[i].getExifParameter())).longValue()));
+
+                        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");                        
+                        displayText = dateFormat.format(tempDate);
+                    } else {
+                        displayText = pic.getExifParameter(axis3D[i].getExifParameter()).toString();
+                    }
+                    
+                    JLabel exifParametersLabel = new JLabel();
                     Font f = exifParametersLabel.getFont();
                     exifParametersLabel.setFont(f.deriveFont(f.getStyle() ^ Font.BOLD));
 
