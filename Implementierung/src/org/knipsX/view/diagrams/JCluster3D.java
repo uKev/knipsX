@@ -39,13 +39,13 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
      *            the report id of the report
      */
     public JCluster3D(final M model, final int reportId) {
-        super(model, reportId);    
+        super(model, reportId);
     }
 
     @Override
     public void generateContent() {
         JAbstract3DView.useBufferRange = false;
-        
+
         Logger logger = Logger.getLogger(this.getClass());
 
         final ArrayList<Integer> typesOfPoints = new ArrayList<Integer>();
@@ -82,10 +82,10 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
             for (int i = 0; i < this.model.getFrequency3DPoints().size(); i++) {
                 final Transform3D dataTrans = new Transform3D();
 
-                Vector3d position = new Vector3d(this.getzAxis().getAxisSpace(
-                        this.model.getFrequency3DPoints().get(i).getZ()), this.getyAxis().getAxisSpace(
-                        this.model.getFrequency3DPoints().get(i).getY()), this.getxAxis().getAxisSpace(
-                        this.model.getFrequency3DPoints().get(i).getX()));
+                Vector3d position = new Vector3d(this.getxAxis().getAxisSpace(
+                        this.model.getFrequency3DPoints().get(i).getX()), this.getyAxis().getAxisSpace(
+                        this.model.getFrequency3DPoints().get(i).getY()), this.getzAxis().getAxisSpace(
+                        this.model.getFrequency3DPoints().get(i).getZ()));
 
                 dataTrans.setTranslation(position);
 
@@ -113,15 +113,13 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
         } else {
             if (this.model != null) {
                 /* Output some kind of error message */
-                //INTERNATIONALIZE
-                JOptionPane.showMessageDialog(this, "Das Diagramm kann nicht angezeigt werden, da es einen Fehler bei der Berechnung gab.");
+                // INTERNATIONALIZE
+                JOptionPane.showMessageDialog(this,
+                        "Das Diagramm kann nicht angezeigt werden, da es einen Fehler bei der Berechnung gab.");
                 this.displayDiagram = false;
             }
-            
+
         }
-        
-        
-        
 
         /* set the left panel which shows information about a selected picture */
         this.leftPanel = new JPanel();

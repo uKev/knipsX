@@ -101,6 +101,9 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
             this.getxAxis().generateSegmentDescription(categories.length);
             this.getzAxis().generateSegmentDescription(categories[0].length);
             this.getyAxis().generateSegmentDescription(5);
+            
+            this.setCameraPerspective(Perspectives.PERSPECTIVE);
+            
         } else {
             if (this.model != null) {
                 /* Output some kind of error message */

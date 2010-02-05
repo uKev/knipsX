@@ -100,7 +100,7 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
             }
 
             this.getxAxis().generateSegmentDescription(this.model.getCategories().length);
-            this.getyAxis().generateSegmentDescription(10);
+            this.getyAxis().generateSegmentDescription(10);            
 
         } else {
             if (this.model != null) {

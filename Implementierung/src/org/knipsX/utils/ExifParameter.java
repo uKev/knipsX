@@ -1,23 +1,12 @@
 package org.knipsX.utils;
 
-import java.awt.Component;
-
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
-
-import org.knipsX.model.picturemanagement.Picture;
-import org.knipsX.model.picturemanagement.PictureContainer;
-import org.knipsX.model.picturemanagement.PictureSet;
-
 public enum ExifParameter {
 
     CAMERAMODEL {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return "Cameramodel";
+            return "Kameramodell";
         }
 
         @Override
@@ -30,7 +19,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return "Flash";
+            return "Blitz";
         }
 
         @Override
@@ -43,7 +32,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return "Fnumber";
+            return "Blendenzahl";
         }
 
         @Override
@@ -56,7 +45,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return "Exposuretime";
+            return "Verschlusszeit";
         }
 
         @Override
@@ -69,7 +58,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return "Iso";
+            return "ISO";
         }
 
         @Override
@@ -82,7 +71,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return "Focallength";
+            return "Brennweite";
         }
 
         @Override
@@ -95,7 +84,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return "Date";
+            return "Datum";
         }
 
         @Override
@@ -109,7 +98,7 @@ public enum ExifParameter {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return "Objectivname";
+            return "Objektiv Name";
         }
 
         @Override

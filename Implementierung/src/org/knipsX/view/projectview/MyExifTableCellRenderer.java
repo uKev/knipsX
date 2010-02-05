@@ -67,7 +67,7 @@ public class MyExifTableCellRenderer extends JLabel implements TableCellRenderer
             
             //TWEAK: Might split this renderer up into two, not every long value is a date
             
-            if (value instanceof Long && (column == ExifParameter.DATE.ordinal() + 1 ||  row == ExifParameter.DATE.ordinal() + 1)) {
+            if (value instanceof Long && (column == ExifParameter.DATE.ordinal() + 1 ||  row == ExifParameter.DATE.ordinal())) {
                 Date tempDate = new Date();
                 tempDate.setTime(((Long) value));
 
