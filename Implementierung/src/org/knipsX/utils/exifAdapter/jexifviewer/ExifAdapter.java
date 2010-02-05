@@ -27,7 +27,7 @@ public class ExifAdapter {
                 return this.getExposureTime();
             case ISO:
                 return this.getISOSpeedRatings();
-            case FOCALLENGTH:
+            case FOCALLENGTH:                
                 return this.getFocalLength();
             case DATE:
                 return this.getOriginalDate();

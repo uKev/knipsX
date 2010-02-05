@@ -34,10 +34,15 @@ public final class Converter {
             returnValue = ((Integer) object).doubleValue();
         } else if (object instanceof Long) {
             returnValue = ((Long) object).doubleValue();
-        } else {
+        } else if (object instanceof String) {
+            returnValue = Double.valueOf(((String) object));
+        }
+
+        else {
+
             returnValue = 0.0;
             throw new ClassCastException("Converter.objectToDouble: can not handle object from type "
-                    + object.getClass().toString());
+                    + object.getClass().toString() + " Value: " + object.toString());
         }
         return returnValue;
     }
