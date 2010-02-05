@@ -32,11 +32,11 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
      */
     public JHistogram3D(final M model, final int reportID) {
         super(model, reportID);
-        JAbstract3DView.useBufferRange = false;
     }
 
     @Override
     public void generateContent() {
+        JAbstract3DView.useBufferRange = false;
         if (this.model != null) {
             Category[][] categories = this.model.getCategories();
 

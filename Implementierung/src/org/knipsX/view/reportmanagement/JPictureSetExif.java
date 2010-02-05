@@ -431,7 +431,12 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
         for (PictureContainer pictureContainer : availablePictureContainer) {
             for (Picture picture : pictureContainer) {
-                String[] xmpPictureKeyword = (String[]) picture.getExifParameter(ExifParameter.KEYWORDS);
+                String[] xmpPictureKeyword = new String[0];
+                
+                if ((String[]) picture.getExifParameter(ExifParameter.KEYWORDS) != null) {
+                    xmpPictureKeyword = (String[]) picture.getExifParameter(ExifParameter.KEYWORDS);
+                }
+                
                 for (int i = 0; i < xmpPictureKeyword.length; i++) {
                     if (!removeXMPKeywords.contains(xmpPictureKeyword[i])) {
                         removeXMPKeywords.add(xmpPictureKeyword[i]);

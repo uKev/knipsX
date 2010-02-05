@@ -1,14 +1,20 @@
 package org.knipsX.view.reportmanagement;
 
 import java.awt.Component;
+import java.util.ArrayList;
 
+import org.knipsX.images.dummypictures.DummyPictures;
+import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
 import org.knipsX.model.reportmanagement.Histogram2DModel;
 import org.knipsX.model.reportmanagement.Histogram3DModel;
 import org.knipsX.model.reportmanagement.TableModel;
+import org.knipsX.utils.ExifParameter;
 import org.knipsX.view.diagrams.JAbstractDiagram;
 import org.knipsX.view.diagrams.JBoxplot;
 import org.knipsX.view.diagrams.JCluster3D;
@@ -61,7 +67,10 @@ public enum ReportHelper {
          */
         @Override
         public Component getDiagramView() {
-            return new JBoxplot<BoxplotModel>(null, -1).getDiagram();
+            BoxplotModel boxplotModel = new BoxplotModel();
+            boxplotModel.setPictureContainer(getDummyDirectory());
+            boxplotModel.setxAxis(new Axis(ExifParameter.EXPOSURETIME));            
+            return new JBoxplot<BoxplotModel>(boxplotModel, -1).getDiagram();
         };
 
         /**
@@ -111,7 +120,10 @@ public enum ReportHelper {
          */
         @Override
         public Component getDiagramView() {
-            return new JHistogram2D<Histogram2DModel>(null, -1).getDiagram();
+            Histogram2DModel histogram2DModel = new Histogram2DModel();            
+            histogram2DModel.setPictureContainer(getDummyDirectory());
+            histogram2DModel.setxAxis(new Axis(ExifParameter.EXPOSURETIME));            
+            return new JHistogram2D<Histogram2DModel>(histogram2DModel, -1).getDiagram();
         };
 
         /**
@@ -161,7 +173,11 @@ public enum ReportHelper {
          */
         @Override
         public Component getDiagramView() {
-            return new JHistogram3D<Histogram3DModel>(null, -1).getDiagram();
+            Histogram3DModel histogram3DModel = new Histogram3DModel();            
+            histogram3DModel.setPictureContainer(getDummyDirectory());
+            histogram3DModel.setxAxis(new Axis(ExifParameter.DATE));
+            histogram3DModel.setzAxis(new Axis(ExifParameter.EXPOSURETIME));  
+            return new JHistogram3D<Histogram3DModel>(histogram3DModel, -1).getDiagram();
         };
 
         /**
@@ -212,7 +228,12 @@ public enum ReportHelper {
          */
         @Override
         public Component getDiagramView() {
-            return new JCluster3D<Cluster3DModel>(null, -1).getDiagram();
+            Cluster3DModel cluster3DModel = new Cluster3DModel();            
+            cluster3DModel.setPictureContainer(getDummyDirectory());
+            cluster3DModel.setxAxis(new Axis(ExifParameter.EXPOSURETIME));
+            cluster3DModel.setzAxis(new Axis(ExifParameter.EXPOSURETIME));
+            cluster3DModel.setyAxis(new Axis(ExifParameter.DATE));
+            return new JCluster3D<Cluster3DModel>(cluster3DModel, -1).getDiagram();
         };
 
         /**
@@ -264,7 +285,9 @@ public enum ReportHelper {
          */
         @Override
         public Component getDiagramView() {
-            return new JTableDiagram<TableModel>(null, -1).getDiagram();
+            TableModel tableModel = new TableModel(); 
+            tableModel.setPictureContainer(getDummyDirectory());
+            return new JTableDiagram<TableModel>(tableModel, -1).getDiagram();
         };
 
         /**
@@ -464,6 +487,12 @@ public enum ReportHelper {
      */
     public static void setCurrentReportUtility(JAbstractReportUtil<?> currentReportUtility) {
         ReportHelper.currentReportUtility = currentReportUtility;
+    }
+    
+    private static ArrayList<PictureContainer> getDummyDirectory() {
+        ArrayList<PictureContainer> dummyDirectory =  new ArrayList<PictureContainer>();    
+        dummyDirectory.add(new Directory(DummyPictures.getDummyDirectoryPath()));        
+        return dummyDirectory;        
     }
     
 

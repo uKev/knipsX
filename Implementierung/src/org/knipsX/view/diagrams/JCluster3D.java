@@ -39,13 +39,13 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
      *            the report id of the report
      */
     public JCluster3D(final M model, final int reportId) {
-        super(model, reportId);
-        JAbstract3DView.useBufferRange = false;
+        super(model, reportId);    
     }
 
     @Override
     public void generateContent() {
-
+        JAbstract3DView.useBufferRange = false;
+        
         Logger logger = Logger.getLogger(this.getClass());
 
         final ArrayList<Integer> typesOfPoints = new ArrayList<Integer>();
