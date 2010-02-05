@@ -5,11 +5,14 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsConfigTemplate;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
@@ -34,6 +37,7 @@ import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -44,7 +48,9 @@ import javax.vecmath.Vector3f;
 
 import org.knipsX.controller.diagrams.View3DClickController;
 import org.knipsX.model.picturemanagement.Picture;
+import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.utils.Resource;
 
 import com.sun.j3d.utils.geometry.Box;
 import com.sun.j3d.utils.geometry.Cone;
@@ -953,6 +959,57 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         return this.axis3D[2];
     }
 
+    /**
+     * Creates a legend with the specified picture container. Uses the colors
+     * defined in utils.Resources
+     * 
+     * @param pictureContainer the picture container you want to create a legend upon
+     */
+    protected void createLegend(ArrayList<PictureContainer> pictureContainer) {
+        this.rightPanel = new JPanel();        
+        this.rightPanel.setLayout(new BoxLayout(this.rightPanel, BoxLayout.PAGE_AXIS));
+        
+        int i = 0;
+        for (PictureContainer content : pictureContainer) {
+            JLabel currentPictureSetLabel = new JLabel(content.getName());
+            ImageIcon pictureSetIcon = new ImageIcon();            
+            currentPictureSetLabel.setIcon(new ColorRectangle(Resource.getColor(i)));
+            this.rightPanel.add(currentPictureSetLabel);
+            
+            i++;
+        }
+        
+    }
+    
+    public class ColorRectangle implements Icon{
+        
+        private Color color;
+        
+        public ColorRectangle(Color color) {
+            this.color = color;
+        }
+        
+        private int width = 16;
+        private int height = 16;
+        
+        public int getIconWidth() {
+            return width;
+        }
+        
+        public int getIconHeight() {
+            return height;
+        }
+
+        
+        public void paintIcon(Component c, Graphics g, int x, int y) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setColor(this.color);
+            g2d.fillRect(x, y, width, height);
+            g2d.dispose();
+        }
+    }
+    
+    
     /**
      * This class is responsible for handling the off screen buffer of the assign graphics
      * configuration and outputting the generated buffered image via the doRender() function

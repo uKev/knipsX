@@ -2,7 +2,9 @@ package org.knipsX.view.diagrams;
 
 import java.awt.Color;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.vecmath.Vector3d;
 
 import org.apache.log4j.Logger;
@@ -39,7 +41,7 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
         JAbstract3DView.useBufferRange = false;
         if (this.model != null) {
             Category[][] categories = this.model.getCategories();
-
+            
             Logger logger = Logger.getLogger(this.getClass());
 
             logger.debug("Model min X " + this.model.getMinX() + "  Model max X " + this.model.getMaxX());
@@ -101,6 +103,9 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
             this.getxAxis().generateSegmentDescription(categories.length);
             this.getzAxis().generateSegmentDescription(categories[0].length);
             this.getyAxis().generateSegmentDescription(5);
+            
+            this.createLegend(this.model.getPictureContainer());
+            
             
             this.setCameraPerspective(Perspectives.PERSPECTIVE);
             
