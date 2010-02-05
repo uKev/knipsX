@@ -17,7 +17,6 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
-import org.knipsX.Programm;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureNotFoundException;
@@ -39,8 +38,8 @@ import org.knipsX.utils.ExifParameter;
 public class XMLInput {
 
     private Element project;
-    private Logger log = Logger.getLogger(this.getClass());
-    
+    private final Logger log = Logger.getLogger(this.getClass());
+
     public XMLInput(final File xml) {
         final SAXBuilder saxBuilder = new SAXBuilder();
 
@@ -48,9 +47,9 @@ public class XMLInput {
             final Document docXml = saxBuilder.build(xml);
             this.project = docXml.getRootElement();
         } catch (final JDOMException e) {
-            log.error("[constructor()] - " + e.getStackTrace());
+            this.log.error("[constructor()] - " + e.getStackTrace());
         } catch (final IOException e) {
-            log.error("[constructor()] - " + e.getStackTrace());
+            this.log.error("[constructor()] - " + e.getStackTrace());
         }
     }
 
@@ -92,7 +91,7 @@ public class XMLInput {
         try {
             return XMLInput.parseTimestamp(this.project.getChildText("creationDate"));
         } catch (final ParseException e) {
-            log.error("[XMLInput::getCreationDate()] - " + e.getStackTrace());
+            this.log.error("[XMLInput::getCreationDate()] - " + e.getStackTrace());
             return new GregorianCalendar();
         }
     }
@@ -155,7 +154,7 @@ public class XMLInput {
             try {
                 pictures.put(id, new Picture(path, true));
             } catch (final PictureNotFoundException e) {
-                log.error("[getPictureSets()] - Picture not found -> " + path);
+                this.log.error("[getPictureSets()] - Picture not found -> " + path);
             }
 
         }

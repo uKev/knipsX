@@ -1,15 +1,5 @@
 package org.knipsX.utils;
 
-import java.awt.Component;
-
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
-
-import org.knipsX.model.picturemanagement.Picture;
-import org.knipsX.model.picturemanagement.PictureContainer;
-import org.knipsX.model.picturemanagement.PictureSet;
 
 public enum ExifParameter {
 
@@ -21,11 +11,11 @@ public enum ExifParameter {
         }
 
         @Override
-        public boolean isOrdinal() {            
+        public boolean isOrdinal() {
             return false;
         }
     },
-    
+
     FLASH {
         @Override
         public String toString() {
@@ -34,11 +24,11 @@ public enum ExifParameter {
         }
 
         @Override
-        public boolean isOrdinal() {            
+        public boolean isOrdinal() {
             return false;
         }
     },
-    
+
     FNUMBER {
         @Override
         public String toString() {
@@ -51,7 +41,7 @@ public enum ExifParameter {
             return true;
         }
     },
-    
+
     EXPOSURETIME {
         @Override
         public String toString() {
@@ -64,7 +54,7 @@ public enum ExifParameter {
             return true;
         }
     },
-    
+
     ISO {
         @Override
         public String toString() {
@@ -77,7 +67,7 @@ public enum ExifParameter {
             return true;
         }
     },
-    
+
     FOCALLENGTH {
         @Override
         public String toString() {
@@ -90,7 +80,7 @@ public enum ExifParameter {
             return true;
         }
     },
-    
+
     DATE {
         @Override
         public String toString() {
@@ -103,8 +93,7 @@ public enum ExifParameter {
             return true;
         }
     },
-    
-    
+
     OBJECTIVENAME {
         @Override
         public String toString() {
@@ -117,9 +106,9 @@ public enum ExifParameter {
             return true;
         }
     },
-    
+
     KEYWORDS {
-    	@Override
+        @Override
         public String toString() {
             // INTERNATIONALIZE
             return "Stichwort";
@@ -134,8 +123,9 @@ public enum ExifParameter {
     /**
      * {@inheritDoc}
      */
+    @Override
     public abstract String toString();
-    
+
     /**
      * Denotes if the specified EXIF parameter is ordinal. Thus is able
      * to be sorted in any way.
@@ -143,5 +133,5 @@ public enum ExifParameter {
      * @return Returns true if EXIF parameter is ordinal, false otherwise
      */
     public abstract boolean isOrdinal();
-    
+
 }

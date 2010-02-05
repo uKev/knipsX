@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -14,6 +15,7 @@ import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.RepositoryHandler;
 import org.knipsX.utils.RepositoryInterfaceException;
 
@@ -273,8 +275,12 @@ public class ProjectModel extends AbstractModel {
             return this.getSelectedPicture().getAllExifParameter().clone();
         }
 
+        List<String[]> exifParameter = new LinkedList<String[]>();
         /* INTERNATIONALIZE */
-        return new Object[][] { new String[] { "no Data", "no Data" } };
+        for(ExifParameter parameter : ExifParameter.values()) {
+            exifParameter.add(new String[] {parameter.toString(), "no data"});
+        }
+        return exifParameter.toArray(new Object[][] { new String[] { "no Data", "no Data" } });
     }
 
     /**

@@ -62,14 +62,11 @@ public class PictureSetContentListClickOnController<M extends ProjectModel, V ex
     public void mouseEntered(final MouseEvent mouseEvent) {
     }
 
-
     public void mouseExited(final MouseEvent mouseEvent) {
     }
 
-
     public void mousePressed(final MouseEvent mouseEvent) {
     }
-
 
     public void mouseReleased(final MouseEvent mouseEvent) {
     }
