@@ -8,6 +8,7 @@ Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigke
 * Im FileChooser sollten auch versteckte Ordner (bei Linux mit "." beginnend) auswählbar sein.
 * Internationalisierung?
 * (Lower)Whisker Berechnung im Boxplot falsch
+* fehlender exifparameter log gibt falschen parameter zurück
 
 
 # Probleme, die vor dem 1.0 RC1 (Ende Validierungsphase) behoben werden sollten #
