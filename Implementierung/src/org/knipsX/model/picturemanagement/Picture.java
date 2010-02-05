@@ -160,7 +160,7 @@ public class Picture extends Observable implements PictureContainer {
         boolean isInitialized = false;
         if (this.bigThumbnail == null) {
             try {
-                this.bigThumbnail = Picture.getThumbOf(ImageIO.read(pictureFile), 200, Image.SCALE_FAST);
+                this.bigThumbnail = Picture.getThumbOf(ImageIO.read(pictureFile), 500, Image.SCALE_FAST);
                 isInitialized = true;
             } catch (IOException e) {
                 log.error("[Picture::getBigThumbnail()] - Can not create Thumbnail from File - "
