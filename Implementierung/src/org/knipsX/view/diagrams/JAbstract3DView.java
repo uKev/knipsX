@@ -807,7 +807,6 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      */
     public void setCurrentDescription(final Picture pic) {
 
-        // TWEAK
         if (pic != null) {
             pic.initThumbnails();
         }
@@ -968,11 +967,13 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     protected void createLegend(ArrayList<PictureContainer> pictureContainer) {
         this.rightPanel = new JPanel();        
         this.rightPanel.setLayout(new BoxLayout(this.rightPanel, BoxLayout.PAGE_AXIS));
+        this.rightPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));       
         
         int i = 0;
+        //INTERNATIONALIZE
+        this.rightPanel.add(new JLabel("Bildmengen Legende"));
         for (PictureContainer content : pictureContainer) {
-            JLabel currentPictureSetLabel = new JLabel(content.getName());
-            ImageIcon pictureSetIcon = new ImageIcon();            
+            JLabel currentPictureSetLabel = new JLabel(content.getName());            
             currentPictureSetLabel.setIcon(new ColorRectangle(Resource.getColor(i)));
             this.rightPanel.add(currentPictureSetLabel);
             
