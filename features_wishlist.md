@@ -13,7 +13,8 @@ Bitte in den entsprechenden Kategorien einsortieren und innerhalb nach Wichtigke
 (_Nachdem_ die automatisierten Tests stehen!)
 
 * ExifAdapter in MetaDataAdapter refactorn
-* Pakethirarchy refactorn
+* Pakethierarchie überarbeiten
+* Alle hashCode() Funktionen sollten SHA2 benutzen
 
 
 # Probleme, die vor dem 1.0 RC2 (Abnahme) behoben werden sollten #
