@@ -15,20 +15,21 @@ import java.util.List;
 public class Directory implements PictureContainer {
 
     /* List of all pictures you can find in this directory inclusive all subdirectories */
-    private List<Picture> pictures = new LinkedList<Picture>();
+    private final List<Picture> pictures = new LinkedList<Picture>();
 
     /* The current position in the pictures list */
     private int currentPosition;
 
     /* The abstract representation of this directory in filesystem */
-    private File directoryFile;
+    private final File directoryFile;
 
     /**
      * Creates a new directory from a path.
      * 
-     * @param path the pathname from the directory
+     * @param path
+     *            the pathname from the directory
      */
-    public Directory(String path) {
+    public Directory(final String path) {
         this.directoryFile = new File(path);
     }
 
@@ -38,7 +39,7 @@ public class Directory implements PictureContainer {
      * @return name of directory
      */
     public String getName() {
-        return directoryFile.getName();
+        return this.directoryFile.getName();
     }
 
     /**
@@ -47,7 +48,7 @@ public class Directory implements PictureContainer {
      * @return path of directory
      */
     public String getPath() {
-        return directoryFile.getAbsolutePath();
+        return this.directoryFile.getAbsolutePath();
     }
 
     /**
@@ -59,14 +60,14 @@ public class Directory implements PictureContainer {
     }
 
     /**
-     * Refresh the directory. (That means get all Pictures from all subdirs). 
+     * Refresh the directory. (That means get all Pictures from all subdirs).
      */
     public void refresh() {
         this.pictures.clear();
         this.currentPosition = 0;
-        this.getAllPictures(directoryFile);
+        this.getAllPictures(this.directoryFile);
     }
-    
+
     /**
      * @see java.util.Iterator#next()
      * @return the next picture
@@ -74,10 +75,10 @@ public class Directory implements PictureContainer {
     public Picture next() {
         if (this.pictures.size() == 0) {
             this.currentPosition = 0;
-            this.getAllPictures(directoryFile);
+            this.getAllPictures(this.directoryFile);
         }
-        this.currentPosition = currentPosition + 1;
-        return this.pictures.get(currentPosition-1);
+        this.currentPosition = this.currentPosition + 1;
+        return this.pictures.get(this.currentPosition - 1);
     }
 
     /**
@@ -87,9 +88,9 @@ public class Directory implements PictureContainer {
     public boolean hasNext() {
         if (this.pictures.size() == 0) {
             this.currentPosition = 0;
-            this.getAllPictures(directoryFile);
+            this.getAllPictures(this.directoryFile);
         }
-        if ((currentPosition) < (pictures.size())) {
+        if ((this.currentPosition) < (this.pictures.size())) {
             return true;
         } else {
             this.currentPosition = 0;
@@ -106,14 +107,15 @@ public class Directory implements PictureContainer {
 
     /**
      * Returns the List with all pictures in this directory
+     * 
      * @return the list with pictures
      */
     public List<Picture> getItems() {
         if (this.pictures.size() == 0) {
             this.currentPosition = 0;
-            this.getAllPictures(directoryFile);
+            this.getAllPictures(this.directoryFile);
         }
-        
+
         return new LinkedList<Picture>(this.pictures);
     }
 
@@ -121,17 +123,19 @@ public class Directory implements PictureContainer {
      * Initializes the directory with all pictures. This includes all in this directory and all subdirectories.
      * It uses recursion. Files will be checked and if it is a picture it will be added.
      * 
-     * @param file the actual file to check.
+     * @param file
+     *            the actual file to check.
      */
-    private void getAllPictures(File file) {
+    private void getAllPictures(final File file) {
         if (file.isDirectory()) {
-            File[] children = file.listFiles();
-            for (int n = 0; n < children.length; n++) {
-                getAllPictures(children[n]);
+            final File[] children = file.listFiles();
+            for (final File element : children) {
+                this.getAllPictures(element);
             }
         } else {
             if (file.isFile()
-                    && ((file.getAbsolutePath().toLowerCase().endsWith(".jpg")) || file.getAbsolutePath().toLowerCase().endsWith(".jpeg"))) {
+                    && ((file.getAbsolutePath().toLowerCase().endsWith(".jpg")) || file.getAbsolutePath().toLowerCase()
+                            .endsWith(".jpeg"))) {
                 this.pictures.add(new Picture(file, true));
             }
         }
@@ -141,11 +145,12 @@ public class Directory implements PictureContainer {
      * It also allows to compare over PictureContainer but it is not done in the basic version of our programm.
      * 
      * @see java.lang.Comparable#compareTo(java.lang.Object)
-     * @param directoryToCompare other directory to compare
+     * @param directoryToCompare
+     *            other directory to compare
      * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
      *         the specified object
      */
-    public int compareTo(PictureContainer directoryToCompare) {
+    public int compareTo(final PictureContainer directoryToCompare) {
         if (this.getPath().hashCode() == ((Directory) directoryToCompare).getPath().hashCode()) {
             return 0;
         } else if (this.getName().compareTo(directoryToCompare.getName()) > 0) {

@@ -39,6 +39,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
+import org.apache.log4j.Logger;
 import org.knipsX.controller.projectview.PictureListClickOnController;
 import org.knipsX.controller.projectview.PictureSetContentListAddController;
 import org.knipsX.controller.projectview.PictureSetContentListClickOnController;
@@ -111,6 +112,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     private JList jListPictureSetActive = null;
     private JList jListReport = null;
     private JTable jTableExif = null;
+
+    private final Logger log = Logger.getLogger(this.getClass());
 
     /**
      * Creates a project view connected with an appropriate model.
@@ -832,7 +835,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         return new JScrollPane(this.jTableExif);
     }
 
-
     /*
      * ################################################################################################################
      * SOME METHODS WHICH ARE USED BY THE CONNECTED MODEL
@@ -919,14 +921,22 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         this.setTitle("Projektansicht für " + model.getName());
 
         /* things about the project */
-        final int caretProjectName = this.jTextFieldProjectName.getCaretPosition();
-        this.jTextFieldProjectName.setText(model.getName());
-        this.jTextFieldProjectName.setCaretPosition(caretProjectName);
+        try {
+            final int caretProjectName = this.jTextFieldProjectName.getCaretPosition();
+            this.jTextFieldProjectName.setText(model.getName());
+            this.jTextFieldProjectName.setCaretPosition(caretProjectName);
+        } catch (IllegalArgumentException e) {
+            log.error("Position of name caret cannot set - " + e.fillInStackTrace());
+        }
 
-        final int caretProjectDescription = this.jEditorPaneProjectDescription.getCaretPosition();
-        this.jEditorPaneProjectDescription.setText(model.getDescription());
-        this.jEditorPaneProjectDescription.setCaretPosition(caretProjectDescription);
-
+        try {
+            final int caretProjectDescription = this.jEditorPaneProjectDescription.getCaretPosition();
+            this.jEditorPaneProjectDescription.setText(model.getDescription());
+            this.jEditorPaneProjectDescription.setCaretPosition(caretProjectDescription);
+        } catch (IllegalArgumentException e) {
+            log.error("Position of description caret cannot set - " + e.fillInStackTrace());
+        }
+        
         final int[] selectedPictureSets = this.jListPictureSet.getSelectedIndices();
         final int[] selectedPictureSetContents = this.jListPictureSetContent.getSelectedIndices();
         final int[] selectedPictures = this.jListPictureSetActive.getSelectedIndices();
@@ -962,13 +972,13 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         }
 
         if (model.getSelectedPicture() != null) {
-            final TableModel exifModel = this.jTableExif.getModel();            
+            final TableModel exifModel = this.jTableExif.getModel();
 
             final Object[][] values = model.getSelectedPicture().getAllExifParameter();
             for (int i = 0; i < values.length; ++i) {
                 if (values[i].length == 2) {
-                    
-                String theText = "";
+
+                    String theText = "";
                     if (values[i][1] instanceof Object[]) {
                         Object[] objectArray = (Object[]) values[i][1];
                         for (int j = 0; j < objectArray.length; j++) {
@@ -978,13 +988,13 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                                 theText = theText + ", " + objectArray[j].toString();
                             }
                         }
-                    
+
                     } else {
                         if (values[i][1] != null) {
                             theText = values[i][1].toString();
                         }
                     }
-                    
+
                     exifModel.setValueAt(values[i][0].toString(), i, 0);
                     exifModel.setValueAt(theText, i, 1);
                 }
