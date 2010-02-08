@@ -207,9 +207,9 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
     }
 
     private Color getColorAtPosition(final int i, final int numberOfElements) {
-        final float hue = 0.33f;
+        final float hue = (numberOfElements - i) * (1f / numberOfElements);
         final float saturation = 1f;
-        final float brightness = (numberOfElements - i) * (1f / numberOfElements);
+        final float brightness = 1f;
 
         return Color.getHSBColor(hue, saturation, brightness);
     }
