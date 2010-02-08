@@ -1,0 +1,7 @@
+Allgemein: 
+http://de.wikipedia.org/wiki/Unit_test#Eigenschaften_von_Modultests
+insbesondere "Pro Bug ein Test".
+
+zur "Entwirrung" der Komponenten:
+http://de.wikipedia.org/wiki/Mock-Objekt
+http://de.wikipedia.org/wiki/Easymock

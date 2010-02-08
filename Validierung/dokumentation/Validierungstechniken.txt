@@ -1,0 +1,26 @@
+(vgl. http://de.wikipedia.org/wiki/Softwaretest)
+ggesmeyer([4]) klassifiziert Testmethoden folgendermaßen (verkürzt):
+*Statischer Test (Test ohne Programmausführung)
+ *Review
+ *Statische Code-Analyse
+
+*Dynamischer Test (Test während Programmausführung)
+
+ *Strukturorientierter Test
+  *Kontrollflussorientiert (Maß für die Überdeckung des Kontrollflusses)
+   *Anweisungs-, Zweig-, Bedingungs- und Pfadüberdeckungstests
+  *Datenflussorientiert (Maß für die Überdeckung des Datenflusses)
+   *Defs-/Uses Kriterien, Required k-Tupels-Test, Datenkontext-Überdeckung
+
+ *Funktionsorientierter Test (Test gegen eine Spezifikation)
+  *Funktionale Äquivalenzklassenbildung, Zustandsbasierter Test, Ursache-Wirkung-Analyse z. B. mittels Ursache-Wirkungs-Diagramm, Syntaxtest, Transaktionsflussbasierter Test, Test auf Basis von Entscheidungstabellen
+
+ *Diversifizierender Test (Vergleich der Testergebnisse mehrerer Versionen)
+  *Regressionstest, Back-To-Back-Test, Mutationen-Test
+
+ *Sonstige (nicht eindeutig zuzuordnen, bzw. Mischformen)
+  *Bereichstest bzw. Domain Testing (Verallgemeinerung der Äquivalenzklassenbildung), Error guessing, Grenzwertanalyse, Zusicherungstechniken
+
+
+Welche Testmethoden sind an welcher Stelle in knipsX sinvoll?
+* Überdeckungstests bei wichtigen zentralen Algorithmen und Verfahren
