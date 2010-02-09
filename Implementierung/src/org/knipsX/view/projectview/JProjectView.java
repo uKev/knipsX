@@ -705,7 +705,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             /* creates a new list with options */
             this.jListPictureSetActive = new JList(this.model.getAllPictures());
-
             this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             this.jListPictureSetActive.setLayoutOrientation(JList.VERTICAL);
             this.jListPictureSetActive.addMouseListener(new PictureListClickOnController<M, JProjectView<M>>(
@@ -1143,8 +1142,9 @@ class MyPictureSetContentListCellRenderer implements ListCellRenderer {
  * Renders a picture cell for the picture list of an active picture container.
  */
 class MyPictureListCellRenderer implements ListCellRenderer {
+    
+    DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-    protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
     private Icon noImageIcon = null;
 
     public MyPictureListCellRenderer() {
@@ -1173,18 +1173,17 @@ class MyPictureListCellRenderer implements ListCellRenderer {
      */
     public Component getListCellRendererComponent(final JList list, final Object value, final int index,
             final boolean isSelected, final boolean cellHasFocus) {
-
         String theText = null;
-
+        
         /* generate the label which represents the cell */
         final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
                 isSelected, cellHasFocus);
-
+ 
         /* if the selected item is a "Picture" -> set the name */
         if (value instanceof Picture) {
             final Picture picture = (Picture) value;
             theText = picture.getName();
-
+ 
             final Image smallThumbnail = picture.getSmallThumbnail();
             if (smallThumbnail != null) {
                 renderer.setIcon(new ImageIcon(smallThumbnail));
@@ -1192,13 +1191,13 @@ class MyPictureListCellRenderer implements ListCellRenderer {
                 renderer.setIcon(this.noImageIcon);
             }
         }
-        renderer.setToolTipText("Picture");
         renderer.setText(theText);
         renderer.setPreferredSize(new Dimension(renderer.getWidth(), 40));
-
+ 
         return renderer;
-    }
+    }    
 }
+
 
 /**
  * Renders a report cell for the report list of an active project.
