@@ -93,7 +93,7 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
     		} catch (NullPointerException e) {
     			log.info("Can not display the thumbnail because at this time it is not initialized");
 			}
-        }
+        } 
     }
     
 
@@ -101,6 +101,7 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
     	if (tooltipWindow != null) {
     		tooltipWindow.dispose();
     	}
+    	
     }
 
     public void mousePressed(final MouseEvent mouseEvent) {
