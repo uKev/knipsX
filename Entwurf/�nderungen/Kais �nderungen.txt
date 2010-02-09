@@ -1,0 +1,3 @@
+ProjectEntry und ProjectModel wurden zusammengelegt, wodurch das Singleton für ProjectModel nicht mehr benutzt werden kann.
+
+Statt einem Thread, der im Hintergrund alle Bildinformationen sammelt, werden zwei Threadarten benutzt (einer für die Exif/ICPT-Daten und einer für die Thumbnails).
