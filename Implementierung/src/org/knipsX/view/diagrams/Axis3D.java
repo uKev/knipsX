@@ -239,7 +239,9 @@ class Axis3D {
 
         /* Registeres that the report space has been set by the programmer */
         this.isReportSpaceInitialized = true;
-
+        
+        minValue = Math.min(minValue, maxValue);
+        maxValue = Math.max(minValue, maxValue);
         
         if (Double.compare(minValue, maxValue) == 0) {            
             if (minValue != 0) {
@@ -251,8 +253,8 @@ class Axis3D {
             }
             
         } else {
-            this.minReportSpace = Math.min(minValue, maxValue);
-            this.maxReportSpace = Math.max(minValue, maxValue);
+            this.minReportSpace = minValue;
+            this.maxReportSpace = maxValue;
         }
 
         if (JAbstract3DView.useBufferRange) {
