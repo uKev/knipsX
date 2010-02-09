@@ -1,11 +1,8 @@
-/**
- * This package is the root of all packages.
- */
 package org.knipsX;
 
-/* import things from our programm */
 import java.awt.Color;
 
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -20,18 +17,14 @@ import org.knipsX.view.projectmanagement.JProjectManagement;
 public final class Programm {
 
     /*
-     * the logger.
-     * See http://logging.apache.org/log4j/1.2/manual.html for usage.
+     * the logger
+     * see http://logging.apache.org/log4j/1.2/manual.html for usage
      */
     private static Logger logger = Logger.getLogger(Programm.class);
 
-    /*
-     * TODO: rename Programm(.java) either to Program or better knipsX.
-     */
+    /* TODO: rename Programm(.java) either to Program or better knipsX */
 
-    /*
-     * Private constructor. This class should never have an instace.
-     */
+    /* private constructor - this class should never have an instace */
     private Programm() {
     }
 
@@ -45,49 +38,46 @@ public final class Programm {
      */
     public static void main(final String[] args) {
 
-        // Setting up the logger
+        /* setting up the logger */
         BasicConfigurator.configure();
 
         /*
-         * LogLevel chain:
+         * log-level chain:
          * TRACE > DEBUG > INFO > WARN > ERROR > FATAL
-         * 
          */
-
-        logger.info("Starting knipsX");
-
-        try {
-            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-        } catch (ClassNotFoundException e) {
-            System.err.println("Error loading Look and Feel: " + e);
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            System.err.println("Error loading Look and Feel: " + e);
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            System.err.println("Error loading Look and Feel: " + e);
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            System.err.println("Error loading Look and Feel: " + e);
-            e.printStackTrace();
-        }
-        
-        /*
-         * Change the contentAreaColor to a normal light grey color so it
-         * fits in with the normal user interface
-         */
-
-        UIManager.put("TabbedPane.contentAreaColor", new Color(238, 238, 238));
-
-        /* create a model for the ProjectAdministration */
-        final ProjectManagementModel projectManagementModel = new ProjectManagementModel();
+        Programm.logger.info("Starting knipsX");
 
         /*
-         * creates a new JProjectAdministration window, which is connected to a
-         * model
+         * schedule a job for the event-dispatching thread:
+         * creating and showing this application's GUI
          */
-        new JProjectManagement<ProjectManagementModel>(projectManagementModel);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+                } catch (final ClassNotFoundException e) {
+                    Programm.logger.error("Error loading Look and Feel: " + e.getMessage());
+                } catch (final InstantiationException e) {
+                    Programm.logger.error("Error loading Look and Feel: " + e.getMessage());
+                } catch (final IllegalAccessException e) {
+                    Programm.logger.error("Error loading Look and Feel: " + e.getMessage());
+                } catch (final UnsupportedLookAndFeelException e) {
+                    Programm.logger.error("Error loading Look and Feel: " + e.getMessage());
+                }
 
-        logger.info("knipsX started");
+                /*
+                 * change the contentAreaColor to a normal light grey color so it
+                 * fits in with the normal user interface
+                 */
+                UIManager.put("TabbedPane.contentAreaColor", new Color(238, 238, 238));
+
+                /* create a model for the ProjectAdministration */
+                final ProjectManagementModel projectManagementModel = new ProjectManagementModel();
+
+                /* creates a new JProjectAdministration window, which is connected to a model */
+                new JProjectManagement<ProjectManagementModel>(projectManagementModel);
+            }
+        });
+        Programm.logger.info("knipsX started");
     }
 }
