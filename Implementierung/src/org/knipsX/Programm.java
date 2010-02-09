@@ -2,12 +2,15 @@ package org.knipsX;
 
 import java.awt.Color;
 
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
+import org.jvnet.substance.skin.SubstanceBusinessBlackSteelLookAndFeel;
+import org.jvnet.substance.skin.SubstanceRavenGraphiteLookAndFeel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
@@ -46,22 +49,29 @@ public final class Programm {
          * TRACE > DEBUG > INFO > WARN > ERROR > FATAL
          */
         Programm.logger.info("Starting knipsX");
-
+        
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        
         /*
          * schedule a job for the event-dispatching thread:
          * creating and showing this application's GUI
          */
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+                
                 try {
                     UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-                } catch (final ClassNotFoundException e) {
+//                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+//                    UIManager.setLookAndFeel(new SubstanceBusinessBlackSteelLookAndFeel());
+                } 
+                catch (final ClassNotFoundException e) {
                     Programm.logger.error("Error loading Look and Feel: " + e.getMessage());
                 } catch (final InstantiationException e) {
                     Programm.logger.error("Error loading Look and Feel: " + e.getMessage());
                 } catch (final IllegalAccessException e) {
                     Programm.logger.error("Error loading Look and Feel: " + e.getMessage());
-                } catch (final UnsupportedLookAndFeelException e) {
+                } 
+                catch (final UnsupportedLookAndFeelException e) {
                     Programm.logger.error("Error loading Look and Feel: " + e.getMessage());
                 }
 
