@@ -9,8 +9,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-//import org.jvnet.substance.skin.SubstanceBusinessBlackSteelLookAndFeel;
-//import org.jvnet.substance.skin.SubstanceRavenGraphiteLookAndFeel;
+import org.jvnet.substance.skin.SubstanceBusinessBlackSteelLookAndFeel;
+import org.jvnet.substance.skin.SubstanceRavenGraphiteLookAndFeel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
@@ -60,18 +60,18 @@ public final class Programm {
             public void run() {
                 
                 try {
-                    UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+//                    UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 //                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-//                    UIManager.setLookAndFeel(new SubstanceBusinessBlackSteelLookAndFeel());
+                    UIManager.setLookAndFeel(new SubstanceBusinessBlackSteelLookAndFeel());
                 } 
-                catch (final ClassNotFoundException e) {
+/*                catch (final ClassNotFoundException e) {
                     Programm.logger.error("Error loading Look and Feel: " + e.getMessage());
                 } catch (final InstantiationException e) {
                     Programm.logger.error("Error loading Look and Feel: " + e.getMessage());
                 } catch (final IllegalAccessException e) {
                     Programm.logger.error("Error loading Look and Feel: " + e.getMessage());
                 } 
-                catch (final UnsupportedLookAndFeelException e) {
+*/                catch (final UnsupportedLookAndFeelException e) {
                     Programm.logger.error("Error loading Look and Feel: " + e.getMessage());
                 }
 
