@@ -7,6 +7,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -707,9 +710,11 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jListPictureSetActive = new JList(this.model.getAllPictures());
             this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             this.jListPictureSetActive.setLayoutOrientation(JList.VERTICAL);
-            this.jListPictureSetActive.addMouseListener(new PictureListClickOnController<M, JProjectView<M>>(
-                    this.model, this));
-
+            PictureListClickOnController<M, JProjectView<M>> controller = new PictureListClickOnController<M, JProjectView<M>>(
+                    this.model, this);
+            this.jListPictureSetActive.addMouseListener(controller);
+            this.jListPictureSetActive.addMouseMotionListener(controller);
+            
             /* we store picture objects in the list, so we have to set a special rendering */
             this.jListPictureSetActive.setCellRenderer(new MyPictureListCellRenderer());
         }

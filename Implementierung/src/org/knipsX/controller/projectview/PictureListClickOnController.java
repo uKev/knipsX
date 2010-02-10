@@ -1,9 +1,11 @@
 package org.knipsX.controller.projectview;
 
 import java.awt.MediaTracker;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -22,17 +24,19 @@ import org.knipsX.view.projectview.JProjectView;
  * 
  * Acts in harmony with a JProjectview.
  * 
- * @param <M> a model.
+ * @param <M>
+ *            a model.
  * 
- * @param <V> a view.
+ * @param <V>
+ *            a view.
  */
 public class PictureListClickOnController<M extends ProjectModel, V extends JProjectView<M>> extends
-        AbstractController<M, V> implements MouseListener {
+        AbstractController<M, V> implements MouseListener, MouseMotionListener {
 
     private final int MOUSE_LEFT = 1;
-    
-    private Logger log = Logger.getLogger(this.getClass());
-    
+
+    private final Logger log = Logger.getLogger(this.getClass());
+
     JFrame tooltipWindow;
 
     /**
@@ -49,7 +53,7 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
 
     @Override
     public void actionPerformed(final ActionEvent e) {
-    	
+
     }
 
     public void mouseClicked(final MouseEvent mouseEvent) {
@@ -66,47 +70,87 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
     }
 
     public void mouseEntered(final MouseEvent mouseEvent) {
-    	
-    	   	
-    	final JList theList = (JList) mouseEvent.getSource();
-    	
-    	final int index = theList.locationToIndex(mouseEvent.getPoint());
-        if (index >= 0) {
-            Picture pic = (Picture) theList.getModel().getElementAt(index);
+        final JList theList = (JList) mouseEvent.getSource();
 
-            tooltipWindow = new JFrame();
-            tooltipWindow.setLocation(mouseEvent.getLocationOnScreen());
-            tooltipWindow.setUndecorated(true);
-    		
-    		try { 
-    		ImageIcon image = new ImageIcon(pic.getBigThumbnail());
-    		tooltipWindow.setSize(image.getIconHeight(),image.getIconWidth());
-    		while (image.getImageLoadStatus() == MediaTracker.LOADING);  		
-    		JLabel label = new JLabel(image);
-    		image.setImageObserver(label);
-    		JPanel panel = new JPanel();				 				
-    		panel.add(label);
-    		
-    		tooltipWindow.setContentPane(panel);
-    		tooltipWindow.setVisible(true);
-    		tooltipWindow.pack();
-    		} catch (NullPointerException e) {
-    			log.info("Can not display the thumbnail because at this time it is not initialized");
-			}
-        } 
+        final int index = theList.locationToIndex(mouseEvent.getPoint());
+        if (index >= 0) {
+            final Picture pic = (Picture) theList.getModel().getElementAt(index);
+
+            this.tooltipWindow = new JFrame();
+            final Point point = mouseEvent.getLocationOnScreen();
+            point.translate(10, 10);
+            this.tooltipWindow.setLocation(point);
+            this.tooltipWindow.setUndecorated(true);
+
+            try {
+                final ImageIcon image = new ImageIcon(pic.getBigThumbnail());
+                this.tooltipWindow.setSize(image.getIconHeight(), image.getIconWidth());
+                while (image.getImageLoadStatus() == MediaTracker.LOADING) {
+                    ;
+                }
+                final JLabel label = new JLabel(image);
+                image.setImageObserver(label);
+                final JPanel panel = new JPanel();
+                panel.add(label);
+
+                this.tooltipWindow.setContentPane(panel);
+                this.tooltipWindow.setVisible(true);
+                this.tooltipWindow.pack();
+            } catch (final NullPointerException e) {
+                this.log.info("Can not display the thumbnail because at this time it is not initialized");
+            }
+        }
     }
-    
 
     public void mouseExited(final MouseEvent mouseEvent) {
-    	if (tooltipWindow != null) {
-    		tooltipWindow.dispose();
-    	}
-    	
+        if (this.tooltipWindow != null) {
+            this.tooltipWindow.dispose();
+        }
+
     }
 
     public void mousePressed(final MouseEvent mouseEvent) {
     }
 
     public void mouseReleased(final MouseEvent mouseEvent) {
+    }
+
+    @Override
+    public void mouseDragged(final MouseEvent mouseEvent) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseMoved(final MouseEvent mouseEvent) {
+        if (this.tooltipWindow != null) {
+            final JList theList = (JList) mouseEvent.getSource();
+
+            final int index = theList.locationToIndex(mouseEvent.getPoint());
+            if (index >= 0) {
+                final Picture pic = (Picture) theList.getModel().getElementAt(index);
+
+                final Point point = mouseEvent.getLocationOnScreen();
+                point.translate(10, 10);
+                this.tooltipWindow.setLocation(point);
+
+                try {
+                    final ImageIcon image = new ImageIcon(pic.getBigThumbnail());
+                    this.tooltipWindow.setSize(image.getIconHeight(), image.getIconWidth());
+                    while (image.getImageLoadStatus() == MediaTracker.LOADING) {
+                        ;
+                    }
+                    final JLabel label = new JLabel(image);
+                    image.setImageObserver(label);
+                    final JPanel panel = new JPanel();
+                    panel.add(label);
+
+                    this.tooltipWindow.setContentPane(panel);
+                    this.tooltipWindow.setVisible(true);
+                } catch (final NullPointerException e) {
+                    this.log.info("Can not display the thumbnail because at this time it is not initialized");
+                }
+            }
+        }
     }
 }

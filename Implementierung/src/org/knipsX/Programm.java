@@ -9,8 +9,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.jvnet.substance.skin.SubstanceBusinessBlackSteelLookAndFeel;
-import org.jvnet.substance.skin.SubstanceRavenGraphiteLookAndFeel;
+//import org.jvnet.substance.skin.SubstanceBusinessBlackSteelLookAndFeel;
+//import org.jvnet.substance.skin.SubstanceRavenGraphiteLookAndFeel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
