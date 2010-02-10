@@ -65,6 +65,7 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.utils.Converter;
 import org.knipsX.utils.Resource;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.reportmanagement.ReportHelper;
@@ -833,10 +834,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             /* create new table for the exif parameters of an active image */
             this.jTableExif = new JTable(data, columnNames);
-            final TableColumn para = this.jTableExif.getColumnModel().getColumn(0);
-            final TableColumn value = this.jTableExif.getColumnModel().getColumn(1);
-            para.setCellRenderer(new MyExifTableCellRenderer());
-            value.setCellRenderer(new MyExifTableCellRenderer());
+            this.jTableExif.setDefaultRenderer(Object.class, new MyExifTableCellRenderer());
         }
         return new JScrollPane(this.jTableExif);
     }
@@ -982,27 +980,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             final Object[][] values = model.getSelectedPicture().getAllExifParameter();
             for (int i = 0; i < values.length; ++i) {
-                if (values[i].length == 2) {
-
-                    String theText = "";
-                    if (values[i][1] instanceof Object[]) {
-                        Object[] objectArray = (Object[]) values[i][1];
-                        for (int j = 0; j < objectArray.length; j++) {
-                            if (j == 0) {
-                                theText = objectArray[j].toString();
-                            } else {
-                                theText = theText + ", " + objectArray[j].toString();
-                            }
-                        }
-
-                    } else {
-                        if (values[i][1] != null) {
-                            theText = values[i][1].toString();
-                        }
-                    }
-
-                    exifModel.setValueAt(values[i][0].toString(), i, 0);
-                    exifModel.setValueAt(theText, i, 1);
+                if (values[i].length == 2) {                    
+                    exifModel.setValueAt(values[i][0].toString(), i, 0);                    
+                    exifModel.setValueAt(values[i][1], i, 1);
                 }
             }
         }
