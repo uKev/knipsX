@@ -10,10 +10,10 @@ import org.knipsX.view.projectview.JProjectView;
  * one of the pictures in the picturelist. Acts in harmony with a JProjectView.
  */
 public class PictureListCheckBoxController<M extends ProjectModel, V extends JProjectView<M>> extends
-	AbstractController<M, V> {
+        AbstractController<M, V> {
 
     public PictureListCheckBoxController(M model, V view) {
-	super(model, view);
+        super(model, view);
     }
 
     @Override

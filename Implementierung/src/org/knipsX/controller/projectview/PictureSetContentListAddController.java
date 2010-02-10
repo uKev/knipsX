@@ -42,15 +42,15 @@ public class PictureSetContentListAddController<M extends ProjectModel, V extend
 
     @Override
     public void actionPerformed(final ActionEvent e) {
-        if(this.model.getPictureSets().length > 0) {
+        if (this.model.getPictureSets().length > 0) {
             final File[] files = JExtendedFileChooser.selectDirectoriesAndImages();
 
             if (files != null) {
-                
+
                 for (final File file : files) {
                     PictureSet pictureSet = this.model.getSelectedPictureSet();
                     PictureContainer newContent = null;
-                    
+
                     if (file.isDirectory()) {
                         newContent = new Directory(file.getAbsolutePath());
                     } else {
@@ -58,12 +58,12 @@ public class PictureSetContentListAddController<M extends ProjectModel, V extend
                     }
                     this.model.addContentToPictureSet(pictureSet, newContent);
                 }
-            }    
+            }
         } else {
-            
+
             /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(null, "Erstellen Sie zuerst eine Bildmenge!",
+            JOptionPane.showMessageDialog(this.view, "Erstellen Sie zuerst eine Bildmenge!",
                     "Bildmengeninhalt hinzufügen", JOptionPane.INFORMATION_MESSAGE);
-        }   
+        }
     }
 }

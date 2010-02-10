@@ -20,7 +20,7 @@ import org.knipsX.view.projectview.JProjectView;
  *            a view.
  */
 public class PictureSetContentListRefreshController<M extends ProjectModel, V extends JProjectView<M>> extends
-	AbstractController<M, V> {
+        AbstractController<M, V> {
 
     /**
      * Creates a new controller which is connected to a view and a model.
@@ -31,18 +31,18 @@ public class PictureSetContentListRefreshController<M extends ProjectModel, V ex
      *            the view.
      */
     public PictureSetContentListRefreshController(M model, V view) {
-	super(model, view);
+        super(model, view);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(this.model.getPictureSets().length > 0) {
+        if (this.model.getPictureSets().length > 0) {
             this.model.refreshAllDirectories();
         } else {
 
             /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(null, "Erstellen Sie erst eine Bildmenge!", "Bildmengeninhalt aktualisieren",
-                    JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this.view, "Erstellen Sie erst eine Bildmenge!",
+                    "Bildmengeninhalt aktualisieren", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

@@ -45,15 +45,15 @@ public class PictureSetContentListDeleteController<M extends ProjectModel, V ext
 
                 /* gives the user a hint, that he has selected too little projects */
                 /* INTERNATIONALIZE */
-                JOptionPane.showMessageDialog(null,
+                JOptionPane.showMessageDialog(this.view,
                         "Selektieren Sie mindestens einen Bildmengeninhalt, um ihn zu löschen.",
                         "Bildmengeninhalt löschen - Fehler", JOptionPane.ERROR_MESSAGE);
             } else {
 
                 /* INTERNATIONALIZE */
-                final int decision = JOptionPane.showConfirmDialog(null, "Sollen die ausgewählten Bildmengeninhalte:"
-                        + this.generateToDeleteText(toDelete) + " gelöscht werden?", "Bildmengeninhalte löschen",
-                        JOptionPane.YES_NO_OPTION);
+                final int decision = JOptionPane.showConfirmDialog(this.view,
+                        "Sollen die ausgewählten Bildmengeninhalte:" + this.generateToDeleteText(toDelete)
+                                + " gelöscht werden?", "Bildmengeninhalte löschen", JOptionPane.YES_NO_OPTION);
 
                 /* if user pressed "yes" */
                 if (decision == 0) {
@@ -67,7 +67,7 @@ public class PictureSetContentListDeleteController<M extends ProjectModel, V ext
         } else {
 
             /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(null, "Erstellen Sie erst eine Bildmenge!", "Bildmengeninhalt löschen",
+            JOptionPane.showMessageDialog(this.view, "Erstellen Sie erst eine Bildmenge!", "Bildmengeninhalt löschen",
                     JOptionPane.INFORMATION_MESSAGE);
         }
     }

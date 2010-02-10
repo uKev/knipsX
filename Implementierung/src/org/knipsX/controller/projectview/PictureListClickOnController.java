@@ -35,7 +35,7 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
 
     private final int MOUSE_LEFT = 1;
 
-    private final Logger log = Logger.getLogger(this.getClass());
+    private final Logger logger = Logger.getLogger(this.getClass());
 
     JFrame tooltipWindow;
 
@@ -97,7 +97,7 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
                 this.tooltipWindow.setVisible(true);
                 this.tooltipWindow.pack();
             } catch (final NullPointerException e) {
-                this.log.info("Can not display the thumbnail because at this time it is not initialized");
+                this.logger.info("Can not display the thumbnail because at this time it is not initialized");
             }
         }
     }
@@ -148,7 +148,7 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
                     this.tooltipWindow.setContentPane(panel);
                     this.tooltipWindow.setVisible(true);
                 } catch (final NullPointerException e) {
-                    this.log.info("Can not display the thumbnail because at this time it is not initialized");
+                    this.logger.info("Can not display the thumbnail because at this time it is not initialized");
                 }
             }
         }

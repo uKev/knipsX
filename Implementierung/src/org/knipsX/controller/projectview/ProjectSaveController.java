@@ -37,7 +37,7 @@ public class ProjectSaveController<M extends ProjectModel, V extends JProjectVie
     public void actionPerformed(final ActionEvent e) {
 
         /* INTERNATIONALIZE */
-        final int decision = JOptionPane.showConfirmDialog(null, "Wollen Sie ihr Projekt sichern?", "Projekt sichern",
+        final int decision = JOptionPane.showConfirmDialog(this.view, "Wollen Sie ihr Projekt sichern?", "Projekt sichern",
                 JOptionPane.YES_NO_OPTION);
 
         /* if user wants to save */
