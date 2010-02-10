@@ -80,7 +80,7 @@ public class JParameters extends JAbstractSinglePanel {
             this.add(this.axisDescription);
             this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
             try {
-                this.validLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                this.validLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null)); //$NON-NLS-1$
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -161,14 +161,14 @@ public class JParameters extends JAbstractSinglePanel {
                 this.validLabel.setPreferredSize(new Dimension(32, 32));
             } else {
                 try {
-                    this.validLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                    this.validLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null)); //$NON-NLS-1$
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
 
                 if (ReportHelper.getCurrentReport() == ReportHelper.Boxplot) {
                     if (this.getExifparam() != null && !this.getExifparam().isOrdinal()) {
-                        this.validLabel.setToolTipText("Beim Boxplot können nur ordianele Werte ausgewählt werden");
+                        this.validLabel.setToolTipText(Messages.getString("JParameters.2")); //$NON-NLS-1$
                     }
 
                 }
@@ -218,7 +218,7 @@ public class JParameters extends JAbstractSinglePanel {
             final Object[] exifparams = new Object[ExifParameter.values().length + 1];
             for (int i = 0; i < exifparams.length - 1; i++) {
                 if (i == 0) {
-                    exifparams[0] = "-";
+                    exifparams[0] = "-"; //$NON-NLS-1$
 
                 } else {
                     exifparams[i] = ExifParameter.values()[i - 1];
@@ -270,7 +270,7 @@ public class JParameters extends JAbstractSinglePanel {
             }
 
             /* Reset axis description after an event was fired */
-            this.axisparam.setAxisDescription("");
+            this.axisparam.setAxisDescription(Messages.getString("JParameters.4")); //$NON-NLS-1$
 
             /* Prohibit non ordinal EXIF Parameters if report is boxplot */
             if (ReportHelper.getCurrentReport() == ReportHelper.Boxplot) {
@@ -296,7 +296,7 @@ public class JParameters extends JAbstractSinglePanel {
     private final JPanel singlepanel;
 
     // INTERNATIONALIZE
-    final String[] axesDescription = { "x-Achse", "z-Achse", "y-Achse" };
+    final String[] axesDescription = { Messages.getString("JParameters.5"), Messages.getString("JParameters.6"), Messages.getString("JParameters.7") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     /**
      * Constructor which initialized this parameter panel
@@ -305,7 +305,7 @@ public class JParameters extends JAbstractSinglePanel {
 
         /* Set the title name of this panel */
         // INTERNATIONALIZE
-        this.title = "Parameters";
+        this.title = Messages.getString("JParameters.8"); //$NON-NLS-1$
 
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
@@ -333,12 +333,12 @@ public class JParameters extends JAbstractSinglePanel {
                 mypanel.setLayout(new BoxLayout(mypanel, BoxLayout.X_AXIS));
 
                 // INTERNATIONALIZE
-                mypanel.add(new JLabel("Achsen"));
+                mypanel.add(new JLabel(Messages.getString("JParameters.9"))); //$NON-NLS-1$
 
                 mypanel.add(Box.createRigidArea(new Dimension(215, 0)));
 
                 // INTERNATIONALIZE
-                mypanel.add(new JLabel("Beschreibung"));
+                mypanel.add(new JLabel(Messages.getString("JParameters.10"))); //$NON-NLS-1$
 
                 /* Set minimum and maximum size to prevent cutting */
                 mypanel.setMinimumSize(new Dimension(Integer.MAX_VALUE, 32));

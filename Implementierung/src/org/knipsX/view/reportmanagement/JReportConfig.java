@@ -57,7 +57,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
         this.reportCompilation = ReportHelper.getCurrentReport().createReportCompilation();
         this.tabbedpane = this.getJTabbedPane();
         // INTERNATIONALIZE
-        this.setTitle("Auswertung konfigurieren");
+        this.setTitle(Messages.getString("JReportConfig.0")); //$NON-NLS-1$
         this.initialize();
         this.closeButton.addActionListener(new ReportCloseController<AbstractModel, JReportConfig<?, ?>>(this));
         this.saveButton.addActionListener(new ReportSaveController<AbstractReportModel, JReportConfig<?, ?>>(this,

@@ -55,14 +55,14 @@ public class ProjectOpenController<M extends ProjectManagementModel, V extends J
 
             /* gives the user a hint, that he has selected no projects */
             // INTERNATIONALIZE
-            JOptionPane.showMessageDialog(null, "Selektieren Sie ein Projekt, um es zu öffnen.",
-                    "Projekt öffnen - Fehler", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, Messages.getString("ProjectOpenController.0"), //$NON-NLS-1$
+                    Messages.getString("ProjectOpenController.1"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
         } else {
 
             /* gives the user a hint, that he has selected too much projects */
             // INTERNATIONALIZE
-            JOptionPane.showMessageDialog(null, "Selektieren Sie nur ein Projekt, um es zu öffnen.",
-                    "Projekt öffnen - Fehler", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, Messages.getString("ProjectOpenController.2"), //$NON-NLS-1$
+                    Messages.getString("ProjectOpenController.3"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
 
         }
     }

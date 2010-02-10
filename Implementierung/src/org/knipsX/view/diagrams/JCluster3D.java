@@ -57,7 +57,7 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
                 }
             }
 
-            logger.debug("Number of Points " + typesOfPoints.size());
+            logger.debug(Messages.getString("JCluster3D.0") + typesOfPoints.size()); //$NON-NLS-1$
 
             Collections.sort(typesOfPoints);
 
@@ -65,19 +65,19 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
             this.getyAxis().setAxis(this.model.getyAxis());
 
-            logger.debug("Min Y " + this.model.getMinY() + " MAX Y" + this.model.getMaxY());
+            logger.debug(Messages.getString("JCluster3D.1") + this.model.getMinY() + Messages.getString("JCluster3D.2") + this.model.getMaxY()); //$NON-NLS-1$ //$NON-NLS-2$
 
             /* setup x axis */
             this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
             this.getxAxis().setAxis(this.model.getxAxis());
 
-            logger.debug("Min X " + this.model.getMinX() + " MAX X" + this.model.getMaxX());
+            logger.debug(Messages.getString("JCluster3D.3") + this.model.getMinX() + Messages.getString("JCluster3D.4") + this.model.getMaxX()); //$NON-NLS-1$ //$NON-NLS-2$
 
             /* setup z axis */
             this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
             this.getzAxis().setAxis(this.model.getzAxis());
 
-            logger.debug("Min Z " + this.model.getMinZ() + " MAX Z" + this.model.getMaxZ());
+            logger.debug(Messages.getString("JCluster3D.5") + this.model.getMinZ() + Messages.getString("JCluster3D.6") + this.model.getMaxZ()); //$NON-NLS-1$ //$NON-NLS-2$
 
             for (int i = 0; i < this.model.getFrequency3DPoints().size(); i++) {
                 final Transform3D dataTrans = new Transform3D();
@@ -115,7 +115,7 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
                 /* Output some kind of error message */
                 // INTERNATIONALIZE
                 JOptionPane.showMessageDialog(this,
-                        "Das Diagramm kann nicht angezeigt werden, da es einen Fehler bei der Berechnung gab.");
+                        Messages.getString("JCluster3D.7")); //$NON-NLS-1$
                 this.displayDiagram = false;
             }
 
@@ -161,7 +161,7 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
             g2d.setPaint(Color.black);
 
             /* INTERNATIONALIZE */
-            g2d.drawString("Häufigkeiten", GradientFrequencyPanel.LEFTSPACING, GradientFrequencyPanel.TOPSPACING + 5);
+            g2d.drawString(Messages.getString("JCluster3D.8"), GradientFrequencyPanel.LEFTSPACING, GradientFrequencyPanel.TOPSPACING + 5); //$NON-NLS-1$
 
             final double segmentSize = (double) GradientFrequencyPanel.HEIGHT / (double) numberOfShades;
 

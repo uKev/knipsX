@@ -68,7 +68,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 
         /* Set titel */
         // INTERNATIONALIZE
-        this.setTitle("Projektübersicht");
+        this.setTitle(Messages.getString("JProjectManagement.0")); //$NON-NLS-1$
 
         /* show main panel */
         this.setContentPane(this.getJContentPane());
@@ -200,7 +200,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 
             /* create new button */
             // INTERNATIONALIZE
-            this.jButtonCopyProject = new JButton("Projekt kopieren");
+            this.jButtonCopyProject = new JButton(Messages.getString("JProjectManagement.1")); //$NON-NLS-1$
 
             /* create an action listener (which knows the model and the view) to the button */
             this.jButtonCopyProject.addActionListener(new ProjectCopyController<M, JProjectManagement<M>>(this.model,
@@ -223,7 +223,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 
             /* create new button */
             // INTERNATIONALIZE
-            this.jButtonCreateProject = new JButton("Projekt erstellen");
+            this.jButtonCreateProject = new JButton(Messages.getString("JProjectManagement.2")); //$NON-NLS-1$
 
             /* create an action listener (which knows the model) to the button */
             this.jButtonCreateProject.addActionListener(new ProjectCreateController<M, JProjectManagement<M>>(
@@ -246,7 +246,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 
             /* create new button */
             // INTERNATIONALIZE
-            this.jButtonDeleteProject = new JButton("Projekt löschen");
+            this.jButtonDeleteProject = new JButton(Messages.getString("JProjectManagement.3")); //$NON-NLS-1$
 
             /* create an action listener (which knows the model and the view) to the button */
             this.jButtonDeleteProject.addActionListener(new ProjectDeleteController<M, JProjectManagement<M>>(
@@ -269,7 +269,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 
             /* create new button */
             // INTERNATIONALIZE
-            this.jButtonOpenProject = new JButton("Projekt öffnen");
+            this.jButtonOpenProject = new JButton(Messages.getString("JProjectManagement.4")); //$NON-NLS-1$
 
             /* create an action listener (which knows the model an the view) to the button */
             this.jButtonOpenProject.addActionListener(new ProjectOpenController<M, JProjectManagement<M>>(this.model,
@@ -394,7 +394,7 @@ class MyProjectListCellRenderer implements ListCellRenderer {
         /* if the selected item is a "ProjectEntry" -> set the name and the description */
         if (value instanceof ProjectModel) {
             final ProjectModel projectModel = (ProjectModel) value;
-            theText = projectModel.getName() + " " + projectModel.calendarToString();
+            theText = projectModel.getName() + " " + projectModel.calendarToString(); //$NON-NLS-1$
             toolTipText = projectModel.getDescription();
         }
         renderer.setText(theText);

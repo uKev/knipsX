@@ -1,5 +1,5 @@
 /**
- * This package is the root of all packages.
+ * This package is the root of all packages!!!
  */
 package org.knipsX;
 

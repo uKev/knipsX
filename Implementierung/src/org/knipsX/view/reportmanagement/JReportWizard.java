@@ -52,10 +52,10 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
         this.reportCompilation = ReportHelper.getDefaultReport().createReportCompilation();
 
         // INTERNATIONALIZE
-        this.nextPanelButton = new JButton("Weiter");
+        this.nextPanelButton = new JButton(Messages.getString("JReportWizard.0")); //$NON-NLS-1$
 
         // INTERNATIONALIZE
-        this.previousPanelButton = new JButton("Zurück");
+        this.previousPanelButton = new JButton(Messages.getString("JReportWizard.1")); //$NON-NLS-1$
 
         this.closeButton.addActionListener(new ReportCloseController<AbstractReportModel, JReportWizard<?, ?>>(this));
         this.saveButton.addActionListener(new ReportSaveController<AbstractReportModel, JReportWizard<?, ?>>(this,

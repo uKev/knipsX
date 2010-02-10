@@ -27,15 +27,15 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
 
     /* Define the close button */
     // INTERNATIONALIZE
-    protected JButton closeButton = new JButton("Schließen");
+    protected JButton closeButton = new JButton(Messages.getString("JAbstractReportUtil.0")); //$NON-NLS-1$
 
     /* Define the save button */
     // INTERNATIONALIZE
-    protected JButton saveButton = new JButton("Speichern");
+    protected JButton saveButton = new JButton(Messages.getString("JAbstractReportUtil.1")); //$NON-NLS-1$
 
     /* Define the show button */
     // INTERNATIONALIZE
-    protected JButton showButton = new JButton("Anzeigen");
+    protected JButton showButton = new JButton(Messages.getString("JAbstractReportUtil.2")); //$NON-NLS-1$
 
     /**
      * Each configuration utility has to implement this method which

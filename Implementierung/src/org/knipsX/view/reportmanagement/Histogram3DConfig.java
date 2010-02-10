@@ -18,10 +18,10 @@ public class Histogram3DConfig extends AbstractReportCompilation {
 
         /* Define diagram description */
         // INTERNATIONALIZE
-        this.diagramDescription = "Ein Histogramm dient der graphischen Darstellung der Häufigkeitsverteilung"
-        		+ " metrisch skalierter klassierter Merkmale. Im Gegensatz zum Balken- bzw. "
-        		+ "Säulendiagramm (engl. bar chart) werden die Häufigkeiten beim Histogramm "
-        		+ "nicht durch die Höhe von Balken, sondern durch die Fläche der Balken repräsentiert.";
+        this.diagramDescription = Messages.getString("Histogram3DConfig.0") //$NON-NLS-1$
+        		+ Messages.getString("Histogram3DConfig.1") //$NON-NLS-1$
+        		+ Messages.getString("Histogram3DConfig.2") //$NON-NLS-1$
+        		+ Messages.getString("Histogram3DConfig.3"); //$NON-NLS-1$
 
         
         /* Add the diagram panel to the report */

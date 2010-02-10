@@ -46,8 +46,8 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
             
             Logger logger = Logger.getLogger(this.getClass());
 
-            logger.debug("Gloabl Min X " + this.model.getMinX() + " Global Max X " + this.model.getMaxX());
-            logger.debug("Global Min Y " + this.model.getMinY() + " Gloabl Max Y " + this.model.getMaxY() + " \n");
+            logger.debug(Messages.getString("JHistogram2D.0") + this.model.getMinX() + Messages.getString("JHistogram2D.1") + this.model.getMaxX()); //$NON-NLS-1$ //$NON-NLS-2$
+            logger.debug(Messages.getString("JHistogram2D.2") + this.model.getMinY() + Messages.getString("JHistogram2D.3") + this.model.getMaxY() + " \n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
             this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
             this.getxAxis().setAxis(this.model.getxAxis());
@@ -56,7 +56,7 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
             
             // INTERNATIONALIZE
-            this.getyAxis().setDescription("Anzahl");
+            this.getyAxis().setDescription(Messages.getString("JHistogram2D.5")); //$NON-NLS-1$
 
             Category[] categories = this.model.getCategories();
 
@@ -65,25 +65,25 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
             
             for (int i = 0; i < categories.length; i++) {
 
-                logger.debug("Category Number " + category + " Min X "
-                        + this.getxAxis().getAxisSpace(categories[i].getMinValueX()) + " Max X "
-                        + this.getxAxis().getAxisSpace(categories[i].getMaxValueX()) + "\n");
+                logger.debug(Messages.getString("JHistogram2D.6") + category + Messages.getString("JHistogram2D.7") //$NON-NLS-1$ //$NON-NLS-2$
+                        + this.getxAxis().getAxisSpace(categories[i].getMinValueX()) + Messages.getString("JHistogram2D.8") //$NON-NLS-1$
+                        + this.getxAxis().getAxisSpace(categories[i].getMaxValueX()) + "\n"); //$NON-NLS-1$
 
                 double xRange = Math.abs(this.getxAxis().getAxisSpace(categories[i].getMaxValueX()) - this.getxAxis().getAxisSpace(categories[i].getMinValueX()));
                 xRange = xRange / categories[i].getBars().size();
                 
-                logger.debug("xRange " + xRange);
+                logger.debug(Messages.getString("JHistogram2D.10") + xRange); //$NON-NLS-1$
 
                 double xPosition = this.getxAxis().getAxisSpace(categories[i].getMinValueX()) + xRange / 2;
 
-                logger.debug("xPosition " + xPosition);
+                logger.debug(Messages.getString("JHistogram2D.11") + xPosition); //$NON-NLS-1$
                 
                 for (int j = 0; j < categories[i].getBars().size(); j++) {
                     
                     if (categories[i].getBars().get(j).getHeight() > 0) {
                         
                         double barHeight = this.getyAxis().getAxisSpace(categories[i].getBars().get(j).getHeight());
-                        logger.debug("Bar Heigth of Category " + category + "  of " + j + ". Bar with heigth "   + categories[i].getBars().get(j).getHeight());                        
+                        logger.debug(Messages.getString("JHistogram2D.12") + category + Messages.getString("JHistogram2D.13") + j + Messages.getString("JHistogram2D.14")   + categories[i].getBars().get(j).getHeight());                         //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                         
                         /* Create the actual bar */
                         this.createCube(new Vector3d(xPosition + j * xRange, 0, 0), new Vector3d(xRange / 2 * shrinkFactor, barHeight, 1), this.basicMaterial(Resource.getColor(j)));
@@ -111,7 +111,7 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
                 /* Output some kind of error message */
                 // INTERNATIONALIZE
                 JOptionPane.showMessageDialog(this,
-                        "Das Diagramm kann nicht angezeigt werden, da es einen Fehler bei der Berechnung gab.");
+                        Messages.getString("JHistogram2D.15")); //$NON-NLS-1$
                 this.displayDiagram = false;
             }
 

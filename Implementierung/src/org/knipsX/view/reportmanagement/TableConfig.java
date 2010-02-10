@@ -18,10 +18,10 @@ public class TableConfig extends AbstractReportCompilation {
         
         /* Define diagram description */
         // INTERNATIONALIZE
-        this.diagramDescription = "Eine Tabelle ist eine geordnete Zusammenstellung von Texten oder Daten."
-        		+ " Die darzustellenden Inhalte werden dabei in Zeilen und Spalten gegliedert, "
-        		+ "die grafisch aneinander ausgerichtet werden. Die erste Spalte in der nachfolgenden"
-        		+ " Tabelle heißt Vorspalte, die erste Zeile Kopfzeile.";
+        this.diagramDescription = Messages.getString("TableConfig.0") //$NON-NLS-1$
+        		+ Messages.getString("TableConfig.1") //$NON-NLS-1$
+        		+ Messages.getString("TableConfig.2") //$NON-NLS-1$
+        		+ Messages.getString("TableConfig.3"); //$NON-NLS-1$
 
         /* add the diagram panel to the report */
         addPanel(new JDiagramType(this.diagramDescription));

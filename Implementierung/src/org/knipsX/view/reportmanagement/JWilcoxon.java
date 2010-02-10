@@ -115,13 +115,13 @@ public class JWilcoxon extends JAbstractSinglePanel {
 
             this.percentField = new JTextField(this.floatSlider.getDecimalPlace() + 2);
             this.percentField.setHorizontalAlignment(SwingConstants.RIGHT);
-            this.percentField.setText(this.floatSlider.getFloatValue() + " %");
+            this.percentField.setText(this.floatSlider.getFloatValue() + " %"); //$NON-NLS-1$
 
             this.floatSlider.addChangeListener(new ChangeListener() {
 
                 public void stateChanged(final ChangeEvent e) {
                     final float temp = JSignifanceSlider.this.floatSlider.getFloatValue();
-                    JSignifanceSlider.this.percentField.setText(String.valueOf(temp) + " %");
+                    JSignifanceSlider.this.percentField.setText(String.valueOf(temp) + " %"); //$NON-NLS-1$
                 }
             });
 
@@ -131,8 +131,8 @@ public class JWilcoxon extends JAbstractSinglePanel {
                     /* If enter key is pressed, set float slider to the appropriate value */
                     if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
                         final String typed = JSignifanceSlider.this.percentField.getText();
-                        JSignifanceSlider.this.floatSlider.setFloatValue(Float.parseFloat(typed.replaceAll("%", "")
-                                .replaceAll(",", ".")));
+                        JSignifanceSlider.this.floatSlider.setFloatValue(Float.parseFloat(typed.replaceAll("%", "") //$NON-NLS-1$ //$NON-NLS-2$
+                                .replaceAll(",", "."))); //$NON-NLS-1$ //$NON-NLS-2$
                     }
                 }
             });
@@ -180,7 +180,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
 
         /* Set the title name of this panel */
         // INTERNATIONALIZE
-        this.title = "Wilcoxon Test";
+        this.title = Messages.getString("JWilcoxon.6"); //$NON-NLS-1$
 
         this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 
@@ -238,7 +238,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
     /* Add wilcoxon significance slider elements to the specified panel */
     private void addWilcoxonSignificanceSlider(final JPanel singlepanel) {
         // INTERNATIONALIZE
-        singlepanel.add(new JLabel("Signifikanzniveau (1-10 %)"));
+        singlepanel.add(new JLabel(Messages.getString("JWilcoxon.7"))); //$NON-NLS-1$
         this.significanceSlider = new JSignifanceSlider();
         this.significanceSlider.setAlignmentX(Component.LEFT_ALIGNMENT);
         singlepanel.add(this.significanceSlider);
@@ -247,7 +247,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
     /* Add wilcoxon status elements to the specified panel */
     private void addWilcoxonStatus(final JPanel singlepanel) {
         // INTERNATIONALIZE
-        singlepanel.add(new JLabel("Wilcoxon Test aktiviert"));
+        singlepanel.add(new JLabel(Messages.getString("JWilcoxon.8"))); //$NON-NLS-1$
         this.wilcoxonCheckBox = new JCheckBox();
         singlepanel.add(this.wilcoxonCheckBox);
     }
@@ -255,7 +255,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
     /* Add wilcoxon test type elements to the specified panel */
     private void addWilcoxonTestType(final JPanel singlepanel) {
         // INTERNATIONALIZE
-        final JLabel testType = new JLabel("Testart");
+        final JLabel testType = new JLabel(Messages.getString("JWilcoxon.9")); //$NON-NLS-1$
         singlepanel.add(testType);
         this.wilcoxoncombobox = new JComboBox(WilcoxonTestType.values());
         this.wilcoxoncombobox.setSelectedItem(WilcoxonTestType.LESS);
@@ -339,14 +339,14 @@ public class JWilcoxon extends JAbstractSinglePanel {
     public void setImageSetEnabled(final boolean enabled) {
         if (enabled) {
             this.errorImageSetMessageLabel.setIcon(null);
-            this.errorImageSetMessageLabel.setText("");
+            this.errorImageSetMessageLabel.setText(Messages.getString("JWilcoxon.10")); //$NON-NLS-1$
 
         } else {
             // INTERNATIONALIZE
-            this.errorImageSetMessageLabel.setText("Es müssen genau zwei Bildmengen ausgewählt sein, "
-                    + "damit der Wilcoxon Test aktiviert werden kann.");
+            this.errorImageSetMessageLabel.setText(Messages.getString("JWilcoxon.11") //$NON-NLS-1$
+                    + Messages.getString("JWilcoxon.12")); //$NON-NLS-1$
             try {
-                this.errorImageSetMessageLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                this.errorImageSetMessageLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null)); //$NON-NLS-1$
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -368,16 +368,16 @@ public class JWilcoxon extends JAbstractSinglePanel {
     public void setOrdianlEnabled(final boolean enabled) {
         if (enabled) {
             this.errorNonOrdinalMessageLabel.setIcon(null);
-            this.errorNonOrdinalMessageLabel.setText("");
+            this.errorNonOrdinalMessageLabel.setText(Messages.getString("JWilcoxon.14")); //$NON-NLS-1$
 
         } else {
             try {
-                this.errorNonOrdinalMessageLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                this.errorNonOrdinalMessageLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null)); //$NON-NLS-1$
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
             // INTERNATIONALIZE
-            this.errorNonOrdinalMessageLabel.setText("Es muss ein ordinaler Exif-Paramter ausgewählt werden.");
+            this.errorNonOrdinalMessageLabel.setText(Messages.getString("JWilcoxon.16")); //$NON-NLS-1$
 
         }
 

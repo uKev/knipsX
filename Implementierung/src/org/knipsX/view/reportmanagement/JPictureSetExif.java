@@ -175,7 +175,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                     numberOfElements++;
                 }
 
-                theText = pictureContainer.getName() + " (" + Integer.toString(numberOfElements) + ")";
+                theText = pictureContainer.getName() + " (" + Integer.toString(numberOfElements) + ")"; //$NON-NLS-1$ //$NON-NLS-2$
 
             }
             renderer.setText(theText);
@@ -190,7 +190,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         final JPanel availablePictureSetsPanel = new JPanel();
         availablePictureSetsPanel.setLayout(new BorderLayout());
         // INTERNATIONALIZE
-        final JLabel availablePictureSetsLabel = new JLabel("Verfügbare Bildermengen");
+        final JLabel availablePictureSetsLabel = new JLabel(Messages.getString("JPictureSetExif.2")); //$NON-NLS-1$
         availablePictureSetsPanel.add(availablePictureSetsLabel, BorderLayout.NORTH);
         this.availablePictureSets = new JFlexibleList(ReportHelper.getProjectModel().getPictureSets());
         this.availablePictureSets.setCellRenderer(new PictureSetListCellRenderer());
@@ -212,11 +212,11 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         /* to prevent popping and fixing alignment of layout add fixed dimension */
         Dimension size = new Dimension(32, 32);
         topbuttonpanel.add(new Box.Filler(size, size, size));
-        final JButton insertpictureset = new JButton(">>");
+        final JButton insertpictureset = new JButton(Messages.getString("JPictureSetExif.3")); //$NON-NLS-1$
         insertpictureset.setAlignmentX(Component.CENTER_ALIGNMENT);
         insertpictureset.addActionListener(new ReportAddPictureSetController<AbstractModel, JPictureSetExif>(this));
         topbuttonpanel.add(insertpictureset);
-        final JButton removepictureset = new JButton("<<");
+        final JButton removepictureset = new JButton(Messages.getString("JPictureSetExif.4")); //$NON-NLS-1$
         removepictureset.setAlignmentX(Component.CENTER_ALIGNMENT);
         removepictureset.addActionListener(new ReportPictureSetRemoveController<AbstractModel, JPictureSetExif>(this));
         topbuttonpanel.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -231,7 +231,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         final JPanel associatedPictureSetsPanel = new JPanel();
         associatedPictureSetsPanel.setLayout(new BorderLayout());
         // INTERNATIONALIZE
-        final JLabel associatedPictureSetsLabel = new JLabel("Verwendete Bildermengen");
+        final JLabel associatedPictureSetsLabel = new JLabel(Messages.getString("JPictureSetExif.5")); //$NON-NLS-1$
         this.associatedPictureSets = new JFlexibleList();
         this.associatedPictureSets.setCellRenderer(new PictureSetListCellRenderer());
         this.associatedPictureSets.setFixedCellWidth(250);
@@ -244,7 +244,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         final JPanel availableExifTagsPanel = new JPanel();
         availableExifTagsPanel.setLayout(new BorderLayout());
         // INTERNATIONALIZE
-        final JLabel availableExifTagsLabel = new JLabel("Verfügbare XMP-Keywords");
+        final JLabel availableExifTagsLabel = new JLabel(Messages.getString("JPictureSetExif.6")); //$NON-NLS-1$
         this.availableExifTags = new JFlexibleList();
         this.availableExifTags.setFixedCellWidth(250);
         availableExifTagsPanel.add(availableExifTagsLabel, BorderLayout.NORTH);
@@ -253,10 +253,10 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     }
 
     private void addBottomButtonPanel(JPanel bottombuttonpanel) {
-        final JButton insertexiftag = new JButton(">>");
+        final JButton insertexiftag = new JButton(Messages.getString("JPictureSetExif.7")); //$NON-NLS-1$
         insertexiftag.addActionListener(new ReportAddExifKeywordController<AbstractModel, JPictureSetExif>(this));
         bottombuttonpanel.add(insertexiftag);
-        final JButton removeexiftag = new JButton("<<");
+        final JButton removeexiftag = new JButton(Messages.getString("JPictureSetExif.8")); //$NON-NLS-1$
         removeexiftag.addActionListener(new ReportRemoveExifKeywordController<AbstractModel, JPictureSetExif>(this));
         bottombuttonpanel.add(Box.createRigidArea(new Dimension(0, 10)));
         bottombuttonpanel.add(removeexiftag);
@@ -267,7 +267,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         final JPanel associatedExifTagsPanel = new JPanel();
         associatedExifTagsPanel.setLayout(new BorderLayout());
         // INTERNATIONALIZE
-        final JLabel associatedExifTagsLabel = new JLabel("Verwendete XMP-Keywords");
+        final JLabel associatedExifTagsLabel = new JLabel(Messages.getString("JPictureSetExif.9")); //$NON-NLS-1$
         this.associatedExifTags = new JFlexibleList();
         this.associatedExifTags.setFixedCellWidth(250);
         associatedExifTagsPanel.add(associatedExifTagsLabel, BorderLayout.NORTH);
@@ -328,7 +328,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
         /* Set the title name of this panel */
         // INTERNATIONALIZE
-        this.title = "Bildmenge";
+        this.title = Messages.getString("JPictureSetExif.10"); //$NON-NLS-1$
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -516,10 +516,10 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                     }
 
                     if (numberOfElements == 0) {
-                        this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                        this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null)); //$NON-NLS-1$
                         // INTERNATIONALIZE
                         this.errorMessage
-                                .setToolTipText("Es muss mindestens ein Bild vorhanden sein, damit die Auswertung angezeigt werden kann");
+                                .setToolTipText(Messages.getString("JPictureSetExif.12")); //$NON-NLS-1$
                         this.showErrorIcon();
                         return false;
                     }
@@ -541,24 +541,24 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 }
 
                 Logger logger = Logger.getLogger(this.getClass());
-                logger.debug("Validator : correct Pictures found: "
+                logger.debug(Messages.getString("JPictureSetExif.13") //$NON-NLS-1$
                         + Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters));
 
                 ArrayList<String> associatedXMPKeywords = new ArrayList<String>(Arrays.asList(this
                         .getExifFilterKeywords()));
 
                 for (PictureContainer pictureContainer : this.getPictureContainer()) {
-                    logger.debug("Validator : correct Pictures found: "
+                    logger.debug(Messages.getString("JPictureSetExif.14") //$NON-NLS-1$
                             + Validator.getValidPictures(pictureContainer, exifParameters, associatedXMPKeywords)
                                     .size());
 
                     if (Validator.getValidPictures(pictureContainer, exifParameters, associatedXMPKeywords).size() == 0
                             && ReportHelper.getCurrentReport() != ReportHelper.Table) {
-                        this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                        this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null)); //$NON-NLS-1$
 
                         // INTERNATIONALIZE
-                        this.errorMessage.setToolTipText("In den Bilder, die ausgewählt wurden befinden sich, mit der "
-                                + "ausgewählten Exif-Parameter und XMP Konfiguration, leider nur ungültige Meta-Daten");
+                        this.errorMessage.setToolTipText(Messages.getString("JPictureSetExif.16") //$NON-NLS-1$
+                                + Messages.getString("JPictureSetExif.17")); //$NON-NLS-1$
 
                         this.showErrorIcon();
                         return false;
@@ -580,10 +580,10 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 return true;
 
             } else {
-                this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null)); //$NON-NLS-1$
                 // INTERNATIONALIZE
-                this.errorMessage.setToolTipText("Um die Auswertung anzeigen zu können muss in jeder "
-                        + "zugewiesenen Bildmenge mindestens ein gültiges Bild vorhanden sein");
+                this.errorMessage.setToolTipText(Messages.getString("JPictureSetExif.19") //$NON-NLS-1$
+                        + Messages.getString("JPictureSetExif.20")); //$NON-NLS-1$
                 this.showErrorIcon();
                 return false;
             }

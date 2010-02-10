@@ -45,8 +45,8 @@ public class ProjectCreateController<M extends ProjectManagementModel, V extends
 
         /* try to get a project name */
         // INTERNATIONALIZE
-        String projectName = JOptionPane.showInputDialog(null, "Geben Sie einen Projektnamen ein.",
-                "Projekt erstellen", JOptionPane.INFORMATION_MESSAGE);
+        String projectName = JOptionPane.showInputDialog(null, Messages.getString("ProjectCreateController.0"), //$NON-NLS-1$
+                Messages.getString("ProjectCreateController.1"), JOptionPane.INFORMATION_MESSAGE); //$NON-NLS-1$
 
         /* user is not pressing cancel and no text or wrong text is given */
         if (projectName != null) {
@@ -54,8 +54,8 @@ public class ProjectCreateController<M extends ProjectManagementModel, V extends
     
                 /* show the user that the name is incorrect */
                 // INTERNATIONALIZE
-                JOptionPane.showMessageDialog(null, "Projektname ungültig oder leer!",
-                        "Projekt erstellen - Fehler", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, Messages.getString("ProjectCreateController.2"), //$NON-NLS-1$
+                        Messages.getString("ProjectCreateController.3"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
             } else {
                 this.model.addProject(projectName);
             }

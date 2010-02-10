@@ -46,12 +46,12 @@ public class ProjectDeleteController<M extends ProjectManagementModel, V extends
 
             // INTERNATIONALIZE
             /* gives the user a hint, that he has selected too little projects */
-            JOptionPane.showMessageDialog(null, "Selektieren Sie mindestens ein Projekt, um es zu löschen.",
-                    "Projekt kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, Messages.getString("ProjectDeleteController.0"), //$NON-NLS-1$
+                    Messages.getString("ProjectDeleteController.1"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
         } else {
             // INTERNATIONALIZE
-            final int decision = JOptionPane.showConfirmDialog(null, "Sollen die ausgewählten Projekte:"
-                    + this.generateToDeleteText(toDelete) + " gelöscht werden?", "Projekt löschen",
+            final int decision = JOptionPane.showConfirmDialog(null, Messages.getString("ProjectDeleteController.2") //$NON-NLS-1$
+                    + this.generateToDeleteText(toDelete) + Messages.getString("ProjectDeleteController.3"), Messages.getString("ProjectDeleteController.4"), //$NON-NLS-1$ //$NON-NLS-2$
                     JOptionPane.YES_NO_OPTION);
 
             /* if user pressed "yes" */
@@ -74,12 +74,12 @@ public class ProjectDeleteController<M extends ProjectManagementModel, V extends
      * Generates the representation of all projects to delete
      */
     private String generateToDeleteText(final int[] toDelete) {
-        String deleteText = "\n\n";
+        String deleteText = "\n\n"; //$NON-NLS-1$
 
         /* add all names */
         for (int n = 0; n < toDelete.length; ++n) {
-            deleteText += "- " + (this.model).getProjects().get(toDelete[n]).getName() + "\n";
+            deleteText += "- " + (this.model).getProjects().get(toDelete[n]).getName() + "\n"; //$NON-NLS-1$ //$NON-NLS-2$
         }
-        return deleteText + "\n";
+        return deleteText + "\n"; //$NON-NLS-1$
     }
 }
