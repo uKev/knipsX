@@ -5,3 +5,6 @@ insbesondere "Pro Bug ein Test".
 zur "Entwirrung" der Komponenten:
 http://de.wikipedia.org/wiki/Mock-Objekt
 http://de.wikipedia.org/wiki/Easymock
+
+Testreport:
+http://people.openmoko.org/testing/software/GTA02/Testreport/Om2008.12-2/Om2008.12.2_test_report.pdf
