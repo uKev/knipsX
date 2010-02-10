@@ -113,7 +113,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     private JList jListReport = null;
     private JTable jTableExif = null;
 
-    private final Logger log = Logger.getLogger(this.getClass());
+    private final Logger logger = Logger.getLogger(this.getClass());
 
     /**
      * Creates a project view connected with an appropriate model.
@@ -158,10 +158,15 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
      */
 
     /* creates a new button with some functionality */
-    private JButton getNewButton(final String text, final String toolTip, final ActionListener listener) {
+    private JButton getNewButton(final String text, final String toolTip, final String icon,
+            final ActionListener listener) {
         final JButton newButton = new JButton(text);
 
-        newButton.setFont(new Font("SanSerif", Font.BOLD, 10));
+        try {
+            newButton.setIcon(Resource.createImageIcon(icon, "", "16"));
+        } catch (FileNotFoundException e) {
+            this.logger.error("Icon for button not found - " + icon);
+        }
         newButton.addActionListener(listener);
 
         return newButton;
@@ -176,7 +181,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new ProjectSwitchController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonProjectChange = this.getNewButton("Wechseln", "", listener);
+            this.jButtonProjectChange = this.getNewButton("Wechseln", "", "actions/go-jump.png", listener);
         }
         return this.jButtonProjectChange;
     }
@@ -190,7 +195,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new ProjectSaveController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonProjectSave = this.getNewButton("Speichern", "", listener);
+            this.jButtonProjectSave = this.getNewButton("Speichern", "", "actions/document-save.png", listener);
         }
         return this.jButtonProjectSave;
     }
@@ -204,7 +209,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new PictureSetListCopyController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonPictureSetCopy = this.getNewButton("Kopieren", "", listener);
+            this.jButtonPictureSetCopy = this.getNewButton("Kopieren", "", "actions/edit-copy.png", listener);
         }
         return this.jButtonPictureSetCopy;
     }
@@ -218,7 +223,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new PictureSetListCreateController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonPictureSetCreate = this.getNewButton("Erstellen", "", listener);
+            this.jButtonPictureSetCreate = this.getNewButton("Erstellen", "", "actions/document-new.png", listener);
         }
         return this.jButtonPictureSetCreate;
     }
@@ -232,7 +237,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new PictureSetListDeleteController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonPictureSetDelete = this.getNewButton("Entfernen", "", listener);
+            this.jButtonPictureSetDelete = this.getNewButton("Entfernen", "", "actions/edit-delete.png", listener);
         }
         return this.jButtonPictureSetDelete;
     }
@@ -246,7 +251,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new PictureSetContentListAddController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonPictureSetContentAdd = this.getNewButton("Hinzufügen", "", listener);
+            this.jButtonPictureSetContentAdd = this.getNewButton("Hinzufügen", "", "actions/list-add.png", listener);
         }
         return this.jButtonPictureSetContentAdd;
     }
@@ -261,7 +266,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                     this);
 
             /* INTERNATIONALIZE */
-            this.jButtonPictureSetContentDelete = this.getNewButton("Entfernen", "", listener);
+            this.jButtonPictureSetContentDelete = this.getNewButton("Entfernen", "", "actions/list-remove.png", listener);
         }
         return this.jButtonPictureSetContentDelete;
     }
@@ -276,7 +281,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                     this);
 
             /* INTERNATIONALIZE */
-            this.jButtonPictureSetContentRefresh = this.getNewButton("Aktualisieren", "", listener);
+            this.jButtonPictureSetContentRefresh = this.getNewButton("Aktualisieren", "", "actions/view-refresh.png", listener);
         }
         return this.jButtonPictureSetContentRefresh;
     }
@@ -290,7 +295,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new ReportCreateController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonReportCreate = this.getNewButton("Erstellen", "", listener);
+            this.jButtonReportCreate = this.getNewButton("Erstellen", "", "actions/document-new.png", listener);
         }
         return this.jButtonReportCreate;
     }
@@ -304,7 +309,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new ReportOpenController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonReportOpen = this.getNewButton("Öffnen", "", listener);
+            this.jButtonReportOpen = this.getNewButton("Öffnen", "", "actions/document-open.png", listener);
         }
         return this.jButtonReportOpen;
     }
@@ -318,7 +323,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new ReportDeleteController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonReportDelete = this.getNewButton("Entfernen", "", listener);
+            this.jButtonReportDelete = this.getNewButton("Entfernen", "", "actions/edit-delete.png", listener);
         }
         return this.jButtonReportDelete;
     }
@@ -711,7 +716,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                     this.model, this);
             this.jListPictureSetActive.addMouseListener(controller);
             this.jListPictureSetActive.addMouseMotionListener(controller);
-            
+
             /* we store picture objects in the list, so we have to set a special rendering */
             this.jListPictureSetActive.setCellRenderer(new MyPictureListCellRenderer());
         }
@@ -927,7 +932,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jTextFieldProjectName.setText(model.getName());
             this.jTextFieldProjectName.setCaretPosition(caretProjectName);
         } catch (IllegalArgumentException e) {
-            log.error("Position of name caret cannot set - " + e.fillInStackTrace());
+            logger.error("Position of name caret cannot set - " + e.fillInStackTrace());
         }
 
         try {
@@ -935,9 +940,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jEditorPaneProjectDescription.setText(model.getDescription());
             this.jEditorPaneProjectDescription.setCaretPosition(caretProjectDescription);
         } catch (IllegalArgumentException e) {
-            log.error("Position of description caret cannot set - " + e.fillInStackTrace());
+            logger.error("Position of description caret cannot set - " + e.fillInStackTrace());
         }
-        
+
         final int[] selectedPictureSets = this.jListPictureSet.getSelectedIndices();
         final int[] selectedPictureSetContents = this.jListPictureSetContent.getSelectedIndices();
         final int[] selectedPictures = this.jListPictureSetActive.getSelectedIndices();
@@ -1144,7 +1149,7 @@ class MyPictureSetContentListCellRenderer implements ListCellRenderer {
  * Renders a picture cell for the picture list of an active picture container.
  */
 class MyPictureListCellRenderer implements ListCellRenderer {
-    
+
     DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
     private Icon noImageIcon = null;
@@ -1176,16 +1181,16 @@ class MyPictureListCellRenderer implements ListCellRenderer {
     public Component getListCellRendererComponent(final JList list, final Object value, final int index,
             final boolean isSelected, final boolean cellHasFocus) {
         String theText = null;
-        
+
         /* generate the label which represents the cell */
         final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
                 isSelected, cellHasFocus);
- 
+
         /* if the selected item is a "Picture" -> set the name */
         if (value instanceof Picture) {
             final Picture picture = (Picture) value;
             theText = picture.getName();
- 
+
             final Image smallThumbnail = picture.getSmallThumbnail();
             if (smallThumbnail != null) {
                 renderer.setIcon(new ImageIcon(smallThumbnail));
@@ -1195,11 +1200,10 @@ class MyPictureListCellRenderer implements ListCellRenderer {
         }
         renderer.setText(theText);
         renderer.setPreferredSize(new Dimension(renderer.getWidth(), 40));
- 
-        return renderer;
-    }    
-}
 
+        return renderer;
+    }
+}
 
 /**
  * Renders a report cell for the report list of an active project.
