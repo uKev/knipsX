@@ -46,11 +46,11 @@ public class ProjectDeleteController<M extends ProjectManagementModel, V extends
 
             // INTERNATIONALIZE
             /* gives the user a hint, that he has selected too little projects */
-            JOptionPane.showMessageDialog(null, "Selektieren Sie mindestens ein Projekt, um es zu löschen.",
+            JOptionPane.showMessageDialog(this.view, "Selektieren Sie mindestens ein Projekt, um es zu löschen.",
                     "Projekt kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
         } else {
             // INTERNATIONALIZE
-            final int decision = JOptionPane.showConfirmDialog(null, "Sollen die ausgewählten Projekte:"
+            final int decision = JOptionPane.showConfirmDialog(this.view, "Sollen die ausgewählten Projekte:"
                     + this.generateToDeleteText(toDelete) + " gelöscht werden?", "Projekt löschen",
                     JOptionPane.YES_NO_OPTION);
 

@@ -57,7 +57,7 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
             final ProjectModel projectToCopy = this.model.getProjects().get(toCopy[0]);
 
             // INTERNATIONALIZE
-            final int decision = JOptionPane.showConfirmDialog(null, "Soll das ausgewählte Projekt \""
+            final int decision = JOptionPane.showConfirmDialog(this.view, "Soll das ausgewählte Projekt \""
                     + projectToCopy.getName() + "\" kopiert werden?", "Projekt kopieren", JOptionPane.YES_NO_OPTION);
 
             /* if user pressed "yes" */
@@ -65,7 +65,7 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
 
                 // INTERNATIONALIZE
                 /* try to get a project name */
-                String projectName = JOptionPane.showInputDialog(null, "Geben Sie einen Projektnamen ein.",
+                String projectName = JOptionPane.showInputDialog(this.view, "Geben Sie einen Projektnamen ein.",
                         "Projekt kopieren", JOptionPane.INFORMATION_MESSAGE);
 
                 /* user is not pressing cancel and no text or wrong text is given */
@@ -74,7 +74,7 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
 
                         /* show the user that the name is incorrect */
                         // INTERNATIONALIZE
-                        JOptionPane.showMessageDialog(null, "Projektname ungültig oder leer!",
+                        JOptionPane.showMessageDialog(this.view, "Projektname ungültig oder leer!",
                                 "Projekt erstellen - Fehler", JOptionPane.ERROR_MESSAGE);
                     }
 
@@ -89,13 +89,13 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
 
             /* gives the user a hint, that he has selected no projects */
             // INTERNATIONALIZE
-            JOptionPane.showMessageDialog(null, "Selektieren Sie ein Projekt, um es zu kopieren.",
+            JOptionPane.showMessageDialog(this.view, "Selektieren Sie ein Projekt, um es zu kopieren.",
                     "Projekt kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
         } else {
 
             /* gives the user a hint, that he has selected too much projects */
             // INTERNATIONALIZE
-            JOptionPane.showMessageDialog(null, "Selektieren Sie nur ein Projekt, um es zu kopieren.",
+            JOptionPane.showMessageDialog(this.view, "Selektieren Sie nur ein Projekt, um es zu kopieren.",
                     "Projekt kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
 
         }

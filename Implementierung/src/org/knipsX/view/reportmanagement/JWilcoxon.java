@@ -346,7 +346,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
             this.errorImageSetMessageLabel.setText("Es müssen genau zwei Bildmengen ausgewählt sein, "
                     + "damit der Wilcoxon Test aktiviert werden kann.");
             try {
-                this.errorImageSetMessageLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                this.errorImageSetMessageLabel.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -372,7 +372,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
 
         } else {
             try {
-                this.errorNonOrdinalMessageLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                this.errorNonOrdinalMessageLabel.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

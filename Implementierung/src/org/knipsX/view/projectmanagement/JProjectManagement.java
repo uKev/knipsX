@@ -7,6 +7,7 @@ package org.knipsX.view.projectmanagement;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.io.FileNotFoundException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -23,6 +24,7 @@ import javax.swing.ListCellRenderer;
 import java.util.Observable;
 
 /* import things from our program */
+import org.apache.log4j.Logger;
 import org.knipsX.controller.projectmanagement.ProjectClickOnController;
 import org.knipsX.controller.projectmanagement.ProjectCopyController;
 import org.knipsX.controller.projectmanagement.ProjectCreateController;
@@ -30,6 +32,7 @@ import org.knipsX.controller.projectmanagement.ProjectDeleteController;
 import org.knipsX.controller.projectmanagement.ProjectOpenController;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.model.projectview.ProjectModel;
+import org.knipsX.utils.Resource;
 import org.knipsX.view.JAbstractView;
 
 /**
@@ -42,16 +45,22 @@ import org.knipsX.view.JAbstractView;
 public class JProjectManagement<M extends ProjectManagementModel> extends JAbstractView<M> {
 
     private static final long serialVersionUID = 2746903025575471227L;
+    
     private JPanel jContentPane = null;
     private JPanel jButtonPane = null;
     private JPanel jListPane = null;
+    
     private JButton jButtonCopyProject = null;
     private JButton jButtonCreateProject = null;
     private JButton jButtonDeleteProject = null;
     private JButton jButtonOpenProject = null;
+    
     private JList jListProject = null;
+    
     private JScrollPane jScrollPaneProjectList = null;
 
+    private final Logger logger = Logger.getLogger(this.getClass());
+    
     /**
      * Create a new view which is connected to a appropriate model.
      * 
@@ -202,6 +211,12 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
             // INTERNATIONALIZE
             this.jButtonCopyProject = new JButton("Projekt kopieren");
 
+            try {
+                this.jButtonCopyProject.setIcon(Resource.createImageIcon("actions/edit-copy.png", "", "32"));
+            } catch (FileNotFoundException e) {
+                this.logger.error("Icon for copy project button not found.");
+            }
+            
             /* create an action listener (which knows the model and the view) to the button */
             this.jButtonCopyProject.addActionListener(new ProjectCopyController<M, JProjectManagement<M>>(this.model,
                     this));
@@ -225,6 +240,12 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
             // INTERNATIONALIZE
             this.jButtonCreateProject = new JButton("Projekt erstellen");
 
+            try {
+                this.jButtonCreateProject.setIcon(Resource.createImageIcon("actions/document-new.png", "", "32"));
+            } catch (FileNotFoundException e) {
+                this.logger.error("Icon for create project button not found.");
+            }
+            
             /* create an action listener (which knows the model) to the button */
             this.jButtonCreateProject.addActionListener(new ProjectCreateController<M, JProjectManagement<M>>(
                     this.model, this));
@@ -248,6 +269,12 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
             // INTERNATIONALIZE
             this.jButtonDeleteProject = new JButton("Projekt löschen");
 
+            try {
+                this.jButtonDeleteProject.setIcon(Resource.createImageIcon("actions/edit-delete.png", "", "32"));
+            } catch (FileNotFoundException e) {
+                this.logger.error("Icon for delete project button not found.");
+            }
+            
             /* create an action listener (which knows the model and the view) to the button */
             this.jButtonDeleteProject.addActionListener(new ProjectDeleteController<M, JProjectManagement<M>>(
                     this.model, this));
@@ -271,6 +298,12 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
             // INTERNATIONALIZE
             this.jButtonOpenProject = new JButton("Projekt öffnen");
 
+            try {
+                this.jButtonOpenProject.setIcon(Resource.createImageIcon("actions/document-open.png", "", "32"));
+            } catch (FileNotFoundException e) {
+                this.logger.error("Icon for open project button not found.");
+            }
+            
             /* create an action listener (which knows the model an the view) to the button */
             this.jButtonOpenProject.addActionListener(new ProjectOpenController<M, JProjectManagement<M>>(this.model,
                     this));

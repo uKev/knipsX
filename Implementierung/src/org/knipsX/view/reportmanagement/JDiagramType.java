@@ -261,7 +261,7 @@ public class JDiagramType extends JAbstractSinglePanel {
         } else {
             
             try {
-                this.reportNameErrorLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                this.reportNameErrorLabel.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
             } catch (FileNotFoundException e) {                
                 e.printStackTrace();
             }

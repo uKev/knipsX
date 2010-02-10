@@ -98,7 +98,7 @@ public abstract class JAbstractSinglePanel extends JComponent {
      */
     public void showErrorIcon() {
         try {
-            this.icon.setImage(Resource.createImageIcon("../images/userwarning_small.png", null).getImage());
+            this.icon.setImage(Resource.createImageIcon("status/dialog-error.png", "", "16").getImage());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

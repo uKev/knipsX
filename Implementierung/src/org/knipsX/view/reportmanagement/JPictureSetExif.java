@@ -516,7 +516,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                     }
 
                     if (numberOfElements == 0) {
-                        this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                        this.errorMessage.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
                         // INTERNATIONALIZE
                         this.errorMessage
                                 .setToolTipText("Es muss mindestens ein Bild vorhanden sein, damit die Auswertung angezeigt werden kann");
@@ -554,7 +554,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
                     if (Validator.getValidPictures(pictureContainer, exifParameters, associatedXMPKeywords).size() == 0
                             && ReportHelper.getCurrentReport() != ReportHelper.Table) {
-                        this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                        this.errorMessage.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
 
                         // INTERNATIONALIZE
                         this.errorMessage.setToolTipText("In den Bilder, die ausgewählt wurden befinden sich, mit der "
@@ -580,7 +580,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 return true;
 
             } else {
-                this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null));
+                this.errorMessage.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
                 // INTERNATIONALIZE
                 this.errorMessage.setToolTipText("Um die Auswertung anzeigen zu können muss in jeder "
                         + "zugewiesenen Bildmenge mindestens ein gültiges Bild vorhanden sein");

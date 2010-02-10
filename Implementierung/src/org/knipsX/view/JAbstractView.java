@@ -46,7 +46,7 @@ public abstract class JAbstractView<M extends AbstractModel> extends JFrame impl
 
         /* sets the knipsX icon image which is associated with every subclass */
         try {
-            this.setIconImage(Resource.createImageIcon("../images/appicon.png", "").getImage());
+            this.setIconImage(Resource.createImageIcon("appicon.png", "", null).getImage());
         } catch (final FileNotFoundException exception) {
             System.err.println(exception);
         }
