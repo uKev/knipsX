@@ -2,6 +2,8 @@ package org.knipsX.controller.projectview;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.JOptionPane;
+
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
@@ -14,7 +16,7 @@ import org.knipsX.view.reportmanagement.ReportHelper;
  * 
  * Represents the action which is executed by clicking on a report.
  * Acts in harmony with a JProjectView.
- *
+ * 
  * @param <M>
  * @param <V>
  */
@@ -23,8 +25,10 @@ public class ReportOpenController<M extends ProjectModel, V extends JProjectView
     /**
      * The constructor which registers the controller with the specified view
      * 
-     * @param model the model the controller operates on
-     * @param view the view the controller operates on
+     * @param model
+     *            the model the controller operates on
+     * @param view
+     *            the view the controller operates on
      */
     public ReportOpenController(M model, V view) {
         super(model, view);
@@ -45,6 +49,10 @@ public class ReportOpenController<M extends ProjectModel, V extends JProjectView
             int reportID = this.view.getSelectedReports()[0];
             new JReportConfig<AbstractReportModel, AbstractReportCompilation>((AbstractReportModel) this.model
                     .getReports()[reportID], reportID);
+        } else {
+            /* INTERNATIONALIZE */
+            JOptionPane.showMessageDialog(this.view, "Wählen Sie zuerst eine Auswertung aus, um diese öffnen zu können.",
+                    "Auswertung auswählen", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }

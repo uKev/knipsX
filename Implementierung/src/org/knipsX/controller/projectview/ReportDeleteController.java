@@ -1,6 +1,9 @@
 package org.knipsX.controller.projectview;
 
 import java.awt.event.ActionEvent;
+
+import javax.swing.JOptionPane;
+
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
@@ -29,6 +32,10 @@ public class ReportDeleteController<M extends ProjectModel, V extends JProjectVi
     public void actionPerformed(ActionEvent e) {
         if (this.view.getSelectedReports().length > 0) {
             this.model.removeReport(this.model.getReports()[this.view.getSelectedReports()[0]]);
+        } else {
+            /* INTERNATIONALIZE */
+            JOptionPane.showMessageDialog(this.view, "Wählen Sie zuerst eine Auswertung aus, um diese löschen zu können.",
+                    "Auswertung löschen", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }
