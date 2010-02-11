@@ -60,7 +60,7 @@ public final class Programm {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    UIManager.setLookAndFeel(new SubstanceBusinessBlackSteelLookAndFeel());
+                    UIManager.setLookAndFeel(new SubstanceBusinessBlackSteelLookAndFeel());                    
                 } catch (final UnsupportedLookAndFeelException e) {
                     Programm.logger.error("Error loading Look and Feel: " + e.getMessage());
                 }
