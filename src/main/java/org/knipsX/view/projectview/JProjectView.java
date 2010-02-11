@@ -136,6 +136,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* report helper connects to the current model */
         ReportHelper.setCurrentProjectModel(this.model);
+        
+        /* Turn off the default decorator to enhance thumbnail view */
+        JFrame.setDefaultLookAndFeelDecorated(false);
 
         this.initialize();
 

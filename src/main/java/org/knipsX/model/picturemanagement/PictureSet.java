@@ -111,6 +111,8 @@ public class PictureSet implements PictureContainer {
      * @return the iterator over this
      */
     public Iterator<Picture> iterator() {
+        /* Reset the iterator */
+        this.currentChild = 0;
         return this;
     }
 

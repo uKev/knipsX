@@ -23,9 +23,7 @@ import org.knipsX.controller.reportmanagement.ReportAddExifKeywordController;
 import org.knipsX.controller.reportmanagement.ReportAddPictureSetController;
 import org.knipsX.controller.reportmanagement.ReportPictureSetRemoveController;
 import org.knipsX.controller.reportmanagement.ReportRemoveExifKeywordController;
-import org.knipsX.images.dummypictures.DummyPictures;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
@@ -171,8 +169,6 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
             if (value instanceof PictureSet) {
                 final PictureSet pictureContainer = (PictureSet) value;                
-                /* Reset iterator because you never know how someone used it before */
-                pictureContainer.resetIterator();
                 int numberOfElements = 0;
 
                 for (@SuppressWarnings("unused") Picture picture : pictureContainer) {

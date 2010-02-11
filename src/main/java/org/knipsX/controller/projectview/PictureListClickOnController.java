@@ -101,7 +101,6 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
             point.translate(10, 10);
             this.tooltipWindow.setLocation(point);
             this.tooltipWindow.setUndecorated(true);
-            JFrame.setDefaultLookAndFeelDecorated(false);
 
             try {
                 final ImageIcon image = new ImageIcon(pic.getBigThumbnail());
