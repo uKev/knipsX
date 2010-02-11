@@ -21,12 +21,14 @@ public class Axis3DTest {
 		assertEquals("Axis space and reportspace should be identical (10)", maxReportSpace, axis.getAxisSpace(maxReportSpace), epsilon);
 		
 		// Alter the parameters
+		minReportSpace = 0;
 		maxReportSpace = 100;			
 		axis.setAxisSize(maxReportSpace);
 		axis.setReportSpace(minReportSpace, maxReportSpace);
 		assertEquals("Axis space and reportspace should be identical (100)", maxReportSpace, axis.getAxisSpace(maxReportSpace), epsilon);
 		
 		// Try some insane large value. Note that this case might actually occur, depending on the input data
+		minReportSpace = 0;
 		maxReportSpace = Double.MAX_VALUE;			
 		axis.setAxisSize(maxReportSpace);
 		axis.setReportSpace(minReportSpace, maxReportSpace);
