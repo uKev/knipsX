@@ -1,6 +1,9 @@
+<<<<<<< HEAD:Implementierung/src/org/knipsX/Programm.java
 /**
- * This package is the root of all packages.
+ * This package is the root of all packages!!!
  */
+=======
+>>>>>>> 44fd20c5f0461be4bd8a4c755c4427684a386989:Implementierung/src/org/knipsX/Programm.java
 package org.knipsX;
 
 import javax.swing.JDialog;

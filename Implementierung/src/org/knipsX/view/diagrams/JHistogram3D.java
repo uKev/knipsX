@@ -42,9 +42,9 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
             
             Logger logger = Logger.getLogger(this.getClass());
 
-            logger.debug("Model min X " + this.model.getMinX() + "  Model max X " + this.model.getMaxX());
-            logger.debug("Model min Z " + this.model.getMinZ() + "  Model max Z " + this.model.getMaxZ());
-            logger.debug("Model min Y " + this.model.getMinY() + "  Model max Y " + this.model.getMaxY());
+            logger.debug(Messages.getString("JHistogram3D.0") + this.model.getMinX() + Messages.getString("JHistogram3D.1") + this.model.getMaxX()); //$NON-NLS-1$ //$NON-NLS-2$
+            logger.debug(Messages.getString("JHistogram3D.2") + this.model.getMinZ() + Messages.getString("JHistogram3D.3") + this.model.getMaxZ()); //$NON-NLS-1$ //$NON-NLS-2$
+            logger.debug(Messages.getString("JHistogram3D.4") + this.model.getMinY() + Messages.getString("JHistogram3D.5") + this.model.getMaxY()); //$NON-NLS-1$ //$NON-NLS-2$
 
             this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
             this.getxAxis().setAxis(this.model.getxAxis());
@@ -52,7 +52,7 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
             this.getzAxis().setAxis(this.model.getzAxis());            
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
             //INTERNATIONALIZE
-            this.getyAxis().setDescription("Anzahl");
+            this.getyAxis().setDescription(Messages.getString("JHistogram3D.6")); //$NON-NLS-1$
 
             double shrinkFactor = 0.85;            
             
@@ -60,10 +60,10 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
             for (int i = 0; i < categories.length; i++) {
                 for (int j = 0; j < categories[i].length; j++) {
 
-                    logger.debug("Category Number " + heigth);
-                    logger.debug("Max Z  " + categories[i][j].getMaxValueZ() + " Min Z "
+                    logger.debug(Messages.getString("JHistogram3D.7") + heigth); //$NON-NLS-1$
+                    logger.debug(Messages.getString("JHistogram3D.8") + categories[i][j].getMaxValueZ() + Messages.getString("JHistogram3D.9") //$NON-NLS-1$ //$NON-NLS-2$
                             + categories[i][j].getMinValueZ());
-                    logger.debug("Max X  " + categories[i][j].getMaxValueX() + " Min X "
+                    logger.debug(Messages.getString("JHistogram3D.10") + categories[i][j].getMaxValueX() + Messages.getString("JHistogram3D.11") //$NON-NLS-1$ //$NON-NLS-2$
                             + categories[i][j].getMinValueX());
 
                     double xRange = Math.abs(this.getxAxis().getAxisSpace(categories[i][j].getMaxValueX())
@@ -112,7 +112,7 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
                 /* Output some kind of error message */
                 // INTERNATIONALIZE
                 JOptionPane.showMessageDialog(this,
-                        "Das Diagramm kann nicht angezeigt werden, da es einen Fehler bei der Berechnung gab.");
+                        Messages.getString("JHistogram3D.12")); //$NON-NLS-1$
                 this.displayDiagram = false;
             }
 
