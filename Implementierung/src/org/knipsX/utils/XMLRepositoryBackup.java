@@ -11,14 +11,16 @@ import java.util.UUID;
 import org.apache.log4j.Logger;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
+import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.utils.XML.XMLInput;
 import org.knipsX.utils.XML.XMLOutput;
 
 public class XMLRepositoryBackup implements Repository {
 
-    private static Logger log = Logger.getLogger(XMLRepositoryBackup.class); 
-    
+    private static Logger log = Logger.getLogger(XMLRepositoryBackup.class);
+
     public List<ProjectModel> getProjects() {
 
         final List<ProjectModel> projects = new ArrayList<ProjectModel>();
@@ -29,7 +31,7 @@ public class XMLRepositoryBackup implements Repository {
         if (!projectDir.exists()) {
             if (!projectDir.mkdir()) {
                 log.error("[getProjects()] - I have no rights to create the project directory -> "
-                                + RepositoryHandler.PROJECTS_PATH);
+                        + RepositoryHandler.PROJECTS_PATH);
             }
         }
 
@@ -59,7 +61,8 @@ public class XMLRepositoryBackup implements Repository {
     public int createProject() {
 
         /* call the createProject with a dummy ProjectModel */
-        return this.createProject(new ProjectModel(0, "", "", new GregorianCalendar()));
+        return this.createProject(new ProjectModel(0, "", "", new GregorianCalendar(), new ArrayList<PictureSet>(),
+                new ArrayList<AbstractReportModel>()));
     }
 
     public int createProject(final ProjectModel toCopy) {
@@ -77,9 +80,8 @@ public class XMLRepositoryBackup implements Repository {
         /* save the project and return the unique id */
         if (!projectDir.mkdir()) {
             /* INTERNATIONALIZE */
-            log
-                    .error("[createProject()] - I have no rights to create the project directory -> "
-                            + RepositoryHandler.PROJECTS_PATH);
+            log.error("[createProject()] - I have no rights to create the project directory -> "
+                    + RepositoryHandler.PROJECTS_PATH);
         } else {
             this.saveProject(new ProjectModel(toCopy, projectId, ""));
         }
@@ -101,14 +103,12 @@ public class XMLRepositoryBackup implements Repository {
             }
             if (!file.delete()) {
                 /* INTERNATIONALIZE */
-                log.error("[treeDelete()] - I have no rights to delete the directory -> "
-                        + file.getAbsolutePath());
+                log.error("[treeDelete()] - I have no rights to delete the directory -> " + file.getAbsolutePath());
             }
         } else {
             if (!file.delete()) {
                 /* INTERNATIONALIZE */
-                log.error("[treeDelete()] - I have no rights to delete the file -> "
-                        + file.getAbsolutePath());
+                log.error("[treeDelete()] - I have no rights to delete the file -> " + file.getAbsolutePath());
             }
         }
     }

@@ -63,23 +63,7 @@ public class ProjectModel extends AbstractModel {
     private List<InitializePictureDataThread> initializePictureDataWorkers;
     private List<InitializePictureThumbnailThread> initializePictureThumbnailWorkers;
 
-    private final Logger log = Logger.getLogger(this.getClass());
-
-    /**
-     * Creates a new project with basic informations.
-     * 
-     * @param id
-     *            the id of the project (must be unique).
-     * @param name
-     *            the name of the project.
-     * @param description
-     *            the description of the project.
-     * @param date
-     *            the creation date of the project.
-     */
-    public ProjectModel(final int id, final String name, final String description, final GregorianCalendar date) {
-        this(id, name, description, date, new ArrayList<PictureSet>(), new ArrayList<AbstractReportModel>());
-    }
+    private final Logger logger = Logger.getLogger(this.getClass());
 
     /**
      * Creates a new project with basic informations plus list of picture sets and reports.
@@ -105,18 +89,6 @@ public class ProjectModel extends AbstractModel {
         this.creationDate = date;
         this.pictureSetList = pictureSets;
         this.reportList = reports;
-    }
-
-    /**
-     * Creates a new model based on an old one (with new id which must be unique).
-     * 
-     * @param toCopy
-     *            the model to copy.
-     * @param id
-     *            the new id.
-     */
-    public ProjectModel(final ProjectModel toCopy, final int id) {
-        this(toCopy, id, "");
     }
 
     /**
@@ -231,8 +203,8 @@ public class ProjectModel extends AbstractModel {
         if (this.getSelectedPicture() != null) {
             return this.getSelectedPicture().getAllExifParameter().clone();
         }
-
         final List<String[]> exifParameter = new LinkedList<String[]>();
+        
         /* INTERNATIONALIZE */
         for (final ExifParameter parameter : ExifParameter.values()) {
             exifParameter.add(new String[] { parameter.toString(), "no data" });
@@ -318,13 +290,10 @@ public class ProjectModel extends AbstractModel {
                 numberOfThreads = 1;
             }
 
-            this.log.debug("Number of Threads: " + numberOfThreads);
             this.initializePictureDataWorkers = new LinkedList<InitializePictureDataThread>();
             for (int i = 0; i < numberOfThreads; ++i) {
                 final InitializePictureDataThread newThread = new InitializePictureDataThread();
-                this.log.debug("old priority: " + newThread.getPriority());
                 newThread.setPriority(Thread.MIN_PRIORITY);
-                this.log.debug("new priority: " + newThread.getPriority());
                 this.initializePictureDataWorkers.add(newThread);
             }
         }
@@ -336,13 +305,10 @@ public class ProjectModel extends AbstractModel {
                 numberOfThreads = 1;
             }
 
-            this.log.debug("Number of Threads: " + numberOfThreads);
             this.initializePictureThumbnailWorkers = new LinkedList<InitializePictureThumbnailThread>();
             for (int i = 0; i < numberOfThreads; ++i) {
                 final InitializePictureThumbnailThread newThread = new InitializePictureThumbnailThread();
-                this.log.debug("old priority: " + newThread.getPriority());
                 newThread.setPriority(Thread.MIN_PRIORITY);
-                this.log.debug("new priority: " + newThread.getPriority());
                 this.initializePictureThumbnailWorkers.add(newThread);
             }
         }
@@ -367,7 +333,7 @@ public class ProjectModel extends AbstractModel {
         try {
             RepositoryHandler.getRepository().saveProject(this);
         } catch (final RepositoryInterfaceException e) {
-            this.log.fatal("[saveProjectModel()] - Can't save because:" + e.getStackTrace());
+            this.logger.error("Can't save because:" + e.getStackTrace());
         }
     }
 
@@ -439,14 +405,7 @@ public class ProjectModel extends AbstractModel {
      * @return an amount of picture sets.
      */
     public PictureSet[] getPictureSets() {
-
-        /* convert to array */
-        final PictureSet[] pictureSetArray = new PictureSet[this.pictureSetList.size()];
-
-        for (int i = 0; i < pictureSetArray.length; ++i) {
-            pictureSetArray[i] = this.pictureSetList.get(i);
-        }
-        return pictureSetArray;
+        return this.pictureSetList.toArray(new PictureSet[] {});
     }
 
     /**
@@ -495,13 +454,7 @@ public class ProjectModel extends AbstractModel {
                 }
             }
         }
-        /* convert to array */
-        final PictureSet[] pictureSetArray = new PictureSet[pictureSets.size()];
-
-        for (int i = 0; i < pictureSetArray.length; ++i) {
-            pictureSetArray[i] = pictureSets.get(i);
-        }
-        return pictureSetArray;
+        return pictureSets.toArray(new PictureSet[] {});
     }
 
     /**
@@ -525,13 +478,7 @@ public class ProjectModel extends AbstractModel {
                 }
             }
         }
-        /* convert to array */
-        final Directory[] directoryArray = new Directory[directories.size()];
-
-        for (int i = 0; i < directoryArray.length; ++i) {
-            directoryArray[i] = directories.get(i);
-        }
-        return directoryArray;
+        return directories.toArray(new Directory[] {});
     }
 
     /**
@@ -555,14 +502,7 @@ public class ProjectModel extends AbstractModel {
                 }
             }
         }
-
-        /* convert to array */
-        final Picture[] pictureArray = new Picture[pictures.size()];
-
-        for (int i = 0; i < pictureArray.length; ++i) {
-            pictureArray[i] = pictures.get(i);
-        }
-        return pictureArray;
+        return pictures.toArray(new Picture[] {});
     }
 
     /*
@@ -681,14 +621,7 @@ public class ProjectModel extends AbstractModel {
                 pictures.add(picture);
             }
         }
-
-        /* convert to array */
-        final Picture[] pictureArray = new Picture[pictures.size()];
-
-        for (int i = 0; i < pictureArray.length; ++i) {
-            pictureArray[i] = pictures.get(i);
-        }
-        return pictureArray;
+        return pictures.toArray(new Picture[] {});
     }
 
     /**

@@ -37,10 +37,10 @@ import javax.swing.TransferHandler;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 import org.apache.log4j.Logger;
+
 import org.knipsX.controller.projectview.PictureListClickOnController;
 import org.knipsX.controller.projectview.PictureSetContentListAddController;
 import org.knipsX.controller.projectview.PictureSetContentListClickOnController;
@@ -66,7 +66,6 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
-import org.knipsX.utils.Converter;
 import org.knipsX.utils.Resource;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.reportmanagement.ReportHelper;
@@ -177,7 +176,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         try {
             newButton.setIcon(Resource.createImageIcon(icon, "", "16"));
-        } catch (FileNotFoundException e) {
+        } catch (final FileNotFoundException e) {
             this.logger.error("Icon for button not found - " + icon);
         }
         newButton.addActionListener(listener);
@@ -356,7 +355,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             this.jContentPane = new JPanel(new BorderLayout());
 
-            JPanel mainPanel = new JPanel();
+            final JPanel mainPanel = new JPanel();
 
             /* create new layout for this panel */
             final GroupLayout jContentPaneLayout = new GroupLayout(mainPanel);
@@ -732,7 +731,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jListPictureSetActive = new JList(this.model.getAllPictures());
             this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             this.jListPictureSetActive.setLayoutOrientation(JList.VERTICAL);
-            PictureListClickOnController<M, JProjectView<M>> controller = new PictureListClickOnController<M, JProjectView<M>>(
+            final PictureListClickOnController<M, JProjectView<M>> controller = new PictureListClickOnController<M, JProjectView<M>>(
                     this.model, this);
             this.jListPictureSetActive.addMouseListener(controller);
             this.jListPictureSetActive.addMouseMotionListener(controller);
@@ -875,10 +874,10 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             this.jPanelStatusInformation.add(this.getJProgressBarExifData());
             this.jPanelStatusInformation.add(this.getJProgressBarThumbnail());
-            
+
             /* INTERNATIONALIZE */
             this.jPanelStatusInformation.add(new JLabel("Total Pictures: " + this.model.getNumberOfPictures()));
-            
+
             this.jPanelStatusInformation.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 5));
         }
         return this.jPanelStatusInformation;
@@ -891,14 +890,14 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.exifDataProgress = new JProgressBar(0, this.model.getNumberOfPictures());
             this.exifDataProgress.setStringPainted(true);
         }
-        JPanel main = new JPanel(new BorderLayout());
+        final JPanel main = new JPanel(new BorderLayout());
         main.add(new JLabel("Exif Data: "), BorderLayout.WEST); /* INTERNATIONALIZE */
         main.add(this.exifDataProgress, BorderLayout.CENTER);
         main.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
-        
+
         return main;
     }
-    
+
     private JPanel getJProgressBarThumbnail() {
 
         /* create only if not set */
@@ -906,11 +905,11 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.thumbnailProgress = new JProgressBar(0, this.model.getNumberOfPictures());
             this.thumbnailProgress.setStringPainted(true);
         }
-        JPanel main = new JPanel(new BorderLayout());
+        final JPanel main = new JPanel(new BorderLayout());
         main.add(new JLabel("Thumbnail: "), BorderLayout.WEST); /* INTERNATIONALIZE */
         main.add(this.thumbnailProgress, BorderLayout.CENTER);
         main.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
-        
+
         return main;
     }
 
@@ -974,18 +973,38 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         return this.jListReport.getSelectedIndices();
     }
 
+    /**
+     * Get the index.
+     * 
+     * @return the index.
+     */
     public int getSelectedPictureSetIndex() {
         return this.jListPictureSet.getSelectedIndex();
     }
 
+    /**
+     * Get the value.
+     * 
+     * @return the value.
+     */
     public PictureSet getSelectedPictureSetValue() {
         return (PictureSet) this.jListPictureSet.getSelectedValue();
     }
 
+    /**
+     * Get the project name.
+     * 
+     * @return the project name.
+     */
     public String getProjectName() {
         return new String(this.jTextFieldProjectName.getText());
     }
 
+    /**
+     * Get the project description.
+     * 
+     * @return the project description.
+     */
     public String getProjectDescription() {
         return new String(this.jEditorPaneProjectDescription.getText());
     }
@@ -1006,8 +1025,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                     final int caretProjectName = JProjectView.this.jTextFieldProjectName.getCaretPosition();
                     JProjectView.this.jTextFieldProjectName.setText(model.getName());
                     JProjectView.this.jTextFieldProjectName.setCaretPosition(caretProjectName);
-                } catch (IllegalArgumentException e) {
-                    logger.error("Position of name caret cannot set - " + e.fillInStackTrace());
+                } catch (final IllegalArgumentException e) {
+                    JProjectView.this.logger.error("Position of name caret cannot set - " + e.fillInStackTrace());
                 }
 
                 try {
@@ -1015,8 +1034,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                             .getCaretPosition();
                     JProjectView.this.jEditorPaneProjectDescription.setText(model.getDescription());
                     JProjectView.this.jEditorPaneProjectDescription.setCaretPosition(caretProjectDescription);
-                } catch (IllegalArgumentException e) {
-                    logger.error("Position of description caret cannot set - " + e.fillInStackTrace());
+                } catch (final IllegalArgumentException e) {
+                    JProjectView.this.logger
+                            .error("Position of description caret cannot set - " + e.fillInStackTrace());
                 }
 
                 final int[] selectedPictureSets = JProjectView.this.jListPictureSet.getSelectedIndices();
@@ -1062,7 +1082,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
                             String theText = "";
                             if (values[i][1] instanceof Object[]) {
-                                Object[] objectArray = (Object[]) values[i][1];
+                                final Object[] objectArray = (Object[]) values[i][1];
                                 for (int j = 0; j < objectArray.length; j++) {
                                     if (j == 0) {
                                         theText = objectArray[j].toString();
@@ -1085,16 +1105,17 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
                 /* Update the progress bars */
                 /* TWEAK this is ugly */
-                int numberOfPictures = JProjectView.this.model.getNumberOfPictures();
+                final int numberOfPictures = JProjectView.this.model.getNumberOfPictures();
 
-                int actExifData = numberOfPictures - JProjectView.this.model.getNumberOfPicturesWithoutExifData();
+                final int actExifData = numberOfPictures - JProjectView.this.model.getNumberOfPicturesWithoutExifData();
                 JProjectView.this.exifDataProgress.setValue(actExifData);
                 JProjectView.this.exifDataProgress.setMaximum(numberOfPictures);
 
-                int actThumbnails = numberOfPictures - JProjectView.this.model.getNumberOfPicturesWithoutThumbails();
+                final int actThumbnails = numberOfPictures
+                        - JProjectView.this.model.getNumberOfPicturesWithoutThumbails();
                 JProjectView.this.thumbnailProgress.setValue(actThumbnails);
                 JProjectView.this.thumbnailProgress.setMaximum(numberOfPictures);
-                
+
                 /* refresh view */
                 JProjectView.this.repaint();
 
