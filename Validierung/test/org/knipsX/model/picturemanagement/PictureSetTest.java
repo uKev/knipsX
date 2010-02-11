@@ -28,11 +28,7 @@ public class PictureSetTest {
         
         PictureSet pictureSet = new PictureSet("Demonstration");
         
-        /* 
-         * Note that when using a picture set reset the iterator because you never know how someone misused it.
-         * In this scenario reseting the iterator has no effect. This is solely a reminder to use it!
-         */
-        pictureSet.resetIterator();
+
         
         // Add the directory "multiplier" times to the same picture set
         int multiplier = 5;        
@@ -49,6 +45,23 @@ public class PictureSetTest {
         assertEquals("Picture Set should contain " + multiplier + " times the amount of pictures that can be found in the directory", multiplier * numberOfPicturesInDirectory, numberOfPicturesInPictureSet);
         
         
+        /* 
+         * Note that when using a picture set reset the iterator because you never know how someone misused it.
+         * In this scenario reseting the iterator has no effect. This is solely a reminder to use it!
+         */      
+        
+        /* TODO You shouldn't have to call reset iterator from outside just to reuse it! This should be handled inside the
+         * respective classes
+         */
+        //pictureSet.resetIterator();
+        
+        numberOfPicturesInPictureSet = 0;
+        
+        for (Picture picture : pictureSet) {
+            numberOfPicturesInPictureSet++;
+        }
+        
+        assertEquals("Picture Set should contain " + multiplier + " times the amount of pictures that can be found in the directory", multiplier * numberOfPicturesInDirectory, numberOfPicturesInPictureSet);
         
     }
 
