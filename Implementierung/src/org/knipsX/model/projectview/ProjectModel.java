@@ -259,6 +259,42 @@ public class ProjectModel extends AbstractModel {
                 + df.format(second);
     }
 
+    /**
+     * Get the amount of the pictures a project handle with.
+     * 
+     * @return the amount of pictures.
+     */
+    public int getNumberOfPictures() {
+        int numberOfPictures = 0;
+
+        for (final PictureSet set : this.pictureSetList) {
+            set.resetIterator();
+            for (@SuppressWarnings("unused")
+            final Picture picture : set) {
+                numberOfPictures++;
+            }
+        }
+        return numberOfPictures;
+    }
+
+    /**
+     * Get the amount of the pictures with no exif data.
+     * 
+     * @return the amount of pictures.
+     */
+    public int getNumberOfPicturesWithoutExifData() {
+        return this.pictureDataQueue.size();
+    }
+
+    /**
+     * Get the amount of the pictures with no thumbnail.
+     * 
+     * @return the amount of pictures.
+     */
+    public int getNumberOfPicturesWithoutThumbails() {
+        return this.pictureThumbnailQueue.size();
+    }
+
     /*
      * ################################################################################################################
      * FUNCTIONS FOR DATA MANAGEMENT
@@ -271,39 +307,42 @@ public class ProjectModel extends AbstractModel {
      * ################################################################################################################
      */
 
+    /**
+     * Initialy load the data.
+     */
     public void loadData() {
         if (this.initializePictureDataWorkers == null) {
             int numberOfThreads = Runtime.getRuntime().availableProcessors() - 1;
-            
+
             if (numberOfThreads == 0) {
                 numberOfThreads = 1;
             }
-            
+
             this.log.debug("Number of Threads: " + numberOfThreads);
             this.initializePictureDataWorkers = new LinkedList<InitializePictureDataThread>();
             for (int i = 0; i < numberOfThreads; ++i) {
-                InitializePictureDataThread newThread = new InitializePictureDataThread();
-                log.debug("old priority: " + newThread.getPriority());
+                final InitializePictureDataThread newThread = new InitializePictureDataThread();
+                this.log.debug("old priority: " + newThread.getPriority());
                 newThread.setPriority(Thread.MIN_PRIORITY);
-                log.debug("new priority: " + newThread.getPriority());
+                this.log.debug("new priority: " + newThread.getPriority());
                 this.initializePictureDataWorkers.add(newThread);
             }
         }
-        
+
         if (this.initializePictureThumbnailWorkers == null) {
             int numberOfThreads = Runtime.getRuntime().availableProcessors() - 1;
-            
+
             if (numberOfThreads == 0) {
                 numberOfThreads = 1;
             }
-            
+
             this.log.debug("Number of Threads: " + numberOfThreads);
             this.initializePictureThumbnailWorkers = new LinkedList<InitializePictureThumbnailThread>();
             for (int i = 0; i < numberOfThreads; ++i) {
-                InitializePictureThumbnailThread newThread = new InitializePictureThumbnailThread();
-                log.debug("old priority: " + newThread.getPriority());
+                final InitializePictureThumbnailThread newThread = new InitializePictureThumbnailThread();
+                this.log.debug("old priority: " + newThread.getPriority());
                 newThread.setPriority(Thread.MIN_PRIORITY);
-                log.debug("new priority: " + newThread.getPriority());
+                this.log.debug("new priority: " + newThread.getPriority());
                 this.initializePictureThumbnailWorkers.add(newThread);
             }
         }
@@ -321,6 +360,9 @@ public class ProjectModel extends AbstractModel {
         }
     }
 
+    /**
+     * Save the model.
+     */
     public void saveProjectModel() {
         try {
             RepositoryHandler.getRepository().saveProject(this);
@@ -422,7 +464,8 @@ public class ProjectModel extends AbstractModel {
     /**
      * Set the current selected PictureSet on which some actions depends.
      * 
-     * @return the current selected PictureSet.
+     * @param selected
+     *            the selected PictureSet.
      */
     public void setSelectedPictureSet(final PictureSet selected) {
         this.selectedPictureSet = selected;
@@ -589,9 +632,10 @@ public class ProjectModel extends AbstractModel {
     }
 
     /**
-     * Set the current selected PictureSet on which some actions depends.
+     * Set the current selected PictureContainer on which some actions depends.
      * 
-     * @return the current selected PictureSet.
+     * @param selected
+     *            the selected PictureContainer.
      */
     public void setSelectedPictureSetContent(final PictureContainer selected) {
         this.selectedPictureSetContent = selected;
@@ -673,9 +717,10 @@ public class ProjectModel extends AbstractModel {
     }
 
     /**
-     * Set the current selected PictureSet on which some actions depends.
+     * Set the current selected Picture on which some actions depends.
      * 
-     * @return the current selected PictureSet.
+     * @param selected
+     *            the selected Picture.
      */
     public void setSelectedPicture(final Picture selected) {
         this.selectedPicture = selected;
@@ -693,7 +738,8 @@ public class ProjectModel extends AbstractModel {
      * 
      * @param report
      *            the report to add.
-     * 
+     * @param reportId
+     *            the id of the report.
      * @return true if the report was added, false if not.
      */
     public boolean addReport(final AbstractReportModel report, final int reportId) {
@@ -745,7 +791,7 @@ public class ProjectModel extends AbstractModel {
      */
 
     private class InitializePictureDataThread extends Thread {
-        
+
         @Override
         public void run() {
             while (true) {
@@ -762,11 +808,11 @@ public class ProjectModel extends AbstractModel {
             }
         }
     }
-    
+
     private class InitializePictureThumbnailThread extends Thread {
 
         private int numberOfImagesInitialized = 0;
-        
+
         @Override
         public void run() {
             while (true) {
@@ -777,14 +823,14 @@ public class ProjectModel extends AbstractModel {
                     if (pic.initThumbnails()) {
                         this.numberOfImagesInitialized++;
                     }
-                    
-                    if(this.numberOfImagesInitialized == 50) {
+
+                    if (this.numberOfImagesInitialized == 25) {
                         this.numberOfImagesInitialized = 0;
                         ProjectModel.this.updateViews();
                     }
                 }
                 try {
-                    if(this.numberOfImagesInitialized > 0) {
+                    if (this.numberOfImagesInitialized > 0) {
                         this.numberOfImagesInitialized = 0;
                         ProjectModel.this.updateViews();
                     }
