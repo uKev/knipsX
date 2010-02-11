@@ -47,11 +47,9 @@ public class MyExifTableCellRenderer extends JLabel implements TableCellRenderer
         final JLabel renderer = (JLabel) this.defaultRenderer.getTableCellRendererComponent(table, value, isSelected,
                 hasFocus, row, column);
 
-        String theText = "";
-
         if (value != null) {
 
-            theText = Converter.objectToString(value);
+            String theText = Converter.objectToString(value);
             
             //TWEAK: Might split this renderer up into two, not every long value is a date
             if (value instanceof Long && (column == ExifParameter.DATE.ordinal() + 1 ||  row == ExifParameter.DATE.ordinal())) {       
