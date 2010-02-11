@@ -151,7 +151,7 @@ public class Directory implements PictureContainer {
      *         the specified object
      */
     public int compareTo(final PictureContainer directoryToCompare) {
-        if (this.getPath().hashCode() == ((Directory) directoryToCompare).getPath().hashCode()) {
+        if (this.hashCode() == ((Directory) directoryToCompare).hashCode()) {
             return 0;
         } else if (this.getName().compareTo(directoryToCompare.getName()) > 0) {
             return 1;

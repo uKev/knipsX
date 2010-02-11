@@ -1,7 +1,6 @@
 package org.knipsX.controller.projectview;
 
 import java.awt.event.ActionEvent;
-import java.util.UUID;
 
 import javax.swing.JOptionPane;
 
@@ -70,8 +69,7 @@ public class PictureSetListCopyController<M extends ProjectModel, V extends JPro
 
                 /* has user give in a project name? */
                 if (pictureSetName != null) {
-                    this.model.addPictureSet(new PictureSet(pictureSetToCopy, pictureSetName, UUID.randomUUID()
-                            .hashCode()));
+                    this.model.addPictureSet(new PictureSet(pictureSetToCopy, pictureSetName));
                 }
             }
 

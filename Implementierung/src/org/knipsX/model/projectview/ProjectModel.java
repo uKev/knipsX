@@ -204,7 +204,7 @@ public class ProjectModel extends AbstractModel {
             return this.getSelectedPicture().getAllExifParameter().clone();
         }
         final List<Object[]> exifParameter = new LinkedList<Object[]>();
-        
+
         /* INTERNATIONALIZE */
         for (final ExifParameter parameter : ExifParameter.values()) {
             exifParameter.add(new Object[] { parameter.toString(), "no data" });
@@ -428,7 +428,6 @@ public class ProjectModel extends AbstractModel {
      */
     public void setSelectedPictureSet(final PictureSet selected) {
         this.selectedPictureSet = selected;
-        this.hasChanged();
         this.updateViews();
     }
 
@@ -439,19 +438,19 @@ public class ProjectModel extends AbstractModel {
      *            the picture set which we use as root.
      * 
      * @return an amount of picture sets.
+     * 
+     * @throws NullPointerException
+     *             if you didn't assign a picture set.
      */
-    public PictureSet[] getPictureSetsOfAPictureSet(final PictureSet pictureSet) {
+    public PictureSet[] getPictureSetsFromPictureSet(final PictureSet pictureSet) throws NullPointerException {
+        if (pictureSet == null) {
+            throw new NullPointerException("You must assign a picture set.");
+        }
         final List<PictureSet> pictureSets = new ArrayList<PictureSet>();
 
-        /* get the picture sets */
-        if (pictureSet != null) {
-
-            final List<PictureContainer> items = pictureSet.getItems();
-
-            for (final PictureContainer container : items) {
-                if (container instanceof PictureSet) {
-                    pictureSets.add((PictureSet) container);
-                }
+        for (final PictureContainer container : pictureSet.getItems()) {
+            if (container instanceof PictureSet) {
+                pictureSets.add((PictureSet) container);
             }
         }
         return pictureSets.toArray(new PictureSet[] {});
@@ -464,18 +463,19 @@ public class ProjectModel extends AbstractModel {
      *            the picture set which we use as root.
      * 
      * @return an amount of picture sets.
+     * 
+     * @throws NullPointerException
+     *             if you didn't assign a picture set.
      */
-    public Directory[] getDirectoriesOfAPictureSet(final PictureSet pictureSet) {
+    public Directory[] getDirectoriesFromPictureSet(final PictureSet pictureSet) throws NullPointerException {
+        if (pictureSet == null) {
+            throw new NullPointerException("You must assign a picture set.");
+        }
         final List<Directory> directories = new ArrayList<Directory>();
 
-        /* get the directories */
-        if (pictureSet != null) {
-            final List<PictureContainer> items = pictureSet.getItems();
-
-            for (final PictureContainer item : items) {
-                if (item instanceof Directory) {
-                    directories.add((Directory) item);
-                }
+        for (final PictureContainer item : pictureSet.getItems()) {
+            if (item instanceof Directory) {
+                directories.add((Directory) item);
             }
         }
         return directories.toArray(new Directory[] {});
@@ -488,18 +488,19 @@ public class ProjectModel extends AbstractModel {
      *            the picture set which we use as root.
      * 
      * @return an amount of pictures.
+     * 
+     * @throws NullPointerException
+     *             if you didn't assign a picture set.
      */
-    public Picture[] getPicturesOfAPictureSet(final PictureSet pictureSet) {
+    public Picture[] getPicturesFromPictureSet(final PictureSet pictureSet) throws NullPointerException {
+        if (pictureSet == null) {
+            throw new NullPointerException("You must assign a picture set.");
+        }
         final List<Picture> pictures = new ArrayList<Picture>();
 
-        /* get the pictures */
-        if (pictureSet != null) {
-            final List<PictureContainer> items = pictureSet.getItems();
-
-            for (final PictureContainer item : items) {
-                if (item instanceof Picture) {
-                    pictures.add((Picture) item);
-                }
+        for (final PictureContainer item : pictureSet.getItems()) {
+            if (item instanceof Picture) {
+                pictures.add((Picture) item);
             }
         }
         return pictures.toArray(new Picture[] {});
@@ -587,7 +588,7 @@ public class ProjectModel extends AbstractModel {
      */
     public void refreshAllDirectories() {
         for (final PictureSet set : this.getPictureSets()) {
-            for (final Directory dir : this.getDirectoriesOfAPictureSet(set)) {
+            for (final Directory dir : this.getDirectoriesFromPictureSet(set)) {
                 dir.refresh();
                 for (final Picture pic : dir) {
                     this.pictureThumbnailQueue.add(pic);

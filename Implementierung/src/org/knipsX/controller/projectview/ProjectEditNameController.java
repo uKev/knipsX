@@ -39,17 +39,32 @@ public class ProjectEditNameController<M extends ProjectModel, V extends JProjec
     public void actionPerformed(final ActionEvent e) {
     }
 
-
+    /**
+     * If something was changed.
+     * 
+     * @param documentEvent
+     *            the event of the document.
+     */
     public void changedUpdate(final DocumentEvent documentEvent) {
         this.model.setName(this.view.getProjectName());
     }
 
-
+    /**
+     * If something was inserted.
+     * 
+     * @param documentEvent
+     *            the event of the document.
+     */
     public void insertUpdate(final DocumentEvent documentEvent) {
         this.model.setName(this.view.getProjectName());
     }
 
-
+    /**
+     * If something was removed.
+     * 
+     * @param documentEvent
+     *            the event of the document.
+     */
     public void removeUpdate(final DocumentEvent documentEvent) {
         this.model.setName(this.view.getProjectName());
     }

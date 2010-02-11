@@ -1136,21 +1136,21 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         /* we show three different types of picture containers */
         final List<PictureContainer> list = new ArrayList<PictureContainer>();
 
-        for (final PictureSet element : this.model.getPictureSetsOfAPictureSet(pictureSet)) {
+        for (final PictureSet element : this.model.getPictureSetsFromPictureSet(pictureSet)) {
             list.add(element);
         }
         Collections.sort(list);
         allContents.addAll(list);
 
         list.clear();
-        for (final Directory element : this.model.getDirectoriesOfAPictureSet(pictureSet)) {
+        for (final Directory element : this.model.getDirectoriesFromPictureSet(pictureSet)) {
             list.add(element);
         }
         Collections.sort(list);
         allContents.addAll(list);
 
         list.clear();
-        for (final Picture element : this.model.getPicturesOfAPictureSet(pictureSet)) {
+        for (final Picture element : this.model.getPicturesFromPictureSet(pictureSet)) {
             list.add(element);
         }
         Collections.sort(list);

@@ -1,7 +1,6 @@
 package org.knipsX.controller.projectview;
 
 import java.awt.event.ActionEvent;
-import java.util.UUID;
 
 import javax.swing.JOptionPane;
 
@@ -46,7 +45,7 @@ public class PictureSetListCreateController<M extends ProjectModel, V extends JP
                 "Bildmenge erstellen", JOptionPane.INFORMATION_MESSAGE);
 
         /* while user is not pressing cancel and no text is given */
-        while (pictureSetName != null && Validator.isStringOk(pictureSetName) == false) {
+        while ((pictureSetName != null) && !Validator.isStringOk(pictureSetName)) {
 
             /* try to get a project name */
             pictureSetName = JOptionPane.showInputDialog(this.view, "Bildmengennamen darf nicht leer sein!",
@@ -54,8 +53,8 @@ public class PictureSetListCreateController<M extends ProjectModel, V extends JP
         }
 
         /* has user give in a project name? */
-        if (Validator.isStringOk(pictureSetName) == true) {
-            this.model.addPictureSet(new PictureSet(pictureSetName, UUID.randomUUID().hashCode()));
+        if (Validator.isStringOk(pictureSetName)) {
+            this.model.addPictureSet(new PictureSet(pictureSetName));
         }
     }
 }

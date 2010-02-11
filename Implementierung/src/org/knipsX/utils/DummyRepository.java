@@ -38,7 +38,7 @@ public class DummyRepository implements Repository {
         List<AbstractReportModel> reportList = new ArrayList<AbstractReportModel>();
 
         /* create the first picture set an some picture containers */
-        PictureSet dummyPictureSet = new PictureSet("Goldfische", 1);
+        PictureSet dummyPictureSet = new PictureSet("Goldfische");
 
         /* create some dummy picture containers and add to the picture set */
         String picturePath = System.getProperty("user.home") + File.separator + ".knipsX_test_bilder" + File.separator
@@ -60,11 +60,11 @@ public class DummyRepository implements Repository {
 
         dummyPictureSet.add(dummyDirectory);
 
-        dummyPictureSet.add(new PictureSet("Fische", 12));
-        dummyPictureSet.add(new PictureSet("Oldfische", 13));
-        dummyPictureSet.add(new PictureSet("Abc", 14));
-        dummyPictureSet.add(new PictureSet("Grillfest", 10));
-        dummyPictureSet.add(new PictureSet("SuperGoldfische", 11));
+        dummyPictureSet.add(new PictureSet("Fische"));
+        dummyPictureSet.add(new PictureSet("Oldfische"));
+        dummyPictureSet.add(new PictureSet("Abc"));
+        dummyPictureSet.add(new PictureSet("Grillfest"));
+        dummyPictureSet.add(new PictureSet("SuperGoldfische"));
 
         /* add to list */
 
@@ -74,7 +74,7 @@ public class DummyRepository implements Repository {
          * System.out.println(pictd add
          */
 
-        PictureSet test = new PictureSet("Urlaub", 3);
+        PictureSet test = new PictureSet("Urlaub");
         test.add(dummyDirectory);
 
         /* create some dummy reports */
@@ -108,8 +108,8 @@ public class DummyRepository implements Repository {
 
         pictureSetList.add(dummyPictureSet);
         pictureSetList.add(test);
-        pictureSetList.add(new PictureSet("Golfen", 4));
-        pictureSetList.add(new PictureSet("Weihnachten 2008", 5));
+        pictureSetList.add(new PictureSet("Golfen"));
+        pictureSetList.add(new PictureSet("Weihnachten 2008"));
 
         return new ArrayList<ProjectModel>(this.projects);
     }

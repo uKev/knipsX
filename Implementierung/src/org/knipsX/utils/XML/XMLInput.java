@@ -123,7 +123,7 @@ public class XMLInput {
             final int id = Integer.parseInt(set.getChildText("id"));
             final String name = set.getChildText("name");
 
-            pictureSets.put(id, new PictureSet(name, id));
+            pictureSets.put(id, new PictureSet(name));
         }
 
         /*
@@ -165,15 +165,15 @@ public class XMLInput {
             /* walk through the picture sets an connect them to their children */
             for (final Element container : XMLHelper.convertList(set.getChild("children").getChildren())) {
 
-                if (container.getName() == "pictureSet") {
+                if (container.getName().equalsIgnoreCase("pictureSet")) {
 
                     /* get a picture set from the hashmap and connect another to it */
                     pictureSets.get(rootId).add(pictureSets.get(Integer.parseInt(container.getText())));
-                } else if (container.getName() == "directory") {
+                } else if (container.getName().equalsIgnoreCase("directory")) {
 
                     /* get a picture set from the hashmap and connect a directory to it */
                     pictureSets.get(rootId).add(directories.get(Integer.parseInt(container.getText())));
-                } else if (container.getName() == "picture") {
+                } else if (container.getName().equalsIgnoreCase("picture")) {
 
                     /* get a picture set from the hashmap and connect a picture to it */
                     pictureSets.get(rootId).add(pictures.get(Integer.parseInt(container.getText())));
@@ -227,7 +227,7 @@ public class XMLInput {
         /* connect the model with picture sets */
         for (final Element pictureSet : XMLHelper.convertList(report.getChild("pictureSets").getChildren("pictureSet"))) {
             for (final PictureSet set : pictureSets) {
-                if (Integer.parseInt(pictureSet.getText()) == set.getID()) {
+                if (Integer.parseInt(pictureSet.getText()) == set.hashCode()) {
                     model.addPictureContainer(set);
                 }
             }

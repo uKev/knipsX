@@ -126,7 +126,7 @@ public class XMLOutput {
         Element directories = new Element("directories");
 
         for (PictureSet set : this.project.getPictureSets()) {
-            for (Directory dir : this.project.getDirectoriesOfAPictureSet(set)) {
+            for (Directory dir : this.project.getDirectoriesFromPictureSet(set)) {
                 directories.addContent(this.resolveDirectory(dir));
             }
         }
@@ -151,7 +151,7 @@ public class XMLOutput {
         Element pictures = new Element("pictures");
 
         for (PictureSet set : this.project.getPictureSets()) {
-            for (Picture pic : this.project.getPicturesOfAPictureSet(set)) {
+            for (Picture pic : this.project.getPicturesFromPictureSet(set)) {
                 pictures.addContent(this.resolvePicture(pic));
             }
         }

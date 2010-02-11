@@ -16,9 +16,6 @@ public class PictureSet implements PictureContainer {
     /* List with elements which are building the pictureset */
     private List<PictureContainer> children = new ArrayList<PictureContainer>();
 
-    /* The ID of the pictureset */
-    private final int id;
-
     /* The current position in the list */
     private int currentChild = 0;
 
@@ -26,16 +23,13 @@ public class PictureSet implements PictureContainer {
     private final String name;
 
     /**
-     * Creates a new PictureSet from a name and an ID.
+     * Creates a new PictureSet from a name.
      * 
      * @param pictureSetName
      *            the name of the pictureset
-     * @param freePictureSetID
-     *            the id
      */
-    public PictureSet(final String pictureSetName, final int freePictureSetID) {
+    public PictureSet(final String pictureSetName) {
         this.name = pictureSetName;
-        this.id = freePictureSetID;
     }
 
     /**
@@ -45,12 +39,9 @@ public class PictureSet implements PictureContainer {
      *            the pictureset to copy
      * @param pictureSetName
      *            the name of the pictureset
-     * @param freePictureSetID
-     *            the ID
      */
-    public PictureSet(final PictureSet pictureSetToCopy, final String pictureSetName, final int freePictureSetID) {
+    public PictureSet(final PictureSet pictureSetToCopy, final String pictureSetName) {
         this.name = pictureSetName;
-        this.id = freePictureSetID;
         this.children = pictureSetToCopy.getItems();
     }
 
@@ -71,15 +62,6 @@ public class PictureSet implements PictureContainer {
     }
 
     /**
-     * Returns the ID of the pictureset
-     * 
-     * @return the id
-     */
-    public int getID() {
-        return this.id;
-    }
-
-    /**
      * Adds PictureContainer elements to this pictureset
      * 
      * @param container
@@ -92,7 +74,7 @@ public class PictureSet implements PictureContainer {
             return false;
         } else {
             if (container instanceof PictureSet) {
-                if (this.id == ((PictureSet) container).getID()) {
+                if (this.hashCode() == ((PictureSet) container).hashCode()) {
                     System.out.println("Can´t add PictureSet");
                     return false;
                 } else {
@@ -201,7 +183,7 @@ public class PictureSet implements PictureContainer {
      *         the specified object
      */
     public int compareTo(final PictureContainer picturesetToCompare) {
-        if (this.id == ((PictureSet) picturesetToCompare).id) {
+        if (this.hashCode() == ((PictureSet) picturesetToCompare).hashCode()) {
             return 0;
         } else if (this.name.toLowerCase().compareTo(((PictureSet) picturesetToCompare).name.toLowerCase()) > 0) {
             return 1;

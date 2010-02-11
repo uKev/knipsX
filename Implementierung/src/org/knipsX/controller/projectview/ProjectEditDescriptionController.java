@@ -39,17 +39,32 @@ public class ProjectEditDescriptionController<M extends ProjectModel, V extends 
     public void actionPerformed(final ActionEvent e) {
     }
 
-
+    /**
+     * If something was changed.
+     * 
+     * @param documentEvent
+     *            the event of the document.
+     */
     public void changedUpdate(final DocumentEvent documentEvent) {
         this.model.setProjectDescription(this.view.getProjectDescription());
     }
 
-
+    /**
+     * If something was inserted.
+     * 
+     * @param documentEvent
+     *            the event of the document.
+     */
     public void insertUpdate(final DocumentEvent documentEvent) {
         this.model.setProjectDescription(this.view.getProjectDescription());
     }
 
-
+    /**
+     * If something was removed.
+     * 
+     * @param documentEvent
+     *            the event of the document.
+     */
     public void removeUpdate(final DocumentEvent documentEvent) {
         this.model.setProjectDescription(this.view.getProjectDescription());
     }

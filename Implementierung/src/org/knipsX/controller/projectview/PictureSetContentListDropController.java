@@ -12,23 +12,45 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
 
 /**
- * Represents the Actions which are done by dropping pictureset into the content on the ok button when you want to
+ * Represents the Actions which are done by dropping picture set into the content on the ok button when you want to
  * delete a report.
  * 
  * Acts in harmony with a JProjectView.
+ * 
+ * @param <M>
+ *            a model.
+ * 
+ * @param <V>
+ *            a view.
  */
 public class PictureSetContentListDropController<M extends ProjectModel, V extends JProjectView<M>> extends
         AbstractController<M, V> {
 
-    public PictureSetContentListDropController(M model, V view) {
+    /**
+     * Creates a new controller which is connected to a view and a model.
+     * 
+     * @param model
+     *            the model.
+     * @param view
+     *            the view.
+     */
+    public PictureSetContentListDropController(final M model, final V view) {
         super(model, view);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(final ActionEvent e) {
     }
 
-    public ToTransferHandler getToTransferHandler(int action) {
+    /**
+     * Get the transfer handler.
+     * 
+     * @param action
+     *            the allowed actions.
+     * 
+     * @return the transfer handler.
+     */
+    public ToTransferHandler getToTransferHandler(final int action) {
         return new ToTransferHandler(action);
     }
 
@@ -38,11 +60,12 @@ public class PictureSetContentListDropController<M extends ProjectModel, V exten
 
         int action;
 
-        public ToTransferHandler(int action) {
+        public ToTransferHandler(final int action) {
             this.action = action;
         }
 
-        public boolean canImport(TransferHandler.TransferSupport support) {
+        @Override
+        public boolean canImport(final TransferHandler.TransferSupport support) {
 
             /* we'll only support drops */
             if (!support.isDrop()) {
@@ -54,39 +77,40 @@ public class PictureSetContentListDropController<M extends ProjectModel, V exten
                 return false;
             }
 
-            boolean actionSupported = (action & support.getSourceDropActions()) == action;
+            final boolean actionSupported = (this.action & support.getSourceDropActions()) == this.action;
             if (actionSupported) {
-                support.setDropAction(action);
+                support.setDropAction(this.action);
                 return true;
             }
             return false;
         }
 
-        public boolean importData(TransferHandler.TransferSupport support) {
+        @Override
+        public boolean importData(final TransferHandler.TransferSupport support) {
 
             /* if we can't handle the import, say so */
-            if (!canImport(support)) {
+            if (!this.canImport(support)) {
                 return false;
             }
 
             /* fetch the data and bail if this fails */
             PictureSet data = null;
             try {
-                int hashCode = Integer.parseInt((String) support.getTransferable().getTransferData(
+                final int hashCode = Integer.parseInt((String) support.getTransferable().getTransferData(
                         DataFlavor.stringFlavor));
-                for (PictureSet set : PictureSetContentListDropController.this.model.getPictureSets()) {
+                for (final PictureSet set : PictureSetContentListDropController.this.model.getPictureSets()) {
                     if (set.hashCode() == hashCode) {
                         data = set;
                         break;
                     }
                 }
-            } catch (UnsupportedFlavorException e) {
+            } catch (final UnsupportedFlavorException e) {
                 return false;
-            } catch (java.io.IOException e) {
+            } catch (final java.io.IOException e) {
                 return false;
             }
 
-            PictureSet set = PictureSetContentListDropController.this.model.getSelectedPictureSet();
+            final PictureSet set = PictureSetContentListDropController.this.model.getSelectedPictureSet();
             PictureSetContentListDropController.this.model.addContentToPictureSet(set, data);
             return true;
         }

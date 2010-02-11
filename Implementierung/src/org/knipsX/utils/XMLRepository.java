@@ -19,7 +19,7 @@ public class XMLRepository implements Repository {
 		System.out.println("XML_repository: initiated!");
 		System.out.println("Getting a list of projects...");
 		
-		pictureSetList.add(new PictureSet("Spacecrafts", 4));
+		pictureSetList.add(new PictureSet("Spacecrafts"));
 		
 	    this.projects.add(new ProjectModel(UUID.randomUUID().hashCode(), "Test Project 1",
                 "No comments", new GregorianCalendar(2010, 02, 04, 7, 9, 3), pictureSetList, reportList));

@@ -402,7 +402,7 @@ public class Picture extends Observable implements PictureContainer {
      *         the specified object
      */
     public int compareTo(final PictureContainer pictureToCompare) {
-        if (this.getPath().hashCode() == ((Picture) pictureToCompare).getPath().hashCode()) {
+        if (this.hashCode() == ((Picture) pictureToCompare).hashCode()) {
             return 0;
         } else if (this.getName().compareTo(pictureToCompare.getName()) > 0) {
             return 1;

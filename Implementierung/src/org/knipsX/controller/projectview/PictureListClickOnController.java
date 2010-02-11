@@ -33,7 +33,7 @@ import org.knipsX.view.projectview.JProjectView;
 public class PictureListClickOnController<M extends ProjectModel, V extends JProjectView<M>> extends
         AbstractController<M, V> implements MouseListener, MouseMotionListener {
 
-    private final int MOUSE_LEFT = 1;
+    private static final int MOUSE_LEFT = 1;
 
     private final Logger logger = Logger.getLogger(this.getClass());
 
@@ -53,22 +53,42 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
 
     @Override
     public void actionPerformed(final ActionEvent e) {
-
     }
 
-    public void mouseClicked(final MouseEvent mouseEvent) {
-        if (mouseEvent.getButton() == this.MOUSE_LEFT) {
-            final JList theList = (JList) mouseEvent.getSource();
-            if (mouseEvent.getClickCount() == 1) {
-                final int index = theList.locationToIndex(mouseEvent.getPoint());
-                if (index >= 0) {
-                    final Picture pic = (Picture) theList.getModel().getElementAt(index);
-                    this.model.setSelectedPicture(pic);
+    /**
+     * If something was clicked on.
+     * 
+     * @param mouseEvent
+     *            the event of the mouse.
+     * 
+     * @throws IllegalArgumentException
+     *             if you connect the controller to no JList, you get this error.
+     */
+    public void mouseClicked(final MouseEvent mouseEvent) throws IllegalArgumentException {
+        if (mouseEvent.getButton() == PictureListClickOnController.MOUSE_LEFT) {
+            if (mouseEvent.getSource() instanceof JList) {
+                final JList theList = (JList) mouseEvent.getSource();
+
+                if (mouseEvent.getClickCount() == 1) {
+                    final int index = theList.locationToIndex(mouseEvent.getPoint());
+
+                    if (index >= 0) {
+                        final Picture pic = (Picture) theList.getModel().getElementAt(index);
+                        this.model.setSelectedPicture(pic);
+                    }
                 }
+            } else {
+                throw new IllegalArgumentException("This controller can only handle JLists.");
             }
         }
     }
 
+    /**
+     * If something was entered.
+     * 
+     * @param mouseEvent
+     *            the event of the mouse.
+     */
     public void mouseEntered(final MouseEvent mouseEvent) {
         final JList theList = (JList) mouseEvent.getSource();
 
@@ -103,6 +123,12 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
         }
     }
 
+    /**
+     * If something was exited.
+     * 
+     * @param mouseEvent
+     *            the event of the mouse.
+     */
     public void mouseExited(final MouseEvent mouseEvent) {
         if (this.tooltipWindow != null) {
             this.tooltipWindow.dispose();
@@ -110,47 +136,71 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
 
     }
 
+    /**
+     * If something was pressed.
+     * 
+     * @param mouseEvent
+     *            the event of the mouse.
+     */
     public void mousePressed(final MouseEvent mouseEvent) {
     }
 
+    /**
+     * If something was released.
+     * 
+     * @param mouseEvent
+     *            the event of the mouse.
+     */
     public void mouseReleased(final MouseEvent mouseEvent) {
     }
 
-    @Override
+    /**
+     * If something was dragged.
+     * 
+     * @param mouseEvent
+     *            the event of the mouse.
+     */
     public void mouseDragged(final MouseEvent mouseEvent) {
-        // TODO Auto-generated method stub
-
     }
 
-    @Override
-    public void mouseMoved(final MouseEvent mouseEvent) {
+    /**
+     * If something was moved.
+     * 
+     * @param mouseEvent
+     *            the event of the mouse.
+     */
+    public void mouseMoved(final MouseEvent mouseEvent) throws IllegalArgumentException {
         if (this.tooltipWindow != null) {
-            final JList theList = (JList) mouseEvent.getSource();
+            if (mouseEvent.getSource() instanceof JList) {
+                final JList theList = (JList) mouseEvent.getSource();
 
-            final int index = theList.locationToIndex(mouseEvent.getPoint());
-            if (index >= 0) {
-                final Picture pic = (Picture) theList.getModel().getElementAt(index);
+                final int index = theList.locationToIndex(mouseEvent.getPoint());
+                if (index >= 0) {
+                    final Picture pic = (Picture) theList.getModel().getElementAt(index);
 
-                final Point point = mouseEvent.getLocationOnScreen();
-                point.translate(10, 10);
-                this.tooltipWindow.setLocation(point);
+                    final Point point = mouseEvent.getLocationOnScreen();
+                    point.translate(10, 10);
+                    this.tooltipWindow.setLocation(point);
 
-                try {
-                    final ImageIcon image = new ImageIcon(pic.getBigThumbnail());
-                    this.tooltipWindow.setSize(image.getIconHeight(), image.getIconWidth());
-                    while (image.getImageLoadStatus() == MediaTracker.LOADING) {
-                        ;
+                    try {
+                        final ImageIcon image = new ImageIcon(pic.getBigThumbnail());
+                        this.tooltipWindow.setSize(image.getIconHeight(), image.getIconWidth());
+                        while (image.getImageLoadStatus() == MediaTracker.LOADING) {
+                            ;
+                        }
+                        final JLabel label = new JLabel(image);
+                        image.setImageObserver(label);
+                        final JPanel panel = new JPanel();
+                        panel.add(label);
+
+                        this.tooltipWindow.setContentPane(panel);
+                        this.tooltipWindow.setVisible(true);
+                    } catch (final NullPointerException e) {
+                        this.logger.info("Can not display the thumbnail because at this time it is not initialized.");
                     }
-                    final JLabel label = new JLabel(image);
-                    image.setImageObserver(label);
-                    final JPanel panel = new JPanel();
-                    panel.add(label);
-
-                    this.tooltipWindow.setContentPane(panel);
-                    this.tooltipWindow.setVisible(true);
-                } catch (final NullPointerException e) {
-                    this.logger.info("Can not display the thumbnail because at this time it is not initialized");
                 }
+            } else {
+                throw new IllegalArgumentException("This controller can only handle JLists.");
             }
         }
     }
