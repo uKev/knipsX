@@ -40,7 +40,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.TableModel;
 
 import org.apache.log4j.Logger;
-
 import org.knipsX.controller.projectview.PictureListClickOnController;
 import org.knipsX.controller.projectview.PictureSetContentListAddController;
 import org.knipsX.controller.projectview.PictureSetContentListClickOnController;
@@ -193,7 +192,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new ProjectSwitchController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonProjectChange = this.getNewButton(Messages.getString("JProjectView.1"), Messages.getString("JProjectView.2"), listener); //$NON-NLS-1$ //$NON-NLS-2$
+            this.jButtonProjectChange = this
+                    .getNewButton(
+                            Messages.getString("JProjectView.1"), Messages.getString("JProjectView.2"), "actions/go-jump.png", listener); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return this.jButtonProjectChange;
     }
@@ -207,7 +208,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new ProjectSaveController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonProjectSave = this.getNewButton(Messages.getString("JProjectView.3"), Messages.getString("JProjectView.4"), listener); //$NON-NLS-1$ //$NON-NLS-2$
+            this.jButtonProjectSave = this
+                    .getNewButton(
+                            Messages.getString("JProjectView.3"), Messages.getString("JProjectView.4"), "actions/document-save.png", listener); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return this.jButtonProjectSave;
     }
@@ -221,7 +224,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new PictureSetListCopyController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonPictureSetCopy = this.getNewButton(Messages.getString("JProjectView.5"), Messages.getString("JProjectView.6"), listener); //$NON-NLS-1$ //$NON-NLS-2$
+            this.jButtonPictureSetCopy = this
+                    .getNewButton(
+                            Messages.getString("JProjectView.5"), Messages.getString("JProjectView.6"), "actions/edit-copy.png", listener); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return this.jButtonPictureSetCopy;
     }
@@ -235,7 +240,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new PictureSetListCreateController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonPictureSetCreate = this.getNewButton(Messages.getString("JProjectView.7"), Messages.getString("JProjectView.8"), listener); //$NON-NLS-1$ //$NON-NLS-2$
+            this.jButtonPictureSetCreate = this
+                    .getNewButton(
+                            Messages.getString("JProjectView.7"), Messages.getString("JProjectView.8"), "actions/document-new.png", listener); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return this.jButtonPictureSetCreate;
     }
@@ -249,7 +256,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new PictureSetListDeleteController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonPictureSetDelete = this.getNewButton(Messages.getString("JProjectView.9"), Messages.getString("JProjectView.10"), listener); //$NON-NLS-1$ //$NON-NLS-2$
+            this.jButtonPictureSetDelete = this
+                    .getNewButton(
+                            Messages.getString("JProjectView.9"), Messages.getString("JProjectView.10"), "actions/edit-delete.png", listener); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return this.jButtonPictureSetDelete;
     }
@@ -263,7 +272,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new PictureSetContentListAddController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonPictureSetContentAdd = this.getNewButton(Messages.getString("JProjectView.11"), Messages.getString("JProjectView.12"), listener); //$NON-NLS-1$ //$NON-NLS-2$
+            this.jButtonPictureSetContentAdd = this
+                    .getNewButton(
+                            Messages.getString("JProjectView.11"), Messages.getString("JProjectView.12"), "actions/list-add.png", listener); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return this.jButtonPictureSetContentAdd;
     }
@@ -294,7 +305,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                     this);
 
             /* INTERNATIONALIZE */
-            this.jButtonPictureSetContentRefresh = this.getNewButton(Messages.getString("JProjectView.15"), Messages.getString("JProjectView.16"), listener); //$NON-NLS-1$ //$NON-NLS-2$
+            this.jButtonPictureSetContentRefresh = this
+                    .getNewButton(
+                            Messages.getString("JProjectView.15"), Messages.getString("JProjectView.16"), "actions/view-refresh.png", listener); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return this.jButtonPictureSetContentRefresh;
     }
@@ -308,7 +321,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new ReportCreateController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonReportCreate = this.getNewButton(Messages.getString("JProjectView.17"), Messages.getString("JProjectView.18"), listener); //$NON-NLS-1$ //$NON-NLS-2$
+            this.jButtonReportCreate = this
+                    .getNewButton(
+                            Messages.getString("JProjectView.17"), Messages.getString("JProjectView.18"), "actions/document-new.png", listener); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return this.jButtonReportCreate;
     }
@@ -322,7 +337,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new ReportOpenController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonReportOpen = this.getNewButton(Messages.getString("JProjectView.19"), Messages.getString("JProjectView.20"), listener); //$NON-NLS-1$ //$NON-NLS-2$
+            this.jButtonReportOpen = this
+                    .getNewButton(
+                            Messages.getString("JProjectView.19"), Messages.getString("JProjectView.20"), "actions/document-open.png", listener); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return this.jButtonReportOpen;
     }
@@ -336,7 +353,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new ReportDeleteController<M, JProjectView<M>>(this.model, this);
 
             /* INTERNATIONALIZE */
-            this.jButtonReportDelete = this.getNewButton(Messages.getString("JProjectView.21"), Messages.getString("JProjectView.22"), listener); //$NON-NLS-1$ //$NON-NLS-2$
+            this.jButtonReportDelete = this
+                    .getNewButton(
+                            Messages.getString("JProjectView.21"), Messages.getString("JProjectView.22"), "actions/edit-delete.png", listener); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return this.jButtonReportDelete;
     }
@@ -482,7 +501,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             /* add a border to the panel */
             /* INTERNATIONALIZE */
-            final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages.getString("JProjectView.23")); //$NON-NLS-1$
+            final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
+                    .getString("JProjectView.23")); //$NON-NLS-1$
             this.jPanelProjectOptions.setBorder(title);
         }
         return this.jPanelProjectOptions;
@@ -517,8 +537,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             /* add a border to the panel */
             /* INTERNATIONALIZE */
-            final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                    Messages.getString("JProjectView.24")); //$NON-NLS-1$
+            final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
+                    .getString("JProjectView.24")); //$NON-NLS-1$
             this.jPanelProjectDescription.setBorder(title);
 
             this.jPanelProjectDescription.add(this.getProjectDescriptionEditorPane(), BorderLayout.CENTER);
@@ -556,8 +576,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             /* add a border to the panel */
             /* INTERNATIONALIZE */
-            final TitledBorder title = BorderFactory
-                    .createTitledBorder(BorderFactory.createEmptyBorder(), Messages.getString("JProjectView.25")); //$NON-NLS-1$
+            final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
+                    .getString("JProjectView.25")); //$NON-NLS-1$
             this.jPanelPictureSet.setBorder(title);
 
             this.jPanelPictureSet.add(this.getPictureSetList());
@@ -707,12 +727,12 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* add a border to the panel */
             /* INTERNATIONALIZE */
             if (this.model.getSelectedPictureSetContent() != null) {
-                final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                        Messages.getString("JProjectView.27") + this.model.getSelectedPictureSetContent().getName()); //$NON-NLS-1$
+                final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
+                        .getString("JProjectView.27") + this.model.getSelectedPictureSetContent().getName()); //$NON-NLS-1$
                 this.jPanelPictureSetActive.setBorder(title);
             } else if (this.model.getSelectedPictureSet() != null) {
-                final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                        Messages.getString("JProjectView.28") + this.model.getSelectedPictureSet().getName()); //$NON-NLS-1$
+                final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
+                        .getString("JProjectView.28") + this.model.getSelectedPictureSet().getName()); //$NON-NLS-1$
                 this.jPanelPictureSetActive.setBorder(title);
             }
 
@@ -764,8 +784,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             /* add a border to the panel */
             /* INTERNATIONALIZE */
-            final TitledBorder title = BorderFactory
-                    .createTitledBorder(BorderFactory.createEmptyBorder(), Messages.getString("JProjectView.29")); //$NON-NLS-1$
+            final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
+                    .getString("JProjectView.29")); //$NON-NLS-1$
             this.jPanelReport.setBorder(title);
 
             this.jPanelReport.add(this.getReportList());
@@ -830,8 +850,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             /* add a border to the panel */
             /* INTERNATIONALIZE */
-            final TitledBorder title = BorderFactory
-                    .createTitledBorder(BorderFactory.createEmptyBorder(), Messages.getString("JProjectView.30")); //$NON-NLS-1$
+            final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
+                    .getString("JProjectView.30")); //$NON-NLS-1$
 
             this.jPanelExif.setBorder(title);
 
@@ -855,7 +875,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         }
         return new JScrollPane(this.jTableExif);
     }
-
 
     /*
      * ################################################################################################################
