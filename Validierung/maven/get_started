@@ -1,0 +1,2 @@
+install http://m2eclipse.sonatype.org/ (maven plugin for eclipse)
+make sure you have installed the jdk and not only jre (maven plugin will warn you if not)
