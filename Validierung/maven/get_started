@@ -12,3 +12,11 @@ target/classes
 
 for junit tests:
 target/test-classes
+
+add libs to local maven repo#
+
+for the lazy go to project dir and:
+cd src/main/java/org/knipsX/libs/
+mvn install:install-file -DgroupId=substance -DartifactId=substance -Dversion=5.3 -Dpackaging=jar -Dfile=substance.jar
+mvn install:install-file -DgroupId=metadataextractor -DartifactId=metadataextractor -Dversion=0.5 -Dpackaging=jar -Dfile=metadataextractor.jar
+mvn install:install-file -DgroupId=xmpcore -DartifactId=xmpcore -Dversion=4.4 -Dpackaging=jar -Dfile=xmpcore.jar
