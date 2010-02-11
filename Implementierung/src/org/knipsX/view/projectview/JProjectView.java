@@ -66,6 +66,7 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.utils.Converter;
 import org.knipsX.utils.Resource;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.reportmanagement.ReportHelper;
@@ -852,10 +853,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             /* create new table for the exif parameters of an active image */
             this.jTableExif = new JTable(data, columnNames);
-            final TableColumn para = this.jTableExif.getColumnModel().getColumn(0);
-            final TableColumn value = this.jTableExif.getColumnModel().getColumn(1);
-            para.setCellRenderer(new MyExifTableCellRenderer());
-            value.setCellRenderer(new MyExifTableCellRenderer());
+            this.jTableExif.setDefaultRenderer(Object.class, new MyExifTableCellRenderer());
         }
         return new JScrollPane(this.jTableExif);
     }

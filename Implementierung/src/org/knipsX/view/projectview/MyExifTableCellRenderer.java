@@ -10,6 +10,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 
+import org.knipsX.utils.Converter;
 import org.knipsX.utils.ExifParameter;
 
 /**
@@ -50,24 +51,11 @@ public class MyExifTableCellRenderer extends JLabel implements TableCellRenderer
 
         if (value != null) {
 
-            if (value instanceof Object[]) {
-                Object[] objectArray = (Object[]) value;
-                for (int i = 0; i < objectArray.length; i++) {
-                    if (i == 0) {
-                        theText = objectArray[i].toString();
-                    } else {
-                        theText = theText + ", " + objectArray[i].toString();
-                    }
-                    
-                }
-
-            } else {
-                theText = value.toString();
-            }
+            theText = Converter.objectToString(value);
             
             //TWEAK: Might split this renderer up into two, not every long value is a date
-            
-            if (value instanceof Long && (column == ExifParameter.DATE.ordinal() + 1 ||  row == ExifParameter.DATE.ordinal())) {
+            if (value instanceof Long && (column == ExifParameter.DATE.ordinal() + 1 ||  row == ExifParameter.DATE.ordinal())) {       
+               
                 Date tempDate = new Date();
                 tempDate.setTime(((Long) value));
 
