@@ -21,7 +21,11 @@ import javax.imageio.ImageIO;
 
 import org.apache.log4j.Logger;
 import org.knipsX.utils.ExifParameter;
+import org.knipsX.utils.MetaAdapter;
 import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
+
+import com.drew.imaging.jpeg.JpegProcessingException;
+import com.drew.metadata.MetadataException;
 
 /**************************************************************************************************
  * The Class Picture represents a picture with image and Exif-Metadata. It also has an thumbnail.
@@ -42,7 +46,7 @@ public class Picture extends Observable implements PictureContainer {
     private BufferedImage bigThumbnail;
 
     /* Creates a logger for logging */
-    private final Logger log = Logger.getLogger(this.getClass());
+    private final Logger logger = Logger.getLogger(this.getClass());
 
     /* Should be considered or not */
     boolean isReturned;
@@ -54,7 +58,9 @@ public class Picture extends Observable implements PictureContainer {
      *            The filepath of the picture
      * @param isActiveorNot
      *            The status of the picture
+     * 
      * @throws PictureNotFoundException
+     *             if a picture was not found.
      */
 
     public Picture(final String path, final boolean isActiveorNot) throws PictureNotFoundException {
@@ -177,8 +183,7 @@ public class Picture extends Observable implements PictureContainer {
                 image = null;
                 isInitialized = true;
             } catch (final IOException e) {
-                this.log.error("[Picture::getBigThumbnail()] - Can not create Thumbnail from File - "
-                        + this.pictureFile.getAbsolutePath());
+                this.logger.error("Can't create thumbnails from file - " + this.pictureFile.getAbsolutePath());
             }
         }
         this.setChanged();
@@ -308,7 +313,8 @@ public class Picture extends Observable implements PictureContainer {
     public Object[][] getAllExifParameter() {
         if (this.allExifParameter == null) {
             final ExifAdapter exifAdapter = new ExifAdapter(this.pictureFile.getAbsolutePath());
-
+            // try {
+            // final MetaAdapter metaAdapter = new MetaAdapter(this.pictureFile.getAbsolutePath());
             final ExifParameter[] parameters = ExifParameter.values();
 
             this.allExifParameter = new Object[parameters.length][2];
@@ -317,6 +323,13 @@ public class Picture extends Observable implements PictureContainer {
                 this.allExifParameter[i][0] = parameters[i];
                 this.allExifParameter[i][1] = exifAdapter.getExifParameter(parameters[i]);
             }
+            // } catch (JpegProcessingException e) {
+            // this.logger.error("Problem while reading jpeg - " + e.getMessage());
+            // } catch (MetadataException e) {
+            // this.logger.error("Problem while reading metadata from jpeg - " + e.getMessage());
+            // } catch (NullPointerException e) {
+            // this.logger.warn("Metadate not available - " + e.getMessage());
+            // }
         }
         return this.allExifParameter;
     }

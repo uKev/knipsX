@@ -1099,7 +1099,11 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                     for (int i = 0; i < values.length; ++i) {
                         if (values[i].length == 2) {
                             exifModel.setValueAt(values[i][0].toString(), i, 0);
-                            exifModel.setValueAt(values[i][1], i, 1);
+                            if (values[i][1] != null) {
+                                exifModel.setValueAt(values[i][1], i, 1);
+                            } else {
+                                exifModel.setValueAt("no data", i, 0);
+                            }
                         }
                     }
                 }

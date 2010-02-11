@@ -15,6 +15,8 @@ import com.drew.metadata.xmp.XmpReader;
  */
 public class XMPAdapter {
 
+    /* see http://drewnoakes.com/code/exif/ */
+    
     private File imageFile;
 
     /**
