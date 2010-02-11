@@ -16,7 +16,7 @@ public enum WilcoxonTestType {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return "Less";
+            return Messages.getString("WilcoxonTestType.0"); //$NON-NLS-1$
 
         }
     },
@@ -28,7 +28,7 @@ public enum WilcoxonTestType {
         @Override
         public String toString() {
             // INTERNATIONALIZE
-            return "Greater";
+            return Messages.getString("WilcoxonTestType.1"); //$NON-NLS-1$
 
         }
     },
@@ -41,7 +41,7 @@ public enum WilcoxonTestType {
         public String toString() {
 
             // INTERNATIONALIZE
-            return "Two sided";
+            return Messages.getString("WilcoxonTestType.2"); //$NON-NLS-1$
 
         }
     };

@@ -2,6 +2,7 @@ package org.knipsX.model.projectview;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import org.junit.After;
@@ -9,6 +10,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.knipsX.model.picturemanagement.PictureSet;
+import org.knipsX.model.reportmanagement.AbstractReportModel;
 
 public class ProjectModelTest {
 
@@ -47,7 +50,8 @@ public class ProjectModelTest {
 
         GregorianCalendar creationDate = new GregorianCalendar(2000, 1, 1, 1, 2, 3);
 
-        ProjectModel model = new ProjectModel(testId, projectName, projectDescription, creationDate);
+        ProjectModel model = new ProjectModel(testId, projectName, projectDescription, creationDate,
+                new ArrayList<PictureSet>(), new ArrayList<AbstractReportModel>());
 
         assertTrue("The name of the project was not set correctly through the constructor.", projectName.equals(model
                 .getName()));
@@ -67,7 +71,8 @@ public class ProjectModelTest {
 
         GregorianCalendar creationDate = new GregorianCalendar(2000, 1, 1, 1, 2, 3);
 
-        ProjectModel model = new ProjectModel(testId, projectName, projectDescription, creationDate);
+        ProjectModel model = new ProjectModel(testId, projectName, projectDescription, creationDate,
+                new ArrayList<PictureSet>(), new ArrayList<AbstractReportModel>());
 
         assertTrue("The id of the project was not set correctly through the constructor.", testId == model.getId());
     }
@@ -81,7 +86,8 @@ public class ProjectModelTest {
 
         GregorianCalendar creationDate = new GregorianCalendar(2000, 1, 1, 1, 2, 3);
 
-        ProjectModel model = new ProjectModel(testId, projectName, projectDescription, creationDate);
+        ProjectModel model = new ProjectModel(testId, projectName, projectDescription, creationDate,
+                new ArrayList<PictureSet>(), new ArrayList<AbstractReportModel>());
 
         assertTrue("The description of the project was not set correctly through the constructor.", projectDescription
                 .equals(model.getDescription()));
@@ -96,7 +102,8 @@ public class ProjectModelTest {
 
         GregorianCalendar creationDate = new GregorianCalendar(2000, 1, 1, 1, 2, 3);
 
-        ProjectModel model = new ProjectModel(testId, projectName, projectDescription, creationDate);
+        ProjectModel model = new ProjectModel(testId, projectName, projectDescription, creationDate,
+                new ArrayList<PictureSet>(), new ArrayList<AbstractReportModel>());
 
         assertTrue("The creation date of the project was not set correctly through the constructor.", creationDate
                 .equals(model.getCreationDate()));

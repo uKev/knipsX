@@ -63,23 +63,7 @@ public class ProjectModel extends AbstractModel {
     private List<InitializePictureDataThread> initializePictureDataWorkers;
     private List<InitializePictureThumbnailThread> initializePictureThumbnailWorkers;
 
-    private final Logger log = Logger.getLogger(this.getClass());
-
-    /**
-     * Creates a new project with basic informations.
-     * 
-     * @param id
-     *            the id of the project (must be unique).
-     * @param name
-     *            the name of the project.
-     * @param description
-     *            the description of the project.
-     * @param date
-     *            the creation date of the project.
-     */
-    public ProjectModel(final int id, final String name, final String description, final GregorianCalendar date) {
-        this(id, name, description, date, new ArrayList<PictureSet>(), new ArrayList<AbstractReportModel>());
-    }
+    private final Logger logger = Logger.getLogger(this.getClass());
 
     /**
      * Creates a new project with basic informations plus list of picture sets and reports.
@@ -105,18 +89,6 @@ public class ProjectModel extends AbstractModel {
         this.creationDate = date;
         this.pictureSetList = pictureSets;
         this.reportList = reports;
-    }
-
-    /**
-     * Creates a new model based on an old one (with new id which must be unique).
-     * 
-     * @param toCopy
-     *            the model to copy.
-     * @param id
-     *            the new id.
-     */
-    public ProjectModel(final ProjectModel toCopy, final int id) {
-        this(toCopy, id, "");
     }
 
     /**
@@ -231,8 +203,8 @@ public class ProjectModel extends AbstractModel {
         if (this.getSelectedPicture() != null) {
             return this.getSelectedPicture().getAllExifParameter().clone();
         }
-
         final List<String[]> exifParameter = new LinkedList<String[]>();
+        
         /* INTERNATIONALIZE */
         for (final ExifParameter parameter : ExifParameter.values()) {
             exifParameter.add(new String[] { parameter.toString(), "no data" });
@@ -259,6 +231,42 @@ public class ProjectModel extends AbstractModel {
                 + df.format(second);
     }
 
+    /**
+     * Get the amount of the pictures a project handle with.
+     * 
+     * @return the amount of pictures.
+     */
+    public int getNumberOfPictures() {
+        int numberOfPictures = 0;
+
+        for (final PictureSet set : this.pictureSetList) {
+            set.resetIterator();
+            for (@SuppressWarnings("unused")
+            final Picture picture : set) {
+                numberOfPictures++;
+            }
+        }
+        return numberOfPictures;
+    }
+
+    /**
+     * Get the amount of the pictures with no exif data.
+     * 
+     * @return the amount of pictures.
+     */
+    public int getNumberOfPicturesWithoutExifData() {
+        return this.pictureDataQueue.size();
+    }
+
+    /**
+     * Get the amount of the pictures with no thumbnail.
+     * 
+     * @return the amount of pictures.
+     */
+    public int getNumberOfPicturesWithoutThumbails() {
+        return this.pictureThumbnailQueue.size();
+    }
+
     /*
      * ################################################################################################################
      * FUNCTIONS FOR DATA MANAGEMENT
@@ -271,39 +279,36 @@ public class ProjectModel extends AbstractModel {
      * ################################################################################################################
      */
 
+    /**
+     * Initialy load the data.
+     */
     public void loadData() {
         if (this.initializePictureDataWorkers == null) {
             int numberOfThreads = Runtime.getRuntime().availableProcessors() - 1;
-            
+
             if (numberOfThreads == 0) {
                 numberOfThreads = 1;
             }
-            
-            this.log.debug("Number of Threads: " + numberOfThreads);
+
             this.initializePictureDataWorkers = new LinkedList<InitializePictureDataThread>();
             for (int i = 0; i < numberOfThreads; ++i) {
-                InitializePictureDataThread newThread = new InitializePictureDataThread();
-                log.debug("old priority: " + newThread.getPriority());
+                final InitializePictureDataThread newThread = new InitializePictureDataThread();
                 newThread.setPriority(Thread.MIN_PRIORITY);
-                log.debug("new priority: " + newThread.getPriority());
                 this.initializePictureDataWorkers.add(newThread);
             }
         }
-        
+
         if (this.initializePictureThumbnailWorkers == null) {
             int numberOfThreads = Runtime.getRuntime().availableProcessors() - 1;
-            
+
             if (numberOfThreads == 0) {
                 numberOfThreads = 1;
             }
-            
-            this.log.debug("Number of Threads: " + numberOfThreads);
+
             this.initializePictureThumbnailWorkers = new LinkedList<InitializePictureThumbnailThread>();
             for (int i = 0; i < numberOfThreads; ++i) {
-                InitializePictureThumbnailThread newThread = new InitializePictureThumbnailThread();
-                log.debug("old priority: " + newThread.getPriority());
+                final InitializePictureThumbnailThread newThread = new InitializePictureThumbnailThread();
                 newThread.setPriority(Thread.MIN_PRIORITY);
-                log.debug("new priority: " + newThread.getPriority());
                 this.initializePictureThumbnailWorkers.add(newThread);
             }
         }
@@ -321,11 +326,14 @@ public class ProjectModel extends AbstractModel {
         }
     }
 
+    /**
+     * Save the model.
+     */
     public void saveProjectModel() {
         try {
             RepositoryHandler.getRepository().saveProject(this);
         } catch (final RepositoryInterfaceException e) {
-            this.log.fatal("[saveProjectModel()] - Can't save because:" + e.getStackTrace());
+            this.logger.error("Can't save because:" + e.getStackTrace());
         }
     }
 
@@ -397,14 +405,7 @@ public class ProjectModel extends AbstractModel {
      * @return an amount of picture sets.
      */
     public PictureSet[] getPictureSets() {
-
-        /* convert to array */
-        final PictureSet[] pictureSetArray = new PictureSet[this.pictureSetList.size()];
-
-        for (int i = 0; i < pictureSetArray.length; ++i) {
-            pictureSetArray[i] = this.pictureSetList.get(i);
-        }
-        return pictureSetArray;
+        return this.pictureSetList.toArray(new PictureSet[] {});
     }
 
     /**
@@ -422,7 +423,8 @@ public class ProjectModel extends AbstractModel {
     /**
      * Set the current selected PictureSet on which some actions depends.
      * 
-     * @return the current selected PictureSet.
+     * @param selected
+     *            the selected PictureSet.
      */
     public void setSelectedPictureSet(final PictureSet selected) {
         this.selectedPictureSet = selected;
@@ -452,13 +454,7 @@ public class ProjectModel extends AbstractModel {
                 }
             }
         }
-        /* convert to array */
-        final PictureSet[] pictureSetArray = new PictureSet[pictureSets.size()];
-
-        for (int i = 0; i < pictureSetArray.length; ++i) {
-            pictureSetArray[i] = pictureSets.get(i);
-        }
-        return pictureSetArray;
+        return pictureSets.toArray(new PictureSet[] {});
     }
 
     /**
@@ -482,13 +478,7 @@ public class ProjectModel extends AbstractModel {
                 }
             }
         }
-        /* convert to array */
-        final Directory[] directoryArray = new Directory[directories.size()];
-
-        for (int i = 0; i < directoryArray.length; ++i) {
-            directoryArray[i] = directories.get(i);
-        }
-        return directoryArray;
+        return directories.toArray(new Directory[] {});
     }
 
     /**
@@ -512,14 +502,7 @@ public class ProjectModel extends AbstractModel {
                 }
             }
         }
-
-        /* convert to array */
-        final Picture[] pictureArray = new Picture[pictures.size()];
-
-        for (int i = 0; i < pictureArray.length; ++i) {
-            pictureArray[i] = pictures.get(i);
-        }
-        return pictureArray;
+        return pictures.toArray(new Picture[] {});
     }
 
     /*
@@ -589,9 +572,10 @@ public class ProjectModel extends AbstractModel {
     }
 
     /**
-     * Set the current selected PictureSet on which some actions depends.
+     * Set the current selected PictureContainer on which some actions depends.
      * 
-     * @return the current selected PictureSet.
+     * @param selected
+     *            the selected PictureContainer.
      */
     public void setSelectedPictureSetContent(final PictureContainer selected) {
         this.selectedPictureSetContent = selected;
@@ -637,14 +621,7 @@ public class ProjectModel extends AbstractModel {
                 pictures.add(picture);
             }
         }
-
-        /* convert to array */
-        final Picture[] pictureArray = new Picture[pictures.size()];
-
-        for (int i = 0; i < pictureArray.length; ++i) {
-            pictureArray[i] = pictures.get(i);
-        }
-        return pictureArray;
+        return pictures.toArray(new Picture[] {});
     }
 
     /**
@@ -673,9 +650,10 @@ public class ProjectModel extends AbstractModel {
     }
 
     /**
-     * Set the current selected PictureSet on which some actions depends.
+     * Set the current selected Picture on which some actions depends.
      * 
-     * @return the current selected PictureSet.
+     * @param selected
+     *            the selected Picture.
      */
     public void setSelectedPicture(final Picture selected) {
         this.selectedPicture = selected;
@@ -693,7 +671,8 @@ public class ProjectModel extends AbstractModel {
      * 
      * @param report
      *            the report to add.
-     * 
+     * @param reportId
+     *            the id of the report.
      * @return true if the report was added, false if not.
      */
     public boolean addReport(final AbstractReportModel report, final int reportId) {
@@ -745,7 +724,7 @@ public class ProjectModel extends AbstractModel {
      */
 
     private class InitializePictureDataThread extends Thread {
-        
+
         @Override
         public void run() {
             while (true) {
@@ -762,11 +741,11 @@ public class ProjectModel extends AbstractModel {
             }
         }
     }
-    
+
     private class InitializePictureThumbnailThread extends Thread {
 
         private int numberOfImagesInitialized = 0;
-        
+
         @Override
         public void run() {
             while (true) {
@@ -777,14 +756,14 @@ public class ProjectModel extends AbstractModel {
                     if (pic.initThumbnails()) {
                         this.numberOfImagesInitialized++;
                     }
-                    
-                    if(this.numberOfImagesInitialized == 50) {
+
+                    if (this.numberOfImagesInitialized == 25) {
                         this.numberOfImagesInitialized = 0;
                         ProjectModel.this.updateViews();
                     }
                 }
                 try {
-                    if(this.numberOfImagesInitialized > 0) {
+                    if (this.numberOfImagesInitialized > 0) {
                         this.numberOfImagesInitialized = 0;
                         ProjectModel.this.updateViews();
                     }

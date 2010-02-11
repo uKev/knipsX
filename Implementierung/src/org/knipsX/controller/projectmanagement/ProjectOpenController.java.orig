@@ -55,14 +55,24 @@ public class ProjectOpenController<M extends ProjectManagementModel, V extends J
 
             /* gives the user a hint, that he has selected no projects */
             // INTERNATIONALIZE
+<<<<<<< HEAD:Implementierung/src/org/knipsX/controller/projectmanagement/ProjectOpenController.java
             JOptionPane.showMessageDialog(null, Messages.getString("ProjectOpenController.0"), //$NON-NLS-1$
                     Messages.getString("ProjectOpenController.1"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+=======
+            JOptionPane.showMessageDialog(this.view, "Selektieren Sie ein Projekt, um es zu öffnen.",
+                    "Projekt öffnen - Fehler", JOptionPane.ERROR_MESSAGE);
+>>>>>>> 44fd20c5f0461be4bd8a4c755c4427684a386989:Implementierung/src/org/knipsX/controller/projectmanagement/ProjectOpenController.java
         } else {
 
             /* gives the user a hint, that he has selected too much projects */
             // INTERNATIONALIZE
+<<<<<<< HEAD:Implementierung/src/org/knipsX/controller/projectmanagement/ProjectOpenController.java
             JOptionPane.showMessageDialog(null, Messages.getString("ProjectOpenController.2"), //$NON-NLS-1$
                     Messages.getString("ProjectOpenController.3"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+=======
+            JOptionPane.showMessageDialog(this.view, "Selektieren Sie nur ein Projekt, um es zu öffnen.",
+                    "Projekt öffnen - Fehler", JOptionPane.ERROR_MESSAGE);
+>>>>>>> 44fd20c5f0461be4bd8a4c755c4427684a386989:Implementierung/src/org/knipsX/controller/projectmanagement/ProjectOpenController.java
 
         }
     }

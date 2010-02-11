@@ -80,7 +80,11 @@ public class JParameters extends JAbstractSinglePanel {
             this.add(this.axisDescription);
             this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
             try {
+<<<<<<< HEAD:Implementierung/src/org/knipsX/view/reportmanagement/JParameters.java
+                this.validLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null)); //$NON-NLS-1$
+=======
                 this.validLabel.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
+>>>>>>> 44fd20c5f0461be4bd8a4c755c4427684a386989:Implementierung/src/org/knipsX/view/reportmanagement/JParameters.java
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -161,7 +165,11 @@ public class JParameters extends JAbstractSinglePanel {
                 this.validLabel.setPreferredSize(new Dimension(32, 32));
             } else {
                 try {
+<<<<<<< HEAD:Implementierung/src/org/knipsX/view/reportmanagement/JParameters.java
+                    this.validLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null)); //$NON-NLS-1$
+=======
                     this.validLabel.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
+>>>>>>> 44fd20c5f0461be4bd8a4c755c4427684a386989:Implementierung/src/org/knipsX/view/reportmanagement/JParameters.java
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }

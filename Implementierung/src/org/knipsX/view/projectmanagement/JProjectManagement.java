@@ -77,7 +77,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 
         /* Set titel */
         // INTERNATIONALIZE
-        this.setTitle("Projektübersicht");
+        this.setTitle(Messages.getString("JProjectManagement.0")); //$NON-NLS-1$
 
         /* show main panel */
         this.setContentPane(this.getJContentPane());
@@ -209,7 +209,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 
             /* create new button */
             // INTERNATIONALIZE
-            this.jButtonCopyProject = new JButton("Projekt kopieren");
+            this.jButtonCopyProject = new JButton(Messages.getString("JProjectManagement.1")); //$NON-NLS-1$
 
             try {
                 this.jButtonCopyProject.setIcon(Resource.createImageIcon("actions/edit-copy.png", "", "32"));
@@ -238,7 +238,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 
             /* create new button */
             // INTERNATIONALIZE
-            this.jButtonCreateProject = new JButton("Projekt erstellen");
+            this.jButtonCreateProject = new JButton(Messages.getString("JProjectManagement.2")); //$NON-NLS-1$
 
             try {
                 this.jButtonCreateProject.setIcon(Resource.createImageIcon("actions/document-new.png", "", "32"));
@@ -267,7 +267,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 
             /* create new button */
             // INTERNATIONALIZE
-            this.jButtonDeleteProject = new JButton("Projekt löschen");
+            this.jButtonDeleteProject = new JButton(Messages.getString("JProjectManagement.3")); //$NON-NLS-1$
 
             try {
                 this.jButtonDeleteProject.setIcon(Resource.createImageIcon("actions/edit-delete.png", "", "32"));
@@ -296,7 +296,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 
             /* create new button */
             // INTERNATIONALIZE
-            this.jButtonOpenProject = new JButton("Projekt öffnen");
+            this.jButtonOpenProject = new JButton(Messages.getString("JProjectManagement.4")); //$NON-NLS-1$
 
             try {
                 this.jButtonOpenProject.setIcon(Resource.createImageIcon("actions/document-open.png", "", "32"));
@@ -427,7 +427,7 @@ class MyProjectListCellRenderer implements ListCellRenderer {
         /* if the selected item is a "ProjectEntry" -> set the name and the description */
         if (value instanceof ProjectModel) {
             final ProjectModel projectModel = (ProjectModel) value;
-            theText = projectModel.getName() + " " + projectModel.calendarToString();
+            theText = projectModel.getName() + " " + projectModel.calendarToString(); //$NON-NLS-1$
             toolTipText = projectModel.getDescription();
         }
         renderer.setText(theText);

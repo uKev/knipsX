@@ -25,25 +25,24 @@ public class DummyRepository implements Repository {
     public DummyRepository() {
 
         /* create a list of picture sets */
-        
 
         /* create a list of reports */
-        
-        
+
     }
 
     public List<ProjectModel> getProjects() {
-    	System.out.println("getProjects() initiated...");
-    	
-    	/* add some dummy projects */
-    	List<PictureSet> pictureSetList = new ArrayList<PictureSet>();
-    	List<AbstractReportModel> reportList = new ArrayList<AbstractReportModel>();
+        System.out.println("getProjects() initiated...");
+
+        /* add some dummy projects */
+        List<PictureSet> pictureSetList = new ArrayList<PictureSet>();
+        List<AbstractReportModel> reportList = new ArrayList<AbstractReportModel>();
 
         /* create the first picture set an some picture containers */
         PictureSet dummyPictureSet = new PictureSet("Goldfische", 1);
 
         /* create some dummy picture containers and add to the picture set */
-        String picturePath = System.getProperty("user.home") + File.separator + ".knipsX_test_bilder" + File.separator + "DSC00964.JPG";
+        String picturePath = System.getProperty("user.home") + File.separator + ".knipsX_test_bilder" + File.separator
+                + "DSC00964.JPG";
         System.out.println("Picture Path: " + picturePath);
         Picture dummyPicture = null;
         try {
@@ -53,11 +52,12 @@ public class DummyRepository implements Repository {
             e.printStackTrace();
         }
         dummyPictureSet.add(dummyPicture);
-        
-        String pictureDir = System.getProperty("user.home")  + File.separator + ".knipsX_test_bilder" + File.separator + "testordner";
+
+        String pictureDir = System.getProperty("user.home") + File.separator + ".knipsX_test_bilder" + File.separator
+                + "testordner";
         System.out.println("Picture Dir:" + pictureDir);
         Directory dummyDirectory = new Directory(pictureDir);
-        
+
         dummyPictureSet.add(dummyDirectory);
 
         dummyPictureSet.add(new PictureSet("Fische", 12));
@@ -67,14 +67,16 @@ public class DummyRepository implements Repository {
         dummyPictureSet.add(new PictureSet("SuperGoldfische", 11));
 
         /* add to list */
-        
 
-        /* create some dummy picture sets antem.getProperty("user.home")  + File.separator + ".knipsX_test_bilder" + File.separator + "testordner";
-        System.out.println(pictd add */
-        
+        /*
+         * create some dummy picture sets antem.getProperty("user.home") + File.separator + ".knipsX_test_bilder" +
+         * File.separator + "testordner";
+         * System.out.println(pictd add
+         */
+
         PictureSet test = new PictureSet("Urlaub", 3);
         test.add(dummyDirectory);
-        
+
         /* create some dummy reports */
         AbstractReportModel dummyReportOne = new BoxplotModel();
         dummyReportOne.setReportName("Blendenanalyse");
@@ -86,27 +88,24 @@ public class DummyRepository implements Repository {
         dummyReportTwo.addPictureContainer(test);
         dummyReportTwo.setxAxis(new Axis(ExifParameter.FNUMBER));
         dummyReportTwo.setzAxis(new Axis(ExifParameter.FOCALLENGTH));
-        
+
         Cluster3DModel dummyReportThree = new Cluster3DModel();
         dummyReportThree.setReportName("Cluster ftw");
-        dummyReportThree.setReportDescription("Analyse über Blenden - neu");    
+        dummyReportThree.setReportDescription("Analyse über Blenden - neu");
         dummyReportThree.addPictureContainer(test);
         dummyReportThree.setxAxis(new Axis(ExifParameter.FNUMBER));
         dummyReportThree.setyAxis(new Axis(ExifParameter.FOCALLENGTH));
-        dummyReportThree.setzAxis(new Axis(ExifParameter.ISO));       
-        
+        dummyReportThree.setzAxis(new Axis(ExifParameter.ISO));
+
         reportList.add(dummyReportThree);
         reportList.add(dummyReportOne);
         reportList.add(dummyReportTwo);
 
-    	
-    	
-    	
         this.projects.add(new ProjectModel(UUID.randomUUID().hashCode(), "Testprojekt mit Realbildern",
                 "Keine Beschreibung.", new GregorianCalendar(2009, 11, 12, 7, 9, 3), pictureSetList, reportList));
         this.projects.add(new ProjectModel(UUID.randomUUID().hashCode(), "Der Ehhhhhhhmer", "", new GregorianCalendar(
                 2009, 11, 12, 12, 42, 43), pictureSetList, reportList));
-        
+
         pictureSetList.add(dummyPictureSet);
         pictureSetList.add(test);
         pictureSetList.add(new PictureSet("Golfen", 4));
@@ -119,7 +118,8 @@ public class DummyRepository implements Repository {
         assert this.projects.size() > 0;
 
         boolean goOn = true;
-        ProjectModel project = new ProjectModel(projectId, "Name_of_a_project", "Descr. of a project", new GregorianCalendar());
+        ProjectModel project = new ProjectModel(projectId, "Name_of_a_project", "Descr. of a project",
+                new GregorianCalendar(), new ArrayList<PictureSet>(), new ArrayList<AbstractReportModel>());
 
         /* delete the project */
         for (int i = 0; goOn && i < this.projects.size(); ++i) {
@@ -133,13 +133,14 @@ public class DummyRepository implements Repository {
 
     public int createProject() {
         int id = UUID.randomUUID().hashCode();
-        this.projects.add(new ProjectModel(id, "", "", new GregorianCalendar()));
+        this.projects.add(new ProjectModel(id, "", "", new GregorianCalendar(), new ArrayList<PictureSet>(),
+                new ArrayList<AbstractReportModel>()));
         return id;
     }
 
     public int createProject(ProjectModel toCopy) {
         int id = UUID.randomUUID().hashCode();
-        this.projects.add(new ProjectModel(toCopy, id));
+        this.projects.add(new ProjectModel(toCopy, id, ""));
         return id;
     }
 

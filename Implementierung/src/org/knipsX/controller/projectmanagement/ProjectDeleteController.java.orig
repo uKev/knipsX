@@ -46,12 +46,21 @@ public class ProjectDeleteController<M extends ProjectManagementModel, V extends
 
             // INTERNATIONALIZE
             /* gives the user a hint, that he has selected too little projects */
+<<<<<<< HEAD:Implementierung/src/org/knipsX/controller/projectmanagement/ProjectDeleteController.java
             JOptionPane.showMessageDialog(null, Messages.getString("ProjectDeleteController.0"), //$NON-NLS-1$
                     Messages.getString("ProjectDeleteController.1"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
         } else {
             // INTERNATIONALIZE
             final int decision = JOptionPane.showConfirmDialog(null, Messages.getString("ProjectDeleteController.2") //$NON-NLS-1$
                     + this.generateToDeleteText(toDelete) + Messages.getString("ProjectDeleteController.3"), Messages.getString("ProjectDeleteController.4"), //$NON-NLS-1$ //$NON-NLS-2$
+=======
+            JOptionPane.showMessageDialog(this.view, "Selektieren Sie mindestens ein Projekt, um es zu löschen.",
+                    "Projekt kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // INTERNATIONALIZE
+            final int decision = JOptionPane.showConfirmDialog(this.view, "Sollen die ausgewählten Projekte:"
+                    + this.generateToDeleteText(toDelete) + " gelöscht werden?", "Projekt löschen",
+>>>>>>> 44fd20c5f0461be4bd8a4c755c4427684a386989:Implementierung/src/org/knipsX/controller/projectmanagement/ProjectDeleteController.java
                     JOptionPane.YES_NO_OPTION);
 
             /* if user pressed "yes" */

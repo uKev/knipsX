@@ -53,7 +53,10 @@ public class PictureSet implements PictureContainer {
         this.id = freePictureSetID;
         this.children = pictureSetToCopy.getItems();
     }
-    
+
+    /**
+     * Resets the iterator.
+     */
     public void resetIterator() {
         this.currentChild = 0;
     }
@@ -134,30 +137,30 @@ public class PictureSet implements PictureContainer {
      * @return true if there is an element left , false if not
      */
     public boolean hasNext() {
-    	boolean hasNext = false;
-     
+        boolean hasNext = false;
+
         if (this.children.isEmpty()) {
-        	hasNext = false;
-        	this.currentChild = 0;
+            hasNext = false;
+            this.currentChild = 0;
         } else {
             if (this.children.get(this.currentChild).hasNext()) {
-            	hasNext = true;
+                hasNext = true;
             } else {
                 int child = this.currentChild;
 
                 while ((!hasNext) && (child < this.children.size() - 1)) {
                     child++;
                     if (this.children.get(child).hasNext()) {
-                    	hasNext = true;
+                        hasNext = true;
                         this.currentChild = child;
                     } else {
-                    	hasNext = false;
-                    	this.currentChild = 0;
+                        hasNext = false;
+                        this.currentChild = 0;
                     }
                 }
             }
         }
-		return hasNext;
+        return hasNext;
     }
 
     /**
