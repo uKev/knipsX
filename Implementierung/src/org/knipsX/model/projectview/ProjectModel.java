@@ -203,13 +203,13 @@ public class ProjectModel extends AbstractModel {
         if (this.getSelectedPicture() != null) {
             return this.getSelectedPicture().getAllExifParameter().clone();
         }
-        final List<String[]> exifParameter = new LinkedList<String[]>();
+        final List<Object[]> exifParameter = new LinkedList<Object[]>();
         
         /* INTERNATIONALIZE */
         for (final ExifParameter parameter : ExifParameter.values()) {
-            exifParameter.add(new String[] { parameter.toString(), "no data" });
+            exifParameter.add(new Object[] { parameter.toString(), "no data" });
         }
-        return exifParameter.toArray(new Object[][] { new String[] { "no Data", "no Data" } });
+        return exifParameter.toArray(new Object[][] { new Object[] { "no Data", "no Data" } });
     }
 
     /**
