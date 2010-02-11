@@ -44,12 +44,12 @@ public class PictureSetListDeleteController<M extends ProjectModel, V extends JP
 
             /* gives the user a hint, that he has selected too little projects */
             /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(null, "Selektieren Sie mindestens eine Bildmenge, um sie zu löschen.",
+            JOptionPane.showMessageDialog(this.view, "Selektieren Sie mindestens eine Bildmenge, um sie zu löschen.",
                     "Bildmenge löschen - Fehler", JOptionPane.ERROR_MESSAGE);
         } else {
 
             /* INTERNATIONALIZE */
-            final int decision = JOptionPane.showConfirmDialog(null, "Sollen die ausgewählten Bildmengen:"
+            final int decision = JOptionPane.showConfirmDialog(this.view, "Sollen die ausgewählten Bildmengen:"
                     + this.generateToDeleteText(toDelete) + " gelöscht werden?", "Bildmenge löschen",
                     JOptionPane.YES_NO_OPTION);
 

@@ -1,16 +1,17 @@
 /**
- * This package is the root of all packages!!!
+ * This package is the root of all packages.
  */
 package org.knipsX;
 
-/* import things from our programm */
-import java.awt.Color;
-
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
+import org.jvnet.substance.skin.SubstanceBusinessBlackSteelLookAndFeel;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.projectmanagement.JProjectManagement;
 
@@ -20,18 +21,14 @@ import org.knipsX.view.projectmanagement.JProjectManagement;
 public final class Programm {
 
     /*
-     * the logger.
-     * See http://logging.apache.org/log4j/1.2/manual.html for usage.
+     * the logger
+     * see http://logging.apache.org/log4j/1.2/manual.html for usage
      */
     private static Logger logger = Logger.getLogger(Programm.class);
 
-    /*
-     * TODO: rename Programm(.java) either to Program or better knipsX.
-     */
+    /* TODO: rename Programm(.java) either to Program or better knipsX */
 
-    /*
-     * Private constructor. This class should never have an instace.
-     */
+    /* private constructor - this class should never have an instace */
     private Programm() {
     }
 
@@ -45,49 +42,36 @@ public final class Programm {
      */
     public static void main(final String[] args) {
 
-        // Setting up the logger
+        /* setting up the logger */
         BasicConfigurator.configure();
 
         /*
-         * LogLevel chain:
+         * log-level chain:
          * TRACE > DEBUG > INFO > WARN > ERROR > FATAL
-         * 
          */
+        Programm.logger.info("Starting knipsX");
 
-        logger.info("Starting knipsX");
-
-        try {
-            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-        } catch (ClassNotFoundException e) {
-            System.err.println("Error loading Look and Feel: " + e);
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            System.err.println("Error loading Look and Feel: " + e);
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            System.err.println("Error loading Look and Feel: " + e);
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            System.err.println("Error loading Look and Feel: " + e);
-            e.printStackTrace();
-        }
-        
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        JDialog.setDefaultLookAndFeelDecorated(true);
         /*
-         * Change the contentAreaColor to a normal light grey color so it
-         * fits in with the normal user interface
+         * schedule a job for the event-dispatching thread:
+         * creating and showing this application's GUI
          */
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(new SubstanceBusinessBlackSteelLookAndFeel());
+                } catch (final UnsupportedLookAndFeelException e) {
+                    Programm.logger.error("Error loading Look and Feel: " + e.getMessage());
+                }
 
-        UIManager.put("TabbedPane.contentAreaColor", new Color(238, 238, 238));
+                /* create a model for the ProjectAdministration */
+                final ProjectManagementModel projectManagementModel = new ProjectManagementModel();
 
-        /* create a model for the ProjectAdministration */
-        final ProjectManagementModel projectManagementModel = new ProjectManagementModel();
-
-        /*
-         * creates a new JProjectAdministration window, which is connected to a
-         * model
-         */
-        new JProjectManagement<ProjectManagementModel>(projectManagementModel);
-
-        logger.info("knipsX started");
+                /* creates a new JProjectAdministration window, which is connected to a model */
+                new JProjectManagement<ProjectManagementModel>(projectManagementModel);
+            }
+        });
+        Programm.logger.info("knipsX started");
     }
 }

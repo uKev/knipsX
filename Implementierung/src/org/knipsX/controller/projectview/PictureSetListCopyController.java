@@ -48,7 +48,7 @@ public class PictureSetListCopyController<M extends ProjectModel, V extends JPro
             final PictureSet pictureSetToCopy = this.model.getPictureSets()[toCopy[0]];
 
             /* INTERNATIONALIZE */
-            final int decision = JOptionPane.showConfirmDialog(null, "Soll das ausgewählte Projekt \""
+            final int decision = JOptionPane.showConfirmDialog(this.view, "Soll das ausgewählte Projekt \""
                     + pictureSetToCopy.getName() + "\" kopiert werden?", "Projekt kopieren", JOptionPane.YES_NO_OPTION);
 
             /* if user pressed "yes" */
@@ -56,7 +56,7 @@ public class PictureSetListCopyController<M extends ProjectModel, V extends JPro
 
                 /* try to get a picture set name */
                 /* INTERNATIONALIZE */
-                String pictureSetName = JOptionPane.showInputDialog(null, "Geben Sie einen Bildmengennamen ein.",
+                String pictureSetName = JOptionPane.showInputDialog(this.view, "Geben Sie einen Bildmengennamen ein.",
                         "Bildmenge kopieren", JOptionPane.INFORMATION_MESSAGE);
 
                 /* while user is not pressing cancel and no text is given */
@@ -64,7 +64,7 @@ public class PictureSetListCopyController<M extends ProjectModel, V extends JPro
 
                     /* try to get a project name */
                     /* INTERNATIONALIZE */
-                    pictureSetName = JOptionPane.showInputDialog(null, "Bildmengennamen darf nicht leer sein!",
+                    pictureSetName = JOptionPane.showInputDialog(this.view, "Bildmengennamen darf nicht leer sein!",
                             "Bildmenge kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
                 }
 
@@ -79,13 +79,13 @@ public class PictureSetListCopyController<M extends ProjectModel, V extends JPro
 
             /* gives the user a hint, that he has selected too much picture sets */
             /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(null, "Selektieren Sie eine Bildmenge, um sie zu kopieren.",
+            JOptionPane.showMessageDialog(this.view, "Selektieren Sie eine Bildmenge, um sie zu kopieren.",
                     "Bildmenge kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
         } else {
 
             /* gives the user a hint, that he has selected too little picture sets */
             /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(null, "Selektieren Sie nur eine Bildmenge, um sie zu kopieren.",
+            JOptionPane.showMessageDialog(this.view, "Selektieren Sie nur eine Bildmenge, um sie zu kopieren.",
                     "Bildmenge kopieren - Fehler", JOptionPane.ERROR_MESSAGE);
 
         }

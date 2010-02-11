@@ -85,7 +85,7 @@ public class PictureSetContentListDropController<M extends ProjectModel, V exten
             } catch (java.io.IOException e) {
                 return false;
             }
-            
+
             PictureSet set = PictureSetContentListDropController.this.model.getSelectedPictureSet();
             PictureSetContentListDropController.this.model.addContentToPictureSet(set, data);
             return true;

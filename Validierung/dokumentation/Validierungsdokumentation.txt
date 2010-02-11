@@ -1,0 +1,27 @@
+(vgl. http://de.wikipedia.org/wiki/Softwaretest)
+
+Zur Testplanung gehört auch die Vorbereitung der Dokumentation. Eine normierte Vorgehensweise dazu empfiehlt der Standard IEEE 829.[2][3]. Laut diesem Standard gehören zu einer vollständigen Testdokumentation folgende Unterlagen:
+
+*Testplan
+Beschreibt Umfang, Vorgehensweise, Terminplan, Testgegenstände.
+
+*Testdesignspezifikation
+Beschreibt die im Testplan genannten Vorgehensweisen im Detail.
+
+*Testfallspezifikationen
+Beschreibt die Umgebungsbedingungen, Eingaben und Ausgaben eines jeden Testfalls.
+
+*Testablaufspezifikationen
+Beschreibt in Einzelschritten, wie jeder Testfall durchzuführen ist.
+
+*Testobjektübertragungsbericht
+Protokolliert, wann welche Testgegenstände an welche Tester übergeben wurden.
+
+*Testprotokoll
+Listet chronologisch alle relevanten Vorgänge bei der Testdurchführung.
+
+*Testvorfallbericht
+Listet alle Ereignisse, die eine weitere Untersuchung erforderlich machen.
+
+*Testergebnisbericht
+Beschreibt und bewertet die Ergebnisse aller Tests.

@@ -80,7 +80,7 @@ public class JParameters extends JAbstractSinglePanel {
             this.add(this.axisDescription);
             this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
             try {
-                this.validLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null)); //$NON-NLS-1$
+                this.validLabel.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -161,7 +161,7 @@ public class JParameters extends JAbstractSinglePanel {
                 this.validLabel.setPreferredSize(new Dimension(32, 32));
             } else {
                 try {
-                    this.validLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null)); //$NON-NLS-1$
+                    this.validLabel.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }

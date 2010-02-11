@@ -39,6 +39,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
+import org.apache.log4j.Logger;
 import org.knipsX.controller.projectview.PictureListClickOnController;
 import org.knipsX.controller.projectview.PictureSetContentListAddController;
 import org.knipsX.controller.projectview.PictureSetContentListClickOnController;
@@ -64,6 +65,7 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.utils.Converter;
 import org.knipsX.utils.Resource;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.reportmanagement.ReportHelper;
@@ -112,6 +114,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     private JList jListReport = null;
     private JTable jTableExif = null;
 
+    private final Logger logger = Logger.getLogger(this.getClass());
+
     /**
      * Creates a project view connected with an appropriate model.
      */
@@ -155,10 +159,17 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
      */
 
     /* creates a new button with some functionality */
-    private JButton getNewButton(final String text, final String toolTip, final ActionListener listener) {
+    private JButton getNewButton(final String text, final String toolTip, final String icon,
+            final ActionListener listener) {
         final JButton newButton = new JButton(text);
 
         newButton.setFont(new Font(Messages.getString("JProjectView.0"), Font.BOLD, 10)); //$NON-NLS-1$
+        try {
+            newButton.setIcon(Resource.createImageIcon(icon, "", "16"));
+        } catch (FileNotFoundException e) {
+            this.logger.error("Icon for button not found - " + icon);
+        }
+
         newButton.addActionListener(listener);
 
         return newButton;
@@ -705,8 +716,10 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             this.jListPictureSetActive.setLayoutOrientation(JList.VERTICAL);
-            this.jListPictureSetActive.addMouseListener(new PictureListClickOnController<M, JProjectView<M>>(
-                    this.model, this));
+            PictureListClickOnController<M, JProjectView<M>> controller = new PictureListClickOnController<M, JProjectView<M>>(
+                    this.model, this);
+            this.jListPictureSetActive.addMouseListener(controller);
+            this.jListPictureSetActive.addMouseMotionListener(controller);
 
             /* we store picture objects in the list, so we have to set a special rendering */
             this.jListPictureSetActive.setCellRenderer(new MyPictureListCellRenderer());
@@ -824,10 +837,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             /* create new table for the exif parameters of an active image */
             this.jTableExif = new JTable(data, columnNames);
-            final TableColumn para = this.jTableExif.getColumnModel().getColumn(0);
-            final TableColumn value = this.jTableExif.getColumnModel().getColumn(1);
-            para.setCellRenderer(new MyExifTableCellRenderer());
-            value.setCellRenderer(new MyExifTableCellRenderer());
+            this.jTableExif.setDefaultRenderer(Object.class, new MyExifTableCellRenderer());
         }
         return new JScrollPane(this.jTableExif);
     }
@@ -919,13 +929,21 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         this.setTitle(Messages.getString("JProjectView.33") + model.getName()); //$NON-NLS-1$
 
         /* things about the project */
-        final int caretProjectName = this.jTextFieldProjectName.getCaretPosition();
-        this.jTextFieldProjectName.setText(model.getName());
-        this.jTextFieldProjectName.setCaretPosition(caretProjectName);
+        try {
+            final int caretProjectName = this.jTextFieldProjectName.getCaretPosition();
+            this.jTextFieldProjectName.setText(model.getName());
+            this.jTextFieldProjectName.setCaretPosition(caretProjectName);
+        } catch (IllegalArgumentException e) {
+            logger.error("Position of name caret cannot set - " + e.fillInStackTrace());
+        }
 
-        final int caretProjectDescription = this.jEditorPaneProjectDescription.getCaretPosition();
-        this.jEditorPaneProjectDescription.setText(model.getDescription());
-        this.jEditorPaneProjectDescription.setCaretPosition(caretProjectDescription);
+        try {
+            final int caretProjectDescription = this.jEditorPaneProjectDescription.getCaretPosition();
+            this.jEditorPaneProjectDescription.setText(model.getDescription());
+            this.jEditorPaneProjectDescription.setCaretPosition(caretProjectDescription);
+        } catch (IllegalArgumentException e) {
+            logger.error("Position of description caret cannot set - " + e.fillInStackTrace());
+        }
 
         final int[] selectedPictureSets = this.jListPictureSet.getSelectedIndices();
         final int[] selectedPictureSetContents = this.jListPictureSetContent.getSelectedIndices();
@@ -962,31 +980,13 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         }
 
         if (model.getSelectedPicture() != null) {
-            final TableModel exifModel = this.jTableExif.getModel();            
+            final TableModel exifModel = this.jTableExif.getModel();
 
             final Object[][] values = model.getSelectedPicture().getAllExifParameter();
             for (int i = 0; i < values.length; ++i) {
-                if (values[i].length == 2) {
-                    
-                String theText = Messages.getString("JProjectView.36"); //$NON-NLS-1$
-                    if (values[i][1] instanceof Object[]) {
-                        Object[] objectArray = (Object[]) values[i][1];
-                        for (int j = 0; j < objectArray.length; j++) {
-                            if (j == 0) {
-                                theText = objectArray[j].toString();
-                            } else {
-                                theText = theText + Messages.getString("JProjectView.37") + objectArray[j].toString(); //$NON-NLS-1$
-                            }
-                        }
-                    
-                    } else {
-                        if (values[i][1] != null) {
-                            theText = values[i][1].toString();
-                        }
-                    }
-                    
-                    exifModel.setValueAt(values[i][0].toString(), i, 0);
-                    exifModel.setValueAt(theText, i, 1);
+                if (values[i].length == 2) {                    
+                    exifModel.setValueAt(values[i][0].toString(), i, 0);                    
+                    exifModel.setValueAt(values[i][1], i, 1);
                 }
             }
         }
@@ -1134,12 +1134,13 @@ class MyPictureSetContentListCellRenderer implements ListCellRenderer {
  */
 class MyPictureListCellRenderer implements ListCellRenderer {
 
-    protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+    DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+
     private Icon noImageIcon = null;
 
     public MyPictureListCellRenderer() {
         try {
-            this.noImageIcon = Resource.createImageIcon("../images/noimage.png", Messages.getString("JProjectView.39")); //$NON-NLS-1$ //$NON-NLS-2$
+            this.noImageIcon = Resource.createImageIcon("status/image-missing.png", "", "32");
         } catch (final FileNotFoundException e) {
             e.printStackTrace();
         }

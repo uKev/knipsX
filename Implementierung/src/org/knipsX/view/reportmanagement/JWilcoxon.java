@@ -346,7 +346,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
             this.errorImageSetMessageLabel.setText(Messages.getString("JWilcoxon.11") //$NON-NLS-1$
                     + Messages.getString("JWilcoxon.12")); //$NON-NLS-1$
             try {
-                this.errorImageSetMessageLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null)); //$NON-NLS-1$
+                this.errorImageSetMessageLabel.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -372,7 +372,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
 
         } else {
             try {
-                this.errorNonOrdinalMessageLabel.setIcon(Resource.createImageIcon("../images/userwarning.png", null)); //$NON-NLS-1$
+                this.errorNonOrdinalMessageLabel.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

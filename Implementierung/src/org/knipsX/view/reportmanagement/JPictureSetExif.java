@@ -253,10 +253,10 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     }
 
     private void addBottomButtonPanel(JPanel bottombuttonpanel) {
-        final JButton insertexiftag = new JButton(Messages.getString("JPictureSetExif.7")); //$NON-NLS-1$
+        final JButton insertexiftag = new JButton(">>");
         insertexiftag.addActionListener(new ReportAddExifKeywordController<AbstractModel, JPictureSetExif>(this));
         bottombuttonpanel.add(insertexiftag);
-        final JButton removeexiftag = new JButton(Messages.getString("JPictureSetExif.8")); //$NON-NLS-1$
+        final JButton removeexiftag = new JButton("<<");
         removeexiftag.addActionListener(new ReportRemoveExifKeywordController<AbstractModel, JPictureSetExif>(this));
         bottombuttonpanel.add(Box.createRigidArea(new Dimension(0, 10)));
         bottombuttonpanel.add(removeexiftag);
@@ -516,7 +516,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                     }
 
                     if (numberOfElements == 0) {
-                        this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null)); //$NON-NLS-1$
+                        this.errorMessage.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
                         // INTERNATIONALIZE
                         this.errorMessage
                                 .setToolTipText(Messages.getString("JPictureSetExif.12")); //$NON-NLS-1$
@@ -554,7 +554,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
                     if (Validator.getValidPictures(pictureContainer, exifParameters, associatedXMPKeywords).size() == 0
                             && ReportHelper.getCurrentReport() != ReportHelper.Table) {
-                        this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null)); //$NON-NLS-1$
+                        this.errorMessage.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
 
                         // INTERNATIONALIZE
                         this.errorMessage.setToolTipText(Messages.getString("JPictureSetExif.16") //$NON-NLS-1$
@@ -580,7 +580,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 return true;
 
             } else {
-                this.errorMessage.setIcon(Resource.createImageIcon("../images/userwarning.png", null)); //$NON-NLS-1$
+                this.errorMessage.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
                 // INTERNATIONALIZE
                 this.errorMessage.setToolTipText(Messages.getString("JPictureSetExif.19") //$NON-NLS-1$
                         + Messages.getString("JPictureSetExif.20")); //$NON-NLS-1$
