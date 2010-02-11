@@ -1,0 +1,5 @@
+just replace THE_* and PATH/TO/THE/FILE with the right values and enter:
+
+
+mvn install:install-file -DgroupId=THE_NAME -DartifactId=THE_NAME -Dversion=THE_VERSION -Dpackaging=jar -Dfile=/PATH/TO/THE/FILE.jar
+
