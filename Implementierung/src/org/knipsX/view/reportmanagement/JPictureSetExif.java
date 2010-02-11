@@ -644,7 +644,9 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
         }
 
-        this.updateXMPData();
+        if (this.getPictureContainer().size() > 0) {
+            this.updateXMPData();            
+        }
     }
 
 }
