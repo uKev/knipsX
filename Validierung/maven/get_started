@@ -20,3 +20,34 @@ cd src/main/java/org/knipsX/libs/
 mvn install:install-file -DgroupId=substance -DartifactId=substance -Dversion=5.3 -Dpackaging=jar -Dfile=substance.jar
 mvn install:install-file -DgroupId=metadataextractor -DartifactId=metadataextractor -Dversion=0.5 -Dpackaging=jar -Dfile=metadataextractor.jar
 mvn install:install-file -DgroupId=xmpcore -DartifactId=xmpcore -Dversion=4.4 -Dpackaging=jar -Dfile=xmpcore.jar
+
+
+when you get a few WARN messages like
+[WARN] POM for 'com.sun.jmx:jmxri:pom:1.2.1:compile' is invalid. It will be ignored for artifact resolution. Reason: Not a v4.0.0 POM. for project com.sun.jmx:jmxri at /home/...
+
+look into this files if there is a "The document has moved" message and get the right files.
+
+for the lazy:
+cd ~/.m2/repository/javax/mail/mail/
+rm mail-1.4.jar
+rm mail-1.4.pom
+http://download.java.net/maven/1/javax.mail/jars/mail-1.4.jar
+http://download.java.net/maven/1/javax.mail/poms/mail-1.4.pom
+cd ~/.m2/repository/javax/activation/activation/1.1
+rm activation-1.1.*
+wget http://download.java.net/maven/1/javax.activation/poms/activation-1.1.pom
+wget http://download.java.net/maven/1/javax.activation/jars/activation-1.1.jar
+cd ~/.m2/repository/javax/jms/jms/1.1
+rm jms-1.1.*
+wget http://repository.jboss.com/maven2/javax/jms/jms/1.1/jms-1.1.jar
+wget http://repository.jboss.com/maven2/javax/jms/jms/1.1/jms-1.1.pom
+cd ~/.m2/repository/com/sun/jdmk/jmxtools/1.2.1
+rm jmxtools-1.2.1.*
+wget http://wp5.e-taxonomy.eu/cdmlib/mavenrepo/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.jar
+wget http://wp5.e-taxonomy.eu/cdmlib/mavenrepo/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.pom
+cd ~/.m2/repository/com/sun/jmx/jmxri/1.2.1
+rm jmxri-1.2.1.*
+wget http://repository.jboss.com/maven2/javax/management/jmxri/1.2.1/jmxri-1.2.1.jar
+wget http://repository.jboss.com/maven2/javax/management/jmxri/1.2.1/jmxri-1.2.1.pom
+
+use mvn verify to check if something is still missing
