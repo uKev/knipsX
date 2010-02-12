@@ -18,5 +18,7 @@
 .project
 .pydevproject
 .metadata
+target
 bin
 *~
+*.orig
