@@ -32,8 +32,8 @@ e.g. cd j3d-1_5_2-linux-amd64/
 unzip j3d-jre.zip
 cd lib/ext/
 mvn install:install-file -DgroupId=java3d -DartifactId=vecmath -Dversion=1.5.2 -Dpackaging=jar -Dfile=vecmath.jar
-mvn install:install-file -DgroupId=java3d -DartifactId=j3dutils.jar -Dversion=1.5.2 -Dpackaging=jar -Dfile=j3dutils.jar
-mvn install:install-file -DgroupId=java3d -DartifactId=j3dcore.jar -Dversion=1.5.2 -Dpackaging=jar -Dfile=j3dcore.jar
+mvn install:install-file -DgroupId=java3d -DartifactId=j3dutils -Dversion=1.5.2 -Dpackaging=jar -Dfile=j3dutils.jar
+mvn install:install-file -DgroupId=java3d -DartifactId=j3dcore -Dversion=1.5.2 -Dpackaging=jar -Dfile=j3dcore.jar
 
 
 
