@@ -1,7 +1,5 @@
 package org.knipsX.images.dummypictures;
 
-import org.knipsX.utils.Resource;
-
 /**
  * Helper class to find the dummy directory
  * 
@@ -15,8 +13,8 @@ public final class DummyPictures {
      * 
      * @return the dummy directory path
      */
-    public static String getDummyDirectoryPath() {
-        return Resource.class.getResource("../images/dummypictures").getPath().replace("%20", " ");        
+    public static String getDummyDirectoryPath() {        
+        return DummyPictures.class.getResource("").getPath().replace("%20", " ");        
     }
     
     /* To satisfy checkstyle */
