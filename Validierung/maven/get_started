@@ -21,6 +21,22 @@ mvn install:install-file -DgroupId=substance -DartifactId=substance -Dversion=5.
 mvn install:install-file -DgroupId=metadataextractor -DartifactId=metadataextractor -Dversion=0.5 -Dpackaging=jar -Dfile=metadataextractor.jar
 mvn install:install-file -DgroupId=xmpcore -DartifactId=xmpcore -Dversion=4.4 -Dpackaging=jar -Dfile=xmpcore.jar
 
+download java3d from https://java3d.dev.java.net/binary-builds.html
+e.g. 
+cd /tmp/
+wget http://download.java.net/media/java3d/builds/release/1.5.2/j3d-1_5_2-linux-amd64.zip
+unpack the correct zip file for your system and architecture
+e.g. unzip j3d-1_5_2-linux-amd64.zip
+cd into your architecture
+e.g. cd j3d-1_5_2-linux-amd64/
+unzip j3d-jre.zip
+cd lib/ext/
+mvn install:install-file -DgroupId=java3d -DartifactId=vecmath -Dversion=1.5.2 -Dpackaging=jar -Dfile=vecmath.jar
+mvn install:install-file -DgroupId=java3d -DartifactId=j3dutils.jar -Dversion=1.5.2 -Dpackaging=jar -Dfile=j3dutils.jar
+mvn install:install-file -DgroupId=java3d -DartifactId=j3dcore.jar -Dversion=1.5.2 -Dpackaging=jar -Dfile=j3dcore.jar
+
+
+
 
 when you get a few WARN messages like
 [WARN] POM for 'com.sun.jmx:jmxri:pom:1.2.1:compile' is invalid. It will be ignored for artifact resolution. Reason: Not a v4.0.0 POM. for project com.sun.jmx:jmxri at /home/...
