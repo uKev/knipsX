@@ -19,6 +19,7 @@ public class DummyPicturesTest {
             numberOfPicturesInDirectory++;
         }
         
+        //TODO
         //assertTrue("Dummy Directory should have more than one pictures in it (" + path + ")", numberOfPicturesInDirectory > 0);
     }
 
