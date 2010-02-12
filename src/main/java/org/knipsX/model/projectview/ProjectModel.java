@@ -758,7 +758,7 @@ public class ProjectModel extends AbstractModel {
                         this.numberOfImagesInitialized++;
                     }
 
-                    if (this.numberOfImagesInitialized == 25) {
+                    if (this.numberOfImagesInitialized == 1) {
                         this.numberOfImagesInitialized = 0;
                         ProjectModel.this.updateViews();
                     }
