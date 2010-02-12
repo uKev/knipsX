@@ -18,13 +18,13 @@ public class Cluster3DConfig extends AbstractReportCompilation {
         
         /* Define diagram description */
         //INTERNATIONALIZE
-        this.diagramDescription = "In der 3D-Computergrafik und algorithmischen Geometrie bezeichnet eine "
-        		+ "Punktwolke eine Liste von kartesischen 3D-Koordinaten. Diese kann von einem "
-        		+ "3D-Modellierungswerkzeug sowie mittels Abtastung von Objekten oder Oberflächen "
-        		+ "durch Systeme wie Koordinatenmessmaschinen oder tastende 3D-Scanner erstellt werden."
-        		+ " Optische Scanner untergliedert man in Lasertechnologie, die nach dem "
-        		+ "Triangulationsprinzip arbeiten, und Normallicht-Scanner, die nach dem "
-        		+ "Streifenlichtverfahren („coded-light“) arbeiten.";
+        this.diagramDescription = Messages.getString("Cluster3DConfig.0") //$NON-NLS-1$
+        		+ Messages.getString("Cluster3DConfig.1") //$NON-NLS-1$
+        		+ Messages.getString("Cluster3DConfig.2") //$NON-NLS-1$
+        		+ Messages.getString("Cluster3DConfig.3") //$NON-NLS-1$
+        		+ Messages.getString("Cluster3DConfig.4") //$NON-NLS-1$
+        		+ Messages.getString("Cluster3DConfig.5") //$NON-NLS-1$
+        		+ Messages.getString("Cluster3DConfig.6"); //$NON-NLS-1$
 
         
         /* add the diagram panel to the report */

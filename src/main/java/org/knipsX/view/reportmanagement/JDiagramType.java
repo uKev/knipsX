@@ -52,7 +52,7 @@ public class JDiagramType extends JAbstractSinglePanel {
 
         /* Set the title name of this panel */
         //INTERNATIONALIZE
-        this.title = "Diagrammtyp";
+        this.title = Messages.getString("JDiagramType.0"); //$NON-NLS-1$
 
         final BoxLayout container = new BoxLayout(this, BoxLayout.X_AXIS);
         this.setLayout(container);
@@ -111,7 +111,7 @@ public class JDiagramType extends JAbstractSinglePanel {
         diagramView.setPreferredSize(new Dimension(300, 150));
         rightpanel.add(diagramView);
         //INTERNATIONALIZE
-        JLabel userWarning = new JLabel("Das Vorschaufenster stellt lediglich Testdaten dar");
+        JLabel userWarning = new JLabel(Messages.getString("JDiagramType.1")); //$NON-NLS-1$
         userWarning.setAlignmentX(Component.CENTER_ALIGNMENT);
         rightpanel.add(userWarning);
         /* Add a spacer to relax the layout */
@@ -121,7 +121,7 @@ public class JDiagramType extends JAbstractSinglePanel {
     /* Add the diagram type label and list to the specified panel */
     private void addDiagramTypeLabelAndList(final JPanel leftpanel) {
         //INTERNATIONALIZE
-        final JLabel diagramtypelabel = new JLabel("Diagramtyp");
+        final JLabel diagramtypelabel = new JLabel(Messages.getString("JDiagramType.2")); //$NON-NLS-1$
         
         diagramtypelabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -153,7 +153,7 @@ public class JDiagramType extends JAbstractSinglePanel {
     /* Add the report description text field and text area to the specified panel */
     private void addReportDescriptionAndTextArea(final JPanel leftpanel) {
         //INTERNATIONALIZE
-        final JLabel reportdescriptionlabel = new JLabel("Auswertungsbeschreibung");
+        final JLabel reportdescriptionlabel = new JLabel(Messages.getString("JDiagramType.3")); //$NON-NLS-1$
         /* Alter alignment to accommodate layout*/
         reportdescriptionlabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         leftpanel.add(reportdescriptionlabel);
@@ -175,7 +175,7 @@ public class JDiagramType extends JAbstractSinglePanel {
     /* Add the report name label and text field to the specified panel */
     private void addReportNameAndReportTextField(final JPanel leftpanel) {
         //INTERNATIONALIZE
-        final JLabel reportnamelabel = new JLabel("Auswertungsname");
+        final JLabel reportnamelabel = new JLabel(Messages.getString("JDiagramType.4")); //$NON-NLS-1$
         reportnamelabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         leftpanel.add(reportnamelabel);
 
@@ -251,7 +251,7 @@ public class JDiagramType extends JAbstractSinglePanel {
     private boolean checkReportName() {
         
         Logger logger = Logger.getLogger(this.getClass());        
-        logger.trace("Is Reportname okay: " + Validator.isStringOk(this.reportname.getText()));
+        logger.trace(Messages.getString("JDiagramType.5") + Validator.isStringOk(this.reportname.getText())); //$NON-NLS-1$
         
         if (Validator.isStringOk(this.reportname.getText())) {
             this.reportNameErrorLabel.setIcon(null);
@@ -261,13 +261,13 @@ public class JDiagramType extends JAbstractSinglePanel {
         } else {
             
             try {
-                this.reportNameErrorLabel.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
+                this.reportNameErrorLabel.setIcon(Resource.createImageIcon(Messages.getString("JDiagramType.6"), Messages.getString("JDiagramType.7"), Messages.getString("JDiagramType.8"))); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             } catch (FileNotFoundException e) {                
                 e.printStackTrace();
             }
             this.showErrorIcon();
             //INTERNATIONALIZE
-            this.reportNameErrorLabel.setToolTipText("Um die Auswertung speichern zu können muss ein gültiger Auswertungsname definiert werden");
+            this.reportNameErrorLabel.setToolTipText(Messages.getString("JDiagramType.9")); //$NON-NLS-1$
             return false;
         }
     }

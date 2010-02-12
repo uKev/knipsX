@@ -18,14 +18,14 @@ public class BoxplotConfig extends AbstractReportCompilation {
 
         /* Define diagram description */
         //INTERNATIONALIZE
-        this.diagramDescription = "Der Boxplot (auch Box-Whisker-Plot oder deutsch Kastengrafik) ist ein " 
-                                  + "Diagramm, das zur grafischen Darstellung der Verteilung statistischer Daten " 
-                                  + "verwendet wird. Er fasst dabei verschiedene robuste Streuungs- und Lagemaße "
-                                  + "in einer Darstellung zusammen. Ein Boxplot soll schnell einen Eindruck darüber "
-                                  + "vermitteln, in welchem Bereich die Daten liegen und wie sie sich über diesen "
-                                  + "Bereich verteilen. Deshalb werden alle Werte der sogenannten Fünf-Punkte-" 
-                                  + "Zusammenfassung, also der Median, die zwei Quartile und die beiden Extremwerte, " 
-                                  + "dargestellt.";
+        this.diagramDescription = Messages.getString("BoxplotConfig.0")  //$NON-NLS-1$
+                                  + Messages.getString("BoxplotConfig.1")  //$NON-NLS-1$
+                                  + Messages.getString("BoxplotConfig.2") //$NON-NLS-1$
+                                  + Messages.getString("BoxplotConfig.3") //$NON-NLS-1$
+                                  + Messages.getString("BoxplotConfig.4") //$NON-NLS-1$
+                                  + Messages.getString("BoxplotConfig.5")  //$NON-NLS-1$
+                                  + Messages.getString("BoxplotConfig.6")  //$NON-NLS-1$
+                                  + Messages.getString("BoxplotConfig.7"); //$NON-NLS-1$
 
         /* add the diagram panel to the report */
         addPanel(new JDiagramType(this.diagramDescription));
