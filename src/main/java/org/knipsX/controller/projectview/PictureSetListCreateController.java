@@ -41,15 +41,15 @@ public class PictureSetListCreateController<M extends ProjectModel, V extends JP
 
         /* try to get a picture set name */
         /* INTERNATIONALIZE */
-        String pictureSetName = JOptionPane.showInputDialog(this.view, "Geben Sie einen Bildmengennamen ein.",
-                "Bildmenge erstellen", JOptionPane.INFORMATION_MESSAGE);
+        String pictureSetName = JOptionPane.showInputDialog(this.view, Messages.getString("PictureSetListCreateController.0"), //$NON-NLS-1$
+                Messages.getString("PictureSetListCreateController.1"), JOptionPane.INFORMATION_MESSAGE); //$NON-NLS-1$
 
         /* while user is not pressing cancel and no text is given */
         while ((pictureSetName != null) && !Validator.isStringOk(pictureSetName)) {
 
             /* try to get a project name */
-            pictureSetName = JOptionPane.showInputDialog(this.view, "Bildmengennamen darf nicht leer sein!",
-                    "Bildmenge erstellen - Fehler", JOptionPane.ERROR_MESSAGE);
+            pictureSetName = JOptionPane.showInputDialog(this.view, Messages.getString("PictureSetListCreateController.2"), //$NON-NLS-1$
+                    Messages.getString("PictureSetListCreateController.3"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
         }
 
         /* has user give in a project name? */

@@ -44,13 +44,13 @@ public class PictureSetListDeleteController<M extends ProjectModel, V extends JP
 
             /* gives the user a hint, that he has selected too little projects */
             /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(this.view, "Selektieren Sie mindestens eine Bildmenge, um sie zu löschen.",
-                    "Bildmenge löschen - Fehler", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.view, Messages.getString("PictureSetListDeleteController.0"), //$NON-NLS-1$
+                    Messages.getString("PictureSetListDeleteController.1"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
         } else {
 
             /* INTERNATIONALIZE */
-            final int decision = JOptionPane.showConfirmDialog(this.view, "Sollen die ausgewählten Bildmengen:"
-                    + this.generateToDeleteText(toDelete) + " gelöscht werden?", "Bildmenge löschen",
+            final int decision = JOptionPane.showConfirmDialog(this.view, Messages.getString("PictureSetListDeleteController.2") //$NON-NLS-1$
+                    + this.generateToDeleteText(toDelete) + Messages.getString("PictureSetListDeleteController.3"), Messages.getString("PictureSetListDeleteController.4"), //$NON-NLS-1$ //$NON-NLS-2$
                     JOptionPane.YES_NO_OPTION);
 
             /* if user pressed "yes" */
@@ -65,12 +65,12 @@ public class PictureSetListDeleteController<M extends ProjectModel, V extends JP
     }
 
     private String generateToDeleteText(final PictureSet[] toDelete) {
-        String deleteText = "\n\n";
+        String deleteText = Messages.getString("PictureSetListDeleteController.5"); //$NON-NLS-1$
 
         /* add all names */
         for (final PictureSet item : toDelete) {
-            deleteText += "- " + item.getName() + "\n";
+            deleteText += Messages.getString("PictureSetListDeleteController.6") + item.getName() + Messages.getString("PictureSetListDeleteController.7"); //$NON-NLS-1$ //$NON-NLS-2$
         }
-        return deleteText + "\n";
+        return deleteText + Messages.getString("PictureSetListDeleteController.8"); //$NON-NLS-1$
     }
 }

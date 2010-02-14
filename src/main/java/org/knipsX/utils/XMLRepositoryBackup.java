@@ -30,7 +30,7 @@ public class XMLRepositoryBackup implements Repository {
         /* if dir not exist, try to create it */
         if (!projectDir.exists()) {
             if (!projectDir.mkdir()) {
-                log.error("[getProjects()] - I have no rights to create the project directory -> "
+                log.error(Messages.getString("XMLRepositoryBackup.0") //$NON-NLS-1$
                         + RepositoryHandler.PROJECTS_PATH);
             }
         }
@@ -51,7 +51,7 @@ public class XMLRepositoryBackup implements Repository {
 
     private File getXML(final File[] files) {
         for (final File file : files) {
-            if (file.isFile() && file.getName().equals("project.xml")) {
+            if (file.isFile() && file.getName().equals(Messages.getString("XMLRepositoryBackup.1"))) { //$NON-NLS-1$
                 return file;
             }
         }
@@ -61,7 +61,7 @@ public class XMLRepositoryBackup implements Repository {
     public int createProject() {
 
         /* call the createProject with a dummy ProjectModel */
-        return this.createProject(new ProjectModel(0, "", "", new GregorianCalendar(), new ArrayList<PictureSet>(),
+        return this.createProject(new ProjectModel(0, Messages.getString("XMLRepositoryBackup.2"), Messages.getString("XMLRepositoryBackup.3"), new GregorianCalendar(), new ArrayList<PictureSet>(), //$NON-NLS-1$ //$NON-NLS-2$
                 new ArrayList<AbstractReportModel>()));
     }
 
@@ -80,10 +80,10 @@ public class XMLRepositoryBackup implements Repository {
         /* save the project and return the unique id */
         if (!projectDir.mkdir()) {
             /* INTERNATIONALIZE */
-            log.error("[createProject()] - I have no rights to create the project directory -> "
+            log.error(Messages.getString("XMLRepositoryBackup.4") //$NON-NLS-1$
                     + RepositoryHandler.PROJECTS_PATH);
         } else {
-            this.saveProject(new ProjectModel(toCopy, projectId, ""));
+            this.saveProject(new ProjectModel(toCopy, projectId, Messages.getString("XMLRepositoryBackup.5"))); //$NON-NLS-1$
         }
         return projectId;
     }
@@ -103,12 +103,12 @@ public class XMLRepositoryBackup implements Repository {
             }
             if (!file.delete()) {
                 /* INTERNATIONALIZE */
-                log.error("[treeDelete()] - I have no rights to delete the directory -> " + file.getAbsolutePath());
+                log.error(Messages.getString("XMLRepositoryBackup.6") + file.getAbsolutePath()); //$NON-NLS-1$
             }
         } else {
             if (!file.delete()) {
                 /* INTERNATIONALIZE */
-                log.error("[treeDelete()] - I have no rights to delete the file -> " + file.getAbsolutePath());
+                log.error(Messages.getString("XMLRepositoryBackup.7") + file.getAbsolutePath()); //$NON-NLS-1$
             }
         }
     }
@@ -116,7 +116,7 @@ public class XMLRepositoryBackup implements Repository {
     public void saveProject(final ProjectModel toSave) {
         final XMLOutput xmlFile = new XMLOutput(toSave);
         final File projectFile = new File(RepositoryHandler.PROJECTS_PATH + File.separator + toSave.getId()
-                + File.separator + "project.xml");
+                + File.separator + Messages.getString("XMLRepositoryBackup.8")); //$NON-NLS-1$
 
         try {
             final FileWriter writer = new FileWriter(projectFile);

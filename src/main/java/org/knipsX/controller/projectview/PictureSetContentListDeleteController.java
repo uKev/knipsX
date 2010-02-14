@@ -46,14 +46,14 @@ public class PictureSetContentListDeleteController<M extends ProjectModel, V ext
                 /* gives the user a hint, that he has selected too little projects */
                 /* INTERNATIONALIZE */
                 JOptionPane.showMessageDialog(this.view,
-                        "Selektieren Sie mindestens einen Bildmengeninhalt, um ihn zu löschen.",
-                        "Bildmengeninhalt löschen - Fehler", JOptionPane.ERROR_MESSAGE);
+                        Messages.getString("PictureSetContentListDeleteController.0"), //$NON-NLS-1$
+                        Messages.getString("PictureSetContentListDeleteController.1"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
             } else {
 
                 /* INTERNATIONALIZE */
                 final int decision = JOptionPane.showConfirmDialog(this.view,
-                        "Sollen die ausgewählten Bildmengeninhalte:" + this.generateToDeleteText(toDelete)
-                                + " gelöscht werden?", "Bildmengeninhalte löschen", JOptionPane.YES_NO_OPTION);
+                        Messages.getString("PictureSetContentListDeleteController.2") + this.generateToDeleteText(toDelete) //$NON-NLS-1$
+                                + Messages.getString("PictureSetContentListDeleteController.3"), Messages.getString("PictureSetContentListDeleteController.4"), JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
 
                 /* if user pressed "yes" */
                 if (decision == 0) {
@@ -67,18 +67,18 @@ public class PictureSetContentListDeleteController<M extends ProjectModel, V ext
         } else {
 
             /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(this.view, "Erstellen Sie erst eine Bildmenge!", "Bildmengeninhalt löschen",
+            JOptionPane.showMessageDialog(this.view, Messages.getString("PictureSetContentListDeleteController.5"), Messages.getString("PictureSetContentListDeleteController.6"), //$NON-NLS-1$ //$NON-NLS-2$
                     JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
     private String generateToDeleteText(final PictureContainer[] toDelete) {
-        String deleteText = "\n\n";
+        String deleteText = Messages.getString("PictureSetContentListDeleteController.7"); //$NON-NLS-1$
 
         /* add all names */
         for (final PictureContainer item : toDelete) {
-            deleteText += "- " + item.getName() + "\n";
+            deleteText += Messages.getString("PictureSetContentListDeleteController.8") + item.getName() + Messages.getString("PictureSetContentListDeleteController.9"); //$NON-NLS-1$ //$NON-NLS-2$
         }
-        return deleteText + "\n";
+        return deleteText + Messages.getString("PictureSetContentListDeleteController.10"); //$NON-NLS-1$
     }
 }

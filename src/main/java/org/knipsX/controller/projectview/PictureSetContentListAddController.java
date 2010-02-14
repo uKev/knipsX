@@ -62,8 +62,8 @@ public class PictureSetContentListAddController<M extends ProjectModel, V extend
         } else {
 
             /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(this.view, "Erstellen Sie zuerst eine Bildmenge!",
-                    "Bildmengeninhalt hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this.view, Messages.getString("PictureSetContentListAddController.0"), //$NON-NLS-1$
+                    Messages.getString("PictureSetContentListAddController.1"), JOptionPane.INFORMATION_MESSAGE); //$NON-NLS-1$
         }
     }
 }

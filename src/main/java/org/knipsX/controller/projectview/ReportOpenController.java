@@ -51,8 +51,8 @@ public class ReportOpenController<M extends ProjectModel, V extends JProjectView
                     .getReports()[reportID], reportID);
         } else {
             /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(this.view, "Wählen Sie zuerst eine Auswertung aus, um diese öffnen zu können.",
-                    "Auswertung auswählen", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this.view, Messages.getString("ReportOpenController.0"), //$NON-NLS-1$
+                    Messages.getString("ReportOpenController.1"), JOptionPane.INFORMATION_MESSAGE); //$NON-NLS-1$
         }
 
     }

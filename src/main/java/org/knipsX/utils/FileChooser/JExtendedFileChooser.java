@@ -19,8 +19,8 @@ import javax.swing.JFileChooser;
 public final class JExtendedFileChooser {
 
     private static JFileChooser filechooser;
-    private static String lastSaveDir = "";
-    private static String lastOpenDir = "";
+    private static String lastSaveDir = ""; //$NON-NLS-1$
+    private static String lastOpenDir = ""; //$NON-NLS-1$
 
     /* The initialization routine which configures the file chooser */
     private static void initialize() {
@@ -58,13 +58,13 @@ public final class JExtendedFileChooser {
             JExtendedFileChooser.lastSaveDir = file.getAbsolutePath();
 
             /* Prepare file name to be stored on hard drive */
-            final String fileName = file.getName().replaceAll(".png", "").replaceAll(".png", "") + ".png";
-            final File outputfile = new File(file.getParent() + "/" + fileName);
+            final String fileName = file.getName().replaceAll(".png", "").replaceAll(".png", "") + ".png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+            final File outputfile = new File(file.getParent() + "/" + fileName); //$NON-NLS-1$
 
             try {
 
                 /* Write image to disk */
-                ImageIO.write(imageToBeSaved, "png", outputfile);
+                ImageIO.write(imageToBeSaved, "png", outputfile); //$NON-NLS-1$
             } catch (final IOException e1) {
                 e1.printStackTrace();
             }
@@ -89,7 +89,7 @@ public final class JExtendedFileChooser {
 
         /* Process the results */
         /* INTERNATIONALIZE */
-        if (JExtendedFileChooser.filechooser.showDialog(JExtendedFileChooser.filechooser, "Hinzufügen") == JFileChooser.APPROVE_OPTION) {
+        if (JExtendedFileChooser.filechooser.showDialog(JExtendedFileChooser.filechooser, Messages.getString("JExtendedFileChooser.9")) == JFileChooser.APPROVE_OPTION) { //$NON-NLS-1$
             selectedFilesandDirectories = JExtendedFileChooser.filechooser.getSelectedFiles();
             JExtendedFileChooser.lastOpenDir = selectedFilesandDirectories[0].getAbsolutePath();
         }

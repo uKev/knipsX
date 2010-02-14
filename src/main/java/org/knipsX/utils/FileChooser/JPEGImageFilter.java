@@ -40,6 +40,6 @@ public class JPEGImageFilter extends FileFilter {
      */
     public String getDescription() {
         //INTERNATIONALIZE
-        return "JPG images";
+        return Messages.getString("JPEGImageFilter.0"); //$NON-NLS-1$
     }
 }

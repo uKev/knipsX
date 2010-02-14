@@ -41,8 +41,8 @@ public class PictureSetContentListRefreshController<M extends ProjectModel, V ex
         } else {
 
             /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(this.view, "Erstellen Sie erst eine Bildmenge!",
-                    "Bildmengeninhalt aktualisieren", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this.view, Messages.getString("PictureSetContentListRefreshController.0"), //$NON-NLS-1$
+                    Messages.getString("PictureSetContentListRefreshController.1"), JOptionPane.INFORMATION_MESSAGE); //$NON-NLS-1$
         }
     }
 }

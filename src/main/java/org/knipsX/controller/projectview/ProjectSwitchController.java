@@ -40,8 +40,8 @@ public class ProjectSwitchController<M extends ProjectModel, V extends JProjectV
     public void actionPerformed(final ActionEvent e) {
 
         /* INTERNATIONALIZE */
-        final int decision = JOptionPane.showConfirmDialog(this.view, "Wollen Sie ihr Projekt vorher sichern?",
-                "Projekt wechseln", JOptionPane.YES_NO_CANCEL_OPTION);
+        final int decision = JOptionPane.showConfirmDialog(this.view, Messages.getString("ProjectSwitchController.0"), //$NON-NLS-1$
+                Messages.getString("ProjectSwitchController.1"), JOptionPane.YES_NO_CANCEL_OPTION); //$NON-NLS-1$
 
         if (decision == JOptionPane.YES_OPTION) { /* if user wants to save before a change occurs */
             this.model.saveProjectModel();

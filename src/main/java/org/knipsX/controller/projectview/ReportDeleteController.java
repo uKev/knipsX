@@ -34,8 +34,8 @@ public class ReportDeleteController<M extends ProjectModel, V extends JProjectVi
             this.model.removeReport(this.model.getReports()[this.view.getSelectedReports()[0]]);
         } else {
             /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(this.view, "Wählen Sie zuerst eine Auswertung aus, um diese löschen zu können.",
-                    "Auswertung löschen", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this.view, Messages.getString("ReportDeleteController.0"), //$NON-NLS-1$
+                    Messages.getString("ReportDeleteController.1"), JOptionPane.INFORMATION_MESSAGE); //$NON-NLS-1$
         }
     }
 }

@@ -40,6 +40,6 @@ public class PNGImageFilter extends FileFilter {
      */
     public String getDescription() {
         //INTERNATIONALIZE
-        return "PNG images";
+        return Messages.getString("PNGImageFilter.0"); //$NON-NLS-1$
     }
 }
