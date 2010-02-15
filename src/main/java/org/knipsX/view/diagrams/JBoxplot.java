@@ -54,12 +54,12 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
             this.model.getBoxplots().toArray(boxplots);
             
 
-            logger.debug("Report Space Min Value " + this.model.getMinY() + "\nReport Space Max Value "
-                    + this.model.getMaxY() + "\nMean " + boxplots[0].getMean() + "\nMedian " + boxplots[0].getMedian()
-                    + "\nMax Value " + boxplots[0].getMaxValue() + "\nMin Value " + boxplots[0].getMinValue()
-                    + "\nLower Whisker " + boxplots[0].getLowerWhisker() + "\nUpper Whisker "
-                    + boxplots[0].getUpperWhisker() + "\nLower Quantil " + boxplots[0].getLowerQuartile()
-                    + "\nUpper Quantil " + boxplots[0].getUpperQuartile());
+            logger.debug(Messages.getString("JBoxplot.0") + this.model.getMinY() + Messages.getString("JBoxplot.1") //$NON-NLS-1$ //$NON-NLS-2$
+                    + this.model.getMaxY() + Messages.getString("JBoxplot.2") + boxplots[0].getMean() + Messages.getString("JBoxplot.3") + boxplots[0].getMedian() //$NON-NLS-1$ //$NON-NLS-2$
+                    + Messages.getString("JBoxplot.4") + boxplots[0].getMaxValue() + Messages.getString("JBoxplot.5") + boxplots[0].getMinValue() //$NON-NLS-1$ //$NON-NLS-2$
+                    + Messages.getString("JBoxplot.6") + boxplots[0].getLowerWhisker() + Messages.getString("JBoxplot.7") //$NON-NLS-1$ //$NON-NLS-2$
+                    + boxplots[0].getUpperWhisker() + Messages.getString("JBoxplot.8") + boxplots[0].getLowerQuartile() //$NON-NLS-1$
+                    + Messages.getString("JBoxplot.9") + boxplots[0].getUpperQuartile()); //$NON-NLS-1$
 
             this.getxAxis().setAxisSize(Math.max(2 * boxplots.length, 10));
 
@@ -72,16 +72,16 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
             if (this.model.getWilcoxonTest() != null && this.model.getWilcoxonTest().isValid()) {
                 
                 
-                String pValueResultText = "Der p-Wert ist " + this.model.getWilcoxonTest().getResult();
-                String hypothesisResultText = "Abgelehnt? ";
-                String rejected = "";
+                String pValueResultText = Messages.getString("JBoxplot.10") + this.model.getWilcoxonTest().getResult(); //$NON-NLS-1$
+                String hypothesisResultText = Messages.getString("JBoxplot.11"); //$NON-NLS-1$
+                String rejected = Messages.getString("JBoxplot.12"); //$NON-NLS-1$
                 if (this.model.getWilcoxonTest().isRejected()) {
-                    rejected = "Die Hypothese wurde abglehnt";
+                    rejected = Messages.getString("JBoxplot.13"); //$NON-NLS-1$
                 } else {
-                    rejected = "Die Hypothese trifft zu";
+                    rejected = Messages.getString("JBoxplot.14"); //$NON-NLS-1$
                 }
                 
-                String output = pValueResultText + "\n" + hypothesisResultText + " " + rejected + "\n";
+                String output = pValueResultText + Messages.getString("JBoxplot.15") + hypothesisResultText + Messages.getString("JBoxplot.16") + rejected + Messages.getString("JBoxplot.17"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 
                 TextModel textModel = new TextModel(output);
                 JTextDiagram<TextModel> diagram = new JTextDiagram<TextModel>(textModel, -1);
@@ -95,7 +95,7 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
             if (this.model != null) {
                 /* Output some kind of error message */
                 //INTERNATIONALIZE
-                JOptionPane.showMessageDialog(this, "Das Diagramm kann nicht angezeigt werden, da es einen Fehler bei der Berechnung gab.");
+                JOptionPane.showMessageDialog(this, Messages.getString("JBoxplot.18")); //$NON-NLS-1$
                 this.displayDiagram = false;
             }
             

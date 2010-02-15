@@ -30,17 +30,17 @@ public class JDiagramButtonsTable extends JPanel {
         
         /* Define the close button and associate the controller */
         //INTERNATIONALIZE
-        JButton closeButton = new JButton("Schließen");
+        JButton closeButton = new JButton(Messages.getString("JDiagramButtonsTable.0")); //$NON-NLS-1$
         closeButton.addActionListener(new DiagramCloseController<Object, JAbstractDiagram<?>>(view));
         
         /* Define the edit button and associate the controller */
         //INTERNATIONALIZE
-        JButton editButton = new JButton("Auswertung bearbeiten");
+        JButton editButton = new JButton(Messages.getString("JDiagramButtonsTable.1")); //$NON-NLS-1$
         editButton.addActionListener(new ReportEditController<Object, JAbstractDiagram<?>>(view));
 
         /* Define the export button and associate the controller */
         //INTERNATIONALIZE
-        JButton exportButton = new JButton("Als Bild exportieren");
+        JButton exportButton = new JButton(Messages.getString("JDiagramButtonsTable.2")); //$NON-NLS-1$
         exportButton.addActionListener(new DiagramExportAsBufferedImageController<Object, JAbstractDiagram<?>>(view));
 
         /* Add all the defined buttons to the current panel */

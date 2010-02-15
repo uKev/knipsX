@@ -639,7 +639,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         final ColoringAttributes textColor = new ColoringAttributes();
         textColor.setColor(1.0f, 1.0f, 1.0f);
         textAppear.setColoringAttributes(textColor);
-        final Font3D font3D = new Font3D(new Font("Arial", Font.PLAIN, 1), new FontExtrusion());
+        final Font3D font3D = new Font3D(new Font(Messages.getString("JAbstract3DView.0"), Font.PLAIN, 1), new FontExtrusion()); //$NON-NLS-1$
         final Text3D textGeom = new Text3D(font3D, new String(text));
         textGeom.setAlignment(Text3D.ALIGN_CENTER);
         final Shape3D textShape = new Shape3D();
@@ -826,13 +826,13 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
                 if (axis3D[i].getExifParameter() != null && pic != null) {
                     
-                    String displayText = "";
+                    String displayText = Messages.getString("JAbstract3DView.1"); //$NON-NLS-1$
                     
                     if (axis3D[i].getExifParameter() == ExifParameter.DATE) {
                         
                         Date tempDate = new Date();
                         tempDate.setTime((Long) pic.getExifParameter(axis3D[i].getExifParameter()));
-                        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");                        
+                        DateFormat dateFormat = new SimpleDateFormat(Messages.getString("JAbstract3DView.2"));                         //$NON-NLS-1$
                         displayText = dateFormat.format(tempDate);
                         
                     } else {
@@ -845,7 +845,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
                     this.leftPanel.add(exifParametersLabel);
                 } else {
-                    this.leftPanel.add(new JLabel("-"));
+                    this.leftPanel.add(new JLabel(Messages.getString("JAbstract3DView.3"))); //$NON-NLS-1$
                 }
 
                 this.leftPanel.add(javax.swing.Box.createRigidArea(new Dimension(0, 20)));
@@ -988,7 +988,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         
         int i = 0;
         //INTERNATIONALIZE
-        this.rightPanel.add(new JLabel("Bildmengen Legende"));
+        this.rightPanel.add(new JLabel(Messages.getString("JAbstract3DView.4"))); //$NON-NLS-1$
         for (PictureContainer content : pictureContainer) {
             JLabel currentPictureSetLabel = new JLabel(content.getName());            
             currentPictureSetLabel.setIcon(new ColorRectangle(Resource.getColor(i)));

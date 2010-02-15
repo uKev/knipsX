@@ -28,7 +28,7 @@ public class JDiagramButtonsText extends JPanel {
         
         /* Define the close button and associate the controller */
         //INTERNATIONALIZE
-        JButton closeButton = new JButton("Schließen");
+        JButton closeButton = new JButton(Messages.getString("JDiagramButtonsText.0")); //$NON-NLS-1$
         closeButton.addActionListener(new DiagramCloseController<Object, JAbstractDiagram<?>>(view));       
 
 

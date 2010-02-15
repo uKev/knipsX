@@ -31,24 +31,24 @@ public class JDiagramButtons2D extends JPanel {
 
         /* Define the close button and associate the controller */ 
         //INTERNATIONALIZE
-        final JButton closeButton = new JButton("Schließen");
+        final JButton closeButton = new JButton(Messages.getString("JDiagramButtons2D.0")); //$NON-NLS-1$
         closeButton.addActionListener(new DiagramCloseController<Object, JAbstractDiagram<?>>(view));
 
         /* Define the edit button and associate the controller */
         //INTERNATIONALIZE
-        final JButton editButton = new JButton("Auswertung bearbeiten");
+        final JButton editButton = new JButton(Messages.getString("JDiagramButtons2D.1")); //$NON-NLS-1$
         editButton.addActionListener(new ReportEditController<Object, JAbstractDiagram<?>>(view));
 
         /* Define the reset button and associate the controller */
         //INTERNATIONALIZE
-        final JButton resetButton = new JButton("Ansicht zurücksetzen");        
+        final JButton resetButton = new JButton(Messages.getString("JDiagramButtons2D.2"));         //$NON-NLS-1$
         /* Set the XYPLANE perspective enum as the default view */
         resetButton.addActionListener(new DiagramResetViewController<Object, JAbstract3DView<?>>(
                 (JAbstract3DView<?>) view, Perspectives.XYPLANE));
 
         /* Define the export button and associate the controller */
         //INTERNATIONALIZE
-        final JButton exportButton = new JButton("Als Bild exportieren");
+        final JButton exportButton = new JButton(Messages.getString("JDiagramButtons2D.3")); //$NON-NLS-1$
         exportButton.addActionListener(new DiagramExportAsBufferedImageController<Object, JAbstractDiagram<?>>(view));
 
         /* Add all the defined buttons to the current panel */

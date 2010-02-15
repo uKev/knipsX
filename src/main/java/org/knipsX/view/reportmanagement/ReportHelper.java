@@ -84,7 +84,7 @@ public enum ReportHelper {
         @Override
         public String toString() {
             //INTERNATIONALIZE
-            return "Boxplot";
+            return Messages.getString("ReportHelper.0"); //$NON-NLS-1$
         }
     },
 
@@ -137,7 +137,7 @@ public enum ReportHelper {
         @Override
         public String toString() {
             //INTERNATIONALIZE
-            return "2D Histogramm";
+            return Messages.getString("ReportHelper.1"); //$NON-NLS-1$
         }
     },
 
@@ -191,7 +191,7 @@ public enum ReportHelper {
         @Override
         public String toString() {
             //INTERNATIONALIZE
-            return "3D Histogramm";
+            return Messages.getString("ReportHelper.2"); //$NON-NLS-1$
         }
 
     },
@@ -247,7 +247,7 @@ public enum ReportHelper {
         @Override
         public String toString() {
             //INTERNATIONALIZE
-            return "Punktewolke";
+            return Messages.getString("ReportHelper.3"); //$NON-NLS-1$
         }
 
     },
@@ -301,7 +301,7 @@ public enum ReportHelper {
         @Override
         public String toString() {
             //INTERNATIONALIZE
-            return "Tabelle";
+            return Messages.getString("ReportHelper.4"); //$NON-NLS-1$
         }
     };
 
