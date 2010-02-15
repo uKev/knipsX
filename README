@@ -1,7 +1,7 @@
 Git Benutzung:
 
 Anfang (einmalig):
-git clone git@github.com:uKev/tempX.git
+git clone git@github.com:uKev/knipsX.git
 
 Neue Datei zur Versionsverwaltung hinzufügen:
 git add filename
