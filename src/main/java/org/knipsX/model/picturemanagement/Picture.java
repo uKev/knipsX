@@ -30,7 +30,7 @@ import com.drew.metadata.MetadataException;
 /**************************************************************************************************
  * The Class Picture represents a picture with image and Exif-Metadata. It also has an thumbnail.
  *************************************************************************************************/
-public class Picture extends Observable implements PictureContainer, PictureInterface {
+public class Picture extends Observable implements PictureInterface {
 
     /* The abstract representation of this picture in filesystem */
     private final File pictureFile;
