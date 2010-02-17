@@ -1278,7 +1278,7 @@ class MyPictureListCellRenderer implements ListCellRenderer {
 
     public MyPictureListCellRenderer() {
         try {
-            this.noImageIcon = Resource.createImageIcon("status/image-missing.png", Messages.getString("JProjectView.57"), Messages.getString("JProjectView.58")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            this.noImageIcon = Resource.createImageIcon("status/image-loading.png", Messages.getString("JProjectView.57"), Messages.getString("JProjectView.58")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         } catch (final FileNotFoundException e) {
             e.printStackTrace();
         }
