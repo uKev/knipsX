@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import org.knipsX.model.picturemanagement.Picture;
+import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.model.reportmanagement.TableModel;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.view.projectview.MyExifTableCellRenderer;
@@ -48,7 +49,7 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
         AbstractTableModel dataModel = null;
         
         if (this.model != null && this.model.isModelValid()) {
-            final ArrayList<Picture> pictures = this.model.getPictures();
+            final ArrayList<PictureInterface> pictures = this.model.getPictures();
             
             dataModel = new AbstractTableModel() {
                 

@@ -24,8 +24,8 @@ import org.knipsX.controller.reportmanagement.ReportAddPictureSetController;
 import org.knipsX.controller.reportmanagement.ReportPictureSetRemoveController;
 import org.knipsX.controller.reportmanagement.ReportRemoveExifKeywordController;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.utils.ExifParameter;
@@ -171,7 +171,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 final PictureSet pictureContainer = (PictureSet) value;                
                 int numberOfElements = 0;
 
-                for (@SuppressWarnings("unused") Picture picture : pictureContainer) {
+                for (@SuppressWarnings("unused") PictureInterface picture : pictureContainer) {
                     numberOfElements++;
                 }
                 
@@ -409,7 +409,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         ArrayList<String> associatedXMPKeywords = new ArrayList<String>(Arrays.asList(this.getExifFilterKeywords()));
 
         for (PictureContainer pictureContainer : this.getPictureContainer()) {
-            for (Picture picture : pictureContainer) {
+            for (PictureInterface picture : pictureContainer) {
 
                 String[] xmpPictureKeyword = new String[0];
 
@@ -443,7 +443,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         ArrayList<String> removeXMPKeywords = new ArrayList<String>();
 
         for (PictureContainer pictureContainer : availablePictureContainer) {
-            for (Picture picture : pictureContainer) {
+            for (PictureInterface picture : pictureContainer) {
                 String[] xmpPictureKeyword = new String[0];
 
                 if (picture.getExifParameter(ExifParameter.KEYWORDS) != null
@@ -510,7 +510,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                     int numberOfElements = 0;
 
                     for (@SuppressWarnings("unused")
-                    Picture picture : pictureContainer) {
+                    PictureInterface picture : pictureContainer) {
                         numberOfElements++;
                     }
 

@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 import org.knipsX.controller.AbstractController;
-import org.knipsX.model.picturemanagement.Picture;
+import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
 
@@ -73,7 +73,7 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
                     final int index = theList.locationToIndex(mouseEvent.getPoint());
 
                     if (index >= 0) {
-                        final Picture pic = (Picture) theList.getModel().getElementAt(index);
+                        final PictureInterface pic = (PictureInterface) theList.getModel().getElementAt(index);
                         this.model.setSelectedPicture(pic);
                     }
                 }
@@ -94,7 +94,7 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
 
         final int index = theList.locationToIndex(mouseEvent.getPoint());
         if (index >= 0) {
-            final Picture pic = (Picture) theList.getModel().getElementAt(index);
+            final PictureInterface pic = (PictureInterface) theList.getModel().getElementAt(index);
 
             this.tooltipWindow = new JFrame();
             final Point point = mouseEvent.getLocationOnScreen();
@@ -175,7 +175,7 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
 
                 final int index = theList.locationToIndex(mouseEvent.getPoint());
                 if (index >= 0) {
-                    final Picture pic = (Picture) theList.getModel().getElementAt(index);
+                    final PictureInterface pic = (PictureInterface) theList.getModel().getElementAt(index);
 
                     final Point point = mouseEvent.getLocationOnScreen();
                     point.translate(10, 10);

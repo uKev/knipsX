@@ -9,6 +9,7 @@ import org.jdom.Element;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
@@ -151,14 +152,14 @@ public class XMLOutput {
         Element pictures = new Element("pictures");
 
         for (PictureSet set : this.project.getPictureSets()) {
-            for (Picture pic : this.project.getPicturesFromPictureSet(set)) {
+            for (PictureInterface pic : this.project.getPicturesFromPictureSet(set)) {
                 pictures.addContent(this.resolvePicture(pic));
             }
         }
         return pictures;
     }
 
-    private Element resolvePicture(Picture pic) {
+    private Element resolvePicture(PictureInterface pic) {
         Element picture = new Element("picture");
 
         picture.addContent(new Element("id").setText("" + pic.hashCode()));

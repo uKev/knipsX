@@ -30,7 +30,7 @@ import com.drew.metadata.MetadataException;
 /**************************************************************************************************
  * The Class Picture represents a picture with image and Exif-Metadata. It also has an thumbnail.
  *************************************************************************************************/
-public class Picture extends Observable implements PictureContainer {
+public class Picture extends Observable implements PictureContainer, PictureInterface {
 
     /* The abstract representation of this picture in filesystem */
     private final File pictureFile;
@@ -88,40 +88,30 @@ public class Picture extends Observable implements PictureContainer {
         this.isReturned = false;
     }
 
-    /**
-     * Gets the name from the picture
-     * 
-     * @return the name
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#getName()
      */
     public String getName() {
         return this.pictureFile.getName();
     }
 
-    /**
-     * Gets the path from the picture
-     * 
-     * @return the path
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#getPath()
      */
 
     public String getPath() {
         return this.pictureFile.getAbsolutePath();
     }
 
-    /**
-     * Gets a specific Exif parameter from the picture
-     * 
-     * @param exifParameter
-     *            Specific ExifParameter
-     * @return value of the parameter
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#getExifParameter(org.knipsX.utils.ExifParameter)
      */
     public Object getExifParameter(final ExifParameter exifParameter) {
         return this.getAllExifParameter()[exifParameter.ordinal()][1];
     }
 
-    /**
-     * Returns a List with the picture in it
-     * 
-     * @return the list with the picture
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#getItems()
      */
     public List<PictureContainer> getItems() {
         final List<PictureContainer> items = new LinkedList<PictureContainer>();
@@ -129,17 +119,15 @@ public class Picture extends Observable implements PictureContainer {
         return items;
     }
 
-    /**
-     * @see java.lang.Iterable#iterator()
-     * @return the iterator over this
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#iterator()
      */
-    public Iterator<Picture> iterator() {
+    public Iterator<PictureInterface> iterator() {
         return this;
     }
 
-    /**
-     * @see java.util.Iterator#next()
-     * @return false because this is only one element
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#hasNext()
      */
     public boolean hasNext() {
         if (this.isReturned) {
@@ -150,25 +138,23 @@ public class Picture extends Observable implements PictureContainer {
         }
     }
 
-    /**
-     * @see java.util.Iterator#next()
-     * @return the picture because this is one element
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#next()
      */
     public Picture next() {
         this.isReturned = true;
         return this;
     }
 
-    /**
-     * This method should not be implemented. This function is illegal.
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#remove()
      */
     public void remove() {
         /* not implemented */
     }
 
-    /**
-     * @return true if thumbnails were generated, false else.
-     * @throws IOException
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#initThumbnails()
      */
     public synchronized boolean initThumbnails() {
         boolean isInitialized = false;
@@ -190,32 +176,22 @@ public class Picture extends Observable implements PictureContainer {
         return isInitialized;
     }
 
-    /**
-     * Returns an image as a converted image to the version of the natural one. "bigThumbnail" ist mostly used for the
-     * tooltip
-     * 
-     * @return the image
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#getBigThumbnail()
      */
     public BufferedImage getBigThumbnail() {
         return this.bigThumbnail;
     }
 
-    /**
-     * Returns an image as a converted image to the version of the natural one. "smallThumbnail" ist mostly used for the
-     * thumbnail
-     * 
-     * @return the image
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#getSmallThumbnail()
      */
     public Image getSmallThumbnail() {
         return this.smallThumbnail;
     }
 
-    /**
-     * Checks if the picture contains the keyword
-     * 
-     * @param keyword
-     *            Keyword which the picture should have
-     * @return true if the picture has the keyword, false if not
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#hasExifKeyword(java.lang.String)
      */
     public boolean hasExifKeyword(final String keyword) {
         boolean hasKeyword = false;
@@ -228,15 +204,8 @@ public class Picture extends Observable implements PictureContainer {
         return hasKeyword;
     }
 
-    /**
-     * Checks if the picture contains minimum one keyword of the given list. Also return true if the keyword list is
-     * empty.
-     * Return false if the keywordlist is not empty and the picture contains no keywords.
-     * 
-     * @param filterKeywords
-     *            Keywords which the picture should have
-     * @return true if a picture contains at least one keyword.
-     *         It returns also true if filterKeywordsArrayList is empty and contains no keyword.
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#hasMinOneKeywordOf(java.util.ArrayList)
      */
     public boolean hasMinOneKeywordOf(final ArrayList<String> filterKeywords) {
         boolean hasMinOneKeyword = false;
@@ -258,12 +227,8 @@ public class Picture extends Observable implements PictureContainer {
         return hasMinOneKeyword;
     }
 
-    /**
-     * Checks if the picture contains all keywords of the given list. Also return true if the keyword list is empty.
-     * 
-     * @param keywords
-     *            Keywords which the picture should have
-     * @return only true if a picture contains all keywords, false if not.
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#hasAllKeywords(java.lang.String[])
      */
     public boolean hasAllKeywords(final String[] keywords) {
         boolean hasAllKeyword = false;
@@ -286,29 +251,22 @@ public class Picture extends Observable implements PictureContainer {
         return hasAllKeyword;
     }
 
-    /**
-     * Shows the active status of a picture
-     * 
-     * @return Active status
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#isActive()
      */
     public boolean isActive() {
         return this.isActiveorNot;
     }
 
-    /**
-     * Sets the active status of the picture
-     * 
-     * @param isActive
-     *            True or false
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#setActive(boolean)
      */
     public void setActive(final boolean isActive) {
         this.isActiveorNot = isActive;
     }
 
-    /**
-     * Uses the Exifadapter to get all Exif-values for the picture
-     * 
-     * @return The exif paramters
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#getAllExifParameter()
      */
     public Object[][] getAllExifParameter() {
         if (this.allExifParameter == null) {
@@ -334,30 +292,8 @@ public class Picture extends Observable implements PictureContainer {
         return this.allExifParameter;
     }
 
-    /**
-     * Convenience method that returns a scaled instance of the
-     * provided {@code BufferedImage}.
-     * 
-     * @param img
-     *            the original image to be scaled
-     * @param targetWidth
-     *            the desired width of the scaled instance,
-     *            in pixels
-     * @param targetHeight
-     *            the desired height of the scaled instance,
-     *            in pixels
-     * @param hint
-     *            one of the rendering hints that corresponds to {@code RenderingHints.KEY_INTERPOLATION} (e.g. {@code
-     *            RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR}, {@code
-     *            RenderingHints.VALUE_INTERPOLATION_BILINEAR}, {@code RenderingHints.VALUE_INTERPOLATION_BICUBIC})
-     * @param higherQuality
-     *            if true, this method will use a multi-step
-     *            scaling technique that provides higher quality than the usual
-     *            one-step technique (only useful in downscaling cases, where {@code targetWidth} or {@code
-     *            targetHeight} is
-     *            smaller than the original dimensions, and generally only when
-     *            the {@code BILINEAR} hint is specified)
-     * @return a scaled version of the original {@code BufferedImage}
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#getScaledInstance(java.awt.image.BufferedImage, int, int, java.lang.Object, boolean)
      */
     public BufferedImage getScaledInstance(final BufferedImage img, final int targetWidth, final int targetHeight,
             final Object hint, final boolean higherQuality) {
@@ -405,17 +341,11 @@ public class Picture extends Observable implements PictureContainer {
         return ret;
     }
 
-    /**
-     * It also allows to compare over PictureContainer but it is not done in the basic version of our programm.
-     * 
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     * @param pictureToCompare
-     *            Other picture to compare
-     * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
-     *         the specified object
+    /* (non-Javadoc)
+     * @see org.knipsX.model.picturemanagement.PictureInterface#compareTo(org.knipsX.model.picturemanagement.PictureContainer)
      */
     public int compareTo(final PictureContainer pictureToCompare) {
-        if (this.hashCode() == ((Picture) pictureToCompare).hashCode()) {
+        if (this.hashCode() == ((PictureInterface) pictureToCompare).hashCode()) {
             return 0;
         } else if (this.getName().compareTo(pictureToCompare.getName()) > 0) {
             return 1;

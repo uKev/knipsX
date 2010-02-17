@@ -10,8 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /* import classes */
-import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.utils.Converter;
 import org.knipsX.utils.ExifParameter;
 
@@ -196,12 +196,12 @@ public class WilcoxonTest {
      * @return The number off elemnets in the first list
      */
     private int initTest() {
-        for (final Picture picture : this.pictureContainer.get(0)) {
+        for (final PictureInterface picture : this.pictureContainer.get(0)) {
             this.wilcoxonSamplesList.add(new WilcoxonSample(Converter.objectToDouble(picture
                     .getExifParameter(this.parameter)), this.pictureContainer.get(0)));
         }
         final int numberOfElementsInSet = this.wilcoxonSamplesList.size();
-        for (final Picture picture : this.pictureContainer.get(1)) {
+        for (final PictureInterface picture : this.pictureContainer.get(1)) {
             this.wilcoxonSamplesList.add(new WilcoxonSample(Converter.objectToDouble(picture
                     .getExifParameter(this.parameter)), this.pictureContainer.get(1)));
 

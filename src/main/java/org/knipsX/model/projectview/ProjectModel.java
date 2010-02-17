@@ -16,6 +16,7 @@ import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.utils.ExifParameter;
@@ -46,7 +47,7 @@ public class ProjectModel extends AbstractModel {
     private String name;
     private String description;
 
-    private Picture selectedPicture;
+    private PictureInterface selectedPicture;
     private PictureSet selectedPictureSet;
     private PictureContainer selectedPictureSetContent;
 
@@ -57,8 +58,8 @@ public class ProjectModel extends AbstractModel {
 
     private final ExecutorService threadPool = Executors.newCachedThreadPool();
 
-    private final ConcurrentLinkedQueue<Picture> pictureDataQueue = new ConcurrentLinkedQueue<Picture>();
-    private final ConcurrentLinkedQueue<Picture> pictureThumbnailQueue = new ConcurrentLinkedQueue<Picture>();
+    private final ConcurrentLinkedQueue<PictureInterface> pictureDataQueue = new ConcurrentLinkedQueue<PictureInterface>();
+    private final ConcurrentLinkedQueue<PictureInterface> pictureThumbnailQueue = new ConcurrentLinkedQueue<PictureInterface>();
 
     private List<InitializePictureDataThread> initializePictureDataWorkers;
     private List<InitializePictureThumbnailThread> initializePictureThumbnailWorkers;
@@ -242,7 +243,7 @@ public class ProjectModel extends AbstractModel {
         for (final PictureSet set : this.pictureSetList) {
             set.resetIterator();
             for (@SuppressWarnings("unused")
-            final Picture picture : set) {
+            final PictureInterface picture : set) {
                 numberOfPictures++;
             }
         }
@@ -529,7 +530,7 @@ public class ProjectModel extends AbstractModel {
         final boolean isAdded = set.add(container);
 
         if (isAdded) {
-            for (final Picture pic : container) {
+            for (final PictureInterface pic : container) {
                 this.pictureThumbnailQueue.add(pic);
             }
             this.updateViews();
@@ -590,7 +591,7 @@ public class ProjectModel extends AbstractModel {
         for (final PictureSet set : this.getPictureSets()) {
             for (final Directory dir : this.getDirectoriesFromPictureSet(set)) {
                 dir.refresh();
-                for (final Picture pic : dir) {
+                for (final PictureInterface pic : dir) {
                     this.pictureThumbnailQueue.add(pic);
                 }
                 this.updateViews();
@@ -610,15 +611,15 @@ public class ProjectModel extends AbstractModel {
      * @return an amount of pictures.
      */
     public synchronized Picture[] getAllPictures() {
-        final List<Picture> pictures = new ArrayList<Picture>();
+        final List<PictureInterface> pictures = new ArrayList<PictureInterface>();
 
         if (this.getSelectedPictureSetContent() != null) {
-            for (final Picture picture : this.getSelectedPictureSetContent()) {
+            for (final PictureInterface picture : this.getSelectedPictureSetContent()) {
                 pictures.add(picture);
             }
         } else if (this.getSelectedPictureSet() != null) {
             this.getSelectedPictureSet().resetIterator();
-            for (final Picture picture : this.getSelectedPictureSet()) {
+            for (final PictureInterface picture : this.getSelectedPictureSet()) {
                 pictures.add(picture);
             }
         }
@@ -633,8 +634,8 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return an amount of pictures.
      */
-    public Picture[] getPicturesOfADirectory(final Directory directory) {
-        return (Picture[]) directory.getItems().toArray();
+    public PictureInterface[] getPicturesOfADirectory(final Directory directory) {
+        return (PictureInterface[]) directory.getItems().toArray();
     }
 
     /**
@@ -642,8 +643,8 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return the current selected PictureSet.
      */
-    public Picture getSelectedPicture() {
-        final Picture[] allPictures = this.getAllPictures();
+    public PictureInterface getSelectedPicture() {
+        final PictureInterface[] allPictures = this.getAllPictures();
         if ((this.selectedPicture == null) && (allPictures.length > 0)) {
             this.selectedPicture = allPictures[0];
         }
@@ -656,7 +657,7 @@ public class ProjectModel extends AbstractModel {
      * @param selected
      *            the selected Picture.
      */
-    public void setSelectedPicture(final Picture selected) {
+    public void setSelectedPicture(final PictureInterface selected) {
         this.selectedPicture = selected;
         this.updateViews();
     }
@@ -730,7 +731,7 @@ public class ProjectModel extends AbstractModel {
         public void run() {
             while (true) {
                 while (!ProjectModel.this.pictureDataQueue.isEmpty()) {
-                    final Picture pic = ProjectModel.this.pictureDataQueue.remove();
+                    final PictureInterface pic = ProjectModel.this.pictureDataQueue.remove();
                     pic.getAllExifParameter();
                 }
                 try {
@@ -752,7 +753,7 @@ public class ProjectModel extends AbstractModel {
             while (true) {
                 while (!ProjectModel.this.pictureThumbnailQueue.isEmpty()) {
 
-                    final Picture pic = ProjectModel.this.pictureThumbnailQueue.remove();
+                    final PictureInterface pic = ProjectModel.this.pictureThumbnailQueue.remove();
 
                     if (pic.initThumbnails()) {
                         this.numberOfImagesInitialized++;
