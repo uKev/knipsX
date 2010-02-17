@@ -1,7 +1,6 @@
 package org.knipsX.utils;
 
 import java.awt.Color;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 
