@@ -21,11 +21,7 @@ import javax.imageio.ImageIO;
 
 import org.apache.log4j.Logger;
 import org.knipsX.utils.ExifParameter;
-import org.knipsX.utils.MetaAdapter;
 import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
-
-import com.drew.imaging.jpeg.JpegProcessingException;
-import com.drew.metadata.MetadataException;
 
 /**************************************************************************************************
  * The Class Picture represents a picture with image and Exif-Metadata. It also has an thumbnail.
@@ -36,7 +32,7 @@ public class Picture extends Observable implements PictureContainer, PictureInte
     private final File pictureFile;
 
     /* A status to factor this picture into the report or not */
-    private boolean isActiveorNot;
+    private boolean isActive;
 
     /* The Exif metadata connected with the picture */
     private Object[][] allExifParameter;
@@ -68,7 +64,7 @@ public class Picture extends Observable implements PictureContainer, PictureInte
             throw new PictureNotFoundException();
         }
         this.pictureFile = new File(path);
-        this.isActiveorNot = isActiveorNot;
+        this.isActive = isActiveorNot;
         this.allExifParameter = null;
         this.isReturned = false;
     }
@@ -83,19 +79,19 @@ public class Picture extends Observable implements PictureContainer, PictureInte
      */
     public Picture(final File file, final boolean isActiveorNot) {
         this.pictureFile = file;
-        this.isActiveorNot = isActiveorNot;
+        this.isActive = isActiveorNot;
         this.allExifParameter = null;
         this.isReturned = false;
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#getName()
      */
     public String getName() {
         return this.pictureFile.getName();
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#getPath()
      */
 
@@ -103,14 +99,14 @@ public class Picture extends Observable implements PictureContainer, PictureInte
         return this.pictureFile.getAbsolutePath();
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#getExifParameter(org.knipsX.utils.ExifParameter)
      */
     public Object getExifParameter(final ExifParameter exifParameter) {
         return this.getAllExifParameter()[exifParameter.ordinal()][1];
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#getItems()
      */
     public List<PictureContainer> getItems() {
@@ -119,14 +115,14 @@ public class Picture extends Observable implements PictureContainer, PictureInte
         return items;
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#iterator()
      */
     public Iterator<PictureInterface> iterator() {
         return this;
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#hasNext()
      */
     public boolean hasNext() {
@@ -138,7 +134,7 @@ public class Picture extends Observable implements PictureContainer, PictureInte
         }
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#next()
      */
     public Picture next() {
@@ -146,14 +142,14 @@ public class Picture extends Observable implements PictureContainer, PictureInte
         return this;
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#remove()
      */
     public void remove() {
         /* not implemented */
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#initThumbnails()
      */
     public synchronized boolean initThumbnails() {
@@ -176,21 +172,21 @@ public class Picture extends Observable implements PictureContainer, PictureInte
         return isInitialized;
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#getBigThumbnail()
      */
     public BufferedImage getBigThumbnail() {
         return this.bigThumbnail;
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#getSmallThumbnail()
      */
     public Image getSmallThumbnail() {
         return this.smallThumbnail;
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#hasExifKeyword(java.lang.String)
      */
     public boolean hasExifKeyword(final String keyword) {
@@ -204,7 +200,7 @@ public class Picture extends Observable implements PictureContainer, PictureInte
         return hasKeyword;
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#hasMinOneKeywordOf(java.util.ArrayList)
      */
     public boolean hasMinOneKeywordOf(final ArrayList<String> filterKeywords) {
@@ -227,7 +223,7 @@ public class Picture extends Observable implements PictureContainer, PictureInte
         return hasMinOneKeyword;
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#hasAllKeywords(java.lang.String[])
      */
     public boolean hasAllKeywords(final String[] keywords) {
@@ -251,21 +247,21 @@ public class Picture extends Observable implements PictureContainer, PictureInte
         return hasAllKeyword;
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#isActive()
      */
     public boolean isActive() {
-        return this.isActiveorNot;
+        return this.isActive;
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#setActive(boolean)
      */
     public void setActive(final boolean isActive) {
-        this.isActiveorNot = isActive;
+        this.isActive = isActive;
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#getAllExifParameter()
      */
     public Object[][] getAllExifParameter() {
@@ -292,7 +288,7 @@ public class Picture extends Observable implements PictureContainer, PictureInte
         return this.allExifParameter;
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#getScaledInstance(java.awt.image.BufferedImage, int, int, java.lang.Object, boolean)
      */
     public BufferedImage getScaledInstance(final BufferedImage img, final int targetWidth, final int targetHeight,
@@ -341,7 +337,7 @@ public class Picture extends Observable implements PictureContainer, PictureInte
         return ret;
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#compareTo(org.knipsX.model.picturemanagement.PictureContainer)
      */
     public int compareTo(final PictureContainer pictureToCompare) {

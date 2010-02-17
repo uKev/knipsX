@@ -2,13 +2,16 @@ package org.knipsX.model.picturemanagement;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.knipsX.utils.ExifParameter;
 
+/**
+ * Interface for pictures.
+ *
+ */
 public interface PictureInterface extends PictureContainer {
 
     /**
@@ -16,7 +19,7 @@ public interface PictureInterface extends PictureContainer {
      * 
      * @return the name
      */
-    public abstract String getName();
+    String getName();
 
     /**
      * Gets the path from the picture
@@ -24,7 +27,7 @@ public interface PictureInterface extends PictureContainer {
      * @return the path
      */
 
-    public abstract String getPath();
+    String getPath();
 
     /**
      * Gets a specific Exif parameter from the picture
@@ -33,43 +36,43 @@ public interface PictureInterface extends PictureContainer {
      *            Specific ExifParameter
      * @return value of the parameter
      */
-    public abstract Object getExifParameter(final ExifParameter exifParameter);
+    Object getExifParameter(final ExifParameter exifParameter);
 
     /**
      * Returns a List with the picture in it
      * 
      * @return the list with the picture
      */
-    public abstract List<PictureContainer> getItems();
+    List<PictureContainer> getItems();
 
     /**
      * @see java.lang.Iterable#iterator()
      * @return the iterator over this
      */
-    public abstract Iterator<PictureInterface> iterator();
+    Iterator<PictureInterface> iterator();
 
     /**
      * @see java.util.Iterator#next()
      * @return false because this is only one element
      */
-    public abstract boolean hasNext();
+    boolean hasNext();
 
     /**
      * @see java.util.Iterator#next()
      * @return the picture because this is one element
      */
-    public abstract PictureInterface next();
+    PictureInterface next();
 
     /**
      * This method should not be implemented. This function is illegal.
      */
-    public abstract void remove();
+    void remove();
 
     /**
      * @return true if thumbnails were generated, false else.
      * @throws IOException
      */
-    public abstract boolean initThumbnails();
+    boolean initThumbnails();
 
     /**
      * Returns an image as a converted image to the version of the natural one. "bigThumbnail" ist mostly used for the
@@ -77,7 +80,7 @@ public interface PictureInterface extends PictureContainer {
      * 
      * @return the image
      */
-    public abstract BufferedImage getBigThumbnail();
+    BufferedImage getBigThumbnail();
 
     /**
      * Returns an image as a converted image to the version of the natural one. "smallThumbnail" ist mostly used for the
@@ -85,7 +88,7 @@ public interface PictureInterface extends PictureContainer {
      * 
      * @return the image
      */
-    public abstract Image getSmallThumbnail();
+    Image getSmallThumbnail();
 
     /**
      * Checks if the picture contains the keyword
@@ -94,7 +97,7 @@ public interface PictureInterface extends PictureContainer {
      *            Keyword which the picture should have
      * @return true if the picture has the keyword, false if not
      */
-    public abstract boolean hasExifKeyword(final String keyword);
+    boolean hasExifKeyword(final String keyword);
 
     /**
      * Checks if the picture contains minimum one keyword of the given list. Also return true if the keyword list is
@@ -106,7 +109,7 @@ public interface PictureInterface extends PictureContainer {
      * @return true if a picture contains at least one keyword.
      *         It returns also true if filterKeywordsArrayList is empty and contains no keyword.
      */
-    public abstract boolean hasMinOneKeywordOf(final ArrayList<String> filterKeywords);
+    boolean hasMinOneKeywordOf(final ArrayList<String> filterKeywords);
 
     /**
      * Checks if the picture contains all keywords of the given list. Also return true if the keyword list is empty.
@@ -115,14 +118,14 @@ public interface PictureInterface extends PictureContainer {
      *            Keywords which the picture should have
      * @return only true if a picture contains all keywords, false if not.
      */
-    public abstract boolean hasAllKeywords(final String[] keywords);
+    boolean hasAllKeywords(final String[] keywords);
 
     /**
      * Shows the active status of a picture
      * 
      * @return Active status
      */
-    public abstract boolean isActive();
+    boolean isActive();
 
     /**
      * Sets the active status of the picture
@@ -130,14 +133,14 @@ public interface PictureInterface extends PictureContainer {
      * @param isActive
      *            True or false
      */
-    public abstract void setActive(final boolean isActive);
+    void setActive(final boolean isActive);
 
     /**
      * Uses the Exifadapter to get all Exif-values for the picture
      * 
      * @return The exif paramters
      */
-    public abstract Object[][] getAllExifParameter();
+    Object[][] getAllExifParameter();
 
     /**
      * Convenience method that returns a scaled instance of the
@@ -164,7 +167,7 @@ public interface PictureInterface extends PictureContainer {
      *            the {@code BILINEAR} hint is specified)
      * @return a scaled version of the original {@code BufferedImage}
      */
-    public abstract BufferedImage getScaledInstance(final BufferedImage img, final int targetWidth,
+    BufferedImage getScaledInstance(final BufferedImage img, final int targetWidth,
             final int targetHeight, final Object hint, final boolean higherQuality);
 
     /**
@@ -176,6 +179,6 @@ public interface PictureInterface extends PictureContainer {
      * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
      *         the specified object
      */
-    public abstract int compareTo(final PictureContainer pictureToCompare);
+    int compareTo(final PictureContainer pictureToCompare);
 
 }
