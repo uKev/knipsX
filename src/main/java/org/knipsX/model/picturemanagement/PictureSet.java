@@ -110,7 +110,7 @@ public class PictureSet implements PictureContainer {
      * @see java.lang.Iterable#iterator()
      * @return the iterator over this
      */
-    public Iterator<Picture> iterator() {
+    public Iterator<PictureInterface> iterator() {
         /* Reset the iterator */
         this.currentChild = 0;
         return this;
@@ -151,8 +151,8 @@ public class PictureSet implements PictureContainer {
      * @see java.util.Iterator#next()
      * @return the next picture in the pictureset
      */
-    public Picture next() {
-        Picture picture = null;
+    public PictureInterface next() {
+        PictureInterface picture = null;
 
         if (this.children.get(this.currentChild).hasNext()) {
             picture = this.children.get(this.currentChild).next();

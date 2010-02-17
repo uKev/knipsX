@@ -22,7 +22,7 @@ public class PictureSetTest {
         
         int numberOfPicturesInDirectory = 0;
         
-        for (Picture picture : directory) {
+        for (PictureInterface picture : directory) {
             numberOfPicturesInDirectory++;
         }
         
@@ -38,7 +38,7 @@ public class PictureSetTest {
         
         int numberOfPicturesInPictureSet = 0;
         
-        for (Picture picture : pictureSet) {
+        for (PictureInterface picture : pictureSet) {
             numberOfPicturesInPictureSet++;
         }
         
@@ -46,7 +46,7 @@ public class PictureSetTest {
         
         numberOfPicturesInPictureSet = 0;
         
-        for (Picture picture : pictureSet) {
+        for (PictureInterface picture : pictureSet) {
             numberOfPicturesInPictureSet++;
         }
         

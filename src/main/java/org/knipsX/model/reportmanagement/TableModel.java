@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.utils.ExifParameter;
 
 /**
@@ -15,7 +16,7 @@ import org.knipsX.utils.ExifParameter;
  */
 
 public class TableModel extends AbstractReportModel {
-    ArrayList<Picture> pictures = new ArrayList<Picture>();
+    ArrayList<PictureInterface> pictures = new ArrayList<PictureInterface>();
 
     /**
      * Creates an empty TableModel. You want to use addPictureContainer(...) to add pictures to the table.
@@ -40,7 +41,7 @@ public class TableModel extends AbstractReportModel {
         this.pictures.clear();
 
         for (final PictureContainer pictureContainer : this.getPictureContainer()) {
-            for (final Picture picture : pictureContainer) {
+            for (final PictureInterface picture : pictureContainer) {
                 
                 if (picture.hasMinOneKeywordOf(this.getExifFilterKeywords())) {
                     this.pictures.add(picture);
@@ -65,7 +66,7 @@ public class TableModel extends AbstractReportModel {
      * 
      * @return an ArrayList of all Pictures inside the table.
      */
-    public ArrayList<Picture> getPictures() {
+    public ArrayList<PictureInterface> getPictures() {
 
         this.calculateIfRequired();
 

@@ -3,8 +3,8 @@ package org.knipsX.model.reportmanagement;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
-import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.utils.Validator;
 
 /**
@@ -81,7 +81,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
         this.wilcoxonTest.setPictureContainer(this.getPictureContainer());
         this.wilcoxonTest.setExifparameter(this.xAxis.getParameter());
 
-        for (Picture picture : Validator.getValidPictures(this.getPictureContainer(), this.xAxis.getParameter(), this
+        for (PictureInterface picture : Validator.getValidPictures(this.getPictureContainer(), this.xAxis.getParameter(), this
                 .getExifFilterKeywords())) {
 
             log.info("Missing Exif Parameter: " + picture.getPath() + " : " + this.xAxis.getParameter().toString());

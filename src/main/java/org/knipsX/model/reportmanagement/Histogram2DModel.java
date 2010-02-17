@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.utils.Converter;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.Validator;
@@ -63,7 +64,7 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
          * So we can detect if a picture may have been allocated into more than one category.
          * If a picture is allocated into more than one category it is very likely that the generateCategories() method does not work properly.
          */
-        final ArrayList<Picture> allreadyAllocatedPictures = new ArrayList<Picture>();
+        final ArrayList<PictureInterface> allreadyAllocatedPictures = new ArrayList<PictureInterface>();
 
         for (final PictureContainer pictureContainer : this.getPictureContainer()) {
 
@@ -77,7 +78,7 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
                 bar = new Bar(pictureContainer);
                 category = this.categories[i];
 
-                for (final Picture picture : pictureContainer) {
+                for (final PictureInterface picture : pictureContainer) {
 
                     boolean pictureValid = true;
 
@@ -204,7 +205,7 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
          * Find the biggest and smallest value on all valid pictures.
          * It is needed e.g. for scaling the categories.
          */
-        for (final Picture picture : Validator.getValidPictures(this.getPictureContainer(), this.getxAxis()
+        for (final PictureInterface picture : Validator.getValidPictures(this.getPictureContainer(), this.getxAxis()
                 .getParameter())) {
 
             final Object xParameter = picture.getExifParameter(this.getxAxis().getParameter());

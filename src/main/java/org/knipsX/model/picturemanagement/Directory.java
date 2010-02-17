@@ -55,7 +55,7 @@ public class Directory implements PictureContainer {
      * @see java.lang.Iterable#iterator()
      * @return the iterator over this
      */
-    public Iterator<Picture> iterator() {
+    public Iterator<PictureInterface> iterator() {
         return this;
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 /**********************************************************************************************************************
  * The Interface PictureContainer represents a composite pattern. It combines picture directory and pictureset.
  *********************************************************************************************************************/
-public interface PictureContainer extends Iterable<Picture>, Iterator<Picture>, Comparable<PictureContainer> {
+public interface PictureContainer extends Iterable<PictureInterface>, Iterator<PictureInterface>, Comparable<PictureContainer> {
 
     /**
      * Returns all items of an element

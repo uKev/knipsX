@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import org.apache.log4j.Logger;
-import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.utils.Converter;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.Validator;
@@ -129,7 +129,7 @@ public class Boxplot {
 
         final ArrayList<Double> values = new ArrayList<Double>();
 
-        for (final Picture pic : Validator.getValidPictures(pictures, exifParameter, filterKeywords)) {
+        for (final PictureInterface pic : Validator.getValidPictures(pictures, exifParameter, filterKeywords)) {
 
             values.add(Converter.objectToDouble(pic.getExifParameter(exifParameter)));
         }
