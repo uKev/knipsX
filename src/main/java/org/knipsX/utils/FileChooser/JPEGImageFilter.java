@@ -5,41 +5,38 @@ import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * This class is responsible for filtering what types of files you see in a JFileChooser.
- * It only displays JPEG images
+ * This class is responsible for filtering what types of files you see in a
+ * JFileChooser. It only displays JPEG images
  * 
  * @author David Kaufman
- *
+ * 
  */
-public class JPEGImageFilter extends FileFilter {    
-    
-    /**
-     * Only accept jpeg images and directories
-     * {@inheritDoc}
-     */
-    public boolean accept(File f) {
-        
-        /* display directories */
-        if (f.isDirectory()) {
-            return true;
-        }
+public class JPEGImageFilter extends FileFilter {
 
-        String extension = Utils.getExtension(f);
-        
-        if (extension != null) {            
-            if (extension.equals(Utils.JPEG) || extension.equals(Utils.JPG)) {
-                return true;
-            }
-        }
+	/**
+	 * Only accept jpeg images and directories {@inheritDoc}
+	 */
+	public boolean accept(File f) {
 
-        return false;
-    }
+		/* display directories */
+		if (f.isDirectory()) {
+			return true;
+		}
 
-    /**
-     * {@inheritDoc}
-     */
-    public String getDescription() {
-        //INTERNATIONALIZE
-        return Messages.getString("JPEGImageFilter.0"); //$NON-NLS-1$
-    }
+		String extension = Utils.getExtension(f).trim();
+
+		if (extension.equals(Utils.JPEG) || extension.equals(Utils.JPG)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public String getDescription() {
+		// INTERNATIONALIZE
+		return Messages.getString("JPEGImageFilter.0"); //$NON-NLS-1$
+	}
 }
