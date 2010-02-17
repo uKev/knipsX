@@ -53,6 +53,7 @@ public final class Programm {
 
         JFrame.setDefaultLookAndFeelDecorated(true);
         JDialog.setDefaultLookAndFeelDecorated(true);
+        
         /*
          * schedule a job for the event-dispatching thread:
          * creating and showing this application's GUI

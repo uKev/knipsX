@@ -93,22 +93,17 @@ public class ProjectModel extends AbstractModel {
     }
 
     /**
-     * Creates a new model based on an old one (with new id which must be unique and projectName).
+     * Creates a new model based on an old one (with new id which must be unique).
      * 
      * @param toCopy
      *            the model to copy.
      * @param id
      *            the new id.
-     * @param name
-     *            the new projectName.
      */
-    public ProjectModel(final ProjectModel toCopy, final int id, final String name) {
-        this.id = id;
-        this.name = name;
-        this.description = toCopy.description;
-        this.creationDate = new GregorianCalendar();
-        this.pictureSetList = toCopy.pictureSetList;
-        this.reportList = toCopy.reportList;
+    public ProjectModel(final ProjectModel toCopy, final int id) {
+        this(id, new String(toCopy.name), new String(toCopy.description), new GregorianCalendar(),
+                new LinkedList<PictureSet>(toCopy.pictureSetList), new LinkedList<AbstractReportModel>(
+                        toCopy.reportList));
     }
 
     /*
@@ -191,7 +186,7 @@ public class ProjectModel extends AbstractModel {
      * @param description
      *            the description of the project.
      */
-    public void setProjectDescription(final String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -210,7 +205,8 @@ public class ProjectModel extends AbstractModel {
         for (final ExifParameter parameter : ExifParameter.values()) {
             exifParameter.add(new Object[] { parameter.toString(), Messages.getString("ProjectModel.0") }); //$NON-NLS-1$
         }
-        return exifParameter.toArray(new Object[][] { new Object[] { Messages.getString("ProjectModel.1"), Messages.getString("ProjectModel.2") } }); //$NON-NLS-1$ //$NON-NLS-2$
+        return exifParameter.toArray(new Object[][] { new Object[] {
+                Messages.getString("ProjectModel.1"), Messages.getString("ProjectModel.2") } }); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -226,9 +222,9 @@ public class ProjectModel extends AbstractModel {
         final int minute = this.creationDate.get(Calendar.MINUTE);
         final int second = this.creationDate.get(Calendar.SECOND);
 
-        final DecimalFormat df = new DecimalFormat(Messages.getString("ProjectModel.3")); //$NON-NLS-1$
+        final DecimalFormat df = new DecimalFormat("00");
 
-        return day + Messages.getString("ProjectModel.4") + month + Messages.getString("ProjectModel.5") + year + Messages.getString("ProjectModel.6") + df.format(hour) + Messages.getString("ProjectModel.7") + df.format(minute) + Messages.getString("ProjectModel.8") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+        return day + "." + month + "." + year + " - " + df.format(hour) + ":" + df.format(minute) + ":"
                 + df.format(second);
     }
 

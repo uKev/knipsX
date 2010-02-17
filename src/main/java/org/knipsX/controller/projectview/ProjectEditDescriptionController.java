@@ -46,7 +46,7 @@ public class ProjectEditDescriptionController<M extends ProjectModel, V extends 
      *            the event of the document.
      */
     public void changedUpdate(final DocumentEvent documentEvent) {
-        this.model.setProjectDescription(this.view.getProjectDescription());
+        this.model.setDescription(this.view.getProjectDescription());
     }
 
     /**
@@ -56,7 +56,7 @@ public class ProjectEditDescriptionController<M extends ProjectModel, V extends 
      *            the event of the document.
      */
     public void insertUpdate(final DocumentEvent documentEvent) {
-        this.model.setProjectDescription(this.view.getProjectDescription());
+        this.model.setDescription(this.view.getProjectDescription());
     }
 
     /**
@@ -66,6 +66,6 @@ public class ProjectEditDescriptionController<M extends ProjectModel, V extends 
      *            the event of the document.
      */
     public void removeUpdate(final DocumentEvent documentEvent) {
-        this.model.setProjectDescription(this.view.getProjectDescription());
+        this.model.setDescription(this.view.getProjectDescription());
     }
 }
