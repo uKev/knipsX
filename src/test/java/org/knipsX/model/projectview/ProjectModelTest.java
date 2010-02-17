@@ -2,16 +2,11 @@ package org.knipsX.model.projectview;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.knipsX.model.picturemanagement.PictureSet;
-import org.knipsX.model.reportmanagement.AbstractReportModel;
 
 public class ProjectModelTest {
 
@@ -32,6 +27,21 @@ public class ProjectModelTest {
     }
 
     @Test
+    public void testUpdateViews() {
+        fail("Not yet implemented");
+    }
+
+    @Test
+    public void testProjectModelIntStringStringGregorianCalendarListOfPictureSetListOfAbstractReportModel() {
+        fail("Not yet implemented");
+    }
+
+    @Test
+    public void testProjectModelProjectModelIntString() {
+        fail("Not yet implemented");
+    }
+
+    @Test
     public void testSetStatus() {
         fail("Not yet implemented");
     }
@@ -42,19 +52,18 @@ public class ProjectModelTest {
     }
 
     @Test
+    public void testGetCreationDate() {
+        fail("Not yet implemented");
+    }
+
+    @Test
+    public void testGetId() {
+        fail("Not yet implemented");
+    }
+
+    @Test
     public void testGetName() {
-        int testId = 1;
-
-        String projectName = "testname";
-        String projectDescription = "testdescription";
-
-        GregorianCalendar creationDate = new GregorianCalendar(2000, 1, 1, 1, 2, 3);
-
-        ProjectModel model = new ProjectModel(testId, projectName, projectDescription, creationDate,
-                new ArrayList<PictureSet>(), new ArrayList<AbstractReportModel>());
-
-        assertTrue("The name of the project was not set correctly through the constructor.", projectName.equals(model
-                .getName()));
+        fail("Not yet implemented");
     }
 
     @Test
@@ -63,50 +72,8 @@ public class ProjectModelTest {
     }
 
     @Test
-    public void testGetId() {
-        int testId = 1;
-
-        String projectName = "testname";
-        String projectDescription = "testdescription";
-
-        GregorianCalendar creationDate = new GregorianCalendar(2000, 1, 1, 1, 2, 3);
-
-        ProjectModel model = new ProjectModel(testId, projectName, projectDescription, creationDate,
-                new ArrayList<PictureSet>(), new ArrayList<AbstractReportModel>());
-
-        assertTrue("The id of the project was not set correctly through the constructor.", testId == model.getId());
-    }
-
-    @Test
     public void testGetDescription() {
-        int testId = 1;
-
-        String projectName = "testname";
-        String projectDescription = "testdescription";
-
-        GregorianCalendar creationDate = new GregorianCalendar(2000, 1, 1, 1, 2, 3);
-
-        ProjectModel model = new ProjectModel(testId, projectName, projectDescription, creationDate,
-                new ArrayList<PictureSet>(), new ArrayList<AbstractReportModel>());
-
-        assertTrue("The description of the project was not set correctly through the constructor.", projectDescription
-                .equals(model.getDescription()));
-    }
-
-    @Test
-    public void testGetCreationDate() {
-        int testId = 1;
-
-        String projectName = "testname";
-        String projectDescription = "testdescription";
-
-        GregorianCalendar creationDate = new GregorianCalendar(2000, 1, 1, 1, 2, 3);
-
-        ProjectModel model = new ProjectModel(testId, projectName, projectDescription, creationDate,
-                new ArrayList<PictureSet>(), new ArrayList<AbstractReportModel>());
-
-        assertTrue("The creation date of the project was not set correctly through the constructor.", creationDate
-                .equals(model.getCreationDate()));
+        fail("Not yet implemented");
     }
 
     @Test
@@ -121,6 +88,31 @@ public class ProjectModelTest {
 
     @Test
     public void testCalendarToString() {
+        fail("Not yet implemented");
+    }
+
+    @Test
+    public void testGetNumberOfPictures() {
+        fail("Not yet implemented");
+    }
+
+    @Test
+    public void testGetNumberOfPicturesWithoutExifData() {
+        fail("Not yet implemented");
+    }
+
+    @Test
+    public void testGetNumberOfPicturesWithoutThumbails() {
+        fail("Not yet implemented");
+    }
+
+    @Test
+    public void testLoadData() {
+        fail("Not yet implemented");
+    }
+
+    @Test
+    public void testSaveProjectModel() {
         fail("Not yet implemented");
     }
 
@@ -150,17 +142,17 @@ public class ProjectModelTest {
     }
 
     @Test
-    public void testGetPictureSetsOfAPictureSet() {
+    public void testGetPictureSetsFromPictureSet() {
         fail("Not yet implemented");
     }
 
     @Test
-    public void testGetDirectoriesOfAPictureSet() {
+    public void testGetDirectoriesFromPictureSet() {
         fail("Not yet implemented");
     }
 
     @Test
-    public void testGetPicturesOfAPictureSet() {
+    public void testGetPicturesFromPictureSet() {
         fail("Not yet implemented");
     }
 

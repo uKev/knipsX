@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureInterface;
 
 /**
  * Represents a bar which belongs to a picture category and PictureContainer.
@@ -16,7 +17,7 @@ public class Bar {
 
     private final PictureContainer pictureContainer;
 
-    private final ArrayList<Picture> pictures = new ArrayList<Picture>();
+    private final ArrayList<PictureInterface> pictures = new ArrayList<PictureInterface>();
 
     /**
      * Constructor for the bar with pictureContainer argument
@@ -36,7 +37,7 @@ public class Bar {
      * @param picture
      *            a picture that should be added to the bar.
      */
-    public void addPicture(final Picture picture) {
+    public void addPicture(final PictureInterface picture) {
         this.pictures.add(picture);
     }
 
@@ -63,7 +64,7 @@ public class Bar {
      * 
      * @return all pictures which are represented by this bar.
      */
-    public ArrayList<Picture> getPictures() {
+    public ArrayList<PictureInterface> getPictures() {
         return this.pictures;
     }
 

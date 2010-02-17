@@ -52,6 +52,7 @@ import javax.vecmath.Vector3f;
 import org.knipsX.controller.diagrams.View3DClickController;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.Resource;
@@ -805,14 +806,14 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      * Sets the current picture which is displayed outside of the 3D view with the
      * specified EXIF parameters
      * 
-     * @param pic
+     * @param picture
      *            the picture which will be displayed outside of the 3D view
      * 
      */
-    public void setCurrentDescription(final Picture pic) {
+    public void setCurrentDescription(final PictureInterface picture) {
 
-        if (pic != null) {
-            pic.initThumbnails();
+        if (picture != null) {
+            picture.initThumbnails();
         }
 
         if (this.leftPanel != null) {
@@ -824,19 +825,19 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
                 JLabel titleLabel = new JLabel(axis3D[i].getDescription().toString());
                 this.leftPanel.add(titleLabel);
 
-                if (axis3D[i].getExifParameter() != null && pic != null) {
+                if (axis3D[i].getExifParameter() != null && picture != null) {
                     
                     String displayText = Messages.getString("JAbstract3DView.1"); //$NON-NLS-1$
                     
                     if (axis3D[i].getExifParameter() == ExifParameter.DATE) {
                         
                         Date tempDate = new Date();
-                        tempDate.setTime((Long) pic.getExifParameter(axis3D[i].getExifParameter()));
+                        tempDate.setTime((Long) picture.getExifParameter(axis3D[i].getExifParameter()));
                         DateFormat dateFormat = new SimpleDateFormat(Messages.getString("JAbstract3DView.2"));                         //$NON-NLS-1$
                         displayText = dateFormat.format(tempDate);
                         
                     } else {
-                        displayText = pic.getExifParameter(axis3D[i].getExifParameter()).toString();
+                        displayText = picture.getExifParameter(axis3D[i].getExifParameter()).toString();
                     }
                     
                     JLabel exifParametersLabel = new JLabel(displayText);
@@ -852,9 +853,9 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             }
 
             int size = 50;
-            if (pic != null) {
-                this.leftPanel.add(new JLabel(pic.getName()));
-                this.leftPanel.add(new JLabel(new ImageIcon(pic.getSmallThumbnail())));
+            if (picture != null) {
+                this.leftPanel.add(new JLabel(picture.getName()));
+                this.leftPanel.add(new JLabel(new ImageIcon(picture.getSmallThumbnail())));
                 // this.leftPanel.add(new JLabel(new ImageIcon(pic.getImageWithSize(200))));
 
             }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.utils.Converter;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.Validator;
@@ -52,7 +53,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         Bar bar;
         this.minY = 0;
 
-        final ArrayList<Picture> allreadyAllocatedPictures = new ArrayList<Picture>();
+        final ArrayList<PictureInterface> allreadyAllocatedPictures = new ArrayList<PictureInterface>();
 
         for (final PictureContainer pictureContainer : this.getPictureContainer()) {
             /*
@@ -70,7 +71,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                     bar = new Bar(pictureContainer);
                     category = this.categories[i][j];
 
-                    for (final Picture picture : pictureContainer) {
+                    for (final PictureInterface picture : pictureContainer) {
 
                         boolean pictureValid = true;
 
@@ -228,7 +229,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         exifParameters.add(this.getxAxis().getParameter());
         exifParameters.add(this.getzAxis().getParameter());
 
-        for (final Picture picture : Validator.getValidPictures(this.getPictureContainer(), exifParameters)) {
+        for (final PictureInterface picture : Validator.getValidPictures(this.getPictureContainer(), exifParameters)) {
 
             final Object xParameter = picture.getExifParameter(this.getxAxis().getParameter());
             final Object zParameter = picture.getExifParameter(this.getzAxis().getParameter());

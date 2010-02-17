@@ -6,13 +6,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JToolTip;
 
-import org.knipsX.model.picturemanagement.Picture;
+import org.knipsX.model.picturemanagement.PictureInterface;
 
 public class MyToolTipLabel extends JLabel {
 
     private static final long serialVersionUID = 8488536518262154168L;
     
-    private Picture picture;
+    private PictureInterface picture;
     
     @Override
     public JToolTip createToolTip() {
@@ -24,11 +24,11 @@ public class MyToolTipLabel extends JLabel {
         return tip;
     }
 
-    public Picture getPicture() {
+    public PictureInterface getPicture() {
         return picture;
     }
 
-    public void setPicture(Picture picture) {
+    public void setPicture(PictureInterface picture) {
         this.picture = picture;
     }
 }

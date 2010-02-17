@@ -1,6 +1,6 @@
 package org.knipsX.model.reportmanagement;
 
-import org.knipsX.model.picturemanagement.Picture;
+import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.utils.ExifParameter;
 
 /**
@@ -11,7 +11,7 @@ import org.knipsX.utils.ExifParameter;
  */
 public class PictureParameter {
     private ExifParameter exifParameter;
-    private Picture picture;
+    private PictureInterface picture;
 
     /**
      * Constructor for PictureParameter with an exifParameter and a picture
@@ -21,7 +21,7 @@ public class PictureParameter {
      * @param picture
      *            picture object of type Picture
      */
-    public PictureParameter(final ExifParameter exifParameter, final Picture picture) {
+    public PictureParameter(final ExifParameter exifParameter, final PictureInterface picture) {
         super();
         this.exifParameter = exifParameter;
         this.picture = picture;
@@ -41,7 +41,7 @@ public class PictureParameter {
      * 
      * @return the picture which is in relation to a exif parameter
      */
-    public Picture getPicture() {
+    public PictureInterface getPicture() {
         return this.picture;
     }
 
@@ -61,7 +61,7 @@ public class PictureParameter {
      * @param picture
      *            the picture which is in relation to a exif parameter
      */
-    public void setPicture(final Picture picture) {
+    public void setPicture(final PictureInterface picture) {
         this.picture = picture;
     }
 }

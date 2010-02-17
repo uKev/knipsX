@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.knipsX.model.picturemanagement.Picture;
+import org.knipsX.model.picturemanagement.PictureInterface;
 
 /**
  * Data capsule for Cluser3DModel.
@@ -19,7 +20,7 @@ public class Frequency3DPoint {
     double x;
     double y;
     double z;
-    private final ArrayList<Picture> pictures;
+    private final ArrayList<PictureInterface> pictures;
 
     /**
      * Creates a new Frequency3DPoint with:
@@ -28,8 +29,8 @@ public class Frequency3DPoint {
      * @param z z-coordinate of the point
      * @param pic an initial picture which is represented by this point 
      */
-    public Frequency3DPoint(final double x, final double y, final double z, final Picture pic) {
-        this.pictures = new ArrayList<Picture>();
+    public Frequency3DPoint(final double x, final double y, final double z, final PictureInterface pic) {
+        this.pictures = new ArrayList<PictureInterface>();
         this.x = x;
         this.y = y;
         this.z = z;
@@ -48,7 +49,7 @@ public class Frequency3DPoint {
      * @param pictures
      *            a basic ArrayList of pictures
      */
-    public Frequency3DPoint(final int x, final int y, final int z, final ArrayList<Picture> pictures) {
+    public Frequency3DPoint(final int x, final int y, final int z, final ArrayList<PictureInterface> pictures) {
         super();
         this.x = x;
         this.y = y;
@@ -73,7 +74,7 @@ public class Frequency3DPoint {
         this.x = x;
         this.y = y;
         this.z = z;
-        this.pictures = new ArrayList<Picture>();
+        this.pictures = new ArrayList<PictureInterface>();
         this.pictures.add(picture);
     }
 
@@ -89,23 +90,23 @@ public class Frequency3DPoint {
      * @param pictures
      *            a basic array of pictures
      */
-    public Frequency3DPoint(final int x, final int y, final int z, final Picture[] pictures) {
+    public Frequency3DPoint(final int x, final int y, final int z, final PictureInterface[] pictures) {
         super();
         this.x = x;
         this.y = y;
         this.z = z;
-        this.pictures = new ArrayList<Picture>(Arrays.asList(pictures));
+        this.pictures = new ArrayList<PictureInterface>(Arrays.asList(pictures));
 
     }
 
     /**
      * Adds a Picture to the list of pictures that are represented by this point.
      * 
-     * @param picture
+     * @param pic
      *            the picture which will be added to the point
      */
-    public void addPicture(final Picture picture) {
-        this.pictures.add(picture);
+    public void addPicture(final PictureInterface pic) {
+        this.pictures.add(pic);
     }
 
     /**
@@ -139,7 +140,7 @@ public class Frequency3DPoint {
      * 
      * @return an ArrayList of Picture objects.
      */
-    public ArrayList<Picture> getPictureList() {
+    public ArrayList<PictureInterface> getPictureList() {
         // TWEAK: clonen unbedingt nötig? (Performance bei vielen Bildern)
         return this.pictures;
     }
@@ -149,7 +150,7 @@ public class Frequency3DPoint {
      * 
      * @return an array of Picture objects.
      */
-    public Picture[] getPictures() {
+    public PictureInterface[] getPictures() {
         final Picture[] pictures = new Picture[this.pictures.size()];
         return this.pictures.toArray(pictures);
     }

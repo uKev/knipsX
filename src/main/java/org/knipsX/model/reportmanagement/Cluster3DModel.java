@@ -6,6 +6,7 @@ import java.util.Arrays;
 import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.utils.Converter;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.Validator;
@@ -58,7 +59,7 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
         boolean pointIsAdded = false;
 
         for (final PictureContainer pictureContainer : this.getPictureContainer()) {
-            for (final Picture pic : pictureContainer) {
+            for (final PictureInterface pic : pictureContainer) {
 
                 double x = 0, y = 0, z = 0;
                 boolean haveAllParameters = true;

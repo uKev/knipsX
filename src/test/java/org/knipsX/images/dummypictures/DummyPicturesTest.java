@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.knipsX.model.picturemanagement.Directory;
-import org.knipsX.model.picturemanagement.Picture;
+import org.knipsX.model.picturemanagement.PictureInterface;
 
 public class DummyPicturesTest {
 
@@ -15,7 +15,7 @@ public class DummyPicturesTest {
         
         int numberOfPicturesInDirectory = 0;
         
-        for (Picture picture : directory) {
+        for (PictureInterface picture : directory) {
             numberOfPicturesInDirectory++;
         }
         
