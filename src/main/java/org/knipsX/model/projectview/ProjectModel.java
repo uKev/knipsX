@@ -225,9 +225,9 @@ public class ProjectModel extends AbstractModel {
         final int minute = this.creationDate.get(Calendar.MINUTE);
         final int second = this.creationDate.get(Calendar.SECOND);
 
-        final DecimalFormat df = new DecimalFormat(Messages.getString("ProjectModel.3")); //$NON-NLS-1$
+        final DecimalFormat df = new DecimalFormat("00"); //$NON-NLS-1$
 
-        return day + Messages.getString("ProjectModel.4") + month + Messages.getString("ProjectModel.5") + year + Messages.getString("ProjectModel.6") + df.format(hour) + Messages.getString("ProjectModel.7") + df.format(minute) + Messages.getString("ProjectModel.8") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+        return day + "." + month + "." + year + " - " + df.format(hour) + ":" + df.format(minute) + ":" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
                 + df.format(second);
     }
 
@@ -333,7 +333,7 @@ public class ProjectModel extends AbstractModel {
         try {
             RepositoryHandler.getRepository().saveProject(this);
         } catch (final RepositoryInterfaceException e) {
-            this.logger.error(Messages.getString("ProjectModel.9") + e.getStackTrace()); //$NON-NLS-1$
+            this.logger.error("Cannot save because:" + e.getStackTrace()); //$NON-NLS-1$
         }
     }
 
@@ -444,7 +444,7 @@ public class ProjectModel extends AbstractModel {
      */
     public PictureSet[] getPictureSetsFromPictureSet(final PictureSet pictureSet) throws NullPointerException {
         if (pictureSet == null) {
-            throw new NullPointerException(Messages.getString("ProjectModel.10")); //$NON-NLS-1$
+            throw new NullPointerException("Sie muessen eine Bildmenge zuweisen."); //$NON-NLS-1$
         }
         final List<PictureSet> pictureSets = new ArrayList<PictureSet>();
 
@@ -469,7 +469,7 @@ public class ProjectModel extends AbstractModel {
      */
     public Directory[] getDirectoriesFromPictureSet(final PictureSet pictureSet) throws NullPointerException {
         if (pictureSet == null) {
-            throw new NullPointerException(Messages.getString("ProjectModel.11")); //$NON-NLS-1$
+            throw new NullPointerException("Sie muessen eine Bildmenge zuweisen."); //$NON-NLS-1$
         }
         final List<Directory> directories = new ArrayList<Directory>();
 
@@ -494,7 +494,7 @@ public class ProjectModel extends AbstractModel {
      */
     public Picture[] getPicturesFromPictureSet(final PictureSet pictureSet) throws NullPointerException {
         if (pictureSet == null) {
-            throw new NullPointerException(Messages.getString("ProjectModel.12")); //$NON-NLS-1$
+            throw new NullPointerException("Sie muessen eine Bildmenge zuweisen."); //$NON-NLS-1$
         }
         final List<Picture> pictures = new ArrayList<Picture>();
 
