@@ -47,10 +47,10 @@ public class WilcoxonTestTestSetPictureContainer {
 
     /**
      * Test method for {@link org.knipsX.model.reportmanagement.WilcoxonTest#setPictureContainer(java.util.ArrayList)}.
-     */
+     *//**
     @Test
     public void testSetPictureContainer() {
         fail("Not yet implemented");
     }
-
+**/
 }

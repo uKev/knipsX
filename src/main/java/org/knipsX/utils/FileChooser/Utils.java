@@ -30,19 +30,30 @@ public final class Utils {
 
     
     /**
-     * Returns the lower case extension of a given file object or null if the file hasn't got an extension
+     * Returns the lower case extension of a given file object or "" if the file hasn't got an extension
      * 
      * @param f the file Object you want to extract the extension from
      * 
      * @return the lower case extension of the specified file or "" if the file hasn't got an extension
      */
     public static String getExtension(File f) {
+        return Utils.getExtension(f.getName());
+    }
+    
+    /**
+     * Returns the lower case extension of a given file object or "" if the file hasn't got an extension
+     * 
+     * @param fileName the file name you want to extract the extension from
+     * 
+     * @return the lower case extension of the specified file name or "" if the file hasn't got an extension
+     */
+    public static String getExtension(String fileName) {
         String ext = "";
-        String s = f.getName();
-        int i = s.lastIndexOf('.');
+        
+        int i = fileName.lastIndexOf('.');
 
-        if (i > 0 && i < s.length() - 1) {
-            ext = s.substring(i + 1).toLowerCase();
+        if (i > 0 && i < fileName.length() - 1) {
+            ext = fileName.substring(i + 1).toLowerCase();
         }
         return ext;
     }

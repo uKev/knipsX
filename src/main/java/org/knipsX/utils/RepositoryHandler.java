@@ -12,10 +12,7 @@ public final class RepositoryHandler {
     /*
     * Set which repository should be used.
     */
-    private static Repository currentRepo = new XMLRepositoryBackup();
-    
-    // private static Repository currentRepo = new XMLRepository();
-    // private static Repository currentRepo = new DummyRepository();
+    private static Repository currentRepo = new XMLRepository();
 
     public static Repository getRepository(){
         return RepositoryHandler.currentRepo;

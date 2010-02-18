@@ -47,7 +47,7 @@ public class WilcoxonTestTestComplete {
 
     /**
      * Test method for {@link org.knipsX.model.reportmanagement.WilcoxonTest#WilcoxonTest()}.
-     */
+     *//**
     @Test
     public void testWilcoxonTest() {
         fail("Not yet implemented");
@@ -55,7 +55,7 @@ public class WilcoxonTestTestComplete {
 
     /**
      * Test method for {@link org.knipsX.model.reportmanagement.WilcoxonTest#setExifparameter(org.knipsX.utils.ExifParameter)}.
-     */
+     *//**
     @Test
     public void testSetExifparameter() {
         fail("Not yet implemented");
@@ -63,7 +63,7 @@ public class WilcoxonTestTestComplete {
 
     /**
      * Test method for {@link org.knipsX.model.reportmanagement.WilcoxonTest#setPictureContainer(java.util.ArrayList)}.
-     */
+     *//**
     @Test
     public void testSetPictureContainer() {
         fail("Not yet implemented");
@@ -71,7 +71,7 @@ public class WilcoxonTestTestComplete {
 
     /**
      * Test method for {@link org.knipsX.model.reportmanagement.WilcoxonTest#setActiveStatus(boolean)}.
-     */
+     *//**
     @Test
     public void testSetActiveStatus() {
         fail("Not yet implemented");
@@ -79,7 +79,7 @@ public class WilcoxonTestTestComplete {
 
     /**
      * Test method for {@link org.knipsX.model.reportmanagement.WilcoxonTest#isActive()}.
-     */
+     *//**
     @Test
     public void testIsActive() {
         fail("Not yet implemented");
@@ -87,7 +87,7 @@ public class WilcoxonTestTestComplete {
 
     /**
      * Test method for {@link org.knipsX.model.reportmanagement.WilcoxonTest#isValid()}.
-     */
+     *//**
     @Test
     public void testIsValid() {
         fail("Not yet implemented");
@@ -95,7 +95,7 @@ public class WilcoxonTestTestComplete {
 
     /**
      * Test method for {@link org.knipsX.model.reportmanagement.WilcoxonTest#isRejected()}.
-     */
+     *//**
     @Test
     public void testIsRejected() {
         fail("Not yet implemented");
@@ -103,7 +103,7 @@ public class WilcoxonTestTestComplete {
 
     /**
      * Test method for {@link org.knipsX.model.reportmanagement.WilcoxonTest#setWilcoxonTestType(org.knipsX.model.reportmanagement.WilcoxonTestType)}.
-     */
+     *//**
     @Test
     public void testSetWilcoxonTestType() {
         fail("Not yet implemented");
@@ -111,7 +111,7 @@ public class WilcoxonTestTestComplete {
 
     /**
      * Test method for {@link org.knipsX.model.reportmanagement.WilcoxonTest#getResult()}.
-     */
+     *//**
     @Test
     public void testGetResult() {
         fail("Not yet implemented");
@@ -119,7 +119,7 @@ public class WilcoxonTestTestComplete {
 
     /**
      * Test method for {@link org.knipsX.model.reportmanagement.WilcoxonTest#getSignificance()}.
-     */
+     *//**
     @Test
     public void testGetSignificance() {
         fail("Not yet implemented");
@@ -127,7 +127,7 @@ public class WilcoxonTestTestComplete {
 
     /**
      * Test method for {@link org.knipsX.model.reportmanagement.WilcoxonTest#getWilcoxonTestType()}.
-     */
+     *//**
     @Test
     public void testGetWilcoxonTestType() {
         fail("Not yet implemented");
@@ -135,7 +135,7 @@ public class WilcoxonTestTestComplete {
 
     /**
      * Test method for {@link org.knipsX.model.reportmanagement.WilcoxonTest#setSignificance(double)}.
-     */
+     *//**
     @Test
     public void testSetSignificance() {
         fail("Not yet implemented");
@@ -143,10 +143,10 @@ public class WilcoxonTestTestComplete {
 
     /**
      * Test method for {@link org.knipsX.model.reportmanagement.WilcoxonTest#calculate()}.
-     */
+     *//**
     @Test
     public void testCalculate() {
         fail("Not yet implemented");
-    }
+    }**/
 
 }

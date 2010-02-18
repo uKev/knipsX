@@ -58,7 +58,7 @@ public final class JExtendedFileChooser {
             JExtendedFileChooser.lastSaveDir = file.getAbsolutePath();
 
             /* Prepare file name to be stored on hard drive */
-            final String fileName = file.getName().replaceAll(".png", "").replaceAll(".png", "") + ".png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+            final String fileName = file.getName().replaceAll(".png", "") + "." + Utils.PNG; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
             final File outputfile = new File(file.getParent() + "/" + fileName); //$NON-NLS-1$
 
             try {

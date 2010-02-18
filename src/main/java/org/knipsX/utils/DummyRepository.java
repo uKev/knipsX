@@ -140,7 +140,7 @@ public class DummyRepository implements Repository {
 
     public int createProject(ProjectModel toCopy) {
         int id = UUID.randomUUID().hashCode();
-        this.projects.add(new ProjectModel(toCopy, id, ""));
+        this.projects.add(new ProjectModel(toCopy, id));
         return id;
     }
 

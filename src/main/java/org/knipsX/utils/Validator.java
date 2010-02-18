@@ -3,7 +3,6 @@ package org.knipsX.utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureInterface;
 
