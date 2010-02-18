@@ -38,12 +38,11 @@ public class PictureMock implements PictureInterface {
         metaStore.put(exifParameter, value);
     }
     
-    // all overrided picture methods are below
+    // all implemented picture methods from the interface are below
     
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#compareTo(org.knipsX.model.picturemanagement.PictureContainer)
      */
-    @Override
     public int compareTo(PictureContainer pictureToCompare) {
         // TODO Auto-generated method stub
         return 0;
@@ -52,7 +51,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#getAllExifParameter()
      */
-    @Override
     public Object[][] getAllExifParameter() {
         // TODO Auto-generated method stub
         return null;
@@ -61,7 +59,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#getBigThumbnail()
      */
-    @Override
     public BufferedImage getBigThumbnail() {
         // TODO Auto-generated method stub
         return null;
@@ -70,7 +67,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#getExifParameter(org.knipsX.utils.ExifParameter)
      */
-    @Override
     public Object getExifParameter(ExifParameter exifParameter) {
 
         return this.metaStore.get(exifParameter);
@@ -79,7 +75,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#getItems()
      */
-    @Override
     public List<PictureContainer> getItems() {
         // TODO Auto-generated method stub
         return null;
@@ -88,7 +83,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#getName()
      */
-    @Override
     public String getName() {
         return this.name;
     }
@@ -96,7 +90,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#getPath()
      */
-    @Override
     public String getPath() {
         // TODO Auto-generated method stub
         return null;
@@ -105,7 +98,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#getScaledInstance(java.awt.image.BufferedImage, int, int, java.lang.Object, boolean)
      */
-    @Override
     public BufferedImage getScaledInstance(BufferedImage img, int targetWidth, int targetHeight, Object hint,
             boolean higherQuality) {
         // TODO Auto-generated method stub
@@ -115,7 +107,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#getSmallThumbnail()
      */
-    @Override
     public Image getSmallThumbnail() {
         // TODO Auto-generated method stub
         return null;
@@ -124,7 +115,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#hasAllKeywords(java.lang.String[])
      */
-    @Override
     public boolean hasAllKeywords(String[] keywords) {
         // TODO Auto-generated method stub
         return false;
@@ -133,7 +123,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#hasExifKeyword(java.lang.String)
      */
-    @Override
     public boolean hasExifKeyword(String keyword) {
         // TODO Auto-generated method stub
         return false;
@@ -142,7 +131,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#hasMinOneKeywordOf(java.util.ArrayList)
      */
-    @Override
     public boolean hasMinOneKeywordOf(ArrayList<String> filterKeywords) {
         // TODO Auto-generated method stub
         return true;
@@ -151,7 +139,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#hasNext()
      */
-    @Override
     public boolean hasNext() {
         // TODO Auto-generated method stub
         return false;
@@ -160,7 +147,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#initThumbnails()
      */
-    @Override
     public boolean initThumbnails() {
         // TODO Auto-generated method stub
         return false;
@@ -169,7 +155,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#isActive()
      */
-    @Override
     public boolean isActive() {
         // TODO Auto-generated method stub
         return false;
@@ -178,7 +163,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#iterator()
      */
-    @Override
     public Iterator<PictureInterface> iterator() {
         // TODO Auto-generated method stub
         return null;
@@ -187,7 +171,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#next()
      */
-    @Override
     public PictureInterface next() {
         // TODO Auto-generated method stub
         return null;
@@ -196,7 +179,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#remove()
      */
-    @Override
     public void remove() {
         // TODO Auto-generated method stub
 
@@ -205,7 +187,6 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#setActive(boolean)
      */
-    @Override
     public void setActive(boolean isActive) {
         // TODO Auto-generated method stub
 
