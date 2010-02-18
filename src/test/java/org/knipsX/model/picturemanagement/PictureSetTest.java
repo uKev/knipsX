@@ -2,56 +2,144 @@ package org.knipsX.model.picturemanagement;
 
 import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.knipsX.images.dummypictures.DummyPictures;
 
 public class PictureSetTest {
 
-    @Test
-    public void testAdd() {
-        
-        /* 
-         * When adding multiple identical directories to the picture set and later iterate 
-         * over the picture set, the picture set should contain n times |number of pictures in the directory|,
-         * where n is the amount of identical directories in the picture set. 
-         * 
-         * Note that this is actually an integration test!
-         */
-        
-        Directory directory = new Directory(DummyPictures.getDummyDirectoryPath());
-        
-        int numberOfPicturesInDirectory = 0;
-        
-        for (PictureInterface picture : directory) {
-            numberOfPicturesInDirectory++;
-        }
-        
-        PictureSet pictureSet = new PictureSet("Demonstration");
-        
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		//File image1 = new File();
+		Picture pic1 = new Picture("home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder/DSC00596.JPG", true);
+	}
 
-        
-        // Add the directory "multiplier" times to the same picture set
-        int multiplier = 5;        
-        for (int i = 0; i < multiplier; i++) {
-            pictureSet.add(new Directory(DummyPictures.getDummyDirectoryPath()));
-        }
-        
-        int numberOfPicturesInPictureSet = 0;
-        
-        for (PictureInterface picture : pictureSet) {
-            numberOfPicturesInPictureSet++;
-        }
-        
-        assertEquals("Picture Set should contain " + multiplier + " times the amount of pictures that can be found in the directory", multiplier * numberOfPicturesInDirectory, numberOfPicturesInPictureSet);        
-        
-        numberOfPicturesInPictureSet = 0;
-        
-        for (PictureInterface picture : pictureSet) {
-            numberOfPicturesInPictureSet++;
-        }
-        
-        assertEquals("Picture Set should contain " + multiplier + " times the amount of pictures that can be found in the directory", multiplier * numberOfPicturesInDirectory, numberOfPicturesInPictureSet);
-        
-    }
+	@Test
+	public void testPictureSetString() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testPictureSetPictureSetString() {
+		Picture pic1 = null;
+		try {
+			pic1 = new Picture("home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder/DSC00596.JPG", true);
+		} catch (PictureNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertNotNull(pic1);
+		
+		//fail("Not yet implemented");
+	}
+
+	@Test
+	public void testResetIterator() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetName() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAdd() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testRemovePictureContainer() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetItems() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIterator() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testHasNext() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testNext() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testRemove() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testCompareTo() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testObject() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetClass() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testHashCode() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testEquals() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testClone() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testToString() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testNotify() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testNotifyAll() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testWaitLong() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testWaitLongInt() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testWait() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testFinalize() {
+		fail("Not yet implemented");
+	}
 
 }

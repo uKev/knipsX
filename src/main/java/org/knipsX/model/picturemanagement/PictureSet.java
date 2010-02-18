@@ -62,7 +62,7 @@ public class PictureSet implements PictureContainer {
     }
 
     /**
-     * Adds PictureContainer elements to this pictureset
+     * Adds PictureContainer elements to this picture set
      * 
      * @param container
      *            the element to add
@@ -87,11 +87,11 @@ public class PictureSet implements PictureContainer {
     }
 
     /**
-     * Removes Element from the pictureset.
+     * Removes Element from the picture set.
      * 
      * @param container
      *            the element which should be removed
-     * @return true if the element could be rempved false if not.
+     * @return true if the element could be removed false if not.
      */
     public boolean remove(final PictureContainer container) {
         return this.children.remove(container);
@@ -176,11 +176,11 @@ public class PictureSet implements PictureContainer {
     }
 
     /**
-     * It also allows to compare over PictureContainer but it is not done in the basic version of our programm.
+     * It also allows to compare over PictureContainer but it is not done in the basic version of our Program.
      * 
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      * @param picturesetToCompare
-     *            other pictureset to compare
+     *            other picture set to compare
      * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
      *         the specified object
      */

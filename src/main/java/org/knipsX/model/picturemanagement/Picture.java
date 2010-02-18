@@ -63,6 +63,7 @@ public class Picture extends Observable implements PictureInterface {
         if ((path == null) || (!new File(path).exists())) {
             throw new PictureNotFoundException();
         }
+        //System.out.println("*** path ***: " + path); //***
         this.pictureFile = new File(path);
         this.isActive = isActiveorNot;
         this.allExifParameter = null;
