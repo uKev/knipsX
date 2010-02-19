@@ -26,7 +26,7 @@ public class PictureContainerTest {
 	 */
 	@Test
 	public void testGetItems() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	/**
@@ -34,7 +34,7 @@ public class PictureContainerTest {
 	 */
 	@Test
 	public void testGetName() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 }

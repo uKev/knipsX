@@ -28,8 +28,11 @@ public class PictureTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		pic1 = new Picture("/home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder/DSC00596.JPG", true);
-		pic2 = new Picture("/home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder/DSC00964.JPG", false);// not active
+//		pic1 = new Picture("/home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder/DSC00596.JPG", true);
+//		pic2 = new Picture("/home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder/DSC00964.JPG", false);// not active
+		
+		pic1 = new Picture("testbilder/DSC00596.JPG", true);
+		pic2 = new Picture("testbilder/DSC00964.JPG", false);// not active
 		
 	}
 

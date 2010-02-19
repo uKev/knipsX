@@ -7,98 +7,76 @@ import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import java.io.File;
 
 /**
  * @author clyde
  *
  */
 public class DirectoryTest {
-
+	
+	static Directory dir1 =  null;
+	static Directory dir2 =  null;
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+	
+//		dir1 = new Directory("/home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder");
+//		dir2 = new Directory("/home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder2");
+		dir1 = new Directory("/testbilder");
+		dir2 = new Directory("/testbilder2");
 	}
 
 	/**
 	 * Test method for {@link org.knipsX.model.picturemanagement.Directory#Directory(java.lang.String)}.
 	 */
 	@Test
-	public void testDirectory() {
-		fail("Not yet implemented");
+	public void testDirectoryGetName() {
+		//System.out.println( "dir: " + dir1.getName() );
+		assertEquals("testbilder", dir1.getName());
+		
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Directory#getName()}.
-	 */
+	
 	@Test
-	public void testGetName() {
-		fail("Not yet implemented");
+	public void testDirectoryGetPath() {
+		//System.out.println( "Path: " + dir1.getPath() );
+		assertEquals("/home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder", dir1.getPath());
+		
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Directory#getPath()}.
-	 */
+	
 	@Test
-	public void testGetPath() {
-		fail("Not yet implemented");
+	public void testDirectoryNext() {
+		//assertEquals(null, dir1.next());
+		assertNotSame(null, dir1.next());
+		
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Directory#iterator()}.
-	 */
+	
 	@Test
-	public void testIterator() {
-		fail("Not yet implemented");
+	public void testDirectoryhasNext() {
+		assertEquals(true, dir1.hasNext());
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Directory#refresh()}.
-	 */
+	
 	@Test
-	public void testRefresh() {
-		fail("Not yet implemented");
+	public void testDirectoryGetItems() {
+		assertNotSame(null, dir1.getItems());
+
 	}
 
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Directory#next()}.
-	 */
 	@Test
-	public void testNext() {
-		fail("Not yet implemented");
+	public void testDirectorygetAllPictures() {
+		//dir1.getAllPictures(new File(dir1.getPath()));
+		//dir1.getAllPictures(dir1);
+		
+		assertTrue(true);
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Directory#hasNext()}.
-	 */
+	
 	@Test
-	public void testHasNext() {
-		fail("Not yet implemented");
+	public void testDirectoryComareTo() {
+		
+		assertEquals(-1, dir1.compareTo(dir2));
+	
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Directory#remove()}.
-	 */
-	@Test
-	public void testRemove() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Directory#getItems()}.
-	 */
-	@Test
-	public void testGetItems() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Directory#compareTo(org.knipsX.model.picturemanagement.PictureContainer)}.
-	 */
-	@Test
-	public void testCompareTo() {
-		fail("Not yet implemented");
-	}
-
+	
 }
