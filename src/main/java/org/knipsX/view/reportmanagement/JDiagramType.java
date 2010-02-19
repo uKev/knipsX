@@ -37,9 +37,11 @@ public class JDiagramType extends JAbstractSinglePanel {
 
     private JTextField reportname;
     private JLabel reportNameErrorLabel;
+    private JLabel diagramPreviewErrorLabel;
     private JTextArea reportdescription;
     private static final long serialVersionUID = 1L;
     private JList diagramTypeList;
+    private boolean java3DInstalled = false;
 
     /**
      * Constructor which initialized this diagram selection panel
@@ -107,15 +109,28 @@ public class JDiagramType extends JAbstractSinglePanel {
 
     /* Add diagram preview to the specified panel */
     private void addDiagramPreview(final JPanel rightpanel) {
-        final Component diagramView = ReportHelper.getCurrentReport().getDiagramView();
-        diagramView.setPreferredSize(new Dimension(300, 150));
-        rightpanel.add(diagramView);
-        //INTERNATIONALIZE
-        JLabel userWarning = new JLabel(Messages.getString("JDiagramType.1")); //$NON-NLS-1$
-        userWarning.setAlignmentX(Component.CENTER_ALIGNMENT);
-        rightpanel.add(userWarning);
+    	this.diagramPreviewErrorLabel = new JLabel();
+    	this.diagramPreviewErrorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    	rightpanel.add(this.diagramPreviewErrorLabel);
         /* Add a spacer to relax the layout */
-        rightpanel.add(Box.createRigidArea(new Dimension(0, 20)));
+    	rightpanel.add(Box.createRigidArea(new Dimension(0, 20)));    	   
+    	try {
+	        final Component diagramView = ReportHelper.getCurrentReport().getDiagramView();
+	        diagramView.setPreferredSize(new Dimension(300, 150));
+	        rightpanel.add(diagramView);
+    	}
+    	catch (UnsatisfiedLinkError linkError) {
+    		//TODO only catch java 3D link error
+    		this.java3DInstalled = false;
+    		return;
+    	} 
+    	catch (NoClassDefFoundError e) {
+    		//TODO only catch java 3D class definition error
+    		this.java3DInstalled = false;
+    		return;
+    	}
+    	
+    	this.java3DInstalled = true;
     }
 
     /* Add the diagram type label and list to the specified panel */
@@ -237,8 +252,16 @@ public class JDiagramType extends JAbstractSinglePanel {
 
     
     @Override
-    public boolean isDiagramDisplayable() {
-        return checkReportName();
+    public boolean isDiagramDisplayable() {  
+    	boolean displayable = checkReportName() & checkJava3DInstallation();
+    	
+    	if(displayable) {
+    		this.resetIcon();
+    	} else {
+    		this.showErrorIcon();
+    	}
+    	
+        return displayable;
     }
 
     @Override
@@ -256,28 +279,47 @@ public class JDiagramType extends JAbstractSinglePanel {
         if (Validator.isStringOk(this.reportname.getText())) {
             this.reportNameErrorLabel.setIcon(null);
             this.reportNameErrorLabel.setText(null);
-            this.resetIcon();
             return true;
         } else {
             
             try {
                 this.reportNameErrorLabel.setIcon(Resource.createImageIcon(Messages.getString("JDiagramType.6"), Messages.getString("JDiagramType.7"), Messages.getString("JDiagramType.8"))); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             } catch (FileNotFoundException e) {                
-                e.printStackTrace();
+                logger.debug(e.toString());
             }
-            this.showErrorIcon();
             //INTERNATIONALIZE
             this.reportNameErrorLabel.setToolTipText(Messages.getString("JDiagramType.9")); //$NON-NLS-1$
             return false;
         }
     }
     
+    
+    private boolean checkJava3DInstallation() {
+        Logger logger = Logger.getLogger(this.getClass());   
+        
+    	if (this.java3DInstalled) {
+    		this.diagramPreviewErrorLabel.setText(Messages.getString("JDiagramType.1"));
+            this.diagramPreviewErrorLabel.setIcon(null);
+            this.diagramPreviewErrorLabel.setText(null);
+            return true;    		
+    	} else {
+            try {
+            	this.diagramPreviewErrorLabel.setIcon(Resource.createImageIcon(Messages.getString("JDiagramType.6"), Messages.getString("JDiagramType.7"), Messages.getString("JDiagramType.8"))); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            } catch (FileNotFoundException e) {                
+                logger.debug(e.toString());
+            }
+            
+            //INTERNATIONALIZE
+    		this.diagramPreviewErrorLabel.setText("Java 3D ist nicht installiert");
+    		return false;
+    	}
+    }
+    
     /**
      * {@inheritDoc}}
      */
     public void fillViewWithModelInfo() {
-        if (ReportHelper.getCurrentModel() != null) {
-            
+        if (ReportHelper.getCurrentModel() != null) {            
             this.reportname.setText(ReportHelper.getCurrentModel().getReportName());
             this.reportdescription.setText(ReportHelper.getCurrentModel().getReportDescription());
             
