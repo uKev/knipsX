@@ -23,7 +23,7 @@ public class PNGImageFilter extends FileFilter {
 			return true;
 		}
 
-		String extension = Utils.getExtension(f).trim();
+		String extension = Utils.getExtension(f);
 		
 		if (extension.equals(Utils.PNG)) {
 			return true;

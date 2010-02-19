@@ -53,7 +53,7 @@ public final class Utils {
         int i = fileName.lastIndexOf('.');
 
         if (i > 0 && i < fileName.length() - 1) {
-            ext = fileName.substring(i + 1).toLowerCase();
+            ext = fileName.substring(i + 1).toLowerCase().trim();
         }
         return ext;
     }

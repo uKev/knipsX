@@ -23,7 +23,7 @@ public class JPEGImageFilter extends FileFilter {
 			return true;
 		}
 
-		String extension = Utils.getExtension(f).trim();
+		String extension = Utils.getExtension(f);
 
 		if (extension.equals(Utils.JPEG) || extension.equals(Utils.JPG)) {
 			return true;
