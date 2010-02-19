@@ -7,139 +7,79 @@ import org.junit.Test;
 
 public class PictureSetTest {
 
+	static Picture pic1 = null;
+	static Picture pic2 = null;
+	static PictureSet pcs1 = null;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		//File image1 = new File();
-		Picture pic1 = new Picture("home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder/DSC00596.JPG", true);
+		
+		pic1 = new Picture("/home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder/DSC00596.JPG", true);
+		pic2 = new Picture("/home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder/DSC00964.JPG", true);
+		pcs1 = new PictureSet("TestSet");
+		pcs1.add(pic1);
+		pcs1.add(pic2);
+		
 	}
 
 	@Test
-	public void testPictureSetString() {
-		fail("Not yet implemented");
+	public void testPictureSetGetName() {
+		assertEquals("TestSet", pcs1.getName());
 	}
 
 	@Test
 	public void testPictureSetPictureSetString() {
-		Picture pic1 = null;
-		try {
-			pic1 = new Picture("home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder/DSC00596.JPG", true);
-		} catch (PictureNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		///Picture pic1 = null;
+		
+		
 		assertNotNull(pic1);
 		
 		//fail("Not yet implemented");
 	}
-
+	
 	@Test
-	public void testResetIterator() {
-		fail("Not yet implemented");
+	public void testPictureSetCopy() {
+		PictureSet pcs2 = new PictureSet(pcs1, "TestSet2");
+		assertEquals(2, pcs2.getItems().size());
+		
 	}
-
+	
 	@Test
-	public void testGetName() {
-		fail("Not yet implemented");
+	public void testPictureSetCopyName() {
+		PictureSet pcs2 = new PictureSet(pcs1, "TestSet2");
+		assertEquals("TestSet2", pcs2.getName());
+		
 	}
-
+	
 	@Test
-	public void testAdd() {
-		fail("Not yet implemented");
+	public void testPictureSetRemove() {
+		PictureSet pcs2 = new PictureSet(pcs1, "TestSet2");
+		pcs2.remove(pic1);
+		assertEquals(1, pcs2.getItems().size());
+		
 	}
-
+	
 	@Test
-	public void testRemovePictureContainer() {
-		fail("Not yet implemented");
+	public void testPictureSetHasNext() {
+		PictureSet pcs2 = new PictureSet(pcs1, "TestSet2");
+		//pcs2.add(pic2);
+		assertTrue(pcs2.hasNext());
+	
+		
 	}
-
+	
 	@Test
-	public void testGetItems() {
-		fail("Not yet implemented");
+	public void testPictureSetNext() {
+		PictureSet pcs2 = new PictureSet(pcs1, "TestSet2");
+		assertNotNull(pcs2.next());
+		
 	}
-
-	@Test
-	public void testIterator() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testHasNext() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testNext() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testRemove() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCompareTo() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testObject() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetClass() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testHashCode() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testEquals() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testClone() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testToString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testNotify() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testNotifyAll() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testWaitLong() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testWaitLongInt() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testWait() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testFinalize() {
-		fail("Not yet implemented");
+	
+	@Test 
+	public void testPictureCompare() {
+		PictureSet pcs2 = new PictureSet(pcs1, "TestSet2");
+		assertEquals(1, pcs2.compareTo(pcs1));
+		
 	}
 
 }
