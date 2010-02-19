@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.knipsX.images.dummypictures.DummyPictures;
 
-public class PictureSetTestOther {
+public class InPictureSetDirectoryTest {
 
     @Test
     public void testAdd() {
