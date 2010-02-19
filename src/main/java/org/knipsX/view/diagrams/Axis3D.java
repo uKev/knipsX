@@ -144,15 +144,6 @@ class Axis3D {
         this.segmentDescription = new String[numberOfSegments + 1];
     }
 
-    /**
-     * Sets the segment description to the specified string array
-     * 
-     * @param segmentDescription
-     *            the new segment description
-     */
-    public void setSegmentDescription(final String[] segmentDescription) {
-        this.segmentDescription = segmentDescription;
-    }
     
     /**
      * Returns the max report space
@@ -217,7 +208,7 @@ class Axis3D {
                 
             }
             
-            this.setSegmentDescription(returnstring);
+            this.segmentDescription = returnstring;
             
         }
     }
