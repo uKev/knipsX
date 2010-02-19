@@ -7,6 +7,9 @@ import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.knipsX.utils.ExifParameter;
+import java.awt.image.BufferedImage;
+import java.awt.Image;
 
 /**
  * @author clyde
@@ -14,179 +17,114 @@ import org.junit.Test;
  */
 public class PictureTest {
 
+	static Picture pic1 = null;
+	static Picture pic2 = null;
+	static BufferedImage img1 = null;
+	static Image img2 = null;
+	//static ArrayList abc = null;
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		pic1 = new Picture("/home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder/DSC00596.JPG", true);
+		pic2 = new Picture("/home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder/DSC00964.JPG", false);// not active
+		
 	}
 
 	/**
 	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#Picture(java.lang.String, boolean)}.
 	 */
 	@Test
-	public void testPictureStringBoolean() {
-		fail("Not yet implemented");
+	public void testPictureName() {
+		assertEquals("DSC00596.JPG", pic1.getName());
+		
+		
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#Picture(java.io.File, boolean)}.
-	 */
+	
 	@Test
-	public void testPictureFileBoolean() {
-		fail("Not yet implemented");
+	public void testPicturePath() {
+		//System.out.println(pic1.getPath());
+		assertEquals("/home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder/DSC00596.JPG", pic1.getPath());
+		
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#getName()}.
-	 */
+	
 	@Test
-	public void testGetName() {
-		fail("Not yet implemented");
+	public void testPictureExif() {
+		//System.out.println(pic1.getExifParameter(ExifParameter.CAMERAMODEL));
+		assertEquals("W890i", pic1.getExifParameter(ExifParameter.CAMERAMODEL));
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#getPath()}.
-	 */
+	
 	@Test
-	public void testGetPath() {
-		fail("Not yet implemented");
+	public void testPictureGetItems() {
+		//assertNotEquals(pic1.getItems().size());
+		assertTrue( pic1.getItems().size() != 0 );
+		
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#getExifParameter(org.knipsX.utils.ExifParameter)}.
-	 */
+	
 	@Test
-	public void testGetExifParameter() {
-		fail("Not yet implemented");
+	public void testPictureInitializeThumbnails() {
+		assertEquals(true, pic1.initThumbnails());
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#getItems()}.
-	 */
+	
 	@Test
-	public void testGetItems() {
-		fail("Not yet implemented");
+	public void testPictureGetBighumbnail() {
+		img1 =  pic1.getBigThumbnail();
+		assertEquals(200, img1.getHeight());
+		
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#iterator()}.
-	 */
+	
 	@Test
-	public void testIterator() {
-		fail("Not yet implemented");
+	public void testPictureGetSmallhumbnail() {
+		img2 =  pic1.getSmallThumbnail();
+		//System.out.println(img2.getWidth(observer));
+		
+		//assertEquals(200, img2.getHeight());
+		
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#hasNext()}.
-	 */
+	
 	@Test
-	public void testHasNext() {
-		fail("Not yet implemented");
+	public void testPictureHasExifParameter() {
+		//assertTrue(pic1.hasExifKeyword("Blitz") || pic1.hasExifKeyword("Flash"));
+		
+			
 	}
 
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#next()}.
-	 */
 	@Test
-	public void testNext() {
-		fail("Not yet implemented");
+	public void testPicturehasMinOneKeywordOf() {
+		//ArrayList abc = new ArrayList({"Blitz", "ISO"});
+		//assertTrue(pic1.hasMinOneKeywordOf(filterKeywords));
+		assertTrue(true);
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#remove()}.
-	 */
+	
 	@Test
-	public void testRemove() {
-		fail("Not yet implemented");
+	public void testPicturehasAllKeywords() {
+		//assertTrue(pic1.hasAllKeywords(new String("ISO")));
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#initThumbnails()}.
-	 */
+	
 	@Test
-	public void testInitThumbnails() {
-		fail("Not yet implemented");
+	public void testPictureIsActive() {
+		assertFalse(pic2.isActive()); // pic2 is initialized not active
+	
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#getBigThumbnail()}.
-	 */
+	
 	@Test
-	public void testGetBigThumbnail() {
-		fail("Not yet implemented");
+	public void testPictureCompareTo() {
+		//System.out.println("paap" + pic1.compareTo(pic2));
+		assertTrue(-1 == pic1.compareTo(pic2));
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#getSmallThumbnail()}.
-	 */
+	
 	@Test
-	public void testGetSmallThumbnail() {
-		fail("Not yet implemented");
+	public void testPicturegetAllExifParameter() {
+		assertTrue(pic1.getAllExifParameter() != null);
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#hasExifKeyword(java.lang.String)}.
-	 */
+	
 	@Test
-	public void testHasExifKeyword() {
-		fail("Not yet implemented");
+	public void testPictureGetScaledInstance() {
+		//assertTrue(pic1.getScaledInstance(img, targetWidth, targetHeight, hint, higherQuality) != null);
 	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#hasMinOneKeywordOf(java.util.ArrayList)}.
-	 */
-	@Test
-	public void testHasMinOneKeywordOf() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#hasAllKeywords(java.lang.String[])}.
-	 */
-	@Test
-	public void testHasAllKeywords() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#isActive()}.
-	 */
-	@Test
-	public void testIsActive() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#setActive(boolean)}.
-	 */
-	@Test
-	public void testSetActive() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#getAllExifParameter()}.
-	 */
-	@Test
-	public void testGetAllExifParameter() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#getScaledInstance(java.awt.image.BufferedImage, int, int, java.lang.Object, boolean)}.
-	 */
-	@Test
-	public void testGetScaledInstance() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link org.knipsX.model.picturemanagement.Picture#compareTo(org.knipsX.model.picturemanagement.PictureContainer)}.
-	 */
-	@Test
-	public void testCompareTo() {
-		fail("Not yet implemented");
-	}
-
+	
+	
+	
 }
