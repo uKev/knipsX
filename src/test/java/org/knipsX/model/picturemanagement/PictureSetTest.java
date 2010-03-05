@@ -33,12 +33,7 @@ public class PictureSetTest {
 
 	@Test
 	public void testPictureSetPictureSetString() {
-		///Picture pic1 = null;
-		
-		
-		assertNotNull(pic1);
-		
-		//fail("Not yet implemented");
+		assertNotNull(pic1);		
 	}
 	
 	@Test

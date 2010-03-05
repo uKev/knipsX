@@ -60,9 +60,22 @@ public class Picture extends Observable implements PictureInterface {
      */
 
     public Picture(final String path, final boolean isActiveorNot) throws PictureNotFoundException {
-        if ((path == null) || (!new File(path).exists())) {
+        if ((path == null))  {
+            System.out.println("ERROR 1");
             throw new PictureNotFoundException();
         }
+        
+        if ((!new File(path).exists())) {
+            System.out.println("ERROR 2");
+            System.out.println("Current dir: " + System.getProperty("user.dir"));
+            System.out.println("PATH: " + path.toString());
+            throw new PictureNotFoundException();
+        }
+        
+        /*if ((path == null) || (!new File(path).exists())) {
+            throw new PictureNotFoundException();
+        }*/
+        
         //System.out.println("*** path ***: " + path); //***
         this.pictureFile = new File(path);
         this.isActive = isActiveorNot;
