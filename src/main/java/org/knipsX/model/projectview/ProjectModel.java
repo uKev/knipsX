@@ -310,19 +310,31 @@ public class ProjectModel extends AbstractModel {
             }
         }
 
+        /* Fill the queues */
         for (final Picture pic : this.getAllPictures()) {
             this.pictureDataQueue.add(pic);
             this.pictureThumbnailQueue.add(pic);
         }
 
+        /* Start both workers */
+       this.startAllWorkers();
+    }
+
+    private void startAllWorkers() {
         for (final InitializePictureDataThread worker : this.initializePictureDataWorkers) {
             this.threadPool.execute(worker);
         }
+        
         for (final InitializePictureThumbnailThread worker : this.initializePictureThumbnailWorkers) {
             this.threadPool.execute(worker);
-        }
+        }        
     }
-
+    
+    private void stopAllWorkers() {
+        this.threadPool.shutdownNow();
+        this.threadPool.shutdownNow();
+    }
+    
     /**
      * Save the model.
      */
@@ -382,16 +394,32 @@ public class ProjectModel extends AbstractModel {
         final boolean isRemoved = this.pictureSetList.remove(pictureSet);
 
         if (isRemoved) {
-
-            /* kill internal references */
+            
+            /* First stop all */
+            this.stopAllWorkers();
+            
             if (this.pictureSetList.size() <= 0) {
+
+                /* kill internal references and the queues */
                 this.selectedPicture = null;
                 this.selectedPictureSet = null;
                 this.selectedPictureSetContent = null;
+                                
+                this.pictureDataQueue.clear();
+                this.pictureThumbnailQueue.clear();
             } else {
+                
+                /* Remove the pictures of the container from the queue */
+                for (final PictureInterface pic : pictureSet) {
+                    this.pictureDataQueue.remove(pic);
+                    this.pictureThumbnailQueue.remove(pic);
+                }
                 this.selectedPictureSet = this.pictureSetList.get(0);
             }
             this.updateViews();
+            
+            /* Lastly start all */
+            this.startAllWorkers();
         }
         return isRemoved;
     }
@@ -527,6 +555,7 @@ public class ProjectModel extends AbstractModel {
 
         if (isAdded) {
             for (final PictureInterface pic : container) {
+                this.pictureDataQueue.add(pic);
                 this.pictureThumbnailQueue.add(pic);
             }
             this.updateViews();
@@ -551,11 +580,23 @@ public class ProjectModel extends AbstractModel {
         final boolean isRemoved = set.remove(container);
 
         if (isRemoved) {
+            
+            /* First stop all */
+            this.stopAllWorkers();
+            
+            /* Remove the pictures of the container from the queue */
+            for (final PictureInterface pic : container) {
+                this.pictureDataQueue.remove(pic);
+                this.pictureThumbnailQueue.remove(pic);
+            }
             if (set.getItems().size() <= 0) {
                 this.selectedPicture = null;
                 this.selectedPictureSetContent = null;
             }
             this.updateViews();
+            
+            /* Lastly start all */
+            this.startAllWorkers();
         }
         return isRemoved;
     }
@@ -588,6 +629,7 @@ public class ProjectModel extends AbstractModel {
             for (final Directory dir : this.getDirectoriesFromPictureSet(set)) {
                 dir.refresh();
                 for (final PictureInterface pic : dir) {
+                    this.pictureDataQueue.add(pic);
                     this.pictureThumbnailQueue.add(pic);
                 }
                 this.updateViews();
