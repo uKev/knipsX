@@ -42,6 +42,10 @@ public class ProjectModel extends AbstractModel {
 
     private final int id;
 
+    private boolean isInitialized = false;
+
+    private int numberOfPicturesFinished = 0;
+
     private String name;
     private String description;
 
@@ -51,8 +55,8 @@ public class ProjectModel extends AbstractModel {
 
     private final GregorianCalendar creationDate;
 
-    private final List<PictureSet> pictureSetList;
-    private final List<AbstractReportModel> reportList;
+    private final List<PictureSet> pictureSets;
+    private final List<AbstractReportModel> reports;
 
     private final ConcurrentLinkedQueue<PictureInterface> pictureDataQueue = new ConcurrentLinkedQueue<PictureInterface>();
     private final ConcurrentLinkedQueue<PictureInterface> pictureThumbnailQueue = new ConcurrentLinkedQueue<PictureInterface>();
@@ -81,8 +85,8 @@ public class ProjectModel extends AbstractModel {
         this.name = name;
         this.description = description;
         this.creationDate = date;
-        this.pictureSetList = pictureSets;
-        this.reportList = reports;
+        this.pictureSets = pictureSets;
+        this.reports = reports;
     }
 
     /**
@@ -95,8 +99,7 @@ public class ProjectModel extends AbstractModel {
      */
     public ProjectModel(final ProjectModel toCopy, final int id) {
         this(id, new String(toCopy.name), new String(toCopy.description), new GregorianCalendar(),
-                new LinkedList<PictureSet>(toCopy.pictureSetList), new LinkedList<AbstractReportModel>(
-                        toCopy.reportList));
+                new LinkedList<PictureSet>(toCopy.pictureSets), new LinkedList<AbstractReportModel>(toCopy.reports));
     }
 
     /*
@@ -229,7 +232,7 @@ public class ProjectModel extends AbstractModel {
     public synchronized int getNumberOfPictures() {
         int numberOfPictures = 0;
 
-        for (final PictureSet set : this.pictureSetList) {
+        for (final PictureSet set : this.pictureSets) {
 
             for (@SuppressWarnings("unused")
             final PictureInterface picture : set) {
@@ -245,6 +248,10 @@ public class ProjectModel extends AbstractModel {
      * @return the amount of pictures.
      */
     public int getNumberOfDataPicturesToProcess() {
+        if (!this.isInitialized) {
+            this.initialize();
+        }
+
         return this.pictureDataQueue.size();
     }
 
@@ -254,34 +261,59 @@ public class ProjectModel extends AbstractModel {
      * @return the amount of pictures.
      */
     public int getNumberOfThumbnailPicturesToProcess() {
+        if (!this.isInitialized) {
+            this.initialize();
+        }
+
         return this.pictureThumbnailQueue.size();
     }
 
+    /**
+     * Processes metadata for an image which the model handle.
+     * 
+     * @throws NullPointerException
+     *             if no image left.
+     */
     public void getDataForNextPicture() throws NullPointerException {
-        if (this.pictureDataQueue.isEmpty()) {
-            throw new NullPointerException("Kein Bild in Data Queue!");
+        if (!this.isInitialized) {
+            this.initialize();
         }
+
+        if (this.pictureDataQueue.isEmpty()) {
+            throw new NullPointerException("No image left in the data queue!");
+        }
+
         PictureInterface pic = this.pictureDataQueue.remove();
         pic.getAllExifParameter();
     }
 
-    private int numberOfPicturesFinished = 0;
-
+    /**
+     * Processes thumbnails for an image which the model handle.
+     * 
+     * @throws NullPointerException
+     *             if no image left.
+     */
     public void getThumbnailForNextPicture() throws NullPointerException {
-        if (this.pictureThumbnailQueue.isEmpty()) {
-            throw new NullPointerException("Kein Bild in Thumbnail Queue!");
+        if (!this.isInitialized) {
+            this.initialize();
         }
+
+        if (this.pictureThumbnailQueue.isEmpty()) {
+            throw new NullPointerException("No image left in thumbnail queue!");
+        }
+
         PictureInterface pic = this.pictureThumbnailQueue.remove();
         pic.initThumbnails();
+
         if (numberOfPicturesFinished == 5) {
             this.updateViews();
             numberOfPicturesFinished = 0;
         } else {
             numberOfPicturesFinished++;
-            if(this.pictureThumbnailQueue.isEmpty()) {
+            if (this.pictureThumbnailQueue.isEmpty()) {
                 this.updateViews();
                 numberOfPicturesFinished = 0;
-            }            
+            }
         }
     }
 
@@ -291,10 +323,14 @@ public class ProjectModel extends AbstractModel {
      * ################################################################################################################
      */
 
-    public void initialize() {
-        for (PictureInterface pic : this.getAllPictures()) {
-            this.pictureDataQueue.add(pic);
-            this.pictureThumbnailQueue.add(pic);
+    /* Initializes the queues */
+    private synchronized void initialize() {
+        if (!this.isInitialized) {
+            for (PictureInterface pic : this.getAllPictures()) {
+                this.pictureDataQueue.add(pic);
+                this.pictureThumbnailQueue.add(pic);
+            }
+            this.isInitialized = true;
         }
     }
 
@@ -311,7 +347,7 @@ public class ProjectModel extends AbstractModel {
         try {
             RepositoryHandler.getRepository().saveProject(this);
         } catch (final RepositoryInterfaceException e) {
-            this.logger.error(Messages.getString("ProjectModel.9") + e.getStackTrace()); //$NON-NLS-1$
+            this.logger.error(Messages.getString("ProjectModel.9") + e.getStackTrace()); 
         }
     }
 
@@ -337,12 +373,12 @@ public class ProjectModel extends AbstractModel {
     public boolean addPictureSet(final PictureSet set) {
         assert (set != null) && (set instanceof PictureSet);
 
-        final boolean isAdded = this.pictureSetList.add(set);
+        final boolean isAdded = this.pictureSets.add(set);
 
         if (isAdded) {
 
             /* TWEAK sort maybe at another location */
-            Collections.sort(this.pictureSetList);
+            Collections.sort(this.pictureSets);
 
             this.updateViews();
         }
@@ -360,11 +396,11 @@ public class ProjectModel extends AbstractModel {
     public boolean removePictureSet(final PictureSet pictureSet) {
         assert (pictureSet != null) && (pictureSet instanceof PictureSet);
 
-        final boolean isRemoved = this.pictureSetList.remove(pictureSet);
+        final boolean isRemoved = this.pictureSets.remove(pictureSet);
 
         if (isRemoved) {
 
-            if (this.pictureSetList.size() <= 0) {
+            if (this.pictureSets.size() <= 0) {
 
                 /* kill internal references and the queues */
                 this.selectedPicture = null;
@@ -380,7 +416,7 @@ public class ProjectModel extends AbstractModel {
                     this.pictureDataQueue.remove(pic);
                     this.pictureThumbnailQueue.remove(pic);
                 }
-                this.selectedPictureSet = this.pictureSetList.get(0);
+                this.selectedPictureSet = this.pictureSets.get(0);
             }
             this.updateViews();
         }
@@ -393,7 +429,7 @@ public class ProjectModel extends AbstractModel {
      * @return an amount of picture sets.
      */
     public PictureSet[] getPictureSets() {
-        return this.pictureSetList.toArray(new PictureSet[] {});
+        return this.pictureSets.toArray(new PictureSet[] {});
     }
 
     /**
@@ -402,8 +438,8 @@ public class ProjectModel extends AbstractModel {
      * @return the current selected PictureSet.
      */
     public PictureSet getSelectedPictureSet() {
-        if ((this.selectedPictureSet == null) && (this.pictureSetList.size() > 0)) {
-            this.selectedPictureSet = this.pictureSetList.get(0);
+        if ((this.selectedPictureSet == null) && (this.pictureSets.size() > 0)) {
+            this.selectedPictureSet = this.pictureSets.get(0);
         }
         return this.selectedPictureSet;
     }
@@ -432,7 +468,7 @@ public class ProjectModel extends AbstractModel {
      */
     public PictureSet[] getPictureSetsFromPictureSet(final PictureSet pictureSet) throws NullPointerException {
         if (pictureSet == null) {
-            throw new NullPointerException(Messages.getString("ProjectModel.10")); //$NON-NLS-1$
+            throw new NullPointerException(Messages.getString("ProjectModel.10")); 
         }
         final List<PictureSet> pictureSets = new ArrayList<PictureSet>();
 
@@ -457,7 +493,7 @@ public class ProjectModel extends AbstractModel {
      */
     public Directory[] getDirectoriesFromPictureSet(final PictureSet pictureSet) throws NullPointerException {
         if (pictureSet == null) {
-            throw new NullPointerException(Messages.getString("ProjectModel.11")); //$NON-NLS-1$
+            throw new NullPointerException(Messages.getString("ProjectModel.11")); 
         }
         final List<Directory> directories = new ArrayList<Directory>();
 
@@ -482,7 +518,7 @@ public class ProjectModel extends AbstractModel {
      */
     public Picture[] getPicturesFromPictureSet(final PictureSet pictureSet) throws NullPointerException {
         if (pictureSet == null) {
-            throw new NullPointerException(Messages.getString("ProjectModel.12")); //$NON-NLS-1$
+            throw new NullPointerException(Messages.getString("ProjectModel.12")); 
         }
         final List<Picture> pictures = new ArrayList<Picture>();
 
@@ -676,10 +712,10 @@ public class ProjectModel extends AbstractModel {
         boolean returnValue = false;
 
         if (reportId != -1) {
-            this.reportList.set(reportId, report);
+            this.reports.set(reportId, report);
             returnValue = true;
         } else {
-            returnValue = this.reportList.add(report);
+            returnValue = this.reports.add(report);
         }
         this.updateViews();
         return returnValue;
@@ -696,7 +732,7 @@ public class ProjectModel extends AbstractModel {
     public boolean removeReport(final AbstractReportModel report) {
         assert (report != null) && (report instanceof AbstractReportModel);
 
-        final boolean isRemoved = this.reportList.remove(report);
+        final boolean isRemoved = this.reports.remove(report);
 
         if (isRemoved) {
             this.updateViews();
@@ -710,6 +746,6 @@ public class ProjectModel extends AbstractModel {
      * @return an amount of picture sets.
      */
     public AbstractReportModel[] getReports() {
-        return this.reportList.toArray(new AbstractReportModel[] {});
+        return this.reports.toArray(new AbstractReportModel[] {});
     }
 }

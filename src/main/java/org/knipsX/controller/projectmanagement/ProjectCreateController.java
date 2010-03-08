@@ -1,10 +1,7 @@
-/******************************************************************************
- * This package is the root of all files regarding the "project management".
- *****************************************************************************/
 package org.knipsX.controller.projectmanagement;
 
-/* import classes from java sdk */
 import java.awt.event.ActionEvent;
+
 import javax.swing.JOptionPane;
 
 import org.knipsX.controller.AbstractController;
@@ -16,8 +13,10 @@ import org.knipsX.view.projectmanagement.JProjectManagement;
  * Represents the actions which are done by pushing the project create button.
  * Acts in harmony with JProjectManagement.
  * 
- * @param <M> The related model
- * @param <V> The related view
+ * @param <M>
+ *            The related model
+ * @param <V>
+ *            The related view
  ***************************************************************************************/
 public class ProjectCreateController<M extends ProjectManagementModel, V extends JProjectManagement<M>> extends
         AbstractController<M, V> {
@@ -25,10 +24,12 @@ public class ProjectCreateController<M extends ProjectManagementModel, V extends
     /**
      * Constructor for ProjectCreateController
      * 
-     * @param model The related model
-     * @param view The related view
+     * @param model
+     *            The related model
+     * @param view
+     *            The related view
      */
-    public ProjectCreateController(M model, V view) {
+    public ProjectCreateController(final M model, final V view) {
         super(model, view);
     }
 
@@ -38,24 +39,23 @@ public class ProjectCreateController<M extends ProjectManagementModel, V extends
      * If a valid name is given and the user presses ok a new projectis addes to the list.
      * 
      * @see org.knipsX.controller.AbstractController#actionPerformed(java.awt.event.ActionEvent)
-     * @param event The action event
+     * @param event
+     *            The action event
      */
     @Override
     public void actionPerformed(final ActionEvent event) {
 
         /* try to get a project name */
-        // INTERNATIONALIZE
-        String projectName = JOptionPane.showInputDialog(null, Messages.getString("ProjectCreateController.0"), //$NON-NLS-1$
-                Messages.getString("ProjectCreateController.1"), JOptionPane.INFORMATION_MESSAGE); //$NON-NLS-1$
+        final String projectName = JOptionPane.showInputDialog(null, Messages.getString("ProjectCreateController.0"),
+                Messages.getString("ProjectCreateController.1"), JOptionPane.INFORMATION_MESSAGE);
 
         /* user is not pressing cancel and no text or wrong text is given */
         if (projectName != null) {
             if (!Validator.isStringOk(projectName)) {
-    
+
                 /* show the user that the name is incorrect */
-                // INTERNATIONALIZE
-                JOptionPane.showMessageDialog(null, Messages.getString("ProjectCreateController.2"), //$NON-NLS-1$
-                        Messages.getString("ProjectCreateController.3"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+                JOptionPane.showMessageDialog(null, Messages.getString("ProjectCreateController.2"), Messages
+                        .getString("ProjectCreateController.3"), JOptionPane.ERROR_MESSAGE);
             } else {
                 this.model.addProject(projectName);
             }

@@ -1,11 +1,9 @@
-/******************************************************************************
- * This package is the root of all files regarding the "project management".
- *****************************************************************************/
 package org.knipsX.controller.projectmanagement;
 
-/* import classes from java sdk */
 import java.awt.event.ActionEvent;
+
 import javax.swing.JOptionPane;
+
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.view.projectmanagement.JProjectManagement;
@@ -15,8 +13,10 @@ import org.knipsX.view.projectmanagement.JProjectManagement;
  * 
  * Acts in harmony with JProjectManagement.
  * 
- * @param <M> The related model
- * @param <V> The related view
+ * @param <M>
+ *            The related model
+ * @param <V>
+ *            The related view
  ***************************************************************************************/
 public class ProjectDeleteController<M extends ProjectManagementModel, V extends JProjectManagement<M>> extends
         AbstractController<M, V> {
@@ -24,10 +24,12 @@ public class ProjectDeleteController<M extends ProjectManagementModel, V extends
     /**
      * Constructor for ProjectDeleteController
      * 
-     * @param model The related model
-     * @param view The related view
+     * @param model
+     *            The related model
+     * @param view
+     *            The related view
      */
-    public ProjectDeleteController(M model, V view) {
+    public ProjectDeleteController(final M model, final V view) {
         super(model, view);
     }
 
@@ -35,27 +37,25 @@ public class ProjectDeleteController<M extends ProjectManagementModel, V extends
      * Deletes all selected projects with a decision option.
      * 
      * @see org.knipsX.controller.AbstractController#actionPerformed(java.awt.event.ActionEvent)
-     * @param event The action event
+     * @param event
+     *            The action event
      */
     @Override
     public void actionPerformed(final ActionEvent event) {
         final int[] toDelete = this.view.getSelectedProjects();
 
-        /* */
         if ((toDelete == null) || (toDelete.length == 0)) {
 
-            // INTERNATIONALIZE
             /* gives the user a hint, that he has selected too little projects */
-            JOptionPane.showMessageDialog(null, Messages.getString("ProjectDeleteController.0"), //$NON-NLS-1$
-                    Messages.getString("ProjectDeleteController.1"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+            JOptionPane.showMessageDialog(null, Messages.getString("ProjectDeleteController.0"), Messages
+                    .getString("ProjectDeleteController.1"), JOptionPane.ERROR_MESSAGE);
         } else {
-            // INTERNATIONALIZE
-            final int decision = JOptionPane.showConfirmDialog(null, Messages.getString("ProjectDeleteController.2") //$NON-NLS-1$
-                    + this.generateToDeleteText(toDelete) + Messages.getString("ProjectDeleteController.3"), Messages.getString("ProjectDeleteController.4"), //$NON-NLS-1$ //$NON-NLS-2$
-                    JOptionPane.YES_NO_OPTION);
+            final int decision = JOptionPane.showConfirmDialog(null, Messages.getString("ProjectDeleteController.2")
+                    + this.generateToDeleteText(toDelete) + Messages.getString("ProjectDeleteController.3"), Messages
+                    .getString("ProjectDeleteController.4"), JOptionPane.YES_NO_OPTION);
 
             /* if user pressed "yes" */
-            if (decision == 0) {
+            if (decision == JOptionPane.YES_OPTION) {
 
                 /* delete all selected projects */
                 for (int n = 0; n < toDelete.length; ++n) {
@@ -74,12 +74,12 @@ public class ProjectDeleteController<M extends ProjectManagementModel, V extends
      * Generates the representation of all projects to delete
      */
     private String generateToDeleteText(final int[] toDelete) {
-        String deleteText = "\n\n"; //$NON-NLS-1$
+        String deleteText = "\n\n";
 
         /* add all names */
         for (int n = 0; n < toDelete.length; ++n) {
-            deleteText += "- " + (this.model).getProjects().get(toDelete[n]).getName() + "\n"; //$NON-NLS-1$ //$NON-NLS-2$
+            deleteText += "- " + (this.model).getProject(toDelete[n]).getName() + "\n";
         }
-        return deleteText + "\n"; //$NON-NLS-1$
+        return deleteText + "\n";
     }
 }

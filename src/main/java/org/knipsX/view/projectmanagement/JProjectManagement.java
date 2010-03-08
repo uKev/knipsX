@@ -234,7 +234,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
         /* create if not set */
         if (this.jListProject == null) {
 
-            this.jListProject = new JList(this.model.getProjects().toArray());
+            this.jListProject = new JList(this.model.getProjects());
 
             this.jListProject.setCellRenderer(new CustomListCellRenderer());
 
@@ -271,7 +271,7 @@ public class JProjectManagement<M extends ProjectManagementModel> extends JAbstr
 
         final ProjectManagementModel model = (ProjectManagementModel) observedModel;
 
-        this.jListProject.setListData(model.getProjects().toArray());
+        this.jListProject.setListData(model.getProjects());
 
         /* refresh view */
         this.repaint();

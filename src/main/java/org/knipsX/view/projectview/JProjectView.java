@@ -591,7 +591,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jListPictureSet.setVisibleRowCount(-1);
 
             /* we store picture set objects in the list, so we have to set a special rendering */
-            this.jListPictureSet.setCellRenderer(new MyPictureSetListCellRenderer());
+            this.jListPictureSet.setCellRenderer(new PictureSetListCellRenderer());
         }
         final JScrollPane listScroller = new JScrollPane(this.jListPictureSet);
 
@@ -669,7 +669,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                     this.model, this).getToTransferHandler(TransferHandler.COPY));
 
             /* we store different objects in the list, so we have to set a special rendering */
-            this.jListPictureSetContent.setCellRenderer(new MyPictureSetContentListCellRenderer());
+            this.jListPictureSetContent.setCellRenderer(new PictureSetContentListCellRenderer());
 
         }
         final JScrollPane listScroller = new JScrollPane(this.jListPictureSetContent);
@@ -744,7 +744,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jListPictureSetActive.addMouseMotionListener(controller);
 
             /* we store picture objects in the list, so we have to set a special rendering */
-            this.jListPictureSetActive.setCellRenderer(new MyPictureListCellRenderer());
+            this.jListPictureSetActive.setCellRenderer(new PictureListCellRenderer());
         }
         final JScrollPane listScroller = new JScrollPane(this.jListPictureSetActive);
 
@@ -795,7 +795,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jListReport.addMouseListener(new ReportClickOnController<M, JProjectView<M>>(this.model, this));
 
             /* we store different objects in the list, so we have to set a special rendering */
-            this.jListReport.setCellRenderer(new MyReportListCellRenderer());
+            this.jListReport.setCellRenderer(new ReportListCellRenderer());
         }
         final JScrollPane listScroller = new JScrollPane(this.jListReport);
 
@@ -1162,7 +1162,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 /**
  * Renders a picture set cell for the picture set list.
  */
-class MyPictureSetListCellRenderer implements ListCellRenderer {
+class PictureSetListCellRenderer implements ListCellRenderer {
 
     protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
@@ -1205,7 +1205,7 @@ class MyPictureSetListCellRenderer implements ListCellRenderer {
 /**
  * Renders a picture set content cell for the picture set content list of an active project.
  */
-class MyPictureSetContentListCellRenderer implements ListCellRenderer {
+class PictureSetContentListCellRenderer implements ListCellRenderer {
 
     protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
@@ -1260,13 +1260,13 @@ class MyPictureSetContentListCellRenderer implements ListCellRenderer {
 /**
  * Renders a picture cell for the picture list of an active picture container.
  */
-class MyPictureListCellRenderer implements ListCellRenderer {
+class PictureListCellRenderer implements ListCellRenderer {
 
     DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
     private Icon noImageIcon = null;
 
-    public MyPictureListCellRenderer() {
+    public PictureListCellRenderer() {
         try {
             this.noImageIcon = Resource.createImageIcon("status/image-loading.png", "", "32");
         } catch (final FileNotFoundException e) {
@@ -1322,7 +1322,7 @@ class MyPictureListCellRenderer implements ListCellRenderer {
 /**
  * Renders a report cell for the report list of an active project.
  */
-class MyReportListCellRenderer implements ListCellRenderer {
+class ReportListCellRenderer implements ListCellRenderer {
 
     protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 

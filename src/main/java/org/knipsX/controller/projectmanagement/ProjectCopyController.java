@@ -1,10 +1,7 @@
-/******************************************************************************
- * This package is the root of all files regarding the "project management".
- *****************************************************************************/
 package org.knipsX.controller.projectmanagement;
 
-/* import classes from java sdk */
 import java.awt.event.ActionEvent;
+
 import javax.swing.JOptionPane;
 
 import org.knipsX.controller.AbstractController;
@@ -33,7 +30,7 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
      * @param view
      *            The related view
      */
-    public ProjectCopyController(M model, V view) {
+    public ProjectCopyController(final M model, final V view) {
         super(model, view);
     }
 
@@ -54,28 +51,27 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
         if (toCopy.length == 1) {
 
             /* get the selected project */
-            final ProjectModel projectToCopy = this.model.getProjects().get(toCopy[0]);
+            final ProjectModel projectToCopy = this.model.getProject(toCopy[0]);
 
-            // INTERNATIONALIZE
-            final int decision = JOptionPane.showConfirmDialog(null, Messages.getString("ProjectCopyController.0") //$NON-NLS-1$
-                    + projectToCopy.getName() + Messages.getString("ProjectCopyController.1"), Messages.getString("ProjectCopyController.2"), JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
+            final int decision = JOptionPane.showConfirmDialog(null, Messages.getString("ProjectCopyController.0")
+                    + projectToCopy.getName() + Messages.getString("ProjectCopyController.1"), Messages
+                    .getString("ProjectCopyController.2"), JOptionPane.YES_NO_OPTION);
 
             /* if user pressed "yes" */
-            if (decision == 0) {
+            if (decision == JOptionPane.YES_OPTION) {
 
-                // INTERNATIONALIZE
                 /* try to get a project name */
-                String projectName = JOptionPane.showInputDialog(null, Messages.getString("ProjectCopyController.3"), //$NON-NLS-1$
-                        Messages.getString("ProjectCopyController.4"), JOptionPane.INFORMATION_MESSAGE); //$NON-NLS-1$
+                final String projectName = JOptionPane.showInputDialog(null, Messages
+                        .getString("ProjectCopyController.3"), Messages.getString("ProjectCopyController.4"),
+                        JOptionPane.INFORMATION_MESSAGE);
 
                 /* user is not pressing cancel and no text or wrong text is given */
                 if (projectName != null) {
                     if (!Validator.isStringOk(projectName)) {
 
                         /* show the user that the name is incorrect */
-                        // INTERNATIONALIZE
-                        JOptionPane.showMessageDialog(null, Messages.getString("ProjectCopyController.5"), //$NON-NLS-1$
-                                Messages.getString("ProjectCopyController.6"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+                        JOptionPane.showMessageDialog(null, Messages.getString("ProjectCopyController.5"), Messages
+                                .getString("ProjectCopyController.6"), JOptionPane.ERROR_MESSAGE);
                     }
 
                     /* user has given a correct name */
@@ -88,15 +84,13 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
         } else if (toCopy.length == 0) {
 
             /* gives the user a hint, that he has selected no projects */
-            // INTERNATIONALIZE
-            JOptionPane.showMessageDialog(null, Messages.getString("ProjectCopyController.7"), //$NON-NLS-1$
-                    Messages.getString("ProjectCopyController.8"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+            JOptionPane.showMessageDialog(null, Messages.getString("ProjectCopyController.7"), Messages
+                    .getString("ProjectCopyController.8"), JOptionPane.ERROR_MESSAGE);
         } else {
 
             /* gives the user a hint, that he has selected too much projects */
-            // INTERNATIONALIZE
-            JOptionPane.showMessageDialog(null, Messages.getString("ProjectCopyController.9"), //$NON-NLS-1$
-                    Messages.getString("ProjectCopyController.10"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+            JOptionPane.showMessageDialog(null, Messages.getString("ProjectCopyController.9"), Messages
+                    .getString("ProjectCopyController.10"), JOptionPane.ERROR_MESSAGE);
 
         }
     }

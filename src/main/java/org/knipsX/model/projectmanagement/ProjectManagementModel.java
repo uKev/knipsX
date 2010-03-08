@@ -1,11 +1,8 @@
-/******************************************************************************
- * This package is the root of all files regarding the "project management".
- *****************************************************************************/
 package org.knipsX.model.projectmanagement;
 
-/* import things from the java sdk */
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.utils.RepositoryHandler;
@@ -27,10 +24,11 @@ public class ProjectManagementModel extends AbstractModel {
     public static final int INACTIVE = 0;
 
     /* By default this view is active */
-    private int state = ACTIVE;
+    private int state = ProjectManagementModel.ACTIVE;
 
-    /* This list contains all projects */
     private List<ProjectModel> projects;
+
+    private final Logger logger = Logger.getLogger(this.getClass());
 
     /**
      * Creates a project management model based on projects.
@@ -40,38 +38,19 @@ public class ProjectManagementModel extends AbstractModel {
     public ProjectManagementModel() {
         try {
             this.projects = RepositoryHandler.getRepository().getProjects();
-        } catch (RepositoryInterfaceException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (final RepositoryInterfaceException e) {
+            this.logger.error("[ProjectManagementModel::construct()] - " + e.getMessage());
         }
         this.updateViews();
     }
 
     /**
-     * Creates a project management model based on projects.
-     * 
-     * @param projects The projects which are to be borrowed
-     */
-    public ProjectManagementModel(List<ProjectModel> projects) {
-        this.projects = projects;
-        this.updateViews();
-    }
-
-    /**
-     * This Methode returns a List with all projects in it.
-     * 
-     * @return The projects
-     */
-    public List<ProjectModel> getProjects() {
-        return projects;
-    }
-
-    /**
      * Sets the actual state. It can only be ACTIVE or INACTIVE
      * 
-     * @param state ACTIVE or INACTIVE
+     * @param state
+     *            ACTIVE or INACTIVE
      */
-    public void setStatus(int state) {
+    public void setStatus(final int state) {
         assert state < 2;
         assert state >= 0;
         this.state = state;
@@ -90,65 +69,71 @@ public class ProjectManagementModel extends AbstractModel {
     /**
      * This Methode delivers the selected project
      * 
-     * @param index Position index in table
+     * @param index
+     *            Position index in table
      * @return The specific projectdata
      */
-    public ProjectModel getProject(int index) {
+    public ProjectModel getProject(final int index) {
         return this.projects.get(index);
+    }
+
+    /**
+     * This Methode delivers all projects.
+     * 
+     * @return The projects.
+     */
+    public ProjectModel[] getProjects() {
+        return this.projects.toArray(new ProjectModel[] {});
     }
 
     /**
      * Adds a new project to the model at first position of the list.
      * 
-     * @param name The name of the project.
+     * @param name
+     *            The name of the project.
      */
-    public void addProject(String name) {
-
-        /* gets the new project */
-        ProjectModel newProject;
+    public void addProject(final String name) {
         try {
-            /* create new project with a new id*/
-            int id = RepositoryHandler.getRepository().createProject();
 
-            newProject = RepositoryHandler.getRepository().getProject(id);
+            /* create new project with a new id */
+            final int id = RepositoryHandler.getRepository().createProject();
 
-            /*sets the pojectname*/
+            final ProjectModel newProject = RepositoryHandler.getRepository().getProject(id);
+
             newProject.setName(name);
 
-            /*saves the new project after name is set*/
+            /* saves the new project after name is set */
             RepositoryHandler.getRepository().saveProject(newProject);
-            
-            /* add new project */
+
+            /* add new project on the top of the list */
             this.projects.add(0, newProject);
-        
-        } catch (RepositoryInterfaceException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
+            this.updateViews();
+        } catch (final RepositoryInterfaceException e) {
+            this.logger.error("[ProjectManagementModel::addProject()] - " + e.getMessage());
         }
-
-
-
-        /*updates the view to display the new entry in the list*/
-        this.updateViews();
     }
 
     /**
      * Remove a project from the model.
      * 
-     * @param toDelete The project which is selected to delete.
+     * @param toDelete
+     *            The project which is selected to delete.
      */
-    public void removeProject(int toDelete) {
-        ProjectModel project = this.projects.remove(toDelete);
-
+    public void removeProject(final int toDelete) {
         try {
-            RepositoryHandler.getRepository().deleteProject(project.getId());
-        } catch (RepositoryInterfaceException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+            final ProjectModel project = this.projects.remove(toDelete);
 
-        /*updates the view to display the new list*/
-        this.updateViews();
+            RepositoryHandler.getRepository().deleteProject(project.getId());
+
+            this.updateViews();
+        } catch (final UnsupportedOperationException e) {
+            this.logger.error("[ProjectManagementModel::removeProject()] - " + e.getMessage());
+        } catch (final IndexOutOfBoundsException e) {
+            this.logger.error("[ProjectManagementModel::removeProject()] - " + e.getMessage());
+        } catch (final RepositoryInterfaceException e) {
+            this.logger.error("[ProjectManagementModel::removeProject()] - " + e.getMessage());
+        }
     }
 
     /**
@@ -159,42 +144,26 @@ public class ProjectManagementModel extends AbstractModel {
      * @param name
      *            the name of the new project.
      */
-    public void copyProject(ProjectModel projectToCopy, String name) {
-
+    public void copyProject(final ProjectModel projectToCopy, final String name) {
         try {
+
             /* create new project from an old one */
-            int id = RepositoryHandler.getRepository().createProject(projectToCopy);
+            final int id = RepositoryHandler.getRepository().createProject(projectToCopy);
 
-            /* get and modify the copied project */
-            ProjectModel newProject = RepositoryHandler.getRepository().getProject(id);
+            final ProjectModel newProject = RepositoryHandler.getRepository().getProject(id);
 
-            /*sets the pojectname*/
             newProject.setName(name);
 
-            /* add copied project */
+            /* saves the new project after name is set */
+            RepositoryHandler.getRepository().saveProject(newProject);
+
+            /* add copied project on the top of the list */
             this.projects.add(0, newProject);
 
-            /*saves the new project after name is set*/
-            RepositoryHandler.getRepository().saveProject(newProject);
-        } catch (RepositoryInterfaceException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            this.updateViews();
+
+        } catch (final RepositoryInterfaceException e) {
+            this.logger.error("[ProjectManagementModel::copyProject()] - " + e.getMessage());
         }
-
-        /*updates the view to display the new entry in the list*/
-        this.updateViews();
-    }
-
-    /**
-     * Moves a project to the first position of the list.
-     * 
-     * @param toMove
-     *            The project to move
-     */
-    public void moveProejcttoFirstPosition(ProjectModel toMove) {
-        assert toMove != null;
-        assert this.projects.contains(toMove);
-        this.projects.remove(toMove);
-        this.projects.add(0, toMove);
     }
 }

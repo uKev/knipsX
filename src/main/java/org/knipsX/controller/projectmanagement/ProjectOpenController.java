@@ -1,11 +1,9 @@
-/******************************************************************************
- * This package is the root of all files regarding the "project management".
- *****************************************************************************/
 package org.knipsX.controller.projectmanagement;
 
-/* import classes from java sdk */
 import java.awt.event.ActionEvent;
+
 import javax.swing.JOptionPane;
+
 import org.knipsX.controller.AbstractController;
 import org.knipsX.controller.worker.InitializePictureDataWorker;
 import org.knipsX.controller.worker.InitializePictureThumbnailWorker;
@@ -18,8 +16,10 @@ import org.knipsX.view.projectview.JProjectView;
  * Represents the actions which are done by pushing the project open button.
  * Acts in harmony with JProjectManagement.
  * 
- * @param <M> The related model
- * @param <V> The related view
+ * @param <M>
+ *            The related model
+ * @param <V>
+ *            The related view
  ***************************************************************************************/
 public class ProjectOpenController<M extends ProjectManagementModel, V extends JProjectManagement<M>> extends
         AbstractController<M, V> {
@@ -27,10 +27,12 @@ public class ProjectOpenController<M extends ProjectManagementModel, V extends J
     /**
      * Constructor for ProjectOpenController
      * 
-     * @param model The related model
-     * @param view The related view
+     * @param model
+     *            The related model
+     * @param view
+     *            The related view
      */
-    public ProjectOpenController(M model, V view) {
+    public ProjectOpenController(final M model, final V view) {
         super(model, view);
     }
 
@@ -40,35 +42,33 @@ public class ProjectOpenController<M extends ProjectManagementModel, V extends J
      * and disposes the projectmanagement view.
      * 
      * @see org.knipsX.controller.AbstractController#actionPerformed(java.awt.event.ActionEvent)
-     * @param event The action event
+     * @param event
+     *            The action event
      */
     @Override
-    public void actionPerformed(ActionEvent event) {
+    public void actionPerformed(final ActionEvent event) {
 
         final int[] toOpen = this.view.getSelectedProjects();
 
         /* only one project can opened */
         if (toOpen.length == 1) {
-            ProjectModel projectModel = this.model.getProject(toOpen[0]);
+            final ProjectModel projectModel = this.model.getProject(toOpen[0]);
             this.model.setStatus(ProjectManagementModel.INACTIVE);
-            projectModel.initialize();
-            
+
             new JProjectView<ProjectModel>(projectModel);
-            
+
             new InitializePictureDataWorker(projectModel).execute();
             new InitializePictureThumbnailWorker(projectModel).execute();
         } else if (toOpen.length == 0) {
 
             /* gives the user a hint, that he has selected no projects */
-            // INTERNATIONALIZE
-            JOptionPane.showMessageDialog(null, Messages.getString("ProjectOpenController.0"),
-                    Messages.getString("ProjectOpenController.1"), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, Messages.getString("ProjectOpenController.0"), Messages
+                    .getString("ProjectOpenController.1"), JOptionPane.ERROR_MESSAGE);
         } else {
 
             /* gives the user a hint, that he has selected too much projects */
-            // INTERNATIONALIZE
-            JOptionPane.showMessageDialog(null, Messages.getString("ProjectOpenController.2"),
-                    Messages.getString("ProjectOpenController.3"), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, Messages.getString("ProjectOpenController.2"), Messages
+                    .getString("ProjectOpenController.3"), JOptionPane.ERROR_MESSAGE);
 
         }
     }
