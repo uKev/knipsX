@@ -11,6 +11,8 @@ import java.awt.event.MouseListener;
 import javax.swing.JList;
 
 import org.knipsX.controller.AbstractController;
+import org.knipsX.controller.worker.InitializePictureDataWorker;
+import org.knipsX.controller.worker.InitializePictureThumbnailWorker;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectmanagement.JProjectManagement;
@@ -61,9 +63,14 @@ public class ProjectClickOnController<M extends ProjectManagementModel, V extend
                 int index = theList.locationToIndex(mouseEvent.getPoint());
                 if (index >= 0) {
                     Object o = theList.getModel().getElementAt(index);
-                    model.setStatus(ProjectManagementModel.INACTIVE);
-
-                    new JProjectView<ProjectModel>((ProjectModel) o);
+                    this.model.setStatus(ProjectManagementModel.INACTIVE);
+                    ProjectModel projectModel = (ProjectModel) o;
+                    projectModel.initialize();
+                    
+                    new JProjectView<ProjectModel>(projectModel);
+                    
+                    new InitializePictureDataWorker(projectModel).execute();
+                    new InitializePictureThumbnailWorker(projectModel).execute();
                 }
             }
         }

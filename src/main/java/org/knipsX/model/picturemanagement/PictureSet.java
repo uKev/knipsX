@@ -46,13 +46,6 @@ public class PictureSet implements PictureContainer {
     }
 
     /**
-     * Resets the iterator.
-     */
-    public void resetIterator() {
-        this.currentChild = 0;
-    }
-
-    /**
      * Returns the name of the pictureset
      * 
      * @return the name

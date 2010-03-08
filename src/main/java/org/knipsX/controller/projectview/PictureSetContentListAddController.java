@@ -6,6 +6,8 @@ import java.io.File;
 import javax.swing.JOptionPane;
 
 import org.knipsX.controller.AbstractController;
+import org.knipsX.controller.worker.InitializePictureDataWorker;
+import org.knipsX.controller.worker.InitializePictureThumbnailWorker;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
@@ -57,13 +59,16 @@ public class PictureSetContentListAddController<M extends ProjectModel, V extend
                         newContent = new Picture(file, true);
                     }
                     this.model.addContentToPictureSet(pictureSet, newContent);
+                    
+                    new InitializePictureDataWorker(this.model).execute();
+                    new InitializePictureThumbnailWorker(this.model).execute();
                 }
             }
         } else {
 
             /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(this.view, Messages.getString("PictureSetContentListAddController.0"), //$NON-NLS-1$
-                    Messages.getString("PictureSetContentListAddController.1"), JOptionPane.INFORMATION_MESSAGE); //$NON-NLS-1$
+            JOptionPane.showMessageDialog(this.view, Messages.getString("PictureSetContentListAddController.0"),
+                    Messages.getString("PictureSetContentListAddController.1"), JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

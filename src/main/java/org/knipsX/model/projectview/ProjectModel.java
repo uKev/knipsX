@@ -8,8 +8,6 @@ import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
 import org.knipsX.model.AbstractModel;
@@ -56,13 +54,8 @@ public class ProjectModel extends AbstractModel {
     private final List<PictureSet> pictureSetList;
     private final List<AbstractReportModel> reportList;
 
-    private final ExecutorService threadPool = Executors.newCachedThreadPool();
-
     private final ConcurrentLinkedQueue<PictureInterface> pictureDataQueue = new ConcurrentLinkedQueue<PictureInterface>();
     private final ConcurrentLinkedQueue<PictureInterface> pictureThumbnailQueue = new ConcurrentLinkedQueue<PictureInterface>();
-
-    private List<InitializePictureDataThread> initializePictureDataWorkers;
-    private List<InitializePictureThumbnailThread> initializePictureThumbnailWorkers;
 
     private final Logger logger = Logger.getLogger(this.getClass());
 
@@ -203,10 +196,10 @@ public class ProjectModel extends AbstractModel {
 
         /* INTERNATIONALIZE */
         for (final ExifParameter parameter : ExifParameter.values()) {
-            exifParameter.add(new Object[] { parameter.toString(), Messages.getString("ProjectModel.0") }); //$NON-NLS-1$
+            exifParameter.add(new Object[] { parameter.toString(), Messages.getString("ProjectModel.0") });
         }
-        return exifParameter.toArray(new Object[][] { new Object[] {
-                Messages.getString("ProjectModel.1"), Messages.getString("ProjectModel.2") } }); //$NON-NLS-1$ //$NON-NLS-2$
+        return exifParameter.toArray(new Object[][] { new Object[] { Messages.getString("ProjectModel.1"),
+                Messages.getString("ProjectModel.2") } });
     }
 
     /**
@@ -233,11 +226,11 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return the amount of pictures.
      */
-    public int getNumberOfPictures() {
+    public synchronized int getNumberOfPictures() {
         int numberOfPictures = 0;
 
         for (final PictureSet set : this.pictureSetList) {
-            set.resetIterator();
+
             for (@SuppressWarnings("unused")
             final PictureInterface picture : set) {
                 numberOfPictures++;
@@ -247,11 +240,11 @@ public class ProjectModel extends AbstractModel {
     }
 
     /**
-     * Get the amount of the pictures with no exif data.
+     * Get the amount of the pictures with no thumbnail.
      * 
      * @return the amount of pictures.
      */
-    public int getNumberOfPicturesWithoutExifData() {
+    public int getNumberOfDataPicturesToProcess() {
         return this.pictureDataQueue.size();
     }
 
@@ -260,8 +253,36 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return the amount of pictures.
      */
-    public int getNumberOfPicturesWithoutThumbails() {
+    public int getNumberOfThumbnailPicturesToProcess() {
         return this.pictureThumbnailQueue.size();
+    }
+
+    public void getDataForNextPicture() throws NullPointerException {
+        if (this.pictureDataQueue.isEmpty()) {
+            throw new NullPointerException("Kein Bild in Data Queue!");
+        }
+        PictureInterface pic = this.pictureDataQueue.remove();
+        pic.getAllExifParameter();
+    }
+
+    private int numberOfPicturesFinished = 0;
+
+    public void getThumbnailForNextPicture() throws NullPointerException {
+        if (this.pictureThumbnailQueue.isEmpty()) {
+            throw new NullPointerException("Kein Bild in Thumbnail Queue!");
+        }
+        PictureInterface pic = this.pictureThumbnailQueue.remove();
+        pic.initThumbnails();
+        if (numberOfPicturesFinished == 5) {
+            this.updateViews();
+            numberOfPicturesFinished = 0;
+        } else {
+            numberOfPicturesFinished++;
+            if(this.pictureThumbnailQueue.isEmpty()) {
+                this.updateViews();
+                numberOfPicturesFinished = 0;
+            }            
+        }
     }
 
     /*
@@ -270,71 +291,19 @@ public class ProjectModel extends AbstractModel {
      * ################################################################################################################
      */
 
+    public void initialize() {
+        for (PictureInterface pic : this.getAllPictures()) {
+            this.pictureDataQueue.add(pic);
+            this.pictureThumbnailQueue.add(pic);
+        }
+    }
+
     /*
      * ################################################################################################################
      * -- THE MODEL THEMSELF
      * ################################################################################################################
      */
 
-    /**
-     * Initialy load the data.
-     */
-    public void loadData() {
-        if (this.initializePictureDataWorkers == null) {
-            int numberOfThreads = Runtime.getRuntime().availableProcessors() - 1;
-
-            if (numberOfThreads == 0) {
-                numberOfThreads = 1;
-            }
-
-            this.initializePictureDataWorkers = new LinkedList<InitializePictureDataThread>();
-            for (int i = 0; i < numberOfThreads; ++i) {
-                final InitializePictureDataThread newThread = new InitializePictureDataThread();
-                newThread.setPriority(Thread.MIN_PRIORITY);
-                this.initializePictureDataWorkers.add(newThread);
-            }
-        }
-
-        if (this.initializePictureThumbnailWorkers == null) {
-            int numberOfThreads = Runtime.getRuntime().availableProcessors() - 1;
-
-            if (numberOfThreads == 0) {
-                numberOfThreads = 1;
-            }
-
-            this.initializePictureThumbnailWorkers = new LinkedList<InitializePictureThumbnailThread>();
-            for (int i = 0; i < numberOfThreads; ++i) {
-                final InitializePictureThumbnailThread newThread = new InitializePictureThumbnailThread();
-                newThread.setPriority(Thread.MIN_PRIORITY);
-                this.initializePictureThumbnailWorkers.add(newThread);
-            }
-        }
-
-        /* Fill the queues */
-        for (final Picture pic : this.getAllPictures()) {
-            this.pictureDataQueue.add(pic);
-            this.pictureThumbnailQueue.add(pic);
-        }
-
-        /* Start both workers */
-       this.startAllWorkers();
-    }
-
-    private void startAllWorkers() {
-        for (final InitializePictureDataThread worker : this.initializePictureDataWorkers) {
-            this.threadPool.execute(worker);
-        }
-        
-        for (final InitializePictureThumbnailThread worker : this.initializePictureThumbnailWorkers) {
-            this.threadPool.execute(worker);
-        }        
-    }
-    
-    private void stopAllWorkers() {
-        this.threadPool.shutdownNow();
-        this.threadPool.shutdownNow();
-    }
-    
     /**
      * Save the model.
      */
@@ -394,21 +363,18 @@ public class ProjectModel extends AbstractModel {
         final boolean isRemoved = this.pictureSetList.remove(pictureSet);
 
         if (isRemoved) {
-            
-            /* First stop all */
-            this.stopAllWorkers();
-            
+
             if (this.pictureSetList.size() <= 0) {
 
                 /* kill internal references and the queues */
                 this.selectedPicture = null;
                 this.selectedPictureSet = null;
                 this.selectedPictureSetContent = null;
-                                
+
                 this.pictureDataQueue.clear();
                 this.pictureThumbnailQueue.clear();
             } else {
-                
+
                 /* Remove the pictures of the container from the queue */
                 for (final PictureInterface pic : pictureSet) {
                     this.pictureDataQueue.remove(pic);
@@ -417,9 +383,6 @@ public class ProjectModel extends AbstractModel {
                 this.selectedPictureSet = this.pictureSetList.get(0);
             }
             this.updateViews();
-            
-            /* Lastly start all */
-            this.startAllWorkers();
         }
         return isRemoved;
     }
@@ -580,10 +543,7 @@ public class ProjectModel extends AbstractModel {
         final boolean isRemoved = set.remove(container);
 
         if (isRemoved) {
-            
-            /* First stop all */
-            this.stopAllWorkers();
-            
+
             /* Remove the pictures of the container from the queue */
             for (final PictureInterface pic : container) {
                 this.pictureDataQueue.remove(pic);
@@ -594,9 +554,6 @@ public class ProjectModel extends AbstractModel {
                 this.selectedPictureSetContent = null;
             }
             this.updateViews();
-            
-            /* Lastly start all */
-            this.startAllWorkers();
         }
         return isRemoved;
     }
@@ -656,7 +613,6 @@ public class ProjectModel extends AbstractModel {
                 pictures.add(picture);
             }
         } else if (this.getSelectedPictureSet() != null) {
-            this.getSelectedPictureSet().resetIterator();
             for (final PictureInterface picture : this.getSelectedPictureSet()) {
                 pictures.add(picture);
             }
@@ -755,64 +711,5 @@ public class ProjectModel extends AbstractModel {
      */
     public AbstractReportModel[] getReports() {
         return this.reportList.toArray(new AbstractReportModel[] {});
-    }
-
-    /*
-     * ################################################################################################################
-     * NESTED CLASSES
-     * ################################################################################################################
-     */
-
-    private class InitializePictureDataThread extends Thread {
-
-        @Override
-        public void run() {
-            while (true) {
-                while (!ProjectModel.this.pictureDataQueue.isEmpty()) {
-                    final PictureInterface pic = ProjectModel.this.pictureDataQueue.remove();
-                    pic.getAllExifParameter();
-                }
-                try {
-                    Thread.sleep(10000);
-                } catch (final InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    private class InitializePictureThumbnailThread extends Thread {
-
-        private int numberOfImagesInitialized = 0;
-
-        @Override
-        public void run() {
-            while (true) {
-                while (!ProjectModel.this.pictureThumbnailQueue.isEmpty()) {
-
-                    final PictureInterface pic = ProjectModel.this.pictureThumbnailQueue.remove();
-
-                    if (pic.initThumbnails()) {
-                        this.numberOfImagesInitialized++;
-                    }
-
-                    if (this.numberOfImagesInitialized == 1) {
-                        this.numberOfImagesInitialized = 0;
-                        ProjectModel.this.updateViews();
-                    }
-                }
-                try {
-                    if (this.numberOfImagesInitialized > 0) {
-                        this.numberOfImagesInitialized = 0;
-                        ProjectModel.this.updateViews();
-                    }
-                    Thread.sleep(10000);
-                } catch (final InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 }

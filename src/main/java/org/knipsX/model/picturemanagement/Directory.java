@@ -5,6 +5,7 @@ package org.knipsX.model.picturemanagement;
 
 /* import classes from the java sdk */
 import java.io.File;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
 public class Directory implements PictureContainer {
 
     /* List of all pictures you can find in this directory inclusive all subdirectories */
-    private final List<Picture> pictures = new LinkedList<Picture>();
+    private final List<Picture> pictures = Collections.synchronizedList(new LinkedList<Picture>());
 
     /* The current position in the pictures list */
     private int currentPosition;

@@ -7,6 +7,8 @@ package org.knipsX.controller.projectmanagement;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import org.knipsX.controller.AbstractController;
+import org.knipsX.controller.worker.InitializePictureDataWorker;
+import org.knipsX.controller.worker.InitializePictureThumbnailWorker;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectmanagement.JProjectManagement;
@@ -48,21 +50,25 @@ public class ProjectOpenController<M extends ProjectManagementModel, V extends J
         /* only one project can opened */
         if (toOpen.length == 1) {
             ProjectModel projectModel = this.model.getProject(toOpen[0]);
-            model.setStatus(ProjectManagementModel.INACTIVE);
-
+            this.model.setStatus(ProjectManagementModel.INACTIVE);
+            projectModel.initialize();
+            
             new JProjectView<ProjectModel>(projectModel);
+            
+            new InitializePictureDataWorker(projectModel).execute();
+            new InitializePictureThumbnailWorker(projectModel).execute();
         } else if (toOpen.length == 0) {
 
             /* gives the user a hint, that he has selected no projects */
             // INTERNATIONALIZE
-            JOptionPane.showMessageDialog(null, Messages.getString("ProjectOpenController.0"), //$NON-NLS-1$
-                    Messages.getString("ProjectOpenController.1"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+            JOptionPane.showMessageDialog(null, Messages.getString("ProjectOpenController.0"),
+                    Messages.getString("ProjectOpenController.1"), JOptionPane.ERROR_MESSAGE);
         } else {
 
             /* gives the user a hint, that he has selected too much projects */
             // INTERNATIONALIZE
-            JOptionPane.showMessageDialog(null, Messages.getString("ProjectOpenController.2"), //$NON-NLS-1$
-                    Messages.getString("ProjectOpenController.3"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+            JOptionPane.showMessageDialog(null, Messages.getString("ProjectOpenController.2"),
+                    Messages.getString("ProjectOpenController.3"), JOptionPane.ERROR_MESSAGE);
 
         }
     }
