@@ -118,6 +118,8 @@ public class JDiagramType extends JAbstractSinglePanel {
             final Component diagramView = ReportHelper.getCurrentReport().getDiagramView();
             diagramView.setPreferredSize(new Dimension(300, 150));
             rightpanel.add(diagramView);
+            /* Add a spacer to relax the layout */
+            rightpanel.add(Box.createRigidArea(new Dimension(0, 20)));
         } catch (final UnsatisfiedLinkError linkError) {
             // TODO only catch java 3D link error
             this.java3DInstalled = false;
@@ -301,7 +303,6 @@ public class JDiagramType extends JAbstractSinglePanel {
         if (this.java3DInstalled) {
             this.diagramPreviewErrorLabel.setText(Messages.getString("JDiagramType.1"));
             this.diagramPreviewErrorLabel.setIcon(null);
-            this.diagramPreviewErrorLabel.setText(null);
             return true;
         } else {
             try {
