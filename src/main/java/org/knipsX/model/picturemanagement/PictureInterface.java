@@ -2,7 +2,6 @@ package org.knipsX.model.picturemanagement;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -109,7 +108,7 @@ public interface PictureInterface extends PictureContainer {
      * @return true if a picture contains at least one keyword.
      *         It returns also true if filterKeywordsArrayList is empty and contains no keyword.
      */
-    boolean hasMinOneKeywordOf(final ArrayList<String> filterKeywords);
+    boolean hasMinOneKeywordOf(final List<String> filterKeywords);
 
     /**
      * Checks if the picture contains all keywords of the given list. Also return true if the keyword list is empty.

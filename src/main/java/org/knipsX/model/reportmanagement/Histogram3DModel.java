@@ -74,8 +74,8 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
                         boolean pictureValid = true;
 
-                        final ExifParameter xParameter = this.getxAxis().getParameter();
-                        final ExifParameter zParameter = this.getzAxis().getParameter();
+                        final ExifParameter xParameter = this.getXAxis().getParameter();
+                        final ExifParameter zParameter = this.getZAxis().getParameter();
 
                         final Object xValueObject = picture.getExifParameter(xParameter);
                         final Object zValueObject = picture.getExifParameter(zParameter);
@@ -195,8 +195,8 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         }
 
         final ArrayList<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
-        exifParameters.add(this.getxAxis().getParameter());
-        exifParameters.add(this.getzAxis().getParameter());
+        exifParameters.add(this.getXAxis().getParameter());
+        exifParameters.add(this.getZAxis().getParameter());
         final int pictureCount = Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters);
 
         if (pictureCount != count) {
@@ -225,13 +225,13 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         this.minZ = Double.MAX_VALUE;
 
         final ArrayList<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
-        exifParameters.add(this.getxAxis().getParameter());
-        exifParameters.add(this.getzAxis().getParameter());
+        exifParameters.add(this.getXAxis().getParameter());
+        exifParameters.add(this.getZAxis().getParameter());
 
         for (final PictureInterface picture : Validator.getValidPictures(this.getPictureContainer(), exifParameters)) {
 
-            final Object xParameter = picture.getExifParameter(this.getxAxis().getParameter());
-            final Object zParameter = picture.getExifParameter(this.getzAxis().getParameter());
+            final Object xParameter = picture.getExifParameter(this.getXAxis().getParameter());
+            final Object zParameter = picture.getExifParameter(this.getZAxis().getParameter());
 
             // TWEAK: allow other types than double and int
 
@@ -263,8 +263,8 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         int pictureCount = 0;
 
         final ArrayList<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
-        exifParameters.add(this.getxAxis().getParameter());
-        exifParameters.add(this.getzAxis().getParameter());
+        exifParameters.add(this.getXAxis().getParameter());
+        exifParameters.add(this.getZAxis().getParameter());
 
         pictureCount = Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters);
 

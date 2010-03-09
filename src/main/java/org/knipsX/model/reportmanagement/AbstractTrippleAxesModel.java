@@ -13,7 +13,7 @@ import org.knipsX.model.picturemanagement.PictureContainer;
  */
 public abstract class AbstractTrippleAxesModel extends AbstractDoubleAxesModel {
 
-    // needs to be protected because it's used in subclass
+    /* needs to be protected because it's used in subclass */
     protected Axis yAxis;
 
     /**
@@ -27,36 +27,37 @@ public abstract class AbstractTrippleAxesModel extends AbstractDoubleAxesModel {
      * Constructor with all parameters needed for the model.
      * 
      * @param pictureContainer
-     *            a List of pictureContainer for the report
+     *            a List of pictureContainer for the report.
      * @param xAxis
-     *            the xAxis
+     *            the xAxis.
      * @param zAxis
-     *            the zAxis
+     *            the zAxis.
      * @param yAxis
-     *            the yAxis
+     *            the yAxis.
      */
     public AbstractTrippleAxesModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis,
             final Axis zAxis, final Axis yAxis) {
         super(pictureContainer, xAxis, zAxis);
+
         this.yAxis = yAxis;
-        // TODO Auto-generated constructor stub
     }
 
     /**
-     * Getter for the y axis
+     * Getter for the y-axis.
      * 
-     * @return the y axis of the model
+     * @return the y-axis of the model.
      */
-    public Axis getyAxis() {
+    public Axis getYAxis() {
         return this.yAxis;
     }
 
     /**
-     * Setter for the y axis
+     * Setter for the y-axis.
      * 
-     * @param yAxis the y axis of the model
+     * @param yAxis
+     *            the y-axis of the model.
      */
-    public void setyAxis(final Axis yAxis) {
+    public void setYAxis(final Axis yAxis) {
         this.yAxis = yAxis;
     }
 }

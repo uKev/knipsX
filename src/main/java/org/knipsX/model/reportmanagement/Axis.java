@@ -11,68 +11,68 @@ import org.knipsX.utils.ExifParameter;
  */
 public class Axis {
 
-    private String description;
     private ExifParameter parameter;
 
+    private String description;
+
     /**
-     * Constructor with exif parameter
+     * Constructor with exif parameter.
      * 
      * @param parameter
-     *            the exif-parameter which will be evaluated for the axis
+     *            the exif-parameter which will be evaluated for the axis.
      */
     public Axis(final ExifParameter parameter) {
-        super();
-        this.description = parameter.toString();
-        this.parameter = parameter;
+        this(parameter.toString(), parameter);
     }
 
     /**
      * Constructor with all parameters for an axis.
      * 
      * @param description
-     *            text for the axis
+     *            text for the axis.
      * @param parameter
-     *            the exif-parameter which will be evaluated for the axis
+     *            the exif-parameter which will be evaluated for the axis.
      */
     public Axis(final String description, final ExifParameter parameter) {
         super();
-        this.description = description;
+
         this.parameter = parameter;
+        this.description = description;
     }
 
     /**
      * Getter for the description of the exif paramater in this axis.
      * 
-     * @return the description of the exif parameter
+     * @return the description of the exif parameter.
      */
     public String getDescription() {
         return this.description;
     }
 
     /**
-     * Getter for the ExifParameter
+     * Getter for the ExifParameter.
      * 
-     * @return ExifParameter
+     * @return ExifParameter.
      */
     public ExifParameter getParameter() {
         return this.parameter;
     }
 
     /**
-     * Changes the description of the exif parameter
+     * Changes the description of the exif parameter.
      * 
      * @param description
-     *            description of the exif parameter
+     *            description of the exif parameter.
      */
     public void setDescription(final String description) {
         this.description = description;
     }
 
     /**
-     * Changes the parameter of type ExifParameter
+     * Changes the parameter of type ExifParameter.
      * 
      * @param parameter
-     *            prameter of type ExifParameter
+     *            prameter of type ExifParameter.
      */
     public void setParameter(final ExifParameter parameter) {
         this.parameter = parameter;

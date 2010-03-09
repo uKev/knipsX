@@ -49,7 +49,7 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
         if (this.model != null && this.model.isModelValid()) {
 
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
-            this.getyAxis().setAxis(this.model.getxAxis());           
+            this.getyAxis().setAxis(this.model.getXAxis());           
 
             boxplots = new Boxplot[this.model.getBoxplots().size()];
             this.model.getBoxplots().toArray(boxplots);

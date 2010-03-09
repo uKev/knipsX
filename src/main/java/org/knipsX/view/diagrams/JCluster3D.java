@@ -64,21 +64,21 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
 
             /* setup y axis */
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
-            this.getyAxis().setAxis(this.model.getyAxis());
+            this.getyAxis().setAxis(this.model.getYAxis());
 
             this.logger.debug(Messages.getString("JCluster3D.1") + this.model.getMinY()
                     + Messages.getString("JCluster3D.2") + this.model.getMaxY());
 
             /* setup x axis */
             this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
-            this.getxAxis().setAxis(this.model.getxAxis());
+            this.getxAxis().setAxis(this.model.getXAxis());
 
             this.logger.debug(Messages.getString("JCluster3D.3") + this.model.getMinX()
                     + Messages.getString("JCluster3D.4") + this.model.getMaxX());
 
             /* setup z axis */
             this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
-            this.getzAxis().setAxis(this.model.getzAxis());
+            this.getzAxis().setAxis(this.model.getZAxis());
 
             this.logger.debug(Messages.getString("JCluster3D.5") + this.model.getMinZ()
                     + Messages.getString("JCluster3D.6") + this.model.getMaxZ());

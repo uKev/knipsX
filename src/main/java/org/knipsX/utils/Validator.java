@@ -2,6 +2,7 @@ package org.knipsX.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureInterface;
@@ -21,10 +22,10 @@ public final class Validator {
      *            an ArrayList of exifParameters that will be checked in the pictures
      * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
      */
-    public static ArrayList<PictureInterface> getValidPictures(final ArrayList<PictureContainer> pictureContainers,
-            final ArrayList<ExifParameter> exifParameters) {
+    public static List<PictureInterface> getValidPictures(final List<PictureContainer> pictureContainers,
+            final List<ExifParameter> exifParameters) {
 
-        final ArrayList<PictureInterface> validPictures = new ArrayList<PictureInterface>();
+        final List<PictureInterface> validPictures = new ArrayList<PictureInterface>();
         boolean valid = false;
 
         for (final PictureContainer pictureContainer : pictureContainers) {
@@ -54,7 +55,7 @@ public final class Validator {
      *            an exifParameters that will be checked in the pictures
      * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
      */
-    public static ArrayList<PictureInterface> getValidPictures(final ArrayList<PictureContainer> pictureContainers,
+    public static List<PictureInterface> getValidPictures(final List<PictureContainer> pictureContainers,
             final ExifParameter exifParameters) {
 
         return Validator.getValidPictures(pictureContainers, new ExifParameter[] { exifParameters });
@@ -69,7 +70,7 @@ public final class Validator {
      *            an exifParameters that will be checked in the pictures
      * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
      */
-    public static ArrayList<PictureInterface> getValidPictures(final PictureContainer pictures,
+    public static List<PictureInterface> getValidPictures(final PictureContainer pictures,
             final ExifParameter exifParameter) {
         return Validator.getValidPictures(new PictureContainer[] { pictures }, exifParameter);
     }
@@ -83,7 +84,7 @@ public final class Validator {
      *            an exifParameters that will be checked in the pictures
      * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
      */
-    private static ArrayList<PictureInterface> getValidPictures(final PictureContainer[] pictureContainers,
+    private static List<PictureInterface> getValidPictures(final PictureContainer[] pictureContainers,
             final ExifParameter exifParameter) {
         return Validator.getValidPictures(new ArrayList<PictureContainer>(Arrays.asList(pictureContainers)),
                 exifParameter);
@@ -98,7 +99,7 @@ public final class Validator {
      *            an array of exifParameters that will be checked in the pictures
      * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
      */
-    public static ArrayList<PictureInterface> getValidPictures(final ArrayList<PictureContainer> pictureContainers,
+    public static List<PictureInterface> getValidPictures(final List<PictureContainer> pictureContainers,
             final ExifParameter[] exifParameters) {
 
         return Validator.getValidPictures(pictureContainers,
@@ -118,8 +119,8 @@ public final class Validator {
      *            an ArrayList of keywords. All return pictures contain at least one picture keyword.
      * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
      */
-    public static ArrayList<PictureInterface> getValidPictures(final PictureContainer pictureContainer,
-            final ArrayList<ExifParameter> exifParameters, final ArrayList<String> filterKeywords) {
+    public static List<PictureInterface> getValidPictures(final PictureContainer pictureContainer,
+            final List<ExifParameter> exifParameters, final List<String> filterKeywords) {
         return Validator.getValidPictures(new ArrayList<PictureContainer>(Arrays
                 .asList(new PictureContainer[] { pictureContainer })), exifParameters, filterKeywords);
     }
@@ -137,10 +138,10 @@ public final class Validator {
      *            an ArrayList of keywords. All return pictures contain at least one picture keyword.
      * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
      */
-    public static ArrayList<PictureInterface> getValidPictures(final ArrayList<PictureContainer> pictureContainers,
-            final ArrayList<ExifParameter> exifParameters, final ArrayList<String> filterKeywords) {
+    public static List<PictureInterface> getValidPictures(final List<PictureContainer> pictureContainers,
+            final List<ExifParameter> exifParameters, final List<String> filterKeywords) {
 
-        final ArrayList<PictureInterface> validPictures = new ArrayList<PictureInterface>();
+        final List<PictureInterface> validPictures = new ArrayList<PictureInterface>();
         boolean valid = false;
 
         for (final PictureContainer pictureContainer : pictureContainers) {
@@ -178,8 +179,8 @@ public final class Validator {
      *            an ArrayList of keywords. All return pictures contain at least one picture keyword.
      * @return an ArrayList of valid pictures. In All valid pictures all checked exifParameters are not *null*.
      */
-    public static ArrayList<PictureInterface> getValidPictures(final ArrayList<PictureContainer> pictureContainer,
-            final ExifParameter parameter, final ArrayList<String> filterKeywords) {
+    public static List<PictureInterface> getValidPictures(final List<PictureContainer> pictureContainer,
+            final ExifParameter parameter, final List<String> filterKeywords) {
 
         return Validator.getValidPictures(pictureContainer, new ArrayList<ExifParameter>(Arrays
                 .asList(new ExifParameter[] { parameter })), filterKeywords);
@@ -197,8 +198,8 @@ public final class Validator {
      *            sth
      * @return sth
      */
-    public static ArrayList<PictureInterface> getValidPictures(final PictureContainer pictures,
-            final ExifParameter exifParameter, final ArrayList<String> filterKeywords) {
+    public static List<PictureInterface> getValidPictures(final PictureContainer pictures,
+            final ExifParameter exifParameter, final List<String> filterKeywords) {
         return Validator.getValidPictures(new ArrayList<PictureContainer>(Arrays
                 .asList(new PictureContainer[] { pictures })), exifParameter, filterKeywords);
     }
@@ -212,8 +213,8 @@ public final class Validator {
      *            an ArrayList of Exif-Parameters that should be checked in the pictures.
      * @return the number of valid pictures.
      */
-    public static int getValidPicturesCount(final ArrayList<PictureContainer> pictureContainers,
-            final ArrayList<ExifParameter> exifParameters) {
+    public static int getValidPicturesCount(final List<PictureContainer> pictureContainers,
+            final List<ExifParameter> exifParameters) {
         return Validator.getValidPictures(pictureContainers, exifParameters).size();
     }
 
@@ -226,7 +227,7 @@ public final class Validator {
      *            a Exif-Parameter that should be checked in the pictures.
      * @return the number of valid pictures.
      */
-    public static int getValidPicturesCount(final ArrayList<PictureContainer> pictureContainers,
+    public static int getValidPicturesCount(final List<PictureContainer> pictureContainers,
             final ExifParameter exifParameter) {
         return Validator.getValidPicturesCount(pictureContainers, new ExifParameter[] { exifParameter });
     }
@@ -240,7 +241,7 @@ public final class Validator {
      *            an array Exif-Parameters that should be checked in the pictures.
      * @return the number of valid pictures.
      */
-    public static int getValidPicturesCount(final ArrayList<PictureContainer> pictureContainers,
+    public static int getValidPicturesCount(final List<PictureContainer> pictureContainers,
             final ExifParameter[] exifParameters) {
         return Validator.getValidPicturesCount(pictureContainers, new ArrayList<ExifParameter>(Arrays
                 .asList(exifParameters)));

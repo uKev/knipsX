@@ -81,7 +81,7 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
 
                     boolean pictureValid = true;
 
-                    final ExifParameter xParameter = this.getxAxis().getParameter();
+                    final ExifParameter xParameter = this.getXAxis().getParameter();
 
                     final Object xValueObject = picture.getExifParameter(xParameter);
 
@@ -169,7 +169,7 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
             this.log.error(" this.maxX != this.getMaxX() :" + this.maxX + " != " + this.getMaxX());
         }
 
-        final int pictureCount = Validator.getValidPicturesCount(this.getPictureContainer(), this.getxAxis().getParameter());
+        final int pictureCount = Validator.getValidPicturesCount(this.getPictureContainer(), this.getXAxis().getParameter());
 
         if (pictureCount != count) {
 
@@ -204,10 +204,10 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
          * Find the biggest and smallest value on all valid pictures.
          * It is needed e.g. for scaling the categories.
          */
-        for (final PictureInterface picture : Validator.getValidPictures(this.getPictureContainer(), this.getxAxis()
+        for (final PictureInterface picture : Validator.getValidPictures(this.getPictureContainer(), this.getXAxis()
                 .getParameter())) {
 
-            final Object xParameter = picture.getExifParameter(this.getxAxis().getParameter());
+            final Object xParameter = picture.getExifParameter(this.getXAxis().getParameter());
 
             // TWEAK: allow other types than double and int
 
@@ -230,7 +230,7 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
 
         int pictureCount = 0;
 
-        pictureCount = Validator.getValidPicturesCount(this.getPictureContainer(), this.getxAxis().getParameter());
+        pictureCount = Validator.getValidPicturesCount(this.getPictureContainer(), this.getXAxis().getParameter());
 
         /*
          * Reduce the number of categories if we have only a few pictures
@@ -310,7 +310,7 @@ public class Histogram2DModel extends AbstractSingleAxisModel {
             return false;
         }
 
-        if (Validator.getValidPicturesCount(this.getPictureContainer(), this.getxAxis().getParameter()) == 0) {
+        if (Validator.getValidPicturesCount(this.getPictureContainer(), this.getXAxis().getParameter()) == 0) {
             logger.info("getValidPicturesCount == 0");
             return false;
         }

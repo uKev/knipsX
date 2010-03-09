@@ -16,6 +16,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
@@ -985,7 +986,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      * @param pictureContainer
      *            the picture container you want to create a legend upon
      */
-    protected void createLegend(final ArrayList<PictureContainer> pictureContainer) {
+    protected void createLegend(final List<PictureContainer> pictureContainer) {
         this.rightPanel = new JPanel();
         this.rightPanel.setLayout(new BoxLayout(this.rightPanel, BoxLayout.PAGE_AXIS));
         this.rightPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));

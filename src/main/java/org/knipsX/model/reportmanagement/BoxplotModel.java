@@ -1,6 +1,7 @@
 package org.knipsX.model.reportmanagement;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.PictureContainer;
@@ -15,7 +16,7 @@ import org.knipsX.utils.Validator;
  */
 public class BoxplotModel extends AbstractSingleAxisModel {
 
-    private final ArrayList<Boxplot> boxplots;
+    private final List<Boxplot> boxplots;
 
     private WilcoxonTest wilcoxonTest = new WilcoxonTest();
 
@@ -96,7 +97,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      * 
      * @return boxplots
      */
-    public ArrayList<Boxplot> getBoxplots() {
+    public List<Boxplot> getBoxplots() {
         this.calculateIfRequired();
         return this.boxplots;
     }
@@ -119,7 +120,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      *            the xAxis for the boxplot model
      */
     @Override
-    public void setxAxis(final Axis xAxis) {
+    public void setXAxis(final Axis xAxis) {
         this.dataIsCalculated(false);
         this.xAxis = xAxis;
     }

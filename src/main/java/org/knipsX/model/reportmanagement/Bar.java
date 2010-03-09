@@ -1,6 +1,7 @@
 package org.knipsX.model.reportmanagement;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureInterface;
@@ -16,16 +17,17 @@ public class Bar {
 
     private final PictureContainer pictureContainer;
 
-    private final ArrayList<PictureInterface> pictures = new ArrayList<PictureInterface>();
+    private final List<PictureInterface> pictures = new ArrayList<PictureInterface>();
 
     /**
-     * Constructor for the bar with pictureContainer argument
+     * Constructor for the bar with pictureContainer argument.
      * 
      * @param pictureContainer
      *            the picture containter of the bar which is associated with the original images in this bar.
      */
     public Bar(final PictureContainer pictureContainer) {
         super();
+
         this.pictureContainer = pictureContainer;
     }
 
@@ -63,8 +65,7 @@ public class Bar {
      * 
      * @return all pictures which are represented by this bar.
      */
-    public ArrayList<PictureInterface> getPictures() {
+    public List<PictureInterface> getPictures() {
         return this.pictures;
     }
-
 }

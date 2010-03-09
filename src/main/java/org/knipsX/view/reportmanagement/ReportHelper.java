@@ -69,7 +69,7 @@ public enum ReportHelper {
         public Component getDiagramView() {
             BoxplotModel boxplotModel = new BoxplotModel();
             boxplotModel.setPictureContainer(getDummyPictureSet());
-            boxplotModel.setxAxis(new Axis(ExifParameter.EXPOSURETIME));            
+            boxplotModel.setXAxis(new Axis(ExifParameter.EXPOSURETIME));            
             return new JBoxplot<BoxplotModel>(boxplotModel, -1).getDiagram();
         };
 
@@ -121,7 +121,7 @@ public enum ReportHelper {
         public Component getDiagramView() {
             Histogram2DModel histogram2DModel = new Histogram2DModel();            
             histogram2DModel.setPictureContainer(getDummyPictureSet());
-            histogram2DModel.setxAxis(new Axis(ExifParameter.EXPOSURETIME));            
+            histogram2DModel.setXAxis(new Axis(ExifParameter.EXPOSURETIME));            
             return new JHistogram2D<Histogram2DModel>(histogram2DModel, -1).getDiagram();
         };
 
@@ -174,8 +174,8 @@ public enum ReportHelper {
         public Component getDiagramView() {
             Histogram3DModel histogram3DModel = new Histogram3DModel();            
             histogram3DModel.setPictureContainer(getDummyPictureSet());
-            histogram3DModel.setxAxis(new Axis(ExifParameter.DATE));
-            histogram3DModel.setzAxis(new Axis(ExifParameter.EXPOSURETIME));  
+            histogram3DModel.setXAxis(new Axis(ExifParameter.DATE));
+            histogram3DModel.setZAxis(new Axis(ExifParameter.EXPOSURETIME));  
             return new JHistogram3D<Histogram3DModel>(histogram3DModel, -1).getDiagram();
         };
 
@@ -229,9 +229,9 @@ public enum ReportHelper {
         public Component getDiagramView() {
             Cluster3DModel cluster3DModel = new Cluster3DModel();            
             cluster3DModel.setPictureContainer(getDummyPictureSet());
-            cluster3DModel.setxAxis(new Axis(ExifParameter.EXPOSURETIME));
-            cluster3DModel.setzAxis(new Axis(ExifParameter.EXPOSURETIME));
-            cluster3DModel.setyAxis(new Axis(ExifParameter.DATE));
+            cluster3DModel.setXAxis(new Axis(ExifParameter.EXPOSURETIME));
+            cluster3DModel.setZAxis(new Axis(ExifParameter.EXPOSURETIME));
+            cluster3DModel.setYAxis(new Axis(ExifParameter.DATE));
             return new JCluster3D<Cluster3DModel>(cluster3DModel, -1).getDiagram();
         };
 

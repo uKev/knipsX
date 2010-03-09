@@ -2,6 +2,7 @@ package org.knipsX.model.reportmanagement;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.PictureContainer;
@@ -21,53 +22,55 @@ import org.knipsX.utils.Validator;
  */
 public class Boxplot {
 
+    private final Logger logger = Logger.getLogger(this.getClass());
+
+    private List<Double> outlier = new ArrayList<Double>();
+
+    private String pictureSetName;
+
     private double mean = Double.MIN_VALUE;
     private double median = Double.MIN_VALUE;
     private double upperQuartile = Double.MIN_VALUE;
     private double lowerQuartile = Double.MIN_VALUE;
     private double upperWhisker = Double.MIN_VALUE;
     private double lowerWhisker = Double.MIN_VALUE;
-    private ArrayList<Double> outlier = new ArrayList<Double>();
     private double maxValue = Double.MIN_VALUE;
     private double minValue = Double.MAX_VALUE;
-    Logger log = Logger.getLogger(this.getClass());
-
-    private String pictureSetName;
 
     /**
      * Empty boxplot constructor.
      */
     public Boxplot() {
-        this(0, 0, 0, 0, 0, 0, null, 0, 0, null);
+        this(0d, 0d, 0d, 0d, 0d, 0d, null, 0d, 0d, null);
     }
 
     /**
      * Generates a Boxplot with all parameters. Should only used for testing.
      * 
      * @param mean
-     *            the mean
+     *            the mean.
      * @param median
-     *            the median
+     *            the median.
      * @param upperQuartile
-     *            the upper quartile, must be > lower quartile
+     *            the upper quartile, must be > lower quartile.
      * @param lowerQuartile
-     *            the lower quartile, must be < upper quartile
+     *            the lower quartile, must be < upper quartile.
      * @param upperWhisker
-     *            the upper whisker must be > upper quartile
+     *            the upper whisker must be > upper quartile.
      * @param lowerWhisker
-     *            the lower whisker must be < lower quartile
+     *            the lower whisker must be < lower quartile.
      * @param outlier
-     *            an ArrayList of outlier, can be empty
+     *            an ArrayList of outlier, can be empty.
      * @param maxValue
-     *            the biggest value, must be >= upper whisker
+     *            the biggest value, must be >= upper whisker.
      * @param minValue
-     *            the smallest value, must be <= lower whisker
+     *            the smallest value, must be <= lower whisker.
      * @param pictureSetName
-     *            the name of the pictureSet/Boxplot
+     *            the name of the pictureSet/Boxplot.
      */
     public Boxplot(final double mean, final double median, final double upperQuartile, final double lowerQuartile,
-            final double upperWhisker, final double lowerWhisker, final ArrayList<Double> outlier,
-            final double maxValue, final double minValue, final String pictureSetName) {
+            final double upperWhisker, final double lowerWhisker, final List<Double> outlier, final double maxValue,
+            final double minValue, final String pictureSetName) {
         this.mean = mean;
         this.median = median;
         this.upperQuartile = upperQuartile;
@@ -81,41 +84,44 @@ public class Boxplot {
     }
 
     /**
-     * Construct and calculate a boxplot with the ExifParameter data from a PictureContainer
+     * Construct and calculate a boxplot with the ExifParameter data from a PictureContainer.
      * 
      * @param pictures
-     *            the pictures that should be used for this boxplot
+     *            the pictures that should be used for this boxplot.
      * @param exifParameter
-     *            the exif-parameter of the pictures which are analysed by this boxplot
+     *            the exif-parameter of the pictures which are analysed by this boxplot.
      */
     public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter) {
         this(pictures, exifParameter, null, new ArrayList<String>());
+
         if (pictures == null) {
             this.pictureSetName = "NULL";
-            System.out.println("Warning in Boxplot.java: pictures was NULL");
+            this.logger.warn("Warning in Boxplot.java: pictures was NULL");
         } else {
             this.pictureSetName = pictures.getName();
         }
     }
 
     /**
-     * Construct and calculate a boxplot with the ExifParameter data from a filtered PictureContainer
+     * Construct and calculate a boxplot with the ExifParameter data from a filtered PictureContainer.
      * 
      * @param pictures
-     *            the pictures that should be used for this boxplot
+     *            the pictures that should be used for this boxplot.
      * @param exifParameter
-     *            the ordinal(!) exif-parameter of the pictures which are analysed by this boxplot
+     *            the ordinal(!) exif-parameter of the pictures which are analysed by this boxplot.
      * @param pictureSetName
-     *            the name of the picture set and - in result - of this boxplot
+     *            the name of the picture set and - in result - of this boxplot.
      * @param filterKeywords
-     *            keywords which should each picture have at least one of
+     *            keywords which should each picture have at least one of.
      * 
      */
     public Boxplot(final PictureContainer pictures, final ExifParameter exifParameter, final String pictureSetName,
-            final ArrayList<String> filterKeywords) {
+            final List<String> filterKeywords) {
 
-        // calculate the Boxplot from the pictures in the pictureSet
-        // add private methods to calculate the stuff
+        /* calculate the Boxplot from the pictures in the pictureSet */
+
+        /* add private methods to calculate the stuff */
+
         /*
          * Maybe use a Library, available:
          * http://commons.apache.org/math/
@@ -124,19 +130,14 @@ public class Boxplot {
          * http://acs.lbl.gov/~hoschek/colt/
          * or we use library for testing the results
          */
-
         assert exifParameter.isOrdinal();
 
-        final ArrayList<Double> values = new ArrayList<Double>();
+        final List<Double> values = new ArrayList<Double>();
 
         for (final PictureInterface pic : Validator.getValidPictures(pictures, exifParameter, filterKeywords)) {
-
             values.add(Converter.objectToDouble(pic.getExifParameter(exifParameter)));
         }
-
         Collections.sort(values);
-
-        this.log.debug("Boxplot Values:" + values.toString());
 
         this.mean = this.calculateMean(values);
         this.median = this.calculateMedian(values);
@@ -145,46 +146,107 @@ public class Boxplot {
         this.upperWhisker = this.calculateUpperWhisker(values);
         this.lowerWhisker = this.calculateLowerWhisker(values);
         this.outlier = this.calculateOutlier(values);
-        this.maxValue = this.calculateMaxValue(values);
-        this.minValue = this.calculateMinValue(values);
+        this.maxValue = Collections.max(values);
+        this.minValue = Collections.min(values);
         this.pictureSetName = pictureSetName;
 
-        this.log.debug(this.mean + " " + this.median);
-        this.log.debug(this.upperQuartile + " " + this.lowerQuartile);
-        this.log.debug(this.upperWhisker + " " + this.lowerWhisker);
-        this.log.debug(this.outlier + " " + this.maxValue);
-        this.log.debug(this.minValue + " " + this.pictureSetName);
-
+        this.logger.debug("Boxplot Values:" + values.toString());
+        this.logger.debug(this.mean + " " + this.median);
+        this.logger.debug(this.upperQuartile + " " + this.lowerQuartile);
+        this.logger.debug(this.upperWhisker + " " + this.lowerWhisker);
+        this.logger.debug(this.outlier + " " + this.maxValue);
+        this.logger.debug(this.minValue + " " + this.pictureSetName);
     }
 
-    private double calculateLowerQuartile(final ArrayList<Double> values) {
+    /*
+     * ################################################################################################################
+     * THE QUARTILE FUNCTIONS
+     * ################################################################################################################
+     */
+
+    private double calculateLowerQuartile(final List<Double> values) {
         assert this.isSorted(values);
 
-        return this.quantile(values, 0.25);
+        return this.calculateQuantile(values, 0.25d);
     }
 
-    private double calculateLowerWhisker(final ArrayList<Double> values) {
-        this.log.debug("calculateLowerWhisker, Values:" + values.toString());
-
+    private double calculateMedian(final List<Double> values) {
         assert this.isSorted(values);
-        double lowerWhisker = 0;
+
+        return this.calculateQuantile(values, 0.5d);
+    }
+
+    private double calculateUpperQuartile(final List<Double> values) {
+        assert this.isSorted(values);
+
+        return this.calculateQuantile(values, 0.75d);
+    }
+
+    /**
+     * Calculates the quantile from an List of Doubles
+     * 
+     * FIXME make the code more readable!
+     * 
+     * @param values
+     *            the ArrayList of double values
+     * @param p
+     *            the p value of the quantile
+     * @return the p-quantile
+     */
+    double calculateQuantile(final List<Double> values, final double p) {
+        assert this.isSorted(values);
+
+        double quantile = 0;
+
+        /* here are small symbols better to read than long ones */
+        final int s = values.size();
+
+        if (s > 1) {
+
+            /* Epsilon */
+            final double e = 0.000001;
+            final int k = (int) (p * (s));
+
+            if ((((s * p) % 1) < e) && (((s * p) % 1) > (-e))) {
+
+                /* s * p is element of N */
+                quantile = (((double) values.get(k - 1)) + ((double) values.get(k))) / 2;
+            } else {
+
+                /* s * p is not an element of N */
+                quantile = values.get(k);
+            }
+        }
+        return quantile;
+    }
+
+    /*
+     * ################################################################################################################
+     * THE WHISKER FUNCTIONS
+     * ################################################################################################################
+     */
+
+    private double calculateLowerWhisker(final List<Double> values) {
+        assert this.isSorted(values);
+
+        this.logger.debug("calculateLowerWhisker, Values:" + values.toString());
+
+        double lowerWhisker = 0d;
 
         if (values.size() > 1) {
             final double upperQuartile = this.calculateUpperQuartile(values);
             final double lowerQuartile = this.calculateLowerQuartile(values);
             final double interQuartileRange = Math.abs(upperQuartile - lowerQuartile);
 
-            /*
-             * searching for the lowerWhisker, starting at the lowerQuartile and searching downwards
-             */
+            /* searching for the lowerWhisker, starting at the lowerQuartile and searching downwards */
             double lowerWhiskerCandidate = lowerQuartile;
             lowerWhisker = lowerQuartile;
 
-            int i = (int) (values.size() * 0.25);
+            int i = (int) (values.size() * 0.25d);
 
-            while ((lowerWhiskerCandidate >= (lowerQuartile - (1.5 * interQuartileRange))) && (i >= 0)) {
+            while ((lowerWhiskerCandidate >= (lowerQuartile - (1.5d * interQuartileRange))) && (i >= 0)) {
                 lowerWhisker = lowerWhiskerCandidate;
-                i--;
+                --i;
                 if (i >= 0) {
                     lowerWhiskerCandidate = values.get(i);
                 }
@@ -193,125 +255,24 @@ public class Boxplot {
         return lowerWhisker;
     }
 
-    /**
-     * calculate maximum Value
-     * 
-     * @param values
-     * @return maximum value, 0 if there are no values.
-     */
-    private double calculateMaxValue(final ArrayList<Double> values) {
-        assert this.isSorted(values);
-        if ((values != null) && (values.size() > 0)) {
-            return values.get(values.size() - 1);
-        } else {
-            return 0;
-        }
-
-    }
-
-    private double calculateMean(final ArrayList<Double> values) {
-        assert values != null;
-        assert values.size() > 0;
-
-        double mean = 0;
-
-        for (final double value : values) {
-            mean += value;
-        }
-
-        mean = mean / (values.size());
-
-        return mean;
-    }
-
-    private double calculateMedian(final ArrayList<Double> values) {
+    private double calculateUpperWhisker(final List<Double> values) {
         assert this.isSorted(values);
 
-        return this.quantile(values, 0.5);
-    }
-
-    /**
-     * 
-     * @param values
-     * @return 0 if values is null or empty
-     */
-    private double calculateMinValue(final ArrayList<Double> values) {
-        assert this.isSorted(values);
-
-        if ((values != null) && (values.size() > 0)) {
-            return values.get(0);
-        } else {
-            return 0;
-        }
-    }
-
-    private ArrayList<Double> calculateOutlier(final ArrayList<Double> values) {
-        assert this.isSorted(values);
-        final ArrayList<Double> outlier = new ArrayList<Double>();
-
-        if (values.size() > 1) {
-            /*
-             * calculate upper outlier
-             */
-            final double upperWhisker = this.calculateUpperWhisker(values);
-            final int lastElement = values.size() - 1;
-            if (upperWhisker < values.get(lastElement)) {
-                // There are outlier
-                int i = lastElement;
-
-                while (upperWhisker < values.get(i)) {
-                    outlier.add(values.get(i));
-                    i--;
-                }
-
-            }
-
-            /*
-             * calculate lower outlier
-             */
-
-            final double lowerWhisker = this.calculateLowerWhisker(values);
-            final int firstElement = 0;
-            if (lowerWhisker > values.get(firstElement)) {
-                // There are outlier
-                int i = firstElement;
-
-                while (lowerWhisker > values.get(i)) {
-                    outlier.add(values.get(i));
-                    i++;
-                }
-
-            }
-        }
-        return outlier;
-    }
-
-    private double calculateUpperQuartile(final ArrayList<Double> values) {
-        assert this.isSorted(values);
-
-        return this.quantile(values, 0.75);
-    }
-
-    private double calculateUpperWhisker(final ArrayList<Double> values) {
-        assert this.isSorted(values);
-
-        this.log.debug("calculateUpperWhisker, Values:" + values.toString());
+        this.logger.debug("calculateUpperWhisker, Values:" + values.toString());
 
         final double upperQuartile = this.calculateUpperQuartile(values);
         final double lowerQuartile = this.calculateLowerQuartile(values);
         final double interQuartileRange = Math.abs(upperQuartile - lowerQuartile);
 
-        /*
-         * searching for the upperWhisker, starting at the upperQuartile and searching upwards
-         */
+        /* searching for the upperWhisker, starting at the upperQuartile and searching upwards */
         double upperWhiskerCandidate = upperQuartile;
         double upperWhisker = upperQuartile;
 
-        int i = (int) (values.size() * 0.75);
+        int i = (int) (values.size() * 0.75d);
 
-        while ((upperWhiskerCandidate <= (upperQuartile + (1.5 * interQuartileRange))) && (i <= values.size())) {
+        while ((upperWhiskerCandidate <= (upperQuartile + (1.5d * interQuartileRange))) && (i <= values.size())) {
             upperWhisker = upperWhiskerCandidate;
-            i++;
+            ++i;
             if (i < values.size()) {
                 upperWhiskerCandidate = values.get(i);
             }
@@ -319,99 +280,66 @@ public class Boxplot {
         return upperWhisker;
     }
 
-    /**
-     * getter for the lower quartile
-     * 
-     * @return the lower quartile of this boxplot
+    /*
+     * ################################################################################################################
+     * CALCULATE SOMETHING
+     * ################################################################################################################
      */
-    public double getLowerQuartile() {
-        return this.lowerQuartile;
+
+    private double calculateMean(final List<Double> values) {
+        assert values != null;
+        assert values.size() > 0;
+
+        double mean = 0d;
+
+        for (final double value : values) {
+            mean += value;
+        }
+        return mean / (values.size());
     }
 
-    /**
-     * getter for the lower whisker
-     * 
-     * @return the lower whisker of this boxplot
-     */
-    public double getLowerWhisker() {
-        return this.lowerWhisker;
+    private List<Double> calculateOutlier(final List<Double> values) {
+        assert this.isSorted(values);
+
+        final List<Double> outlier = new ArrayList<Double>();
+
+        if (values.size() > 1) {
+
+            /* calculate upper outlier */
+            final double upperWhisker = this.calculateUpperWhisker(values);
+            final int lastElement = values.size() - 1;
+
+            if (upperWhisker < values.get(lastElement)) {
+
+                /* there are outlier */
+                int i = lastElement;
+
+                while (upperWhisker < values.get(i)) {
+                    outlier.add(values.get(i));
+                    --i;
+                }
+            }
+
+            /* calculate lower outlier */
+            final double lowerWhisker = this.calculateLowerWhisker(values);
+            final int firstElement = 0;
+
+            if (lowerWhisker > values.get(firstElement)) {
+
+                /* there are outlier */
+                int i = firstElement;
+
+                while (lowerWhisker > values.get(i)) {
+                    outlier.add(values.get(i));
+                    ++i;
+                }
+            }
+        }
+        return outlier;
     }
 
-    /**
-     * getter for the maximum value
-     * 
-     * @return the maximum value of this boxplot
-     */
-    public double getMaxValue() {
-        return this.maxValue;
-    }
-
-    /**
-     * getter for the mean
-     * 
-     * @return the mean value of the boxplot
-     */
-    public double getMean() {
-        return this.mean;
-    }
-
-    /**
-     * getter for the median
-     * 
-     * @return the median of the boxplot
-     */
-    public double getMedian() {
-        return this.median;
-    }
-
-    /**
-     * getter for the minimum value
-     * 
-     * @return the minimum value of this boxplot
-     */
-    public double getMinValue() {
-        return this.minValue;
-    }
-
-    /**
-     * getter for the outlier
-     * 
-     * @return an ArrayList of outlier, can be empty
-     */
-    public ArrayList<Double> getOutlier() {
-        return this.outlier;
-    }
-
-    /**
-     * getter for the name of the picture set
-     * 
-     * @return the name of the picture set
-     */
-    public String getPictureSetName() {
-        return this.pictureSetName;
-    }
-
-    /**
-     * getter for the upper quartile
-     * 
-     * @return the upper quartile of this boxplot
-     */
-    public double getUpperQuartile() {
-        return this.upperQuartile;
-    }
-
-    /**
-     * getter for the upper whisker
-     * 
-     * @return the upper whisker of this boxplot
-     */
-    public double getUpperWhisker() {
-        return this.upperWhisker;
-    }
-
-    private boolean isSorted(final ArrayList<Double> values) {
+    private boolean isSorted(final List<Double> values) {
         double previous = Double.MIN_VALUE;
-
         boolean isSorted = true;
 
         for (final double value : values) {
@@ -421,45 +349,96 @@ public class Boxplot {
             }
             previous = value;
         }
-
         return isSorted;
     }
 
     /**
-     * calculates the quantile from an ArrayList of Doubles
+     * Getter for the lower quartile.
      * 
-     * @param values
-     *            the ArrayList of double values
-     * @param p
-     *            the p value of the quantile
-     * @return the p-quantile
+     * @return the lower quartile of this boxplot.
      */
-    double quantile(final ArrayList<Double> values, final double p) {
-        assert this.isSorted(values);
-
-        double quantile = 0;
-
-        // here are small symbols better to read than long ones
-        final int s = values.size();
-
-        if (s > 1) {
-            // Epsilon
-            final double e = 0.000001;
-            final int k = (int) (p * (s));
-
-            // s * p is element of N
-            if ((((s * p) % 1) < e) && (((s * p) % 1) > (-e))) {
-
-                quantile = (((double) values.get(k - 1)) + ((double) values.get(k))) / 2;
-
-            } else {
-                // s * p is not an element of N
-                quantile = values.get(k);
-
-            }
-        }
-
-        return quantile;
+    public double getLowerQuartile() {
+        return this.lowerQuartile;
     }
 
+    /**
+     * Getter for the lower whisker.
+     * 
+     * @return the lower whisker of this boxplot.
+     */
+    public double getLowerWhisker() {
+        return this.lowerWhisker;
+    }
+
+    /**
+     * Getter for the maximum value.
+     * 
+     * @return the maximum value of this boxplot.
+     */
+    public double getMaxValue() {
+        return this.maxValue;
+    }
+
+    /**
+     * Getter for the mean.
+     * 
+     * @return the mean value of the boxplot.
+     */
+    public double getMean() {
+        return this.mean;
+    }
+
+    /**
+     * Getter for the median.
+     * 
+     * @return the median of the boxplot.
+     */
+    public double getMedian() {
+        return this.median;
+    }
+
+    /**
+     * Getter for the minimum value.
+     * 
+     * @return the minimum value of this boxplot.
+     */
+    public double getMinValue() {
+        return this.minValue;
+    }
+
+    /**
+     * Getter for the outlier.
+     * 
+     * @return an ArrayList of outlier, can be empty.
+     */
+    public List<Double> getOutlier() {
+        return this.outlier;
+    }
+
+    /**
+     * Getter for the name of the picture set.
+     * 
+     * @return the name of the picture set.
+     */
+    public String getPictureSetName() {
+        return this.pictureSetName;
+    }
+
+    /**
+     * Getter for the upper quartile
+     * 
+     * @return the upper quartile of this boxplot.
+     */
+    public double getUpperQuartile() {
+        return this.upperQuartile;
+    }
+
+    /**
+     * Getter for the upper whisker.
+     * 
+     * @return the upper whisker of this boxplot.
+     */
+    public double getUpperWhisker() {
+        return this.upperWhisker;
+    }
 }

@@ -50,9 +50,9 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
                     + Messages.getString("JHistogram3D.5") + this.model.getMaxY());
 
             this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
-            this.getxAxis().setAxis(this.model.getxAxis());
+            this.getxAxis().setAxis(this.model.getXAxis());
             this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
-            this.getzAxis().setAxis(this.model.getzAxis());
+            this.getzAxis().setAxis(this.model.getZAxis());
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
             this.getyAxis().setDescription(Messages.getString("JHistogram3D.6"));
 

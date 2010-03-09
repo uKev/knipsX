@@ -182,7 +182,7 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
         final Logger logger = Logger.getLogger(this.getClass());
 
         if (0 == Validator.getValidPicturesCount(this.getPictureContainer(), new ExifParameter[] {
-                this.getxAxis().getParameter(), this.getyAxis().getParameter(), this.getzAxis().getParameter() })) {
+                this.getXAxis().getParameter(), this.getYAxis().getParameter(), this.getZAxis().getParameter() })) {
             logger.info("getValidPicturesCount == 0");
             return false;
         }

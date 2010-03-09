@@ -24,7 +24,7 @@ public class WilcoxonTest {
     private boolean isValid = false;
     private boolean isCalculated = false;
     private WilcoxonTestType wilcoxenType;
-    private ArrayList<PictureContainer> pictureContainer = new ArrayList<PictureContainer>();
+    private List<PictureContainer> pictureContainer = new ArrayList<PictureContainer>();
     private ExifParameter parameter;
     private double significance = 1.00;
     private double result = 0;
@@ -50,7 +50,7 @@ public class WilcoxonTest {
      * Setter for the picturesets
      * @param pictureContainer The Picturesets
      */
-    public void setPictureContainer(ArrayList<PictureContainer> pictureContainer) {
+    public void setPictureContainer(List<PictureContainer> pictureContainer) {
         this.pictureContainer = pictureContainer;
         this.isCalculated = false;
     }
