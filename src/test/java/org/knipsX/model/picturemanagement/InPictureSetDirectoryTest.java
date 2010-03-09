@@ -12,18 +12,18 @@ public class InPictureSetDirectoryTest {
         
         /* 
          * When adding multiple identical directories to the picture set and later iterate 
-         * over the picture set, the picture set should contain n times |number of pictures in the directory|,
+         * over the picture set, the picture set should contain n times |number of pictures in the picture set|,
          * where n is the amount of identical directories in the picture set. 
          * 
          * Note that this is actually an integration test!
          */
         
-        Directory directory = new Directory(DummyPictures.getDummyDirectoryPath());
+        PictureSet singlePictureSet = DummyPictures.getDummyPictureSet();
         
-        int numberOfPicturesInDirectory = 0;
+        int numberOfPicturesInSinglePictureSet = 0;
         
-        for (PictureInterface picture : directory) {
-            numberOfPicturesInDirectory++;
+        for (PictureInterface picture : singlePictureSet) {
+        	numberOfPicturesInSinglePictureSet++;
         }
         
         PictureSet pictureSet = new PictureSet("Demonstration");
@@ -33,7 +33,7 @@ public class InPictureSetDirectoryTest {
         // Add the directory "multiplier" times to the same picture set
         int multiplier = 5;        
         for (int i = 0; i < multiplier; i++) {
-            pictureSet.add(new Directory(DummyPictures.getDummyDirectoryPath()));
+            pictureSet.add(DummyPictures.getDummyPictureSet());
         }
         
         int numberOfPicturesInPictureSet = 0;
@@ -42,7 +42,7 @@ public class InPictureSetDirectoryTest {
             numberOfPicturesInPictureSet++;
         }
         
-        assertEquals("Picture Set should contain " + multiplier + " times the amount of pictures that can be found in the directory", multiplier * numberOfPicturesInDirectory, numberOfPicturesInPictureSet);        
+        assertEquals("Picture Set should contain " + multiplier + " times the amount of pictures that can be found in the directory", multiplier * numberOfPicturesInSinglePictureSet, numberOfPicturesInPictureSet);        
         
         numberOfPicturesInPictureSet = 0;
         
@@ -50,7 +50,7 @@ public class InPictureSetDirectoryTest {
             numberOfPicturesInPictureSet++;
         }
         
-        assertEquals("Picture Set should contain " + multiplier + " times the amount of pictures that can be found in the directory", multiplier * numberOfPicturesInDirectory, numberOfPicturesInPictureSet);
+        assertEquals("Picture Set should contain " + multiplier + " times the amount of pictures that can be found in the directory", multiplier * numberOfPicturesInSinglePictureSet, numberOfPicturesInPictureSet);
         
     }
 
