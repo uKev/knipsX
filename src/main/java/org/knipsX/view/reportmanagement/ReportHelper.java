@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import org.knipsX.images.dummypictures.DummyPictures;
 import org.knipsX.model.picturemanagement.PictureContainer;
-import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.model.reportmanagement.Axis;
@@ -68,7 +67,7 @@ public enum ReportHelper {
         @Override
         public Component getDiagramView() {
             BoxplotModel boxplotModel = new BoxplotModel();
-            boxplotModel.setPictureContainer(getDummyDirectory());
+            boxplotModel.setPictureContainer(getDummyPictureSet());
             boxplotModel.setxAxis(new Axis(ExifParameter.EXPOSURETIME));            
             return new JBoxplot<BoxplotModel>(boxplotModel, -1).getDiagram();
         };
@@ -121,7 +120,7 @@ public enum ReportHelper {
         @Override
         public Component getDiagramView() {
             Histogram2DModel histogram2DModel = new Histogram2DModel();            
-            histogram2DModel.setPictureContainer(getDummyDirectory());
+            histogram2DModel.setPictureContainer(getDummyPictureSet());
             histogram2DModel.setxAxis(new Axis(ExifParameter.EXPOSURETIME));            
             return new JHistogram2D<Histogram2DModel>(histogram2DModel, -1).getDiagram();
         };
@@ -174,7 +173,7 @@ public enum ReportHelper {
         @Override
         public Component getDiagramView() {
             Histogram3DModel histogram3DModel = new Histogram3DModel();            
-            histogram3DModel.setPictureContainer(getDummyDirectory());
+            histogram3DModel.setPictureContainer(getDummyPictureSet());
             histogram3DModel.setxAxis(new Axis(ExifParameter.DATE));
             histogram3DModel.setzAxis(new Axis(ExifParameter.EXPOSURETIME));  
             return new JHistogram3D<Histogram3DModel>(histogram3DModel, -1).getDiagram();
@@ -229,7 +228,7 @@ public enum ReportHelper {
         @Override
         public Component getDiagramView() {
             Cluster3DModel cluster3DModel = new Cluster3DModel();            
-            cluster3DModel.setPictureContainer(getDummyDirectory());
+            cluster3DModel.setPictureContainer(getDummyPictureSet());
             cluster3DModel.setxAxis(new Axis(ExifParameter.EXPOSURETIME));
             cluster3DModel.setzAxis(new Axis(ExifParameter.EXPOSURETIME));
             cluster3DModel.setyAxis(new Axis(ExifParameter.DATE));
@@ -286,7 +285,7 @@ public enum ReportHelper {
         @Override
         public Component getDiagramView() {
             TableModel tableModel = new TableModel(); 
-            tableModel.setPictureContainer(getDummyDirectory());
+            tableModel.setPictureContainer(getDummyPictureSet());
             return new JTableDiagram<TableModel>(tableModel, -1).getDiagram();
         };
 
@@ -489,10 +488,10 @@ public enum ReportHelper {
         ReportHelper.currentReportUtility = currentReportUtility;
     }
     
-    private static ArrayList<PictureContainer> getDummyDirectory() {
-        ArrayList<PictureContainer> dummyDirectory =  new ArrayList<PictureContainer>();    
-        dummyDirectory.add(new Directory(DummyPictures.getDummyDirectoryPath()));        
-        return dummyDirectory;        
+    private static ArrayList<PictureContainer> getDummyPictureSet() {        
+        ArrayList<PictureContainer> container = new ArrayList<PictureContainer>();
+        container.add(DummyPictures.getDummyPictureSet());        
+        return container;        
     }
     
 

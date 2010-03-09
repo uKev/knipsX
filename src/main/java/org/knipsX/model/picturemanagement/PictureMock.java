@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,9 @@ public class PictureMock implements PictureInterface {
     
     // initialize all properties with something like "dummy"
     String name = "dummy";
-    Map<ExifParameter, Double> metaStore = new HashMap<ExifParameter, Double>();
+    Map<ExifParameter, Object> metaStore = new HashMap<ExifParameter, Object>();
+    
+    boolean isReturned = false;
 
     
     // first all new Mock-specific methods
@@ -34,7 +37,7 @@ public class PictureMock implements PictureInterface {
         this.name = name;
     }
     
-    public void addExifParameter(ExifParameter exifParameter, double value) {
+    public void addExifParameter(ExifParameter exifParameter, Object value) {
         metaStore.put(exifParameter, value);
     }
     
@@ -76,8 +79,9 @@ public class PictureMock implements PictureInterface {
      * @see org.knipsX.model.picturemanagement.PictureInterface#getItems()
      */
     public List<PictureContainer> getItems() {
-        // TODO Auto-generated method stub
-        return null;
+        final List<PictureContainer> items = new LinkedList<PictureContainer>();
+        items.add(this);
+        return items;
     }
     
     /* (non-Javadoc)
@@ -140,8 +144,12 @@ public class PictureMock implements PictureInterface {
      * @see org.knipsX.model.picturemanagement.PictureInterface#hasNext()
      */
     public boolean hasNext() {
-        // TODO Auto-generated method stub
-        return false;
+        if (this.isReturned) {
+            this.isReturned = false;
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /* (non-Javadoc)
@@ -164,24 +172,22 @@ public class PictureMock implements PictureInterface {
      * @see org.knipsX.model.picturemanagement.PictureInterface#iterator()
      */
     public Iterator<PictureInterface> iterator() {
-        // TODO Auto-generated method stub
-        return null;
+        return this;
     }
 
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#next()
      */
     public PictureInterface next() {
-        // TODO Auto-generated method stub
-        return null;
+        this.isReturned = true;
+        return this;
     }
 
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#remove()
      */
     public void remove() {
-        // TODO Auto-generated method stub
-
+    	// not implemented and no need to implement it right now
     }
 
     /* (non-Javadoc)
