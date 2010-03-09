@@ -40,6 +40,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.TableModel;
 
 import org.apache.log4j.Logger;
+import org.knipsX.Messages;
 import org.knipsX.controller.projectview.PictureListClickOnController;
 import org.knipsX.controller.projectview.PictureSetContentListAddController;
 import org.knipsX.controller.projectview.PictureSetContentListClickOnController;
@@ -95,7 +96,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     private JPanel jPanelExif = null;
 
     private JLabel jLabelTotalPictures = null;
-    
+
     private JEditorPane jEditorPaneProjectDescription = null;
 
     private JTextField jTextFieldProjectName = null;
@@ -907,14 +908,14 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     }
 
     private JLabel getJLabelTotalPictures() {
-        
+
         /* create only if not set */
         if (this.jLabelTotalPictures == null) {
             this.jLabelTotalPictures = new JLabel("Insgesamt Bilder:" + this.model.getNumberOfPictures());
         }
         return this.jLabelTotalPictures;
     }
-    
+
     /*
      * ################################################################################################################
      * SOME METHODS WHICH ARE USED BY THE CONNECTED MODEL
@@ -1013,20 +1014,20 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
     @Override
     public void update(final Observable o, final Object arg) {
-        
+
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 JProjectView.this.doUpdate((ProjectModel) o);
             }
         });
-        
+
         /* INTERNATIONALIZE */
-        this.setTitle("Projektansicht für " + model.getName());
+        this.setTitle("Projektansicht für " + this.model.getName());
 
         /* things about the project */
         try {
             final int caretProjectName = JProjectView.this.jTextFieldProjectName.getCaretPosition();
-            this.jTextFieldProjectName.setText(model.getName());
+            this.jTextFieldProjectName.setText(this.model.getName());
             this.jTextFieldProjectName.setCaretPosition(caretProjectName);
         } catch (final IllegalArgumentException e) {
             this.logger.error("Position of name caret cannot set -" + e.fillInStackTrace());
@@ -1034,7 +1035,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         try {
             final int caretProjectDescription = this.jEditorPaneProjectDescription.getCaretPosition();
-            this.jEditorPaneProjectDescription.setText(model.getDescription());
+            this.jEditorPaneProjectDescription.setText(this.model.getDescription());
             this.jEditorPaneProjectDescription.setCaretPosition(caretProjectDescription);
         } catch (final IllegalArgumentException e) {
             this.logger.error("Position of description caret cannot be set -" + e.fillInStackTrace());
@@ -1046,22 +1047,22 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         final int[] selectedReports = this.jListReport.getSelectedIndices();
 
         /* setup the lists */
-        this.jListPictureSet.setListData(model.getPictureSets());
-        this.jListPictureSetContent
-                .setListData(this.extractPictureSetContents(model.getSelectedPictureSet()).toArray());
-        this.jListPictureSetActive.setListData(model.getAllPictures());
-        this.jListReport.setListData(model.getReports());
+        this.jListPictureSet.setListData(this.model.getPictureSets());
+        this.jListPictureSetContent.setListData(this.extractPictureSetContents(this.model.getSelectedPictureSet())
+                .toArray());
+        this.jListPictureSetActive.setListData(this.model.getAllPictures());
+        this.jListReport.setListData(this.model.getReports());
 
         /* change border of the panel */
         /* INTERNATIONALIZE */
-        if (model.getSelectedPictureSetContent() != null) {
+        if (this.model.getSelectedPictureSetContent() != null) {
             final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
                     .getString("JProjectView.41")
-                    + model.getSelectedPictureSetContent().getName());
+                    + this.model.getSelectedPictureSetContent().getName());
             this.jPanelPictureSetActive.setBorder(title);
-        } else if (model.getSelectedPictureSet() != null) {
+        } else if (this.model.getSelectedPictureSet() != null) {
             final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                    "Bilder von Bildmenge" + model.getSelectedPictureSet().getName());
+                    "Bilder von Bildmenge" + this.model.getSelectedPictureSet().getName());
             this.jPanelPictureSetActive.setBorder(title);
         }
 
@@ -1075,10 +1076,10 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.setFocusable(false);
         }
 
-        if (model.getSelectedPicture() != null) {
+        if (this.model.getSelectedPicture() != null) {
             final TableModel exifModel = JProjectView.this.jTableExif.getModel();
 
-            final Object[][] values = model.getSelectedPicture().getAllExifParameter();
+            final Object[][] values = this.model.getSelectedPicture().getAllExifParameter();
             for (int i = 0; i < values.length; ++i) {
                 if (values[i].length == 2) {
                     try {
@@ -1088,15 +1089,15 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                         } else {
                             exifModel.setValueAt("no data", i, 0);
                         }
-                    } catch (NullPointerException e) {
+                    } catch (final NullPointerException e) {
 
                     }
                 }
             }
         }
-        
+
         this.jLabelTotalPictures.setText("Insgesamt Bilder:" + this.model.getNumberOfPictures());
-        
+
         this.jListPictureSet.setSelectedIndices(selectedPictureSets);
         this.jListPictureSetContent.setSelectedIndices(selectedPictureSetContents);
         this.jListPictureSetActive.setSelectedIndices(selectedPictures);
@@ -1106,19 +1107,19 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         this.repaint();
     }
 
-    private void doUpdate(ProjectModel model) {
+    private void doUpdate(final ProjectModel model) {
 
         /* Update the progress bars */
         final int totalPictures = 2 * this.model.getNumberOfPictures();
 
         if (totalPictures > 0) {
-            int picturesToFinish = this.model.getNumberOfDataPicturesToProcess()
+            final int picturesToFinish = this.model.getNumberOfDataPicturesToProcess()
                     + this.model.getNumberOfThumbnailPicturesToProcess();
 
             this.pictureDataProgress.setValue(totalPictures - picturesToFinish);
             this.pictureDataProgress.setMaximum(totalPictures);
         }
-        
+
         /* refresh view */
         this.repaint();
     }

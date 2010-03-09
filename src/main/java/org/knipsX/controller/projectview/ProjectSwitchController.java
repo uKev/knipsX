@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
+import org.knipsX.Messages;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.model.projectview.ProjectModel;
@@ -38,12 +39,12 @@ public class ProjectSwitchController<M extends ProjectModel, V extends JProjectV
 
     @Override
     public void actionPerformed(final ActionEvent e) {
+        final int decision = JOptionPane.showConfirmDialog(this.view, Messages.getString("ProjectSwitchController.0"),
+                Messages.getString("ProjectSwitchController.1"), JOptionPane.YES_NO_CANCEL_OPTION);
 
-        /* INTERNATIONALIZE */
-        final int decision = JOptionPane.showConfirmDialog(this.view, Messages.getString("ProjectSwitchController.0"), //$NON-NLS-1$
-                Messages.getString("ProjectSwitchController.1"), JOptionPane.YES_NO_CANCEL_OPTION); //$NON-NLS-1$
+        if (decision == JOptionPane.YES_OPTION) {
 
-        if (decision == JOptionPane.YES_OPTION) { /* if user wants to save before a change occurs */
+            /* if user wants to save before a change occurs */
             this.model.saveProjectModel();
             this.view.dispose();
 
@@ -52,7 +53,9 @@ public class ProjectSwitchController<M extends ProjectModel, V extends JProjectV
 
             /* creates a new JProjectAdministration window, which is connected to a model */
             new JProjectManagement<ProjectManagementModel>(projectManagementModel);
-        } else if (decision == JOptionPane.NO_OPTION) { /* if user doesn't want to save before a change occurs */
+        } else if (decision == JOptionPane.NO_OPTION) {
+
+            /* if user doesn't want to save before a change occurs */
             this.view.dispose();
 
             /* create a model for the ProjectAdministration */

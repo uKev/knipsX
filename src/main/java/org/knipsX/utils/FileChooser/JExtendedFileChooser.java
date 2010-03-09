@@ -7,6 +7,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 
+import org.knipsX.Messages;
+
 /**
  * This class is responsible for loading images and directories into the application.
  * It is also responsible for saving a buffered image into a proper format onto the
@@ -19,8 +21,9 @@ import javax.swing.JFileChooser;
 public final class JExtendedFileChooser {
 
     private static JFileChooser filechooser;
-    private static String lastSaveDir = ""; //$NON-NLS-1$
-    private static String lastOpenDir = ""; //$NON-NLS-1$
+    
+    private static String lastSaveDir = "";
+    private static String lastOpenDir = "";
 
     /* The initialization routine which configures the file chooser */
     private static void initialize() {
@@ -58,13 +61,13 @@ public final class JExtendedFileChooser {
             JExtendedFileChooser.lastSaveDir = file.getAbsolutePath();
 
             /* Prepare file name to be stored on hard drive */
-            final String fileName = file.getName().replaceAll(".png", "") + "." + Utils.PNG; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-            final File outputfile = new File(file.getParent() + "/" + fileName); //$NON-NLS-1$
+            final String fileName = file.getName().replaceAll(".png", "") + "." + Utils.PNG;
+            final File outputfile = new File(file.getParent() + "/" + fileName);
 
             try {
 
                 /* Write image to disk */
-                ImageIO.write(imageToBeSaved, "png", outputfile); //$NON-NLS-1$
+                ImageIO.write(imageToBeSaved, "png", outputfile);
             } catch (final IOException e1) {
                 e1.printStackTrace();
             }
@@ -88,8 +91,8 @@ public final class JExtendedFileChooser {
         JExtendedFileChooser.filechooser.setMultiSelectionEnabled(true);
 
         /* Process the results */
-        /* INTERNATIONALIZE */
-        if (JExtendedFileChooser.filechooser.showDialog(JExtendedFileChooser.filechooser, Messages.getString("JExtendedFileChooser.9")) == JFileChooser.APPROVE_OPTION) { //$NON-NLS-1$
+        if (JExtendedFileChooser.filechooser.showDialog(JExtendedFileChooser.filechooser, Messages
+                .getString("JExtendedFileChooser.9")) == JFileChooser.APPROVE_OPTION) {
             selectedFilesandDirectories = JExtendedFileChooser.filechooser.getSelectedFiles();
             JExtendedFileChooser.lastOpenDir = selectedFilesandDirectories[0].getAbsolutePath();
         }

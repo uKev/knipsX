@@ -1,5 +1,7 @@
 package org.knipsX.view.reportmanagement;
 
+import org.knipsX.Messages;
+
 /**
  * This class represents the Table configuration with all its
  * necessary panels.
@@ -17,11 +19,10 @@ public class TableConfig extends AbstractReportCompilation {
     public TableConfig() {
         
         /* Define diagram description */
-        // INTERNATIONALIZE
-        this.diagramDescription = Messages.getString("TableConfig.0") //$NON-NLS-1$
-        		+ Messages.getString("TableConfig.1") //$NON-NLS-1$
-        		+ Messages.getString("TableConfig.2") //$NON-NLS-1$
-        		+ Messages.getString("TableConfig.3"); //$NON-NLS-1$
+        this.diagramDescription = Messages.getString("TableConfig.0")
+        		+ Messages.getString("TableConfig.1")
+        		+ Messages.getString("TableConfig.2")
+        		+ Messages.getString("TableConfig.3");
 
         /* add the diagram panel to the report */
         addPanel(new JDiagramType(this.diagramDescription));

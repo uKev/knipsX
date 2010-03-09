@@ -3,6 +3,7 @@ package org.knipsX.view.reportmanagement;
 import java.awt.Component;
 import java.util.ArrayList;
 
+import org.knipsX.Messages;
 import org.knipsX.images.dummypictures.DummyPictures;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.projectview.ProjectModel;
@@ -82,8 +83,7 @@ public enum ReportHelper {
 
         @Override
         public String toString() {
-            //INTERNATIONALIZE
-            return Messages.getString("ReportHelper.0"); //$NON-NLS-1$
+            return Messages.getString("ReportHelper.0");
         }
     },
 
@@ -135,8 +135,8 @@ public enum ReportHelper {
 
         @Override
         public String toString() {
-            //INTERNATIONALIZE
-            return Messages.getString("ReportHelper.1"); //$NON-NLS-1$
+            //
+            return Messages.getString("ReportHelper.1");
         }
     },
 
@@ -189,8 +189,8 @@ public enum ReportHelper {
 
         @Override
         public String toString() {
-            //INTERNATIONALIZE
-            return Messages.getString("ReportHelper.2"); //$NON-NLS-1$
+            //
+            return Messages.getString("ReportHelper.2");
         }
 
     },
@@ -245,8 +245,8 @@ public enum ReportHelper {
 
         @Override
         public String toString() {
-            //INTERNATIONALIZE
-            return Messages.getString("ReportHelper.3"); //$NON-NLS-1$
+            //
+            return Messages.getString("ReportHelper.3");
         }
 
     },
@@ -299,8 +299,8 @@ public enum ReportHelper {
 
         @Override
         public String toString() {
-            //INTERNATIONALIZE
-            return Messages.getString("ReportHelper.4"); //$NON-NLS-1$
+            //
+            return Messages.getString("ReportHelper.4");
         }
     };
 

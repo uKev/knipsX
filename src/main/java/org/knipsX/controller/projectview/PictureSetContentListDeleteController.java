@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
+import org.knipsX.Messages;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.projectview.ProjectModel;
@@ -31,12 +32,13 @@ public class PictureSetContentListDeleteController<M extends ProjectModel, V ext
      * @param view
      *            the view.
      */
-    public PictureSetContentListDeleteController(M model, V view) {
+    public PictureSetContentListDeleteController(final M model, final V view) {
         super(model, view);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(final ActionEvent e) {
+        
         if (this.model.getPictureSets().length > 0) {
             final PictureContainer[] toDelete = this.view.getSelectedPictureSetContents();
 
@@ -44,41 +46,38 @@ public class PictureSetContentListDeleteController<M extends ProjectModel, V ext
             if ((toDelete == null) || (toDelete.length == 0)) {
 
                 /* gives the user a hint, that he has selected too little projects */
-                /* INTERNATIONALIZE */
-                JOptionPane.showMessageDialog(this.view,
-                        Messages.getString("PictureSetContentListDeleteController.0"), //$NON-NLS-1$
-                        Messages.getString("PictureSetContentListDeleteController.1"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+                JOptionPane.showMessageDialog(this.view, Messages.getString("PictureSetContentListDeleteController.0"),
+                        Messages.getString("PictureSetContentListDeleteController.1"), JOptionPane.ERROR_MESSAGE);
             } else {
-
-                /* INTERNATIONALIZE */
-                final int decision = JOptionPane.showConfirmDialog(this.view,
-                        Messages.getString("PictureSetContentListDeleteController.2") + this.generateToDeleteText(toDelete) //$NON-NLS-1$
-                                + Messages.getString("PictureSetContentListDeleteController.3"), Messages.getString("PictureSetContentListDeleteController.4"), JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
+                final int decision = JOptionPane.showConfirmDialog(this.view, Messages
+                        .getString("PictureSetContentListDeleteController.2")
+                        + this.generateToDeleteText(toDelete)
+                        + Messages.getString("PictureSetContentListDeleteController.3"), Messages
+                        .getString("PictureSetContentListDeleteController.4"), JOptionPane.YES_NO_OPTION);
 
                 /* if user pressed "yes" */
-                if (decision == 0) {
+                if (decision == JOptionPane.YES_OPTION) {
 
                     /* delete all selected projects */
                     for (final PictureContainer item : toDelete) {
-                        this.model.removeContentFromPictureSet(model.getSelectedPictureSet(), item);
+                        this.model.removeContentFromPictureSet(this.model.getSelectedPictureSet(), item);
                     }
                 }
             }
         } else {
-
-            /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(this.view, Messages.getString("PictureSetContentListDeleteController.5"), Messages.getString("PictureSetContentListDeleteController.6"), //$NON-NLS-1$ //$NON-NLS-2$
-                    JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this.view, Messages.getString("PictureSetContentListDeleteController.5"),
+                    Messages.getString("PictureSetContentListDeleteController.6"), JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
     private String generateToDeleteText(final PictureContainer[] toDelete) {
-        String deleteText = Messages.getString("PictureSetContentListDeleteController.7"); //$NON-NLS-1$
+        String deleteText = Messages.getString("PictureSetContentListDeleteController.7");
 
         /* add all names */
         for (final PictureContainer item : toDelete) {
-            deleteText += Messages.getString("PictureSetContentListDeleteController.8") + item.getName() + Messages.getString("PictureSetContentListDeleteController.9"); //$NON-NLS-1$ //$NON-NLS-2$
+            deleteText += Messages.getString("PictureSetContentListDeleteController.8") + item.getName()
+                    + Messages.getString("PictureSetContentListDeleteController.9");
         }
-        return deleteText + Messages.getString("PictureSetContentListDeleteController.10"); //$NON-NLS-1$
+        return deleteText + Messages.getString("PictureSetContentListDeleteController.10");
     }
 }

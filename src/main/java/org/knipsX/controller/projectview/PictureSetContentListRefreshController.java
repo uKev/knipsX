@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
+import org.knipsX.Messages;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
@@ -30,19 +31,17 @@ public class PictureSetContentListRefreshController<M extends ProjectModel, V ex
      * @param view
      *            the view.
      */
-    public PictureSetContentListRefreshController(M model, V view) {
+    public PictureSetContentListRefreshController(final M model, final V view) {
         super(model, view);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(final ActionEvent e) {
         if (this.model.getPictureSets().length > 0) {
             this.model.refreshAllDirectories();
         } else {
-
-            /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(this.view, Messages.getString("PictureSetContentListRefreshController.0"), //$NON-NLS-1$
-                    Messages.getString("PictureSetContentListRefreshController.1"), JOptionPane.INFORMATION_MESSAGE); //$NON-NLS-1$
+            JOptionPane.showMessageDialog(this.view, Messages.getString("PictureSetContentListRefreshController.0"),
+                    Messages.getString("PictureSetContentListRefreshController.1"), JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

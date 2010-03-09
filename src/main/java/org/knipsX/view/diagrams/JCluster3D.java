@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.vecmath.Vector3d;
 
 import org.apache.log4j.Logger;
+import org.knipsX.Messages;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
 
 /**
@@ -28,6 +29,8 @@ import org.knipsX.model.reportmanagement.Cluster3DModel;
 public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> {
 
     private static final long serialVersionUID = -2802017414318945810L;
+
+    private final Logger logger = Logger.getLogger(this.getClass());
 
     /**
      * Constructor
@@ -46,18 +49,16 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
     public void generateContent() {
         JAbstract3DView.useBufferRange = false;
 
-        Logger logger = Logger.getLogger(this.getClass());
-
         final ArrayList<Integer> typesOfPoints = new ArrayList<Integer>();
 
-        if (this.model != null && this.model.isModelValid()) {
+        if ((this.model != null) && this.model.isModelValid()) {
             for (int i = 0; i < this.model.getFrequency3DPoints().size(); i++) {
                 if (!typesOfPoints.contains(this.model.getFrequency3DPoints().get(i).getFrequency())) {
                     typesOfPoints.add(this.model.getFrequency3DPoints().get(i).getFrequency());
                 }
             }
 
-            logger.debug(Messages.getString("JCluster3D.0") + typesOfPoints.size()); //$NON-NLS-1$
+            this.logger.debug(Messages.getString("JCluster3D.0") + typesOfPoints.size());
 
             Collections.sort(typesOfPoints);
 
@@ -65,24 +66,27 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
             this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
             this.getyAxis().setAxis(this.model.getyAxis());
 
-            logger.debug(Messages.getString("JCluster3D.1") + this.model.getMinY() + Messages.getString("JCluster3D.2") + this.model.getMaxY()); //$NON-NLS-1$ //$NON-NLS-2$
+            this.logger.debug(Messages.getString("JCluster3D.1") + this.model.getMinY()
+                    + Messages.getString("JCluster3D.2") + this.model.getMaxY());
 
             /* setup x axis */
             this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
             this.getxAxis().setAxis(this.model.getxAxis());
 
-            logger.debug(Messages.getString("JCluster3D.3") + this.model.getMinX() + Messages.getString("JCluster3D.4") + this.model.getMaxX()); //$NON-NLS-1$ //$NON-NLS-2$
+            this.logger.debug(Messages.getString("JCluster3D.3") + this.model.getMinX()
+                    + Messages.getString("JCluster3D.4") + this.model.getMaxX());
 
             /* setup z axis */
             this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
             this.getzAxis().setAxis(this.model.getzAxis());
 
-            logger.debug(Messages.getString("JCluster3D.5") + this.model.getMinZ() + Messages.getString("JCluster3D.6") + this.model.getMaxZ()); //$NON-NLS-1$ //$NON-NLS-2$
+            this.logger.debug(Messages.getString("JCluster3D.5") + this.model.getMinZ()
+                    + Messages.getString("JCluster3D.6") + this.model.getMaxZ());
 
             for (int i = 0; i < this.model.getFrequency3DPoints().size(); i++) {
                 final Transform3D dataTrans = new Transform3D();
 
-                Vector3d position = new Vector3d(this.getxAxis().getAxisSpace(
+                final Vector3d position = new Vector3d(this.getxAxis().getAxisSpace(
                         this.model.getFrequency3DPoints().get(i).getX()), this.getyAxis().getAxisSpace(
                         this.model.getFrequency3DPoints().get(i).getY()), this.getzAxis().getAxisSpace(
                         this.model.getFrequency3DPoints().get(i).getZ()));
@@ -96,8 +100,8 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
                 final Selectable3DShape selectableShape = new Selectable3DShape(this.model.getFrequency3DPoints()
                         .get(i));
 
-                selectableShape.setAppearance(this.basicMaterial(getColorAtPosition(typesOfPoints.indexOf(this.model
-                        .getFrequency3DPoints().get(i).getFrequency()), typesOfPoints.size())));
+                selectableShape.setAppearance(this.basicMaterial(this.getColorAtPosition(typesOfPoints
+                        .indexOf(this.model.getFrequency3DPoints().get(i).getFrequency()), typesOfPoints.size())));
 
                 objData.addChild(selectableShape);
 
@@ -112,10 +116,9 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
 
         } else {
             if (this.model != null) {
+
                 /* Output some kind of error message */
-                // INTERNATIONALIZE
-                JOptionPane.showMessageDialog(this,
-                        Messages.getString("JCluster3D.7")); //$NON-NLS-1$
+                JOptionPane.showMessageDialog(this, Messages.getString("JCluster3D.7"));
                 this.displayDiagram = false;
             }
 
@@ -160,8 +163,8 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
 
             g2d.setPaint(Color.black);
 
-            /* INTERNATIONALIZE */
-            g2d.drawString(Messages.getString("JCluster3D.8"), GradientFrequencyPanel.LEFTSPACING, GradientFrequencyPanel.TOPSPACING + 5); //$NON-NLS-1$
+            g2d.drawString(Messages.getString("JCluster3D.8"), GradientFrequencyPanel.LEFTSPACING,
+                    GradientFrequencyPanel.TOPSPACING + 5);
 
             final double segmentSize = (double) GradientFrequencyPanel.HEIGHT / (double) numberOfShades;
 

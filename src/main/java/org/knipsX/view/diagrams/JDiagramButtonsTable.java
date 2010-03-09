@@ -3,6 +3,7 @@ package org.knipsX.view.diagrams;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import org.knipsX.Messages;
 import org.knipsX.controller.diagrams.DiagramCloseController;
 import org.knipsX.controller.diagrams.DiagramExportAsBufferedImageController;
 import org.knipsX.controller.diagrams.ReportEditController;
@@ -26,27 +27,24 @@ public class JDiagramButtonsTable extends JPanel {
      *            the view on which the controllers work on
      */
 
-    public JDiagramButtonsTable(JAbstractDiagram<?> view) {
-        
+    public JDiagramButtonsTable(final JAbstractDiagram<?> view) {
+
         /* Define the close button and associate the controller */
-        //INTERNATIONALIZE
-        JButton closeButton = new JButton(Messages.getString("JDiagramButtonsTable.0")); //$NON-NLS-1$
+        final JButton closeButton = new JButton(Messages.getString("JDiagramButtonsTable.0"));
         closeButton.addActionListener(new DiagramCloseController<Object, JAbstractDiagram<?>>(view));
-        
+
         /* Define the edit button and associate the controller */
-        //INTERNATIONALIZE
-        JButton editButton = new JButton(Messages.getString("JDiagramButtonsTable.1")); //$NON-NLS-1$
+        final JButton editButton = new JButton(Messages.getString("JDiagramButtonsTable.1"));
         editButton.addActionListener(new ReportEditController<Object, JAbstractDiagram<?>>(view));
 
         /* Define the export button and associate the controller */
-        //INTERNATIONALIZE
-        JButton exportButton = new JButton(Messages.getString("JDiagramButtonsTable.2")); //$NON-NLS-1$
+        final JButton exportButton = new JButton(Messages.getString("JDiagramButtonsTable.2"));
         exportButton.addActionListener(new DiagramExportAsBufferedImageController<Object, JAbstractDiagram<?>>(view));
 
         /* Add all the defined buttons to the current panel */
-        add(closeButton);
-        add(editButton);
-        add(exportButton);
+        this.add(closeButton);
+        this.add(editButton);
+        this.add(exportButton);
     }
 
 }

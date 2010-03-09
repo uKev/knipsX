@@ -8,7 +8,6 @@ import javax.swing.JComponent;
 import javax.swing.TransferHandler;
 
 import org.knipsX.controller.AbstractController;
-import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
 
@@ -26,7 +25,7 @@ import org.knipsX.view.projectview.JProjectView;
 public class PictureSetListDragController<M extends ProjectModel, V extends JProjectView<M>> extends
         AbstractController<M, V> {
 
-    private FromTransferHandler handler = new FromTransferHandler();
+    private final FromTransferHandler handler = new FromTransferHandler();
 
     /**
      * Creates a new controller which is connected to a view and a model.
@@ -36,12 +35,12 @@ public class PictureSetListDragController<M extends ProjectModel, V extends JPro
      * @param view
      *            the view.
      */
-    public PictureSetListDragController(M model, V view) {
+    public PictureSetListDragController(final M model, final V view) {
         super(model, view);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(final ActionEvent e) {
     }
 
     /**
@@ -59,18 +58,19 @@ public class PictureSetListDragController<M extends ProjectModel, V extends JPro
 
         private int index = 0;
 
-        public int getSourceActions(JComponent comp) {
-            return FromTransferHandler.COPY;
+        @Override
+        public int getSourceActions(final JComponent comp) {
+            return TransferHandler.COPY;
         }
 
         /* copies the hashcode so we can find a picture set */
-        public Transferable createTransferable(JComponent comp) {
-            index = PictureSetListDragController.this.view.getSelectedPictureSetIndex();
-            if (index < 0) {
+        @Override
+        public Transferable createTransferable(final JComponent comp) {
+            this.index = PictureSetListDragController.this.view.getSelectedPictureSetIndex();
+            if (this.index < 0) {
                 return null;
             }
-            int hashCode = ((PictureSet) PictureSetListDragController.this.view.getSelectedPictureSetValue())
-                    .hashCode();
+            final int hashCode = (PictureSetListDragController.this.view.getSelectedPictureSetValue()).hashCode();
             return new StringSelection("" + hashCode);
         }
     }

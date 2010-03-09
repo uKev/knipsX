@@ -4,6 +4,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 
+import org.knipsX.Messages;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.view.JAbstractView;
@@ -26,16 +27,13 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
     protected int reportID = -1;
 
     /* Define the close button */
-    // INTERNATIONALIZE
-    protected JButton closeButton = new JButton(Messages.getString("JAbstractReportUtil.0")); //$NON-NLS-1$
+    protected JButton closeButton = new JButton(Messages.getString("JAbstractReportUtil.0"));
 
     /* Define the save button */
-    // INTERNATIONALIZE
-    protected JButton saveButton = new JButton(Messages.getString("JAbstractReportUtil.1")); //$NON-NLS-1$
+    protected JButton saveButton = new JButton(Messages.getString("JAbstractReportUtil.1"));
 
     /* Define the show button */
-    // INTERNATIONALIZE
-    protected JButton showButton = new JButton(Messages.getString("JAbstractReportUtil.2")); //$NON-NLS-1$
+    protected JButton showButton = new JButton(Messages.getString("JAbstractReportUtil.2"));
 
     /**
      * Each configuration utility has to implement this method which
@@ -56,7 +54,7 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
      * @param model
      *            the model which the configuration utility should configure
      */
-    public JAbstractReportUtil(M model) {
+    public JAbstractReportUtil(final M model) {
         super(model);
     }
 
@@ -83,9 +81,9 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
      * of the report in question
      */
     protected void revalidateDisplayability() {
-        boolean isDisplayable = true;       
-        
-        for (JAbstractSinglePanel singlepanel : this.reportCompilation.getRegisteredPanels()) {
+        boolean isDisplayable = true;
+
+        for (final JAbstractSinglePanel singlepanel : this.reportCompilation.getRegisteredPanels()) {
             if (!singlepanel.isDiagramDisplayable()) {
                 isDisplayable = false;
 
@@ -111,7 +109,7 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
     protected void revalidateSaveability() {
         boolean isSaveable = true;
 
-        for (JAbstractSinglePanel singlepanel : this.reportCompilation.getRegisteredPanels()) {
+        for (final JAbstractSinglePanel singlepanel : this.reportCompilation.getRegisteredPanels()) {
             if (!singlepanel.isDiagramSaveable()) {
                 isSaveable = false;
                 /*
@@ -128,16 +126,18 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
         }
 
     }
-    
+
     /**
      * Defines the default close operation when the view is closed by the user
      */
     protected void addCloseOperation() {
         this.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(WindowEvent winEvt) {
+            @Override
+            public void windowClosing(final WindowEvent winEvt) {
+
                 /* Activate the current project view */
                 ReportHelper.getProjectModel().setStatus(ProjectModel.ACTIVE);
-                dispose();
+                JAbstractReportUtil.this.dispose();
             }
         });
     }

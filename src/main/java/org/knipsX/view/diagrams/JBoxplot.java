@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 import javax.vecmath.Vector3d;
 
 import org.apache.log4j.Logger;
+import org.knipsX.Messages;
 import org.knipsX.model.reportmanagement.Boxplot;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.TextModel;
@@ -54,12 +55,12 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
             this.model.getBoxplots().toArray(boxplots);
             
 
-            logger.debug(Messages.getString("JBoxplot.0") + this.model.getMinY() + Messages.getString("JBoxplot.1") //$NON-NLS-1$ //$NON-NLS-2$
-                    + this.model.getMaxY() + Messages.getString("JBoxplot.2") + boxplots[0].getMean() + Messages.getString("JBoxplot.3") + boxplots[0].getMedian() //$NON-NLS-1$ //$NON-NLS-2$
-                    + Messages.getString("JBoxplot.4") + boxplots[0].getMaxValue() + Messages.getString("JBoxplot.5") + boxplots[0].getMinValue() //$NON-NLS-1$ //$NON-NLS-2$
-                    + Messages.getString("JBoxplot.6") + boxplots[0].getLowerWhisker() + Messages.getString("JBoxplot.7") //$NON-NLS-1$ //$NON-NLS-2$
-                    + boxplots[0].getUpperWhisker() + Messages.getString("JBoxplot.8") + boxplots[0].getLowerQuartile() //$NON-NLS-1$
-                    + Messages.getString("JBoxplot.9") + boxplots[0].getUpperQuartile()); //$NON-NLS-1$
+            logger.debug(Messages.getString("JBoxplot.0") + this.model.getMinY() + Messages.getString("JBoxplot.1")
+                    + this.model.getMaxY() + Messages.getString("JBoxplot.2") + boxplots[0].getMean() + Messages.getString("JBoxplot.3") + boxplots[0].getMedian()
+                    + Messages.getString("JBoxplot.4") + boxplots[0].getMaxValue() + Messages.getString("JBoxplot.5") + boxplots[0].getMinValue()
+                    + Messages.getString("JBoxplot.6") + boxplots[0].getLowerWhisker() + Messages.getString("JBoxplot.7")
+                    + boxplots[0].getUpperWhisker() + Messages.getString("JBoxplot.8") + boxplots[0].getLowerQuartile()
+                    + Messages.getString("JBoxplot.9") + boxplots[0].getUpperQuartile());
 
             this.getxAxis().setAxisSize(Math.max(2 * boxplots.length, 10));
 
@@ -72,16 +73,16 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
             if (this.model.getWilcoxonTest() != null && this.model.getWilcoxonTest().isValid()) {
                 
                 
-                String pValueResultText = Messages.getString("JBoxplot.10") + this.model.getWilcoxonTest().getResult(); //$NON-NLS-1$
-                String hypothesisResultText = Messages.getString("JBoxplot.11"); //$NON-NLS-1$
-                String rejected = Messages.getString("JBoxplot.12"); //$NON-NLS-1$
+                String pValueResultText = Messages.getString("JBoxplot.10") + this.model.getWilcoxonTest().getResult();
+                String hypothesisResultText = Messages.getString("JBoxplot.11");
+                String rejected = Messages.getString("JBoxplot.12");
                 if (this.model.getWilcoxonTest().isRejected()) {
-                    rejected = Messages.getString("JBoxplot.13"); //$NON-NLS-1$
+                    rejected = Messages.getString("JBoxplot.13");
                 } else {
-                    rejected = Messages.getString("JBoxplot.14"); //$NON-NLS-1$
+                    rejected = Messages.getString("JBoxplot.14");
                 }
                 
-                String output = pValueResultText + Messages.getString("JBoxplot.15") + hypothesisResultText + Messages.getString("JBoxplot.16") + rejected + Messages.getString("JBoxplot.17"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                String output = pValueResultText + Messages.getString("JBoxplot.15") + hypothesisResultText + Messages.getString("JBoxplot.16") + rejected + Messages.getString("JBoxplot.17");
                 
                 TextModel textModel = new TextModel(output);
                 JTextDiagram<TextModel> diagram = new JTextDiagram<TextModel>(textModel, -1);
@@ -93,9 +94,9 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
 
         } else {
             if (this.model != null) {
+
                 /* Output some kind of error message */
-                //INTERNATIONALIZE
-                JOptionPane.showMessageDialog(this, Messages.getString("JBoxplot.18")); //$NON-NLS-1$
+                JOptionPane.showMessageDialog(this, Messages.getString("JBoxplot.18"));
                 this.displayDiagram = false;
             }
             

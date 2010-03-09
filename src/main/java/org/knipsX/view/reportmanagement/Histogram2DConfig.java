@@ -1,5 +1,7 @@
 package org.knipsX.view.reportmanagement;
 
+import org.knipsX.Messages;
+
 /**
  * This class represents the 2D Histogram configuration with all its
  * necessary panels.
@@ -18,12 +20,11 @@ public class Histogram2DConfig extends AbstractReportCompilation {
     public Histogram2DConfig() {
         
         /* Define diagram description */
-        //INTERNATIONALIZE
-        this.diagramDescription = Messages.getString("Histogram2DConfig.0") //$NON-NLS-1$
-        		+ Messages.getString("Histogram2DConfig.1") //$NON-NLS-1$
-        		+ Messages.getString("Histogram2DConfig.2") //$NON-NLS-1$
-        		+ Messages.getString("Histogram2DConfig.3") //$NON-NLS-1$
-        		+ Messages.getString("Histogram2DConfig.4"); //$NON-NLS-1$
+        this.diagramDescription = Messages.getString("Histogram2DConfig.0")
+        		+ Messages.getString("Histogram2DConfig.1")
+        		+ Messages.getString("Histogram2DConfig.2")
+        		+ Messages.getString("Histogram2DConfig.3")
+        		+ Messages.getString("Histogram2DConfig.4");
 
         /* add the diagram panel to the report */
         addPanel(new JDiagramType(this.diagramDescription));

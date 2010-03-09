@@ -1,5 +1,7 @@
 package org.knipsX.view.reportmanagement;
 
+import org.knipsX.Messages;
+
 /**
  * This class represents the boxplot configuration with all its necessary panels.
  * 
@@ -17,15 +19,14 @@ public class BoxplotConfig extends AbstractReportCompilation {
     public BoxplotConfig() {
 
         /* Define diagram description */
-        //INTERNATIONALIZE
-        this.diagramDescription = Messages.getString("BoxplotConfig.0")  //$NON-NLS-1$
-                                  + Messages.getString("BoxplotConfig.1")  //$NON-NLS-1$
-                                  + Messages.getString("BoxplotConfig.2") //$NON-NLS-1$
-                                  + Messages.getString("BoxplotConfig.3") //$NON-NLS-1$
-                                  + Messages.getString("BoxplotConfig.4") //$NON-NLS-1$
-                                  + Messages.getString("BoxplotConfig.5")  //$NON-NLS-1$
-                                  + Messages.getString("BoxplotConfig.6")  //$NON-NLS-1$
-                                  + Messages.getString("BoxplotConfig.7"); //$NON-NLS-1$
+        this.diagramDescription = Messages.getString("BoxplotConfig.0") 
+                                  + Messages.getString("BoxplotConfig.1") 
+                                  + Messages.getString("BoxplotConfig.2")
+                                  + Messages.getString("BoxplotConfig.3")
+                                  + Messages.getString("BoxplotConfig.4")
+                                  + Messages.getString("BoxplotConfig.5") 
+                                  + Messages.getString("BoxplotConfig.6") 
+                                  + Messages.getString("BoxplotConfig.7");
 
         /* add the diagram panel to the report */
         addPanel(new JDiagramType(this.diagramDescription));

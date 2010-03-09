@@ -49,8 +49,8 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
+import org.knipsX.Messages;
 import org.knipsX.controller.diagrams.View3DClickController;
-import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
@@ -141,7 +141,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      * Note that all three axes have to be initialized even if only
      * two axis are displayed.
      */
-    private Axis3D[] axis3D = { new Axis3D(), new Axis3D(), new Axis3D() };
+    private final Axis3D[] axis3D = { new Axis3D(), new Axis3D(), new Axis3D() };
 
     /**
      * Stores the current perspective
@@ -168,8 +168,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      * Look at the axis3d class for more information
      */
     protected static boolean useBufferRange = true;
-    
-    
+
     /**
      * The default perspective which executed set in the postinitialized() method
      */
@@ -274,7 +273,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      * 
      * @return the appearance object with the specified color
      */
-    protected Appearance basicMaterial(Color color) {
+    protected Appearance basicMaterial(final Color color) {
         final Appearance a = new Appearance();
         final Material mat = new Material();
         mat.setShininess(100.0f);
@@ -308,13 +307,13 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         final TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
         final Transform3D transform3D = new Transform3D();
         transform3D.rotY(-90 * Math.PI / 180.0);
-        transform3D.setTranslation(new Vector3d(-2 * this.getyAxis().getAxisSize(), this.getxAxis().getAxisSize() / 2.0,
-                this.getzAxis().getAxisSize() / 2));
+        transform3D.setTranslation(new Vector3d(-2 * this.getyAxis().getAxisSize(),
+                this.getxAxis().getAxisSize() / 2.0, this.getzAxis().getAxisSize() / 2));
         vpTrans.setTransform(transform3D);
     }
 
     /* change the camera to a position where it faces the y x plane */
-    private void changeCamtoFaceYXPlane() {        
+    private void changeCamtoFaceYXPlane() {
         final TransformGroup vpTrans = this.simpleU.getViewingPlatform().getViewPlatformTransform();
         final Transform3D transform3D = new Transform3D();
         transform3D.setTranslation(new Vector3d(this.getxAxis().getAxisSize() / 2.0,
@@ -393,15 +392,15 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
                 final double normDistance = i * this.axis3D[q].getSegmentSize();
 
-                if (q == 0 && this.getyAxis().isShowSegments()) {
+                if ((q == 0) && this.getyAxis().isShowSegments()) {
                     /* y- axis */
                     segment.rotX(90 * Math.PI / 180.0d);
                     segment.setTranslation(new Vector3d(0, normDistance, 0));
-                } else if (q == 2 && this.getzAxis().isShowSegments()) {
+                } else if ((q == 2) && this.getzAxis().isShowSegments()) {
                     /* z- axis */
                     segment.rotY(90 * Math.PI / 180.0d);
                     segment.setTranslation(new Vector3d(0, 0, normDistance));
-                } else if (q == 1 && this.getxAxis().isShowSegments()) {
+                } else if ((q == 1) && this.getxAxis().isShowSegments()) {
                     /* x- axis */
                     segment.rotX(0 * Math.PI / 180.0d);
                     segment.setTranslation(new Vector3d(normDistance, 0, 0));
@@ -426,7 +425,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             double normDistance = 0;
 
             if (i == 1) {
-                /* x axis */                
+                /* x axis */
                 coneTransformation.rotZ(270 * Math.PI / 180.0d);
                 normDistance = 0.5 * this.getxAxis().getAxisSize() * percentage + this.getxAxis().getAxisSize();
                 coneTransformation.setTranslation(new Vector3d(normDistance, 0, 0));
@@ -485,11 +484,11 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     public void createCube(final Vector3d position, final Vector3d scale, final Appearance material) {
 
         /* Change the position to the right value */
-        Vector3d newPosition = new Vector3d(position);
+        final Vector3d newPosition = new Vector3d(position);
         newPosition.setY((scale.y) / 2 + position.y);
 
         /* Change the scale factor to the right value */
-        Vector3d newScale = new Vector3d(scale);
+        final Vector3d newScale = new Vector3d(scale);
         newScale.setY(scale.y / 2);
 
         final TransformGroup objMove = this.createTransformGroup(newPosition, newScale);
@@ -503,8 +502,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      */
     protected void createGrid() {
 
-        final TransformGroup gridtransform = this.createTransformGroup(
-                new Vector3d(0, 0, 0), new Vector3d(1, 1, 1));
+        final TransformGroup gridtransform = this.createTransformGroup(new Vector3d(0, 0, 0), new Vector3d(1, 1, 1));
 
         if (this.numberOfAxes == 2) {
             final Transform3D mytemptrans = new Transform3D();
@@ -558,10 +556,13 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     protected void createLabels(final String xAxis, final String yAxis, final String zAxis) {
         final double offset = 1.5;
         final double size = 0.42d;
-        final Appearance myapp = this.basicMaterial(1, 1, 1);        
-        this.createText(new Vector3d(offset + this.getxAxis().getAxisSize(), 0, 0), new Vector3d(size, size, size), myapp, xAxis);
-        this.createText(new Vector3d(0, 0, offset + this.getzAxis().getAxisSize()), new Vector3d(size, size, size), myapp, zAxis);
-        this.createText(new Vector3d(0, offset + this.getyAxis().getAxisSize(), 0), new Vector3d(size, size, size), myapp, yAxis);
+        final Appearance myapp = this.basicMaterial(1, 1, 1);
+        this.createText(new Vector3d(offset + this.getxAxis().getAxisSize(), 0, 0), new Vector3d(size, size, size),
+                myapp, xAxis);
+        this.createText(new Vector3d(0, 0, offset + this.getzAxis().getAxisSize()), new Vector3d(size, size, size),
+                myapp, zAxis);
+        this.createText(new Vector3d(0, offset + this.getyAxis().getAxisSize(), 0), new Vector3d(size, size, size),
+                myapp, yAxis);
     }
 
     private OffScreenCanvas3D createOffScreenCanvas(final Canvas3D onScreenCanvas3D) {
@@ -640,7 +641,8 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         final ColoringAttributes textColor = new ColoringAttributes();
         textColor.setColor(1.0f, 1.0f, 1.0f);
         textAppear.setColoringAttributes(textColor);
-        final Font3D font3D = new Font3D(new Font(Messages.getString("JAbstract3DView.0"), Font.PLAIN, 1), new FontExtrusion()); //$NON-NLS-1$
+        final Font3D font3D = new Font3D(new Font(Messages.getString("JAbstract3DView.0"), Font.PLAIN, 1),
+                new FontExtrusion());
         final Text3D textGeom = new Text3D(font3D, new String(text));
         textGeom.setAlignment(Text3D.ALIGN_CENTER);
         final Shape3D textShape = new Shape3D();
@@ -741,7 +743,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
         /* Set the camera perspective */
         this.perspective = Perspectives.PERSPECTIVE;
-        
+
         /* Create the axis */
         this.createAxis();
 
@@ -821,27 +823,27 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             this.leftPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
             this.leftPanel.setLayout(new BoxLayout(this.leftPanel, BoxLayout.PAGE_AXIS));
 
-            for (int i = 0; i < axis3D.length; i++) {
-                JLabel titleLabel = new JLabel(axis3D[i].getDescription().toString());
+            for (final Axis3D element : this.axis3D) {
+                final JLabel titleLabel = new JLabel(element.getDescription().toString());
                 this.leftPanel.add(titleLabel);
 
-                if (axis3D[i].getExifParameter() != null && picture != null) {
-                    
+                if ((element.getExifParameter() != null) && (picture != null)) {
+
                     String displayText = Messages.getString("JAbstract3DView.1"); //$NON-NLS-1$
-                    
-                    if (axis3D[i].getExifParameter() == ExifParameter.DATE) {
-                        
-                        Date tempDate = new Date();
-                        tempDate.setTime((Long) picture.getExifParameter(axis3D[i].getExifParameter()));
-                        DateFormat dateFormat = new SimpleDateFormat(Messages.getString("JAbstract3DView.2"));                         //$NON-NLS-1$
+
+                    if (element.getExifParameter() == ExifParameter.DATE) {
+
+                        final Date tempDate = new Date();
+                        tempDate.setTime((Long) picture.getExifParameter(element.getExifParameter()));
+                        final DateFormat dateFormat = new SimpleDateFormat(Messages.getString("JAbstract3DView.2")); //$NON-NLS-1$
                         displayText = dateFormat.format(tempDate);
-                        
+
                     } else {
-                        displayText = picture.getExifParameter(axis3D[i].getExifParameter()).toString();
+                        displayText = picture.getExifParameter(element.getExifParameter()).toString();
                     }
-                    
-                    JLabel exifParametersLabel = new JLabel(displayText);
-                    Font f = exifParametersLabel.getFont();
+
+                    final JLabel exifParametersLabel = new JLabel(displayText);
+                    final Font f = exifParametersLabel.getFont();
                     exifParametersLabel.setFont(f.deriveFont(f.getStyle() ^ Font.BOLD));
 
                     this.leftPanel.add(exifParametersLabel);
@@ -862,13 +864,13 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
             /* Define the space */
             size = size + 75;
-            JLabel spacer = new JLabel();
+            final JLabel spacer = new JLabel();
             spacer.setPreferredSize(new Dimension(size, 0));
             spacer.setMinimumSize(new Dimension(size, 0));
             spacer.setMaximumSize(new Dimension(size, 0));
             this.leftPanel.add(spacer);
             this.pack();
-            repaint();
+            this.repaint();
         }
 
     }
@@ -881,7 +883,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         /* Define the size of each text label */
         final double size = 0.33d;
 
-        if (this.numberOfAxes >= 1 && this.getyAxis().isShowSegments()) {
+        if ((this.numberOfAxes >= 1) && this.getyAxis().isShowSegments()) {
             /* Create the y Axis */
             final String[] yAxis = this.getyAxis().getSegmentDescription();
 
@@ -893,11 +895,11 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
 
             }
         }
-        
-        if (this.numberOfAxes >= 2 && this.getxAxis().isShowSegments()) {
+
+        if ((this.numberOfAxes >= 2) && this.getxAxis().isShowSegments()) {
             /* Create the x Axis */
             final String[] xAxis = this.getxAxis().getSegmentDescription();
-            
+
             for (int q = 0; q < xAxis.length; q++) {
                 if (xAxis[q] != null) {
                     this.createText(new Vector3d(q * this.getxAxis().getSegmentSize(), -0.5d, -0.5d), new Vector3d(
@@ -906,7 +908,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             }
         }
 
-        if (this.numberOfAxes >= 3 && this.getzAxis().isShowSegments()) {
+        if ((this.numberOfAxes >= 3) && this.getzAxis().isShowSegments()) {
             /* Create the z Axis */
             final String[] zAxis = this.getzAxis().getSegmentDescription();
 
@@ -923,7 +925,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     @Override
     public void showDiagram() {
 
-        if (displayDiagram) {
+        if (this.displayDiagram) {
             this.setLayout(new BorderLayout());
 
             final Component diagramView = this.canvas3D;
@@ -980,73 +982,75 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      * Creates a legend with the specified picture container. Uses the colors
      * defined in utils.Resources
      * 
-     * @param pictureContainer the picture container you want to create a legend upon
+     * @param pictureContainer
+     *            the picture container you want to create a legend upon
      */
-    protected void createLegend(ArrayList<PictureContainer> pictureContainer) {
-        this.rightPanel = new JPanel();        
+    protected void createLegend(final ArrayList<PictureContainer> pictureContainer) {
+        this.rightPanel = new JPanel();
         this.rightPanel.setLayout(new BoxLayout(this.rightPanel, BoxLayout.PAGE_AXIS));
-        this.rightPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));       
-        
+        this.rightPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
         int i = 0;
-        //INTERNATIONALIZE
+        // INTERNATIONALIZE
         this.rightPanel.add(new JLabel(Messages.getString("JAbstract3DView.4"))); //$NON-NLS-1$
-        for (PictureContainer content : pictureContainer) {
-            JLabel currentPictureSetLabel = new JLabel(content.getName());            
+        for (final PictureContainer content : pictureContainer) {
+            final JLabel currentPictureSetLabel = new JLabel(content.getName());
             currentPictureSetLabel.setIcon(new ColorRectangle(Resource.getColor(i)));
             this.rightPanel.add(currentPictureSetLabel);
-            
+
             i++;
         }
-        
+
     }
-    
+
     /**
      * Defines a simple colored rectangle
-     *  
+     * 
      * @author David Kaufman
-     *
+     * 
      */
     public class ColorRectangle implements Icon {
-        
-        private Color color;
-      /**
-       * This constructor initialized a Icon with the given color  
-       * @param color the color of the rectangle
-       */
-        public ColorRectangle(Color color) {
+
+        private final Color color;
+
+        /**
+         * This constructor initialized a Icon with the given color
+         * 
+         * @param color
+         *            the color of the rectangle
+         */
+        public ColorRectangle(final Color color) {
             this.color = color;
         }
-        
-        private int width = 16;
-        private int height = 16;
-        
+
+        private final int width = 16;
+        private final int height = 16;
 
         /**
          * {@inheritDoc}
          */
         public int getIconWidth() {
-            return width;
-        }
-        
-        /**
-         * {@inheritDoc}
-         */
-        public int getIconHeight() {
-            return height;
+            return this.width;
         }
 
         /**
          * {@inheritDoc}
-         */        
-        public void paintIcon(Component c, Graphics g, int x, int y) {
-            Graphics2D g2d = (Graphics2D) g.create();
+         */
+        public int getIconHeight() {
+            return this.height;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public void paintIcon(final Component c, final Graphics g, final int x, final int y) {
+            final Graphics2D g2d = (Graphics2D) g.create();
             g2d.setColor(this.color);
-            g2d.fillRect(x, y, width, height);
+            g2d.fillRect(x, y, this.width, this.height);
             g2d.dispose();
         }
     }
-    
-    
+
     /**
      * This class is responsible for handling the off screen buffer of the assign graphics
      * configuration and outputting the generated buffered image via the doRender() function

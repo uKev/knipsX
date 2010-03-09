@@ -3,6 +3,7 @@ package org.knipsX.view.diagrams;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import org.knipsX.Messages;
 import org.knipsX.controller.diagrams.DiagramCloseController;
 
 /**
@@ -24,16 +25,13 @@ public class JDiagramButtonsText extends JPanel {
      *            the view on which the controllers work on
      */
 
-    public JDiagramButtonsText(JAbstractDiagram<?> view) {
-        
-        /* Define the close button and associate the controller */
-        //INTERNATIONALIZE
-        JButton closeButton = new JButton(Messages.getString("JDiagramButtonsText.0")); //$NON-NLS-1$
-        closeButton.addActionListener(new DiagramCloseController<Object, JAbstractDiagram<?>>(view));       
+    public JDiagramButtonsText(final JAbstractDiagram<?> view) {
 
+        /* Define the close button and associate the controller */
+        final JButton closeButton = new JButton(Messages.getString("JDiagramButtonsText.0"));
+        closeButton.addActionListener(new DiagramCloseController<Object, JAbstractDiagram<?>>(view));
 
         /* Add all the defined buttons to the current panel */
-        add(closeButton);
-
+        this.add(closeButton);
     }
 }

@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 
 import org.apache.log4j.Logger;
+import org.knipsX.Messages;
 import org.knipsX.controller.reportmanagement.ReportAddExifKeywordController;
 import org.knipsX.controller.reportmanagement.ReportAddPictureSetController;
 import org.knipsX.controller.reportmanagement.ReportPictureSetRemoveController;
@@ -175,7 +176,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                     numberOfElements++;
                 }
                 
-                theText = pictureContainer.getName() + " (" + Integer.toString(numberOfElements) + ")"; //$NON-NLS-1$ //$NON-NLS-2$
+                theText = pictureContainer.getName() + " (" + Integer.toString(numberOfElements) + ")"; //$NON-NLS-2$
 
             }
             renderer.setText(theText);
@@ -189,8 +190,8 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     private void addAvaialablePictureSetsPanel(JPanel toppanel) {
         final JPanel availablePictureSetsPanel = new JPanel();
         availablePictureSetsPanel.setLayout(new BorderLayout());
-        // INTERNATIONALIZE
-        final JLabel availablePictureSetsLabel = new JLabel(Messages.getString("JPictureSetExif.2")); //$NON-NLS-1$
+        
+        final JLabel availablePictureSetsLabel = new JLabel(Messages.getString("JPictureSetExif.2"));
         availablePictureSetsPanel.add(availablePictureSetsLabel, BorderLayout.NORTH);
         this.availablePictureSets = new JFlexibleList(ReportHelper.getProjectModel().getPictureSets());
         this.availablePictureSets.setCellRenderer(new PictureSetListCellRenderer());
@@ -211,11 +212,11 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         /* to prevent popping and fixing alignment of layout add fixed dimension */
         Dimension size = new Dimension(32, 32);
         topbuttonpanel.add(new Box.Filler(size, size, size));
-        final JButton insertpictureset = new JButton(Messages.getString("JPictureSetExif.3")); //$NON-NLS-1$
+        final JButton insertpictureset = new JButton(Messages.getString("JPictureSetExif.3"));
         insertpictureset.setAlignmentX(Component.CENTER_ALIGNMENT);
         insertpictureset.addActionListener(new ReportAddPictureSetController<AbstractModel, JPictureSetExif>(this));
         topbuttonpanel.add(insertpictureset);
-        final JButton removepictureset = new JButton(Messages.getString("JPictureSetExif.4")); //$NON-NLS-1$
+        final JButton removepictureset = new JButton(Messages.getString("JPictureSetExif.4"));
         removepictureset.setAlignmentX(Component.CENTER_ALIGNMENT);
         removepictureset.addActionListener(new ReportPictureSetRemoveController<AbstractModel, JPictureSetExif>(this));
         topbuttonpanel.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -229,8 +230,8 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     private void addAssociatedPictureSetsPanel(JPanel toppanel) {
         final JPanel associatedPictureSetsPanel = new JPanel();
         associatedPictureSetsPanel.setLayout(new BorderLayout());
-        // INTERNATIONALIZE
-        final JLabel associatedPictureSetsLabel = new JLabel(Messages.getString("JPictureSetExif.5")); //$NON-NLS-1$
+        
+        final JLabel associatedPictureSetsLabel = new JLabel(Messages.getString("JPictureSetExif.5"));
         this.associatedPictureSets = new JFlexibleList();
         this.associatedPictureSets.setCellRenderer(new PictureSetListCellRenderer());
         this.associatedPictureSets.setFixedCellWidth(250);
@@ -242,8 +243,8 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     private void addAvailableExifTagsPanel(JPanel bottompanel) {
         final JPanel availableExifTagsPanel = new JPanel();
         availableExifTagsPanel.setLayout(new BorderLayout());
-        // INTERNATIONALIZE
-        final JLabel availableExifTagsLabel = new JLabel(Messages.getString("JPictureSetExif.6")); //$NON-NLS-1$
+        
+        final JLabel availableExifTagsLabel = new JLabel(Messages.getString("JPictureSetExif.6"));
         this.availableExifTags = new JFlexibleList();
         this.availableExifTags.setFixedCellWidth(250);
         availableExifTagsPanel.add(availableExifTagsLabel, BorderLayout.NORTH);
@@ -265,8 +266,8 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     private void addAssociatedExifTagsPanel(JPanel bottompanel) {
         final JPanel associatedExifTagsPanel = new JPanel();
         associatedExifTagsPanel.setLayout(new BorderLayout());
-        // INTERNATIONALIZE
-        final JLabel associatedExifTagsLabel = new JLabel(Messages.getString("JPictureSetExif.9")); //$NON-NLS-1$
+        
+        final JLabel associatedExifTagsLabel = new JLabel(Messages.getString("JPictureSetExif.9"));
         this.associatedExifTags = new JFlexibleList();
         this.associatedExifTags.setFixedCellWidth(250);
         associatedExifTagsPanel.add(associatedExifTagsLabel, BorderLayout.NORTH);
@@ -326,8 +327,8 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     public JPictureSetExif() {
 
         /* Set the title name of this panel */
-        // INTERNATIONALIZE
-        this.title = Messages.getString("JPictureSetExif.10"); //$NON-NLS-1$
+        
+        this.title = Messages.getString("JPictureSetExif.10");
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -516,9 +517,9 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
                     if (numberOfElements == 0) {
                         this.errorMessage.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
-                        // INTERNATIONALIZE
+                        
                         this.errorMessage
-                                .setToolTipText(Messages.getString("JPictureSetExif.12")); //$NON-NLS-1$
+                                .setToolTipText(Messages.getString("JPictureSetExif.12"));
                         this.showErrorIcon();
                         return false;
                     }
@@ -540,14 +541,14 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 }
 
                 Logger logger = Logger.getLogger(this.getClass());
-                logger.debug(Messages.getString("JPictureSetExif.13") //$NON-NLS-1$
+                logger.debug(Messages.getString("JPictureSetExif.13")
                         + Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters));
 
                 ArrayList<String> associatedXMPKeywords = new ArrayList<String>(Arrays.asList(this
                         .getExifFilterKeywords()));
 
                 for (PictureContainer pictureContainer : this.getPictureContainer()) {
-                    logger.debug(Messages.getString("JPictureSetExif.14") //$NON-NLS-1$
+                    logger.debug(Messages.getString("JPictureSetExif.14")
                             + Validator.getValidPictures(pictureContainer, exifParameters, associatedXMPKeywords)
                                     .size());
 
@@ -555,9 +556,9 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                             && ReportHelper.getCurrentReport() != ReportHelper.Table) {
                         this.errorMessage.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
 
-                        // INTERNATIONALIZE
-                        this.errorMessage.setToolTipText(Messages.getString("JPictureSetExif.16") //$NON-NLS-1$
-                                + Messages.getString("JPictureSetExif.17")); //$NON-NLS-1$
+                        
+                        this.errorMessage.setToolTipText(Messages.getString("JPictureSetExif.16")
+                                + Messages.getString("JPictureSetExif.17"));
 
                         this.showErrorIcon();
                         return false;
@@ -580,9 +581,9 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
             } else {
                 this.errorMessage.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
-                // INTERNATIONALIZE
-                this.errorMessage.setToolTipText(Messages.getString("JPictureSetExif.19") //$NON-NLS-1$
-                        + Messages.getString("JPictureSetExif.20")); //$NON-NLS-1$
+                
+                this.errorMessage.setToolTipText(Messages.getString("JPictureSetExif.19")
+                        + Messages.getString("JPictureSetExif.20"));
                 this.showErrorIcon();
                 return false;
             }

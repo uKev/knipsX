@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
+import org.knipsX.Messages;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
@@ -46,25 +47,27 @@ public class PictureSetListCopyController<M extends ProjectModel, V extends JPro
             /* get the selected project */
             final PictureSet pictureSetToCopy = this.model.getPictureSets()[toCopy[0]];
 
-            /* INTERNATIONALIZE */
-            final int decision = JOptionPane.showConfirmDialog(this.view, Messages.getString("PictureSetListCopyController.0") //$NON-NLS-1$
-                    + pictureSetToCopy.getName() + Messages.getString("PictureSetListCopyController.1"), Messages.getString("PictureSetListCopyController.2"), JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
+            final int decision = JOptionPane.showConfirmDialog(this.view, Messages
+                    .getString("PictureSetListCopyController.0")
+                    + pictureSetToCopy.getName() + Messages.getString("PictureSetListCopyController.1"), Messages
+                    .getString("PictureSetListCopyController.2"), JOptionPane.YES_NO_OPTION);
 
             /* if user pressed "yes" */
-            if (decision == 0) {
+            if (decision == JOptionPane.YES_OPTION) {
 
                 /* try to get a picture set name */
-                /* INTERNATIONALIZE */
-                String pictureSetName = JOptionPane.showInputDialog(this.view, Messages.getString("PictureSetListCopyController.3"), //$NON-NLS-1$
-                        Messages.getString("PictureSetListCopyController.4"), JOptionPane.INFORMATION_MESSAGE); //$NON-NLS-1$
+                String pictureSetName = JOptionPane.showInputDialog(this.view, Messages
+                        .getString("PictureSetListCopyController.3"), Messages
+                        .getString("PictureSetListCopyController.4"), JOptionPane.INFORMATION_MESSAGE);
 
                 /* while user is not pressing cancel and no text is given */
-                while ((pictureSetName != null) && pictureSetName.equals(Messages.getString("PictureSetListCopyController.5"))) { //$NON-NLS-1$
+                while ((pictureSetName != null)
+                        && pictureSetName.equals(Messages.getString("PictureSetListCopyController.5"))) {
 
                     /* try to get a project name */
-                    /* INTERNATIONALIZE */
-                    pictureSetName = JOptionPane.showInputDialog(this.view, Messages.getString("PictureSetListCopyController.6"), //$NON-NLS-1$
-                            Messages.getString("PictureSetListCopyController.7"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+                    pictureSetName = JOptionPane.showInputDialog(this.view, Messages
+                            .getString("PictureSetListCopyController.6"), Messages
+                            .getString("PictureSetListCopyController.7"), JOptionPane.ERROR_MESSAGE);
                 }
 
                 /* has user give in a project name? */
@@ -76,15 +79,13 @@ public class PictureSetListCopyController<M extends ProjectModel, V extends JPro
         } else if (toCopy.length == 0) {
 
             /* gives the user a hint, that he has selected too much picture sets */
-            /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(this.view, Messages.getString("PictureSetListCopyController.8"), //$NON-NLS-1$
-                    Messages.getString("PictureSetListCopyController.9"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+            JOptionPane.showMessageDialog(this.view, Messages.getString("PictureSetListCopyController.8"), Messages
+                    .getString("PictureSetListCopyController.9"), JOptionPane.ERROR_MESSAGE);
         } else {
 
             /* gives the user a hint, that he has selected too little picture sets */
-            /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(this.view, Messages.getString("PictureSetListCopyController.10"), //$NON-NLS-1$
-                    Messages.getString("PictureSetListCopyController.11"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+            JOptionPane.showMessageDialog(this.view, Messages.getString("PictureSetListCopyController.10"), Messages
+                    .getString("PictureSetListCopyController.11"), JOptionPane.ERROR_MESSAGE);
 
         }
     }
