@@ -11,7 +11,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.model.reportmanagement.TableModel;
 import org.knipsX.utils.ExifParameter;
@@ -47,15 +46,14 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
         super(model, reportId);
 
         AbstractTableModel dataModel = null;
-        
-        if (this.model != null && this.model.isModelValid()) {
+
+        if ((this.model != null) && this.model.isModelValid()) {
             final ArrayList<PictureInterface> pictures = this.model.getPictures();
-            
+
             dataModel = new AbstractTableModel() {
-                
+
                 private static final long serialVersionUID = -136606257319989327L;
-               
-                
+
                 public int getColumnCount() {
                     return ExifParameter.values().length + 1;
                 }
@@ -64,14 +62,15 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
                     return pictures.size();
                 }
 
-                public Object getValueAt(final int row, final int col) { 
+                public Object getValueAt(final int row, final int col) {
                     if (col == 0) {
                         return pictures.get(row).getName();
-                    }                
+                    }
                     return pictures.get(row).getExifParameter(ExifParameter.values()[col - 1]);
                 }
-                
-                public String getColumnName(int column) {
+
+                @Override
+                public String getColumnName(final int column) {
                     if (column == 0) {
                         return "Name";
                     } else {
@@ -79,13 +78,11 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
                     }
                 }
             };
-        
-        
+
         }
-        
+
         this.table = new JTable(dataModel);
         this.table.setDefaultRenderer(Object.class, new MyExifTableCellRenderer());
-        
 
         this.scrollpane = new JScrollPane(this.table);
 

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.apache.log4j.Logger;
+import org.knipsX.Messages;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
@@ -197,7 +198,6 @@ public class ProjectModel extends AbstractModel {
         }
         final List<Object[]> exifParameter = new LinkedList<Object[]>();
 
-        /* INTERNATIONALIZE */
         for (final ExifParameter parameter : ExifParameter.values()) {
             exifParameter.add(new Object[] { parameter.toString(), Messages.getString("ProjectModel.0") });
         }
@@ -283,7 +283,7 @@ public class ProjectModel extends AbstractModel {
             throw new NullPointerException("No image left in the data queue!");
         }
 
-        PictureInterface pic = this.pictureDataQueue.remove();
+        final PictureInterface pic = this.pictureDataQueue.remove();
         pic.getAllExifParameter();
     }
 
@@ -302,17 +302,17 @@ public class ProjectModel extends AbstractModel {
             throw new NullPointerException("No image left in thumbnail queue!");
         }
 
-        PictureInterface pic = this.pictureThumbnailQueue.remove();
+        final PictureInterface pic = this.pictureThumbnailQueue.remove();
         pic.initThumbnails();
 
-        if (numberOfPicturesFinished == 5) {
+        if (this.numberOfPicturesFinished == 5) {
             this.updateViews();
-            numberOfPicturesFinished = 0;
+            this.numberOfPicturesFinished = 0;
         } else {
-            numberOfPicturesFinished++;
+            this.numberOfPicturesFinished++;
             if (this.pictureThumbnailQueue.isEmpty()) {
                 this.updateViews();
-                numberOfPicturesFinished = 0;
+                this.numberOfPicturesFinished = 0;
             }
         }
     }
@@ -326,7 +326,7 @@ public class ProjectModel extends AbstractModel {
     /* Initializes the queues */
     private synchronized void initialize() {
         if (!this.isInitialized) {
-            for (PictureInterface pic : this.getAllPictures()) {
+            for (final PictureInterface pic : this.getAllPictures()) {
                 this.pictureDataQueue.add(pic);
                 this.pictureThumbnailQueue.add(pic);
             }
@@ -347,7 +347,7 @@ public class ProjectModel extends AbstractModel {
         try {
             RepositoryHandler.getRepository().saveProject(this);
         } catch (final RepositoryInterfaceException e) {
-            this.logger.error(Messages.getString("ProjectModel.9") + e.getStackTrace()); 
+            this.logger.error(Messages.getString("ProjectModel.9") + e.getStackTrace());
         }
     }
 
@@ -468,7 +468,7 @@ public class ProjectModel extends AbstractModel {
      */
     public PictureSet[] getPictureSetsFromPictureSet(final PictureSet pictureSet) throws NullPointerException {
         if (pictureSet == null) {
-            throw new NullPointerException(Messages.getString("ProjectModel.10")); 
+            throw new NullPointerException(Messages.getString("ProjectModel.10"));
         }
         final List<PictureSet> pictureSets = new ArrayList<PictureSet>();
 
@@ -493,7 +493,7 @@ public class ProjectModel extends AbstractModel {
      */
     public Directory[] getDirectoriesFromPictureSet(final PictureSet pictureSet) throws NullPointerException {
         if (pictureSet == null) {
-            throw new NullPointerException(Messages.getString("ProjectModel.11")); 
+            throw new NullPointerException(Messages.getString("ProjectModel.11"));
         }
         final List<Directory> directories = new ArrayList<Directory>();
 
@@ -518,7 +518,7 @@ public class ProjectModel extends AbstractModel {
      */
     public Picture[] getPicturesFromPictureSet(final PictureSet pictureSet) throws NullPointerException {
         if (pictureSet == null) {
-            throw new NullPointerException(Messages.getString("ProjectModel.12")); 
+            throw new NullPointerException(Messages.getString("ProjectModel.12"));
         }
         final List<Picture> pictures = new ArrayList<Picture>();
 

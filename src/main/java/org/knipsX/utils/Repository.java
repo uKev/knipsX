@@ -1,14 +1,21 @@
 package org.knipsX.utils;
 
 import java.util.List;
+
 import org.knipsX.model.projectview.ProjectModel;
 
+/**
+ * Represents a skeleton view of a Repository.
+ */
 public interface Repository {
 
     /**
      * Get all projects from the repository.
      * 
      * @return all models.
+     * 
+     * @throws RepositoryInterfaceException
+     *             if an exception occurs.
      */
     List<ProjectModel> getProjects() throws RepositoryInterfaceException;
 
@@ -18,6 +25,8 @@ public interface Repository {
      * @param projectId
      *            the id of the project.
      * @return the project.
+     * @throws RepositoryInterfaceException
+     *             if an exception occurs.
      */
     ProjectModel getProject(int projectId) throws RepositoryInterfaceException;
 
@@ -25,6 +34,8 @@ public interface Repository {
      * Create a new project.
      * 
      * @return projectId the id of the new created project.
+     * @throws RepositoryInterfaceException
+     *             if an exception occurs.
      */
     int createProject() throws RepositoryInterfaceException;
 
@@ -34,6 +45,8 @@ public interface Repository {
      * @param toCopy
      *            a given project.
      * @return projectId the id of the new created project.
+     * @throws RepositoryInterfaceException
+     *             if an exception occurs.
      */
     int createProject(ProjectModel toCopy) throws RepositoryInterfaceException;
 
@@ -42,14 +55,19 @@ public interface Repository {
      * 
      * @param projectId
      *            the id of the project.
+     * @throws RepositoryInterfaceException
+     *             if an exception occurs.
      */
     void deleteProject(int projectId) throws RepositoryInterfaceException;
 
     /**
      * Save a project at the repository.
      * 
-     * @param the
+     * @param toSave
+     *            the
      *            project to save.
+     * @throws RepositoryInterfaceException
+     *             if an exception occurs.
      */
     void saveProject(ProjectModel toSave) throws RepositoryInterfaceException;
 }

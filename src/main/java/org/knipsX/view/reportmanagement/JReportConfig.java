@@ -10,6 +10,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import org.knipsX.Messages;
 import org.knipsX.controller.reportmanagement.ReportCloseController;
 import org.knipsX.controller.reportmanagement.ReportSaveController;
 import org.knipsX.model.AbstractModel;
@@ -49,15 +50,14 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
      */
     public JReportConfig(final M model, final int reportID) {
         super(model);
-        this.reportID = reportID;        
-        ReportHelper.setCurrentModel(this.model);        
+        this.reportID = reportID;
+        ReportHelper.setCurrentModel(this.model);
         ReportHelper.setCurrentReportUtility(this);
-        this.addCloseOperation();        
+        this.addCloseOperation();
         this.addCurrentReportConfig();
         this.reportCompilation = ReportHelper.getCurrentReport().createReportCompilation();
         this.tabbedpane = this.getJTabbedPane();
-        // INTERNATIONALIZE
-        this.setTitle(Messages.getString("JReportConfig.0")); //$NON-NLS-1$
+        this.setTitle(Messages.getString("JReportConfig.0"));
         this.initialize();
         this.closeButton.addActionListener(new ReportCloseController<AbstractModel, JReportConfig<?, ?>>(this));
         this.saveButton.addActionListener(new ReportSaveController<AbstractReportModel, JReportConfig<?, ?>>(this,
@@ -70,27 +70,26 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
 
     }
 
-    
     private void addCurrentReportConfig() {
 
-        if (model instanceof BoxplotModel) {
+        if (this.model instanceof BoxplotModel) {
             ReportHelper.setCurrentReport(ReportHelper.Boxplot);
-        } else if (model instanceof TableModel) {
+        } else if (this.model instanceof TableModel) {
             ReportHelper.setCurrentReport(ReportHelper.Table);
-        } else if (model instanceof Cluster3DModel) {
+        } else if (this.model instanceof Cluster3DModel) {
             ReportHelper.setCurrentReport(ReportHelper.Cluster3D);
-        } else if (model instanceof Histogram2DModel) {
+        } else if (this.model instanceof Histogram2DModel) {
             ReportHelper.setCurrentReport(ReportHelper.Histogram2D);
-        } else if (model instanceof Histogram3DModel) {
+        } else if (this.model instanceof Histogram3DModel) {
             ReportHelper.setCurrentReport(ReportHelper.Histogram3D);
         }
     }
-    
+
     private JTabbedPane getJTabbedPane() {
         final JTabbedPane tabbedpane = new JTabbedPane();
 
         for (final JAbstractSinglePanel item : this.reportCompilation.getRegisteredPanels()) {
-            
+
             tabbedpane.addTab(item.getTitle(), item.getIcon(), item);
 
             /*
@@ -143,6 +142,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
 
     @Override
     public void setReportType(final AbstractReportCompilation reportconfig) {
+
         /* Remember the size of the current configuration utility so that it can be resized properly */
         this.mysize[1] = this.getBounds().height;
         this.mysize[0] = this.getBounds().width;

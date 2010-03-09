@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 
 import org.apache.log4j.Logger;
+import org.knipsX.Messages;
 import org.knipsX.controller.projectmanagement.ProjectClickOnController;
 import org.knipsX.controller.projectmanagement.ProjectCopyController;
 import org.knipsX.controller.projectmanagement.ProjectCreateController;
@@ -29,7 +30,6 @@ import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.utils.Resource;
 import org.knipsX.view.JAbstractView;
-import org.knipsX.view.projectview.Messages;
 
 /**
  * Represents the management view for all user projects.

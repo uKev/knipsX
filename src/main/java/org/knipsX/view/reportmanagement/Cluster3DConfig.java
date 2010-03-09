@@ -1,5 +1,7 @@
 package org.knipsX.view.reportmanagement;
 
+import org.knipsX.Messages;
+
 /**
  * This class represents the 3D Cluster configuration with all its
  * necessary panels.
@@ -17,14 +19,13 @@ public class Cluster3DConfig extends AbstractReportCompilation {
     public Cluster3DConfig() {        
         
         /* Define diagram description */
-        //INTERNATIONALIZE
-        this.diagramDescription = Messages.getString("Cluster3DConfig.0") //$NON-NLS-1$
-        		+ Messages.getString("Cluster3DConfig.1") //$NON-NLS-1$
-        		+ Messages.getString("Cluster3DConfig.2") //$NON-NLS-1$
-        		+ Messages.getString("Cluster3DConfig.3") //$NON-NLS-1$
-        		+ Messages.getString("Cluster3DConfig.4") //$NON-NLS-1$
-        		+ Messages.getString("Cluster3DConfig.5") //$NON-NLS-1$
-        		+ Messages.getString("Cluster3DConfig.6"); //$NON-NLS-1$
+        this.diagramDescription = Messages.getString("Cluster3DConfig.0")
+        		+ Messages.getString("Cluster3DConfig.1")
+        		+ Messages.getString("Cluster3DConfig.2")
+        		+ Messages.getString("Cluster3DConfig.3")
+        		+ Messages.getString("Cluster3DConfig.4")
+        		+ Messages.getString("Cluster3DConfig.5")
+        		+ Messages.getString("Cluster3DConfig.6");
 
         
         /* add the diagram panel to the report */

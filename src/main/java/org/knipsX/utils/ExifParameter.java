@@ -1,13 +1,13 @@
 package org.knipsX.utils;
 
+import org.knipsX.Messages;
 
 public enum ExifParameter {
 
     CAMERAMODEL {
         @Override
         public String toString() {
-            // INTERNATIONALIZE
-            return Messages.getString("ExifParameter.0"); //$NON-NLS-1$
+            return Messages.getString("ExifParameter.0");
         }
 
         @Override
@@ -19,8 +19,7 @@ public enum ExifParameter {
     FLASH {
         @Override
         public String toString() {
-            // INTERNATIONALIZE
-            return Messages.getString("ExifParameter.1"); //$NON-NLS-1$
+            return Messages.getString("ExifParameter.1");
         }
 
         @Override
@@ -32,8 +31,7 @@ public enum ExifParameter {
     FNUMBER {
         @Override
         public String toString() {
-            // INTERNATIONALIZE
-            return Messages.getString("ExifParameter.2"); //$NON-NLS-1$
+            return Messages.getString("ExifParameter.2");
         }
 
         @Override
@@ -45,8 +43,7 @@ public enum ExifParameter {
     EXPOSURETIME {
         @Override
         public String toString() {
-            // INTERNATIONALIZE
-            return Messages.getString("ExifParameter.3"); //$NON-NLS-1$
+            return Messages.getString("ExifParameter.3");
         }
 
         @Override
@@ -58,8 +55,7 @@ public enum ExifParameter {
     ISO {
         @Override
         public String toString() {
-            // INTERNATIONALIZE
-            return Messages.getString("ExifParameter.4"); //$NON-NLS-1$
+            return Messages.getString("ExifParameter.4");
         }
 
         @Override
@@ -71,8 +67,7 @@ public enum ExifParameter {
     FOCALLENGTH {
         @Override
         public String toString() {
-            // INTERNATIONALIZE
-            return Messages.getString("ExifParameter.5"); //$NON-NLS-1$
+            return Messages.getString("ExifParameter.5");
         }
 
         @Override
@@ -84,8 +79,7 @@ public enum ExifParameter {
     DATE {
         @Override
         public String toString() {
-            // INTERNATIONALIZE
-            return Messages.getString("ExifParameter.6"); //$NON-NLS-1$
+            return Messages.getString("ExifParameter.6");
         }
 
         @Override
@@ -97,8 +91,7 @@ public enum ExifParameter {
     OBJECTIVENAME {
         @Override
         public String toString() {
-            // INTERNATIONALIZE
-            return Messages.getString("ExifParameter.7"); //$NON-NLS-1$
+            return Messages.getString("ExifParameter.7");
         }
 
         @Override
@@ -110,8 +103,7 @@ public enum ExifParameter {
     KEYWORDS {
         @Override
         public String toString() {
-            // INTERNATIONALIZE
-            return Messages.getString("ExifParameter.8"); //$NON-NLS-1$
+            return Messages.getString("ExifParameter.8");
         }
 
         @Override

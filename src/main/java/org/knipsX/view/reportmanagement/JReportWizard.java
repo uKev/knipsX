@@ -10,6 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import org.knipsX.Messages;
 import org.knipsX.controller.reportmanagement.ReportCloseController;
 import org.knipsX.controller.reportmanagement.ReportSaveController;
 import org.knipsX.controller.reportmanagement.WizardNextPanelController;
@@ -51,11 +52,8 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 
         this.reportCompilation = ReportHelper.getDefaultReport().createReportCompilation();
 
-        // INTERNATIONALIZE
-        this.nextPanelButton = new JButton(Messages.getString("JReportWizard.0")); //$NON-NLS-1$
-
-        // INTERNATIONALIZE
-        this.previousPanelButton = new JButton(Messages.getString("JReportWizard.1")); //$NON-NLS-1$
+        this.nextPanelButton = new JButton(Messages.getString("JReportWizard.0"));
+        this.previousPanelButton = new JButton(Messages.getString("JReportWizard.1"));
 
         this.closeButton.addActionListener(new ReportCloseController<AbstractReportModel, JReportWizard<?, ?>>(this));
         this.saveButton.addActionListener(new ReportSaveController<AbstractReportModel, JReportWizard<?, ?>>(this,
@@ -73,8 +71,6 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-
-
 
     private void initialize() {
 

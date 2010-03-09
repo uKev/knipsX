@@ -1,5 +1,7 @@
 package org.knipsX.model.reportmanagement;
 
+import org.knipsX.Messages;
+
 /**
  * Represents the types of a WilcoxonTest.
  * 
@@ -15,9 +17,7 @@ public enum WilcoxonTestType {
     LESS {
         @Override
         public String toString() {
-            // INTERNATIONALIZE
-            return Messages.getString("WilcoxonTestType.0"); //$NON-NLS-1$
-
+            return Messages.getString("WilcoxonTestType.0");
         }
     },
     /**
@@ -27,9 +27,7 @@ public enum WilcoxonTestType {
     GREATER {
         @Override
         public String toString() {
-            // INTERNATIONALIZE
-            return Messages.getString("WilcoxonTestType.1"); //$NON-NLS-1$
-
+            return Messages.getString("WilcoxonTestType.1");
         }
     },
     /**
@@ -39,10 +37,7 @@ public enum WilcoxonTestType {
     TWO_SIDED {
         @Override
         public String toString() {
-
-            // INTERNATIONALIZE
-            return Messages.getString("WilcoxonTestType.2"); //$NON-NLS-1$
-
+            return Messages.getString("WilcoxonTestType.2");
         }
     };
     /**

@@ -1,5 +1,7 @@
 package org.knipsX.view.reportmanagement;
 
+import org.knipsX.Messages;
+
 /**
  * This class represents the 3D Histogram configuration with all its
  * necessary panels.
@@ -17,11 +19,10 @@ public class Histogram3DConfig extends AbstractReportCompilation {
     public Histogram3DConfig() {
 
         /* Define diagram description */
-        // INTERNATIONALIZE
-        this.diagramDescription = Messages.getString("Histogram3DConfig.0") //$NON-NLS-1$
-        		+ Messages.getString("Histogram3DConfig.1") //$NON-NLS-1$
-        		+ Messages.getString("Histogram3DConfig.2") //$NON-NLS-1$
-        		+ Messages.getString("Histogram3DConfig.3"); //$NON-NLS-1$
+        this.diagramDescription = Messages.getString("Histogram3DConfig.0")
+        		+ Messages.getString("Histogram3DConfig.1")
+        		+ Messages.getString("Histogram3DConfig.2")
+        		+ Messages.getString("Histogram3DConfig.3");
 
         
         /* Add the diagram panel to the report */

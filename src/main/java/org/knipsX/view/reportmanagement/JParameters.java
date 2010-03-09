@@ -17,6 +17,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.knipsX.Messages;
 import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.Cluster3DModel;
@@ -51,9 +52,9 @@ public class JParameters extends JAbstractSinglePanel {
         private static final long serialVersionUID = 3315636512790006885L;
 
         private boolean invalid = true;
-        private String axisParameterName;
-        private JTextField axisDescription;
-        private ExifParamComboBox exifparamcombo;
+        private final String axisParameterName;
+        private final JTextField axisDescription;
+        private final ExifParamComboBox exifparamcombo;
         private final JLabel validLabel = new JLabel();
 
         /**
@@ -81,7 +82,7 @@ public class JParameters extends JAbstractSinglePanel {
             this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
             try {
                 this.validLabel.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
-            } catch (FileNotFoundException e) {
+            } catch (final FileNotFoundException e) {
                 e.printStackTrace();
             }
 
@@ -102,7 +103,7 @@ public class JParameters extends JAbstractSinglePanel {
          * @param string
          *            the new axis description
          */
-        public void setAxisDescription(String string) {
+        public void setAxisDescription(final String string) {
             this.axisDescription.setText(string);
         }
 
@@ -162,13 +163,13 @@ public class JParameters extends JAbstractSinglePanel {
             } else {
                 try {
                     this.validLabel.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
-                } catch (FileNotFoundException e) {
+                } catch (final FileNotFoundException e) {
                     e.printStackTrace();
                 }
 
                 if (ReportHelper.getCurrentReport() == ReportHelper.Boxplot) {
-                    if (this.getExifparam() != null && !this.getExifparam().isOrdinal()) {
-                        this.validLabel.setToolTipText(Messages.getString("JParameters.2")); //$NON-NLS-1$
+                    if ((this.getExifparam() != null) && !this.getExifparam().isOrdinal()) {
+                        this.validLabel.setToolTipText(Messages.getString("JParameters.2"));
                     }
 
                 }
@@ -182,7 +183,7 @@ public class JParameters extends JAbstractSinglePanel {
          * Add the action listener to this object
          */
         public void addActionListener() {
-            this.exifparamcombo.addActionListener(exifparamcombo);
+            this.exifparamcombo.addActionListener(this.exifparamcombo);
         }
 
     }
@@ -218,7 +219,7 @@ public class JParameters extends JAbstractSinglePanel {
             final Object[] exifparams = new Object[ExifParameter.values().length + 1];
             for (int i = 0; i < exifparams.length - 1; i++) {
                 if (i == 0) {
-                    exifparams[0] = "-"; //$NON-NLS-1$
+                    exifparams[0] = "-";
 
                 } else {
                     exifparams[i] = ExifParameter.values()[i - 1];
@@ -245,9 +246,10 @@ public class JParameters extends JAbstractSinglePanel {
             /**
              * {@inheritDoc}
              */
-            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
-                    boolean cellHasFocus) {
-                Component comp = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            @Override
+            public Component getListCellRendererComponent(final JList list, final Object value, final int index,
+                    final boolean isSelected, final boolean cellHasFocus) {
+                final Component comp = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 if (value instanceof ExifParameter) {
                     if (((ExifParameter) value).isOrdinal()) {
                         comp.setForeground(list.getForeground());
@@ -270,7 +272,7 @@ public class JParameters extends JAbstractSinglePanel {
             }
 
             /* Reset axis description after an event was fired */
-            this.axisparam.setAxisDescription(Messages.getString("JParameters.4")); //$NON-NLS-1$
+            this.axisparam.setAxisDescription(Messages.getString("JParameters.4"));
 
             /* Prohibit non ordinal EXIF Parameters if report is boxplot */
             if (ReportHelper.getCurrentReport() == ReportHelper.Boxplot) {
@@ -295,8 +297,8 @@ public class JParameters extends JAbstractSinglePanel {
 
     private final JPanel singlepanel;
 
-    // INTERNATIONALIZE
-    final String[] axesDescription = { Messages.getString("JParameters.5"), Messages.getString("JParameters.6"), Messages.getString("JParameters.7") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    final String[] axesDescription = {
+            Messages.getString("JParameters.5"), Messages.getString("JParameters.6"), Messages.getString("JParameters.7") }; //$NON-NLS-2$ //$NON-NLS-3$
 
     /**
      * Constructor which initialized this parameter panel
@@ -304,8 +306,8 @@ public class JParameters extends JAbstractSinglePanel {
     public JParameters() {
 
         /* Set the title name of this panel */
-        // INTERNATIONALIZE
-        this.title = Messages.getString("JParameters.8"); //$NON-NLS-1$
+
+        this.title = Messages.getString("JParameters.8");
 
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
@@ -313,12 +315,12 @@ public class JParameters extends JAbstractSinglePanel {
         this.singlepanel.setLayout(new BoxLayout(this.singlepanel, BoxLayout.PAGE_AXIS));
 
         /* add the axis parameters to singlepanel */
-        addAxisParameters();
+        this.addAxisParameters();
 
         this.add(Box.createVerticalGlue());
 
         /* Fill the view with model information */
-        fillViewWithModelInfo();
+        this.fillViewWithModelInfo();
 
     }
 
@@ -326,27 +328,20 @@ public class JParameters extends JAbstractSinglePanel {
         for (int i = -1; i < ReportHelper.getCurrentReport().getNumberOfAxes(); i++) {
 
             if (i >= 0) {
-                this.axisParameters[i] = new AxisParameter(axesDescription[i]);
+                this.axisParameters[i] = new AxisParameter(this.axesDescription[i]);
                 this.singlepanel.add(this.axisParameters[i]);
             } else {
                 final JPanel mypanel = new JPanel();
                 mypanel.setLayout(new BoxLayout(mypanel, BoxLayout.X_AXIS));
-
-                // INTERNATIONALIZE
-                mypanel.add(new JLabel(Messages.getString("JParameters.9"))); //$NON-NLS-1$
-
+                mypanel.add(new JLabel(Messages.getString("JParameters.9")));
                 mypanel.add(Box.createRigidArea(new Dimension(215, 0)));
-
-                // INTERNATIONALIZE
-                mypanel.add(new JLabel(Messages.getString("JParameters.10"))); //$NON-NLS-1$
+                mypanel.add(new JLabel(Messages.getString("JParameters.10")));
 
                 /* Set minimum and maximum size to prevent cutting */
                 mypanel.setMinimumSize(new Dimension(Integer.MAX_VALUE, 32));
                 mypanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 64));
                 this.singlepanel.add(mypanel);
-
             }
-
             this.singlepanel.add(Box.createRigidArea(new Dimension(0, 32)));
             this.add(this.singlepanel);
         }
@@ -354,14 +349,15 @@ public class JParameters extends JAbstractSinglePanel {
 
     /* Add action listeners, after model has filled view with information */
     private void addActionListenersToComboBox() {
-        for (int i = 0; i < axisParameters.length; i++) {
-            axisParameters[i].addActionListener();
+        for (final AxisParameter axisParameter : this.axisParameters) {
+            axisParameter.addActionListener();
         }
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public final void fillViewWithModelInfo() {
 
         if (ReportHelper.getCurrentModel() != null) {
@@ -372,7 +368,7 @@ public class JParameters extends JAbstractSinglePanel {
             } else if (ReportHelper.getCurrentModel() instanceof Histogram3DModel) {
                 this.axisParameters[0].setAxis(((Histogram3DModel) ReportHelper.getCurrentModel()).getxAxis());
                 if (this.axisParameters.length == 2) {
-                    this.axisParameters[1].setAxis(((Histogram3DModel) ReportHelper.getCurrentModel()).getzAxis());                    
+                    this.axisParameters[1].setAxis(((Histogram3DModel) ReportHelper.getCurrentModel()).getzAxis());
                 }
             } else if (ReportHelper.getCurrentModel() instanceof Cluster3DModel) {
                 if (this.axisParameters.length >= 1) {
@@ -388,7 +384,7 @@ public class JParameters extends JAbstractSinglePanel {
         }
 
         /* Add action listeners, after model has filled view with information */
-        addActionListenersToComboBox();
+        this.addActionListenersToComboBox();
     }
 
     /**
@@ -431,9 +427,9 @@ public class JParameters extends JAbstractSinglePanel {
         if (ReportHelper.getCurrentReport() == ReportHelper.Boxplot) {
             boolean enabled = false;
 
-            if (axisParameters[0] != null) {
-                if (axisParameters[0].getExifparam() instanceof ExifParameter) {
-                    enabled = axisParameters[0].getExifparam().isOrdinal();
+            if (this.axisParameters[0] != null) {
+                if (this.axisParameters[0].getExifparam() instanceof ExifParameter) {
+                    enabled = this.axisParameters[0].getExifparam().isOrdinal();
                 }
             }
 

@@ -16,6 +16,9 @@ import com.drew.metadata.Metadata;
 import com.drew.metadata.MetadataException;
 import com.drew.metadata.Tag;
 
+/**
+ * Extracts Exif and ICPT Data from an image.
+ */
 public class MetaAdapter {
 
     private final Logger logger = Logger.getLogger(this.getClass());
@@ -24,8 +27,17 @@ public class MetaAdapter {
 
     private final Map<String, Tag> metaTags = new TreeMap<String, Tag>();
 
-    public Object getExifParameter(final ExifParameter e) throws MetadataException {
-        switch (e) {
+    /**
+     * Get a parameter.
+     * 
+     * @param exifParameter
+     *            the parameter.
+     * @return the parameter.
+     * @throws MetadataException
+     *             if an exception occurs.
+     */
+    public Object getExifParameter(final ExifParameter exifParameter) throws MetadataException {
+        switch (exifParameter) {
             case CAMERAMODEL:
                 return this.getCameraModel();
             case FLASH:
@@ -50,14 +62,29 @@ public class MetaAdapter {
         return null;
     }
 
+    /**
+     * Construct an adapter from a file.
+     * 
+     * @param imageFile
+     *            the file.
+     * @throws JpegProcessingException
+     *             if we have a problem with the jpeg.
+     */
     public MetaAdapter(final File imageFile) throws JpegProcessingException {
         this.metadata = JpegMetadataReader.readMetadata(imageFile);
         this.initialize();
     }
 
-    public MetaAdapter(final String imageFile) throws JpegProcessingException {
-        this.metadata = JpegMetadataReader.readMetadata(new File(imageFile));
-        this.initialize();
+    /**
+     * Construct an adapter from a path.
+     * 
+     * @param pathToImageFile
+     *            the path to a file.
+     * @throws JpegProcessingException
+     *             if we have a problem with the jpeg.
+     */
+    public MetaAdapter(final String pathToImageFile) throws JpegProcessingException {
+        this(new File(pathToImageFile));
     }
 
     private void initialize() {
@@ -94,12 +121,12 @@ public class MetaAdapter {
 
     private Double getExposureTime() throws MetadataException {
         final String exposureTime = this.metaTags.get("Exposure Time").getDescription();
-        
+
         try {
             final String[] parts = exposureTime.split("\\s");
             final String[] times = parts[0].split("/");
             return Double.parseDouble(times[0]) / Double.parseDouble(times[1]);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (final ArrayIndexOutOfBoundsException e) {
             return null;
         }
     }

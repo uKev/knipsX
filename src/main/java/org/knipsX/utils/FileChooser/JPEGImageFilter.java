@@ -4,6 +4,8 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
+import org.knipsX.Messages;
+
 /**
  * This class is responsible for filtering what types of files you see in a
  * JFileChooser. It only displays JPEG images
@@ -13,30 +15,31 @@ import javax.swing.filechooser.FileFilter;
  */
 public class JPEGImageFilter extends FileFilter {
 
-	/**
-	 * Only accept jpeg images and directories {@inheritDoc}
-	 */
-	public boolean accept(File f) {
+    /**
+     * Only accept jpeg images and directories {@inheritDoc}
+     */
+    @Override
+    public boolean accept(final File f) {
 
-		/* display directories */
-		if (f.isDirectory()) {
-			return true;
-		}
+        /* display directories */
+        if (f.isDirectory()) {
+            return true;
+        }
 
-		String extension = Utils.getExtension(f);
+        final String extension = Utils.getExtension(f);
 
-		if (extension.equals(Utils.JPEG) || extension.equals(Utils.JPG)) {
-			return true;
-		}
+        if (extension.equals(Utils.JPEG) || extension.equals(Utils.JPG)) {
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public String getDescription() {
-		// INTERNATIONALIZE
-		return Messages.getString("JPEGImageFilter.0"); //$NON-NLS-1$
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getDescription() {
+        return Messages.getString("JPEGImageFilter.0");
+    }
 }

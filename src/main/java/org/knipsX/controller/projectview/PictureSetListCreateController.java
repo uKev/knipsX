@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
+import org.knipsX.Messages;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
@@ -40,16 +41,17 @@ public class PictureSetListCreateController<M extends ProjectModel, V extends JP
     public void actionPerformed(final ActionEvent e) {
 
         /* try to get a picture set name */
-        /* INTERNATIONALIZE */
-        String pictureSetName = JOptionPane.showInputDialog(this.view, Messages.getString("PictureSetListCreateController.0"), //$NON-NLS-1$
-                Messages.getString("PictureSetListCreateController.1"), JOptionPane.INFORMATION_MESSAGE); //$NON-NLS-1$
+        String pictureSetName = JOptionPane.showInputDialog(this.view, Messages
+                .getString("PictureSetListCreateController.0"), Messages.getString("PictureSetListCreateController.1"),
+                JOptionPane.INFORMATION_MESSAGE);
 
         /* while user is not pressing cancel and no text is given */
         while ((pictureSetName != null) && !Validator.isStringOk(pictureSetName)) {
 
             /* try to get a project name */
-            pictureSetName = JOptionPane.showInputDialog(this.view, Messages.getString("PictureSetListCreateController.2"), //$NON-NLS-1$
-                    Messages.getString("PictureSetListCreateController.3"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+            pictureSetName = JOptionPane.showInputDialog(this.view, Messages
+                    .getString("PictureSetListCreateController.2"), Messages
+                    .getString("PictureSetListCreateController.3"), JOptionPane.ERROR_MESSAGE);
         }
 
         /* has user give in a project name? */

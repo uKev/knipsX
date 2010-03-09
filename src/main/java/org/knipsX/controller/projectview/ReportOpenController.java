@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
+import org.knipsX.Messages;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
@@ -30,29 +31,28 @@ public class ReportOpenController<M extends ProjectModel, V extends JProjectView
      * @param view
      *            the view the controller operates on
      */
-    public ReportOpenController(M model, V view) {
+    public ReportOpenController(final M model, final V view) {
         super(model, view);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        
-        /* Note that if the list order changes in the view and differs from the
+    public void actionPerformed(final ActionEvent e) {
+
+        /*
+         * Note that if the list order changes in the view and differs from the
          * one saved in the model it might configure the wrong report
          */
-
         if (this.view.getSelectedReports().length > 0) {
 
             /* Disables the current project view to prevent that the user changes picture sets during report creation */
             ReportHelper.getProjectModel().setStatus(ProjectModel.INACTIVE);
 
-            int reportID = this.view.getSelectedReports()[0];
-            new JReportConfig<AbstractReportModel, AbstractReportCompilation>((AbstractReportModel) this.model
-                    .getReports()[reportID], reportID);
+            final int reportID = this.view.getSelectedReports()[0];
+            new JReportConfig<AbstractReportModel, AbstractReportCompilation>(this.model.getReports()[reportID],
+                    reportID);
         } else {
-            /* INTERNATIONALIZE */
-            JOptionPane.showMessageDialog(this.view, Messages.getString("ReportOpenController.0"), //$NON-NLS-1$
-                    Messages.getString("ReportOpenController.1"), JOptionPane.INFORMATION_MESSAGE); //$NON-NLS-1$
+            JOptionPane.showMessageDialog(this.view, Messages.getString("ReportOpenController.0"), Messages
+                    .getString("ReportOpenController.1"), JOptionPane.INFORMATION_MESSAGE);
         }
 
     }

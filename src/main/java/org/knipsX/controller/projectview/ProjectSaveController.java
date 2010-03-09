@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
+import org.knipsX.Messages;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
@@ -35,10 +36,8 @@ public class ProjectSaveController<M extends ProjectModel, V extends JProjectVie
 
     @Override
     public void actionPerformed(final ActionEvent e) {
-
-        /* INTERNATIONALIZE */
-        final int decision = JOptionPane.showConfirmDialog(this.view, Messages.getString("ProjectSaveController.0"), Messages.getString("ProjectSaveController.1"), //$NON-NLS-1$ //$NON-NLS-2$
-                JOptionPane.YES_NO_OPTION);
+        final int decision = JOptionPane.showConfirmDialog(this.view, Messages.getString("ProjectSaveController.0"),
+                Messages.getString("ProjectSaveController.1"), JOptionPane.YES_NO_OPTION);
 
         /* if user wants to save */
         if (decision == JOptionPane.YES_OPTION) {
