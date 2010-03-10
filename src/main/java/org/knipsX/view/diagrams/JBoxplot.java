@@ -48,8 +48,8 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
 
         if (this.model != null && this.model.isModelValid()) {
 
-            this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
-            this.getyAxis().setAxis(this.model.getXAxis());           
+            this.getYAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
+            this.getYAxis().setAxis(this.model.getXAxis());           
 
             boxplots = new Boxplot[this.model.getBoxplots().size()];
             this.model.getBoxplots().toArray(boxplots);
@@ -62,13 +62,13 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
                     + boxplots[0].getUpperWhisker() + Messages.getString("JBoxplot.8") + boxplots[0].getLowerQuartile()
                     + Messages.getString("JBoxplot.9") + boxplots[0].getUpperQuartile());
 
-            this.getxAxis().setAxisSize(Math.max(2 * boxplots.length, 10));
+            this.getXAxis().setAxisSize(Math.max(2 * boxplots.length, 10));
 
             for (int i = 0; i < boxplots.length; i++) {
                 drawBoxplot(boxplots[i], i, boxplots.length);
             }
 
-            this.getyAxis().generateSegmentDescription(this.model.getMinY(), this.model.getMaxY(), 10);
+            this.getYAxis().generateSegmentDescription(this.model.getMinY(), this.model.getMaxY(), 10);
             
             if (this.model.getWilcoxonTest() != null && this.model.getWilcoxonTest().isValid()) {
                 
@@ -106,7 +106,7 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
 
     /* draws a single boxplot at position i */
     private void drawBoxplot(Boxplot boxplot, int i, int size) {
-        double boxplotSpacing = this.getxAxis().getAxisSize() / (double) size;
+        double boxplotSpacing = this.getXAxis().getAxisSize() / (double) size;
         double correctionFactor = Math.min(boxplotSpacing / 2.0d, 1);
         double whiskerScale = 0.05 * correctionFactor;
         double whiskerScaleWidth = 0.5 * correctionFactor;
@@ -116,43 +116,43 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
         double xSpace = i * boxplotSpacing + 0.5 * boxplotSpacing;
 
         /* create interquartilrange */
-        double interQuartilRange = Math.abs(this.getyAxis().getAxisSpace(boxplot.getUpperQuartile())
-                - this.getyAxis().getAxisSpace(boxplot.getLowerQuartile()));
+        double interQuartilRange = Math.abs(this.getYAxis().getAxisSpace(boxplot.getUpperQuartile())
+                - this.getYAxis().getAxisSpace(boxplot.getLowerQuartile()));
 
-        this.createCube(new Vector3d(xSpace, this.getyAxis().getAxisSpace(boxplot.getLowerQuartile()), 0),
+        this.createCube(new Vector3d(xSpace, this.getYAxis().getAxisSpace(boxplot.getLowerQuartile()), 0),
                 new Vector3d(boxWidth, interQuartilRange, boxWidth), this.basicMaterial(Resource.getColor(i)));
 
         /* create upper whisker */
-        double upperWhiskerRange = Math.abs(this.getyAxis().getAxisSpace(boxplot.getUpperWhisker()))
-                - this.getyAxis().getAxisSpace(boxplot.getUpperQuartile());
+        double upperWhiskerRange = Math.abs(this.getYAxis().getAxisSpace(boxplot.getUpperWhisker()))
+                - this.getYAxis().getAxisSpace(boxplot.getUpperQuartile());
 
-        this.createCube(new Vector3d(xSpace, this.getyAxis().getAxisSpace((boxplot.getUpperQuartile())), 0),
+        this.createCube(new Vector3d(xSpace, this.getYAxis().getAxisSpace((boxplot.getUpperQuartile())), 0),
                 new Vector3d(whiskerScale, upperWhiskerRange, whiskerScale), this.basicMaterial(0, 0, 0));
-        this.createCube(new Vector3d(xSpace, this.getyAxis().getAxisSpace(boxplot.getUpperWhisker()), 0), new Vector3d(
+        this.createCube(new Vector3d(xSpace, this.getYAxis().getAxisSpace(boxplot.getUpperWhisker()), 0), new Vector3d(
                 whiskerScaleWidth, whiskerScale, whiskerScale), this.basicMaterial(0, 0, 0));
 
         /* create lower whisker */
-        double lowerWhiskerRange = Math.abs(this.getyAxis().getAxisSpace(boxplot.getLowerQuartile()))
-                - this.getyAxis().getAxisSpace(boxplot.getLowerWhisker());
+        double lowerWhiskerRange = Math.abs(this.getYAxis().getAxisSpace(boxplot.getLowerQuartile()))
+                - this.getYAxis().getAxisSpace(boxplot.getLowerWhisker());
 
-        this.createCube(new Vector3d(xSpace, this.getyAxis().getAxisSpace(boxplot.getLowerWhisker()), 0), new Vector3d(
+        this.createCube(new Vector3d(xSpace, this.getYAxis().getAxisSpace(boxplot.getLowerWhisker()), 0), new Vector3d(
                 whiskerScale, lowerWhiskerRange, whiskerScale), this.basicMaterial(0, 0, 0));
 
-        this.createCube(new Vector3d(xSpace, this.getyAxis().getAxisSpace(boxplot.getLowerWhisker()), 0), new Vector3d(
+        this.createCube(new Vector3d(xSpace, this.getYAxis().getAxisSpace(boxplot.getLowerWhisker()), 0), new Vector3d(
                 whiskerScaleWidth, whiskerScale, whiskerScale), this.basicMaterial(0, 0, 0));
 
         /* create mean */
-        this.createSphere(new Vector3d(xSpace, this.getyAxis().getAxisSpace(boxplot.getMean()), boxWidth),
+        this.createSphere(new Vector3d(xSpace, this.getYAxis().getAxisSpace(boxplot.getMean()), boxWidth),
                 new Vector3d(boxWidth / 4, boxWidth / 4, whiskerScale), this.basicMaterial(0, 0, 0));
 
         /* create median */
-        this.createCube(new Vector3d(xSpace, this.getyAxis().getAxisSpace(boxplot.getMedian()), boxWidth),
+        this.createCube(new Vector3d(xSpace, this.getYAxis().getAxisSpace(boxplot.getMedian()), boxWidth),
                 new Vector3d(boxWidth, whiskerScale, whiskerScale), this.basicMaterial(1, 0, 0));
 
         /* create outliers */
         if (boxplot.getOutlier() != null) {
             for (int p = 0; p < boxplot.getOutlier().size(); p++) {
-                this.createSphere(new Vector3d(0, this.getyAxis().getAxisSpace(boxplot.getOutlier().get(p)), xSpace),
+                this.createSphere(new Vector3d(0, this.getYAxis().getAxisSpace(boxplot.getOutlier().get(p)), xSpace),
                         new Vector3d(whiskerScale, boxWidth / 5, boxWidth / 5), this.basicMaterial(1, 1, 1));
             }
         }

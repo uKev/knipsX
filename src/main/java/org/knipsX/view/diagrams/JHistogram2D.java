@@ -22,8 +22,6 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
 
     private static final long serialVersionUID = 1L;
 
-    private final Logger logger = Logger.getLogger(this.getClass());
-
     /**
      * Constructor
      * 
@@ -39,24 +37,24 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
 
     @Override
     public void generateContent() {
+        final Logger logger = Logger.getLogger(this.getClass());
 
         JAbstract3DView.useBufferRange = false;
         this.showGrid = false;
 
         if ((this.model != null) && this.model.isModelValid()) {
 
-            this.logger.debug(Messages.getString("JHistogram2D.0") + this.model.getMinX()
+            logger.debug(Messages.getString("JHistogram2D.0") + this.model.getMinX()
                     + Messages.getString("JHistogram2D.1") + this.model.getMaxX());
-            this.logger.debug(Messages.getString("JHistogram2D.2") + this.model.getMinY()
+            logger.debug(Messages.getString("JHistogram2D.2") + this.model.getMinY()
                     + Messages.getString("JHistogram2D.3") + this.model.getMaxY() + " \n");
 
-            this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
-            this.getxAxis().setAxis(this.model.getXAxis());
-            this.getxAxis().setAxisSize(Math.max(4 * this.model.getCategories().length, 10));
+            this.getXAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
+            this.getXAxis().setAxis(this.model.getXAxis());
+            this.getXAxis().setAxisSize(Math.max(4 * this.model.getCategories().length, 10));
 
-            this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
-
-            this.getyAxis().setDescription(Messages.getString("JHistogram2D.5"));
+            this.getYAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
+            this.getYAxis().setDescription(Messages.getString("JHistogram2D.5"));
 
             final Category[] categories = this.model.getCategories();
 
@@ -65,27 +63,26 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
 
             for (final Category categorie : categories) {
 
-                this.logger.debug(Messages.getString("JHistogram2D.6") + category
-                        + Messages.getString("JHistogram2D.7") + this.getxAxis().getAxisSpace(categorie.getMinValueX())
-                        + Messages.getString("JHistogram2D.8") + this.getxAxis().getAxisSpace(categorie.getMaxValueX())
-                        + "\n");
+                logger.debug(Messages.getString("JHistogram2D.6") + category + Messages.getString("JHistogram2D.7")
+                        + this.getXAxis().getAxisSpace(categorie.getMinValueX()) + Messages.getString("JHistogram2D.8")
+                        + this.getXAxis().getAxisSpace(categorie.getMaxValueX()) + "\n");
 
-                double xRange = Math.abs(this.getxAxis().getAxisSpace(categorie.getMaxValueX())
-                        - this.getxAxis().getAxisSpace(categorie.getMinValueX()));
+                double xRange = Math.abs(this.getXAxis().getAxisSpace(categorie.getMaxValueX())
+                        - this.getXAxis().getAxisSpace(categorie.getMinValueX()));
                 xRange = xRange / categorie.getBars().size();
 
-                this.logger.debug(Messages.getString("JHistogram2D.10") + xRange);
+                logger.debug(Messages.getString("JHistogram2D.10") + xRange);
 
-                final double xPosition = this.getxAxis().getAxisSpace(categorie.getMinValueX()) + xRange / 2;
+                final double xPosition = this.getXAxis().getAxisSpace(categorie.getMinValueX()) + xRange / 2;
 
-                this.logger.debug(Messages.getString("JHistogram2D.11") + xPosition);
+                logger.debug(Messages.getString("JHistogram2D.11") + xPosition);
 
                 for (int j = 0; j < categorie.getBars().size(); j++) {
 
                     if (categorie.getBars().get(j).getHeight() > 0) {
 
-                        final double barHeight = this.getyAxis().getAxisSpace(categorie.getBars().get(j).getHeight());
-                        this.logger.debug(Messages.getString("JHistogram2D.12") + category
+                        final double barHeight = this.getYAxis().getAxisSpace(categorie.getBars().get(j).getHeight());
+                        logger.debug(Messages.getString("JHistogram2D.12") + category
                                 + Messages.getString("JHistogram2D.13") + j + Messages.getString("JHistogram2D.14")
                                 + categorie.getBars().get(j).getHeight());
 
@@ -105,8 +102,8 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
 
             }
 
-            this.getxAxis().generateSegmentDescription(this.model.getCategories().length);
-            this.getyAxis().generateSegmentDescription(10);
+            this.getXAxis().generateSegmentDescription(this.model.getCategories().length);
+            this.getYAxis().generateSegmentDescription(10);
 
             this.setCameraPerspective(Perspectives.XYPLANE);
 

@@ -1,6 +1,7 @@
 package org.knipsX.model.reportmanagement;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.PictureContainer;
@@ -18,7 +19,10 @@ import org.knipsX.utils.Validator;
 
 public class Histogram3DModel extends AbstractDoubleAxesModel {
 
+    private final Logger logger = Logger.getLogger(this.getClass());
+
     private Category[][] categories;
+
     private double zCategorySize;
     private double xCategorySize;
 
@@ -45,33 +49,33 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
     }
 
     private void allocatePicturesToCategories() {
+
         this.generateCategories();
+
         Double xValue;
         Double zValue;
+
         Category category;
+
         Bar bar;
+
         this.minY = 0;
 
-        final ArrayList<PictureInterface> allreadyAllocatedPictures = new ArrayList<PictureInterface>();
+        final List<PictureInterface> allreadyAllocatedPictures = new ArrayList<PictureInterface>();
 
         for (final PictureContainer pictureContainer : this.getPictureContainer()) {
-            /*
-             * create a bar for each pictureContainer in each Category
-             */
-            /*
-             * each x coordinate
-             */
-            for (int i = 0; i < this.categories.length; i++) {
-                /*
-                 * each z coordinate
-                 */
-                for (int j = 0; j < this.categories[i].length; j++) {
 
+            /* create a bar for each pictureContainer in each category */
+
+            /* each x coordinate */
+            for (int i = 0; i < this.categories.length; ++i) {
+
+                /* each z coordinate */
+                for (int j = 0; j < this.categories[i].length; ++j) {
                     bar = new Bar(pictureContainer);
                     category = this.categories[i][j];
 
                     for (final PictureInterface picture : pictureContainer) {
-
                         boolean pictureValid = true;
 
                         final ExifParameter xParameter = this.getXAxis().getParameter();
@@ -84,6 +88,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                             this.addMissingExifPictureParameter(new PictureParameter(xParameter, picture));
                             pictureValid = false;
                         }
+
                         if (zValueObject == null) {
                             this.addMissingExifPictureParameter(new PictureParameter(zParameter, picture));
                             pictureValid = false;
@@ -95,53 +100,48 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
                         if (pictureValid) {
                             xValue = Converter.objectToDouble(xValueObject);
-
                             zValue = Converter.objectToDouble(zValueObject);
 
-                            // if x and z value fits between <= category <
                             if ((xValue < category.getMaxValueX()) && (xValue >= category.getMinValueX())
                                     && (zValue < category.getMaxValueZ()) && (zValue >= category.getMinValueZ())) {
-                                /*
-                                 * Picture fits in the category, yeah!
-                                 */
+
+                                /* if x and z value fits between <= category */
+
+                                /* Picture fits in the category, yeah! */
                                 if (allreadyAllocatedPictures.contains(picture)) {
-                                    System.out.println("\nError! Picture " + picture.getName()
+                                    this.logger.error("\nError! Picture " + picture.getName()
                                             + " already einsortiert. x: " + xValue + " z: " + zValue);
-                                    System.out.println("in Kategorie: " + "max X: " + category.getMaxValueX()
+                                    this.logger.error("in Kategorie: " + "max X: " + category.getMaxValueX()
                                             + "  min x: " + category.getMinValueX() + "  max z: "
                                             + category.getMaxValueZ() + "  min z: " + category.getMinValueZ());
                                 }
                                 allreadyAllocatedPictures.add(picture);
                                 bar.addPicture(picture);
-
-                                // or if x or z is last
                             } else if (((i + 1) == this.categories.length) || ((j + 1) == this.categories[i].length)) {
 
-                                // and fits in category.maxValue == and other value fits in other category
+                                /* or if x or z is last */
+
+                                /* and fits in category.maxValue == and other value fits in other category */
                                 if (((xValue == category.getMaxValueX()) && (zValue == category.getMaxValueZ()))
                                         || ((xValue == category.getMaxValueX()) && (zValue >= category.getMinValueZ()) && (zValue < category
                                                 .getMaxValueZ()))
                                         || ((zValue == category.getMaxValueZ()) && (xValue >= category.getMinValueX()) && (xValue < category
                                                 .getMaxValueX()))) {
+
                                     if (allreadyAllocatedPictures.contains(picture)) {
-                                        System.out.println("\nError! Picture " + picture.getName()
+                                        this.logger.error("\nError! Picture " + picture.getName()
                                                 + " already einsortiert. x: " + xValue + " z: " + zValue);
-                                        System.out.println("in Kategorie: " + "max X: " + category.getMaxValueX()
+                                        this.logger.error("in Kategorie: " + "max X: " + category.getMaxValueX()
                                                 + "  min x: " + category.getMinValueX() + "  max z: "
                                                 + category.getMaxValueZ() + "  min z: " + category.getMinValueZ());
                                     }
                                     allreadyAllocatedPictures.add(picture);
-
                                     bar.addPicture(picture);
                                 }
                             }
                         }
                     }
-
-                    if (this.maxY < bar.getHeight()) {
-                        this.maxY = bar.getHeight();
-                    }
-
+                    this.maxY = Math.max(this.maxY, bar.getHeight());
                     category.addBar(bar);
                 }
             }
@@ -154,59 +154,65 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         this.dataIsCalculated(true);
 
         /* Check values */
-
         int count = 0;
 
-        for (int i = 0; i < this.categories.length; i++) {
-            for (int j = 0; j < this.categories[i].length; j++) {
+        for (int i = 0; i < this.categories.length; ++i) {
+
+            for (int j = 0; j < this.categories[i].length; ++j) {
+
                 if (this.categories[i][j].getMaxValueX() > this.maxX) {
-                    System.out.println("found biggest X value: " + this.categories[i][j].getMaxValueX() + " >= "
+                    this.logger.debug("found biggest X value: " + this.categories[i][j].getMaxValueX() + " >= "
                             + this.maxX + " (" + i + " " + j + ")");
                 }
+
                 if (this.categories[i][j].getMaxValueZ() > this.maxZ) {
-                    System.out.println("found biggest Z value: " + this.categories[i][j].getMaxValueZ() + " >= "
+                    this.logger.debug("found biggest Z value: " + this.categories[i][j].getMaxValueZ() + " >= "
                             + this.maxZ + " (" + i + " " + j + ")");
                 }
+
                 if (this.categories[i][j].getMinValueX() < this.minX) {
-                    System.out.println("found smallest X value: " + this.categories[i][j].getMinValueX() + " <= "
+                    this.logger.debug("found smallest X value: " + this.categories[i][j].getMinValueX() + " <= "
                             + this.minX + " (" + i + " " + j + ")");
                 }
+
                 if (this.categories[i][j].getMinValueZ() < this.minZ) {
-                    System.out.println("found smallest Z value: " + this.categories[i][j].getMinValueZ() + " <= "
+                    this.logger.debug("found smallest Z value: " + this.categories[i][j].getMinValueZ() + " <= "
                             + this.minZ + " (" + i + " " + j + ")");
                 }
 
                 for (final Bar bar : this.categories[i][j].getBars()) {
                     count += bar.getHeight();
                 }
-
             }
-
         }
 
         if (this.maxZ != this.getMaxZ()) {
-            System.out.println(" this.maxZ != this.getMaxZ() :" + this.maxZ + " != " + this.getMaxZ());
-        }
-        if (this.maxY != this.getMaxY()) {
-            System.out.println(" this.maxY != this.getMaxY() :" + this.maxY + " != " + this.getMaxY());
-        }
-        if (this.maxX != this.getMaxX()) {
-            System.out.println(" this.maxX != this.getMaxX() :" + this.maxX + " != " + this.getMaxX());
+            this.logger.debug(" this.maxZ != this.getMaxZ() :" + this.maxZ + " != " + this.getMaxZ());
         }
 
-        final ArrayList<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
+        if (this.maxY != this.getMaxY()) {
+            this.logger.debug(" this.maxY != this.getMaxY() :" + this.maxY + " != " + this.getMaxY());
+        }
+
+        if (this.maxX != this.getMaxX()) {
+            this.logger.debug(" this.maxX != this.getMaxX() :" + this.maxX + " != " + this.getMaxX());
+        }
+
+        final List<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
+
         exifParameters.add(this.getXAxis().getParameter());
         exifParameters.add(this.getZAxis().getParameter());
+
         final int pictureCount = Validator.getValidPicturesCount(this.getPictureContainer(), exifParameters);
 
         if (pictureCount != count) {
 
             if (this.getPicturesWithMissingExifParameter().isEmpty()) {
-                System.out.println("pictureCount != count    " + pictureCount + " != " + count
+                this.logger.debug("pictureCount != count    " + pictureCount + " != " + count
                         + " , das riecht nach nem bug, da wurde was vergessen!");
             } else {
-                System.out
-                        .println("pictureCount != count    "
+                this.logger
+                        .debug("pictureCount != count    "
                                 + pictureCount
                                 + " != "
                                 + count
@@ -220,11 +226,13 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         this.maxX = -Double.MAX_VALUE;
         this.maxY = -Double.MAX_VALUE;
         this.maxZ = -Double.MAX_VALUE;
+
         this.minX = Double.MAX_VALUE;
         this.minY = Double.MAX_VALUE;
         this.minZ = Double.MAX_VALUE;
 
-        final ArrayList<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
+        final List<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
+
         exifParameters.add(this.getXAxis().getParameter());
         exifParameters.add(this.getZAxis().getParameter());
 
@@ -233,36 +241,25 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
             final Object xParameter = picture.getExifParameter(this.getXAxis().getParameter());
             final Object zParameter = picture.getExifParameter(this.getZAxis().getParameter());
 
-            // TWEAK: allow other types than double and int
-
+            /* TWEAK allow other types than double and int */
             final Double xValue = Converter.objectToDouble(xParameter);
-
             final Double zValue = Converter.objectToDouble(zParameter);
 
-            if (this.maxX < xValue) {
-                this.maxX = xValue;
-            }
-            if (this.maxZ < zValue) {
-                this.maxZ = zValue;
-            }
-            if (this.minX > xValue) {
-                this.minX = xValue;
-            }
-            if (this.minZ > zValue) {
-                this.minZ = zValue;
-            }
-
+            this.maxX = Math.max(this.maxX, xValue);
+            this.maxZ = Math.max(this.maxZ, zValue);
+            this.minX = Math.max(this.minX, xValue);
+            this.minZ = Math.max(this.minZ, zValue);
         }
-
     }
 
     private void generateCategories() {
         this.calculateExtremeValues();
-        int numberOfCategories = 5;
 
+        int numberOfCategories = 5;
         int pictureCount = 0;
 
-        final ArrayList<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
+        final List<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
+
         exifParameters.add(this.getXAxis().getParameter());
         exifParameters.add(this.getZAxis().getParameter());
 
@@ -275,9 +272,9 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                 numberOfCategories = 1;
             }
         }
-
         this.categories = new Category[numberOfCategories][numberOfCategories];
 
+        /* FIXME what we are doing here?! */
         double deltaX = Math.abs(this.maxX - this.minX);
         double deltaZ = Math.abs(this.maxZ - this.minZ);
 
@@ -297,8 +294,9 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         double minValueZ;
         double maxValueZ;
 
-        for (int i = 0; i < this.categories.length; i++) {
-            for (int j = 0; j < this.categories[i].length; j++) {
+        for (int i = 0; i < this.categories.length; ++i) {
+
+            for (int j = 0; j < this.categories[i].length; ++j) {
 
                 minValueX = this.minX + i * this.xCategorySize;
                 maxValueX = minValueX + this.xCategorySize;
@@ -307,7 +305,6 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
                 this.categories[i][j] = new Category(null, minValueX, maxValueX, minValueZ, maxValueZ);
             }
         }
-
     }
 
     /**
@@ -316,36 +313,34 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
      * @return the statistic categories
      */
     public Category[][] getCategories() {
-
         this.calculateIfRequired();
-        return this.categories;
 
+        return this.categories;
     }
 
     @Override
     public boolean isModelValid() {
         this.calculateIfRequired();
 
-        final Logger log = Logger.getLogger(this.getClass());
-
         if (this.maxX < this.minX) {
-            log.info("maxX < minX");
+            this.logger.info("maxX < minX");
             return false;
         }
+
         if (this.maxZ < this.minZ) {
-            log.info("maxZ < minZ");
+            this.logger.info("maxZ < minZ");
             return false;
         }
+
         if (this.maxY < this.minY) {
-            log.info("maxY < minY");
+            this.logger.info("maxY < minY");
             return false;
         }
 
         if (0 == Validator.getValidPicturesCount(this.getPictureContainer(), new ExifParameter[] {
                 this.xAxis.getParameter(), this.zAxis.getParameter() })) {
-            log.info("0 == Validator.getValidPicturesCount");
+            this.logger.info("0 == Validator.getValidPicturesCount");
         }
-
         return true;
     }
 }

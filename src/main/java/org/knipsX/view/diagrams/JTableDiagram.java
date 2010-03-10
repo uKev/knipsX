@@ -3,7 +3,7 @@ package org.knipsX.view.diagrams;
 import java.awt.Component;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -48,7 +48,7 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
         AbstractTableModel dataModel = null;
 
         if ((this.model != null) && this.model.isModelValid()) {
-            final ArrayList<PictureInterface> pictures = this.model.getPictures();
+            final List<PictureInterface> pictures = this.model.getPictures();
 
             dataModel = new AbstractTableModel() {
 
