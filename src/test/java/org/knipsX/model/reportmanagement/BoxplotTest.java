@@ -3,12 +3,12 @@
  */
 package org.knipsX.model.reportmanagement;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -175,7 +175,7 @@ public class BoxplotTest {
      */
     @Test
     public void testQuantile() {
-        Boxplot testBoxplot = new Boxplot();
+        final Boxplot testBoxplot = new Boxplot();
 
         /*
          * R:
@@ -185,8 +185,8 @@ public class BoxplotTest {
          * 2
          */
 
-        assertEquals("median with uneven number count", 2.0, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(
-                1.0, 2.0, 3.0)), 0.5), 0.000001);
+        Assert.assertEquals("median with uneven number count", 2.0, testBoxplot.quantile(new ArrayList<Double>(Arrays
+                .asList(1.0, 2.0, 3.0)), 0.5), 0.000001);
 
         /*
          * R:
@@ -195,8 +195,8 @@ public class BoxplotTest {
          * 50%
          * 2.5
          */
-        assertEquals("median with even number count", 2.5, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(
-                1.0, 2.0, 3.0, 4.0)), 0.5), 0.000001);
+        Assert.assertEquals("median with even number count", 2.5, testBoxplot.quantile(new ArrayList<Double>(Arrays
+                .asList(1.0, 2.0, 3.0, 4.0)), 0.5), 0.000001);
 
         /*
          * R:
@@ -207,29 +207,29 @@ public class BoxplotTest {
          * 50%
          * 4.5
          */
-        assertEquals("median with more numbers, even", 4.5, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(
-                2.0, 3.0, 4.0, 5.0, 7.0, 9.0)), 0.5), 0.000001);
+        Assert.assertEquals("median with more numbers, even", 4.5, testBoxplot.quantile(new ArrayList<Double>(Arrays
+                .asList(2.0, 3.0, 4.0, 5.0, 7.0, 9.0)), 0.5), 0.000001);
 
         /*
          * 1 2 3 4
          * 0.25 quantil must be 1.5
          */
-        assertEquals("Lower Quartile with even number", 1.5, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(
-                1.0, 2.0, 3.0, 4.0)), 0.25), 0.000001);
+        Assert.assertEquals("Lower Quartile with even number", 1.5, testBoxplot.quantile(new ArrayList<Double>(Arrays
+                .asList(1.0, 2.0, 3.0, 4.0)), 0.25), 0.000001);
 
         /*
          * 1 2 3 4
          * 0.75 quantil must be 3.5
          */
-        assertEquals("Lower Quartile with even number", 3.5, testBoxplot.quantile(new ArrayList<Double>(Arrays.asList(
-                1.0, 2.0, 3.0, 4.0)), 0.75), 0.000001);
+        Assert.assertEquals("Lower Quartile with even number", 3.5, testBoxplot.quantile(new ArrayList<Double>(Arrays
+                .asList(1.0, 2.0, 3.0, 4.0)), 0.75), 0.000001);
 
         /*
          * 100 100 200 400 400 800 1600
          * -> lower quartile is
          * 100
          */
-        assertEquals("Lower Quartile with uneven number", 100, testBoxplot.quantile(new ArrayList<Double>(Arrays
+        Assert.assertEquals("Lower Quartile with uneven number", 100, testBoxplot.quantile(new ArrayList<Double>(Arrays
                 .asList(100.0, 100.0, 200.0, 400.0, 400.0, 800.0, 1600.0)), 0.25), 0.000001);
 
         /*
@@ -237,7 +237,7 @@ public class BoxplotTest {
          * -> upper quartile is
          * 800
          */
-        assertEquals("Upper Quartile with uneven number", 800, testBoxplot.quantile(new ArrayList<Double>(Arrays
+        Assert.assertEquals("Upper Quartile with uneven number", 800, testBoxplot.quantile(new ArrayList<Double>(Arrays
                 .asList(100.0, 100.0, 200.0, 400.0, 400.0, 800.0, 1600.0)), 0.75), 0.000001);
 
     }

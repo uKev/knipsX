@@ -3,10 +3,9 @@
  */
 package org.knipsX.model.reportmanagement;
 
-import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,11 +13,10 @@ import org.knipsX.utils.ExifParameter;
 
 /**
  * @author Kevin Zuber
- *
+ * 
  */
 public class AxisTest {
 
-    Axis axis;
     /**
      * @throws java.lang.Exception
      */
@@ -33,12 +31,14 @@ public class AxisTest {
     public static void tearDownAfterClass() throws Exception {
     }
 
+    Axis axis;
+
     /**
      * @throws java.lang.Exception
      */
     @Before
     public void setUp() throws Exception {
-        axis = new Axis("fn-description", ExifParameter.FNUMBER);
+        this.axis = new Axis("fn-description", ExifParameter.FNUMBER);
     }
 
     /**
@@ -53,18 +53,17 @@ public class AxisTest {
      */
     @Test
     public void testAxisExifParameter() {
-        ExifParameter metaParam = ExifParameter.DATE;
-        Axis axis = new Axis(metaParam);
-        assertEquals(metaParam.toString(), axis.getDescription());
+        final ExifParameter metaParam = ExifParameter.DATE;
+        final Axis axis = new Axis(metaParam);
+        Assert.assertEquals(metaParam.toString(), axis.getDescription());
     }
-
 
     /**
      * Test method for {@link org.knipsX.model.reportmanagement.Axis#getDescription()}.
      */
     @Test
     public void testGetDescription() {
-        assertEquals("fn-description", this.axis.getDescription());
+        Assert.assertEquals("fn-description", this.axis.getDescription());
     }
 
     /**
@@ -72,7 +71,7 @@ public class AxisTest {
      */
     @Test
     public void testGetParameter() {
-           assertEquals(ExifParameter.FNUMBER, this.axis.getParameter());
+        Assert.assertEquals(ExifParameter.FNUMBER, this.axis.getParameter());
     }
 
     /**
@@ -81,8 +80,8 @@ public class AxisTest {
     @Test
     public void testSetDescription() {
         this.axis.setDescription("fn-new-description");
-        assertEquals("fn-new-description", this.axis.getDescription());
-      
+        Assert.assertEquals("fn-new-description", this.axis.getDescription());
+
     }
 
     /**
@@ -91,7 +90,7 @@ public class AxisTest {
     @Test
     public void testSetParameter() {
         this.axis.setParameter(ExifParameter.EXPOSURETIME);
-        assertEquals(ExifParameter.EXPOSURETIME, this.axis.getParameter());
+        Assert.assertEquals(ExifParameter.EXPOSURETIME, this.axis.getParameter());
     }
 
 }

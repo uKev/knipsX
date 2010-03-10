@@ -57,6 +57,11 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
         Frequency3DPoint picPoint;
         boolean pointIsAdded = false;
 
+        /* 
+         * Iterate over all pictures of all pictureContainer.
+         * Check each picture for missing parameter data.
+         * Classify each valid picture as a point.
+         */
         for (final PictureContainer pictureContainer : this.getPictureContainer()) {
             for (final PictureInterface pic : pictureContainer) {
 
@@ -74,9 +79,8 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                     haveAllParameters = false;
                 } else {
                     try {
-                    x = Converter.objectToDouble(xValue);
-                    }
-                    catch (ClassCastException e) {
+                        x = Converter.objectToDouble(xValue);
+                    } catch (ClassCastException e) {
                         log.error("Exif Parameter " + this.xAxis.getParameter());
                         e.printStackTrace();
                     }
