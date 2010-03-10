@@ -58,11 +58,6 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
         Frequency3DPoint picPoint;
         boolean pointIsAdded = false;
 
-        /* 
-         * Iterate over all pictures of all pictureContainer.
-         * Check each picture for missing parameter data.
-         * Classify each valid picture as a point.
-         */
         for (final PictureContainer pictureContainer : this.getPictureContainer()) {
             for (final PictureInterface pic : pictureContainer) {
 
@@ -85,8 +80,8 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                 } else {
                     try {
                         x = Converter.objectToDouble(xValue);
-                    } catch (ClassCastException e) {
-                        logger.error("Exif Parameter " + this.xAxis.getParameter());
+                    } catch (final ClassCastException e) {
+                        this.logger.error("Exif Parameter " + this.xAxis.getParameter());
                     }
                 }
                 if (yValue == null) {
@@ -139,7 +134,7 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
                         this.frequency3DPoints.add(picPoint);
                     }
                 } else {
-                    
+
                     if (this.hasMinOneKeyword) {
                         this.logger.debug("Pic has not all parameters: ");
                         this.logger.debug("X: " + xValue);
@@ -172,10 +167,9 @@ public class Cluster3DModel extends AbstractTrippleAxesModel {
     public boolean isModelValid() {
         if (0 == Validator.getValidPicturesCount(this.getPictureContainer(), new ExifParameter[] {
                 this.getXAxis().getParameter(), this.getYAxis().getParameter(), this.getZAxis().getParameter() })) {
-            logger.info("getValidPicturesCount == 0");
+            this.logger.info("getValidPicturesCount == 0");
             return false;
         }
         return true;
     }
-}                        logger.error("Exif Parameter " + this.xAxis.getParameter());
-                    }
+}
