@@ -1,6 +1,6 @@
 package org.knipsX.model.reportmanagement;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.knipsX.model.picturemanagement.PictureContainer;
 
@@ -38,7 +38,7 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      * @param xAxis
      *            the xAxis which belongs to the model.
      */
-    public AbstractSingleAxisModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis) {
+    public AbstractSingleAxisModel(final List<PictureContainer> pictureContainer, final Axis xAxis) {
         this(pictureContainer, xAxis, null, null, null);
     }
 
@@ -54,7 +54,7 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      * @param reportDescription
      *            description of the report.
      */
-    public AbstractSingleAxisModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis,
+    public AbstractSingleAxisModel(final List<PictureContainer> pictureContainer, final Axis xAxis,
             final String reportName, final String reportDescription) {
         this(pictureContainer, xAxis, reportName, reportDescription, null);
     }
@@ -74,8 +74,8 @@ public abstract class AbstractSingleAxisModel extends AbstractReportModel {
      * @param exifFilterKeywords
      *            pictures are filtered with this keywords.
      */
-    public AbstractSingleAxisModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis,
-            final String reportName, final String reportDescription, final ArrayList<String> exifFilterKeywords) {
+    public AbstractSingleAxisModel(final List<PictureContainer> pictureContainer, final Axis xAxis,
+            final String reportName, final String reportDescription, final List<String> exifFilterKeywords) {
         super(pictureContainer, reportName, reportDescription, exifFilterKeywords);
 
         this.setXAxis(xAxis);

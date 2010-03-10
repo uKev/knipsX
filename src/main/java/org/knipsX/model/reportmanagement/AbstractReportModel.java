@@ -43,7 +43,7 @@ public abstract class AbstractReportModel extends AbstractModel {
      * @param pictureContainer
      *            a picture container.
      */
-    public AbstractReportModel(final ArrayList<PictureContainer> pictureContainer) {
+    public AbstractReportModel(final List<PictureContainer> pictureContainer) {
         this(pictureContainer, null, null);
 
         this.dataIsCalculated(false);
@@ -59,7 +59,7 @@ public abstract class AbstractReportModel extends AbstractModel {
      * @param reportDescription
      *            the description of the report.
      */
-    public AbstractReportModel(final ArrayList<PictureContainer> pictureContainer, final String reportName,
+    public AbstractReportModel(final List<PictureContainer> pictureContainer, final String reportName,
             final String reportDescription) {
         this(pictureContainer, reportName, reportDescription, new ArrayList<String>());
     }
@@ -76,8 +76,8 @@ public abstract class AbstractReportModel extends AbstractModel {
      * @param exifFilterKeywords
      *            keywords which must be in every picture for the report.
      */
-    public AbstractReportModel(final ArrayList<PictureContainer> pictureContainer, final String reportName,
-            final String reportDescription, final ArrayList<String> exifFilterKeywords) {
+    public AbstractReportModel(final List<PictureContainer> pictureContainer, final String reportName,
+            final String reportDescription, final List<String> exifFilterKeywords) {
         super();
 
         this.pictureContainer = pictureContainer;
@@ -100,7 +100,7 @@ public abstract class AbstractReportModel extends AbstractModel {
      * @param exifFilterKeywords
      *            keywords which must be in every picture for the report.
      */
-    public AbstractReportModel(final ArrayList<PictureContainer> pictureContainer, final String reportName,
+    public AbstractReportModel(final List<PictureContainer> pictureContainer, final String reportName,
             final String reportDescription, final String[] exifFilterKeywords) {
         this(pictureContainer, reportName, reportDescription, new ArrayList<String>(Arrays.asList(exifFilterKeywords)));
 

@@ -1,6 +1,6 @@
 package org.knipsX.model.reportmanagement;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.knipsX.model.picturemanagement.PictureContainer;
 
@@ -35,8 +35,8 @@ public abstract class AbstractTrippleAxesModel extends AbstractDoubleAxesModel {
      * @param yAxis
      *            the yAxis.
      */
-    public AbstractTrippleAxesModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis,
-            final Axis zAxis, final Axis yAxis) {
+    public AbstractTrippleAxesModel(final List<PictureContainer> pictureContainer, final Axis xAxis, final Axis zAxis,
+            final Axis yAxis) {
         super(pictureContainer, xAxis, zAxis);
 
         this.yAxis = yAxis;
