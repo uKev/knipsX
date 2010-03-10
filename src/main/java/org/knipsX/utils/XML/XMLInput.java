@@ -269,7 +269,7 @@ public class XMLInput {
             final Element axis = (Element) axisItem;
 
             if (!axis.getChildText("parameter").equals("") && axis.getChildText("type").equalsIgnoreCase("x")) {
-                model.setxAxis(this.getAxis(axis));
+                model.setXAxis(this.getAxis(axis));
             }
         }
 
@@ -295,7 +295,7 @@ public class XMLInput {
             final Element axis = (Element) axisItem;
 
             if (!axis.getChildText("parameter").equals("") && axis.getChildText("type").equalsIgnoreCase("x")) {
-                model.setxAxis(this.getAxis(axis));
+                model.setXAxis(this.getAxis(axis));
             }
         }
         return model;
@@ -307,9 +307,9 @@ public class XMLInput {
         /* extract the axes */
         for (final Element axis : XMLHelper.convertList(report.getChild("axes").getChildren("axis"))) {
             if (!axis.getChildText("parameter").equals("") && axis.getChildText("type").equalsIgnoreCase("x")) {
-                model.setxAxis(this.getAxis(axis));
+                model.setXAxis(this.getAxis(axis));
             } else if (!axis.getChildText("parameter").equals("") && axis.getChildText("type").equalsIgnoreCase("z")) {
-                model.setzAxis(this.getAxis(axis));
+                model.setZAxis(this.getAxis(axis));
             }
         }
         return model;
@@ -321,11 +321,11 @@ public class XMLInput {
         /* extract the axes */
         for (final Element axis : XMLHelper.convertList(report.getChild("axes").getChildren("axis"))) {
             if (!axis.getChildText("parameter").equals("") && axis.getChildText("type").equalsIgnoreCase("x")) {
-                model.setxAxis(this.getAxis(axis));
+                model.setXAxis(this.getAxis(axis));
             } else if (!axis.getChildText("parameter").equals("") && axis.getChildText("type").equalsIgnoreCase("z")) {
-                model.setzAxis(this.getAxis(axis));
+                model.setZAxis(this.getAxis(axis));
             } else if (!axis.getChildText("parameter").equals("") && axis.getChildText("type").equalsIgnoreCase("y")) {
-                model.setyAxis(this.getAxis(axis));
+                model.setYAxis(this.getAxis(axis));
             }
         }
         return model;

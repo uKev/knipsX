@@ -11,7 +11,6 @@ import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -217,7 +216,7 @@ public class Picture extends Observable implements PictureInterface {
     /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#hasMinOneKeywordOf(java.util.ArrayList)
      */
-    public boolean hasMinOneKeywordOf(final ArrayList<String> filterKeywords) {
+    public boolean hasMinOneKeywordOf(final List<String> filterKeywords) {
         boolean hasMinOneKeyword = false;
 
         if (filterKeywords.isEmpty()) {

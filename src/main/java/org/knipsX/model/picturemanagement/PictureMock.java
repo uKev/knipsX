@@ -135,7 +135,7 @@ public class PictureMock implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#hasMinOneKeywordOf(java.util.ArrayList)
      */
-    public boolean hasMinOneKeywordOf(ArrayList<String> filterKeywords) {
+    public boolean hasMinOneKeywordOf(List<String> filterKeywords) {
         // TODO Auto-generated method stub
         return true;
     }

@@ -10,7 +10,9 @@ import org.knipsX.utils.ExifParameter;
  * 
  */
 public class PictureParameter {
+
     private ExifParameter exifParameter;
+
     private PictureInterface picture;
 
     /**
@@ -23,6 +25,7 @@ public class PictureParameter {
      */
     public PictureParameter(final ExifParameter exifParameter, final PictureInterface picture) {
         super();
+
         this.exifParameter = exifParameter;
         this.picture = picture;
     }

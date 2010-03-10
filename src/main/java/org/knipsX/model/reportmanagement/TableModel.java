@@ -1,6 +1,7 @@
 package org.knipsX.model.reportmanagement;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.PictureContainer;
@@ -15,7 +16,10 @@ import org.knipsX.utils.ExifParameter;
  */
 
 public class TableModel extends AbstractReportModel {
-    ArrayList<PictureInterface> pictures = new ArrayList<PictureInterface>();
+
+    private final Logger logger = Logger.getLogger(this.getClass());
+
+    private final List<PictureInterface> pictures = new ArrayList<PictureInterface>();
 
     /**
      * Creates an empty TableModel. You want to use addPictureContainer(...) to add pictures to the table.
@@ -36,51 +40,43 @@ public class TableModel extends AbstractReportModel {
 
     @Override
     protected void calculate() {
-
         this.pictures.clear();
 
         for (final PictureContainer pictureContainer : this.getPictureContainer()) {
+
             for (final PictureInterface picture : pictureContainer) {
-                
+
                 if (picture.hasMinOneKeywordOf(this.getExifFilterKeywords())) {
                     this.pictures.add(picture);
+
                     for (final ExifParameter exifParameter : ExifParameter.values()) {
-                        
+
                         if (picture.getExifParameter(exifParameter) == null) {
-
                             this.addMissingExifPictureParameter(new PictureParameter(exifParameter, picture));
-                        
                         }
-                        
                     }
-
                 }
             }
         }
-
     }
 
     /**
-     * Returns an ArrayList of all Pictures inside the table.
+     * Returns an List of all Pictures inside the table.
      * 
-     * @return an ArrayList of all Pictures inside the table.
+     * @return an List of all Pictures inside the table.
      */
-    public ArrayList<PictureInterface> getPictures() {
-
+    public List<PictureInterface> getPictures() {
         this.calculateIfRequired();
 
         return this.pictures;
-
     }
 
     @Override
     public boolean isModelValid() {
-
-        Logger log = Logger.getLogger(this.getClass());
-        calculateIfRequired();
+        this.calculateIfRequired();
 
         if (this.pictures.isEmpty()) {
-            log.info("this.pictures.isEmpty()");
+            this.logger.info("this.pictures.isEmpty()");
             return false;
         }
         return true;

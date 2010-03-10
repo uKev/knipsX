@@ -90,17 +90,17 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
                 JParameters parametersPanel = (JParameters) singlepanel;
 
                 if (model instanceof BoxplotModel) {
-                    ((BoxplotModel) model).setxAxis(parametersPanel.getAxes().get(0));
+                    ((BoxplotModel) model).setXAxis(parametersPanel.getAxes().get(0));
                 } else if (model instanceof Histogram2DModel) {
-                    ((Histogram2DModel) model).setxAxis(parametersPanel.getAxes().get(0));
+                    ((Histogram2DModel) model).setXAxis(parametersPanel.getAxes().get(0));
                 } else if (model instanceof Histogram3DModel) {
-                    ((Histogram3DModel) model).setxAxis(parametersPanel.getAxes().get(0));
-                    ((Histogram3DModel) model).setzAxis(parametersPanel.getAxes().get(1));
+                    ((Histogram3DModel) model).setXAxis(parametersPanel.getAxes().get(0));
+                    ((Histogram3DModel) model).setZAxis(parametersPanel.getAxes().get(1));
                 } else if (model instanceof Cluster3DModel) {
                     Cluster3DModel cluster3DModel = ((Cluster3DModel) model);
-                    cluster3DModel.setxAxis(parametersPanel.getAxes().get(0));
-                    cluster3DModel.setzAxis(parametersPanel.getAxes().get(1));
-                    cluster3DModel.setyAxis(parametersPanel.getAxes().get(2));
+                    cluster3DModel.setXAxis(parametersPanel.getAxes().get(0));
+                    cluster3DModel.setZAxis(parametersPanel.getAxes().get(1));
+                    cluster3DModel.setYAxis(parametersPanel.getAxes().get(2));
                 }
 
             } else if (singlepanel instanceof JPictureSetExif) {

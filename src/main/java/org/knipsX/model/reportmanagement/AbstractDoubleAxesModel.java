@@ -1,6 +1,6 @@
 package org.knipsX.model.reportmanagement;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.knipsX.model.picturemanagement.PictureContainer;
 
@@ -15,6 +15,7 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 public abstract class AbstractDoubleAxesModel extends AbstractSingleAxisModel {
 
     protected Axis zAxis;
+
     protected double minZ;
     protected double maxZ;
 
@@ -23,6 +24,7 @@ public abstract class AbstractDoubleAxesModel extends AbstractSingleAxisModel {
      */
     public AbstractDoubleAxesModel() {
         super();
+
         this.minZ = Double.MAX_VALUE;
         this.maxZ = Double.MIN_VALUE;
     }
@@ -37,10 +39,11 @@ public abstract class AbstractDoubleAxesModel extends AbstractSingleAxisModel {
      * @param zAxis
      *            the z-axis config
      */
-    public AbstractDoubleAxesModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis,
-            final Axis zAxis) {
+    public AbstractDoubleAxesModel(final List<PictureContainer> pictureContainer, final Axis xAxis, final Axis zAxis) {
         super(pictureContainer, xAxis);
+
         this.zAxis = zAxis;
+
         this.minZ = Double.MAX_VALUE;
         this.maxZ = Double.MIN_VALUE;
     }
@@ -70,7 +73,7 @@ public abstract class AbstractDoubleAxesModel extends AbstractSingleAxisModel {
      * 
      * @return the zAxis
      */
-    public Axis getzAxis() {
+    public Axis getZAxis() {
         return this.zAxis;
     }
 
@@ -80,7 +83,7 @@ public abstract class AbstractDoubleAxesModel extends AbstractSingleAxisModel {
      * @param zAxis
      *            the zAxis
      */
-    public void setzAxis(final Axis zAxis) {
+    public void setZAxis(final Axis zAxis) {
         this.zAxis = zAxis;
     }
 }

@@ -1,6 +1,6 @@
 package org.knipsX.model.reportmanagement;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.knipsX.model.picturemanagement.PictureContainer;
 
@@ -13,131 +13,138 @@ import org.knipsX.model.picturemanagement.PictureContainer;
  */
 
 public abstract class AbstractSingleAxisModel extends AbstractReportModel {
-    // needs to be protected because it's used in subclass
+
+    /* Needs to be protected because it's used in subclass */
     protected Axis xAxis;
 
     protected double minX = Double.MAX_VALUE;
     protected double maxX = -Double.MAX_VALUE;
+
     protected double minY = Double.MAX_VALUE;
     protected double maxY = -Double.MAX_VALUE;
 
     /**
-     * Constructor for an empty AbstractSingleAxisModel
+     * Constructor for an empty AbstractSingleAxisModel.
      */
     public AbstractSingleAxisModel() {
         super();
     }
 
     /**
-     * Constructor for a AbstractSingleAxisModel
+     * Constructor for a AbstractSingleAxisModel.
      * 
-     * @param pictureContainer pictureContainer which belongs to the model
-     * @param xAxis the xAxis which belongs to the model
+     * @param pictureContainer
+     *            pictureContainer which belongs to the model.
+     * @param xAxis
+     *            the xAxis which belongs to the model.
      */
-    public AbstractSingleAxisModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis) {
+    public AbstractSingleAxisModel(final List<PictureContainer> pictureContainer, final Axis xAxis) {
         this(pictureContainer, xAxis, null, null, null);
-
     }
 
     /**
-     * Constructor for a AbstractSingleAxisModel with pictureContainer, xAxis, reportName and reportDescription
+     * Constructor for a AbstractSingleAxisModel with pictureContainer, xAxis, reportName and reportDescription.
      * 
      * @param pictureContainer
-     *            picture Container
+     *            picture Container.
      * @param xAxis
-     *            x axis
+     *            x axis.
      * @param reportName
-     *            name of the report
+     *            name of the report.
      * @param reportDescription
-     *            description of the report
+     *            description of the report.
      */
-    public AbstractSingleAxisModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis,
+    public AbstractSingleAxisModel(final List<PictureContainer> pictureContainer, final Axis xAxis,
             final String reportName, final String reportDescription) {
         this(pictureContainer, xAxis, reportName, reportDescription, null);
     }
 
     /**
      * Constructor for a AbstractSingleAxisModel with pictureContainer, xAxis, reportName, reportDescription and
-     * exifFilterKeywords
+     * exifFilterKeywords.
      * 
      * @param pictureContainer
-     *            picture Container
+     *            picture Container.
      * @param xAxis
-     *            x axis
+     *            x-axis.
      * @param reportName
-     *            name of the report
+     *            name of the report.
      * @param reportDescription
-     *            description of the report
+     *            description of the report.
      * @param exifFilterKeywords
      *            pictures are filtered with this keywords.
      */
-    public AbstractSingleAxisModel(final ArrayList<PictureContainer> pictureContainer, final Axis xAxis,
-            final String reportName, final String reportDescription, final ArrayList<String> exifFilterKeywords) {
+    public AbstractSingleAxisModel(final List<PictureContainer> pictureContainer, final Axis xAxis,
+            final String reportName, final String reportDescription, final List<String> exifFilterKeywords) {
         super(pictureContainer, reportName, reportDescription, exifFilterKeywords);
-        this.setxAxis(xAxis);
+
+        this.setXAxis(xAxis);
+
         this.dataIsCalculated(false);
     }
 
     /**
-     * Biggest value in x-axis
+     * Biggest value in x-axis.
      * 
      * @return the biggest value in the x-axis.
      */
     public double getMaxX() {
         this.calculateIfRequired();
+
         return this.maxX;
-
     }
 
     /**
-     * Biggest value in y-axis
-     * 
-     * @return the biggest value in the y-axis.
-     */
-    public double getMaxY() {
-        this.calculateIfRequired();
-        return this.maxY;
-
-    }
-
-    /**
-     * Smallest value in x-axis
+     * Smallest value in x-axis.
      * 
      * @return the smallest value in the x-axis.
      */
     public double getMinX() {
         this.calculateIfRequired();
-        return this.minX;
 
+        return this.minX;
     }
 
     /**
-     * Smallest value in y-axis
+     * Biggest value in y-axis.
+     * 
+     * @return the biggest value in the y-axis.
+     */
+    public double getMaxY() {
+        this.calculateIfRequired();
+
+        return this.maxY;
+    }
+
+    /**
+     * Smallest value in y-axis.
      * 
      * @return the smallest value in the y-axis.
      */
     public double getMinY() {
         this.calculateIfRequired();
+
         return this.minY;
     }
 
     /**
-     * Getter for the x-axis
+     * Getter for the x-axis.
      * 
-     * @return the xAxis
+     * @return the x-axis.
      */
-    public Axis getxAxis() {
+    public Axis getXAxis() {
         return this.xAxis;
     }
 
     /**
-     * Sets the x-axis
+     * Sets the x-axis.
      * 
      * @param xAxis
-     *            the x axis
+     *            the x-axis.
      */
-    public void setxAxis(final Axis xAxis) {
+    public void setXAxis(final Axis xAxis) {
         this.xAxis = xAxis;
+
         this.dataIsCalculated(false);
     }
 }

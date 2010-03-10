@@ -30,8 +30,6 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
 
     private static final long serialVersionUID = -2802017414318945810L;
 
-    private final Logger logger = Logger.getLogger(this.getClass());
-
     /**
      * Constructor
      * 
@@ -47,6 +45,8 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
 
     @Override
     public void generateContent() {
+        final Logger logger = Logger.getLogger(this.getClass());
+        
         JAbstract3DView.useBufferRange = false;
 
         final ArrayList<Integer> typesOfPoints = new ArrayList<Integer>();
@@ -58,36 +58,36 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
                 }
             }
 
-            this.logger.debug(Messages.getString("JCluster3D.0") + typesOfPoints.size());
+            logger.debug(Messages.getString("JCluster3D.0") + typesOfPoints.size());
 
             Collections.sort(typesOfPoints);
 
             /* setup y axis */
-            this.getyAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
-            this.getyAxis().setAxis(this.model.getyAxis());
+            this.getYAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
+            this.getYAxis().setAxis(this.model.getYAxis());
 
-            this.logger.debug(Messages.getString("JCluster3D.1") + this.model.getMinY()
+            logger.debug(Messages.getString("JCluster3D.1") + this.model.getMinY()
                     + Messages.getString("JCluster3D.2") + this.model.getMaxY());
 
             /* setup x axis */
-            this.getxAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
-            this.getxAxis().setAxis(this.model.getxAxis());
+            this.getXAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
+            this.getXAxis().setAxis(this.model.getXAxis());
 
-            this.logger.debug(Messages.getString("JCluster3D.3") + this.model.getMinX()
+            logger.debug(Messages.getString("JCluster3D.3") + this.model.getMinX()
                     + Messages.getString("JCluster3D.4") + this.model.getMaxX());
 
             /* setup z axis */
             this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
-            this.getzAxis().setAxis(this.model.getzAxis());
+            this.getzAxis().setAxis(this.model.getZAxis());
 
-            this.logger.debug(Messages.getString("JCluster3D.5") + this.model.getMinZ()
+            logger.debug(Messages.getString("JCluster3D.5") + this.model.getMinZ()
                     + Messages.getString("JCluster3D.6") + this.model.getMaxZ());
 
             for (int i = 0; i < this.model.getFrequency3DPoints().size(); i++) {
                 final Transform3D dataTrans = new Transform3D();
 
-                final Vector3d position = new Vector3d(this.getxAxis().getAxisSpace(
-                        this.model.getFrequency3DPoints().get(i).getX()), this.getyAxis().getAxisSpace(
+                final Vector3d position = new Vector3d(this.getXAxis().getAxisSpace(
+                        this.model.getFrequency3DPoints().get(i).getX()), this.getYAxis().getAxisSpace(
                         this.model.getFrequency3DPoints().get(i).getY()), this.getzAxis().getAxisSpace(
                         this.model.getFrequency3DPoints().get(i).getZ()));
 
@@ -108,9 +108,9 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
                 this.objRoot.addChild(objData);
             }
 
-            this.getyAxis().generateSegmentDescription(10);
+            this.getYAxis().generateSegmentDescription(10);
 
-            this.getxAxis().generateSegmentDescription(10);
+            this.getXAxis().generateSegmentDescription(10);
 
             this.getzAxis().generateSegmentDescription(10);
 

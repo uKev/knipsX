@@ -249,8 +249,8 @@ public class XMLOutput {
         report.addContent(new Element("description").setText(model.getReportName()));
 
         Element axes = new Element("axes");
-        if (model.getxAxis() != null) {
-            axes.addContent(resolveAxis(model.getxAxis(), "x"));
+        if (model.getXAxis() != null) {
+            axes.addContent(resolveAxis(model.getXAxis(), "x"));
         }
         report.addContent(axes);
 
@@ -268,8 +268,8 @@ public class XMLOutput {
         report.addContent(new Element("description").setText(model.getReportName()));
 
         Element axes = new Element("axes");
-        if (model.getxAxis() != null) {
-            axes.addContent(resolveAxis(model.getxAxis(), "x"));
+        if (model.getXAxis() != null) {
+            axes.addContent(resolveAxis(model.getXAxis(), "x"));
         }
         report.addContent(axes);
 
@@ -286,11 +286,11 @@ public class XMLOutput {
         report.addContent(new Element("description").setText(model.getReportName()));
 
         Element axes = new Element("axes");
-        if (model.getxAxis() != null) {
-            axes.addContent(resolveAxis(model.getxAxis(), "x"));
+        if (model.getXAxis() != null) {
+            axes.addContent(resolveAxis(model.getXAxis(), "x"));
         }
-        if (model.getzAxis() != null) {
-            axes.addContent(resolveAxis(model.getzAxis(), "z"));
+        if (model.getZAxis() != null) {
+            axes.addContent(resolveAxis(model.getZAxis(), "z"));
         }
         report.addContent(axes);
 
@@ -307,14 +307,14 @@ public class XMLOutput {
         report.addContent(new Element("description").setText(model.getReportName()));
 
         Element axes = new Element("axes");
-        if (model.getxAxis() != null) {
-            axes.addContent(resolveAxis(model.getxAxis(), "x"));
+        if (model.getXAxis() != null) {
+            axes.addContent(resolveAxis(model.getXAxis(), "x"));
         }
-        if (model.getzAxis() != null) {
-            axes.addContent(resolveAxis(model.getzAxis(), "z"));
+        if (model.getZAxis() != null) {
+            axes.addContent(resolveAxis(model.getZAxis(), "z"));
         }
-        if (model.getyAxis() != null) {
-            axes.addContent(resolveAxis(model.getyAxis(), "y"));
+        if (model.getYAxis() != null) {
+            axes.addContent(resolveAxis(model.getYAxis(), "y"));
         }
         report.addContent(axes);
 
