@@ -3,6 +3,8 @@
  */
 package org.knipsX.model.reportmanagement;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
