@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -613,7 +614,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 enabled = true;
             }
 
-            final ArrayList<JAbstractSinglePanel> registeredPanels = ReportHelper.getCurrentReportUtility().reportCompilation
+            final List<JAbstractSinglePanel> registeredPanels = ReportHelper.getCurrentReportUtility().reportCompilation
                     .getRegisteredPanels();
 
             for (final JAbstractSinglePanel singlepanel : registeredPanels) {

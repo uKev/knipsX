@@ -50,7 +50,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
      */
     public JReportConfig(final M model, final int reportID) {
         super(model);
-        this.reportID = reportID;
+        this.reportId = reportID;
         ReportHelper.setCurrentModel(this.model);
         ReportHelper.setCurrentReportUtility(this);
         this.addCloseOperation();

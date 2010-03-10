@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -433,7 +434,7 @@ public class JParameters extends JAbstractSinglePanel {
                 }
             }
 
-            final ArrayList<JAbstractSinglePanel> registeredPanels = ReportHelper.getCurrentReportUtility().reportCompilation
+            final List<JAbstractSinglePanel> registeredPanels = ReportHelper.getCurrentReportUtility().reportCompilation
                     .getRegisteredPanels();
 
             for (final JAbstractSinglePanel singlepanel : registeredPanels) {

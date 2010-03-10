@@ -36,74 +36,80 @@ import org.knipsX.utils.Validator;
  */
 public class JDiagramType extends JAbstractSinglePanel {
 
-    private JTextField reportname;
+    private JList diagramTypeList;
+    
+    private JTextArea reportDescription;
+    
+    private JTextField reportName;
+    
     private JLabel reportNameErrorLabel;
     private JLabel diagramPreviewErrorLabel;
-    private JTextArea reportdescription;
-    private static final long serialVersionUID = 1L;
-    private JList diagramTypeList;
+    
+    private static final long serialVersionUID = 6811769925471581664L;    
+    
     private boolean java3DInstalled = false;
 
     /**
-     * Constructor which initialized this diagram selection panel
+     * Constructor which initialized this diagram selection panel.
      * 
      * @param diagramDescription
      *            The diagram description which is registered with this panel.
      */
-
     public JDiagramType(final String diagramDescription) {
 
-        /* Set the title name of this panel */
+        /* set the title name of this panel */
         this.title = Messages.getString("JDiagramType.0");
 
-        final BoxLayout container = new BoxLayout(this, BoxLayout.X_AXIS);
-        this.setLayout(container);
+        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
-        /* Initialize the left panel */
+        /* initialize the left panel */
         final JPanel leftpanel = new JPanel();
         leftpanel.setLayout(new BoxLayout(leftpanel, BoxLayout.PAGE_AXIS));
 
-        /* Add the report name label and text field */
+        /* add the report name label and text field */
         this.addReportNameAndReportTextField(leftpanel);
 
-        /* Add the report description text field and text area */
+        /* add the report description text field and text area */
         this.addReportDescriptionAndTextArea(leftpanel);
 
-        /* Add the diagram type label and list */
+        /* add the diagram type label and list */
         this.addDiagramTypeLabelAndList(leftpanel);
 
-        /* Initialize the right panel */
+        /* initialize the right panel */
         final JPanel rightpanel = new JPanel();
         rightpanel.setLayout(new BoxLayout(rightpanel, BoxLayout.PAGE_AXIS));
 
-        /* Add diagram preview */
+        /* add diagram preview */
         this.addDiagramPreview(rightpanel);
 
-        /* Add diagram description */
+        /* add diagram description */
         this.addDiagramDescription(rightpanel, diagramDescription);
 
-        /* Add them to the main layout */
+        /* add them to the main layout */
         this.add(leftpanel);
         this.add(Box.createRigidArea(new Dimension(25, 20)));
         this.add(Box.createHorizontalGlue());
         this.add(rightpanel);
 
         this.fillViewWithModelInfo();
-
     }
 
     /* Add diagram description to the specified panel */
     private void addDiagramDescription(final JPanel rightpanel, final String diagramDescription) {
         final JTextArea mytextarea = new JTextArea(diagramDescription);
+        
         mytextarea.setEditable(false);
         mytextarea.setColumns(20);
         mytextarea.setRows(5);
         mytextarea.setWrapStyleWord(true);
         mytextarea.setLineWrap(true);
-        rightpanel.add(mytextarea);
+        
         final JScrollPane rightscrollpane = new JScrollPane(mytextarea);
+        
         rightscrollpane.setMaximumSize(new Dimension(Integer.MAX_VALUE, 450));
         rightscrollpane.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        rightpanel.add(mytextarea);
         rightpanel.add(rightscrollpane);
     }
 
@@ -174,14 +180,14 @@ public class JDiagramType extends JAbstractSinglePanel {
         /* Alter alignment to accommodate layout */
         reportdescriptionlabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         leftpanel.add(reportdescriptionlabel);
-        this.reportdescription = new JTextArea();
+        this.reportDescription = new JTextArea();
         /* Alter alignment to accommodate layout */
-        this.reportdescription.setAlignmentX(Component.LEFT_ALIGNMENT);
-        this.reportdescription.setColumns(20);
-        this.reportdescription.setLineWrap(true);
-        this.reportdescription.setRows(10);
-        this.reportdescription.setWrapStyleWord(true);
-        final JScrollPane scrollpane = new JScrollPane(this.reportdescription);
+        this.reportDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.reportDescription.setColumns(20);
+        this.reportDescription.setLineWrap(true);
+        this.reportDescription.setRows(10);
+        this.reportDescription.setWrapStyleWord(true);
+        final JScrollPane scrollpane = new JScrollPane(this.reportDescription);
         scrollpane.setMaximumSize(new Dimension(Integer.MAX_VALUE, 450));
         /* Alter alignment to accommodate layout */
         scrollpane.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -199,23 +205,23 @@ public class JDiagramType extends JAbstractSinglePanel {
         final JPanel reportNamePanel = new JPanel();
         reportNamePanel.setLayout(new BoxLayout(reportNamePanel, BoxLayout.X_AXIS));
 
-        this.reportname = new JTextField();
-        this.reportname.setPreferredSize(new Dimension(20, 20));
-        this.reportname.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
+        this.reportName = new JTextField();
+        this.reportName.setPreferredSize(new Dimension(20, 20));
+        this.reportName.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
 
         /*
          * Assign KeyAdapter to verify and thus revalidate the report
          * Note that this method is called every time the user enters something
          * in the report name text field
          */
-        this.reportname.addKeyListener(new KeyAdapter() {
+        this.reportName.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent ke) {
                 JDiagramType.this.revalidateReport();
             }
         });
 
-        reportNamePanel.add(this.reportname);
+        reportNamePanel.add(this.reportName);
         this.reportNameErrorLabel = new JLabel();
         reportNamePanel.add(this.reportNameErrorLabel);
         
@@ -231,7 +237,7 @@ public class JDiagramType extends JAbstractSinglePanel {
      * @return the report description
      */
     public String getReportDescription() {
-        return this.reportdescription.getText();
+        return this.reportDescription.getText();
     }
 
     /**
@@ -240,7 +246,7 @@ public class JDiagramType extends JAbstractSinglePanel {
      * @return the report name
      */
     public String getReportName() {
-        return this.reportname.getText();
+        return this.reportName.getText();
     }
 
     /**
@@ -275,9 +281,9 @@ public class JDiagramType extends JAbstractSinglePanel {
     private boolean checkReportName() {
 
         final Logger logger = Logger.getLogger(this.getClass());
-        logger.trace(Messages.getString("JDiagramType.5") + Validator.isStringOk(this.reportname.getText()));
+        logger.trace(Messages.getString("JDiagramType.5") + Validator.isStringOk(this.reportName.getText()));
 
-        if (Validator.isStringOk(this.reportname.getText())) {
+        if (Validator.isStringOk(this.reportName.getText())) {
             this.reportNameErrorLabel.setIcon(null);
             this.reportNameErrorLabel.setText(null);
             return true;
@@ -323,8 +329,8 @@ public class JDiagramType extends JAbstractSinglePanel {
     @Override
     public void fillViewWithModelInfo() {
         if (ReportHelper.getCurrentModel() != null) {
-            this.reportname.setText(ReportHelper.getCurrentModel().getReportName());
-            this.reportdescription.setText(ReportHelper.getCurrentModel().getReportDescription());
+            this.reportName.setText(ReportHelper.getCurrentModel().getReportName());
+            this.reportDescription.setText(ReportHelper.getCurrentModel().getReportDescription());
 
         }
     }

@@ -53,12 +53,12 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
 
         this.model = (M) ReportSaveController.createSavableModel(registeredPanels);
 
-        ReportHelper.getProjectModel().addReport(this.model, this.view.getReportID());
+        ReportHelper.getProjectModel().addReport(this.model, this.view.getReportId());
 
         this.view.dispose();
 
         if (showDiagram) {
-            ReportHelper.getCurrentReport().displayDiagram(this.model, this.view.getReportID()).showDiagram();
+            ReportHelper.getCurrentReport().displayDiagram(this.model, this.view.getReportId()).showDiagram();
         }
 
         /* Activate the current project view */
