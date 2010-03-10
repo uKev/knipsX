@@ -172,9 +172,9 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 final PictureSet pictureContainer = (PictureSet) value;                
                 int numberOfElements = 0;
 
-                for (@SuppressWarnings("unused") PictureInterface picture : pictureContainer) {
-                    numberOfElements++;
-                }
+                PictureContainer[] bla = ReportHelper.getProjectModel().getAllPicturesFromPictureSet(pictureContainer);
+                
+                numberOfElements = bla.length;
                 
                 theText = pictureContainer.getName() + " (" + Integer.toString(numberOfElements) + ")"; //$NON-NLS-2$
 
