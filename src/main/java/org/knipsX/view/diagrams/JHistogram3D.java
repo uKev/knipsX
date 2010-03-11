@@ -20,16 +20,16 @@ import org.knipsX.utils.Resource;
  */
 public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram<M> {
 
-    private static final long serialVersionUID = 1L;
-    
+    private static final long serialVersionUID = -8178475808196004891L;
+
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param model
-     *            the model from which the drawing information is taken from
+     *            the model from which the drawing information is taken from.
      * 
      * @param reportID
-     *            the report id of the report
+     *            the report id of the report.
      */
     public JHistogram3D(final M model, final int reportID) {
         super(model, reportID);
@@ -52,8 +52,8 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
 
             this.getXAxis().setReportSpace(this.model.getMinX(), this.model.getMaxX());
             this.getXAxis().setAxis(this.model.getXAxis());
-            this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
-            this.getzAxis().setAxis(this.model.getZAxis());
+            this.getZAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
+            this.getZAxis().setAxis(this.model.getZAxis());
             this.getYAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
             this.getYAxis().setDescription(Messages.getString("JHistogram3D.6"));
 
@@ -61,49 +61,46 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
 
             int heigth = 0;
             for (final Category[] categorie : categories) {
-                for (int j = 0; j < categorie.length; j++) {
+                for (int i = 0; i < categorie.length; i++) {
 
                     logger.debug(Messages.getString("JHistogram3D.7") + heigth);
-                    logger.debug(Messages.getString("JHistogram3D.8") + categorie[j].getMaxValueZ()
-                            + Messages.getString("JHistogram3D.9") + categorie[j].getMinValueZ());
-                    logger.debug(Messages.getString("JHistogram3D.10") + categorie[j].getMaxValueX()
-                            + Messages.getString("JHistogram3D.11") + categorie[j].getMinValueX());
+                    logger.debug(Messages.getString("JHistogram3D.8") + categorie[i].getMaxValueZ()
+                            + Messages.getString("JHistogram3D.9") + categorie[i].getMinValueZ());
+                    logger.debug(Messages.getString("JHistogram3D.10") + categorie[i].getMaxValueX()
+                            + Messages.getString("JHistogram3D.11") + categorie[i].getMinValueX());
 
-                    double xRange = Math.abs(this.getXAxis().getAxisSpace(categorie[j].getMaxValueX())
-                            - this.getXAxis().getAxisSpace(categorie[j].getMinValueX()));
-                    xRange = xRange / categorie[j].getBars().size();
+                    double xRange = Math.abs(this.getXAxis().getAxisSpace(categorie[i].getMaxValueX())
+                            - this.getXAxis().getAxisSpace(categorie[i].getMinValueX()));
+                    xRange = xRange / categorie[i].getBars().size();
 
-                    double zRange = Math.abs(this.getzAxis().getAxisSpace(categorie[j].getMaxValueZ())
-                            - this.getzAxis().getAxisSpace(categorie[j].getMinValueZ()));
+                    double zRange = Math.abs(this.getZAxis().getAxisSpace(categorie[i].getMaxValueZ())
+                            - this.getZAxis().getAxisSpace(categorie[i].getMinValueZ()));
 
-                    zRange = zRange / categorie[j].getBars().size();
+                    zRange = zRange / categorie[i].getBars().size();
 
-                    final double xPosition = this.getXAxis().getAxisSpace(categorie[j].getMinValueX()) + xRange / 2;
-                    final double zPosition = this.getzAxis().getAxisSpace(categorie[j].getMinValueZ()) + zRange / 2;
+                    final double xPosition = this.getXAxis().getAxisSpace(categorie[i].getMinValueX()) + xRange / 2;
+                    final double zPosition = this.getZAxis().getAxisSpace(categorie[i].getMinValueZ()) + zRange / 2;
+                    final double barHeight = this.getYAxis().getAxisSpace(categorie[i].getBars().get(0).getHeight());
 
-                    final double barHeight = this.getYAxis().getAxisSpace(categorie[j].getBars().get(0).getHeight());
+                    for (int j = 0; j < categorie[i].getBars().size(); j++) {
 
-                    for (int k = 0; k < categorie[j].getBars().size(); k++) {
-                        if (categorie[j].getBars().get(k).getHeight() > 0) {
-                            this.createCube(new Vector3d(xPosition + k * xRange, 0, zPosition + k * zRange),
+                        if (categorie[i].getBars().get(j).getHeight() > 0) {
+                            this.createCube(new Vector3d(xPosition + j * xRange, 0, zPosition + j * zRange),
                                     new Vector3d(shrinkFactor * xRange / 2, barHeight, shrinkFactor * zRange / 2), this
-                                            .basicMaterial(Resource.getColor(k)));
+                                            .basicMaterial(Resource.getColor(j)));
 
-                            /* Create the actual number of elements on top of the bar */
+                            /* create the actual number of elements on top of the bar */
                             final double size = 0.33d;
-                            this.createText(new Vector3d(xPosition + k * xRange, barHeight + 0.125, zPosition + k
+                            this.createText(new Vector3d(xPosition + j * xRange, barHeight + 0.125, zPosition + j
                                     * zRange), new Vector3d(size, size, size), this.basicMaterial(Color.white), Integer
-                                    .toString(categorie[j].getBars().get(0).getHeight()));
+                                    .toString(categorie[i].getBars().get(0).getHeight()));
                         }
-
                         heigth++;
                     }
-
                 }
             }
-
             this.getXAxis().generateSegmentDescription(categories.length);
-            this.getzAxis().generateSegmentDescription(categories[0].length);
+            this.getZAxis().generateSegmentDescription(categories[0].length);
             this.getYAxis().generateSegmentDescription(5);
 
             this.createLegend(this.model.getPictureContainer());
@@ -111,13 +108,13 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
             this.setCameraPerspective(Perspectives.PERSPECTIVE);
 
         } else {
+            
             if (this.model != null) {
 
-                /* Output some kind of error message */
+                /* output some kind of error message */
                 JOptionPane.showMessageDialog(this, Messages.getString("JHistogram3D.12"));
                 this.displayDiagram = false;
             }
-
         }
     }
 }

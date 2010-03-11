@@ -16,35 +16,34 @@ import org.knipsX.controller.diagrams.ReportEditController;
  */
 public class JDiagramButtonsTable extends JPanel {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 4145658679753635933L;
 
     /**
      * Constructor which takes an abstract diagram as a parameter and defines
      * a set of buttons with their associated controllers which operate on the
-     * specified view
+     * specified view.
      * 
      * @param view
-     *            the view on which the controllers work on
+     *            the view on which the controllers work on.
      */
 
     public JDiagramButtonsTable(final JAbstractDiagram<?> view) {
 
-        /* Define the close button and associate the controller */
+        /* define the close button and associate the controller */
         final JButton closeButton = new JButton(Messages.getString("JDiagramButtonsTable.0"));
         closeButton.addActionListener(new DiagramCloseController<Object, JAbstractDiagram<?>>(view));
 
-        /* Define the edit button and associate the controller */
+        /* define the edit button and associate the controller */
         final JButton editButton = new JButton(Messages.getString("JDiagramButtonsTable.1"));
         editButton.addActionListener(new ReportEditController<Object, JAbstractDiagram<?>>(view));
 
-        /* Define the export button and associate the controller */
+        /* define the export button and associate the controller */
         final JButton exportButton = new JButton(Messages.getString("JDiagramButtonsTable.2"));
         exportButton.addActionListener(new DiagramExportAsBufferedImageController<Object, JAbstractDiagram<?>>(view));
 
-        /* Add all the defined buttons to the current panel */
+        /* add all the defined buttons to the current panel */
         this.add(closeButton);
         this.add(editButton);
         this.add(exportButton);
     }
-
 }

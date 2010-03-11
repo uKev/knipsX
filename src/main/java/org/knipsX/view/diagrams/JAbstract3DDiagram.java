@@ -18,16 +18,16 @@ import com.sun.j3d.utils.universe.ViewingPlatform;
  */
 public abstract class JAbstract3DDiagram<M extends AbstractReportModel> extends JAbstract3DView<M> {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 103143609069896417L;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param model
-     *            the model from which the drawing information is taken from
+     *            the model from which the drawing information is taken from.
      * 
      * @param reportID
-     *            the report id of the report
+     *            the report id of the report.
      */
 
     public JAbstract3DDiagram(final M model, final int reportID) {
@@ -36,28 +36,30 @@ public abstract class JAbstract3DDiagram<M extends AbstractReportModel> extends 
 
     @Override
     /**
-     * 2D specific preinitialization routine
+     * 2D specific preinitialization routine.
      */
-    public void preinitialize() {
+    public void preInitialize() {
 
-        /* Register 3D buttons with view */
+        /* register 3D buttons with view */
         this.registeredButtons = new JDiagramButtons3D(this);
-        
-        /* Set the number of axes to 3*/
+
+        /* set the number of axes to 3 */
         this.numberOfAxes = 3;
-        
-        this.addLights();        
-        
-        /* Make view interactive */        
-        final ViewingPlatform viewingPlatform = this.simpleU.getViewingPlatform();
+
+        this.addLights();
+
+        /* Make view interactive */
         final OrbitBehavior orbit = new OrbitBehavior(this.canvas3D, OrbitBehavior.REVERSE_ALL);
-        final BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
-        orbit.setSchedulingBounds(bounds);
-        orbit.setRotationCenter(new Point3d(this.getzAxis().getAxisSize() / 2.0, 0, this.getXAxis().getAxisSize() / 2.0));
+        orbit.setSchedulingBounds(new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0));
+        orbit
+                .setRotationCenter(new Point3d(this.getZAxis().getAxisSize() / 2.0, 0,
+                        this.getXAxis().getAxisSize() / 2.0));
         orbit.setZoomFactor(3);
+
+        final ViewingPlatform viewingPlatform = this.simpleUniverse.getViewingPlatform();
         viewingPlatform.setViewPlatformBehavior(orbit);
 
-        /* Set default camera perspective to a perspective view */
+        /* set default camera perspective to a perspective view */
         this.setCameraPerspective(Perspectives.PERSPECTIVE);
     }
 }
