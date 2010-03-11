@@ -911,7 +911,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jLabelTotalPictures == null) {
-            this.jLabelTotalPictures = new JLabel("Insgesamt Bilder:" + this.model.getNumberOfPictures());
+            this.jLabelTotalPictures = new JLabel(Messages.getString("JProjectView.85") + this.model.getNumberOfPictures());
         }
         return this.jLabelTotalPictures;
     }

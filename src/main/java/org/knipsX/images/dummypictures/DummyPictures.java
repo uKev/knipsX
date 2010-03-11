@@ -1,6 +1,6 @@
 package org.knipsX.images.dummypictures;
 
-import org.knipsX.model.picturemanagement.PictureMock;
+import org.knipsX.model.picturemanagement.PictureDummy;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.utils.ExifParameter;
 
@@ -38,18 +38,18 @@ public final class DummyPictures {
     	
     	
     	for (int i = 0; i < values.length; i++) {
-    		PictureMock pictureMock = new PictureMock();
-    		pictureMock.setName("CIMG313" + i);
+    		PictureDummy pictureDummy = new PictureDummy();
+    		pictureDummy.setName("CIMG313" + i);
     		
-    		pictureMock.addExifParameter(ExifParameter.CAMERAMODEL, "EX-Z7");
-			pictureMock.addExifParameter(ExifParameter.FLASH, values[i][0]);
-			pictureMock.addExifParameter(ExifParameter.FNUMBER, values[i][1]);
-			pictureMock.addExifParameter(ExifParameter.EXPOSURETIME, values[i][2]);
-			pictureMock.addExifParameter(ExifParameter.ISO, values[i][3]);
-			pictureMock.addExifParameter(ExifParameter.DATE, values[i][4]);
-			pictureMock.addExifParameter(ExifParameter.FOCALLENGTH, values[i][5]);
+    		pictureDummy.addExifParameter(ExifParameter.CAMERAMODEL, "EX-Z7");
+			pictureDummy.addExifParameter(ExifParameter.FLASH, values[i][0]);
+			pictureDummy.addExifParameter(ExifParameter.FNUMBER, values[i][1]);
+			pictureDummy.addExifParameter(ExifParameter.EXPOSURETIME, values[i][2]);
+			pictureDummy.addExifParameter(ExifParameter.ISO, values[i][3]);
+			pictureDummy.addExifParameter(ExifParameter.DATE, values[i][4]);
+			pictureDummy.addExifParameter(ExifParameter.FOCALLENGTH, values[i][5]);
     		
-    		dummyPictureSet.add(pictureMock);
+    		dummyPictureSet.add(pictureDummy);
     	}
     	
     	
