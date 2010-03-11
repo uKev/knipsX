@@ -1,7 +1,7 @@
 package org.knipsX.utils;
 
 /**
- * This class stores common used values.
+ * This class stores commonly used values.
  * @author Kevin Zuber
  *
  */
