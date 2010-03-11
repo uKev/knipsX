@@ -32,9 +32,15 @@ public class PictureTest {
 	//	pic1 = new Picture("/home/clyde/SOFT_PR/knipsX/Implementierung/testbilder/DSC00596.JPG", true);
 	//	pic2 = new Picture("/home/clyde/SOFT_PR/knipsX/Implementierung/testbilder/DSC00964.JPG", false);// not active
 		
+	   // System.out.println("Current dir: " + System.getProperty("user.dir"));
 	    
-	        pic1 = new Picture("src/test/java/org/knipsX/model/picturemanagement/DSC00596.JPG", true);
-	        pic2 = new Picture("src/test/java/org/knipsX/model/picturemanagement/DSC00964.JPG", false); // not active
+	        //pic1 = new Picture("src/test/java/org/knipsX/model/picturemanagement/DSC00596.JPG", true);
+	        //pic2 = new Picture("src/test/java/org/knipsX/model/picturemanagement/DSC00964.JPG", false); // not active
+	        
+	        pic1 = new Picture("src/test/resources/DSC00596.JPG", true);
+                pic2 = new Picture("src/test/resources/DSC00964.JPG", false); // not active
+	        
+	  
 	        
 		/*pic1 = new Picture("DSC00596.JPG", true);
 		pic2 = new Picture("DSC00964.JPG", false);// not active
