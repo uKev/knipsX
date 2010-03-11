@@ -1,9 +1,6 @@
-/******************************************************************************
- * This package is the root of all files regarding the "picturemanagement".
- *****************************************************************************/
 package org.knipsX.model.picturemanagement;
 
-/* import classes from the java sdk */
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -37,8 +34,8 @@ public class Picture extends Observable implements PictureInterface {
     private Object[][] allExifParameter;
 
     /* Thumbnails */
-    private BufferedImage smallThumbnail;
-    private BufferedImage bigThumbnail;
+    private Image smallThumbnail;
+    private Image bigThumbnail;
 
     /* Creates a logger for logging */
     private final Logger logger = Logger.getLogger(this.getClass());
@@ -46,40 +43,23 @@ public class Picture extends Observable implements PictureInterface {
     /* Should be considered or not */
     boolean isReturned;
 
+    private static final int BIG_IMAGE_SIZE = 200;
+    private static final int SMALL_IMAGE_SIZE = 50;
+
     /**
      * Create new Picture with a path.
      * 
      * @param path
      *            The filepath of the picture
-     * @param isActiveorNot
+     * @param isActive
      *            The status of the picture
      * 
      * @throws PictureNotFoundException
      *             if a picture was not found.
      */
 
-    public Picture(final String path, final boolean isActiveorNot) throws PictureNotFoundException {
-        if ((path == null))  {
-            System.out.println("ERROR 1");
-            throw new PictureNotFoundException();
-        }
-        
-        if ((!new File(path).exists())) {
-            System.out.println("ERROR 2");
-            System.out.println("Current dir: " + System.getProperty("user.dir"));
-            System.out.println("PATH: " + path.toString());
-            throw new PictureNotFoundException();
-        }
-        
-        /*if ((path == null) || (!new File(path).exists())) {
-            throw new PictureNotFoundException();
-        }*/
-        
-        //System.out.println("*** path ***: " + path); //***
-        this.pictureFile = new File(path);
-        this.isActive = isActiveorNot;
-        this.allExifParameter = null;
-        this.isReturned = false;
+    public Picture(final String path, final boolean isActive) throws PictureNotFoundException {
+        this(new File(path), isActive);
     }
 
     /**
@@ -87,32 +67,45 @@ public class Picture extends Observable implements PictureInterface {
      * 
      * @param file
      *            The file to create from
-     * @param isActiveorNot
+     * @param isActive
      *            The status of the picture
+     * 
+     * @throws PictureNotFoundException
+     *             if a picture was not found.
      */
-    public Picture(final File file, final boolean isActiveorNot) {
+    public Picture(final File file, final boolean isActive) throws PictureNotFoundException {
+
+        if ((!file.exists())) {
+            throw new PictureNotFoundException("File doesn't exist.");
+        }
         this.pictureFile = file;
-        this.isActive = isActiveorNot;
+        this.isActive = isActive;
         this.allExifParameter = null;
         this.isReturned = false;
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#getName()
      */
     public String getName() {
-        return this.pictureFile.getName();
+        return new String(this.pictureFile.getName());
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#getPath()
      */
 
     public String getPath() {
-        return this.pictureFile.getAbsolutePath();
+        return new String(this.pictureFile.getAbsolutePath());
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#getExifParameter(org.knipsX.utils.ExifParameter)
      */
     public Object getExifParameter(final ExifParameter exifParameter) {
@@ -120,6 +113,8 @@ public class Picture extends Observable implements PictureInterface {
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#getItems()
      */
     public List<PictureContainer> getItems() {
@@ -129,6 +124,8 @@ public class Picture extends Observable implements PictureInterface {
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#iterator()
      */
     public Iterator<PictureInterface> iterator() {
@@ -136,9 +133,12 @@ public class Picture extends Observable implements PictureInterface {
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#hasNext()
      */
     public boolean hasNext() {
+
         if (this.isReturned) {
             this.isReturned = false;
             return false;
@@ -148,6 +148,8 @@ public class Picture extends Observable implements PictureInterface {
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#next()
      */
     public Picture next() {
@@ -156,6 +158,8 @@ public class Picture extends Observable implements PictureInterface {
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#remove()
      */
     public void remove() {
@@ -163,19 +167,28 @@ public class Picture extends Observable implements PictureInterface {
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#initThumbnails()
      */
     public synchronized boolean initThumbnails() {
         boolean isInitialized = false;
 
         if (this.bigThumbnail == null) {
+
             try {
-                BufferedImage image = ImageIO.read(this.pictureFile);
-                this.bigThumbnail = this.getScaledInstance(image, 200, 200,
-                        RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR, false);
-                this.smallThumbnail = this.getScaledInstance(image, 50, 50,
-                        RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR, false);
-                image = null;
+                final BufferedImage bImage = ImageIO.read(this.pictureFile);
+
+                final Dimension oldSize = new Dimension(bImage.getWidth(), bImage.getHeight());
+                final Dimension newSizeBig = this.getWidthAndHeightWithCorrectAspectRatio(oldSize,
+                        Picture.BIG_IMAGE_SIZE, Picture.BIG_IMAGE_SIZE);
+                final Dimension newSizeSmall = this.getWidthAndHeightWithCorrectAspectRatio(oldSize,
+                        Picture.SMALL_IMAGE_SIZE, Picture.SMALL_IMAGE_SIZE);
+
+                this.bigThumbnail = this.getScaledInstance(bImage, newSizeBig.width, newSizeBig.height,
+                        RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR, true);
+                this.smallThumbnail = this.getScaledInstance(bImage, newSizeSmall.width, newSizeSmall.height,
+                        RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR, true);
                 isInitialized = true;
             } catch (final IOException e) {
                 this.logger.error("Can't create thumbnails from file - " + this.pictureFile.getAbsolutePath());
@@ -185,14 +198,33 @@ public class Picture extends Observable implements PictureInterface {
         return isInitialized;
     }
 
+    private Dimension getWidthAndHeightWithCorrectAspectRatio(final Dimension imageSize, final int newWidth,
+            final int newHeight) {
+        float scaleWidth;
+        float scaleHeight;
+
+        if (imageSize.width >= imageSize.height) {
+            scaleWidth = (float) newWidth / imageSize.width;
+            scaleHeight = scaleWidth;
+        } else {
+            scaleHeight = (float) newHeight / imageSize.height;
+            scaleWidth = scaleHeight;
+        }
+        return new Dimension(Math.round(imageSize.width * scaleWidth), Math.round(imageSize.height * scaleWidth));
+    }
+
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#getBigThumbnail()
      */
-    public BufferedImage getBigThumbnail() {
+    public Image getBigThumbnail() {
         return this.bigThumbnail;
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#getSmallThumbnail()
      */
     public Image getSmallThumbnail() {
@@ -200,12 +232,17 @@ public class Picture extends Observable implements PictureInterface {
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#hasExifKeyword(java.lang.String)
      */
     public boolean hasExifKeyword(final String keyword) {
         boolean hasKeyword = false;
+
         final String[] keys = (String[]) this.getExifParameter(ExifParameter.KEYWORDS);
+
         for (final String key : keys) {
+
             if (key.equals(keyword)) {
                 hasKeyword = true;
             }
@@ -214,6 +251,8 @@ public class Picture extends Observable implements PictureInterface {
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#hasMinOneKeywordOf(java.util.ArrayList)
      */
     public boolean hasMinOneKeywordOf(final List<String> filterKeywords) {
@@ -221,12 +260,13 @@ public class Picture extends Observable implements PictureInterface {
 
         if (filterKeywords.isEmpty()) {
             hasMinOneKeyword = true;
-
         } else {
-
             final String[] keys = (String[]) this.getExifParameter(ExifParameter.KEYWORDS);
+
             for (final String key : keys) {
-                for (int i = 0; i < filterKeywords.size(); i++) {
+
+                for (int i = 0; i < filterKeywords.size(); ++i) {
+
                     if (key.equals(filterKeywords.get(i))) {
                         hasMinOneKeyword = true;
                     }
@@ -237,30 +277,39 @@ public class Picture extends Observable implements PictureInterface {
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#hasAllKeywords(java.lang.String[])
      */
     public boolean hasAllKeywords(final String[] keywords) {
         boolean hasAllKeyword = false;
+
         int counter = 0;
-        final String[] keys = (String[]) this.getExifParameter(ExifParameter.KEYWORDS);
         final int allAmount = keywords.length;
+
+        final String[] keys = (String[]) this.getExifParameter(ExifParameter.KEYWORDS);
+
         for (final String key : keys) {
+
             for (final String keyword : keywords) {
+
                 if (key.equals(keyword)) {
-                    counter = counter + 1;
+                    counter++;
                 }
             }
         }
+
         if (counter >= allAmount) {
             hasAllKeyword = true;
         } else {
             hasAllKeyword = false;
         }
-
         return hasAllKeyword;
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#isActive()
      */
     public boolean isActive() {
@@ -268,6 +317,8 @@ public class Picture extends Observable implements PictureInterface {
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#setActive(boolean)
      */
     public void setActive(final boolean isActive) {
@@ -275,9 +326,12 @@ public class Picture extends Observable implements PictureInterface {
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#getAllExifParameter()
      */
     public Object[][] getAllExifParameter() {
+
         if (this.allExifParameter == null) {
             final ExifAdapter exifAdapter = new ExifAdapter(this.pictureFile.getAbsolutePath());
             // try {
@@ -301,24 +355,32 @@ public class Picture extends Observable implements PictureInterface {
         return this.allExifParameter;
     }
 
-    /**
-     * @see org.knipsX.model.picturemanagement.PictureInterface#getScaledInstance(java.awt.image.BufferedImage, int, int, java.lang.Object, boolean)
+    /*
+     * {@inheritDoc}
+     * 
+     * @see org.knipsX.model.picturemanagement.PictureInterface#getScaledInstance(java.awt.image.BufferedImage, int,
+     * int, java.lang.Object, boolean)
      */
     private BufferedImage getScaledInstance(final BufferedImage img, final int targetWidth, final int targetHeight,
             final Object hint, final boolean higherQuality) {
         final int type = (img.getTransparency() == Transparency.OPAQUE) ? BufferedImage.TYPE_INT_RGB
                 : BufferedImage.TYPE_INT_ARGB;
-        BufferedImage ret = img;
+
         int w, h;
+
+        BufferedImage ret = img;
+
         if (higherQuality) {
-            // Use multi-step technique: start with original size, then
-            // scale down in multiple passes with drawImage()
-            // until the target size is reached
+
+            /*
+             * Use multi-step technique: start with original size, then scale down in multiple passes with drawImage()
+             * until the target size is reached
+             */
             w = img.getWidth();
             h = img.getHeight();
         } else {
-            // Use one-step technique: scale directly from original
-            // size to target size with a single drawImage() call
+
+            /* Use one-step technique: scale directly from original size to target size with a single drawImage() call */
             w = targetWidth;
             h = targetHeight;
         }
@@ -343,17 +405,18 @@ public class Picture extends Observable implements PictureInterface {
             g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, hint);
             g2.drawImage(ret, 0, 0, w, h, null);
             g2.dispose();
-
             ret = tmp;
         } while ((w != targetWidth) || (h != targetHeight));
-
         return ret;
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#compareTo(org.knipsX.model.picturemanagement.PictureContainer)
      */
     public int compareTo(final PictureContainer pictureToCompare) {
+
         if (this.hashCode() == ((PictureInterface) pictureToCompare).hashCode()) {
             return 0;
         } else if (this.getName().compareTo(pictureToCompare.getName()) > 0) {
