@@ -31,35 +31,34 @@ public class JDiagramButtons3D extends JPanel {
 
     public JDiagramButtons3D(final JAbstractDiagram<?> view) {
 
-        /* Define the close button and associate the controller */
+        /* define the close button and associate the controller */
         final JButton closeButton = new JButton(Messages.getString("JDiagramButtons3D.0"));
         closeButton.addActionListener(new DiagramCloseController<Object, JAbstractDiagram<?>>(view));
 
-        /* Define the edit button and associate the controller */
+        /* define the edit button and associate the controller */
         final JButton editButton = new JButton(Messages.getString("JDiagramButtons3D.1"));
         editButton.addActionListener(new ReportEditController<Object, JAbstract3DView<?>>((JAbstract3DView<?>) view));
 
-        /* Define the reset button and associate the controller */
+        /* define the reset button and associate the controller */
         final JButton resetButton = new JButton(Messages.getString("JDiagramButtons3D.2"));
 
-        /* Set the PERSPECTIVE perspective enum as the default view */
+        /* set the PERSPECTIVE perspective enum as the default view */
         resetButton.addActionListener(new DiagramResetViewController<Object, JAbstract3DView<?>>(
                 (JAbstract3DView<?>) view, Perspectives.PERSPECTIVE));
 
-        /* Define the next button and associate the controller */
+        /* define the next button and associate the controller */
         final JButton nextButton = new JButton(Messages.getString("JDiagramButtons3D.3"));
         nextButton.addActionListener(new View3DCycleController<Object, JAbstract3DView<?>>((JAbstract3DView<?>) view));
 
-        /* Define the close export and associate the controller */
+        /* define the close export and associate the controller */
         final JButton exportButton = new JButton(Messages.getString("JDiagramButtons3D.4"));
         exportButton.addActionListener(new DiagramExportAsBufferedImageController<Object, JAbstractDiagram<?>>(view));
 
-        /* Add all the defined buttons to the current panel */
+        /* add all the defined buttons to the current panel */
         this.add(closeButton);
         this.add(editButton);
         this.add(resetButton);
         this.add(nextButton);
         this.add(exportButton);
     }
-
 }

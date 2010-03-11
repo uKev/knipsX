@@ -17,113 +17,105 @@ import org.knipsX.utils.Resource;
  * 
  * @param <M>
  */
-
 public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
 
     private static final long serialVersionUID = 7304743674236993462L;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param model
-     *            the model from which the drawing information is taken from
+     *            the model from which the drawing information is taken from.
      * 
      * @param reportID
-     *            the report id of the report
+     *            the report id of the report.
      */
     public JBoxplot(final M model, final int reportID) {
         super(model, reportID);
-        
     }
 
     @Override
     public void generateContent() {
+        final Logger logger = Logger.getLogger(this.getClass());
+
         this.showGrid = false;
-        
+
         JAbstract3DView.useBufferRange = true;
-        
+
         Boxplot[] boxplots;
 
-        Logger logger = Logger.getLogger(this.getClass());
-
-        if (this.model != null && this.model.isModelValid()) {
-
+        if ((this.model != null) && this.model.isModelValid()) {
             this.getYAxis().setReportSpace(this.model.getMinY(), this.model.getMaxY());
-            this.getYAxis().setAxis(this.model.getXAxis());           
+            this.getYAxis().setAxis(this.model.getXAxis());
 
             boxplots = new Boxplot[this.model.getBoxplots().size()];
             this.model.getBoxplots().toArray(boxplots);
-            
 
             logger.debug(Messages.getString("JBoxplot.0") + this.model.getMinY() + Messages.getString("JBoxplot.1")
-                    + this.model.getMaxY() + Messages.getString("JBoxplot.2") + boxplots[0].getMean() + Messages.getString("JBoxplot.3") + boxplots[0].getMedian()
-                    + Messages.getString("JBoxplot.4") + boxplots[0].getMaxValue() + Messages.getString("JBoxplot.5") + boxplots[0].getMinValue()
-                    + Messages.getString("JBoxplot.6") + boxplots[0].getLowerWhisker() + Messages.getString("JBoxplot.7")
-                    + boxplots[0].getUpperWhisker() + Messages.getString("JBoxplot.8") + boxplots[0].getLowerQuartile()
+                    + this.model.getMaxY() + Messages.getString("JBoxplot.2") + boxplots[0].getMean()
+                    + Messages.getString("JBoxplot.3") + boxplots[0].getMedian() + Messages.getString("JBoxplot.4")
+                    + boxplots[0].getMaxValue() + Messages.getString("JBoxplot.5") + boxplots[0].getMinValue()
+                    + Messages.getString("JBoxplot.6") + boxplots[0].getLowerWhisker()
+                    + Messages.getString("JBoxplot.7") + boxplots[0].getUpperWhisker()
+                    + Messages.getString("JBoxplot.8") + boxplots[0].getLowerQuartile()
                     + Messages.getString("JBoxplot.9") + boxplots[0].getUpperQuartile());
 
             this.getXAxis().setAxisSize(Math.max(2 * boxplots.length, 10));
 
-            for (int i = 0; i < boxplots.length; i++) {
-                drawBoxplot(boxplots[i], i, boxplots.length);
+            for (int i = 0; i < boxplots.length; ++i) {
+                this.drawBoxplot(boxplots[i], i, boxplots.length);
             }
-
             this.getYAxis().generateSegmentDescription(this.model.getMinY(), this.model.getMaxY(), 10);
-            
-            if (this.model.getWilcoxonTest() != null && this.model.getWilcoxonTest().isValid()) {
-                
-                
-                String pValueResultText = Messages.getString("JBoxplot.10") + this.model.getWilcoxonTest().getResult();
-                String hypothesisResultText = Messages.getString("JBoxplot.11");
+
+            if ((this.model.getWilcoxonTest() != null) && this.model.getWilcoxonTest().isValid()) {
+                final String pValueResultText = Messages.getString("JBoxplot.10")
+                        + this.model.getWilcoxonTest().getResult();
+                final String hypothesisResultText = Messages.getString("JBoxplot.11");
                 String rejected = Messages.getString("JBoxplot.12");
+
                 if (this.model.getWilcoxonTest().isRejected()) {
                     rejected = Messages.getString("JBoxplot.13");
                 } else {
                     rejected = Messages.getString("JBoxplot.14");
                 }
-                
-                String output = pValueResultText + Messages.getString("JBoxplot.15") + hypothesisResultText + Messages.getString("JBoxplot.16") + rejected + Messages.getString("JBoxplot.17");
-                
-                TextModel textModel = new TextModel(output);
-                JTextDiagram<TextModel> diagram = new JTextDiagram<TextModel>(textModel, -1);
-                diagram.showDiagram();               
-                
-            }
-            
-            this.setCameraPerspective(Perspectives.XYPLANE);
+                final String output = pValueResultText + Messages.getString("JBoxplot.15") + hypothesisResultText
+                        + Messages.getString("JBoxplot.16") + rejected + Messages.getString("JBoxplot.17");
 
+                final JTextDiagram<TextModel> diagram = new JTextDiagram<TextModel>(new TextModel(output), -1);
+                diagram.showDiagram();
+            }
+            this.setCameraPerspective(Perspectives.XYPLANE);
         } else {
+
             if (this.model != null) {
 
                 /* Output some kind of error message */
                 JOptionPane.showMessageDialog(this, Messages.getString("JBoxplot.18"));
                 this.displayDiagram = false;
             }
-            
         }
-
     }
 
     /* draws a single boxplot at position i */
-    private void drawBoxplot(Boxplot boxplot, int i, int size) {
-        double boxplotSpacing = this.getXAxis().getAxisSize() / (double) size;
-        double correctionFactor = Math.min(boxplotSpacing / 2.0d, 1);
-        double whiskerScale = 0.05 * correctionFactor;
-        double whiskerScaleWidth = 0.5 * correctionFactor;
-        double boxWidth = 0.5 * correctionFactor;
+    private void drawBoxplot(final Boxplot boxplot, final int i, final int size) {
+        final double boxplotSpacing = this.getXAxis().getAxisSize() / size;
+        final double correctionFactor = Math.min(boxplotSpacing / 2.0d, 1);
+        final double whiskerScale = 0.05 * correctionFactor;
+        final double whiskerScaleWidth = 0.5 * correctionFactor;
+        final double boxWidth = 0.5 * correctionFactor;
 
         /* the space between each boxplot at position i */
-        double xSpace = i * boxplotSpacing + 0.5 * boxplotSpacing;
+        final double xSpace = i * boxplotSpacing + 0.5 * boxplotSpacing;
 
         /* create interquartilrange */
-        double interQuartilRange = Math.abs(this.getYAxis().getAxisSpace(boxplot.getUpperQuartile())
+        final double interQuartilRange = Math.abs(this.getYAxis().getAxisSpace(boxplot.getUpperQuartile())
                 - this.getYAxis().getAxisSpace(boxplot.getLowerQuartile()));
 
         this.createCube(new Vector3d(xSpace, this.getYAxis().getAxisSpace(boxplot.getLowerQuartile()), 0),
                 new Vector3d(boxWidth, interQuartilRange, boxWidth), this.basicMaterial(Resource.getColor(i)));
 
         /* create upper whisker */
-        double upperWhiskerRange = Math.abs(this.getYAxis().getAxisSpace(boxplot.getUpperWhisker()))
+        final double upperWhiskerRange = Math.abs(this.getYAxis().getAxisSpace(boxplot.getUpperWhisker()))
                 - this.getYAxis().getAxisSpace(boxplot.getUpperQuartile());
 
         this.createCube(new Vector3d(xSpace, this.getYAxis().getAxisSpace((boxplot.getUpperQuartile())), 0),
@@ -132,12 +124,11 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
                 whiskerScaleWidth, whiskerScale, whiskerScale), this.basicMaterial(0, 0, 0));
 
         /* create lower whisker */
-        double lowerWhiskerRange = Math.abs(this.getYAxis().getAxisSpace(boxplot.getLowerQuartile()))
+        final double lowerWhiskerRange = Math.abs(this.getYAxis().getAxisSpace(boxplot.getLowerQuartile()))
                 - this.getYAxis().getAxisSpace(boxplot.getLowerWhisker());
 
         this.createCube(new Vector3d(xSpace, this.getYAxis().getAxisSpace(boxplot.getLowerWhisker()), 0), new Vector3d(
                 whiskerScale, lowerWhiskerRange, whiskerScale), this.basicMaterial(0, 0, 0));
-
         this.createCube(new Vector3d(xSpace, this.getYAxis().getAxisSpace(boxplot.getLowerWhisker()), 0), new Vector3d(
                 whiskerScaleWidth, whiskerScale, whiskerScale), this.basicMaterial(0, 0, 0));
 
@@ -161,9 +152,10 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
         this.createCube(new Vector3d(0, 0, xSpace), new Vector3d(0.025, -0.25, 0.025), this.basicMaterial(1, 1, 1));
 
         /* create picture set text beneath the boxplot */
-        int stringLength = boxplot.getPictureSetName().length();
+        final int stringLength = boxplot.getPictureSetName().length();
         assert stringLength > 0;
-        double textSize = Math.min(1, 2 * boxplotSpacing * (double) 1 / (double) stringLength);
+
+        final double textSize = Math.min(1, 2 * boxplotSpacing * 1 / stringLength);
         this.createText(new Vector3d(xSpace, -1, 0), new Vector3d(textSize, textSize, textSize), this.basicMaterial(1,
                 1, 1), boxplot.getPictureSetName());
     }

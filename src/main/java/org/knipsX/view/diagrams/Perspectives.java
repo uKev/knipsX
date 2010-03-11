@@ -8,23 +8,15 @@ package org.knipsX.view.diagrams;
  */
 public enum Perspectives {
 
-    /**
-     * The perspective facing the x-y plane
-     */
+    /** The perspective facing the x-y plane. */
     XYPLANE,
 
-    /**
-     * The perspective facing the x-z plane
-     */
+    /** The perspective facing the x-z plane. */
     XZPLANE,
 
-    /**
-    *  The perspective facing the y-z plane
-    */
+    /** The perspective facing the y-z plane. */
     YZPLANE,
 
-    /**
-     * The default perspective view  
-     */
+    /** The default perspective view. */
     PERSPECTIVE;
 }
