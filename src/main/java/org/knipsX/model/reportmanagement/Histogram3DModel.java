@@ -233,6 +233,8 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
         final List<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
 
+        assert this.getZAxis() != null;
+        
         exifParameters.add(this.getXAxis().getParameter());
         exifParameters.add(this.getZAxis().getParameter());
 
@@ -274,7 +276,13 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         }
         this.categories = new Category[numberOfCategories][numberOfCategories];
 
-        /* FIXME what we are doing here?! */
+        /* Calculate the distance from the minimum to the maximum.
+         * If the distance is zero, the minimum is equal to the maximum value
+         * and we have only one category. 
+         * Then we need to set the distance to 1 to prevent the Armageddon.
+         * Because the different only must not be exactly zero, it's OK to compare doubles without epsilon.
+         * If they are slightly different - the world is rescued ;).
+         *  */
         double deltaX = Math.abs(this.maxX - this.minX);
         double deltaZ = Math.abs(this.maxZ - this.minZ);
 
