@@ -2,6 +2,7 @@ package org.knipsX.view.reportmanagement;
 
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.knipsX.Messages;
 import org.knipsX.images.dummypictures.DummyPictures;
@@ -43,6 +44,7 @@ public enum ReportHelper {
         @Override
         public AbstractReportCompilation createReportCompilation() {
             ReportHelper.currentReport = ReportHelper.Boxplot;
+
             return new BoxplotConfig();
         }
 
@@ -67,9 +69,10 @@ public enum ReportHelper {
          */
         @Override
         public Component getDiagramView() {
-            BoxplotModel boxplotModel = new BoxplotModel();
-            boxplotModel.setPictureContainer(getDummyPictureSet());
-            boxplotModel.setXAxis(new Axis(ExifParameter.EXPOSURETIME));            
+            final BoxplotModel boxplotModel = new BoxplotModel();
+            boxplotModel.setPictureContainer(ReportHelper.getDummyPictureSet());
+            boxplotModel.setXAxis(new Axis(ExifParameter.EXPOSURETIME));
+
             return new JBoxplot<BoxplotModel>(boxplotModel, -1).getDiagram();
         };
 
@@ -95,6 +98,7 @@ public enum ReportHelper {
         @Override
         public AbstractReportCompilation createReportCompilation() {
             ReportHelper.currentReport = ReportHelper.Histogram2D;
+
             return new Histogram2DConfig();
         }
 
@@ -119,9 +123,10 @@ public enum ReportHelper {
          */
         @Override
         public Component getDiagramView() {
-            Histogram2DModel histogram2DModel = new Histogram2DModel();            
-            histogram2DModel.setPictureContainer(getDummyPictureSet());
-            histogram2DModel.setXAxis(new Axis(ExifParameter.EXPOSURETIME));            
+            final Histogram2DModel histogram2DModel = new Histogram2DModel();
+            histogram2DModel.setPictureContainer(ReportHelper.getDummyPictureSet());
+            histogram2DModel.setXAxis(new Axis(ExifParameter.EXPOSURETIME));
+
             return new JHistogram2D<Histogram2DModel>(histogram2DModel, -1).getDiagram();
         };
 
@@ -135,7 +140,6 @@ public enum ReportHelper {
 
         @Override
         public String toString() {
-            //
             return Messages.getString("ReportHelper.1");
         }
     },
@@ -172,10 +176,11 @@ public enum ReportHelper {
          */
         @Override
         public Component getDiagramView() {
-            Histogram3DModel histogram3DModel = new Histogram3DModel();            
-            histogram3DModel.setPictureContainer(getDummyPictureSet());
+            final Histogram3DModel histogram3DModel = new Histogram3DModel();
+            histogram3DModel.setPictureContainer(ReportHelper.getDummyPictureSet());
             histogram3DModel.setXAxis(new Axis(ExifParameter.DATE));
-            histogram3DModel.setZAxis(new Axis(ExifParameter.EXPOSURETIME));  
+            histogram3DModel.setZAxis(new Axis(ExifParameter.EXPOSURETIME));
+
             return new JHistogram3D<Histogram3DModel>(histogram3DModel, -1).getDiagram();
         };
 
@@ -189,7 +194,6 @@ public enum ReportHelper {
 
         @Override
         public String toString() {
-            //
             return Messages.getString("ReportHelper.2");
         }
 
@@ -227,11 +231,12 @@ public enum ReportHelper {
          */
         @Override
         public Component getDiagramView() {
-            Cluster3DModel cluster3DModel = new Cluster3DModel();            
-            cluster3DModel.setPictureContainer(getDummyPictureSet());
+            final Cluster3DModel cluster3DModel = new Cluster3DModel();
+            cluster3DModel.setPictureContainer(ReportHelper.getDummyPictureSet());
             cluster3DModel.setXAxis(new Axis(ExifParameter.EXPOSURETIME));
             cluster3DModel.setZAxis(new Axis(ExifParameter.EXPOSURETIME));
             cluster3DModel.setYAxis(new Axis(ExifParameter.DATE));
+
             return new JCluster3D<Cluster3DModel>(cluster3DModel, -1).getDiagram();
         };
 
@@ -245,7 +250,6 @@ public enum ReportHelper {
 
         @Override
         public String toString() {
-            //
             return Messages.getString("ReportHelper.3");
         }
 
@@ -284,8 +288,9 @@ public enum ReportHelper {
          */
         @Override
         public Component getDiagramView() {
-            TableModel tableModel = new TableModel(); 
-            tableModel.setPictureContainer(getDummyPictureSet());
+            final TableModel tableModel = new TableModel();
+            tableModel.setPictureContainer(ReportHelper.getDummyPictureSet());
+
             return new JTableDiagram<TableModel>(tableModel, -1).getDiagram();
         };
 
@@ -299,149 +304,139 @@ public enum ReportHelper {
 
         @Override
         public String toString() {
-            //
             return Messages.getString("ReportHelper.4");
         }
     };
 
-    /**
-     * The current report of the current report configuration run
-     */
+    /** The current report of the current report configuration run. */
     private static ReportHelper currentReport;
 
-    /**
-     * The default report which is selected automatically when you start the Wizard
-     */
+    /** The default report which is selected automatically when you start the Wizard. */
     private static ReportHelper defaultReport = ReportHelper.Boxplot;
 
-    /**
-     * The current configuration utility of the current report configuration run
-     */
+    /** The current configuration utility of the current report configuration run. */
     private static JAbstractReportUtil<?> currentReportUtility;
 
-    /**
-     * The current model of the current report configuration run
-     * 
-     */
-    // public because controller needs access
+    /** The current model of the current report configuration run. */
     private static AbstractReportModel currentModel;
 
-    // public because controller needs access
     private static ProjectModel currentProjectModel;
-    
+
     /**
      * {@inheritDoc}
      */
+    @Override
     public abstract String toString();
 
     /**
-     * Returns the current model
+     * Returns the current model.
      * 
-     * @return The current model which is associated with the current report
+     * @return The current model which is associated with the current report.
      */
     public static AbstractReportModel getCurrentModel() {
         return ReportHelper.currentModel;
     }
 
     /**
-     * Returns the current model of the report
+     * Returns the current model of the report.
      * 
-     * @return the current model
+     * @return the current model.
      */
     public static ProjectModel getCurrentProjectModel() {
         return ReportHelper.currentProjectModel;
     }
 
     /**
-     * Returns the current report
+     * Returns the current report.
      * 
-     * @return the current report
+     * @return the current report.
      */
     public static ReportHelper getCurrentReport() {
         return ReportHelper.currentReport;
     }
 
     /**
-     * Returns the default report which is preselected in the wizard
+     * Returns the default report which is preselected in the wizard.
      * 
-     * @return the default report
+     * @return the default report.
      */
     public static ReportHelper getDefaultReport() {
         return ReportHelper.defaultReport;
     }
 
     /**
-     * Returns a reference to the project model
+     * Returns a reference to the project model.
      * 
-     * @return the current project model
+     * @return the current project model.
      */
     public static ProjectModel getProjectModel() {
         return ReportHelper.currentProjectModel;
     }
 
     /**
-     * Sets the current report model to the specified model
+     * Sets the current report model to the specified model.
      * 
      * @param currentModel
-     *            the current report model
+     *            the current report model.
      */
     public static void setCurrentModel(final AbstractReportModel currentModel) {
         ReportHelper.currentModel = currentModel;
     }
 
     /**
-     * Sets the current project model
+     * Sets the current project model.
      * 
      * @param currentProjectModel
-     *            the current project model
+     *            the current project model.
      */
     public static void setCurrentProjectModel(final ProjectModel currentProjectModel) {
         ReportHelper.currentProjectModel = currentProjectModel;
     }
 
     /**
-     * Sets the current report to the specified report
+     * Sets the current report to the specified report.
      * 
      * @param currentReport
-     *            the current report
+     *            the current report.
      */
     public static void setCurrentReport(final ReportHelper currentReport) {
         ReportHelper.currentReport = currentReport;
     }
 
     /**
-     * Sets the project model to the specified model
+     * Sets the project model to the specified model.
      * 
      * @param projectModel
-     *            the current project model
+     *            the current project model.
      */
     public static void setProjectModel(final ProjectModel projectModel) {
         ReportHelper.currentProjectModel = projectModel;
     }
 
     /**
-     * Sets the current report and updates the configuration utility
-     * Use this method if you want explicitly update the configuration utility
+     * Sets the current report and updates the configuration utility.
+     * 
+     * Use this method if you want explicitly update the configuration utility.
      * 
      * @param myreport
-     *            The report you want to update
+     *            The report you want to update.
      */
-    public static void updateReport(final ReportHelper myreport) {        
+    public static void updateReport(final ReportHelper myreport) {
         ReportHelper.currentReport = myreport;
         ReportHelper.currentReportUtility.setReportType(ReportHelper.currentReport.createReportCompilation());
     }
 
     /**
-     * Returns the report type associated with the specified report enum
+     * Returns the report type associated with the specified report enum.
      * 
-     * @return the report type associated with the specified report enum
+     * @return the report type associated with the specified report enum.
      */
     public abstract AbstractReportCompilation createReportCompilation();
 
     /**
-     * Creates and returns the associated report model with the specified report enum
+     * Creates and returns the associated report model with the specified report enum.
      * 
-     * @return the associated reportmodel with the specified report enum
+     * @return the associated reportmodel with the specified report enum.
      */
     public abstract AbstractReportModel createReportModel();
 
@@ -450,49 +445,51 @@ public enum ReportHelper {
      * respective method.
      * 
      * @param model
-     *            the report model of the report you want to visualize
+     *            the report model of the report you want to visualize.
      * @param reportID
-     *            the report id of the report
+     *            the report id of the report.
      * @return the diagram
      */
     public abstract JAbstractDiagram<?> displayDiagram(AbstractReportModel model, int reportID);
 
     /**
-     * Returns the Component of the Diagram without the associated button
+     * Returns the Component of the Diagram without the associated button.
      * 
-     * @return the component diagram
+     * @return the component diagram.
      */
     public abstract Component getDiagramView();
 
     /**
-     * Returns the number of axes each diagram type uses
+     * Returns the number of axes each diagram type uses.
      * 
-     * @return the number of axes each diagram type uses <br>
-     *         returns 0 if no axis is used
+     * @return the number of axes each diagram type uses.
+     *         Returns 0 if no axis is used.
      */
     public abstract int getNumberOfAxes();
 
     /**
-     * Returns the current report utility
-     * @return the current report utility
+     * Returns the current report utility.
+     * 
+     * @return the current report utility.
      */
     public static JAbstractReportUtil<?> getCurrentReportUtility() {
-        return currentReportUtility;
+        return ReportHelper.currentReportUtility;
     }
 
     /**
-     * Sets the current report utility to the specified value
-     * @param currentReportUtility the current report utility
+     * Sets the current report utility to the specified value.
+     * 
+     * @param currentReportUtility
+     *            the current report utility.
+     * 
      */
-    public static void setCurrentReportUtility(JAbstractReportUtil<?> currentReportUtility) {
+    public static void setCurrentReportUtility(final JAbstractReportUtil<?> currentReportUtility) {
         ReportHelper.currentReportUtility = currentReportUtility;
     }
-    
-    private static ArrayList<PictureContainer> getDummyPictureSet() {        
-        ArrayList<PictureContainer> container = new ArrayList<PictureContainer>();
-        container.add(DummyPictures.getDummyPictureSet());        
-        return container;        
-    }
-    
 
+    private static List<PictureContainer> getDummyPictureSet() {
+        final List<PictureContainer> container = new ArrayList<PictureContainer>();
+        container.add(DummyPictures.getDummyPictureSet());
+        return container;
+    }
 }
