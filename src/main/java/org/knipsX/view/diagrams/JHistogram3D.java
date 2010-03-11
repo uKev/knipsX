@@ -40,7 +40,7 @@ public class JHistogram3D<M extends Histogram3DModel> extends JAbstract3DDiagram
         final Logger logger = Logger.getLogger(this.getClass());    
         
         JAbstract3DView.useBufferRange = false;
-        if (this.model != null) {
+        if (this.model != null  && this.model.isModelValid()) {
             final Category[][] categories = this.model.getCategories();
 
             logger.debug(Messages.getString("JHistogram3D.0") + this.model.getMinX()

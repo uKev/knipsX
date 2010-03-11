@@ -5,7 +5,6 @@ package org.knipsX.model.picturemanagement;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
