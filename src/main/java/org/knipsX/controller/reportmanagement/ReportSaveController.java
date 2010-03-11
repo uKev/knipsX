@@ -1,7 +1,7 @@
 package org.knipsX.controller.reportmanagement;
 
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectview.ProjectModel;
@@ -31,7 +31,7 @@ import org.knipsX.view.reportmanagement.ReportHelper;
 public class ReportSaveController<M extends AbstractReportModel, V extends JAbstractReportUtil<?>> extends
         AbstractController<M, V> {
 
-    private boolean showDiagram;
+    private final boolean showDiagram;
 
     /**
      * The constructor which registers the controller with the specified view
@@ -41,24 +41,24 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
      * @param showDiagram
      *            specifies if the diagram should be displayed after the report has been saved
      */
-    public ReportSaveController(V view, boolean showDiagram) {
+    public ReportSaveController(final V view, final boolean showDiagram) {
         super(view);
         this.showDiagram = showDiagram;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public void actionPerformed(ActionEvent e) {
-        ArrayList<JAbstractSinglePanel> registeredPanels = this.view.getReportCompilation().getRegisteredPanels();
+    public void actionPerformed(final ActionEvent e) {
+        final List<JAbstractSinglePanel> registeredPanels = this.view.getReportCompilation().getRegisteredPanels();
 
         this.model = (M) ReportSaveController.createSavableModel(registeredPanels);
 
-        ReportHelper.getProjectModel().addReport(this.model, this.view.getReportID());
+        ReportHelper.getProjectModel().addReport(this.model, this.view.getReportId());
 
         this.view.dispose();
 
-        if (showDiagram) {
-            ReportHelper.getCurrentReport().displayDiagram(this.model, this.view.getReportID()).showDiagram();
+        if (this.showDiagram) {
+            ReportHelper.getCurrentReport().displayDiagram(this.model, this.view.getReportId()).showDiagram();
         }
 
         /* Activate the current project view */
@@ -73,21 +73,21 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
      *            the registers panels from the report compilation
      * @return a saveable model
      */
-    public static AbstractReportModel createSavableModel(ArrayList<JAbstractSinglePanel> registeredPanels) {
+    public static AbstractReportModel createSavableModel(final List<JAbstractSinglePanel> registeredPanels) {
 
-        AbstractReportModel model = ReportHelper.getCurrentReport().createReportModel();
+        final AbstractReportModel model = ReportHelper.getCurrentReport().createReportModel();
 
-        for (JAbstractSinglePanel singlepanel : registeredPanels) {
+        for (final JAbstractSinglePanel singlepanel : registeredPanels) {
 
             if (singlepanel instanceof JDiagramType) {
 
-                JDiagramType mydiagram = (JDiagramType) singlepanel;
+                final JDiagramType mydiagram = (JDiagramType) singlepanel;
                 model.setReportName(mydiagram.getReportName());
                 model.setReportDescription(mydiagram.getReportDescription());
 
             } else if (singlepanel instanceof JParameters) {
 
-                JParameters parametersPanel = (JParameters) singlepanel;
+                final JParameters parametersPanel = (JParameters) singlepanel;
 
                 if (model instanceof BoxplotModel) {
                     ((BoxplotModel) model).setXAxis(parametersPanel.getAxes().get(0));
@@ -97,7 +97,7 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
                     ((Histogram3DModel) model).setXAxis(parametersPanel.getAxes().get(0));
                     ((Histogram3DModel) model).setZAxis(parametersPanel.getAxes().get(1));
                 } else if (model instanceof Cluster3DModel) {
-                    Cluster3DModel cluster3DModel = ((Cluster3DModel) model);
+                    final Cluster3DModel cluster3DModel = ((Cluster3DModel) model);
                     cluster3DModel.setXAxis(parametersPanel.getAxes().get(0));
                     cluster3DModel.setZAxis(parametersPanel.getAxes().get(1));
                     cluster3DModel.setYAxis(parametersPanel.getAxes().get(2));
@@ -105,15 +105,15 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
 
             } else if (singlepanel instanceof JPictureSetExif) {
 
-                JPictureSetExif pictureSetExifPanel = (JPictureSetExif) singlepanel;
+                final JPictureSetExif pictureSetExifPanel = (JPictureSetExif) singlepanel;
                 model.setPictureContainer(pictureSetExifPanel.getPictureContainer());
                 model.setExifFilterKeywords(pictureSetExifPanel.getExifFilterKeywords());
 
             } else if (singlepanel instanceof JWilcoxon) {
-                JWilcoxon wilcoxonPanel = (JWilcoxon) singlepanel;
+                final JWilcoxon wilcoxonPanel = (JWilcoxon) singlepanel;
 
                 if (model instanceof BoxplotModel) {
-                    BoxplotModel boxplotModel = ((BoxplotModel) model);
+                    final BoxplotModel boxplotModel = ((BoxplotModel) model);
                     boxplotModel.getWilcoxonTest().setSignificance(wilcoxonPanel.getStatisticalSignificance());
                     boxplotModel.getWilcoxonTest().setActiveStatus(wilcoxonPanel.getStatus());
                     boxplotModel.getWilcoxonTest().setWilcoxonTestType(wilcoxonPanel.getTestType());

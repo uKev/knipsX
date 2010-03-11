@@ -34,9 +34,12 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
         JAbstractReportUtil<M> {
 
     private static final long serialVersionUID = 7028621688633924200L;
-    private JTabbedPane tabbedpane;
+
+    private JTabbedPane tabbedPane;
+
     private JPanel basic;
     private JPanel mainpanel;
+
     private final int[] mysize = { 800, 600 };
 
     /**
@@ -50,24 +53,53 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
      */
     public JReportConfig(final M model, final int reportID) {
         super(model);
-        this.reportID = reportID;
+
+        this.setTitle(Messages.getString("JReportConfig.0"));
+
         ReportHelper.setCurrentModel(this.model);
         ReportHelper.setCurrentReportUtility(this);
+
         this.addCloseOperation();
         this.addCurrentReportConfig();
+
+        this.reportId = reportID;
         this.reportCompilation = ReportHelper.getCurrentReport().createReportCompilation();
-        this.tabbedpane = this.getJTabbedPane();
-        this.setTitle(Messages.getString("JReportConfig.0"));
-        this.initialize();
+
         this.closeButton.addActionListener(new ReportCloseController<AbstractModel, JReportConfig<?, ?>>(this));
         this.saveButton.addActionListener(new ReportSaveController<AbstractReportModel, JReportConfig<?, ?>>(this,
                 false));
         this.showButton
                 .addActionListener(new ReportSaveController<AbstractReportModel, JReportConfig<?, ?>>(this, true));
+
+        this.initialize();
+    }
+
+    private void initialize() {
+        final JPanel bottom = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        bottom.setMaximumSize(new Dimension(450, 0));
+        bottom.add(this.closeButton);
+        bottom.add(this.saveButton);
+        bottom.add(this.showButton);
+
+        this.mainpanel = new JPanel(new BorderLayout());
+        this.mainpanel.setBorder(BorderFactory.createEmptyBorder(15, 25, 15, 25));
+        this.mainpanel.add(this.getJTabbedPane());
+
+        this.basic = new JPanel();
+        this.basic.setLayout(new BoxLayout(this.basic, BoxLayout.PAGE_AXIS));
+        this.basic.add(this.mainpanel);
+        this.basic.add(bottom);
+
+        ReportHelper.getCurrentReportUtility().revalidateDisplayability();
+        ReportHelper.getCurrentReportUtility().revalidateSaveability();
+
+        this.add(this.basic);
+
+        this.pack();
+        this.setPreferredSize(new Dimension(this.mysize[0], this.mysize[1]));
         this.setSize(new Dimension(this.mysize[0], this.mysize[1]));
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-
     }
 
     private void addCurrentReportConfig() {
@@ -86,79 +118,45 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
     }
 
     private JTabbedPane getJTabbedPane() {
-        final JTabbedPane tabbedpane = new JTabbedPane();
+        this.tabbedPane = new JTabbedPane();
 
-        for (final JAbstractSinglePanel item : this.reportCompilation.getRegisteredPanels()) {
-
-            tabbedpane.addTab(item.getTitle(), item.getIcon(), item);
+        for (final JAbstractSinglePanel panel : this.reportCompilation.getRegisteredPanels()) {
+            this.tabbedPane.addTab(panel.getTitle(), panel.getIcon(), panel);
 
             /*
              * Revalidate the Wilcoxon panel because picture sets might have been registered
              * with the current report and a non ordinal EXIF parameter might have been
              * associated with the available parameter
              */
-
-            if (item instanceof JPictureSetExif) {
-                ((JPictureSetExif) item).revalidateWilcoxon();
-            } else if (item instanceof JParameters) {
-                ((JParameters) item).revalidateWilcoxon();
+            if (panel instanceof JPictureSetExif) {
+                ((JPictureSetExif) panel).revalidateWilcoxon();
+            } else if (panel instanceof JParameters) {
+                ((JParameters) panel).revalidateWilcoxon();
             }
-
-            item.revalidateReport();
+            panel.revalidateReport();
         }
-
-        return tabbedpane;
-    }
-
-    private void initialize() {
-
-        this.basic = new JPanel();
-        this.basic.setLayout(new BoxLayout(this.basic, BoxLayout.PAGE_AXIS));
-        this.add(this.basic);
-
-        this.mainpanel = new JPanel(new BorderLayout());
-        this.mainpanel.setBorder(BorderFactory.createEmptyBorder(15, 25, 15, 25));
-        this.mainpanel.add(this.tabbedpane);
-
-        /* Resize this window properly */
-        this.setPreferredSize(new Dimension(this.mysize[0], this.mysize[1]));
-
-        this.basic.add(this.mainpanel);
-
-        final JPanel bottom = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
-        bottom.add(this.closeButton);
-        bottom.add(this.saveButton);
-        bottom.add(this.showButton);
-        this.basic.add(bottom);
-
-        bottom.setMaximumSize(new Dimension(450, 0));
-
-        this.pack();
-
-        ReportHelper.getCurrentReportUtility().revalidateDisplayability();
-        ReportHelper.getCurrentReportUtility().revalidateSaveability();
+        return this.tabbedPane;
     }
 
     @Override
     public void setReportType(final AbstractReportCompilation reportconfig) {
 
-        /* Remember the size of the current configuration utility so that it can be resized properly */
+        /* remember the size of the current configuration utility so that it can be resized properly */
         this.mysize[1] = this.getBounds().height;
         this.mysize[0] = this.getBounds().width;
 
-        /* Remove the basic panel from the view because it is no longer needed */
+        /* remove the basic panel from the view because it is no longer needed */
         this.remove(this.basic);
 
-        /* Update necessary variables */
+        /* update necessary variables */
         this.reportCompilation = reportconfig;
 
-        /* Generate the JTabbedPane */
-        this.tabbedpane = this.getJTabbedPane();
+        /* generate the JTabbedPane */
+        this.tabbedPane = this.getJTabbedPane();
 
         ReportHelper.setCurrentReportUtility(this);
 
-        /* Reinitialize the panel */
+        /* reinitialize the panel */
         this.initialize();
     }
 
@@ -166,5 +164,4 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
     public void update(final Observable model, final Object argument) {
         /* Do nothing */
     }
-
 }

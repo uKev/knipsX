@@ -530,6 +530,30 @@ public class ProjectModel extends AbstractModel {
         return pictures.toArray(new Picture[] {});
     }
 
+    /**
+     * Get all pictures which a picture set handle with (only on root level).
+     * 
+     * @param pictureSet
+     *            the picture set which we use as root.
+     * 
+     * @return an amount of pictures.
+     * 
+     * @throws NullPointerException
+     *             if you didn't assign a picture set.
+     */
+    public Picture[] getAllPicturesFromPictureSet(final PictureSet pictureSet) throws NullPointerException {
+        if (pictureSet == null) {
+            throw new NullPointerException(Messages.getString("ProjectModel.12"));
+        }
+        final List<PictureInterface> pictures = new ArrayList<PictureInterface>();
+
+            for (final PictureInterface picture : pictureSet) {
+                pictures.add(picture);
+            }
+
+        return pictures.toArray(new Picture[] {});
+    }
+    
     /*
      * ################################################################################################################
      * -- THE PICTURE SET CONTENTS

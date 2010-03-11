@@ -304,7 +304,7 @@ public class Picture extends Observable implements PictureInterface {
     /**
      * @see org.knipsX.model.picturemanagement.PictureInterface#getScaledInstance(java.awt.image.BufferedImage, int, int, java.lang.Object, boolean)
      */
-    public BufferedImage getScaledInstance(final BufferedImage img, final int targetWidth, final int targetHeight,
+    private BufferedImage getScaledInstance(final BufferedImage img, final int targetWidth, final int targetHeight,
             final Object hint, final boolean higherQuality) {
         final int type = (img.getTransparency() == Transparency.OPAQUE) ? BufferedImage.TYPE_INT_RGB
                 : BufferedImage.TYPE_INT_ARGB;

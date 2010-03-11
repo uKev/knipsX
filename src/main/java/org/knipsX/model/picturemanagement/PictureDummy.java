@@ -15,14 +15,14 @@ import java.util.Map;
 import org.knipsX.utils.ExifParameter;
 
 /**
- * This PictureMock implements the PictureInterface and can be used where a Picture is required for calculation but a real picture introduces to much overhead and dependencies.
+ * This PictureDummy implements the PictureInterface and can be used where a Picture is required for calculation but a real picture introduces to much overhead and dependencies.
  * Some examples are unit-tests and a preview of some diagrams without having real data.
  * You can manipulate every aspect of the picture as you wish.
  * Not all methods are implemented, so implement it if you need it!
  * @author Kevin Zuber
  *
  */
-public class PictureMock implements PictureInterface {
+public class PictureDummy implements PictureInterface {
     
     // initialize all properties with something like "dummy"
     String name = "dummy";

@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.knipsX.utils.ExifParameter;
 import java.awt.image.BufferedImage;
 import java.awt.Image;
+import java.awt.RenderingHints;
 
 /**
  * @author clyde
@@ -129,10 +130,7 @@ public class PictureTest {
 		assertTrue(pic1.getAllExifParameter() != null);
 	}
 	
-	@Test
-	public void testPictureGetScaledInstance() {
-		//assertTrue(pic1.getScaledInstance(img, targetWidth, targetHeight, hint, higherQuality) != null);
-	}
+
 	
 	
 	
