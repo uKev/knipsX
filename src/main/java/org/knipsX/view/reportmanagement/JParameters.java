@@ -169,7 +169,6 @@ public class JParameters extends JAbstractSinglePanel {
         return true;
     }
 
-    /* FIXME what is this?! */
     @Override
     public boolean isDiagramSaveable() {
         return true;

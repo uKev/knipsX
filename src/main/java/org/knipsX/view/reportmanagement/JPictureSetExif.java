@@ -28,7 +28,6 @@ import org.knipsX.controller.reportmanagement.ReportRemoveExifKeywordController;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
-import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.utils.ExifParameter;
@@ -365,7 +364,6 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         return returnPictureContainer;
     }
 
-    /* FIXME Point to ProjectModel */
     @Override
     public boolean isDiagramDisplayable() {
 
@@ -376,12 +374,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 /* check to see if there are images in the specified image set */
                 for (final PictureContainer pictureContainer : this.getPictureContainer()) {
 
-                    int numberOfElements = 0;
-
-                    for (@SuppressWarnings("unused")
-                    final PictureInterface picture : pictureContainer) {
-                        numberOfElements++;
-                    }
+                    int numberOfElements = ReportHelper.getProjectModel().getAllPicturesFromPictureSet((PictureSet) pictureContainer).length;                    
 
                     if (numberOfElements == 0) {
                         this.errorMessage.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
@@ -457,7 +450,6 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         return false;
     }
 
-    /* FIXME what is this?! */
     @Override
     public boolean isDiagramSaveable() {
         return true;
@@ -601,12 +593,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         	this.getContents().removeElement(element);
         }
         
-        /**
-         * Removes all elements in the specified list
-         */
-        public void removeAllElements() {
-        	this.getContents().removeAllElements();
-        }
+
         
     }
 
