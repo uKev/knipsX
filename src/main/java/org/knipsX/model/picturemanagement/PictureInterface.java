@@ -79,7 +79,7 @@ public interface PictureInterface extends PictureContainer {
      * 
      * @return the image
      */
-    BufferedImage getBigThumbnail();
+    Image getBigThumbnail();
 
     /**
      * Returns an image as a converted image to the version of the natural one. "smallThumbnail" ist mostly used for the

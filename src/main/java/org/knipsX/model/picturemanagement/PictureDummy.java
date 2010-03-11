@@ -61,7 +61,7 @@ public class PictureDummy implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#getBigThumbnail()
      */
-    public BufferedImage getBigThumbnail() {
+    public Image getBigThumbnail() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -101,7 +101,7 @@ public class PictureDummy implements PictureInterface {
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#getScaledInstance(java.awt.image.BufferedImage, int, int, java.lang.Object, boolean)
      */
-    public BufferedImage getScaledInstance(BufferedImage img, int targetWidth, int targetHeight, Object hint,
+    private Image getScaledInstance(BufferedImage img, int targetWidth, int targetHeight, Object hint,
             boolean higherQuality) {
         // TODO Auto-generated method stub
         return null;

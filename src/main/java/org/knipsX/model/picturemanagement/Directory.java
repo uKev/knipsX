@@ -137,7 +137,12 @@ public class Directory implements PictureContainer {
             if (file.isFile()
                     && ((file.getAbsolutePath().toLowerCase().endsWith(".jpg")) || file.getAbsolutePath().toLowerCase()
                             .endsWith(".jpeg"))) {
-                this.pictures.add(new Picture(file, true));
+                try {
+                    this.pictures.add(new Picture(file, true));
+                } catch (PictureNotFoundException e) {
+                    // FIXME Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         }
     }

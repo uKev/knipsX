@@ -12,6 +12,7 @@ import org.knipsX.controller.worker.InitializePictureThumbnailWorker;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureNotFoundException;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.utils.FileChooser.JExtendedFileChooser;
@@ -57,7 +58,12 @@ public class PictureSetContentListAddController<M extends ProjectModel, V extend
                     if (file.isDirectory()) {
                         newContent = new Directory(file.getAbsolutePath());
                     } else {
-                        newContent = new Picture(file, true);
+                        try {
+                            newContent = new Picture(file, true);
+                        } catch (PictureNotFoundException e1) {
+                            // FIXME Auto-generated catch block
+                            e1.printStackTrace();
+                        }
                     }
                     this.model.addContentToPictureSet(pictureSet, newContent);
 
