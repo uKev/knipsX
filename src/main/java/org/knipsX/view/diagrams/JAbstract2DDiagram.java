@@ -5,7 +5,6 @@ import java.awt.event.MouseWheelListener;
 
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.Transform3D;
-import javax.media.j3d.View;
 import javax.vecmath.Point3d;
 
 import org.knipsX.model.reportmanagement.AbstractReportModel;
@@ -56,13 +55,16 @@ public abstract class JAbstract2DDiagram<M extends AbstractReportModel> extends 
         this.numberOfAxes = 2;
 
         this.addLights();
-
-        /* make view orthographic. Note that zooming of the view will not work */
+        
+        /* TODO Uncomment if you want to use true 2D view. Note various problems 
+         * arise. Look at the comment below for more info
+         * 
         this.canvas3D.getView().setProjectionPolicy(View.PARALLEL_PROJECTION);
         this.canvas3D.getView().setScreenScale(0.02);
         this.canvas3D.getView().setScreenScalePolicy(View.SCALE_EXPLICIT);
         this.canvas3D.getView().setBackClipDistance(20);
         this.canvas3D.getView().setFrontClipDistance(-2);
+        */
 
         /* make view interactive */
         final OrbitBehavior orbit = new OrbitBehavior(this.canvas3D, OrbitBehavior.REVERSE_ALL);
@@ -80,7 +82,7 @@ public abstract class JAbstract2DDiagram<M extends AbstractReportModel> extends 
          * available. Adding this mouse wheel listener emulates zooming by scaling the root
          * transform group, since translation in z doesn't yield any result.
          */
-        this.canvas3D.addMouseWheelListener(this);
+        //this.canvas3D.addMouseWheelListener(this);
     }
 
     /**

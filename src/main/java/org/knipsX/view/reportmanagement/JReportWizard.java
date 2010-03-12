@@ -114,12 +114,11 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
         this.basic.add(Box.createRigidArea(new Dimension(0, 15)));
 
         this.add(this.basic);
-
-        this.pack();
         this.setPreferredSize(new Dimension(this.mysize[0], this.mysize[1]));
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.pack();
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); 
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
+        this.setVisible(true);        
     }
 
     /**

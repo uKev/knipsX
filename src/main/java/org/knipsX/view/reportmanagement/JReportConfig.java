@@ -72,6 +72,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
                 .addActionListener(new ReportSaveController<AbstractReportModel, JReportConfig<?, ?>>(this, true));
 
         this.initialize();
+        
     }
 
     private void initialize() {
@@ -95,9 +96,10 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
 
         this.add(this.basic);
 
-        this.pack();
+       
         this.setPreferredSize(new Dimension(this.mysize[0], this.mysize[1]));
         this.setSize(new Dimension(this.mysize[0], this.mysize[1]));
+        this.pack();  
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
