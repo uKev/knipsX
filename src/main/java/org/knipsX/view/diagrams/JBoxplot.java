@@ -51,14 +51,14 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
             boxplots = new Boxplot[this.model.getBoxplots().size()];
             this.model.getBoxplots().toArray(boxplots);
 
-            logger.debug(Messages.getString("JBoxplot.0") + this.model.getMinY() + Messages.getString("JBoxplot.1")
-                    + this.model.getMaxY() + Messages.getString("JBoxplot.2") + boxplots[0].getMean()
-                    + Messages.getString("JBoxplot.3") + boxplots[0].getMedian() + Messages.getString("JBoxplot.4")
-                    + boxplots[0].getMaxValue() + Messages.getString("JBoxplot.5") + boxplots[0].getMinValue()
-                    + Messages.getString("JBoxplot.6") + boxplots[0].getLowerWhisker()
-                    + Messages.getString("JBoxplot.7") + boxplots[0].getUpperWhisker()
-                    + Messages.getString("JBoxplot.8") + boxplots[0].getLowerQuartile()
-                    + Messages.getString("JBoxplot.9") + boxplots[0].getUpperQuartile());
+            logger.debug("MinY: " + this.model.getMinY() + " MaxY: "
+                    + this.model.getMaxY() + " Mean: " + boxplots[0].getMean()
+                    + " Median: " + boxplots[0].getMedian() + " MaxValue: "
+                    + boxplots[0].getMaxValue() + " MinValue: " + boxplots[0].getMinValue()
+                    + " LowerWhisker: " + boxplots[0].getLowerWhisker()
+                    + " UpperWhisker: " + boxplots[0].getUpperWhisker()
+                    + " LowerQuartile: " + boxplots[0].getLowerQuartile()
+                    + " UpperQuartile: " + boxplots[0].getUpperQuartile());
 
             this.getXAxis().setAxisSize(Math.max(2 * boxplots.length, 10));
 

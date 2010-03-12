@@ -17,8 +17,8 @@ public class PictureSetTest {
 //		pic1 = new Picture("/home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder/DSC00596.JPG", true);
 //		pic2 = new Picture("/home/clyde/SOFT_PR/git_clone5/tempX/Implementierung/testbilder/DSC00964.JPG", true);
 		
-		pic1 = new Picture("/testbilder/DSC00596.JPG", true);
-		pic2 = new Picture("/testbilder/DSC00964.JPG", true);
+		pic1 = new Picture("testbilder/DSC00596.JPG", true);
+		pic2 = new Picture("testbilder/DSC00964.JPG", true);
 		
 		pcs1 = new PictureSet("TestSet");
 		pcs1.add(pic1);
