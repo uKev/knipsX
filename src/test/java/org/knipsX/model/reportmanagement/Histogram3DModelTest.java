@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.knipsX.images.dummypictures.DummyPictures;
+import org.knipsX.model.picturemanagement.DummyPictureSetGenerator;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.UtilsForTesting;
 
@@ -29,7 +29,7 @@ public class Histogram3DModelTest {
         getCategories */
         
         Histogram3DModel testModel = new Histogram3DModel();
-        testModel.addPictureContainer(DummyPictures.getDummyPictureSet());
+        testModel.addPictureContainer(DummyPictureSetGenerator.getReportPreviewPictureSet());
         testModel.setXAxis(new Axis(ExifParameter.FOCALLENGTH));
         testModel.setZAxis(new Axis(ExifParameter.FNUMBER));
         

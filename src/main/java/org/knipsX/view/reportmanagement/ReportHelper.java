@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.knipsX.Messages;
-import org.knipsX.images.dummypictures.DummyPictures;
+import org.knipsX.model.picturemanagement.DummyPictureSetGenerator;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
@@ -489,7 +489,7 @@ public enum ReportHelper {
 
     private static List<PictureContainer> getDummyPictureSet() {
         final List<PictureContainer> container = new ArrayList<PictureContainer>();
-        container.add(DummyPictures.getDummyPictureSet());
+        container.add(DummyPictureSetGenerator.getReportPreviewPictureSet());
         return container;
     }
 }
