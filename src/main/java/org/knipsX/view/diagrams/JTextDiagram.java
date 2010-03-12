@@ -26,13 +26,13 @@ public class JTextDiagram<M extends TextModel> extends JAbstractDiagram<M> {
     private final JTextArea textArea;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param model
-     *            the model from which the drawing information is taken from
+     *            the model from which the drawing information is taken from.
      * 
      * @param reportID
-     *            the report id of the report
+     *            the report id of the report.
      */
     public JTextDiagram(final M model, final int reportID) {
         super(model, reportID);

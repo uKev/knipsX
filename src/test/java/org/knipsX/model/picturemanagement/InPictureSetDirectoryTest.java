@@ -11,9 +11,9 @@ public class InPictureSetDirectoryTest {
     public void testAdd() {
         
         /* 
-         * When adding multiple identical directories to the picture set and later iterate 
-         * over the picture set, the picture set should contain n times |number of pictures in the picture set|,
-         * where n is the amount of identical directories in the picture set. 
+         * When adding multiple identical picture sets to a single parent picture set and later iterate 
+         * over this picture set, the picture set should contain n times |number of pictures in the picture set|,
+         * where n is the amount of identical picture sets in the picture set. 
          * 
          * Note that this is actually an integration test!
          */
@@ -26,8 +26,8 @@ public class InPictureSetDirectoryTest {
         	numberOfPicturesInSinglePictureSet++;
         }
         
-        PictureSet pictureSet = new PictureSet("Demonstration");
         
+        PictureSet pictureSet = new PictureSet("Demonstration");        
 
         
         // Add the directory "multiplier" times to the same picture set
@@ -42,13 +42,14 @@ public class InPictureSetDirectoryTest {
             numberOfPicturesInPictureSet++;
         }
         
-        assertEquals("Picture Set should contain " + multiplier + " times the amount of pictures that can be found in the directory", multiplier * numberOfPicturesInSinglePictureSet, numberOfPicturesInPictureSet);        
+        assertEquals("Picture Set should contain " + multiplier + " times the amount of pictures that can be found in the single picture set", multiplier * numberOfPicturesInSinglePictureSet, numberOfPicturesInPictureSet);        
         
         numberOfPicturesInPictureSet = 0;
         
         for (PictureInterface picture : pictureSet) {
             numberOfPicturesInPictureSet++;
         }
+        
         
         assertEquals("Picture Set should contain " + multiplier + " times the amount of pictures that can be found in the directory", multiplier * numberOfPicturesInSinglePictureSet, numberOfPicturesInPictureSet);
         

@@ -20,19 +20,11 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
 
     private static final long serialVersionUID = -4795242146881401222L;
 
-    /*
-     * The reportID is responsible for tracking the currently active report which is
-     * selected in the view
-     */
-    protected int reportID = -1;
+    /* the reportID is responsible for tracking the currently active report which is selected in the view */
+    protected int reportId = -1;
 
-    /* Define the close button */
     protected JButton closeButton = new JButton(Messages.getString("JAbstractReportUtil.0"));
-
-    /* Define the save button */
     protected JButton saveButton = new JButton(Messages.getString("JAbstractReportUtil.1"));
-
-    /* Define the show button */
     protected JButton showButton = new JButton(Messages.getString("JAbstractReportUtil.2"));
 
     /**
@@ -45,7 +37,7 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
      */
     abstract protected void setReportType(AbstractReportCompilation jAbstractReport);
 
-    /* The current reportCompilation of the report configuration utility */
+    /* the current reportCompilation of the report configuration utility */
     protected AbstractReportCompilation reportCompilation;
 
     /**
@@ -72,8 +64,8 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
      * 
      * @return the reportID of the current report configuration utility
      */
-    public int getReportID() {
-        return this.reportID;
+    public int getReportId() {
+        return this.reportId;
     }
 
     /**
@@ -83,23 +75,17 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
     protected void revalidateDisplayability() {
         boolean isDisplayable = true;
 
-        for (final JAbstractSinglePanel singlepanel : this.reportCompilation.getRegisteredPanels()) {
-            if (!singlepanel.isDiagramDisplayable()) {
-                isDisplayable = false;
+        for (final JAbstractSinglePanel singlePanel : this.reportCompilation.getRegisteredPanels()) {
 
+            if (!singlePanel.isDiagramDisplayable()) {
+                isDisplayable = false;
                 /*
                  * Don't use break; here otherwise some views might
                  * not receive the isDiagramDisplayable() call
                  */
             }
         }
-
-        if (isDisplayable) {
-            this.showButton.setEnabled(true);
-        } else {
-            this.showButton.setEnabled(false);
-        }
-
+        this.showButton.setEnabled(isDisplayable);
     }
 
     /**
@@ -110,6 +96,7 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
         boolean isSaveable = true;
 
         for (final JAbstractSinglePanel singlepanel : this.reportCompilation.getRegisteredPanels()) {
+
             if (!singlepanel.isDiagramSaveable()) {
                 isSaveable = false;
                 /*
@@ -118,13 +105,7 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
                  */
             }
         }
-
-        if (isSaveable) {
-            this.saveButton.setEnabled(true);
-        } else {
-            this.saveButton.setEnabled(false);
-        }
-
+        this.saveButton.setEnabled(isSaveable);
     }
 
     /**
@@ -135,11 +116,10 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
             @Override
             public void windowClosing(final WindowEvent winEvt) {
 
-                /* Activate the current project view */
+                /* activate the current project view */
                 ReportHelper.getProjectModel().setStatus(ProjectModel.ACTIVE);
                 JAbstractReportUtil.this.dispose();
             }
         });
     }
-
 }

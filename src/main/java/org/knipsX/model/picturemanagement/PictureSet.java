@@ -140,6 +140,10 @@ public class PictureSet implements PictureContainer {
         return hasNext;
     }
 
+    public int returnChildpos() {
+    	return this.currentChild;
+    }
+    
     /**
      * @see java.util.Iterator#next()
      * @return the next picture in the pictureset

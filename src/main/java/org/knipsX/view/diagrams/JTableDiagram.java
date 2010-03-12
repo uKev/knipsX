@@ -34,7 +34,7 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
     private final JPanel mainpanel;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param model
      *            the model from which the drawing information is taken from.
@@ -62,11 +62,11 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
                     return pictures.size();
                 }
 
-                public Object getValueAt(final int row, final int col) {
-                    if (col == 0) {
+                public Object getValueAt(final int row, final int column) {
+                    if (column == 0) {
                         return pictures.get(row).getName();
                     }
-                    return pictures.get(row).getExifParameter(ExifParameter.values()[col - 1]);
+                    return pictures.get(row).getExifParameter(ExifParameter.values()[column - 1]);
                 }
 
                 @Override
@@ -78,10 +78,9 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
                     }
                 }
             };
-
         }
-
         this.table = new JTable(dataModel);
+        this.table.getTableHeader().setReorderingAllowed( false );
         this.table.setDefaultRenderer(Object.class, new MyExifTableCellRenderer());
 
         this.scrollpane = new JScrollPane(this.table);
@@ -105,12 +104,14 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
     public BufferedImage getDiagramScreenshot() {
         final Rectangle bounds = this.table.getBounds();
         final BufferedImage image = new BufferedImage(bounds.width, bounds.height, BufferedImage.TYPE_INT_RGB);
+        
         this.table.paint(image.createGraphics());
         return image;
     }
 
     @Override
     public void showDiagram() {
+        
         /* set the diagram to the center of the screen */
         this.setLocationRelativeTo(null);
         this.setVisible(true);

@@ -10,7 +10,7 @@ import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.view.JAbstractView;
 
 /**
- * This class specifies the main functionality of ever diagram in knipsX
+ * This class specifies the main functionality of ever diagram in knipsX.
  * 
  * @author David Kaufman
  * 
@@ -19,8 +19,8 @@ import org.knipsX.view.JAbstractView;
 public abstract class JAbstractDiagram<M extends AbstractReportModel> extends JAbstractView<M> {
 
     private static final long serialVersionUID = 5427649938817210196L;
-    
-    /* The default report id */
+
+    /* the default report id */
     private int reportID = -1;
 
     /**
@@ -28,26 +28,20 @@ public abstract class JAbstractDiagram<M extends AbstractReportModel> extends JA
      * Defining this in the abstract class allows greater flexibility, because
      * for example all 3DDiagram use the same button sets. If any diagram view wants to
      * have their individual button set this variable can be overwritten.
-     * 
      */
     protected JComponent registeredButtons;
 
-    
-    
+    /** Specifies if the diagram should pop up. */
+    protected boolean displayDiagram = true;
+
     /**
-     * Specifies if the diagram should pop up.
-     */
-    protected boolean displayDiagram = true; 
-    
-    
-    /**
-     * Constructor
+     * Constructor.
      * 
      * @param model
-     *            the model from which the drawing information is taken from
-     *            
-     * @param reportID 
-     *                the report id of the report    
+     *            the model from which the drawing information is taken from.
+     * 
+     * @param reportID
+     *            the report id of the report.
      */
     public JAbstractDiagram(final M model, final int reportID) {
         super(model);
@@ -55,10 +49,9 @@ public abstract class JAbstractDiagram<M extends AbstractReportModel> extends JA
     }
 
     /**
-     * This function returns the actual diagram which is used for
-     * previsualization purposes.
+     * This function returns the actual diagram which is used for previsualization purposes.
      * 
-     * @return The actual diagram without buttons
+     * @return The actual diagram without buttons.
      */
     abstract Component getDiagram();
 
@@ -67,31 +60,29 @@ public abstract class JAbstractDiagram<M extends AbstractReportModel> extends JA
      * returns a BufferedImage of the current diagram which can
      * later be exported as an image.
      * 
-     * @return BufferedImage containing the current view
+     * @return BufferedImage containing the current view.
      */
     public abstract BufferedImage getDiagramScreenshot();
 
     /**
-     * Returns the report ID of the current report associated with the diagram
+     * Returns the report ID of the current report associated with the diagram,
      * 
-     * @return the report id
+     * @return the report ID,
      */
     public int getReportID() {
         return this.reportID;
     }
 
     /**
-     * Returns the current report model of the diagram
+     * Returns the current report model of the diagram.
      * 
-     * @return the current report model of the diagram
+     * @return the current report model of the diagram.
      */
     public AbstractReportModel getReportModel() {
         return this.model;
     }
 
-    /**
-     * Displays the Diagram with the associated buttons
-     */
+    /** Displays the Diagram with the associated buttons. */
     public abstract void showDiagram();
 
     @Override

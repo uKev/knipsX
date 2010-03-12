@@ -20,16 +20,16 @@ import org.knipsX.utils.Resource;
  */
 public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram<M> {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -1510575190302978700L;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param model
-     *            the model from which the drawing information is taken from
+     *            the model from which the drawing information is taken from.
      * 
      * @param reportID
-     *            the report id of the report
+     *            the report id of the report.
      */
     public JHistogram2D(final M model, final int reportID) {
         super(model, reportID);
@@ -43,7 +43,6 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
         this.showGrid = false;
 
         if ((this.model != null) && this.model.isModelValid()) {
-
             logger.debug(Messages.getString("JHistogram2D.0") + this.model.getMinX()
                     + Messages.getString("JHistogram2D.1") + this.model.getMaxX());
             logger.debug(Messages.getString("JHistogram2D.2") + this.model.getMinY()
@@ -62,7 +61,6 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
             final double shrinkFactor = 0.85;
 
             for (final Category categorie : categories) {
-
                 logger.debug(Messages.getString("JHistogram2D.6") + category + Messages.getString("JHistogram2D.7")
                         + this.getXAxis().getAxisSpace(categorie.getMinValueX()) + Messages.getString("JHistogram2D.8")
                         + this.getXAxis().getAxisSpace(categorie.getMaxValueX()) + "\n");
@@ -77,47 +75,42 @@ public class JHistogram2D<M extends Histogram2DModel> extends JAbstract2DDiagram
 
                 logger.debug(Messages.getString("JHistogram2D.11") + xPosition);
 
-                for (int j = 0; j < categorie.getBars().size(); j++) {
+                for (int i = 0; i < categorie.getBars().size(); i++) {
 
-                    if (categorie.getBars().get(j).getHeight() > 0) {
+                    if (categorie.getBars().get(i).getHeight() > 0) {
 
-                        final double barHeight = this.getYAxis().getAxisSpace(categorie.getBars().get(j).getHeight());
+                        final double barHeight = this.getYAxis().getAxisSpace(categorie.getBars().get(i).getHeight());
                         logger.debug(Messages.getString("JHistogram2D.12") + category
-                                + Messages.getString("JHistogram2D.13") + j + Messages.getString("JHistogram2D.14")
-                                + categorie.getBars().get(j).getHeight());
+                                + Messages.getString("JHistogram2D.13") + i + Messages.getString("JHistogram2D.14")
+                                + categorie.getBars().get(i).getHeight());
 
-                        /* Create the actual bar */
-                        this.createCube(new Vector3d(xPosition + j * xRange, 0, 0), new Vector3d(xRange / 2
-                                * shrinkFactor, barHeight, 1), this.basicMaterial(Resource.getColor(j)));
+                        /* create the actual bar */
+                        this.createCube(new Vector3d(xPosition + i * xRange, 0, 0), new Vector3d(xRange / 2
+                                * shrinkFactor, barHeight, 1), this.basicMaterial(Resource.getColor(i)));
 
-                        /* Create the actual number of elements on top of the bar */
+                        /* create the actual number of elements on top of the bar */
                         final double size = 0.33d;
-                        this.createText(new Vector3d(xPosition + j * xRange, barHeight + 0.125, 0), new Vector3d(size,
+                        this.createText(new Vector3d(xPosition + i * xRange, barHeight + 0.125, 0), new Vector3d(size,
                                 size, size), this.basicMaterial(Color.white), Integer.toString(categorie.getBars().get(
-                                j).getHeight()));
+                                i).getHeight()));
                     }
                 }
-
                 category++;
-
             }
-
             this.getXAxis().generateSegmentDescription(this.model.getCategories().length);
             this.getYAxis().generateSegmentDescription(10);
-
+            
             this.setCameraPerspective(Perspectives.XYPLANE);
-
+            
             this.createLegend(this.model.getPictureContainer());
-
         } else {
+
             if (this.model != null) {
 
-                /* Output some kind of error message */
+                /* output some kind of error message */
                 JOptionPane.showMessageDialog(this, Messages.getString("JHistogram2D.15"));
                 this.displayDiagram = false;
             }
-
         }
-
     }
 }

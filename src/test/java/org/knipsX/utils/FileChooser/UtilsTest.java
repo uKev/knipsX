@@ -34,5 +34,14 @@ public class UtilsTest {
 		assertEquals("File extension should be the last extension (ps1)", "ps1", Utils.getExtension("加入营销计划.rv1.ps3.ps2.ps1")); 
 	}
 	
+	@Test
+	public void trimExtension() {
+		assertEquals("File extension should be jpg", "jpg", Utils.getExtension("test test.png.jpg                  "));
+		
+		assertEquals("File extension should be png", "png", Utils.getExtension("test test.png.            png                  "));
+		
+	}
+	
+	
 
 }

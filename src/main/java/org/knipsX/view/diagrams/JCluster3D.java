@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.media.j3d.PickInfo;
 import javax.media.j3d.Transform3D;
@@ -31,13 +32,13 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
     private static final long serialVersionUID = -2802017414318945810L;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param model
-     *            the model from which the drawing information is taken from
+     *            the model from which the drawing information is taken from.
      * 
      * @param reportId
-     *            the report id of the report
+     *            the report id of the report.
      */
     public JCluster3D(final M model, final int reportId) {
         super(model, reportId);
@@ -49,15 +50,16 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
         
         JAbstract3DView.useBufferRange = false;
 
-        final ArrayList<Integer> typesOfPoints = new ArrayList<Integer>();
+        final List<Integer> typesOfPoints = new ArrayList<Integer>();
 
         if ((this.model != null) && this.model.isModelValid()) {
-            for (int i = 0; i < this.model.getFrequency3DPoints().size(); i++) {
+
+            for (int i = 0; i < this.model.getFrequency3DPoints().size(); ++i) {
+              
                 if (!typesOfPoints.contains(this.model.getFrequency3DPoints().get(i).getFrequency())) {
                     typesOfPoints.add(this.model.getFrequency3DPoints().get(i).getFrequency());
                 }
             }
-
             logger.debug(Messages.getString("JCluster3D.0") + typesOfPoints.size());
 
             Collections.sort(typesOfPoints);
@@ -77,18 +79,18 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
                     + Messages.getString("JCluster3D.4") + this.model.getMaxX());
 
             /* setup z axis */
-            this.getzAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
-            this.getzAxis().setAxis(this.model.getZAxis());
+            this.getZAxis().setReportSpace(this.model.getMinZ(), this.model.getMaxZ());
+            this.getZAxis().setAxis(this.model.getZAxis());
 
             logger.debug(Messages.getString("JCluster3D.5") + this.model.getMinZ()
                     + Messages.getString("JCluster3D.6") + this.model.getMaxZ());
 
-            for (int i = 0; i < this.model.getFrequency3DPoints().size(); i++) {
+            for (int i = 0; i < this.model.getFrequency3DPoints().size(); ++i) {
                 final Transform3D dataTrans = new Transform3D();
 
                 final Vector3d position = new Vector3d(this.getXAxis().getAxisSpace(
                         this.model.getFrequency3DPoints().get(i).getX()), this.getYAxis().getAxisSpace(
-                        this.model.getFrequency3DPoints().get(i).getY()), this.getzAxis().getAxisSpace(
+                        this.model.getFrequency3DPoints().get(i).getY()), this.getZAxis().getAxisSpace(
                         this.model.getFrequency3DPoints().get(i).getZ()));
 
                 dataTrans.setTranslation(position);
@@ -107,21 +109,17 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
 
                 this.objRoot.addChild(objData);
             }
-
             this.getYAxis().generateSegmentDescription(10);
-
             this.getXAxis().generateSegmentDescription(10);
-
-            this.getzAxis().generateSegmentDescription(10);
-
+            this.getZAxis().generateSegmentDescription(10);
         } else {
+
             if (this.model != null) {
 
                 /* Output some kind of error message */
                 JOptionPane.showMessageDialog(this, Messages.getString("JCluster3D.7"));
                 this.displayDiagram = false;
             }
-
         }
 
         /* set the left panel which shows information about a selected picture */
@@ -146,9 +144,9 @@ public class JCluster3D<M extends Cluster3DModel> extends JAbstract3DDiagram<M> 
 
         private static final double EPSILON = 17;
 
-        private final ArrayList<Integer> distribution;
+        private final List<Integer> distribution;
 
-        public GradientFrequencyPanel(final ArrayList<Integer> distribution) {
+        public GradientFrequencyPanel(final List<Integer> distribution) {
             this.distribution = distribution;
             this.setPreferredSize(new Dimension(125, 0));
         }

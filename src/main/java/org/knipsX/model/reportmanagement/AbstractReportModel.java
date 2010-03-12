@@ -281,7 +281,7 @@ public abstract class AbstractReportModel extends AbstractModel {
      * @param exifFilterKeywords
      *            keywords that should be used for filtering the pictures for including in the report.
      */
-    public void setExifFilterKeywords(final ArrayList<String> exifFilterKeywords) {
+    public void setExifFilterKeywords(final List<String> exifFilterKeywords) {
         this.exifFilterKeywords = exifFilterKeywords;
 
         this.dataIsCalculated(false);
@@ -311,7 +311,7 @@ public abstract class AbstractReportModel extends AbstractModel {
      * @param pictureContainer
      *            set the picture container.
      */
-    public void setPictureContainer(final ArrayList<PictureContainer> pictureContainer) {
+    public void setPictureContainer(final List<PictureContainer> pictureContainer) {
         this.pictureContainer = pictureContainer;
 
         this.dataIsCalculated(false);
