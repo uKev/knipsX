@@ -18,18 +18,18 @@ import org.knipsX.view.projectmanagement.JProjectManagement;
 /******************************************************************************
  * This class is the entry to our program.
  *****************************************************************************/
-public final class Programm {
+public final class KnipsX {
 
     /*
      * the logger
      * see http://logging.apache.org/log4j/1.2/manual.html for usage
      */
-    private static Logger logger = Logger.getLogger(Programm.class);
+    private static Logger logger = Logger.getLogger(KnipsX.class);
 
     /* TODO: rename Programm(.java) either to Program or better knipsX */
 
     /* private constructor - this class should never have an instace */
-    private Programm() {
+    private KnipsX() {
     }
 
     /**
@@ -49,7 +49,7 @@ public final class Programm {
          * log-level chain:
          * TRACE > DEBUG > INFO > WARN > ERROR > FATAL
          */
-        Programm.logger.info("Starting knipsX");
+        KnipsX.logger.info("Starting knipsX");
 
         JFrame.setDefaultLookAndFeelDecorated(true);
         JDialog.setDefaultLookAndFeelDecorated(true);
@@ -63,7 +63,7 @@ public final class Programm {
                 try {
                     UIManager.setLookAndFeel(new SubstanceBusinessBlackSteelLookAndFeel());                    
                 } catch (final UnsupportedLookAndFeelException e) {
-                    Programm.logger.error("Error loading Look and Feel: " + e.getMessage());
+                    KnipsX.logger.error("Error loading Look and Feel: " + e.getMessage());
                 }
 
                 /* create a model for the ProjectAdministration */
@@ -73,6 +73,6 @@ public final class Programm {
                 new JProjectManagement<ProjectManagementModel>(projectManagementModel);
             }
         });
-        Programm.logger.info("knipsX started");
+        KnipsX.logger.info("knipsX started");
     }
 }

@@ -11,6 +11,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.apache.log4j.Logger;
 import org.knipsX.Messages;
+import org.knipsX.controller.worker.InitializePictureDataWorker;
+import org.knipsX.controller.worker.InitializePictureThumbnailWorker;
 import org.knipsX.model.AbstractModel;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
@@ -43,9 +45,9 @@ public class ProjectModel extends AbstractModel {
 
     private final int id;
 
-    private boolean isInitialized = false;
+    private volatile int picturesProcessed = 0;
 
-    private int numberOfPicturesFinished = 0;
+    private boolean isInitialized = false;
 
     private String name;
     private String description;
@@ -63,6 +65,9 @@ public class ProjectModel extends AbstractModel {
     private final ConcurrentLinkedQueue<PictureInterface> pictureThumbnailQueue = new ConcurrentLinkedQueue<PictureInterface>();
 
     private final Logger logger = Logger.getLogger(this.getClass());
+
+    private InitializePictureDataWorker dataWorker;
+    private InitializePictureThumbnailWorker thumbnailWorker;
 
     /**
      * Creates a new project with basic informations plus list of picture sets and reports.
@@ -155,7 +160,7 @@ public class ProjectModel extends AbstractModel {
      * @return the name of the project.
      */
     public String getName() {
-        return this.name;
+        return new String(this.name);
     }
 
     /**
@@ -164,8 +169,10 @@ public class ProjectModel extends AbstractModel {
      * @param name
      *            the name of the project.
      */
-    public void setName(final String name) {
-        this.name = name;
+    public synchronized void setName(final String name) {
+        if (!this.name.equals(name)) {
+            this.name = name;
+        }
     }
 
     /**
@@ -174,7 +181,7 @@ public class ProjectModel extends AbstractModel {
      * @return the description of the project.
      */
     public String getDescription() {
-        return this.description;
+        return new String(this.description);
     }
 
     /**
@@ -183,8 +190,10 @@ public class ProjectModel extends AbstractModel {
      * @param description
      *            the description of the project.
      */
-    public void setDescription(final String description) {
-        this.description = description;
+    public synchronized void setDescription(final String description) {
+        if (!this.description.equals(description)) {
+            this.description = description;
+        }
     }
 
     /**
@@ -247,12 +256,8 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return the amount of pictures.
      */
-    public int getNumberOfDataPicturesToProcess() {
-        if (!this.isInitialized) {
-            this.initialize();
-        }
-
-        return this.pictureDataQueue.size();
+    public int getNumberOfPicturesProcessed() {
+        return this.picturesProcessed;
     }
 
     /**
@@ -260,61 +265,64 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return the amount of pictures.
      */
-    public int getNumberOfThumbnailPicturesToProcess() {
+    public int getNumberOfAllPictures() {
+        return this.getAllPictures().length;
+    }
+
+    /**
+     * Return next image for data extraction.
+     * 
+     * @return the next image, null if no image left.
+     */
+    public PictureInterface getNextPictureForDataExtraction() {
+
         if (!this.isInitialized) {
             this.initialize();
         }
+        return this.pictureDataQueue.poll();
+    }
 
-        return this.pictureThumbnailQueue.size();
+    /**
+     * Return next image for thumbnail extraction.
+     * 
+     * @return the next image, null if no image left.
+     */
+    public PictureInterface getNextPictureForThumbnailGeneration() {
+
+        if (!this.isInitialized) {
+            this.initialize();
+        }
+        return this.pictureThumbnailQueue.poll();
     }
 
     /**
      * Processes metadata for an image which the model handle.
      * 
-     * @throws NullPointerException
-     *             if no image left.
+     * @param pic
+     *            the picture.
      */
-    public void getDataForNextPicture() throws NullPointerException {
+    public void getDataForPicture(final PictureInterface pic) {
+
         if (!this.isInitialized) {
             this.initialize();
         }
-
-        if (this.pictureDataQueue.isEmpty()) {
-            throw new NullPointerException("No image left in the data queue!");
-        }
-
-        final PictureInterface pic = this.pictureDataQueue.remove();
         pic.getAllExifParameter();
+        this.picturesProcessed++;
     }
 
     /**
      * Processes thumbnails for an image which the model handle.
      * 
-     * @throws NullPointerException
-     *             if no image left.
+     * @param pic
+     *            the picture.
      */
-    public void getThumbnailForNextPicture() throws NullPointerException {
+    public void getThumbnailForPicture(final PictureInterface pic) {
         if (!this.isInitialized) {
             this.initialize();
         }
-
-        if (this.pictureThumbnailQueue.isEmpty()) {
-            throw new NullPointerException("No image left in thumbnail queue!");
-        }
-
-        final PictureInterface pic = this.pictureThumbnailQueue.remove();
         pic.initThumbnails();
-
-        if (this.numberOfPicturesFinished == 5) {
-            this.updateViews();
-            this.numberOfPicturesFinished = 0;
-        } else {
-            this.numberOfPicturesFinished++;
-            if (this.pictureThumbnailQueue.isEmpty()) {
-                this.updateViews();
-                this.numberOfPicturesFinished = 0;
-            }
-        }
+        this.picturesProcessed++;
+        this.updateViews();
     }
 
     /*
@@ -326,7 +334,10 @@ public class ProjectModel extends AbstractModel {
     /* Initializes the queues */
     private synchronized void initialize() {
         if (!this.isInitialized) {
-            for (final PictureInterface pic : this.getAllPictures()) {
+            this.pictureDataQueue.clear();
+            this.pictureThumbnailQueue.clear();
+
+            for (final PictureInterface pic : this.getAllPicturesRegardingSelections()) {
                 this.pictureDataQueue.add(pic);
                 this.pictureThumbnailQueue.add(pic);
             }
@@ -334,6 +345,41 @@ public class ProjectModel extends AbstractModel {
         }
     }
 
+    /** Loads the data. */
+    public void loadData() {
+        this.dataWorker = new InitializePictureDataWorker(this);
+        this.thumbnailWorker = new InitializePictureThumbnailWorker(this);
+
+        this.dataWorker.execute();
+        this.thumbnailWorker.execute();
+    }
+
+    /* Reloads the data, stops running Threads and starts new ones. */
+    private void reloadData() {
+
+        /* kill the workers */
+        this.dataWorker.shutdownNow();
+        this.thumbnailWorker.shutdownNow();
+
+        this.pictureDataQueue.clear();
+        this.pictureThumbnailQueue.clear();
+
+        this.picturesProcessed = 0;
+        
+        this.isInitialized = false;
+
+        /* restart the workers */
+        this.loadData();
+    }
+
+    /** Unloads the data and stops running Threads. */
+    public void unloadData() {
+        
+        /* kill the workers */
+        this.dataWorker.shutdownNow();
+        this.thumbnailWorker.shutdownNow();
+    }
+    
     /*
      * ################################################################################################################
      * -- THE MODEL THEMSELF
@@ -406,17 +452,12 @@ public class ProjectModel extends AbstractModel {
                 this.selectedPicture = null;
                 this.selectedPictureSet = null;
                 this.selectedPictureSetContent = null;
-
-                this.pictureDataQueue.clear();
-                this.pictureThumbnailQueue.clear();
+                
+                this.reloadData();
             } else {
-
-                /* Remove the pictures of the container from the queue */
-                for (final PictureInterface pic : pictureSet) {
-                    this.pictureDataQueue.remove(pic);
-                    this.pictureThumbnailQueue.remove(pic);
-                }
                 this.selectedPictureSet = this.pictureSets.get(0);
+
+                this.reloadData();
             }
             this.updateViews();
         }
@@ -547,13 +588,13 @@ public class ProjectModel extends AbstractModel {
         }
         final List<PictureInterface> pictures = new ArrayList<PictureInterface>();
 
-            for (final PictureInterface picture : pictureSet) {
-                pictures.add(picture);
-            }
+        for (final PictureInterface picture : pictureSet) {
+            pictures.add(picture);
+        }
 
         return pictures.toArray(new Picture[] {});
     }
-    
+
     /*
      * ################################################################################################################
      * -- THE PICTURE SET CONTENTS
@@ -604,15 +645,12 @@ public class ProjectModel extends AbstractModel {
 
         if (isRemoved) {
 
-            /* Remove the pictures of the container from the queue */
-            for (final PictureInterface pic : container) {
-                this.pictureDataQueue.remove(pic);
-                this.pictureThumbnailQueue.remove(pic);
-            }
             if (set.getItems().size() <= 0) {
                 this.selectedPicture = null;
                 this.selectedPictureSetContent = null;
             }
+            this.reloadData();
+
             this.updateViews();
         }
         return isRemoved;
@@ -668,6 +706,22 @@ public class ProjectModel extends AbstractModel {
     public synchronized Picture[] getAllPictures() {
         final List<PictureInterface> pictures = new ArrayList<PictureInterface>();
 
+        for (PictureSet set : this.pictureSets) {
+            for (final PictureInterface picture : set) {
+                pictures.add(picture);
+            }
+        }
+        return pictures.toArray(new Picture[] {});
+    }
+
+    /**
+     * Get all pictures which the model handle with. Depends on the current active picture set and picture set content.
+     * 
+     * @return an amount of pictures.
+     */
+    public synchronized Picture[] getAllPicturesRegardingSelections() {
+        final List<PictureInterface> pictures = new ArrayList<PictureInterface>();
+
         if (this.getSelectedPictureSetContent() != null) {
             for (final PictureInterface picture : this.getSelectedPictureSetContent()) {
                 pictures.add(picture);
@@ -698,7 +752,7 @@ public class ProjectModel extends AbstractModel {
      * @return the current selected PictureSet.
      */
     public PictureInterface getSelectedPicture() {
-        final PictureInterface[] allPictures = this.getAllPictures();
+        final PictureInterface[] allPictures = this.getAllPicturesRegardingSelections();
         if ((this.selectedPicture == null) && (allPictures.length > 0)) {
             this.selectedPicture = allPictures[0];
         }

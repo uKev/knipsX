@@ -21,7 +21,7 @@ import javax.swing.event.ChangeListener;
 
 import org.apache.log4j.Logger;
 import org.knipsX.Messages;
-import org.knipsX.Programm;
+import org.knipsX.KnipsX;
 import org.knipsX.model.reportmanagement.BoxplotModel;
 import org.knipsX.model.reportmanagement.WilcoxonTest;
 import org.knipsX.model.reportmanagement.WilcoxonTestType;
@@ -38,7 +38,7 @@ public class JWilcoxon extends JAbstractSinglePanel {
 
     private static final long serialVersionUID = -7288529798669810178L;
 
-    private final Logger logger = Logger.getLogger(Programm.class);
+    private final Logger logger = Logger.getLogger(KnipsX.class);
 
     private JComboBox wilcoxoncombobox;
 

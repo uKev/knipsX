@@ -66,13 +66,12 @@ public class ProjectClickOnController<M extends ProjectManagementModel, V extend
                 final int index = theList.locationToIndex(mouseEvent.getPoint());
                 if (index >= 0) {
                     final Object o = theList.getModel().getElementAt(index);
-                    this.model.setStatus(ProjectManagementModel.INACTIVE);
                     final ProjectModel projectModel = (ProjectModel) o;
-
+                    projectModel.loadData();
+                    
                     new JProjectView<ProjectModel>(projectModel);
 
-                    new InitializePictureDataWorker(projectModel).execute();
-                    new InitializePictureThumbnailWorker(projectModel).execute();
+                    this.model.setStatus(ProjectManagementModel.INACTIVE);
                 }
             }
         }

@@ -528,7 +528,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
      *            The label of the yAxis.
      */
     protected void createLabels(final String xAxis, final String yAxis, final String zAxis) {
-        final double offset = 1.5;
+        final double offset = 2.5d;
         final double size = 0.42d;
         final Appearance appearance = this.basicMaterial(1, 1, 1);
 

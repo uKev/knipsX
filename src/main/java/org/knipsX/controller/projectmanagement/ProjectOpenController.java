@@ -54,12 +54,11 @@ public class ProjectOpenController<M extends ProjectManagementModel, V extends J
         /* only one project can opened */
         if (toOpen.length == 1) {
             final ProjectModel projectModel = this.model.getProject(toOpen[0]);
-            this.model.setStatus(ProjectManagementModel.INACTIVE);
-
+            projectModel.loadData();
+            
             new JProjectView<ProjectModel>(projectModel);
 
-            new InitializePictureDataWorker(projectModel).execute();
-            new InitializePictureThumbnailWorker(projectModel).execute();
+            this.model.setStatus(ProjectManagementModel.INACTIVE);
         } else if (toOpen.length == 0) {
 
             /* gives the user a hint, that he has selected no projects */

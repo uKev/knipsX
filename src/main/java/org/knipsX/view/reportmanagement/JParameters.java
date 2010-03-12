@@ -437,7 +437,7 @@ public class JParameters extends JAbstractSinglePanel {
             }
 
             /* reset axis description after an event was fired */
-            this.axisParameter.setAxisDescription(Messages.getString("JParameters.4"));
+            this.axisParameter.setAxisDescription("");
 
             /* prohibit non ordinal EXIF Parameters if report is boxplot */
             if (ReportHelper.getCurrentReport() == ReportHelper.Boxplot) {
