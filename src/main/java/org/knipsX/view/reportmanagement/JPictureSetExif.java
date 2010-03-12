@@ -369,7 +369,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
         try {
 
-            if (this.associatedPictureSets.getContents().size() > 0) {
+            if (this.associatedPictureSets.getContents().size() > 0 && this.armed) {
 
                 /* check to see if there are images in the specified image set */
                 for (final PictureContainer pictureContainer : this.getPictureContainer()) {

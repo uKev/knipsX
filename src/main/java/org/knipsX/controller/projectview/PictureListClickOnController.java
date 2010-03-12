@@ -1,6 +1,5 @@
 package org.knipsX.controller.projectview;
 
-import java.awt.Container;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -8,9 +7,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JList;
 
 import org.apache.log4j.Logger;
@@ -36,8 +32,6 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
     private static final int MOUSE_LEFT = 1;
 
     private final Logger logger = Logger.getLogger(this.getClass());
-
-    private JFrame tooltipWindow;
 
     /**
      * Creates a new controller which is connected to a view and a model.
@@ -92,7 +86,6 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
      *             if you connect the controller to no JList, you get this error.
      */
     public void mouseEntered(final MouseEvent mouseEvent) throws IllegalArgumentException {
-        this.tooltipWindow = new JFrame();
         this.drawTooltip(mouseEvent);
     }
 
@@ -103,10 +96,7 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
      *            the event of the mouse.
      */
     public void mouseExited(final MouseEvent mouseEvent) {
-        if (this.tooltipWindow != null) {
-            this.tooltipWindow.dispose();
-        }
-
+        this.view.removeThumbnail();
     }
 
     /**
@@ -145,9 +135,7 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
      *             if you connect the controller to no JList, you get this error.
      */
     public void mouseMoved(final MouseEvent mouseEvent) throws IllegalArgumentException {
-        if (this.tooltipWindow != null) {
             this.drawTooltip(mouseEvent);
-        }
     }
 
     /*
@@ -162,30 +150,24 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
     private void drawTooltip(final MouseEvent mouseEvent) throws IllegalArgumentException {
         if (mouseEvent.getSource() instanceof JList) {
             final JList theList = (JList) mouseEvent.getSource();
-            final int index = theList.locationToIndex(mouseEvent.getPoint());
+            final Point currentPoint = mouseEvent.getPoint();
+            final int index = theList.locationToIndex(currentPoint);
             Rectangle rect = theList.getCellBounds(index, index + 1);
             
-            if (rect != null && rect.contains(mouseEvent.getPoint())) {
+            if (rect != null && rect.contains(currentPoint)) {
                 final PictureInterface pic = (PictureInterface) theList.getModel().getElementAt(index);
-                final Point point = mouseEvent.getLocationOnScreen();
+                final Point point = mouseEvent.getPoint();
                 
-                point.translate(10, 10);
+                point.translate(25, 75);
 
                 try {
-                    Container container = this.tooltipWindow.getContentPane();
-                    container.removeAll();
-                    container.add(new JLabel(new ImageIcon(pic.getBigThumbnail())));
-                    
-                    this.tooltipWindow.setContentPane(container);
-                    this.tooltipWindow.setLocation(point);
-                    this.tooltipWindow.pack();
-                    this.tooltipWindow.setVisible(true);
+                    this.view.setThumbnail(pic.getBigThumbnail(), point);
                 } catch (final NullPointerException e) {
                     this.logger.info("Can not display the thumbnail because at this time it is not initialized.");
                 }
             }
             else {
-                this.tooltipWindow.setVisible(false);
+                this.view.removeThumbnail();
             }
         } else {
             throw new IllegalArgumentException("This controller can only handle JLists.");
