@@ -8,10 +8,8 @@ import org.knipsX.model.picturemanagement.PictureContainer;
 class WilcoxonSample implements Comparable<WilcoxonSample> {
 
     private final PictureContainer source;
-
     private final double value;
-    private double position;
-
+    private double positionRank;
     private boolean isLess;
 
     /**
@@ -42,7 +40,7 @@ class WilcoxonSample implements Comparable<WilcoxonSample> {
      * @return The position.
      */
     public double getRank() {
-        return this.position;
+        return this.positionRank;
     }
 
     /**
@@ -60,8 +58,8 @@ class WilcoxonSample implements Comparable<WilcoxonSample> {
      * @param position
      *            The position index.
      */
-    public void setPosition(final double position) {
-        this.position = position;
+    public void setPosition(final double positionRank) {
+        this.positionRank = positionRank;
     }
 
     /**
