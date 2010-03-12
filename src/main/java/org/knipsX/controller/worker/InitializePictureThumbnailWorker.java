@@ -37,6 +37,7 @@ public class InitializePictureThumbnailWorker extends SwingWorker<Void, Void> {
         return null;
     }
 
+    /** Stops all activities. */
     public void shutdownNow() {
         this.executor.shutdownNow();
     }

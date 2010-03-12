@@ -1048,7 +1048,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                 JProjectView.this.jListReport.setSelectedIndices(selectedReports);
                 
                 /* change border of the panel */
-                /* INTERNATIONALIZE */
                 if (JProjectView.this.model.getSelectedPictureSetContent() != null) {
                     final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
                             Messages.getString("JProjectView.41")
@@ -1074,7 +1073,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                                     exifModel.setValueAt("no data", i, 0);
                                 }
                             } catch (final NullPointerException e) {
-
+                                JProjectView.this.logger.error(e.getMessage());
                             }
                         }
                     }
