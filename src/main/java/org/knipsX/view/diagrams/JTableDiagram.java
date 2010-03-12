@@ -80,6 +80,7 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
             };
         }
         this.table = new JTable(dataModel);
+        this.table.getTableHeader().setReorderingAllowed( false );
         this.table.setDefaultRenderer(Object.class, new MyExifTableCellRenderer());
 
         this.scrollpane = new JScrollPane(this.table);
