@@ -234,6 +234,9 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         final List<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
 
         assert this.getZAxis() != null;
+        assert this.getXAxis() != null;
+        assert this.getZAxis().getParameter() != null;
+        assert this.getXAxis().getParameter() != null;
         
         exifParameters.add(this.getXAxis().getParameter());
         exifParameters.add(this.getZAxis().getParameter());
@@ -328,8 +331,32 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
     @Override
     public boolean isModelValid() {
+        /*
+         * Check things needed for calculation.
+         */
+        if (this.getXAxis() == null) {
+            logger.info("xAxis is null");
+            return false;
+        }
+        if (this.getZAxis() == null) {
+            logger.info("zAxis is null");
+            return false;
+        }
+        if (this.getXAxis().getParameter() == null) {
+            logger.info("xAxis parameter is null");
+            return false;
+        }
+        if (this.getZAxis().getParameter() == null) {
+            logger.info("zAxis parameter is null");
+            return false;
+        }
+        
         this.calculateIfRequired();
-
+        
+        /*
+         * Check if calculation was correct.
+         */
+        
         if (this.maxX < this.minX) {
             this.logger.info("maxX < minX");
             return false;
