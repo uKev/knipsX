@@ -132,12 +132,12 @@ public class JDiagramType extends JAbstractSinglePanel {
             /* Add a spacer to relax the layout */
             rightpanel.add(Box.createRigidArea(new Dimension(0, 20)));
         } catch (final UnsatisfiedLinkError linkError) {
-
+        	logger.info(linkError.toString());
             /* TODO only catch java 3D link error */
             this.java3DInstalled = false;
             return;
         } catch (final NoClassDefFoundError e) {
-
+        	logger.info(e.toString());
             /* TODO only catch java 3D class definition error */
             this.java3DInstalled = false;
             return;
