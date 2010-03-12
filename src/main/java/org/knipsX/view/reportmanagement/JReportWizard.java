@@ -36,6 +36,7 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
     private final JButton nextPanelButton;
     private final JButton previousPanelButton;
 
+    //TODO don't use fixed sizes here. Get size from a utility class
     private final int[] mysize = { 800, 600 };
 
     /* keeps track of the current panel in the wizard */

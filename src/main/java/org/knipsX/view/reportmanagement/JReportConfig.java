@@ -43,6 +43,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
     
     private Logger logger = Logger.getLogger(this.getClass());
 
+    //TODO don't use fixed sizes here. Get size from a utility class
     private final int[] mysize = { 800, 600 };
 
     /**

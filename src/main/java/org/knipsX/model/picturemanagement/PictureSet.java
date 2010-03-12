@@ -203,13 +203,13 @@ public class PictureSet implements PictureContainer {
 
 	private boolean checkContent(PictureContainer base,
 			PictureContainer container) {
-		if (base == container) {
-			return true;
-		} else {
-			for (final PictureContainer element : base.getItems()) {
-				return this.checkContent(element, container);
-			}
-		}
+//		if (base == container) {
+//			return true;
+//		} else {
+//			for (final PictureContainer element : base.getItems()) {
+//				return this.checkContent(element, container);
+//			}
+//		}
 		return false;
 	}
 }

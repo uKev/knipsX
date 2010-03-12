@@ -128,7 +128,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
     private Image thumbnailPicture = null;
 
-    private Point thumbnailPoint = null;
+    private volatile Point thumbnailPoint = null;
 
     private final Logger logger = Logger.getLogger(this.getClass());
 
