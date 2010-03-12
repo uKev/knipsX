@@ -1111,7 +1111,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     private synchronized void doUpdateProgressBar(final ProjectModel model) {
 
         /* Update the progress bars */
-        final int totalPictures = 2 * this.model.getNumberOfAllPictures();
+        final int totalPictures = this.model.getNumberOfAllPictures();
 
         if (totalPictures > 0) {
             this.pictureDataProgress.setValue(this.model.getNumberOfPicturesProcessed());

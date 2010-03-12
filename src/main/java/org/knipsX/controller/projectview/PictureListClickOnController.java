@@ -1,7 +1,6 @@
 package org.knipsX.controller.projectview;
 
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -13,7 +12,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 import org.knipsX.controller.AbstractController;
@@ -22,7 +20,7 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
 
 /**
- * Represents the Actions which are done by klicking on the picturelist.
+ * Represents the actions which are done by clicking on the picture list.
  * 
  * Acts in harmony with a JProjectview.
  * 
