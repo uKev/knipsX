@@ -4,7 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -123,6 +126,10 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
     private JProgressBar pictureDataProgress = null;
 
+    private Image thumbnailPicture = null;
+
+    private Point thumbnailPoint = null;
+
     private final Logger logger = Logger.getLogger(this.getClass());
 
     /**
@@ -159,6 +166,29 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         this.setLocationRelativeTo(null);
 
         this.setVisible(true);
+    }
+
+    /**
+     * Is used for the thumbnail.
+     * 
+     * @param thumbnail
+     *            the thumbnail.
+     * @param pointWhereImageShouldBeDrawn
+     *            the point where the image is drawn.
+     */
+    public void setThumbnail(Image thumbnail, Point pointWhereImageShouldBeDrawn) {
+        this.thumbnailPicture = thumbnail;
+        this.thumbnailPoint = pointWhereImageShouldBeDrawn;
+        this.repaint();
+    }
+
+    /**
+     * Is used to remove a thumbnail.
+     */
+    public void removeThumbnail() {
+        this.thumbnailPicture = null;
+        this.thumbnailPoint = null;
+        this.repaint();
     }
 
     /*
@@ -1039,14 +1069,15 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                 JProjectView.this.jListPictureSet.setListData(JProjectView.this.model.getPictureSets());
                 JProjectView.this.jListPictureSetContent.setListData(JProjectView.this.extractPictureSetContents(
                         JProjectView.this.model.getSelectedPictureSet()).toArray());
-                JProjectView.this.jListPictureSetActive.setListData(JProjectView.this.model.getAllPicturesRegardingSelections());
+                JProjectView.this.jListPictureSetActive.setListData(JProjectView.this.model
+                        .getAllPicturesRegardingSelections());
                 JProjectView.this.jListReport.setListData(JProjectView.this.model.getReports());
 
                 JProjectView.this.jListPictureSet.setSelectedIndices(selectedPictureSets);
                 JProjectView.this.jListPictureSetContent.setSelectedIndices(selectedPictureSetContents);
                 JProjectView.this.jListPictureSetActive.setSelectedIndices(selectedPictures);
                 JProjectView.this.jListReport.setSelectedIndices(selectedReports);
-                
+
                 /* change border of the panel */
                 if (JProjectView.this.model.getSelectedPictureSetContent() != null) {
                     final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
@@ -1077,7 +1108,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                             }
                         }
                     }
-                }             
+                }
 
                 /* refresh view */
                 JProjectView.this.repaint();
@@ -1154,6 +1185,21 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.logger.error("Fehler beim extrahieren der Bildmengeninhalte!" + e.getMessage());
         }
         return allContents;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.awt.Window#paint(java.awt.Graphics)
+     */
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        if (this.thumbnailPicture != null && this.thumbnailPoint != null) {
+            Point positionOfJList = this.jPanelPictureSetActive.getLocation();
+            this.thumbnailPoint.translate(positionOfJList.x, positionOfJList.y);
+            g.drawImage(this.thumbnailPicture, this.thumbnailPoint.x, this.thumbnailPoint.y, null);
+        }
     }
 }
 
@@ -1309,7 +1355,6 @@ class PictureListCellRenderer implements ListCellRenderer {
                 renderer.setIcon(this.noImageIcon);
             }
         }
-        renderer.setToolTipText(Messages.getString("JProjectView.45"));
         renderer.setText(theText);
         renderer.setPreferredSize(new Dimension(renderer.getWidth(), 40));
 
