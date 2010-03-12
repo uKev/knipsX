@@ -7,8 +7,6 @@ import java.awt.event.MouseListener;
 import javax.swing.JList;
 
 import org.knipsX.controller.AbstractController;
-import org.knipsX.controller.worker.InitializePictureDataWorker;
-import org.knipsX.controller.worker.InitializePictureThumbnailWorker;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectmanagement.JProjectManagement;
