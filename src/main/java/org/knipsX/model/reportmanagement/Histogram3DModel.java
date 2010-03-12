@@ -9,6 +9,7 @@ import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.utils.Converter;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.Validator;
+import org.knipsX.utils.Values;
 
 /**
  * The model auf the Histogram3D which calculate the statistic categories and allocate the axes to the Data.
@@ -160,22 +161,24 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
             for (int j = 0; j < this.categories[i].length; ++j) {
 
-                if (this.categories[i][j].getMaxValueX() > this.maxX) {
+                 
+                // Don't use math.abs because we want to check for ">=" or "<=" and not "==" !!!
+                if ((this.categories[i][j].getMaxValueX() - this.maxX) > Values.EPSILON) {
                     this.logger.debug("found biggest X value: " + this.categories[i][j].getMaxValueX() + " >= "
                             + this.maxX + " (" + i + " " + j + ")");
                 }
 
-                if (this.categories[i][j].getMaxValueZ() > this.maxZ) {
+                if ((this.categories[i][j].getMaxValueZ() - this.maxZ) > Values.EPSILON) {
                     this.logger.debug("found biggest Z value: " + this.categories[i][j].getMaxValueZ() + " >= "
                             + this.maxZ + " (" + i + " " + j + ")");
                 }
 
-                if (this.categories[i][j].getMinValueX() < this.minX) {
+                if ((this.minX - this.categories[i][j].getMinValueX()) > Values.EPSILON) {
                     this.logger.debug("found smallest X value: " + this.categories[i][j].getMinValueX() + " <= "
                             + this.minX + " (" + i + " " + j + ")");
                 }
 
-                if (this.categories[i][j].getMinValueZ() < this.minZ) {
+                if ((this.minZ - this.categories[i][j].getMinValueZ()) > Values.EPSILON) {
                     this.logger.debug("found smallest Z value: " + this.categories[i][j].getMinValueZ() + " <= "
                             + this.minZ + " (" + i + " " + j + ")");
                 }
