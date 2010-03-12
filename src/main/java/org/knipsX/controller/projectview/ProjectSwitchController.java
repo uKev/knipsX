@@ -43,7 +43,8 @@ public class ProjectSwitchController<M extends ProjectModel, V extends JProjectV
                 Messages.getString("ProjectSwitchController.1"), JOptionPane.YES_NO_CANCEL_OPTION);
 
         if (decision == JOptionPane.YES_OPTION) {
-
+            this.model.unloadData();
+            
             /* if user wants to save before a change occurs */
             this.model.saveProjectModel();
             this.view.dispose();
@@ -54,7 +55,8 @@ public class ProjectSwitchController<M extends ProjectModel, V extends JProjectV
             /* creates a new JProjectAdministration window, which is connected to a model */
             new JProjectManagement<ProjectManagementModel>(projectManagementModel);
         } else if (decision == JOptionPane.NO_OPTION) {
-
+            this.model.unloadData();
+            
             /* if user doesn't want to save before a change occurs */
             this.view.dispose();
 

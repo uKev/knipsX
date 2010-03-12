@@ -38,6 +38,7 @@ import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.TableModel;
+import javax.swing.text.JTextComponent;
 
 import org.apache.log4j.Logger;
 import org.knipsX.Messages;
@@ -736,7 +737,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         if (this.jListPictureSetActive == null) {
 
             /* creates a new list with options */
-            this.jListPictureSetActive = new JList(this.model.getAllPictures());
+            this.jListPictureSetActive = new JList(this.model.getAllPicturesRegardingSelections());
             this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             this.jListPictureSetActive.setLayoutOrientation(JList.VERTICAL);
             final PictureListClickOnController<M, JProjectView<M>> controller = new PictureListClickOnController<M, JProjectView<M>>(
@@ -911,7 +912,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jLabelTotalPictures == null) {
-            this.jLabelTotalPictures = new JLabel(Messages.getString("JProjectView.85") + this.model.getNumberOfPictures());
+            this.jLabelTotalPictures = new JLabel(Messages.getString("JProjectView.85")
+                    + this.model.getNumberOfPictures());
         }
         return this.jLabelTotalPictures;
     }
@@ -1017,106 +1019,103 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                JProjectView.this.doUpdate((ProjectModel) o);
+                JProjectView.this.doUpdateProgressBar((ProjectModel) o);
+                JProjectView.this.doUpdateTotalPictureText(JProjectView.this.model.getNumberOfPictures());
+
+                JProjectView.this.setBehaviour(JProjectView.this.model.getStatus() == ProjectModel.ACTIVE);
+                JProjectView.this.setJTextComponentText(JProjectView.this.jTextFieldProjectName,
+                        JProjectView.this.model.getName());
+                JProjectView.this.setJTextComponentText(JProjectView.this.jEditorPaneProjectDescription,
+                        JProjectView.this.model.getDescription());
+
+                JProjectView.this.setTitle("Projektansicht für " + JProjectView.this.model.getName());
+
+                final int[] selectedPictureSets = JProjectView.this.jListPictureSet.getSelectedIndices();
+                final int[] selectedPictureSetContents = JProjectView.this.jListPictureSetContent.getSelectedIndices();
+                final int[] selectedPictures = JProjectView.this.jListPictureSetActive.getSelectedIndices();
+                final int[] selectedReports = JProjectView.this.jListReport.getSelectedIndices();
+
+                /* setup the lists */
+                JProjectView.this.jListPictureSet.setListData(JProjectView.this.model.getPictureSets());
+                JProjectView.this.jListPictureSetContent.setListData(JProjectView.this.extractPictureSetContents(
+                        JProjectView.this.model.getSelectedPictureSet()).toArray());
+                JProjectView.this.jListPictureSetActive.setListData(JProjectView.this.model.getAllPicturesRegardingSelections());
+                JProjectView.this.jListReport.setListData(JProjectView.this.model.getReports());
+
+                JProjectView.this.jListPictureSet.setSelectedIndices(selectedPictureSets);
+                JProjectView.this.jListPictureSetContent.setSelectedIndices(selectedPictureSetContents);
+                JProjectView.this.jListPictureSetActive.setSelectedIndices(selectedPictures);
+                JProjectView.this.jListReport.setSelectedIndices(selectedReports);
+                
+                /* change border of the panel */
+                /* INTERNATIONALIZE */
+                if (JProjectView.this.model.getSelectedPictureSetContent() != null) {
+                    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
+                            Messages.getString("JProjectView.41")
+                                    + JProjectView.this.model.getSelectedPictureSetContent().getName());
+                    JProjectView.this.jPanelPictureSetActive.setBorder(title);
+                } else if (JProjectView.this.model.getSelectedPictureSet() != null) {
+                    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
+                            "Bilder von Bildmenge" + JProjectView.this.model.getSelectedPictureSet().getName());
+                    JProjectView.this.jPanelPictureSetActive.setBorder(title);
+                }
+
+                if (JProjectView.this.model.getSelectedPicture() != null) {
+                    final TableModel exifModel = JProjectView.this.jTableExif.getModel();
+
+                    final Object[][] values = JProjectView.this.model.getSelectedPicture().getAllExifParameter();
+                    for (int i = 0; i < values.length; ++i) {
+                        if (values[i].length == 2) {
+                            try {
+                                exifModel.setValueAt(values[i][0].toString(), i, 0);
+                                if (values[i][1] != null) {
+                                    exifModel.setValueAt(values[i][1], i, 1);
+                                } else {
+                                    exifModel.setValueAt("no data", i, 0);
+                                }
+                            } catch (final NullPointerException e) {
+
+                            }
+                        }
+                    }
+                }             
+
+                /* refresh view */
+                JProjectView.this.repaint();
             }
         });
 
-        /* INTERNATIONALIZE */
-        this.setTitle("Projektansicht für " + this.model.getName());
-
-        /* things about the project */
-        try {
-            final int caretProjectName = JProjectView.this.jTextFieldProjectName.getCaretPosition();
-            this.jTextFieldProjectName.setText(this.model.getName());
-            this.jTextFieldProjectName.setCaretPosition(caretProjectName);
-        } catch (final IllegalArgumentException e) {
-            this.logger.error("Position of name caret cannot set -" + e.fillInStackTrace());
-        }
-
-        try {
-            final int caretProjectDescription = this.jEditorPaneProjectDescription.getCaretPosition();
-            this.jEditorPaneProjectDescription.setText(this.model.getDescription());
-            this.jEditorPaneProjectDescription.setCaretPosition(caretProjectDescription);
-        } catch (final IllegalArgumentException e) {
-            this.logger.error("Position of description caret cannot be set -" + e.fillInStackTrace());
-        }
-
-        final int[] selectedPictureSets = this.jListPictureSet.getSelectedIndices();
-        final int[] selectedPictureSetContents = this.jListPictureSetContent.getSelectedIndices();
-        final int[] selectedPictures = this.jListPictureSetActive.getSelectedIndices();
-        final int[] selectedReports = this.jListReport.getSelectedIndices();
-
-        /* setup the lists */
-        this.jListPictureSet.setListData(this.model.getPictureSets());
-        this.jListPictureSetContent.setListData(this.extractPictureSetContents(this.model.getSelectedPictureSet())
-                .toArray());
-        this.jListPictureSetActive.setListData(this.model.getAllPictures());
-        this.jListReport.setListData(this.model.getReports());
-
-        /* change border of the panel */
-        /* INTERNATIONALIZE */
-        if (this.model.getSelectedPictureSetContent() != null) {
-            final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
-                    .getString("JProjectView.41")
-                    + this.model.getSelectedPictureSetContent().getName());
-            this.jPanelPictureSetActive.setBorder(title);
-        } else if (this.model.getSelectedPictureSet() != null) {
-            final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                    "Bilder von Bildmenge" + this.model.getSelectedPictureSet().getName());
-            this.jPanelPictureSetActive.setBorder(title);
-        }
-
-        if (JProjectView.this.model.getStatus() == ProjectModel.ACTIVE) {
-            this.setFocusableWindowState(true);
-            this.setFocusable(true);
-            this.setEnabled(true);
-        } else {
-            this.setFocusableWindowState(false);
-            this.setEnabled(false);
-            this.setFocusable(false);
-        }
-
-        if (this.model.getSelectedPicture() != null) {
-            final TableModel exifModel = JProjectView.this.jTableExif.getModel();
-
-            final Object[][] values = this.model.getSelectedPicture().getAllExifParameter();
-            for (int i = 0; i < values.length; ++i) {
-                if (values[i].length == 2) {
-                    try {
-                        exifModel.setValueAt(values[i][0].toString(), i, 0);
-                        if (values[i][1] != null) {
-                            exifModel.setValueAt(values[i][1], i, 1);
-                        } else {
-                            exifModel.setValueAt("no data", i, 0);
-                        }
-                    } catch (final NullPointerException e) {
-
-                    }
-                }
-            }
-        }
-
-        this.jLabelTotalPictures.setText("Insgesamt Bilder:" + this.model.getNumberOfPictures());
-
-        this.jListPictureSet.setSelectedIndices(selectedPictureSets);
-        this.jListPictureSetContent.setSelectedIndices(selectedPictureSetContents);
-        this.jListPictureSetActive.setSelectedIndices(selectedPictures);
-        this.jListReport.setSelectedIndices(selectedReports);
-
-        /* refresh view */
-        this.repaint();
     }
 
-    private void doUpdate(final ProjectModel model) {
+    private synchronized void doUpdateTotalPictureText(final int numberOfPictures) {
+        JProjectView.this.jLabelTotalPictures.setText("Insgesamt Bilder:" + numberOfPictures);
+    }
+
+    private synchronized void setBehaviour(final boolean isActive) {
+        JProjectView.this.setFocusableWindowState(isActive);
+        JProjectView.this.setFocusable(isActive);
+        JProjectView.this.setEnabled(isActive);
+    }
+
+    private synchronized void setJTextComponentText(final JTextComponent component, final String text) {
+
+        try {
+            final int caretProjectName = component.getCaretPosition();
+            component.setText(text);
+            component.setCaretPosition(caretProjectName);
+        } catch (final IllegalArgumentException e) {
+            this.logger.error("Position of description caret cannot be set -" + e.fillInStackTrace());
+            component.setCaretPosition(0);
+        }
+    }
+
+    private synchronized void doUpdateProgressBar(final ProjectModel model) {
 
         /* Update the progress bars */
-        final int totalPictures = 2 * this.model.getNumberOfPictures();
+        final int totalPictures = 2 * this.model.getNumberOfAllPictures();
 
         if (totalPictures > 0) {
-            final int picturesToFinish = this.model.getNumberOfDataPicturesToProcess()
-                    + this.model.getNumberOfThumbnailPicturesToProcess();
-
-            this.pictureDataProgress.setValue(totalPictures - picturesToFinish);
+            this.pictureDataProgress.setValue(this.model.getNumberOfPicturesProcessed());
             this.pictureDataProgress.setMaximum(totalPictures);
         }
 
@@ -1155,7 +1154,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         } catch (final NullPointerException e) {
             this.logger.error("Fehler beim extrahieren der Bildmengeninhalte!" + e.getMessage());
         }
-
         return allContents;
     }
 }
