@@ -333,6 +333,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
     public boolean isModelValid() {
         /*
          * Check things needed for calculation.
+         * FIXME: Add this kind of checks also to the other diagram models.
          */
         if (this.getXAxis() == null) {
             logger.info("xAxis is null");
