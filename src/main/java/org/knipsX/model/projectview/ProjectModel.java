@@ -307,7 +307,6 @@ public class ProjectModel extends AbstractModel {
             this.initialize();
         }
         pic.getAllExifParameter();
-        this.picturesProcessed++;
     }
 
     /**

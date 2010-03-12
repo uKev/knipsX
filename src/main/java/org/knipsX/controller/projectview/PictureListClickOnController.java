@@ -1,6 +1,8 @@
 package org.knipsX.controller.projectview;
 
+import java.awt.Container;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -10,7 +12,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 import org.knipsX.controller.AbstractController;
@@ -19,7 +20,7 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
 
 /**
- * Represents the Actions which are done by klicking on the picturelist.
+ * Represents the actions which are done by clicking on the picture list.
  * 
  * Acts in harmony with a JProjectview.
  * 
@@ -162,26 +163,29 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
         if (mouseEvent.getSource() instanceof JList) {
             final JList theList = (JList) mouseEvent.getSource();
             final int index = theList.locationToIndex(mouseEvent.getPoint());
-
-            if (index >= 0) {
+            Rectangle rect = theList.getCellBounds(index, index + 1);
+            
+            if (rect != null && rect.contains(mouseEvent.getPoint())) {
                 final PictureInterface pic = (PictureInterface) theList.getModel().getElementAt(index);
                 final Point point = mouseEvent.getLocationOnScreen();
-
+                
                 point.translate(10, 10);
 
                 try {
-                    final ImageIcon image = new ImageIcon(pic.getBigThumbnail());
-                    final JPanel panel = new JPanel();
-
-                    panel.add(new JLabel(image));
-
-                    this.tooltipWindow.setContentPane(panel);
+                    Container container = this.tooltipWindow.getContentPane();
+                    container.removeAll();
+                    container.add(new JLabel(new ImageIcon(pic.getBigThumbnail())));
+                    
+                    this.tooltipWindow.setContentPane(container);
                     this.tooltipWindow.setLocation(point);
-                    this.tooltipWindow.setSize(image.getIconHeight(), image.getIconWidth());
+                    this.tooltipWindow.pack();
                     this.tooltipWindow.setVisible(true);
                 } catch (final NullPointerException e) {
                     this.logger.info("Can not display the thumbnail because at this time it is not initialized.");
                 }
+            }
+            else {
+                this.tooltipWindow.setVisible(false);
             }
         } else {
             throw new IllegalArgumentException("This controller can only handle JLists.");

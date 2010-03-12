@@ -6,8 +6,6 @@ import javax.swing.JOptionPane;
 
 import org.knipsX.Messages;
 import org.knipsX.controller.AbstractController;
-import org.knipsX.controller.worker.InitializePictureDataWorker;
-import org.knipsX.controller.worker.InitializePictureThumbnailWorker;
 import org.knipsX.model.projectmanagement.ProjectManagementModel;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectmanagement.JProjectManagement;
