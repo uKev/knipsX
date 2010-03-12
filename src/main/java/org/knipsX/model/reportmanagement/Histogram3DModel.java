@@ -252,8 +252,8 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
             this.maxX = Math.max(this.maxX, xValue);
             this.maxZ = Math.max(this.maxZ, zValue);
-            this.minX = Math.max(this.minX, xValue);
-            this.minZ = Math.max(this.minZ, zValue);
+            this.minX = Math.min(this.minX, xValue);
+            this.minZ = Math.min(this.minZ, zValue);
         }
     }
 
