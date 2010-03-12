@@ -177,7 +177,7 @@ public class PictureListClickOnController<M extends ProjectModel, V extends JPro
 
                     this.tooltipWindow.setContentPane(panel);
                     this.tooltipWindow.setLocation(point);
-                    this.tooltipWindow.setSize(image.getIconHeight(), image.getIconWidth());
+                    this.tooltipWindow.setSize(image.getIconWidth(), image.getIconHeight());
                     this.tooltipWindow.setVisible(true);
                 } catch (final NullPointerException e) {
                     this.logger.info("Can not display the thumbnail because at this time it is not initialized.");
