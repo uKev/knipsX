@@ -3,7 +3,6 @@ package org.knipsX.model.picturemanagement;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.knipsX.images.dummypictures.DummyPictures;
 
 public class InPictureSetDirectoryTest {
 
@@ -18,7 +17,7 @@ public class InPictureSetDirectoryTest {
          * Note that this is actually an integration test!
          */
         
-        PictureSet singlePictureSet = DummyPictures.getDummyPictureSet();
+        PictureSet singlePictureSet = DummyPictureSetGenerator.getReportPreviewPictureSet();
         
         int numberOfPicturesInSinglePictureSet = 0;
         
@@ -33,7 +32,7 @@ public class InPictureSetDirectoryTest {
         // Add the directory "multiplier" times to the same picture set
         int multiplier = 5;        
         for (int i = 0; i < multiplier; i++) {
-            pictureSet.add(DummyPictures.getDummyPictureSet());
+            pictureSet.add(DummyPictureSetGenerator.getReportPreviewPictureSet());
         }
         
         int numberOfPicturesInPictureSet = 0;
