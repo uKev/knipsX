@@ -233,6 +233,11 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
         final List<ExifParameter> exifParameters = new ArrayList<ExifParameter>(2);
 
+        assert this.getZAxis() != null;
+        assert this.getXAxis() != null;
+        assert this.getZAxis().getParameter() != null;
+        assert this.getXAxis().getParameter() != null;
+        
         exifParameters.add(this.getXAxis().getParameter());
         exifParameters.add(this.getZAxis().getParameter());
 
@@ -274,7 +279,13 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         }
         this.categories = new Category[numberOfCategories][numberOfCategories];
 
-        /* FIXME what we are doing here?! */
+        /* Calculate the distance from the minimum to the maximum.
+         * If the distance is zero, the minimum is equal to the maximum value
+         * and we have only one category. 
+         * Then we need to set the distance to 1 to prevent the Armageddon.
+         * Because the different only must not be exactly zero, it's OK to compare doubles without epsilon.
+         * If they are slightly different - the world is rescued ;).
+         *  */
         double deltaX = Math.abs(this.maxX - this.minX);
         double deltaZ = Math.abs(this.maxZ - this.minZ);
 
@@ -320,8 +331,33 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
     @Override
     public boolean isModelValid() {
+        /*
+         * Check things needed for calculation.
+         * FIXME: Add this kind of checks also to the other diagram models.
+         */
+        if (this.getXAxis() == null) {
+            logger.info("xAxis is null");
+            return false;
+        }
+        if (this.getZAxis() == null) {
+            logger.info("zAxis is null");
+            return false;
+        }
+        if (this.getXAxis().getParameter() == null) {
+            logger.info("xAxis parameter is null");
+            return false;
+        }
+        if (this.getZAxis().getParameter() == null) {
+            logger.info("zAxis parameter is null");
+            return false;
+        }
+        
         this.calculateIfRequired();
-
+        
+        /*
+         * Check if calculation was correct.
+         */
+        
         if (this.maxX < this.minX) {
             this.logger.info("maxX < minX");
             return false;
