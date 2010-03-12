@@ -1,5 +1,6 @@
 package org.knipsX.model.reportmanagement;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +24,7 @@ public class WilcoxonTest {
     private ExifParameter parameter;
 
     private double significance = 1.00;
-    private double result = 0;
+    private BigDecimal result = BigDecimal.ZERO;
 
     private boolean testIsRejected = false;
     private boolean isActive = false;
@@ -118,7 +119,7 @@ public class WilcoxonTest {
      * 
      * @return p value.
      */
-    public double getResult() {
+    public BigDecimal getResult() {
         if (!this.isCalculated) {
             this.calculate();
         }
@@ -171,7 +172,9 @@ public class WilcoxonTest {
             if ((numberOfElementsInFirstSet < 2) || (numberOfElementsInSecondSet < 2)) {
                 this.isValid = false;
             } else {
-                final BigInteger partVectors = (this.fakulty(numberOfElementsInFirstSet + numberOfElementsInSecondSet)).divide(((this.fakulty(numberOfElementsInFirstSet)).multiply(this.fakulty(numberOfElementsInSecondSet))));
+                final BigInteger partVectors = (this.fakulty(numberOfElementsInFirstSet + numberOfElementsInSecondSet))
+                        .divide(((this.fakulty(numberOfElementsInFirstSet)).multiply(this
+                                .fakulty(numberOfElementsInSecondSet))));
 
                 Collections.sort(this.wilcoxonSampleList);
 
@@ -196,7 +199,7 @@ public class WilcoxonTest {
                         }
                     }
                 }
-                final double chance = this.calcChanceOfSpecificRankeSum(rankSum, this.wilcoxonSampleList.size(),
+                final BigDecimal chance = this.calcChanceOfSpecificRankeSum(rankSum, this.wilcoxonSampleList.size(),
                         partVectors);
                 this.result = this.calcPValue(chance, partVectors, rankSum);
                 this.isCalculated = true;
@@ -226,20 +229,22 @@ public class WilcoxonTest {
         return numberOfElementsInSet;
     }
 
-    private double calcPValue(final double chanceOfPosition, final BigInteger partVectors, final double rangeSum) {
-        double pValue = 0;
+    private BigDecimal calcPValue(final BigDecimal chanceOfPosition, final BigInteger partVectors, final double rangeSum) {
+        BigDecimal pValue = BigDecimal.ZERO;
+        
+        BigDecimal significance = BigDecimal.valueOf(this.significance / 200);
 
         if (this.wilcoxenTestType == WilcoxonTestType.TWO_SIDED) {
 
-            if ((chanceOfPosition <= this.significance / 200) || (chanceOfPosition >= (1 - (this.significance / 200)))) {
+            if ((chanceOfPosition.compareTo(significance) <= 0) || (chanceOfPosition.compareTo(BigDecimal.ONE.subtract(significance)) >= 0)) {
                 this.testIsRejected = true;
             } else {
                 this.testIsRejected = false;
             }
-            pValue = this.chanceToBeLess(partVectors) + this.chanceToBeGreater(partVectors);
+            pValue = this.chanceToBeLess(partVectors).add(this.chanceToBeGreater(partVectors));
         } else if (this.wilcoxenTestType == WilcoxonTestType.LESS) {
 
-            if (chanceOfPosition <= (this.significance / 200)) {
+            if (chanceOfPosition.compareTo(significance) <= 0) {
                 this.testIsRejected = true;
             } else {
                 this.testIsRejected = false;
@@ -247,7 +252,7 @@ public class WilcoxonTest {
             pValue = this.chanceToBeLess(partVectors);
         } else {
 
-            if (chanceOfPosition >= (1 - (this.significance / 200))) {
+            if (chanceOfPosition.compareTo(BigDecimal.ONE.subtract(significance)) >= 0) {
                 this.testIsRejected = true;
             } else {
                 this.testIsRejected = false;
@@ -293,9 +298,9 @@ public class WilcoxonTest {
      * 
      * @return the active status
      */
-    private double calcChanceOfSpecificRankeSum(final double rangeSum, final int numberOfAllSamples,
+    private BigDecimal calcChanceOfSpecificRankeSum(final double rangeSum, final int numberOfAllSamples,
             final BigInteger partVectors) {
-        int vectors = 0;
+        long vectors = 0;
 
         for (int i = 1; i <= numberOfAllSamples; i++) {
             for (int j = 1; j <= numberOfAllSamples; j++) {
@@ -304,7 +309,7 @@ public class WilcoxonTest {
                 }
             }
         }
-        double chance = ((double) vectors / 2.0d) / (double) partVectors.longValue();
+        BigDecimal chance = (BigDecimal.valueOf(vectors).divide(BigDecimal.valueOf(2.0d))).divide(new BigDecimal(partVectors));
         return chance;
     }
 
@@ -317,13 +322,13 @@ public class WilcoxonTest {
      * 
      * @return specific testtype
      */
-    private double chanceToBeLess(final BigInteger partVectors) {
-        final double significanceChance = this.significance / 200;
-        double chance = 0;
+    private BigDecimal chanceToBeLess(final BigInteger partVectors) {
+        final BigDecimal significanceChance = BigDecimal.valueOf(this.significance / 200);
+        BigDecimal chance = BigDecimal.ZERO;
 
         for (int i = 3; i <= ((this.wilcoxonSampleList.size() * 2) - 1); ++i) {
-            if (chance <= significanceChance) {
-                chance = chance + this.calcChanceOfSpecificRankeSum(i, this.wilcoxonSampleList.size(), partVectors);
+            if (chance.compareTo(significanceChance) <= 0 ) {
+                chance = chance.add(this.calcChanceOfSpecificRankeSum(i, this.wilcoxonSampleList.size(), partVectors));
             } else {
                 break;
             }
@@ -331,13 +336,13 @@ public class WilcoxonTest {
         return chance;
     }
 
-    private double chanceToBeGreater(final BigInteger partVectors) {
-        final double significanceChance = 1 - (this.significance / 200);
-        double chance = 0;
+    private BigDecimal chanceToBeGreater(final BigInteger partVectors) {
+        final BigDecimal significanceChance = BigDecimal.ONE.subtract(BigDecimal.valueOf(this.significance / 200));
+        BigDecimal chance = BigDecimal.ZERO;
 
         for (int i = ((this.wilcoxonSampleList.size() * 2) - 1); i > 3; --i) {
-            if (chance >= significanceChance) {
-                chance = chance + this.calcChanceOfSpecificRankeSum(i, this.wilcoxonSampleList.size(), partVectors);
+            if (chance.compareTo(significanceChance) <= 0 ) {
+                chance = chance.add(this.calcChanceOfSpecificRankeSum(i, this.wilcoxonSampleList.size(), partVectors));
             } else {
                 break;
             }
