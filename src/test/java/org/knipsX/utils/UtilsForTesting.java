@@ -13,7 +13,7 @@ public final class UtilsForTesting {
     /**
      * Initialize the logger system.
      */
-    static void initLogger() {
+    public static void initLogger() {
         /* setting up the logger */
         BasicConfigurator.configure();
     }
