@@ -1087,7 +1087,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     }
 
     private synchronized void doUpdateTotalPictureText(final int numberOfPictures) {
-        JProjectView.this.jLabelTotalPictures.setText("Insgesamt Bilder:" + numberOfPictures);
+        JProjectView.this.jLabelTotalPictures.setText(Messages.getString("JProjectView.85") + " " + numberOfPictures);
     }
 
     private synchronized void setBehaviour(final boolean isActive) {
