@@ -15,7 +15,7 @@ public class InitializePictureThumbnailWorker extends SwingWorker<Void, Void> {
 
     private final ProjectModel model;
 
-    private final ExecutorService executor = Executors.newFixedThreadPool(3);
+    private final ExecutorService executor = Executors.newFixedThreadPool(2);
 
     /**
      * Initialize a SwingWorker which is connected with a ProjectModel.
