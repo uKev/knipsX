@@ -128,7 +128,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
     private Image thumbnailPicture = null;
 
-    private volatile Point thumbnailPoint = null;
+    private Point thumbnailPoint = null;
 
     private final Logger logger = Logger.getLogger(this.getClass());
 
@@ -1196,9 +1196,12 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     public void paint(Graphics g) {
         super.paint(g);
         if (this.thumbnailPicture != null && this.thumbnailPoint != null) {
+        	Point clonedThumbnailPoint = (Point) this.thumbnailPoint.clone();
             Point positionOfJList = this.jPanelPictureSetActive.getLocation();
-            this.thumbnailPoint.translate(positionOfJList.x, positionOfJList.y);
-            g.drawImage(this.thumbnailPicture, this.thumbnailPoint.x, this.thumbnailPoint.y, null);
+            
+            clonedThumbnailPoint.translate(positionOfJList.x, positionOfJList.y);
+            
+            g.drawImage(this.thumbnailPicture, clonedThumbnailPoint.x, clonedThumbnailPoint.y, null);
         }
     }
 }
