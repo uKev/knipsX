@@ -109,6 +109,16 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
     }
 
     /**
+     * Set all panels so that they are able to handle revalidation requests
+     */
+    protected void armAllPanels() {
+        for (final JAbstractSinglePanel singlepanel : this.reportCompilation.getRegisteredPanels()) {
+        	singlepanel.armed = true;
+        }
+    }
+    
+    
+    /**
      * Defines the default close operation when the view is closed by the user
      */
     protected void addCloseOperation() {

@@ -119,6 +119,7 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); 
         this.setLocationRelativeTo(null);
         this.setVisible(true);        
+        this.armAllPanels();
     }
 
     /**

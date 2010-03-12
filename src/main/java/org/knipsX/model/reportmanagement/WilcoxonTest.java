@@ -232,7 +232,7 @@ public class WilcoxonTest {
     private BigDecimal calcPValue(final BigDecimal chanceOfPosition, final BigInteger partVectors, final double rangeSum) {
         BigDecimal pValue = BigDecimal.ZERO;
         
-        BigDecimal significance = BigDecimal.valueOf(this.significance / 200);
+        BigDecimal significance = BigDecimal.valueOf(this.significance / 200.0d);
 
         if (this.wilcoxenTestType == WilcoxonTestType.TWO_SIDED) {
 
