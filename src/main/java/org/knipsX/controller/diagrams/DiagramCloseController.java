@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import org.knipsX.controller.AbstractController;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.diagrams.JAbstractDiagram;
+import org.knipsX.view.reportmanagement.JAbstractReportUtil;
 import org.knipsX.view.reportmanagement.ReportHelper;
 
 /**
@@ -29,9 +30,10 @@ public class DiagramCloseController<M, V extends JAbstractDiagram<?>> extends Ab
     public void actionPerformed(ActionEvent e) {
         /* Activate the current project view */
         ReportHelper.getProjectModel().setStatus(ProjectModel.ACTIVE);
+        
+        JAbstractReportUtil.setSingleton(false);
 
         this.view.dispose();
-
     }
 
 }
