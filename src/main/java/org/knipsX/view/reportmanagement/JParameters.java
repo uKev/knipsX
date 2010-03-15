@@ -381,16 +381,17 @@ public class JParameters extends JAbstractSinglePanel {
             if (ReportHelper.getCurrentReport() == ReportHelper.Boxplot) {
                 this.setRenderer(new OrdinalCellRenderer());
             }
-            final Object[] exifparams = new Object[ExifParameter.values().length + 1];
+            
+            ExifParameter[] activeParameters = ExifParameter.getActiveParameters();
 
-            for (int i = 0; i < exifparams.length - 1; ++i) {
+            for (int i = 0; i < activeParameters.length; ++i) {
 
                 if (i == 0) {
-                    exifparams[i] = "-";
+                	this.addItem(" - ");
                 } else {
-                    exifparams[i] = ExifParameter.values()[i - 1];
+                	this.addItem(activeParameters[i - 1]);
                 }
-                this.addItem(exifparams[i]);
+                
             }
             this.setSelectedIndex(0);
         }
