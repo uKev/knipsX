@@ -908,10 +908,15 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             if (this.rightPanel != null) {
                 this.add(this.rightPanel, BorderLayout.EAST);
             }
-
+            
             this.pack();
             this.setLocationRelativeTo(null);
             this.setVisible(true);
+            
+            for (JAbstractDiagram<?> diagram : this.furtherDiagrams) {
+            	diagram.showDiagram();
+            }
+            
         }
     }
 

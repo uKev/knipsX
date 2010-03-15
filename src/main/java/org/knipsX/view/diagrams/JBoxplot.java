@@ -81,14 +81,13 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
                 final String output = pValueResultText + Messages.getString("JBoxplot.15") + hypothesisResultText
                         + Messages.getString("JBoxplot.16") + rejected + Messages.getString("JBoxplot.17");
 
-                final JTextDiagram<TextModel> diagram = new JTextDiagram<TextModel>(new TextModel(output), -1);
-                diagram.showDiagram();
+                this.furtherDiagrams.add(new JTextDiagram<TextModel>(new TextModel(output), -1));
+                
             }
             this.setCameraPerspective(Perspectives.XYPLANE);
         } else {
 
             if (this.model != null) {
-
                 /* Output some kind of error message */
                 JOptionPane.showMessageDialog(this, Messages.getString("JBoxplot.18"));
                 this.displayDiagram = false;

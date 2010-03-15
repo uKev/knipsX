@@ -2,6 +2,8 @@ package org.knipsX.view.diagrams;
 
 import java.awt.Component;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 import javax.swing.JComponent;
@@ -33,6 +35,9 @@ public abstract class JAbstractDiagram<M extends AbstractReportModel> extends JA
 
     /** Specifies if the diagram should pop up. */
     protected boolean displayDiagram = true;
+    
+    /** Specifies a list a further diagram which are displayed after the main diagram */
+    protected List<JAbstractDiagram> furtherDiagrams = new ArrayList<JAbstractDiagram>();
 
     /**
      * Constructor.
