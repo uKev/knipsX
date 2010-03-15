@@ -39,8 +39,20 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
 
     /* the current reportCompilation of the report configuration utility */
     protected AbstractReportCompilation reportCompilation;
+    
+    
+    
+    private static boolean singleton = false;
 
-    /**
+    public static boolean isSingleton() {
+		return singleton;
+	}
+
+	public static void setSingleton(boolean singleton) {
+		JAbstractReportUtil.singleton = singleton;
+	}
+
+	/**
      * The constructor of the report configuration utility
      * 
      * @param model
@@ -48,6 +60,11 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
      */
     public JAbstractReportUtil(final M model) {
         super(model);
+        
+        /* Disables the current project view to prevent that the user changes picture sets during report creation */
+        ReportHelper.getProjectModel().setStatus(ProjectModel.INACTIVE);
+        
+        JAbstractReportUtil.singleton = true;
     }
 
     /**
@@ -128,6 +145,9 @@ public abstract class JAbstractReportUtil<M extends AbstractReportModel> extends
 
                 /* activate the current project view */
                 ReportHelper.getProjectModel().setStatus(ProjectModel.ACTIVE);
+                
+                JAbstractReportUtil.setSingleton(false);
+                
                 JAbstractReportUtil.this.dispose();
             }
         });

@@ -9,8 +9,8 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.view.projectview.JProjectView;
 import org.knipsX.view.reportmanagement.AbstractReportCompilation;
+import org.knipsX.view.reportmanagement.JAbstractReportUtil;
 import org.knipsX.view.reportmanagement.JReportConfig;
-import org.knipsX.view.reportmanagement.ReportHelper;
 
 /**
  * 
@@ -48,16 +48,13 @@ public class ReportClickOnController<M extends ProjectModel, V extends JProjectV
         if (mouseEvent.getButton() == ReportClickOnController.MOUSELEFT) {
             if (mouseEvent.getClickCount() == 2) {
 
-                /*
-                 * Disables the current project view to prevent that the user changes picture sets during report
-                 * creation
-                 */
-                ReportHelper.getProjectModel().setStatus(ProjectModel.INACTIVE);
 
                 if (this.view.getSelectedReports().length > 0) {
                     final int reportID = this.view.getSelectedReports()[0];
-                    new JReportConfig<AbstractReportModel, AbstractReportCompilation>(
-                            this.model.getReports()[reportID], reportID);
+                    if(!JAbstractReportUtil.isSingleton()) {
+	                    new JReportConfig<AbstractReportModel, AbstractReportCompilation>(
+	                            this.model.getReports()[reportID], reportID);
+                    }
                 }
             }
         }

@@ -10,8 +10,8 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.view.projectview.JProjectView;
 import org.knipsX.view.reportmanagement.AbstractReportCompilation;
+import org.knipsX.view.reportmanagement.JAbstractReportUtil;
 import org.knipsX.view.reportmanagement.JReportConfig;
-import org.knipsX.view.reportmanagement.ReportHelper;
 
 /**
  * 
@@ -43,13 +43,11 @@ public class ReportOpenController<M extends ProjectModel, V extends JProjectView
          * one saved in the model it might configure the wrong report
          */
         if (this.view.getSelectedReports().length > 0) {
-
-            /* Disables the current project view to prevent that the user changes picture sets during report creation */
-            ReportHelper.getProjectModel().setStatus(ProjectModel.INACTIVE);
-
-            final int reportID = this.view.getSelectedReports()[0];
-            new JReportConfig<AbstractReportModel, AbstractReportCompilation>(this.model.getReports()[reportID],
-                    reportID);
+        	if(!JAbstractReportUtil.isSingleton()) {
+	            final int reportID = this.view.getSelectedReports()[0];
+	            new JReportConfig<AbstractReportModel, AbstractReportCompilation>(this.model.getReports()[reportID],
+	                    reportID);
+        	}
         } else {
             JOptionPane.showMessageDialog(this.view, Messages.getString("ReportOpenController.0"), Messages
                     .getString("ReportOpenController.1"), JOptionPane.INFORMATION_MESSAGE);

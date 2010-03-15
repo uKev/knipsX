@@ -30,6 +30,8 @@ public class ReportCloseController<M, V extends JAbstractReportUtil<?>> extends 
         /* Activate the current project view */
         ReportHelper.getProjectModel().setStatus(ProjectModel.ACTIVE);
         
+        JAbstractReportUtil.setSingleton(false);
+        
     	this.view.dispose();
     }
 
