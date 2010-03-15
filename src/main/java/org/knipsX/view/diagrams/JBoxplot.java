@@ -142,13 +142,10 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
         /* create outliers */
         if (boxplot.getOutlier() != null) {
             for (int p = 0; p < boxplot.getOutlier().size(); p++) {
-                this.createSphere(new Vector3d(0, this.getYAxis().getAxisSpace(boxplot.getOutlier().get(p)), xSpace),
-                        new Vector3d(whiskerScale, boxWidth / 5, boxWidth / 5), this.basicMaterial(1, 1, 1));
+                this.createSphere(new Vector3d(xSpace, this.getYAxis().getAxisSpace(boxplot.getOutlier().get(p)), 0),
+                        new Vector3d(boxWidth / 5, whiskerScale, boxWidth / 5), this.basicMaterial(1, 1, 1));
             }
-        }
-
-        /* create tick on the x axis */
-        this.createCube(new Vector3d(0, 0, xSpace), new Vector3d(0.025, -0.25, 0.025), this.basicMaterial(1, 1, 1));
+        }        
 
         /* create picture set text beneath the boxplot */
         final int stringLength = boxplot.getPictureSetName().length();
