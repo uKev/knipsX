@@ -4,9 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -125,10 +123,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
     private JProgressBar pictureDataProgress = null;
 
-    private Image thumbnailPicture = null;
-
-    private Point thumbnailPoint = null;
-
     private final Logger logger = Logger.getLogger(this.getClass());
 
     /**
@@ -165,29 +159,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         this.setLocationRelativeTo(null);
 
         this.setVisible(true);
-    }
-
-    /**
-     * Is used for the thumbnail.
-     * 
-     * @param thumbnail
-     *            the thumbnail.
-     * @param pointWhereImageShouldBeDrawn
-     *            the point where the image is drawn.
-     */
-    public void setThumbnail(final Image thumbnail, final Point pointWhereImageShouldBeDrawn) {
-        this.thumbnailPicture = thumbnail;
-        this.thumbnailPoint = pointWhereImageShouldBeDrawn;
-        this.repaint();
-    }
-
-    /**
-     * Is used to remove a thumbnail.
-     */
-    public void removeThumbnail() {
-        this.thumbnailPicture = null;
-        this.thumbnailPoint = null;
-        this.repaint();
     }
 
     /*
@@ -764,7 +735,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final PictureListClickOnController<M, JProjectView<M>> controller = new PictureListClickOnController<M, JProjectView<M>>(
                     this.model, this);
             this.jListPictureSetActive.addMouseListener(controller);
-            this.jListPictureSetActive.addMouseMotionListener(controller);
 
             /* we store picture objects in the list, so we have to set a special rendering */
             this.jListPictureSetActive.setCellRenderer(new PictureListCellRenderer());
@@ -1202,24 +1172,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         }
         return allContents.toArray();
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.awt.Window#paint(java.awt.Graphics)
-     */
-    @Override
-    public void paint(final Graphics g) {
-        super.paint(g);
-        if ((this.thumbnailPicture != null) && (this.thumbnailPoint != null)) {
-            final Point clonedThumbnailPoint = (Point) this.thumbnailPoint.clone();
-            final Point positionOfJList = this.jPanelPictureSetActive.getLocation();
-
-            clonedThumbnailPoint.translate(positionOfJList.x, positionOfJList.y);
-
-            g.drawImage(this.thumbnailPicture, clonedThumbnailPoint.x, clonedThumbnailPoint.y, null);
-        }
-    }
 }
 
 /**
@@ -1373,7 +1325,9 @@ class PictureListCellRenderer implements ListCellRenderer {
             } else {
                 renderer.setIcon(this.noImageIcon);
             }
+            renderer.setToolTipText("<html><img src=\"file:" + picture.getThumbnailPath() + "\" </html>");
         }
+        
         renderer.setText(theText);
         renderer.setPreferredSize(new Dimension(renderer.getWidth(), 40));
 

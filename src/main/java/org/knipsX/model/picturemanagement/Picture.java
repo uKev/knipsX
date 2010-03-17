@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -37,6 +38,8 @@ public class Picture extends Observable implements PictureInterface {
     private Image smallThumbnail;
     private Image bigThumbnail;
 
+    private String tempFilePath;
+    
     /* Creates a logger for logging */
     private final Logger logger = Logger.getLogger(this.getClass());
 
@@ -101,6 +104,29 @@ public class Picture extends Observable implements PictureInterface {
 
     public String getPath() {
         return new String(this.pictureFile.getAbsolutePath());
+    }
+    
+   private boolean isTempFileCreated = false;
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.knipsX.model.picturemanagement.PictureInterface#getThumbnailPath()
+     */
+    public String getThumbnailPath() {
+        String id = ""+this.hashCode();
+        if(!this.isTempFileCreated) {
+            try {
+                File tempFile = File.createTempFile(id, ".jpg");
+                ImageIO.write((RenderedImage) this.getBigThumbnail(), "jpg", tempFile);
+                tempFile.deleteOnExit();
+                this.tempFilePath = tempFile.getAbsolutePath();
+                this.isTempFileCreated = true;
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return this.tempFilePath;
     }
 
     /**
@@ -190,11 +216,11 @@ public class Picture extends Observable implements PictureInterface {
                 this.smallThumbnail = this.getScaledInstance(bImage, newSizeSmall.width, newSizeSmall.height,
                         RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR, true);
                 isInitialized = true;
+                this.setChanged();
             } catch (final IOException e) {
                 this.logger.error("Can't create thumbnails from file - " + this.pictureFile.getAbsolutePath());
             }
-        }
-        this.setChanged();
+        }        
         return isInitialized;
     }
 
@@ -219,6 +245,7 @@ public class Picture extends Observable implements PictureInterface {
      * @see org.knipsX.model.picturemanagement.PictureInterface#getBigThumbnail()
      */
     public Image getBigThumbnail() {
+        this.initThumbnails();
         return this.bigThumbnail;
     }
 
