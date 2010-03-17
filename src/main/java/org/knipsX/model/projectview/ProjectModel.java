@@ -93,6 +93,10 @@ public class ProjectModel extends AbstractModel {
         this.creationDate = date;
         this.pictureSets = pictureSets;
         this.reports = reports;
+
+        if (pictureSets.size() > 0) {
+            this.selectedPictureSet = this.pictureSets.get(0);
+        }
     }
 
     /**
@@ -364,7 +368,7 @@ public class ProjectModel extends AbstractModel {
         this.pictureThumbnailQueue.clear();
 
         this.picturesProcessed = 0;
-        
+
         this.isInitialized = false;
 
         /* restart the workers */
@@ -373,12 +377,12 @@ public class ProjectModel extends AbstractModel {
 
     /** Unloads the data and stops running Threads. */
     public void unloadData() {
-        
+
         /* kill the workers */
         this.dataWorker.shutdownNow();
         this.thumbnailWorker.shutdownNow();
     }
-    
+
     /*
      * ################################################################################################################
      * -- THE MODEL THEMSELF
@@ -451,7 +455,7 @@ public class ProjectModel extends AbstractModel {
                 this.selectedPicture = null;
                 this.selectedPictureSet = null;
                 this.selectedPictureSetContent = null;
-                
+
                 this.reloadData();
             } else {
                 this.selectedPictureSet = this.pictureSets.get(0);
