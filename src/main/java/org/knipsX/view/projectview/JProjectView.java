@@ -1320,14 +1320,18 @@ class PictureListCellRenderer implements ListCellRenderer {
             theText = picture.getName();
 
             final Image smallThumbnail = picture.getSmallThumbnail();
+            
             if (smallThumbnail != null) {
                 renderer.setIcon(new ImageIcon(smallThumbnail));
             } else {
                 renderer.setIcon(this.noImageIcon);
             }
-            renderer.setToolTipText("<html><img src=\"file:" + picture.getThumbnailPath() + "\" </html>");
+            String imagePath = picture.getThumbnailPath();
+            
+            if(imagePath != null) {
+                renderer.setToolTipText("<html><img src=\"file:" + picture.getThumbnailPath() + "\" </html>");    
+            }            
         }
-        
         renderer.setText(theText);
         renderer.setPreferredSize(new Dimension(renderer.getWidth(), 40));
 

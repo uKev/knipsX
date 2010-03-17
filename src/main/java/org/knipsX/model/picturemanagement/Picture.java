@@ -113,17 +113,17 @@ public class Picture extends Observable implements PictureInterface {
      * @see org.knipsX.model.picturemanagement.PictureInterface#getThumbnailPath()
      */
     public String getThumbnailPath() {
-        String id = ""+this.hashCode();
-        if(!this.isTempFileCreated) {
+        String id = "" + this.hashCode();
+        
+        if(!this.isTempFileCreated && this.bigThumbnail != null) {
             try {
                 File tempFile = File.createTempFile(id, ".jpg");
-                ImageIO.write((RenderedImage) this.getBigThumbnail(), "jpg", tempFile);
+                ImageIO.write((RenderedImage) this.bigThumbnail, "jpg", tempFile);
                 tempFile.deleteOnExit();
                 this.tempFilePath = tempFile.getAbsolutePath();
                 this.isTempFileCreated = true;
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                this.logger.error(e.getMessage());
             }
         }
         return this.tempFilePath;
@@ -245,7 +245,6 @@ public class Picture extends Observable implements PictureInterface {
      * @see org.knipsX.model.picturemanagement.PictureInterface#getBigThumbnail()
      */
     public Image getBigThumbnail() {
-        this.initThumbnails();
         return this.bigThumbnail;
     }
 
