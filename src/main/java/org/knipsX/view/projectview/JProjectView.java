@@ -710,11 +710,11 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* INTERNATIONALIZE */
             if (this.model.getSelectedPictureSetContent() != null) {
                 final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                        "Bilder von Bildmengeninhalt " + this.model.getSelectedPictureSetContent().getName());
+                        Messages.getString("JProjectView.41") + this.model.getSelectedPictureSetContent().getName());
                 this.jPanelPictureSetActive.setBorder(title);
             } else if (this.model.getSelectedPictureSet() != null) {
                 final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                        "Bilder von Bildmenge" + this.model.getSelectedPictureSet().getName());
+                        Messages.getString("JProjectView.43") + this.model.getSelectedPictureSet().getName());
                 this.jPanelPictureSetActive.setBorder(title);
             }
 
@@ -1019,7 +1019,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                 JProjectView.this.setJTextComponentText(JProjectView.this.jEditorPaneProjectDescription,
                         JProjectView.this.model.getDescription());
 
-                JProjectView.this.setTitle("Projektansicht für " + JProjectView.this.model.getName());
+                JProjectView.this.setTitle(Messages.getString("JProjectView.90") + JProjectView.this.model.getName());
 
                 /* picture sets */
                 JProjectView.this.setJListPictureSets(JProjectView.this.jListPictureSet, JProjectView.this.model
@@ -1044,7 +1044,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                     JProjectView.this.jPanelPictureSetActive.setBorder(title);
                 } else if (JProjectView.this.model.getSelectedPictureSet() != null) {
                     final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                            "Bilder von Bildmenge" + JProjectView.this.model.getSelectedPictureSet().getName());
+                            Messages.getString("JProjectView.43") + JProjectView.this.model.getSelectedPictureSet().getName());
                     JProjectView.this.jPanelPictureSetActive.setBorder(title);
                 }
 
