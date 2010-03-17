@@ -117,10 +117,16 @@ public class Picture extends Observable implements PictureInterface {
         
         if(!this.isTempFileCreated && this.bigThumbnail != null) {
             try {
-                File tempFile = File.createTempFile(id, ".jpg");
+                File tmpDirectory = new File(System.getProperty("java.io.tmpdir") + File.separator + "knipsX");
+                tmpDirectory.mkdir();
+                tmpDirectory.deleteOnExit();
+                
+                File tempFile = File.createTempFile(id, ".jpg", tmpDirectory);
                 ImageIO.write((RenderedImage) this.bigThumbnail, "jpg", tempFile);
                 tempFile.deleteOnExit();
+                
                 this.tempFilePath = tempFile.getAbsolutePath();
+                
                 this.isTempFileCreated = true;
             } catch (IOException e) {
                 this.logger.error(e.getMessage());
