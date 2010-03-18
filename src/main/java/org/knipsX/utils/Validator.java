@@ -2,6 +2,7 @@ package org.knipsX.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.knipsX.model.picturemanagement.PictureContainer;
@@ -14,7 +15,7 @@ import org.knipsX.model.picturemanagement.PictureInterface;
 public final class Validator {
 
     /**
-     * Checks all pictures in an ArrayList of PictureContainers if it has all needed ExifParameters.
+     * Checks all pictures in an List of PictureContainers if it has all needed ExifParameters.
      * 
      * @param pictureContainers
      *            an ArrayList of PictureContainers that should be validated
@@ -24,24 +25,27 @@ public final class Validator {
      */
     public static List<PictureInterface> getValidPictures(final List<PictureContainer> pictureContainers,
             final List<ExifParameter> exifParameters) {
-
-        final List<PictureInterface> validPictures = new ArrayList<PictureInterface>();
+        final List<PictureInterface> validPictures = new LinkedList<PictureInterface>();
         boolean valid = false;
 
         for (final PictureContainer pictureContainer : pictureContainers) {
+
             for (final PictureInterface picture : pictureContainer) {
                 valid = true;
+
                 for (final ExifParameter exifParameter : exifParameters) {
-                    if (picture.getExifParameter(exifParameter) == null) {
+                    try {
+                        if (picture.getExifParameter(exifParameter) == null) {
+                            valid = false;
+                        }
+                    } catch (final NullPointerException e) {
                         valid = false;
                     }
                 }
                 if (valid) {
                     validPictures.add(picture);
                 }
-
             }
-
         }
         return validPictures;
     }
@@ -140,26 +144,30 @@ public final class Validator {
      */
     public static List<PictureInterface> getValidPictures(final List<PictureContainer> pictureContainers,
             final List<ExifParameter> exifParameters, final List<String> filterKeywords) {
-
-        final List<PictureInterface> validPictures = new ArrayList<PictureInterface>();
+        final List<PictureInterface> validPictures = new LinkedList<PictureInterface>();
         boolean valid = false;
 
         for (final PictureContainer pictureContainer : pictureContainers) {
+
             for (final PictureInterface picture : pictureContainer) {
                 valid = true;
+
                 for (final ExifParameter exifParameter : exifParameters) {
-                    if (picture.getExifParameter(exifParameter) == null) {
-                        valid = false;
-                    } else if (!picture.hasMinOneKeywordOf(filterKeywords)) {
+                    try {
+                        if (picture.getExifParameter(exifParameter) == null) {
+                            valid = false;
+                        } else if (!picture.hasMinOneKeywordOf(filterKeywords)) {
+                            valid = false;
+                        }
+                    } catch (final NullPointerException e) {
                         valid = false;
                     }
                 }
+
                 if (valid) {
                     validPictures.add(picture);
                 }
-
             }
-
         }
         return validPictures;
     }
@@ -181,10 +189,8 @@ public final class Validator {
      */
     public static List<PictureInterface> getValidPictures(final List<PictureContainer> pictureContainer,
             final ExifParameter parameter, final List<String> filterKeywords) {
-
         return Validator.getValidPictures(pictureContainer, new ArrayList<ExifParameter>(Arrays
                 .asList(new ExifParameter[] { parameter })), filterKeywords);
-
     }
 
     /**
@@ -255,7 +261,7 @@ public final class Validator {
      * @return true if it validates, false if not.
      */
     public static boolean isStringOk(final String toCheck) {
-        
+
         if ((toCheck == null) || toCheck.equals("") || (toCheck.length() > 255)) {
             return false;
         }

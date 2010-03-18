@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 import org.jdom.Document;
@@ -38,7 +39,10 @@ import org.knipsX.utils.ExifParameter;
 public class XMLInput {
 
     private Element project;
+
     private final Logger log = Logger.getLogger(this.getClass());
+
+    private Map<Integer, PictureSet> pictureSets;
 
     public XMLInput(final File xml) {
         final SAXBuilder saxBuilder = new SAXBuilder();
@@ -62,7 +66,7 @@ public class XMLInput {
             final String description = this.getDescription();
             final GregorianCalendar creationDate = this.getCreationDate();
             final List<PictureSet> pictureSets = this.getPictureSets();
-            final List<AbstractReportModel> reports = this.getReports(pictureSets);
+            final List<AbstractReportModel> reports = this.getReports();
 
             project = new ProjectModel(projectId, name, description, creationDate, pictureSets, reports);
         }
@@ -104,6 +108,23 @@ public class XMLInput {
         return cal;
     }
 
+    private Map<Integer, PictureSet> getAllPictureSets() {
+        
+        if (this.pictureSets == null) {
+            this.pictureSets = new TreeMap<Integer, PictureSet>();
+            
+            for (final Element set : XMLHelper.convertList(this.project.getChild("pictureSets").getChildren(
+                    "pictureSet"))) {
+
+                final int id = Integer.parseInt(set.getChildText("id"));
+                final String name = set.getChildText("name");
+
+                this.pictureSets.put(id, new PictureSet(name));
+            }
+        }
+        return this.pictureSets;
+    }
+
     /*
      * #########################################################
      * PICTURE SETS
@@ -117,21 +138,14 @@ public class XMLInput {
          * 1 -> picset1
          * 1234 -> picset2
          */
-        final Map<Integer, PictureSet> pictureSets = new HashMap<Integer, PictureSet>();
-        for (final Element set : XMLHelper.convertList(this.project.getChild("pictureSets").getChildren("pictureSet"))) {
-
-            final int id = Integer.parseInt(set.getChildText("id"));
-            final String name = set.getChildText("name");
-
-            pictureSets.put(id, new PictureSet(name));
-        }
+        final Map<Integer, PictureSet> pictureSets = this.getAllPictureSets();
 
         /*
          * store all directories in a hashmap like:
          * 1 -> dir1
          * 1234 -> dir2
          */
-        final Map<Integer, Directory> directories = new HashMap<Integer, Directory>();
+        final Map<Integer, Directory> directories = new TreeMap<Integer, Directory>();
         for (final Element set : XMLHelper.convertList(this.project.getChild("directories").getChildren("directory"))) {
 
             final int id = Integer.parseInt(set.getChildText("id"));
@@ -145,7 +159,7 @@ public class XMLInput {
          * 1 -> pic1
          * 1234 -> pic2
          */
-        final Map<Integer, Picture> pictures = new HashMap<Integer, Picture>();
+        final Map<Integer, Picture> pictures = new TreeMap<Integer, Picture>();
         for (final Element picture : XMLHelper.convertList(this.project.getChild("pictures").getChildren("picture"))) {
 
             final int id = Integer.parseInt(picture.getChildText("id"));
@@ -196,8 +210,9 @@ public class XMLInput {
      * #########################################################
      */
 
-    private List<AbstractReportModel> getReports(final List<PictureSet> pictureSets) {
+    private List<AbstractReportModel> getReports() {
         final List<AbstractReportModel> reports = new LinkedList<AbstractReportModel>();
+        final Map<Integer, PictureSet> pictureSets = this.getAllPictureSets();
 
         for (final Element report : XMLHelper.convertList(this.project.getChild("reports").getChildren("report"))) {
             final String type = report.getChildText("type");
@@ -217,8 +232,8 @@ public class XMLInput {
         return reports;
     }
 
-    private <T extends AbstractReportModel> T setupCommonData(final T model, final List<PictureSet> pictureSets,
-            final Element report) {
+    private <T extends AbstractReportModel> T setupCommonData(final T model,
+            final Map<Integer, PictureSet> pictureSets, final Element report) {
 
         /* set the meta data */
         model.setReportName(report.getChildText("name"));
@@ -226,10 +241,9 @@ public class XMLInput {
 
         /* connect the model with picture sets */
         for (final Element pictureSet : XMLHelper.convertList(report.getChild("pictureSets").getChildren("pictureSet"))) {
-            for (final PictureSet set : pictureSets) {
-                if (Integer.parseInt(pictureSet.getText()) == set.hashCode()) {
-                    model.addPictureContainer(set);
-                }
+            int key = Integer.parseInt(pictureSet.getText());
+            if (pictureSets.containsKey(key)) {
+                model.addPictureContainer(pictureSets.get(key));
             }
         }
 
@@ -260,7 +274,7 @@ public class XMLInput {
         return allKeywords;
     }
 
-    private BoxplotModel getBoxplotReport(final List<PictureSet> pictureSets, final Element report) {
+    private BoxplotModel getBoxplotReport(final Map<Integer, PictureSet> pictureSets, final Element report) {
         final BoxplotModel model = this.setupCommonData(new BoxplotModel(), pictureSets, report);
 
         /* extract the axes */
@@ -286,7 +300,7 @@ public class XMLInput {
         return model;
     }
 
-    private Histogram2DModel getHistogram2DReport(final List<PictureSet> pictureSets, final Element report) {
+    private Histogram2DModel getHistogram2DReport(final Map<Integer, PictureSet> pictureSets, final Element report) {
         final Histogram2DModel model = this.setupCommonData(new Histogram2DModel(), pictureSets, report);
 
         /* extract the axes */
@@ -301,7 +315,7 @@ public class XMLInput {
         return model;
     }
 
-    private Histogram3DModel getHistogram3DReport(final List<PictureSet> pictureSets, final Element report) {
+    private Histogram3DModel getHistogram3DReport(final Map<Integer, PictureSet> pictureSets, final Element report) {
         final Histogram3DModel model = this.setupCommonData(new Histogram3DModel(), pictureSets, report);
 
         /* extract the axes */
@@ -315,7 +329,7 @@ public class XMLInput {
         return model;
     }
 
-    private Cluster3DModel getCluster3DReport(final List<PictureSet> pictureSets, final Element report) {
+    private Cluster3DModel getCluster3DReport(final Map<Integer, PictureSet> pictureSets, final Element report) {
         final Cluster3DModel model = this.setupCommonData(new Cluster3DModel(), pictureSets, report);
 
         /* extract the axes */
@@ -331,7 +345,7 @@ public class XMLInput {
         return model;
     }
 
-    private TableModel getTableReport(final List<PictureSet> pictureSets, final Element report) {
+    private TableModel getTableReport(final Map<Integer, PictureSet> pictureSets, final Element report) {
         return this.setupCommonData(new TableModel(), pictureSets, report);
     }
 }

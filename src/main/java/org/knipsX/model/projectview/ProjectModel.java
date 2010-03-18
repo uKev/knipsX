@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.log4j.Logger;
 import org.knipsX.Messages;
@@ -58,8 +59,8 @@ public class ProjectModel extends AbstractModel {
 
     private final GregorianCalendar creationDate;
 
-    private final List<PictureSet> pictureSets;
-    private final List<AbstractReportModel> reports;
+    private final CopyOnWriteArrayList<PictureSet> pictureSets;
+    private final CopyOnWriteArrayList<AbstractReportModel> reports;
 
     private final ConcurrentLinkedQueue<PictureInterface> pictureDataQueue = new ConcurrentLinkedQueue<PictureInterface>();
     private final ConcurrentLinkedQueue<PictureInterface> pictureThumbnailQueue = new ConcurrentLinkedQueue<PictureInterface>();
@@ -91,8 +92,8 @@ public class ProjectModel extends AbstractModel {
         this.name = name;
         this.description = description;
         this.creationDate = date;
-        this.pictureSets = pictureSets;
-        this.reports = reports;
+        this.pictureSets = new CopyOnWriteArrayList<PictureSet>(pictureSets);
+        this.reports = new CopyOnWriteArrayList<AbstractReportModel>(reports);
 
         if (pictureSets.size() > 0) {
             this.selectedPictureSet = this.pictureSets.get(0);
@@ -127,7 +128,7 @@ public class ProjectModel extends AbstractModel {
     public void setStatus(final int state) {
         assert state < 2;
         assert state >= 0;
-        
+
         this.state = state;
         this.updateViews();
     }
@@ -243,7 +244,7 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return the amount of pictures.
      */
-    public synchronized int getNumberOfPictures() {
+    public int getNumberOfPictures() {
         int numberOfPictures = 0;
 
         for (final PictureSet set : this.pictureSets) {
@@ -420,7 +421,7 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return true if the picture set was added, false if not.
      */
-    public synchronized boolean addPictureSet(final PictureSet set) {
+    public boolean addPictureSet(final PictureSet set) {
         assert (set != null) && (set instanceof PictureSet);
 
         final boolean isAdded = this.pictureSets.add(set);
@@ -429,9 +430,9 @@ public class ProjectModel extends AbstractModel {
 
             /* TWEAK sort maybe at another location */
             Collections.sort(this.pictureSets);
-            
+
             this.updateViews();
-            
+
             this.reloadData();
         }
         return isAdded;
@@ -445,7 +446,7 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return true if the picture set was removed, false if not.
      */
-    public synchronized boolean removePictureSet(final PictureSet pictureSet) {
+    public boolean removePictureSet(final PictureSet pictureSet) {
         assert (pictureSet != null) && (pictureSet instanceof PictureSet);
 
         final boolean isRemoved = this.pictureSets.remove(pictureSet);
@@ -474,7 +475,7 @@ public class ProjectModel extends AbstractModel {
         return isRemoved;
     }
 
-    private synchronized void removeRecursivFromTree(final PictureSet root, final PictureSet toRemove) {
+    private void removeRecursivFromTree(final PictureSet root, final PictureSet toRemove) {
         root.remove(toRemove);
         final List<PictureContainer> items = root.getItems();
 
@@ -706,7 +707,7 @@ public class ProjectModel extends AbstractModel {
      *            the PictureContainer.
      * @return an amount of pictures of a PictureSet, PictureContainer or all pictures of the model (if both are null).
      */
-    public synchronized Picture[] getAllPictures(final PictureSet set, final PictureContainer content) {
+    public Picture[] getAllPictures(final PictureSet set, final PictureContainer content) {
         final List<PictureInterface> pictures = new ArrayList<PictureInterface>();
 
         if ((set != null) && (content == null)) {
@@ -784,7 +785,7 @@ public class ProjectModel extends AbstractModel {
      *            the id of the report.
      * @return true if the report was added, false if not.
      */
-    public synchronized boolean addReport(final AbstractReportModel report, final int reportId) {
+    public boolean addReport(final AbstractReportModel report, final int reportId) {
         assert (report != null) && (report instanceof AbstractReportModel);
         boolean returnValue = false;
 
@@ -806,7 +807,7 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return true if the report was removed, false if not.
      */
-    public synchronized boolean removeReport(final AbstractReportModel report) {
+    public boolean removeReport(final AbstractReportModel report) {
         assert (report != null) && (report instanceof AbstractReportModel);
 
         final boolean isRemoved = this.reports.remove(report);
