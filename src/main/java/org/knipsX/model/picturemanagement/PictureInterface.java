@@ -1,7 +1,6 @@
 package org.knipsX.model.picturemanagement;
 
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,9 +24,15 @@ public interface PictureInterface extends PictureContainer {
      * 
      * @return the path
      */
-
     String getPath();
 
+    /**
+     * Gets the path for the thumbnail normally used by the a tooltip.
+     * 
+     * @return the path.
+     */
+    String getBigThumbnailPath();
+    
     /**
      * Gets a specific Exif parameter from the picture
      * 

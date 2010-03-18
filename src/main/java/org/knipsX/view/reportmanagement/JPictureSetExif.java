@@ -259,79 +259,78 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         this.updateXMPData();
     }
 
-    
     /**
      * Returns a list of XMP keywords for the specified picture set
-     * @param pictureSet the picture set you want to retrieve the XMP keywords from
+     * 
+     * @param pictureSet
+     *            the picture set you want to retrieve the XMP keywords from
      * 
      * @return a list of keywords
      */
-    private List<String> getKeywordsFromPictureSet(PictureSet pictureSet) {
-    	final List<String> xmpKeywords = new ArrayList<String>();
-    	
-    	Picture[] pictures = ReportHelper.getProjectModel().getAllPicturesFromPictureSet(pictureSet);
-    	
-    	
-    	for(Picture picture : pictures) {
-    		
-    		 String[] xmpPictureKeyword = new String[0];
-    		
-            if ((picture.getExifParameter(ExifParameter.KEYWORDS) != null) && (picture.getExifParameter(ExifParameter.KEYWORDS) instanceof String[])) {
+    private List<String> getKeywordsFromPictureSet(final PictureSet pictureSet) {
+        final List<String> xmpKeywords = new ArrayList<String>();
+
+        final Picture[] pictures = ReportHelper.getProjectModel().getAllPictures(pictureSet, null);
+
+        for (final Picture picture : pictures) {
+
+            String[] xmpPictureKeyword = new String[0];
+
+            if ((picture.getExifParameter(ExifParameter.KEYWORDS) != null)
+                    && (picture.getExifParameter(ExifParameter.KEYWORDS) instanceof String[])) {
                 xmpPictureKeyword = (String[]) picture.getExifParameter(ExifParameter.KEYWORDS);
             }
-            
+
             for (int i = 0; i < xmpPictureKeyword.length; ++i) {
                 if (!xmpKeywords.contains(xmpPictureKeyword[i])) {
                     xmpKeywords.add(xmpPictureKeyword[i]);
                 }
             }
-    	}
-    	
-    	return xmpKeywords;
+        }
+
+        return xmpKeywords;
     }
-    
+
     /**
      * Writes the XMP Data into the available XMP data list
      */
     private void updateXMPData() {
 
-    	/* remove the keywords */
-    	for (Object pictureSet : this.availablePictureSets.getElements()) {
-    		if (pictureSet instanceof PictureSet) {
-    			this.availableExifTags.removeElements(this.getKeywordsFromPictureSet((PictureSet) pictureSet).toArray());
-    		}
-    	}
-    	
-    	/* Get a list of all associated picture keywords */
-    	final List<String> xmpKeywords = new ArrayList<String>();
-    	
-    	/* add the associated picture set's keyword to the available keywords list */
-    	for (Object pictureSet : this.associatedPictureSets.getElements()) {
-    		if (pictureSet instanceof PictureSet) {
-    			
-    			
-    			for (String keyword : this.getKeywordsFromPictureSet((PictureSet) pictureSet)) {
-    				if (!xmpKeywords.contains(keyword)) {
-    					xmpKeywords.add(keyword);
-    				}
-    			}
-    			
-    			this.availableExifTags.addElements(this.getKeywordsFromPictureSet((PictureSet) pictureSet).toArray());    			
-    		}
-    	}
-    	
-    	
-    	/* remove some more keywords */
-    	this.availableExifTags.removeElements(this.associatedExifTags.getElements());
-    	
-    	
-    	/* remove those keywords in the associated pane which have no associated picture set */
-    	for (Object keyword : this.associatedExifTags.getElements()) {
-    		if (!xmpKeywords.contains(keyword)) {
-    			this.associatedExifTags.removeElement(keyword);
-    		}
-    	}
-    	
+        /* remove the keywords */
+        for (final Object pictureSet : this.availablePictureSets.getElements()) {
+            if (pictureSet instanceof PictureSet) {
+                this.availableExifTags
+                        .removeElements(this.getKeywordsFromPictureSet((PictureSet) pictureSet).toArray());
+            }
+        }
+
+        /* Get a list of all associated picture keywords */
+        final List<String> xmpKeywords = new ArrayList<String>();
+
+        /* add the associated picture set's keyword to the available keywords list */
+        for (final Object pictureSet : this.associatedPictureSets.getElements()) {
+            if (pictureSet instanceof PictureSet) {
+
+                for (final String keyword : this.getKeywordsFromPictureSet((PictureSet) pictureSet)) {
+                    if (!xmpKeywords.contains(keyword)) {
+                        xmpKeywords.add(keyword);
+                    }
+                }
+
+                this.availableExifTags.addElements(this.getKeywordsFromPictureSet((PictureSet) pictureSet).toArray());
+            }
+        }
+
+        /* remove some more keywords */
+        this.availableExifTags.removeElements(this.associatedExifTags.getElements());
+
+        /* remove those keywords in the associated pane which have no associated picture set */
+        for (final Object keyword : this.associatedExifTags.getElements()) {
+            if (!xmpKeywords.contains(keyword)) {
+                this.associatedExifTags.removeElement(keyword);
+            }
+        }
+
     }
 
     /**
@@ -369,12 +368,12 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
         try {
 
-            if (this.associatedPictureSets.getContents().size() > 0) {
+            if ((this.associatedPictureSets.getContents().size() > 0) && this.armed) {
 
                 /* check to see if there are images in the specified image set */
                 for (final PictureContainer pictureContainer : this.getPictureContainer()) {
 
-                    int numberOfElements = ReportHelper.getProjectModel().getAllPicturesFromPictureSet((PictureSet) pictureContainer).length;                    
+                    final int numberOfElements = ReportHelper.getProjectModel().getAllPictures(null, pictureContainer).length;
 
                     if (numberOfElements == 0) {
                         this.errorMessage.setIcon(Resource.createImageIcon("status/dialog-error.png", "", "32"));
@@ -515,7 +514,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     private class JFlexibleList extends JList {
 
         private static final long serialVersionUID = 4010043419553712109L;
-        
+
         /**
          * The default constructor of the JFlexibleList
          */
@@ -544,9 +543,9 @@ public class JPictureSetExif extends JAbstractSinglePanel {
         public void addElements(final Object[] elements) {
 
             for (final Object element : elements) {
-            	if(!this.getContents().contains(element)) {
-            		this.getContents().addElement(element);
-            	}
+                if (!this.getContents().contains(element)) {
+                    this.getContents().addElement(element);
+                }
             }
         }
 
@@ -584,17 +583,17 @@ public class JPictureSetExif extends JAbstractSinglePanel {
                 this.getContents().removeElement(element);
             }
         }
-        
+
         /**
          * Removes the specified element
-         * @param element the element you want to delete
+         * 
+         * @param element
+         *            the element you want to delete
          */
         public void removeElement(final Object element) {
-        	this.getContents().removeElement(element);
+            this.getContents().removeElement(element);
         }
-        
 
-        
     }
 
     /**
@@ -633,7 +632,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
             if (value instanceof PictureSet) {
                 final PictureSet pictureContainer = (PictureSet) value;
-                final PictureContainer[] containers = ReportHelper.getProjectModel().getAllPicturesFromPictureSet(
+                final PictureContainer[] containers = ReportHelper.getProjectModel().getAllPictures(null,
                         pictureContainer);
                 final int numberOfElements = containers.length;
                 theText = pictureContainer.getName() + " (" + numberOfElements + ")";

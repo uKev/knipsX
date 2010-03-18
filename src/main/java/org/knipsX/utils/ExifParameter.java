@@ -1,5 +1,8 @@
 package org.knipsX.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.knipsX.Messages;
 
 public enum ExifParameter {
@@ -14,6 +17,11 @@ public enum ExifParameter {
         public boolean isOrdinal() {
             return false;
         }
+
+		@Override
+		public boolean active() {
+			return false;
+		}
     },
 
     FLASH {
@@ -26,6 +34,11 @@ public enum ExifParameter {
         public boolean isOrdinal() {
             return false;
         }
+
+		@Override
+		public boolean active() {
+			return true;
+		}
     },
 
     FNUMBER {
@@ -38,6 +51,11 @@ public enum ExifParameter {
         public boolean isOrdinal() {
             return true;
         }
+
+		@Override
+		public boolean active() {
+			return true;
+		}
     },
 
     EXPOSURETIME {
@@ -50,6 +68,11 @@ public enum ExifParameter {
         public boolean isOrdinal() {
             return true;
         }
+
+		@Override
+		public boolean active() {
+			return true;
+		}
     },
 
     ISO {
@@ -62,6 +85,11 @@ public enum ExifParameter {
         public boolean isOrdinal() {
             return true;
         }
+
+		@Override
+		public boolean active() {
+			return true;
+		}
     },
 
     FOCALLENGTH {
@@ -74,6 +102,11 @@ public enum ExifParameter {
         public boolean isOrdinal() {
             return true;
         }
+
+		@Override
+		public boolean active() {
+			return true;
+		}
     },
 
     DATE {
@@ -86,6 +119,11 @@ public enum ExifParameter {
         public boolean isOrdinal() {
             return true;
         }
+
+		@Override
+		public boolean active() {
+			return true;
+		}
     },
 
     OBJECTIVENAME {
@@ -98,6 +136,11 @@ public enum ExifParameter {
         public boolean isOrdinal() {
             return true;
         }
+
+		@Override
+		public boolean active() {
+			return true;
+		}
     },
 
     KEYWORDS {
@@ -110,6 +153,11 @@ public enum ExifParameter {
         public boolean isOrdinal() {
             return true;
         }
+
+		@Override
+		public boolean active() {
+			return false;
+		}
     };
 
     /**
@@ -125,5 +173,30 @@ public enum ExifParameter {
      * @return Returns true if EXIF parameter is ordinal, false otherwise
      */
     public abstract boolean isOrdinal();
+    
+    
+    /**
+     * Specifies if the parameter should be used inside knipsX. This method was introduced
+     * because some EXIF parameters weren't processed correctly.
+     *  
+     * @return returns true if the EXIF parameter should be used in a report, false otherwise
+     */
+    public abstract boolean active();
+    
+    
+    public static ExifParameter[] getActiveParameters() {
+    	List<ExifParameter> validExifParameters = new ArrayList<ExifParameter>();
+    	
+    	for (ExifParameter param : ExifParameter.values()) {
+    		if (param.active()) {
+    			validExifParameters.add(param);
+    		}
+    	}
+    	
+    	ExifParameter[] returnarray = new ExifParameter[validExifParameters.size()];
+    	validExifParameters.toArray(returnarray);
+    	
+    	return returnarray;
+    }
 
 }

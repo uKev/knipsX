@@ -7,8 +7,8 @@ import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.view.projectview.JProjectView;
 import org.knipsX.view.reportmanagement.AbstractReportCompilation;
+import org.knipsX.view.reportmanagement.JAbstractReportUtil;
 import org.knipsX.view.reportmanagement.JReportWizard;
-import org.knipsX.view.reportmanagement.ReportHelper;
 
 /**
  * 
@@ -35,9 +35,8 @@ public class ReportCreateController<M extends ProjectModel, V extends JProjectVi
     @Override
     public void actionPerformed(final ActionEvent e) {
 
-        /* Disables the current project view to prevent that the user changes picture sets during report creation */
-        ReportHelper.getProjectModel().setStatus(ProjectModel.INACTIVE);
-
-        new JReportWizard<AbstractReportModel, AbstractReportCompilation>();
+        if (!JAbstractReportUtil.isSingleton()) {
+            new JReportWizard<AbstractReportModel, AbstractReportCompilation>();
+        }
     }
 }

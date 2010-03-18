@@ -9,6 +9,7 @@ import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.utils.Converter;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.Validator;
+import org.knipsX.utils.Values;
 
 /**
  * The model auf the Histogram3D which calculate the statistic categories and allocate the axes to the Data.
@@ -160,22 +161,24 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
             for (int j = 0; j < this.categories[i].length; ++j) {
 
-                if (this.categories[i][j].getMaxValueX() > this.maxX) {
+                 
+                // Don't use math.abs because we want to check for ">=" or "<=" and not "==" !!!
+                if ((this.categories[i][j].getMaxValueX() - this.maxX) > Values.EPSILON) {
                     this.logger.debug("found biggest X value: " + this.categories[i][j].getMaxValueX() + " >= "
                             + this.maxX + " (" + i + " " + j + ")");
                 }
 
-                if (this.categories[i][j].getMaxValueZ() > this.maxZ) {
+                if ((this.categories[i][j].getMaxValueZ() - this.maxZ) > Values.EPSILON) {
                     this.logger.debug("found biggest Z value: " + this.categories[i][j].getMaxValueZ() + " >= "
                             + this.maxZ + " (" + i + " " + j + ")");
                 }
 
-                if (this.categories[i][j].getMinValueX() < this.minX) {
+                if ((this.minX - this.categories[i][j].getMinValueX()) > Values.EPSILON) {
                     this.logger.debug("found smallest X value: " + this.categories[i][j].getMinValueX() + " <= "
                             + this.minX + " (" + i + " " + j + ")");
                 }
 
-                if (this.categories[i][j].getMinValueZ() < this.minZ) {
+                if ((this.minZ - this.categories[i][j].getMinValueZ()) > Values.EPSILON) {
                     this.logger.debug("found smallest Z value: " + this.categories[i][j].getMinValueZ() + " <= "
                             + this.minZ + " (" + i + " " + j + ")");
                 }
@@ -237,7 +240,7 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         assert this.getXAxis() != null;
         assert this.getZAxis().getParameter() != null;
         assert this.getXAxis().getParameter() != null;
-        
+
         exifParameters.add(this.getXAxis().getParameter());
         exifParameters.add(this.getZAxis().getParameter());
 
@@ -252,8 +255,8 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
 
             this.maxX = Math.max(this.maxX, xValue);
             this.maxZ = Math.max(this.maxZ, zValue);
-            this.minX = Math.max(this.minX, xValue);
-            this.minZ = Math.max(this.minZ, zValue);
+            this.minX = Math.min(this.minX, xValue);
+            this.minZ = Math.min(this.minZ, zValue);
         }
     }
 
@@ -279,13 +282,14 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
         }
         this.categories = new Category[numberOfCategories][numberOfCategories];
 
-        /* Calculate the distance from the minimum to the maximum.
+        /*
+         * Calculate the distance from the minimum to the maximum.
          * If the distance is zero, the minimum is equal to the maximum value
-         * and we have only one category. 
+         * and we have only one category.
          * Then we need to set the distance to 1 to prevent the Armageddon.
          * Because the different only must not be exactly zero, it's OK to compare doubles without epsilon.
          * If they are slightly different - the world is rescued ;).
-         *  */
+         */
         double deltaX = Math.abs(this.maxX - this.minX);
         double deltaZ = Math.abs(this.maxZ - this.minZ);
 
@@ -336,40 +340,40 @@ public class Histogram3DModel extends AbstractDoubleAxesModel {
          * FIXME: Add this kind of checks also to the other diagram models.
          */
         if (this.getXAxis() == null) {
-            logger.info("xAxis is null");
+            this.logger.info("xAxis is null");
             return false;
         }
         if (this.getZAxis() == null) {
-            logger.info("zAxis is null");
+            this.logger.info("zAxis is null");
             return false;
         }
         if (this.getXAxis().getParameter() == null) {
-            logger.info("xAxis parameter is null");
+            this.logger.info("xAxis parameter is null");
             return false;
         }
         if (this.getZAxis().getParameter() == null) {
-            logger.info("zAxis parameter is null");
+            this.logger.info("zAxis parameter is null");
             return false;
         }
-        
+
         this.calculateIfRequired();
-        
+
         /*
          * Check if calculation was correct.
          */
-        
+
         if (this.maxX < this.minX) {
-            this.logger.info("maxX < minX");
+            this.logger.info(String.format("maxX < minX: %f < %f", this.maxX, this.minX));
             return false;
         }
 
         if (this.maxZ < this.minZ) {
-            this.logger.info("maxZ < minZ");
+            this.logger.info(String.format("maxZ < minZ: %f < %f", this.maxZ, this.minZ));
             return false;
         }
 
         if (this.maxY < this.minY) {
-            this.logger.info("maxY < minY");
+            this.logger.info(String.format("maxY < minY: %f < %f", this.maxY, this.minY));
             return false;
         }
 

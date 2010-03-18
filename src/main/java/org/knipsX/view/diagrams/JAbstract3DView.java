@@ -49,6 +49,7 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
+import org.apache.log4j.Logger;
 import org.knipsX.Messages;
 import org.knipsX.controller.diagrams.View3DClickController;
 import org.knipsX.model.picturemanagement.PictureContainer;
@@ -139,6 +140,9 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
     /** The default perspective which executed set in the postinitialized() method. */
     protected Perspectives perspective = Perspectives.PERSPECTIVE;
 
+    /** Initialize the logger **/
+    private Logger log = Logger.getLogger(this.getClass());
+    
     /**
      * Constructor initialized the canvas3D.
      * 
@@ -165,14 +169,21 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         /* initialize the universe of the 3D view */
         this.simpleUniverse = new SimpleUniverse(this.canvas3D);
 
-        /* call the preinitialization routine */
-        this.preInitialize();
-
-        /* call the generateContent routine which is implemented by every diagram type */
-        this.generateContent();
-
-        /* call the postinitialization routine */
-        this.postInitialize();
+       	try {        
+	        /* call the preinitialization routine */
+	        this.preInitialize();
+	
+	        /* call the generateContent routine which is implemented by every diagram type */
+	        this.generateContent();
+	
+	        /* call the postinitialization routine */
+	        this.postInitialize();
+       	}
+       	catch (IllegalArgumentException e) {
+    		/* catch various java 3d exceptions. See issue #188 */
+    		this.log.error(e.toString());    		
+    	}
+        
     }
 
     /** Creates and assigns a default light setup to the root BranchGroup. */
@@ -729,6 +740,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
         this.pickCanvas.setMode(PickInfo.PICK_GEOMETRY);
 
         this.canvas3D.addMouseListener(new View3DClickController(this));
+        
     }
 
     /** Specifies the preinitialization routine which is executed before every scene draw. */
@@ -896,10 +908,15 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             if (this.rightPanel != null) {
                 this.add(this.rightPanel, BorderLayout.EAST);
             }
-
+            
             this.pack();
             this.setLocationRelativeTo(null);
             this.setVisible(true);
+            
+            for (JAbstractDiagram<?> diagram : this.furtherDiagrams) {
+            	diagram.showDiagram();
+            }
+            
         }
     }
 

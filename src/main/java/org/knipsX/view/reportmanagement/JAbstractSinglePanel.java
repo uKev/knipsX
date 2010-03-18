@@ -102,6 +102,9 @@ public abstract class JAbstractSinglePanel extends JComponent {
         /* force the report utility to update */
         ReportHelper.getCurrentReportUtility().repaint();
     }
+    
+    /** Specifies if the panel is ready to check if diagram is saveable and displayable */
+    protected boolean armed = false;
 
     /** This method is responsible for filling the view with the information from the model. */
     public abstract void fillViewWithModelInfo();

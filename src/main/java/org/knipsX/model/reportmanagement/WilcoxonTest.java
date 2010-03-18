@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.utils.Converter;
@@ -30,6 +31,7 @@ public class WilcoxonTest {
     private boolean isActive = false;
     private boolean isValid = false;
     private boolean isCalculated = false;
+    private Logger logger = Logger.getLogger(this.getClass());
 
     /**
      * Constructor for a new Wilcoxontest without any settings.
@@ -232,7 +234,7 @@ public class WilcoxonTest {
     private BigDecimal calcPValue(final BigDecimal chanceOfPosition, final BigInteger partVectors, final double rangeSum) {
         BigDecimal pValue = BigDecimal.ZERO;
         
-        BigDecimal significance = BigDecimal.valueOf(this.significance / 200);
+        BigDecimal significance = BigDecimal.valueOf(this.significance / 200.0d);
 
         if (this.wilcoxenTestType == WilcoxonTestType.TWO_SIDED) {
 
@@ -309,8 +311,18 @@ public class WilcoxonTest {
                 }
             }
         }
-        BigDecimal chance = (BigDecimal.valueOf(vectors).divide(BigDecimal.valueOf(2.0d))).divide(new BigDecimal(partVectors));
-        return chance;
+        try {
+        	BigDecimal chance = (BigDecimal.valueOf(vectors).divide(BigDecimal.valueOf(2.0d))).divide(new BigDecimal(partVectors));
+        	return chance;
+        }
+        catch (ArithmeticException e) {
+        	logger.error(e.toString());
+        }
+        
+        //ERROR!
+        return BigDecimal.valueOf(-1); 
+        
+        
     }
 
     /*

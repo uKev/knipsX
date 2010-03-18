@@ -10,6 +10,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import org.apache.log4j.Logger;
 import org.knipsX.Messages;
 import org.knipsX.controller.reportmanagement.ReportCloseController;
 import org.knipsX.controller.reportmanagement.ReportSaveController;
@@ -39,7 +40,10 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
 
     private JPanel basic;
     private JPanel mainpanel;
+    
+    private Logger logger = Logger.getLogger(this.getClass());
 
+    //TODO don't use fixed sizes here. Get size from a utility class
     private final int[] mysize = { 800, 600 };
 
     /**
@@ -61,6 +65,8 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
 
         this.addCloseOperation();
         this.addCurrentReportConfig();
+        
+        
 
         this.reportId = reportID;
         this.reportCompilation = ReportHelper.getCurrentReport().createReportCompilation();
@@ -72,6 +78,11 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
                 .addActionListener(new ReportSaveController<AbstractReportModel, JReportConfig<?, ?>>(this, true));
 
         this.initialize();
+        
+        
+        logger.info("Assoicated Picture Sets " + this.model.getPictureContainer());
+        
+        
         
     }
 
@@ -91,9 +102,6 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
         this.basic.add(this.mainpanel);
         this.basic.add(bottom);
 
-        ReportHelper.getCurrentReportUtility().revalidateDisplayability();
-        ReportHelper.getCurrentReportUtility().revalidateSaveability();
-
         this.add(this.basic);
 
        
@@ -102,6 +110,9 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
         this.pack();  
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        this.armAllPanels();
+        this.revalidateDisplayability();
+        this.revalidateSaveability();
     }
 
     private void addCurrentReportConfig() {

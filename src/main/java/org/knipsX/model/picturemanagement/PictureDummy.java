@@ -97,6 +97,14 @@ public class PictureDummy implements PictureInterface {
         // TODO Auto-generated method stub
         return null;
     }
+    /*
+     * {@inheritDoc}
+     * 
+     * @see org.knipsX.model.picturemanagement.PictureInterface#getPath()
+     */
+    public String getBigThumbnailPath() {
+        return null;
+    }
 
     /* (non-Javadoc)
      * @see org.knipsX.model.picturemanagement.PictureInterface#getScaledInstance(java.awt.image.BufferedImage, int, int, java.lang.Object, boolean)

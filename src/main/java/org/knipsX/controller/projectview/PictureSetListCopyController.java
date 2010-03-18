@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import org.knipsX.Messages;
 import org.knipsX.controller.AbstractController;
+import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
@@ -72,7 +73,15 @@ public class PictureSetListCopyController<M extends ProjectModel, V extends JPro
 
                 /* has user give in a project name? */
                 if (pictureSetName != null) {
-                    this.model.addPictureSet(new PictureSet(pictureSetToCopy, pictureSetName));
+                    PictureSet copySet = new PictureSet(pictureSetToCopy, pictureSetName);
+                    
+                    this.model.addPictureSet(copySet);
+                    this.model.setSelectedPictureSet(copySet);
+                    
+                    if (copySet.getItems().size() > 0) {
+                        PictureContainer newContainer = copySet.getItems().get(0);
+                        this.model.setSelectedPictureSetContent(newContainer);
+                    }
                 }
             }
 

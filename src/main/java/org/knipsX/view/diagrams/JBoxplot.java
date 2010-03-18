@@ -51,14 +51,14 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
             boxplots = new Boxplot[this.model.getBoxplots().size()];
             this.model.getBoxplots().toArray(boxplots);
 
-            logger.debug(Messages.getString("JBoxplot.0") + this.model.getMinY() + Messages.getString("JBoxplot.1")
-                    + this.model.getMaxY() + Messages.getString("JBoxplot.2") + boxplots[0].getMean()
-                    + Messages.getString("JBoxplot.3") + boxplots[0].getMedian() + Messages.getString("JBoxplot.4")
-                    + boxplots[0].getMaxValue() + Messages.getString("JBoxplot.5") + boxplots[0].getMinValue()
-                    + Messages.getString("JBoxplot.6") + boxplots[0].getLowerWhisker()
-                    + Messages.getString("JBoxplot.7") + boxplots[0].getUpperWhisker()
-                    + Messages.getString("JBoxplot.8") + boxplots[0].getLowerQuartile()
-                    + Messages.getString("JBoxplot.9") + boxplots[0].getUpperQuartile());
+            logger.debug("MinY: " + this.model.getMinY() + " MaxY: "
+                    + this.model.getMaxY() + " Mean: " + boxplots[0].getMean()
+                    + " Median: " + boxplots[0].getMedian() + " MaxValue: "
+                    + boxplots[0].getMaxValue() + " MinValue: " + boxplots[0].getMinValue()
+                    + " LowerWhisker: " + boxplots[0].getLowerWhisker()
+                    + " UpperWhisker: " + boxplots[0].getUpperWhisker()
+                    + " LowerQuartile: " + boxplots[0].getLowerQuartile()
+                    + " UpperQuartile: " + boxplots[0].getUpperQuartile());
 
             this.getXAxis().setAxisSize(Math.max(2 * boxplots.length, 10));
 
@@ -81,14 +81,13 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
                 final String output = pValueResultText + Messages.getString("JBoxplot.15") + hypothesisResultText
                         + Messages.getString("JBoxplot.16") + rejected + Messages.getString("JBoxplot.17");
 
-                final JTextDiagram<TextModel> diagram = new JTextDiagram<TextModel>(new TextModel(output), -1);
-                diagram.showDiagram();
+                this.furtherDiagrams.add(new JTextDiagram<TextModel>(new TextModel(output), -1));
+                
             }
             this.setCameraPerspective(Perspectives.XYPLANE);
         } else {
 
             if (this.model != null) {
-
                 /* Output some kind of error message */
                 JOptionPane.showMessageDialog(this, Messages.getString("JBoxplot.18"));
                 this.displayDiagram = false;
@@ -143,13 +142,10 @@ public class JBoxplot<M extends BoxplotModel> extends JAbstract2DDiagram<M> {
         /* create outliers */
         if (boxplot.getOutlier() != null) {
             for (int p = 0; p < boxplot.getOutlier().size(); p++) {
-                this.createSphere(new Vector3d(0, this.getYAxis().getAxisSpace(boxplot.getOutlier().get(p)), xSpace),
-                        new Vector3d(whiskerScale, boxWidth / 5, boxWidth / 5), this.basicMaterial(1, 1, 1));
+                this.createSphere(new Vector3d(xSpace, this.getYAxis().getAxisSpace(boxplot.getOutlier().get(p)), 0),
+                        new Vector3d(boxWidth / 5, whiskerScale, boxWidth / 5), this.basicMaterial(1, 1, 1));
             }
-        }
-
-        /* create tick on the x axis */
-        this.createCube(new Vector3d(0, 0, xSpace), new Vector3d(0.025, -0.25, 0.025), this.basicMaterial(1, 1, 1));
+        }        
 
         /* create picture set text beneath the boxplot */
         final int stringLength = boxplot.getPictureSetName().length();

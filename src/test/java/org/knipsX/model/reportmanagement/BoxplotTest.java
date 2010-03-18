@@ -3,198 +3,74 @@
  */
 package org.knipsX.model.reportmanagement;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.junit.After;
-import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.knipsX.model.picturemanagement.DummyPictureSetGenerator;
+import org.knipsX.utils.ExifParameter;
+import org.knipsX.utils.UtilsForTesting;
 import org.knipsX.utils.Values;
 
 /**
  * This test is about the calculation of the boxplot basics.
+ * 
  * @author Kevin Zuber
  * 
  */
 public class BoxplotTest {
 
-    private static final double EPSILON = Values.EPSILON;
+    private static final double delta = Values.EPSILON;
+    private Boxplot testBoxplot;
 
-
-    /**
-     * @throws java.lang.Exception
-     */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
+        UtilsForTesting.initLogger();
     }
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @AfterClass
-    public static void tearDownAfterClass() throws Exception {
-    }
-
+    
     /**
      * @throws java.lang.Exception
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUpBefore() throws Exception {
+        this.testBoxplot = new Boxplot();
     }
 
     /**
-     * @throws java.lang.Exception
-     */
-    @After
-    public void tearDown() throws Exception {
-    }
-
-    
-    /**
-     * Test method for
-     * {@link org.knipsX.model.reportmanagement.Boxplot#Boxplot(double, double, double, double, double, double, double[], double, double, java.lang.String)}
-     * .
-     */
-    /*
-     * @Test
-     * public void testBoxplotDoubleDoubleDoubleDoubleDoubleDoubleDoubleArrayDoubleDoubleString() {
-     * fail("Not yet implemented");
-     * }
-     * 
-     * /**
-     * Test method for {@link
-     * org.knipsX.model.reportmanagement.Boxplot#Boxplot(org.knipsX.model.picturemanagement.PictureContainer,
-     * org.knipsX.utils.ExifParameter, java.lang.String)}.
-     */
-    /*
-     * @Test
-     * public void testBoxplotPictureContainerExifParameterString() {
-     * fail("Not yet implemented");
-     * }
-     * 
-     * /**
-     * Test method for {@link
-     * org.knipsX.model.reportmanagement.Boxplot#Boxplot(org.knipsX.model.picturemanagement.PictureContainer,
-     * org.knipsX.utils.ExifParameter)}.
-     */
-    /*
-     * @Test
-     * public void testBoxplotPictureContainerExifParameter() {
-     * fail("Not yet implemented");
-     * }
-     * 
-     * /**
-     * Test method for {@link org.knipsX.model.reportmanagement.Boxplot#getLowerQuartile()}.
-     */
-    /*
-     * @Test
-     * public void testGetLowerQuartile() {
-     * fail("Not yet implemented");
-     * }
-     * 
-     * /**
-     * Test method for {@link org.knipsX.model.reportmanagement.Boxplot#getLowerWhisker()}.
-     */
-    /*
-     * @Test
-     * public void testGetLowerWhisker() {
-     * fail("Not yet implemented");
-     * }
-     * 
-     * /**
-     * Test method for {@link org.knipsX.model.reportmanagement.Boxplot#getMaxValue()}.
-     */
-    /*
-     * @Test
-     * public void testGetMaxValue() {
-     * fail("Not yet implemented");
-     * }
-     * 
-     * /**
-     * Test method for {@link org.knipsX.model.reportmanagement.Boxplot#getMean()}.
-     */
-    /*
-     * @Test
-     * public void testGetMean() {
-     * fail("Not yet implemented");
-     * }
-     * 
-     * /**
-     * Test method for {@link org.knipsX.model.reportmanagement.Boxplot#getMedian()}.
-     */
-    /*
-     * @Test
-     * public void testGetMedian() {
-     * fail("Not yet implemented");
-     * }
-     * 
-     * /**
-     * Test method for {@link org.knipsX.model.reportmanagement.Boxplot#getMinValue()}.
-     */
-    /*
-     * @Test
-     * public void testGetMinValue() {
-     * fail("Not yet implemented");
-     * }
-     * 
-     * /**
-     * Test method for {@link org.knipsX.model.reportmanagement.Boxplot#getOutlier()}.
-     */
-    /*
-     * @Test
-     * public void testGetOutlier() {
-     * fail("Not yet implemented");
-     * }
-     * 
-     * /**
-     * Test method for {@link org.knipsX.model.reportmanagement.Boxplot#getPictureSetName()}.
-     */
-    /*
-     * @Test
-     * public void testGetPictureSetName() {
-     * fail("Not yet implemented");
-     * }
-     * 
-     * /**
-     * Test method for {@link org.knipsX.model.reportmanagement.Boxplot#getUpperQuartile()}.
-     */
-    /*
-     * @Test
-     * public void testGetUpperQuartile() {
-     * fail("Not yet implemented");
-     * }
-     * 
-     * /**
-     * Test method for {@link org.knipsX.model.reportmanagement.Boxplot#getUpperWhisker()}.
-     */
-    /*
-     * @Test
-     * public void testGetUpperWhisker() {
-     * fail("Not yet implemented");
-     * }
-     * 
-     * /**
-     * Test method for {@link org.knipsX.model.reportmanagement.Boxplot#quantile(java.util.ArrayList, double)}.
+     * Test the Boxplot with only one element
      */
     @Test
-    public void testQuantile() {
-        final Boxplot testBoxplot = new Boxplot();
+    public void testBoxplotWithOneElement() {
+        final Object[][] values = {
 
+        { 16, 3.1, 0.0125, 100, 952123114400L, 6.3 }
+
+        };
+
+        ;
+        this.testBoxplot = new Boxplot(DummyPictureSetGenerator.getDummyPictureSet(values), ExifParameter.FOCALLENGTH);
+
+        Assert.assertEquals(6.3d, this.testBoxplot.getMean(), BoxplotTest.delta);
+        Assert.assertEquals(6.3d, this.testBoxplot.getLowerQuartile(), BoxplotTest.delta);
+        Assert.assertEquals(6.3d, this.testBoxplot.getUpperQuartile(), BoxplotTest.delta);
+        Assert.assertEquals(6.3d, this.testBoxplot.getMaxValue(), BoxplotTest.delta);
+        Assert.assertEquals(6.3d, this.testBoxplot.getMinValue(), BoxplotTest.delta);
+        Assert.assertEquals(6.3d, this.testBoxplot.getMedian(), BoxplotTest.delta);
+        Assert.assertEquals(6.3d, this.testBoxplot.getLowerWhisker(), BoxplotTest.delta);
+        Assert.assertEquals(6.3d, this.testBoxplot.getUpperWhisker(), BoxplotTest.delta);
+        Assert.assertEquals(0, this.testBoxplot.getOutlier().size());
+
+    }
+
+    /**
+     * Test for different quantiles with an even number of elements
+     */
+    @Test
+    public void testEvenNumberQuantile() {
         /*
-         * R:
-         * > elements <- c(1, 2, 3)
-         * > quantile(elements, prob=0.5)
-         * 50%
-         * 2
-         */
-        
-        assertEquals("median with uneven number count", 2.0, testBoxplot.calculateQuantile(new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0)), 0.5), EPSILON);
-        
-       /*
          * R:
          * > elements <- c(1, 2, 3, 4)
          * > quantile(elements, prob=0.5)
@@ -202,8 +78,9 @@ public class BoxplotTest {
          * 2.5
          */
 
-        assertEquals("median with even number count", 2.5, testBoxplot.calculateQuantile(new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 4.0)), 0.5), EPSILON);
-        
+        Assert.assertEquals("median with even number count", 2.5, this.testBoxplot.calculateQuantile(
+                new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 4.0)), 0.5), BoxplotTest.delta);
+
         /*
          * R:
          * > elements <- sample(1:10, 6, replace=F)
@@ -213,37 +90,60 @@ public class BoxplotTest {
          * 50%
          * 4.5
          */
-        assertEquals("median with more numbers, even", 4.5, testBoxplot.calculateQuantile(new ArrayList<Double>(Arrays.asList(2.0, 3.0, 4.0, 5.0, 7.0, 9.0)), 0.5), EPSILON);
+        Assert.assertEquals("median with more numbers, even", 4.5, this.testBoxplot.calculateQuantile(
+                new ArrayList<Double>(Arrays.asList(2.0, 3.0, 4.0, 5.0, 7.0, 9.0)), 0.5), BoxplotTest.delta);
 
-       
         /*
          * 1 2 3 4
          * 0.25 quantil must be 1.5
          */
-        assertEquals("Lower Quartile with even number", 1.5, testBoxplot.calculateQuantile(new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 4.0)), 0.25), EPSILON);
+        Assert.assertEquals("Lower Quartile with even number", 1.5, this.testBoxplot.calculateQuantile(
+                new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 4.0)), 0.25), BoxplotTest.delta);
 
         /*
          * 1 2 3 4
          * 0.75 quantil must be 3.5
          */
-        assertEquals("Lower Quartile with even number", 3.5, testBoxplot.calculateQuantile(new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 4.0)), 0.75), EPSILON);
+        Assert.assertEquals("Lower Quartile with even number", 3.5, this.testBoxplot.calculateQuantile(
+                new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 4.0)), 0.75), BoxplotTest.delta);
 
-        
-        
+    }
+
+    /**
+     * Test for different quantiles with an uneven number of elements
+     */
+    @Test
+    public void testUnevenQuantile() {
+
+        /*
+         * R:
+         * > elements <- c(1, 2, 3)
+         * > quantile(elements, prob=0.5)
+         * 50%
+         * 2
+         */
+
+        Assert.assertEquals("median with uneven number count", 2.0, this.testBoxplot.calculateQuantile(
+                new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0)), 0.5), BoxplotTest.delta);
+
         /*
          * 100 100 200 400 400 800 1600
          * -> lower quartile is
          * 100
          */
-        assertEquals("Lower Quartile with uneven number", 100, testBoxplot.calculateQuantile(new ArrayList<Double>(Arrays.asList(100.0, 100.0, 200.0, 400.0, 400.0, 800.0, 1600.0)), 0.25), EPSILON);
-        
+        Assert.assertEquals("Lower Quartile with uneven number", 100, this.testBoxplot.calculateQuantile(
+                new ArrayList<Double>(Arrays.asList(100.0, 100.0, 200.0, 400.0, 400.0, 800.0, 1600.0)), 0.25),
+                BoxplotTest.delta);
+
         /*
          * 100 100 200 400 400 800 1600
          * -> upper quartile is
          * 800
          */
-        assertEquals("Upper Quartile with uneven number", 800, testBoxplot.calculateQuantile(new ArrayList<Double>(Arrays.asList(100.0, 100.0, 200.0, 400.0, 400.0, 800.0, 1600.0)), 0.75), EPSILON);
-     
+        Assert.assertEquals("Upper Quartile with uneven number", 800, this.testBoxplot.calculateQuantile(
+                new ArrayList<Double>(Arrays.asList(100.0, 100.0, 200.0, 400.0, 400.0, 800.0, 1600.0)), 0.75),
+                BoxplotTest.delta);
+
     }
 
 }

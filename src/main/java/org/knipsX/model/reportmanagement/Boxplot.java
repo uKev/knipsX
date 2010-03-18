@@ -216,6 +216,8 @@ public class Boxplot {
                 /* s * p is not an element of N */
                 quantile = values.get(k);
             }
+        } else if (s == 1) {
+            quantile = values.get(0);
         }
         return quantile;
     }
@@ -233,7 +235,7 @@ public class Boxplot {
 
         double lowerWhisker = 0d;
 
-        if (values.size() > 1) {
+        if (values.size() > 0) {
             final double upperQuartile = this.calculateUpperQuartile(values);
             final double lowerQuartile = this.calculateLowerQuartile(values);
             final double interQuartileRange = Math.abs(upperQuartile - lowerQuartile);

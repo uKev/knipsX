@@ -1,7 +1,5 @@
-package org.knipsX.images.dummypictures;
+package org.knipsX.model.picturemanagement;
 
-import org.knipsX.model.picturemanagement.PictureDummy;
-import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.utils.ExifParameter;
 
 /**
@@ -10,15 +8,15 @@ import org.knipsX.utils.ExifParameter;
  * @author David Kaufman
  * 
  */
-public final class DummyPictures {
+public final class DummyPictureSetGenerator {
 
     /**
      * Returns the dummy directory path
      * 
      * @return the dummy directory path
      */
-    public static PictureSet getDummyPictureSet() {      
-    	PictureSet dummyPictureSet = new PictureSet("test data");
+    public static PictureSet getReportPreviewPictureSet() {      
+    	
     	
     	Object[][] values = {
     			
@@ -36,6 +34,13 @@ public final class DummyPictures {
     	
     	};
     	
+    	return getDummyPictureSet(values);
+        
+    }
+    
+    
+    public static PictureSet getDummyPictureSet(Object[][] values) {
+    	PictureSet dummyPictureSet = new PictureSet("test data");
     	
     	for (int i = 0; i < values.length; i++) {
     		PictureDummy pictureDummy = new PictureDummy();
@@ -53,11 +58,11 @@ public final class DummyPictures {
     	}
     	
     	
-        return dummyPictureSet;        
+        return dummyPictureSet;  
     }
     
     /* To satisfy checkstyle */
-    private DummyPictures() {
+    private DummyPictureSetGenerator() {
         
     }
 }

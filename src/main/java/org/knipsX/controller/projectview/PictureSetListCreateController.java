@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import org.knipsX.Messages;
 import org.knipsX.controller.AbstractController;
+import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.utils.Validator;
@@ -56,7 +57,15 @@ public class PictureSetListCreateController<M extends ProjectModel, V extends JP
 
         /* has user give in a project name? */
         if (Validator.isStringOk(pictureSetName)) {
-            this.model.addPictureSet(new PictureSet(pictureSetName));
+            PictureSet newSet = new PictureSet(pictureSetName);
+            
+            this.model.addPictureSet(newSet);
+            this.model.setSelectedPictureSet(newSet);
+            
+            if (newSet.getItems().size() > 0) {
+                PictureContainer newContainer = newSet.getItems().get(0);
+                this.model.setSelectedPictureSetContent(newContainer);
+            }
         }
     }
 }

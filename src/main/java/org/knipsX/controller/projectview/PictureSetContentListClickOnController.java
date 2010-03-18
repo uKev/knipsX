@@ -59,12 +59,13 @@ public class PictureSetContentListClickOnController<M extends ProjectModel, V ex
             if (mouseEvent.getSource() instanceof JList) {
                 final JList theList = (JList) mouseEvent.getSource();
 
-                if (mouseEvent.getClickCount() == 2) {
+                if (mouseEvent.getClickCount() == 1) {
                     final int index = theList.locationToIndex(mouseEvent.getPoint());
 
                     if (index >= 0) {
                         final Object o = theList.getModel().getElementAt(index);
                         this.model.setSelectedPictureSetContent((PictureContainer) o);
+                        this.model.setSelectedPicture(null);
                     }
                 }
             } else {

@@ -63,6 +63,8 @@ public class ReportSaveController<M extends AbstractReportModel, V extends JAbst
 
         /* Activate the current project view */
         ReportHelper.getProjectModel().setStatus(ProjectModel.ACTIVE);
+        
+        JAbstractReportUtil.setSingleton(false);
 
     }
 

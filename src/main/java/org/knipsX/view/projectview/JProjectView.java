@@ -587,7 +587,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jListPictureSet.setLayoutOrientation(JList.VERTICAL);
             this.jListPictureSet.addMouseListener(new PictureSetListClickOnController<M, JProjectView<M>>(this.model,
                     this));
-            this.jListPictureSet.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+            this.jListPictureSet.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             this.jListPictureSet.setTransferHandler(new PictureSetListDragController<M, JProjectView<M>>(this.model,
                     this).getFromTransferHandler());
             this.jListPictureSet.setVisibleRowCount(-1);
@@ -650,17 +650,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jListPictureSetContent == null) {
-            try {
-                final PictureSet pictureSet = this.model.getPictureSets()[0];
 
-                final List<PictureContainer> list = this.extractPictureSetContents(pictureSet);
-
-                /* creates a new list with options */
-                this.jListPictureSetContent = new JList(list.toArray());
-            } catch (final ArrayIndexOutOfBoundsException exception) {
-                /* we could have a new and empty project */
-                this.jListPictureSetContent = new JList();
-            }
+            /* creates a new list with options */
+            this.jListPictureSetContent = new JList(this.extractPictureSetContents());
 
             this.jListPictureSetContent
                     .addMouseListener(new PictureSetContentListClickOnController<M, JProjectView<M>>(this.model, this));
@@ -717,12 +709,14 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* add a border to the panel */
             /* INTERNATIONALIZE */
             if (this.model.getSelectedPictureSetContent() != null) {
-                final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                        "Bilder von Bildmengeninhalt " + this.model.getSelectedPictureSetContent().getName());
+                final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
+                        .getString("JProjectView.41")
+                        + this.model.getSelectedPictureSetContent().getName());
                 this.jPanelPictureSetActive.setBorder(title);
             } else if (this.model.getSelectedPictureSet() != null) {
-                final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                        "Bilder von Bildmenge" + this.model.getSelectedPictureSet().getName());
+                final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
+                        .getString("JProjectView.43")
+                        + this.model.getSelectedPictureSet().getName());
                 this.jPanelPictureSetActive.setBorder(title);
             }
 
@@ -737,13 +731,13 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         if (this.jListPictureSetActive == null) {
 
             /* creates a new list with options */
-            this.jListPictureSetActive = new JList(this.model.getAllPicturesRegardingSelections());
+            this.jListPictureSetActive = new JList(this.model.getAllPictures(this.model.getSelectedPictureSet(),
+                    this.model.getSelectedPictureSetContent()));
             this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             this.jListPictureSetActive.setLayoutOrientation(JList.VERTICAL);
             final PictureListClickOnController<M, JProjectView<M>> controller = new PictureListClickOnController<M, JProjectView<M>>(
                     this.model, this);
             this.jListPictureSetActive.addMouseListener(controller);
-            this.jListPictureSetActive.addMouseMotionListener(controller);
 
             /* we store picture objects in the list, so we have to set a special rendering */
             this.jListPictureSetActive.setCellRenderer(new PictureListCellRenderer());
@@ -1028,25 +1022,24 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                 JProjectView.this.setJTextComponentText(JProjectView.this.jEditorPaneProjectDescription,
                         JProjectView.this.model.getDescription());
 
-                JProjectView.this.setTitle("Projektansicht für " + JProjectView.this.model.getName());
+                JProjectView.this.setTitle(Messages.getString("JProjectView.90") + JProjectView.this.model.getName());
 
-                final int[] selectedPictureSets = JProjectView.this.jListPictureSet.getSelectedIndices();
-                final int[] selectedPictureSetContents = JProjectView.this.jListPictureSetContent.getSelectedIndices();
-                final int[] selectedPictures = JProjectView.this.jListPictureSetActive.getSelectedIndices();
-                final int[] selectedReports = JProjectView.this.jListReport.getSelectedIndices();
+                /* picture sets */
+                JProjectView.this.setJListPictureSets(JProjectView.this.jListPictureSet, JProjectView.this.model
+                        .getSelectedPictureSet(), JProjectView.this.model.getPictureSets());
 
-                /* setup the lists */
-                JProjectView.this.jListPictureSet.setListData(JProjectView.this.model.getPictureSets());
-                JProjectView.this.jListPictureSetContent.setListData(JProjectView.this.extractPictureSetContents(
-                        JProjectView.this.model.getSelectedPictureSet()).toArray());
-                JProjectView.this.jListPictureSetActive.setListData(JProjectView.this.model.getAllPicturesRegardingSelections());
-                JProjectView.this.jListReport.setListData(JProjectView.this.model.getReports());
+                /* picture set contents */
+                JProjectView.this.setJListCommon(JProjectView.this.jListPictureSetContent, JProjectView.this
+                        .extractPictureSetContents());
 
-                JProjectView.this.jListPictureSet.setSelectedIndices(selectedPictureSets);
-                JProjectView.this.jListPictureSetContent.setSelectedIndices(selectedPictureSetContents);
-                JProjectView.this.jListPictureSetActive.setSelectedIndices(selectedPictures);
-                JProjectView.this.jListReport.setSelectedIndices(selectedReports);
-                
+                /* pictures */
+                JProjectView.this.setJListCommon(JProjectView.this.jListPictureSetActive, JProjectView.this.model
+                        .getAllPictures(JProjectView.this.model.getSelectedPictureSet(), JProjectView.this.model
+                                .getSelectedPictureSetContent()));
+
+                /* reports */
+                JProjectView.this.setJListCommon(JProjectView.this.jListReport, JProjectView.this.model.getReports());
+
                 /* change border of the panel */
                 if (JProjectView.this.model.getSelectedPictureSetContent() != null) {
                     final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
@@ -1055,7 +1048,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                     JProjectView.this.jPanelPictureSetActive.setBorder(title);
                 } else if (JProjectView.this.model.getSelectedPictureSet() != null) {
                     final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                            "Bilder von Bildmenge" + JProjectView.this.model.getSelectedPictureSet().getName());
+                            Messages.getString("JProjectView.43")
+                                    + JProjectView.this.model.getSelectedPictureSet().getName());
                     JProjectView.this.jPanelPictureSetActive.setBorder(title);
                 }
 
@@ -1077,7 +1071,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                             }
                         }
                     }
-                }             
+                }
 
                 /* refresh view */
                 JProjectView.this.repaint();
@@ -1086,14 +1080,42 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
     }
 
+    private synchronized void setJListPictureSets(final JList list, final PictureContainer selectedAtModel,
+            final Object[] data) {
+
+        /* store the selected values */
+        final int selectedIndex = list.getSelectedIndex();
+
+        /* setup the data */
+        list.setListData(data);
+
+        if (selectedAtModel == null) {
+            list.setSelectedIndex(selectedIndex);
+        } else {
+            list.setSelectedValue(selectedAtModel, true);
+        }
+    }
+
+    private synchronized void setJListCommon(final JList list, final Object[] data) {
+
+        /* store the selected values */
+        final int[] selectedIndices = list.getSelectedIndices();
+
+        /* setup the data */
+        list.setListData(data);
+
+        /* restore the selected values */
+        list.setSelectedIndices(selectedIndices);
+    }
+
     private synchronized void doUpdateTotalPictureText(final int numberOfPictures) {
-        JProjectView.this.jLabelTotalPictures.setText("Insgesamt Bilder:" + numberOfPictures);
+        this.jLabelTotalPictures.setText(Messages.getString("JProjectView.85") + " " + numberOfPictures);
     }
 
     private synchronized void setBehaviour(final boolean isActive) {
-        JProjectView.this.setFocusableWindowState(isActive);
-        JProjectView.this.setFocusable(isActive);
-        JProjectView.this.setEnabled(isActive);
+        this.setFocusableWindowState(isActive);
+        this.setFocusable(isActive);
+        this.setEnabled(isActive);
     }
 
     private synchronized void setJTextComponentText(final JTextComponent component, final String text) {
@@ -1111,7 +1133,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     private synchronized void doUpdateProgressBar(final ProjectModel model) {
 
         /* Update the progress bars */
-        final int totalPictures = 2 * this.model.getNumberOfAllPictures();
+        final int totalPictures = this.model.getNumberOfAllPictures();
 
         if (totalPictures > 0) {
             this.pictureDataProgress.setValue(this.model.getNumberOfPicturesProcessed());
@@ -1123,8 +1145,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     }
 
     /* generates the three separated parts of picture set contents */
-    private List<PictureContainer> extractPictureSetContents(final PictureSet pictureSet) {
-
+    private Object[] extractPictureSetContents() {
+        final PictureSet pictureSet = this.model.getSelectedPictureSet();
         final List<PictureContainer> allContents = new ArrayList<PictureContainer>();
 
         /* we show three different types of picture containers */
@@ -1153,7 +1175,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         } catch (final NullPointerException e) {
             this.logger.error("Fehler beim extrahieren der Bildmengeninhalte!" + e.getMessage());
         }
-        return allContents;
+        return allContents.toArray();
     }
 }
 
@@ -1303,13 +1325,20 @@ class PictureListCellRenderer implements ListCellRenderer {
             theText = picture.getName();
 
             final Image smallThumbnail = picture.getSmallThumbnail();
+
             if (smallThumbnail != null) {
                 renderer.setIcon(new ImageIcon(smallThumbnail));
             } else {
                 renderer.setIcon(this.noImageIcon);
             }
+            String imagePath = picture.getBigThumbnailPath();
+
+            if (imagePath != null) {
+                renderer.setToolTipText("<html><img src=\"file:" + imagePath + "\"> </html>");
+            } else {
+                renderer.setToolTipText(null);
+            }
         }
-        renderer.setToolTipText(Messages.getString("JProjectView.45"));
         renderer.setText(theText);
         renderer.setPreferredSize(new Dimension(renderer.getWidth(), 40));
 
