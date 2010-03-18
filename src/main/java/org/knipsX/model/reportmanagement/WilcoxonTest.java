@@ -3,10 +3,7 @@ package org.knipsX.model.reportmanagement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-
 import javastat.inference.nonparametric.RankSumTest;
-
-import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.utils.Converter;
@@ -16,11 +13,9 @@ import org.knipsX.utils.ExifParameter;
  * This Class is a Wilcoxontestmodel. It initilaizes the test and calculates it.
  *************************************************************************************************/
 public class WilcoxonTest {
-    
-    private Logger logger = Logger.getLogger(this.getClass());
 
     private List<PictureContainer> pictureContainer = new ArrayList<PictureContainer>();
-       
+
     private double[] testData1;
     private double[] testData2;
 
@@ -35,7 +30,6 @@ public class WilcoxonTest {
     private boolean isActive = false;
     private boolean isValid = false;
     private boolean isCalculated = false;
-    
 
     /**
      * Constructor for a new Wilcoxontest without any settings.
@@ -169,12 +163,13 @@ public class WilcoxonTest {
                 || (this.parameter == null) || (this.pictureContainer.size() != 2)) {
             this.isValid = false;
         } else {
-            
+
             this.initTest();
-            
-            if ((testData1.length == 0) || (testData2.length == 0) || (testData1.length < 2) || (testData2.length < 2) || (testData1.length > 5000) || (testData2.length > 5000)) {
+
+            if ((testData1.length == 0) || (testData2.length == 0) || (testData1.length < 2) || (testData2.length < 2)
+                    || (testData1.length > 5000) || (testData2.length > 5000)) {
                 this.isValid = false;
-            } else {               
+            } else {
                 RankSumTest wilcoxonTest1 = new RankSumTest();
                 this.result = wilcoxonTest1.pValue(testType, testData1, testData2);
                 this.isCalculated = true;
@@ -189,34 +184,34 @@ public class WilcoxonTest {
      * @return The number off elemnets in the first list
      */
     private void initTest() {
-               
-        if (wilcoxenTestType == WilcoxonTestType.LESS){
+
+        if (wilcoxenTestType == WilcoxonTestType.LESS) {
             testType = "less";
-        } else if (wilcoxenTestType == WilcoxonTestType.GREATER){
+        } else if (wilcoxenTestType == WilcoxonTestType.GREATER) {
             testType = "greater";
         } else {
             testType = "two.sided";
         }
-        
+
         Vector<Double> testData1Vector = new Vector<Double>();
         Vector<Double> testData2Vector = new Vector<Double>();
 
         for (final PictureInterface picture : this.pictureContainer.get(0)) {
-            testData1Vector.add(Converter.objectToDouble(picture.getExifParameter(this.parameter)));           
+            testData1Vector.add(Converter.objectToDouble(picture.getExifParameter(this.parameter)));
         }
-        
+
         for (final PictureInterface picture : this.pictureContainer.get(1)) {
             testData2Vector.add(Converter.objectToDouble(picture.getExifParameter(this.parameter)));
         }
         testData1 = new double[testData1Vector.size()];
         testData2 = new double[testData2Vector.size()];
-        
+
         for (int n = 0; n < testData1Vector.size(); n++) {
             testData1[n] = testData1Vector.elementAt(n).doubleValue();
         }
-        
+
         for (int i = 0; i < testData2Vector.size(); i++) {
             testData2[i] = testData2Vector.elementAt(i).doubleValue();
-        }       
+        }
     }
 }
