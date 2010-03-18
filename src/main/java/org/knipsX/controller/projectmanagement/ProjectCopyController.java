@@ -62,23 +62,20 @@ public class ProjectCopyController<M extends ProjectManagementModel, V extends J
             if (decision == JOptionPane.YES_OPTION) {
 
                 /* try to get a project name */
-                final String projectName = JOptionPane.showInputDialog(null, Messages
-                        .getString("ProjectCopyController.3"), Messages.getString("ProjectCopyController.4"),
-                        JOptionPane.INFORMATION_MESSAGE);
+                String projectName = JOptionPane.showInputDialog(null, Messages.getString("ProjectCopyController.3"),
+                        Messages.getString("ProjectCopyController.4"), JOptionPane.INFORMATION_MESSAGE);
 
-                /* user is not pressing cancel and no text or wrong text is given */
-                if (projectName != null) {
-                    if (!Validator.isStringOk(projectName)) {
+                /* while user is not pressing cancel and no text is given */
+                while ((projectName != null) && !Validator.isStringOk(projectName)) {
 
-                        /* show the user that the name is incorrect */
-                        JOptionPane.showMessageDialog(null, Messages.getString("ProjectCopyController.5"), Messages
-                                .getString("ProjectCopyController.6"), JOptionPane.ERROR_MESSAGE);
-                    }
+                    /* show the user that the name is incorrect */
+                    projectName = JOptionPane.showInputDialog(null, Messages.getString("ProjectCopyController.5"),
+                            Messages.getString("ProjectCopyController.6"), JOptionPane.ERROR_MESSAGE);
+                }
 
-                    /* user has given a correct name */
-                    if (Validator.isStringOk(projectName)) {
-                        this.model.copyProject(projectToCopy, projectName);
-                    }
+                /* has user give in a project name? */
+                if (Validator.isStringOk(projectName)) {
+                    this.model.addProject(projectName);
                 }
             }
 

@@ -47,19 +47,21 @@ public class ProjectCreateController<M extends ProjectManagementModel, V extends
     public void actionPerformed(final ActionEvent event) {
 
         /* try to get a project name */
-        final String projectName = JOptionPane.showInputDialog(null, Messages.getString("ProjectCreateController.0"),
+        String projectName = JOptionPane.showInputDialog(null, Messages.getString("ProjectCreateController.0"),
                 Messages.getString("ProjectCreateController.1"), JOptionPane.INFORMATION_MESSAGE);
 
-        /* user is not pressing cancel and no text or wrong text is given */
-        if (projectName != null) {
-            if (!Validator.isStringOk(projectName)) {
+        /* while user is not pressing cancel and no text is given */
+        while ((projectName != null) && !Validator.isStringOk(projectName)) {
 
-                /* show the user that the name is incorrect */
-                JOptionPane.showMessageDialog(null, Messages.getString("ProjectCreateController.2"), Messages
-                        .getString("ProjectCreateController.3"), JOptionPane.ERROR_MESSAGE);
-            } else {
-                this.model.addProject(projectName);
-            }
+            /* show the user that the name is incorrect */
+            projectName = JOptionPane.showInputDialog(null, Messages.getString("ProjectCreateController.2"), Messages
+                    .getString("ProjectCreateController.3"), JOptionPane.ERROR_MESSAGE);
         }
+
+        /* has user give in a project name? */
+        if (Validator.isStringOk(projectName)) {
+            this.model.addProject(projectName);
+        }
+
     }
 }
