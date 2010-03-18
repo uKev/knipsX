@@ -31,7 +31,7 @@ public interface PictureInterface extends PictureContainer {
      * 
      * @return the path.
      */
-    String getThumbnailPath();
+    String getBigThumbnailPath();
     
     /**
      * Gets a specific Exif parameter from the picture

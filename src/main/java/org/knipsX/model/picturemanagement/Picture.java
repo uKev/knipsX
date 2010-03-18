@@ -34,12 +34,12 @@ public class Picture extends Observable implements PictureInterface {
     /* The Exif metadata connected with the picture */
     private Object[][] allExifParameter;
 
-    /* Thumbnails */
-    private Image smallThumbnail;
     private Image bigThumbnail;
+    private Image smallThumbnail;
 
-    private String tempFilePath;
-    
+    private String bigTempFilePath;
+    private String smallTempFilePath;
+
     /* Creates a logger for logging */
     private final Logger logger = Logger.getLogger(this.getClass());
 
@@ -105,34 +105,41 @@ public class Picture extends Observable implements PictureInterface {
     public String getPath() {
         return new String(this.pictureFile.getAbsolutePath());
     }
-    
-   private boolean isTempFileCreated = false;
+
     /**
      * {@inheritDoc}
      * 
-     * @see org.knipsX.model.picturemanagement.PictureInterface#getThumbnailPath()
+     * @see org.knipsX.model.picturemanagement.PictureInterface#getBigThumbnailPath()
      */
-    public String getThumbnailPath() {
-        String id = "" + this.hashCode();
-        
-        if(!this.isTempFileCreated && this.bigThumbnail != null) {
-            try {
-                File tmpDirectory = new File(System.getProperty("java.io.tmpdir") + File.separator + "knipsX");
-                tmpDirectory.mkdir();
-                tmpDirectory.deleteOnExit();
-                
-                File tempFile = File.createTempFile(id, ".jpg", tmpDirectory);
-                ImageIO.write((RenderedImage) this.bigThumbnail, "jpg", tempFile);
-                tempFile.deleteOnExit();
-                
-                this.tempFilePath = tempFile.getAbsolutePath();
-                
-                this.isTempFileCreated = true;
-            } catch (IOException e) {
-                this.logger.error(e.getMessage());
-            }
-        }
-        return this.tempFilePath;
+    public String getBigThumbnailPath() {
+        return this.bigTempFilePath;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.knipsX.model.picturemanagement.PictureInterface#getBigThumbnailPath()
+     */
+    public String getSmallThumbnailPath() {
+        return this.smallTempFilePath;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.knipsX.model.picturemanagement.PictureInterface#getBigThumbnail()
+     */
+    public Image getBigThumbnail() {
+        return this.bigThumbnail;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.knipsX.model.picturemanagement.PictureInterface#getSmallThumbnail()
+     */
+    public Image getSmallThumbnail() {
+        return this.smallThumbnail;
     }
 
     /**
@@ -206,27 +213,66 @@ public class Picture extends Observable implements PictureInterface {
     public synchronized boolean initThumbnails() {
         boolean isInitialized = false;
 
-        if (this.bigThumbnail == null) {
+        if ((this.smallTempFilePath == null) || (this.bigTempFilePath == null)) {
 
             try {
-                final BufferedImage bImage = ImageIO.read(this.pictureFile);
+                BufferedImage bImage = null;
 
-                final Dimension oldSize = new Dimension(bImage.getWidth(), bImage.getHeight());
-                final Dimension newSizeBig = this.getWidthAndHeightWithCorrectAspectRatio(oldSize,
-                        Picture.BIG_IMAGE_SIZE, Picture.BIG_IMAGE_SIZE);
-                final Dimension newSizeSmall = this.getWidthAndHeightWithCorrectAspectRatio(oldSize,
-                        Picture.SMALL_IMAGE_SIZE, Picture.SMALL_IMAGE_SIZE);
+                final File tmpDirectory = new File(System.getProperty("java.io.tmpdir") + File.separator + "knipsX");
+                tmpDirectory.mkdir();
+                tmpDirectory.deleteOnExit();
 
-                this.bigThumbnail = this.getScaledInstance(bImage, newSizeBig.width, newSizeBig.height,
-                        RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR, true);
-                this.smallThumbnail = this.getScaledInstance(bImage, newSizeSmall.width, newSizeSmall.height,
-                        RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR, true);
+                /* BIG */
+                final File bigTempFile = File.createTempFile("b" + this.hashCode(), ".jpg", tmpDirectory);
+                bigTempFile.deleteOnExit();
+                
+                if (bigTempFile.length() == 0) {
+
+                    if (bImage == null) {
+                        bImage = ImageIO.read(this.pictureFile);
+                    }
+                    final Dimension oldSize = new Dimension(bImage.getWidth(), bImage.getHeight());
+                    final Dimension newSizeBig = this.getWidthAndHeightWithCorrectAspectRatio(oldSize,
+                            Picture.BIG_IMAGE_SIZE, Picture.BIG_IMAGE_SIZE);
+
+                    this.bigThumbnail = this.getScaledInstance(bImage, newSizeBig.width, newSizeBig.height,
+                            RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR, true);
+
+                    ImageIO.write((RenderedImage) this.bigThumbnail, "jpg", bigTempFile);
+                } else {
+                    this.bigThumbnail = ImageIO.read(bigTempFile);
+                }
+                this.bigTempFilePath = bigTempFile.getAbsolutePath();
+                
+                /* SMALL */
+                final File smallTempFile = File.createTempFile("s" + this.hashCode(), ".jpg", tmpDirectory);
+                smallTempFile.deleteOnExit();
+                
+                if (smallTempFile.length() == 0) {
+
+                    if (bImage == null) {
+                        bImage = ImageIO.read(this.pictureFile);
+                    }
+                    final Dimension oldSize = new Dimension(bImage.getWidth(), bImage.getHeight());
+                    final Dimension newSizeSmall = this.getWidthAndHeightWithCorrectAspectRatio(oldSize,
+                            Picture.SMALL_IMAGE_SIZE, Picture.SMALL_IMAGE_SIZE);
+
+                    this.smallThumbnail = this.getScaledInstance(bImage, newSizeSmall.width, newSizeSmall.height,
+                            RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR, true);
+
+                    ImageIO.write((RenderedImage) this.smallThumbnail, "jpg", smallTempFile);
+                } else {
+                    this.smallThumbnail = ImageIO.read(smallTempFile);
+                }
+                this.smallTempFilePath = smallTempFile.getAbsolutePath();
+
+                /* OTHER */
                 isInitialized = true;
                 this.setChanged();
             } catch (final IOException e) {
                 this.logger.error("Can't create thumbnails from file - " + this.pictureFile.getAbsolutePath());
             }
-        }        
+        }
         return isInitialized;
     }
 
@@ -243,24 +289,6 @@ public class Picture extends Observable implements PictureInterface {
             scaleWidth = scaleHeight;
         }
         return new Dimension(Math.round(imageSize.width * scaleWidth), Math.round(imageSize.height * scaleWidth));
-    }
-
-    /**
-     * {@inheritDoc}
-     * 
-     * @see org.knipsX.model.picturemanagement.PictureInterface#getBigThumbnail()
-     */
-    public Image getBigThumbnail() {
-        return this.bigThumbnail;
-    }
-
-    /**
-     * {@inheritDoc}
-     * 
-     * @see org.knipsX.model.picturemanagement.PictureInterface#getSmallThumbnail()
-     */
-    public Image getSmallThumbnail() {
-        return this.smallThumbnail;
     }
 
     /**

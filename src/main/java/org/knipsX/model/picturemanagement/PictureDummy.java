@@ -102,7 +102,7 @@ public class PictureDummy implements PictureInterface {
      * 
      * @see org.knipsX.model.picturemanagement.PictureInterface#getPath()
      */
-    public String getThumbnailPath() {
+    public String getBigThumbnailPath() {
         return null;
     }
 

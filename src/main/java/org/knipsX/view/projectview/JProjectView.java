@@ -1326,7 +1326,7 @@ class PictureListCellRenderer implements ListCellRenderer {
             } else {
                 renderer.setIcon(this.noImageIcon);
             }
-            String imagePath = picture.getThumbnailPath();
+            String imagePath = picture.getBigThumbnailPath();
             
             if(imagePath != null) {
                 renderer.setToolTipText("<html><img src=\"file:" + imagePath + "\"> </html>");   
