@@ -3,6 +3,7 @@ package org.knipsX.model.reportmanagement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.apache.log4j.Logger;
 import org.knipsX.model.picturemanagement.PictureContainer;
@@ -146,8 +147,22 @@ public class Boxplot {
         this.upperWhisker = this.calculateUpperWhisker(values);
         this.lowerWhisker = this.calculateLowerWhisker(values);
         this.outlier = this.calculateOutlier(values);
-        this.maxValue = Collections.max(values);
-        this.minValue = Collections.min(values);
+
+        this.maxValue = Double.MAX_VALUE;
+
+        try {
+            this.maxValue = Collections.max(values);
+        } catch (NoSuchElementException e) {
+            this.logger.error(e);
+        }
+
+        this.minValue = Double.MIN_VALUE;
+
+        try {
+            this.minValue = Collections.min(values);
+        } catch (NoSuchElementException e) {
+            this.logger.error(e);
+        }
         this.pictureSetName = pictureSetName;
 
         this.logger.debug("Boxplot Values:" + values.toString());
