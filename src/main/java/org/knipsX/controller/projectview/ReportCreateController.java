@@ -35,9 +35,8 @@ public class ReportCreateController<M extends ProjectModel, V extends JProjectVi
     @Override
     public void actionPerformed(final ActionEvent e) {
 
-    	if(!JAbstractReportUtil.isSingleton()) {
-    		new JReportWizard<AbstractReportModel, AbstractReportCompilation>();
-    	}
-        
+        if (!JAbstractReportUtil.isSingleton()) {
+            new JReportWizard<AbstractReportModel, AbstractReportCompilation>();
+        }
     }
 }

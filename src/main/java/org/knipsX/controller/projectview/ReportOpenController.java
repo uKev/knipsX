@@ -43,15 +43,15 @@ public class ReportOpenController<M extends ProjectModel, V extends JProjectView
          * one saved in the model it might configure the wrong report
          */
         if (this.view.getSelectedReports().length > 0) {
-        	if(!JAbstractReportUtil.isSingleton()) {
-	            final int reportID = this.view.getSelectedReports()[0];
-	            new JReportConfig<AbstractReportModel, AbstractReportCompilation>(this.model.getReports()[reportID],
-	                    reportID);
-        	}
+           
+            if (!JAbstractReportUtil.isSingleton()) {
+                final int reportID = this.view.getSelectedReports()[0];
+                new JReportConfig<AbstractReportModel, AbstractReportCompilation>(this.model.getReports()[reportID],
+                        reportID);
+            }
         } else {
             JOptionPane.showMessageDialog(this.view, Messages.getString("ReportOpenController.0"), Messages
                     .getString("ReportOpenController.1"), JOptionPane.INFORMATION_MESSAGE);
         }
-
     }
 }

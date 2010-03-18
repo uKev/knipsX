@@ -45,15 +45,17 @@ public class ReportClickOnController<M extends ProjectModel, V extends JProjectV
      * {@inheritDoc}
      */
     public void mouseClicked(final MouseEvent mouseEvent) {
+       
         if (mouseEvent.getButton() == ReportClickOnController.MOUSELEFT) {
+           
             if (mouseEvent.getClickCount() == 2) {
-
 
                 if (this.view.getSelectedReports().length > 0) {
                     final int reportID = this.view.getSelectedReports()[0];
-                    if(!JAbstractReportUtil.isSingleton()) {
-	                    new JReportConfig<AbstractReportModel, AbstractReportCompilation>(
-	                            this.model.getReports()[reportID], reportID);
+                    
+                    if (!JAbstractReportUtil.isSingleton()) {
+                        new JReportConfig<AbstractReportModel, AbstractReportCompilation>(
+                                this.model.getReports()[reportID], reportID);
                     }
                 }
             }

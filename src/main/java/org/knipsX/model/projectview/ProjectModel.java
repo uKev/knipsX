@@ -127,6 +127,7 @@ public class ProjectModel extends AbstractModel {
     public void setStatus(final int state) {
         assert state < 2;
         assert state >= 0;
+        
         this.state = state;
         this.updateViews();
     }
@@ -270,7 +271,7 @@ public class ProjectModel extends AbstractModel {
      * @return the amount of pictures.
      */
     public int getNumberOfAllPictures() {
-        return this.getAllPictures().length;
+        return this.getAllPictures(null, null).length;
     }
 
     /**
@@ -340,7 +341,7 @@ public class ProjectModel extends AbstractModel {
             this.pictureDataQueue.clear();
             this.pictureThumbnailQueue.clear();
 
-            for (final PictureInterface pic : this.getAllPicturesRegardingSelections()) {
+            for (final PictureInterface pic : this.getAllPictures(null, null)) {
                 this.pictureDataQueue.add(pic);
                 this.pictureThumbnailQueue.add(pic);
             }
@@ -349,7 +350,7 @@ public class ProjectModel extends AbstractModel {
     }
 
     /** Loads the data. */
-    public void loadData() {
+    public synchronized void loadData() {
         this.dataWorker = new InitializePictureDataWorker(this);
         this.thumbnailWorker = new InitializePictureThumbnailWorker(this);
 
@@ -358,7 +359,7 @@ public class ProjectModel extends AbstractModel {
     }
 
     /* Reloads the data, stops running Threads and starts new ones. */
-    private void reloadData() {
+    private synchronized void reloadData() {
 
         /* kill the workers */
         this.dataWorker.shutdownNow();
@@ -376,7 +377,7 @@ public class ProjectModel extends AbstractModel {
     }
 
     /** Unloads the data and stops running Threads. */
-    public void unloadData() {
+    public synchronized void unloadData() {
 
         /* kill the workers */
         this.dataWorker.shutdownNow();
@@ -419,7 +420,7 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return true if the picture set was added, false if not.
      */
-    public boolean addPictureSet(final PictureSet set) {
+    public synchronized boolean addPictureSet(final PictureSet set) {
         assert (set != null) && (set instanceof PictureSet);
 
         final boolean isAdded = this.pictureSets.add(set);
@@ -428,8 +429,10 @@ public class ProjectModel extends AbstractModel {
 
             /* TWEAK sort maybe at another location */
             Collections.sort(this.pictureSets);
-
+            
             this.updateViews();
+            
+            this.reloadData();
         }
         return isAdded;
     }
@@ -442,12 +445,16 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return true if the picture set was removed, false if not.
      */
-    public boolean removePictureSet(final PictureSet pictureSet) {
+    public synchronized boolean removePictureSet(final PictureSet pictureSet) {
         assert (pictureSet != null) && (pictureSet instanceof PictureSet);
 
         final boolean isRemoved = this.pictureSets.remove(pictureSet);
 
         if (isRemoved) {
+
+            for (final PictureSet set : this.pictureSets) {
+                this.removeRecursivFromTree(set, pictureSet);
+            }
 
             if (this.pictureSets.size() <= 0) {
 
@@ -465,6 +472,19 @@ public class ProjectModel extends AbstractModel {
             this.updateViews();
         }
         return isRemoved;
+    }
+
+    private synchronized void removeRecursivFromTree(final PictureSet root, final PictureSet toRemove) {
+        root.remove(toRemove);
+        final List<PictureContainer> items = root.getItems();
+
+        if (items.size() > 0) {
+            for (final PictureContainer content : items) {
+                if (content instanceof PictureSet) {
+                    this.removeRecursivFromTree((PictureSet) content, toRemove);
+                }
+            }
+        }
     }
 
     /**
@@ -574,30 +594,6 @@ public class ProjectModel extends AbstractModel {
         return pictures.toArray(new Picture[] {});
     }
 
-    /**
-     * Get all pictures which a picture set handle with (only on root level).
-     * 
-     * @param pictureSet
-     *            the picture set which we use as root.
-     * 
-     * @return an amount of pictures.
-     * 
-     * @throws NullPointerException
-     *             if you didn't assign a picture set.
-     */
-    public Picture[] getAllPicturesFromPictureSet(final PictureSet pictureSet) throws NullPointerException {
-        if (pictureSet == null) {
-            throw new NullPointerException(Messages.getString("ProjectModel.12"));
-        }
-        final List<PictureInterface> pictures = new ArrayList<PictureInterface>();
-
-        for (final PictureInterface picture : pictureSet) {
-            pictures.add(picture);
-        }
-
-        return pictures.toArray(new Picture[] {});
-    }
-
     /*
      * ################################################################################################################
      * -- THE PICTURE SET CONTENTS
@@ -614,7 +610,7 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return true if the picture set content was added, false if not.
      */
-    public boolean addContentToPictureSet(final PictureSet set, final PictureContainer container) {
+    public synchronized boolean addContentToPictureSet(final PictureSet set, final PictureContainer container) {
         assert (set != null) && (set instanceof PictureSet);
         assert (container != null) && (container instanceof PictureContainer);
 
@@ -640,7 +636,7 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return true if the picture set content was removed, false if not.
      */
-    public boolean removeContentFromPictureSet(final PictureSet set, final PictureContainer container) {
+    public synchronized boolean removeContentFromPictureSet(final PictureSet set, final PictureContainer container) {
         assert (set != null) && (set instanceof PictureSet);
         assert (container != null) && (container instanceof PictureContainer);
 
@@ -702,36 +698,35 @@ public class ProjectModel extends AbstractModel {
      */
 
     /**
-     * Get all pictures which the model handle with. Depends on the current active picture set and picture set content.
+     * Get all pictures which the model handle with - depending on the picture set and picture set content.
      * 
-     * @return an amount of pictures.
+     * @param set
+     *            the PictureSet.
+     * @param content
+     *            the PictureContainer.
+     * @return an amount of pictures of a PictureSet, PictureContainer or all pictures of the model (if both are null).
      */
-    public synchronized Picture[] getAllPictures() {
+    public synchronized Picture[] getAllPictures(final PictureSet set, final PictureContainer content) {
         final List<PictureInterface> pictures = new ArrayList<PictureInterface>();
 
-        for (PictureSet set : this.pictureSets) {
+        if ((set != null) && (content == null)) {
+
             for (final PictureInterface picture : set) {
                 pictures.add(picture);
             }
-        }
-        return pictures.toArray(new Picture[] {});
-    }
 
-    /**
-     * Get all pictures which the model handle with. Depends on the current active picture set and picture set content.
-     * 
-     * @return an amount of pictures.
-     */
-    public synchronized Picture[] getAllPicturesRegardingSelections() {
-        final List<PictureInterface> pictures = new ArrayList<PictureInterface>();
+        } else if ((content != null)) {
 
-        if (this.getSelectedPictureSetContent() != null) {
-            for (final PictureInterface picture : this.getSelectedPictureSetContent()) {
+            for (final PictureInterface picture : content) {
                 pictures.add(picture);
             }
-        } else if (this.getSelectedPictureSet() != null) {
-            for (final PictureInterface picture : this.getSelectedPictureSet()) {
-                pictures.add(picture);
+        } else {
+
+            for (final PictureSet currentSet : this.pictureSets) {
+
+                for (final PictureInterface picture : currentSet) {
+                    pictures.add(picture);
+                }
             }
         }
         return pictures.toArray(new Picture[] {});
@@ -755,7 +750,8 @@ public class ProjectModel extends AbstractModel {
      * @return the current selected PictureSet.
      */
     public PictureInterface getSelectedPicture() {
-        final PictureInterface[] allPictures = this.getAllPicturesRegardingSelections();
+        final PictureInterface[] allPictures = this.getAllPictures(this.selectedPictureSet,
+                this.selectedPictureSetContent);
         if ((this.selectedPicture == null) && (allPictures.length > 0)) {
             this.selectedPicture = allPictures[0];
         }
@@ -788,7 +784,7 @@ public class ProjectModel extends AbstractModel {
      *            the id of the report.
      * @return true if the report was added, false if not.
      */
-    public boolean addReport(final AbstractReportModel report, final int reportId) {
+    public synchronized boolean addReport(final AbstractReportModel report, final int reportId) {
         assert (report != null) && (report instanceof AbstractReportModel);
         boolean returnValue = false;
 
@@ -810,7 +806,7 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return true if the report was removed, false if not.
      */
-    public boolean removeReport(final AbstractReportModel report) {
+    public synchronized boolean removeReport(final AbstractReportModel report) {
         assert (report != null) && (report instanceof AbstractReportModel);
 
         final boolean isRemoved = this.reports.remove(report);

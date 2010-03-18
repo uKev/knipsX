@@ -709,12 +709,14 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* add a border to the panel */
             /* INTERNATIONALIZE */
             if (this.model.getSelectedPictureSetContent() != null) {
-                final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                        Messages.getString("JProjectView.41") + this.model.getSelectedPictureSetContent().getName());
+                final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
+                        .getString("JProjectView.41")
+                        + this.model.getSelectedPictureSetContent().getName());
                 this.jPanelPictureSetActive.setBorder(title);
             } else if (this.model.getSelectedPictureSet() != null) {
-                final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                        Messages.getString("JProjectView.43") + this.model.getSelectedPictureSet().getName());
+                final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
+                        .getString("JProjectView.43")
+                        + this.model.getSelectedPictureSet().getName());
                 this.jPanelPictureSetActive.setBorder(title);
             }
 
@@ -729,7 +731,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         if (this.jListPictureSetActive == null) {
 
             /* creates a new list with options */
-            this.jListPictureSetActive = new JList(this.model.getAllPicturesRegardingSelections());
+            this.jListPictureSetActive = new JList(this.model.getAllPictures(this.model.getSelectedPictureSet(),
+                    this.model.getSelectedPictureSetContent()));
             this.jListPictureSetActive.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             this.jListPictureSetActive.setLayoutOrientation(JList.VERTICAL);
             final PictureListClickOnController<M, JProjectView<M>> controller = new PictureListClickOnController<M, JProjectView<M>>(
@@ -1031,7 +1034,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
                 /* pictures */
                 JProjectView.this.setJListCommon(JProjectView.this.jListPictureSetActive, JProjectView.this.model
-                        .getAllPicturesRegardingSelections());
+                        .getAllPictures(JProjectView.this.model.getSelectedPictureSet(), JProjectView.this.model
+                                .getSelectedPictureSetContent()));
 
                 /* reports */
                 JProjectView.this.setJListCommon(JProjectView.this.jListReport, JProjectView.this.model.getReports());
@@ -1044,7 +1048,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                     JProjectView.this.jPanelPictureSetActive.setBorder(title);
                 } else if (JProjectView.this.model.getSelectedPictureSet() != null) {
                     final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                            Messages.getString("JProjectView.43") + JProjectView.this.model.getSelectedPictureSet().getName());
+                            Messages.getString("JProjectView.43")
+                                    + JProjectView.this.model.getSelectedPictureSet().getName());
                     JProjectView.this.jPanelPictureSetActive.setBorder(title);
                 }
 
@@ -1320,17 +1325,17 @@ class PictureListCellRenderer implements ListCellRenderer {
             theText = picture.getName();
 
             final Image smallThumbnail = picture.getSmallThumbnail();
-            
+
             if (smallThumbnail != null) {
                 renderer.setIcon(new ImageIcon(smallThumbnail));
             } else {
                 renderer.setIcon(this.noImageIcon);
             }
             String imagePath = picture.getBigThumbnailPath();
-            
-            if(imagePath != null) {
-                renderer.setToolTipText("<html><img src=\"file:" + imagePath + "\"> </html>");   
-            }else {
+
+            if (imagePath != null) {
+                renderer.setToolTipText("<html><img src=\"file:" + imagePath + "\"> </html>");
+            } else {
                 renderer.setToolTipText(null);
             }
         }
