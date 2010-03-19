@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -201,6 +202,7 @@ public class XMLInput {
         for (final PictureSet set : pictureSets.values()) {
             returnList.add(set);
         }
+        Collections.sort(returnList);
         return returnList;
     }
 

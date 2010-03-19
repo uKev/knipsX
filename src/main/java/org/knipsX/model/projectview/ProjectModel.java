@@ -424,12 +424,26 @@ public class ProjectModel extends AbstractModel {
     public boolean addPictureSet(final PictureSet set) {
         assert (set != null) && (set instanceof PictureSet);
 
-        final boolean isAdded = this.pictureSets.add(set);
+        int index = 0;
+        for (PictureSet pictureSet : this.pictureSets) {
+            if (pictureSet.compareTo(set) > 0) {
+                break;
+            } else {
+                index++;
+            }
+        }
+        boolean isAdded = true;
+
+        try {
+            this.pictureSets.add(index, set);
+        } catch (IndexOutOfBoundsException e) {
+            isAdded = false;
+        }
 
         if (isAdded) {
 
             /* TWEAK sort maybe at another location */
-            Collections.sort(this.pictureSets);
+            // Collections.sort(this.pictureSets);
 
             this.updateViews();
 
