@@ -68,8 +68,7 @@ public class PictureSet implements PictureContainer {
 	 */
 	public boolean add(final PictureContainer container) {
 		if (checkContent(container, this)) {
-			logger
-					.info("Can not add to content because its hirachicaly higher or already in the content!");
+			logger.info("Can not add to content because its hirachicaly higher or already in the content!");
 			return false;
 		} else {
 			if (container instanceof PictureSet) {
@@ -201,15 +200,14 @@ public class PictureSet implements PictureContainer {
 		}
 	}
 
-	private boolean checkContent(PictureContainer base,
-			PictureContainer container) {
-//		if (base == container) {
-//			return true;
-//		} else {
-//			for (final PictureContainer element : base.getItems()) {
-//				return this.checkContent(element, container);
-//			}
-//		}
+	private synchronized boolean checkContent(PictureContainer base, PictureContainer container) {
+		if (base == container) {
+			return true;
+		} else {
+			for (final PictureContainer element : base.getItems()) {
+				return this.checkContent(element, container);
+			}
+		}
 		return false;
 	}
 }
