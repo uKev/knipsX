@@ -47,7 +47,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
 
         this.boxplots = new ArrayList<Boxplot>(pictureContainers.size());
 
-        this.calculateIfRequired();
+//        this.calculateIfRequired();
 
     }
 
@@ -109,7 +109,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      * @return the wilcoxonTest. Returns null if wilcoxonTest is not active.
      */
     public WilcoxonTest getWilcoxonTest() {
-        this.calculateIfRequired();
+//        this.calculateIfRequired();
 
         return this.wilcoxonTest;
     }

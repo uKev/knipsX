@@ -6,7 +6,6 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -38,7 +37,6 @@ public class Picture extends Observable implements PictureInterface {
     private Image smallThumbnail;
 
     private String bigTempFilePath;
-    private String smallTempFilePath;
 
     /* Creates a logger for logging */
     private final Logger logger = Logger.getLogger(this.getClass());
@@ -112,16 +110,16 @@ public class Picture extends Observable implements PictureInterface {
      * @see org.knipsX.model.picturemanagement.PictureInterface#getBigThumbnailPath()
      */
     public String getBigThumbnailPath() {
-        return this.bigTempFilePath;
-    }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @see org.knipsX.model.picturemanagement.PictureInterface#getBigThumbnailPath()
-     */
-    public String getSmallThumbnailPath() {
-        return this.smallTempFilePath;
+        if ((this.bigThumbnail != null) && (this.bigTempFilePath != null)) {
+
+            // try {
+            // ImageIO.write((RenderedImage) this.bigThumbnail, "jpg", new File(this.bigTempFilePath));
+            // } catch (IOException e) {
+            // this.logger.error(e.getMessage());
+            // }
+        }
+        return this.bigTempFilePath;
     }
 
     /**
@@ -213,10 +211,10 @@ public class Picture extends Observable implements PictureInterface {
     public synchronized boolean initThumbnails() {
         boolean isInitialized = false;
 
-        if ((this.smallTempFilePath == null) || (this.bigTempFilePath == null)) {
+        if (this.bigTempFilePath == null) {
 
             try {
-                BufferedImage bImage = null;
+                final BufferedImage bImage = ImageIO.read(this.pictureFile);
 
                 final File tmpDirectory = new File(System.getProperty("java.io.tmpdir") + File.separator + "knipsX");
                 tmpDirectory.mkdir();
@@ -225,46 +223,22 @@ public class Picture extends Observable implements PictureInterface {
                 /* BIG */
                 final File bigTempFile = File.createTempFile("b" + this.hashCode(), ".jpg", tmpDirectory);
                 bigTempFile.deleteOnExit();
-                
-                if (bigTempFile.length() == 0) {
 
-                    if (bImage == null) {
-                        bImage = ImageIO.read(this.pictureFile);
-                    }
-                    final Dimension oldSize = new Dimension(bImage.getWidth(), bImage.getHeight());
-                    final Dimension newSizeBig = this.getWidthAndHeightWithCorrectAspectRatio(oldSize,
-                            Picture.BIG_IMAGE_SIZE, Picture.BIG_IMAGE_SIZE);
+                final Dimension oldSize = new Dimension(bImage.getWidth(), bImage.getHeight());
+                final Dimension newSizeBig = this.getWidthAndHeightWithCorrectAspectRatio(oldSize,
+                        Picture.BIG_IMAGE_SIZE, Picture.BIG_IMAGE_SIZE);
 
-                    this.bigThumbnail = this.getScaledInstance(bImage, newSizeBig.width, newSizeBig.height,
-                            RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR, true);
+                this.bigThumbnail = this.getScaledInstance(bImage, newSizeBig.width, newSizeBig.height,
+                        RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR, true);
 
-                    ImageIO.write((RenderedImage) this.bigThumbnail, "jpg", bigTempFile);
-                } else {
-                    this.bigThumbnail = ImageIO.read(bigTempFile);
-                }
                 this.bigTempFilePath = bigTempFile.getAbsolutePath();
-                
+
                 /* SMALL */
-                final File smallTempFile = File.createTempFile("s" + this.hashCode(), ".jpg", tmpDirectory);
-                smallTempFile.deleteOnExit();
-                
-                if (smallTempFile.length() == 0) {
+                final Dimension newSizeSmall = this.getWidthAndHeightWithCorrectAspectRatio(oldSize,
+                        Picture.SMALL_IMAGE_SIZE, Picture.SMALL_IMAGE_SIZE);
 
-                    if (bImage == null) {
-                        bImage = ImageIO.read(this.pictureFile);
-                    }
-                    final Dimension oldSize = new Dimension(bImage.getWidth(), bImage.getHeight());
-                    final Dimension newSizeSmall = this.getWidthAndHeightWithCorrectAspectRatio(oldSize,
-                            Picture.SMALL_IMAGE_SIZE, Picture.SMALL_IMAGE_SIZE);
-
-                    this.smallThumbnail = this.getScaledInstance(bImage, newSizeSmall.width, newSizeSmall.height,
-                            RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR, true);
-
-                    ImageIO.write((RenderedImage) this.smallThumbnail, "jpg", smallTempFile);
-                } else {
-                    this.smallThumbnail = ImageIO.read(smallTempFile);
-                }
-                this.smallTempFilePath = smallTempFile.getAbsolutePath();
+                this.smallThumbnail = this.getScaledInstance(bImage, newSizeSmall.width, newSizeSmall.height,
+                        RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR, true);
 
                 /* OTHER */
                 isInitialized = true;
