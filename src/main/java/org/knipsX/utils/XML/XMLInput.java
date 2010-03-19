@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +40,7 @@ public class XMLInput {
 
     private Element project;
 
-    private final Logger log = Logger.getLogger(this.getClass());
+    private final Logger logger = Logger.getLogger(this.getClass());
 
     private Map<Integer, PictureSet> pictureSets;
 
@@ -52,24 +51,29 @@ public class XMLInput {
             final Document docXml = saxBuilder.build(xml);
             this.project = docXml.getRootElement();
         } catch (final JDOMException e) {
-            this.log.error("[constructor()] - " + e.getStackTrace());
+            this.logger.error(e.getStackTrace());
         } catch (final IOException e) {
-            this.log.error("[constructor()] - " + e.getStackTrace());
+            this.logger.error(e.getStackTrace());
         }
     }
 
     public ProjectModel getProject(final int projectId) {
         ProjectModel project = null;
 
-        /* check if we have the right project */
-        if (projectId == this.getId()) {
-            final String name = this.getName();
-            final String description = this.getDescription();
-            final GregorianCalendar creationDate = this.getCreationDate();
-            final List<PictureSet> pictureSets = this.getPictureSets();
-            final List<AbstractReportModel> reports = this.getReports();
+        try {
 
-            project = new ProjectModel(projectId, name, description, creationDate, pictureSets, reports);
+            /* check if we have the right project */
+            if (projectId == this.getId()) {
+                final String name = this.getName();
+                final String description = this.getDescription();
+                final GregorianCalendar creationDate = this.getCreationDate();
+                final List<PictureSet> pictureSets = this.getPictureSets();
+                final List<AbstractReportModel> reports = this.getReports();
+
+                project = new ProjectModel(projectId, name, description, creationDate, pictureSets, reports);
+            }
+        } catch (Exception e) {
+            this.logger.error(e.getMessage());
         }
         return project;
     }
@@ -96,7 +100,7 @@ public class XMLInput {
         try {
             return XMLInput.parseTimestamp(this.project.getChildText("creationDate"));
         } catch (final ParseException e) {
-            this.log.error("[XMLInput::getCreationDate()] - " + e.getStackTrace());
+            this.logger.error("[XMLInput::getCreationDate()] - " + e.getStackTrace());
             return new GregorianCalendar();
         }
     }
@@ -110,10 +114,10 @@ public class XMLInput {
     }
 
     private Map<Integer, PictureSet> getAllPictureSets() {
-        
+
         if (this.pictureSets == null) {
             this.pictureSets = new TreeMap<Integer, PictureSet>();
-            
+
             for (final Element set : XMLHelper.convertList(this.project.getChild("pictureSets").getChildren(
                     "pictureSet"))) {
 
@@ -169,7 +173,7 @@ public class XMLInput {
             try {
                 pictures.put(id, new Picture(path, true));
             } catch (final PictureNotFoundException e) {
-                this.log.error("[getPictureSets()] - Picture not found -> " + path);
+                this.logger.error("[getPictureSets()] - Picture not found -> " + path);
             }
 
         }

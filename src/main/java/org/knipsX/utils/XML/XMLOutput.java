@@ -1,9 +1,11 @@
 package org.knipsX.utils.XML;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.knipsX.model.picturemanagement.Directory;
@@ -29,6 +31,8 @@ public class XMLOutput {
     private Document xmlDocument;
 
     private ProjectModel project;
+
+    private final Logger logger = Logger.getLogger(this.getClass());
 
     public XMLOutput(final ProjectModel project) {
         this.project = project;
@@ -56,21 +60,30 @@ public class XMLOutput {
      * META DATA
      * #########################################################
      */
+    private String convertToUTF8(String old) {
+
+        try {
+            return new String(old.getBytes("UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            this.logger.error(e.getMessage());
+        }
+        return "";
+    }
 
     private Element resolveId() {
-        return new Element("id").setText("" + this.project.getId());
+        return new Element("id").setText(convertToUTF8("" + this.project.getId()));
     }
 
     private Element resolveName() {
-        return new Element("name").setText(this.project.getName());
+        return new Element("name").setText(convertToUTF8(this.project.getName()));
     }
 
     private Element resolveDescription() {
-        return new Element("description").setText(this.project.getDescription());
+        return new Element("description").setText(convertToUTF8(this.project.getDescription()));
     }
 
     private Element resolveCreationDate() {
-        return new Element("creationDate").setText(XMLOutput.parseDate(this.project.getCreationDate()));
+        return new Element("creationDate").setText(convertToUTF8(XMLOutput.parseDate(this.project.getCreationDate())));
     }
 
     private static String parseDate(GregorianCalendar calendar) {
@@ -255,7 +268,7 @@ public class XMLOutput {
         report.addContent(axes);
 
         report.addContent(this.resolveReportPictureSets(model.getPictureContainer()));
-        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords().toArray(new String [] {})));
+        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords().toArray(new String[] {})));
         report.addContent(this.resolveWilcoxonTest(model));
         return report;
     }
@@ -274,7 +287,7 @@ public class XMLOutput {
         report.addContent(axes);
 
         report.addContent(this.resolveReportPictureSets(model.getPictureContainer()));
-        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords().toArray(new String [] {})));
+        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords().toArray(new String[] {})));
         return report;
     }
 
@@ -295,7 +308,7 @@ public class XMLOutput {
         report.addContent(axes);
 
         report.addContent(this.resolveReportPictureSets(model.getPictureContainer()));
-        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords().toArray(new String [] {})));
+        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords().toArray(new String[] {})));
         return report;
     }
 
@@ -319,7 +332,7 @@ public class XMLOutput {
         report.addContent(axes);
 
         report.addContent(this.resolveReportPictureSets(model.getPictureContainer()));
-        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords().toArray(new String [] {})));
+        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords().toArray(new String[] {})));
         return report;
     }
 
@@ -330,7 +343,7 @@ public class XMLOutput {
         report.addContent(new Element("name").setText(model.getReportName()));
         report.addContent(new Element("description").setText(model.getReportName()));
         report.addContent(this.resolveReportPictureSets(model.getPictureContainer()));
-        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords().toArray(new String [] {})));
+        report.addContent(this.resolveReportExifFilterKeywords(model.getExifFilterKeywords().toArray(new String[] {})));
         return report;
     }
 }
