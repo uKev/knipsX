@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -59,8 +61,8 @@ public class ProjectModel extends AbstractModel {
 
     private final GregorianCalendar creationDate;
 
-    private final CopyOnWriteArrayList<PictureSet> pictureSets;
-    private final CopyOnWriteArrayList<AbstractReportModel> reports;
+    private final List<PictureSet> pictureSets;
+    private final List<AbstractReportModel> reports;
 
     private final ConcurrentLinkedQueue<PictureInterface> pictureDataQueue = new ConcurrentLinkedQueue<PictureInterface>();
     private final ConcurrentLinkedQueue<PictureInterface> pictureThumbnailQueue = new ConcurrentLinkedQueue<PictureInterface>();
@@ -69,7 +71,9 @@ public class ProjectModel extends AbstractModel {
 
     private InitializePictureDataWorker dataWorker;
     private InitializePictureThumbnailWorker thumbnailWorker;
-
+    
+    private Map<String, Picture[]> store = new TreeMap<String, Picture[]>();
+    
     /**
      * Creates a new project with basic informations plus list of picture sets and reports.
      * 
@@ -244,17 +248,13 @@ public class ProjectModel extends AbstractModel {
      * 
      * @return the amount of pictures.
      */
-    public int getNumberOfPictures() {
-        int numberOfPictures = 0;
+    public synchronized int getNumberOfPictures() {
+        String key = "a" + this.id;
 
-        for (final PictureSet set : this.pictureSets) {
-
-            for (@SuppressWarnings("unused")
-            final PictureInterface picture : set) {
-                numberOfPictures++;
-            }
+        if (this.store.containsKey(key)) {
+            return this.store.get(key).length;
         }
-        return numberOfPictures;
+        return 0;
     }
 
     /**
@@ -264,15 +264,6 @@ public class ProjectModel extends AbstractModel {
      */
     public int getNumberOfPicturesProcessed() {
         return this.picturesProcessed;
-    }
-
-    /**
-     * Get the amount of the pictures with no thumbnail.
-     * 
-     * @return the amount of pictures.
-     */
-    public int getNumberOfAllPictures() {
-        return this.getAllPictures(null, null).length;
     }
 
     /**
@@ -370,6 +361,8 @@ public class ProjectModel extends AbstractModel {
         this.pictureThumbnailQueue.clear();
 
         this.picturesProcessed = 0;
+        
+        this.store.clear();
 
         this.isInitialized = false;
 
@@ -441,13 +434,8 @@ public class ProjectModel extends AbstractModel {
         }
 
         if (isAdded) {
-
-            /* TWEAK sort maybe at another location */
-            // Collections.sort(this.pictureSets);
-
-            this.updateViews();
-
             this.reloadData();
+            this.updateViews();            
         }
         return isAdded;
     }
@@ -614,7 +602,7 @@ public class ProjectModel extends AbstractModel {
      * -- THE PICTURE SET CONTENTS
      * ################################################################################################################
      */
-
+    
     /**
      * Add a picture set content of a picture set.
      * 
@@ -632,10 +620,7 @@ public class ProjectModel extends AbstractModel {
         final boolean isAdded = set.add(container);
 
         if (isAdded) {
-            for (final PictureInterface pic : container) {
-                this.pictureDataQueue.add(pic);
-                this.pictureThumbnailQueue.add(pic);
-            }
+            this.reloadData();
             this.updateViews();
         }
         return isAdded;
@@ -664,7 +649,6 @@ public class ProjectModel extends AbstractModel {
                 this.selectedPictureSetContent = null;
             }
             this.reloadData();
-
             this.updateViews();
         }
         return isRemoved;
@@ -721,21 +705,39 @@ public class ProjectModel extends AbstractModel {
      *            the PictureContainer.
      * @return an amount of pictures of a PictureSet, PictureContainer or all pictures of the model (if both are null).
      */
-    public Picture[] getAllPictures(final PictureSet set, final PictureContainer content) {
+    public synchronized Picture[] getAllPictures(final PictureSet set, final PictureContainer content) {
+
         final List<PictureInterface> pictures = new ArrayList<PictureInterface>();
 
         if ((set != null) && (content == null)) {
+            String key = "s" + set.hashCode();
+
+            if (this.store.containsKey(key)) {
+                return this.store.get(key);
+            }
 
             for (final PictureInterface picture : set) {
                 pictures.add(picture);
             }
+            this.store.put(key, pictures.toArray(new Picture[] {}));
 
         } else if ((content != null)) {
+            String key = "c" + content.hashCode();
+
+            if (this.store.containsKey(key)) {
+                return this.store.get(key);
+            }
 
             for (final PictureInterface picture : content) {
                 pictures.add(picture);
             }
+            this.store.put(key, pictures.toArray(new Picture[] {}));
         } else {
+            String key = "a" + this.id;
+
+            if (this.store.containsKey(key)) {
+                return this.store.get(key);
+            }
 
             for (final PictureSet currentSet : this.pictureSets) {
 
@@ -743,6 +745,7 @@ public class ProjectModel extends AbstractModel {
                     pictures.add(picture);
                 }
             }
+            this.store.put(key, pictures.toArray(new Picture[] {}));
         }
         return pictures.toArray(new Picture[] {});
     }

@@ -1080,7 +1080,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
     }
 
-    private synchronized void setJListPictureSets(final JList list, final PictureContainer selectedAtModel,
+    private void setJListPictureSets(final JList list, final PictureContainer selectedAtModel,
             final Object[] data) {
 
         /* store the selected values */
@@ -1108,11 +1108,11 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         list.setSelectedIndices(selectedIndices);
     }
 
-    private synchronized void doUpdateTotalPictureText(final int numberOfPictures) {
+    private void doUpdateTotalPictureText(final int numberOfPictures) {
         this.jLabelTotalPictures.setText(Messages.getString("JProjectView.85") + " " + numberOfPictures);
     }
 
-    private synchronized void setBehaviour(final boolean isActive) {
+    private void setBehaviour(final boolean isActive) {
         this.setFocusableWindowState(isActive);
         this.setFocusable(isActive);
         this.setEnabled(isActive);
@@ -1130,10 +1130,10 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         }
     }
 
-    private synchronized void doUpdateProgressBar(final ProjectModel model) {
+    private void doUpdateProgressBar(final ProjectModel model) {
 
         /* Update the progress bars */
-        final int totalPictures = this.model.getNumberOfAllPictures();
+        final int totalPictures = this.model.getNumberOfPictures();
 
         if (totalPictures > 0) {
             this.pictureDataProgress.setValue(this.model.getNumberOfPicturesProcessed());

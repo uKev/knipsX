@@ -106,7 +106,7 @@ public class WilcoxonTest {
     /**
      * Sets the actual testtype for the Wilcoxontest.
      * 
-     * @param testType
+     * @param wilcoxenTestType
      *            The type.
      */
     public void setWilcoxonTestType(final WilcoxonTestType wilcoxenTestType) {
