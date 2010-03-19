@@ -20,14 +20,6 @@ import org.knipsX.view.projectmanagement.JProjectManagement;
  *****************************************************************************/
 public final class KnipsX {
 
-    /*
-     * the logger
-     * see http://logging.apache.org/log4j/1.2/manual.html for usage
-     */
-    private static Logger logger = Logger.getLogger(KnipsX.class);
-
-    /* TODO: rename Programm(.java) either to Program or better knipsX */
-
     /* private constructor - this class should never have an instace */
     private KnipsX() {
     }
@@ -41,6 +33,11 @@ public final class KnipsX {
      *            stores parameters which are set up by a user during program start.
      */
     public static void main(final String[] args) {
+        /*
+         * the logger
+         * see http://logging.apache.org/log4j/1.2/manual.html for usage
+         */
+        final Logger logger = Logger.getLogger(KnipsX.class);
 
         /* setting up the logger */
         BasicConfigurator.configure();
@@ -49,21 +46,24 @@ public final class KnipsX {
          * log-level chain:
          * TRACE > DEBUG > INFO > WARN > ERROR > FATAL
          */
-        KnipsX.logger.info("Starting knipsX");
+        logger.info("Starting knipsX");
 
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        JDialog.setDefaultLookAndFeelDecorated(true);
-        
         /*
          * schedule a job for the event-dispatching thread:
          * creating and showing this application's GUI
          */
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+
+                JFrame.setDefaultLookAndFeelDecorated(true);
+                JDialog.setDefaultLookAndFeelDecorated(true);
+                // Toolkit.getDefaultToolkit().setDynamicLayout(true);
+                // System.setProperty("sun.awt.noerasebackground", "true");
+
                 try {
-                    UIManager.setLookAndFeel(new SubstanceBusinessBlackSteelLookAndFeel());                    
+                    UIManager.setLookAndFeel(new SubstanceBusinessBlackSteelLookAndFeel());
                 } catch (final UnsupportedLookAndFeelException e) {
-                    KnipsX.logger.error("Error loading Look and Feel: " + e.getMessage());
+                    logger.error("Error loading Look and Feel: " + e.getMessage());
                 }
 
                 /* create a model for the ProjectAdministration */
@@ -71,8 +71,9 @@ public final class KnipsX {
 
                 /* creates a new JProjectAdministration window, which is connected to a model */
                 new JProjectManagement<ProjectManagementModel>(projectManagementModel);
+
+                logger.info("knipsX started");
             }
         });
-        KnipsX.logger.info("knipsX started");
     }
 }

@@ -310,10 +310,6 @@ class CustomListCellRenderer implements ListCellRenderer {
     public Component getListCellRendererComponent(final JList list, final Object value, final int index,
             final boolean isSelected, final boolean cellHasFocus) {
 
-        /* the texts for the cell */
-        String theText = null;
-        String toolTipText = null;
-
         /* generate the label which represents the cell */
         final JLabel renderer = (JLabel) this.defaultRenderer.getListCellRendererComponent(list, value, index,
                 isSelected, cellHasFocus);
@@ -321,12 +317,14 @@ class CustomListCellRenderer implements ListCellRenderer {
         /* if the selected item is a "ProjectEntry" -> set the name and the description */
         if (value instanceof ProjectModel) {
             final ProjectModel projectModel = (ProjectModel) value;
-            theText = projectModel.getName() + " " + projectModel.calendarToString();
-            toolTipText = projectModel.getDescription();
-        }
-        renderer.setText(theText);
-        renderer.setToolTipText(toolTipText);
 
+            renderer.setText(projectModel.getName() + " " + projectModel.calendarToString());
+
+            String toolTipText = projectModel.getDescription();
+            if (!toolTipText.trim().equalsIgnoreCase("")) {
+                renderer.setToolTipText(toolTipText);
+            }
+        }
         return renderer;
     }
 }

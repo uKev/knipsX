@@ -3,7 +3,6 @@ package org.knipsX.model.projectview;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -71,9 +70,9 @@ public class ProjectModel extends AbstractModel {
 
     private InitializePictureDataWorker dataWorker;
     private InitializePictureThumbnailWorker thumbnailWorker;
-    
-    private Map<String, Picture[]> store = new TreeMap<String, Picture[]>();
-    
+
+    private final Map<String, Picture[]> store = new TreeMap<String, Picture[]>();
+
     /**
      * Creates a new project with basic informations plus list of picture sets and reports.
      * 
@@ -249,7 +248,7 @@ public class ProjectModel extends AbstractModel {
      * @return the amount of pictures.
      */
     public synchronized int getNumberOfPictures() {
-        String key = "a" + this.id;
+        final String key = "a" + this.id;
 
         if (this.store.containsKey(key)) {
             return this.store.get(key).length;
@@ -361,7 +360,7 @@ public class ProjectModel extends AbstractModel {
         this.pictureThumbnailQueue.clear();
 
         this.picturesProcessed = 0;
-        
+
         this.store.clear();
 
         this.isInitialized = false;
@@ -418,7 +417,7 @@ public class ProjectModel extends AbstractModel {
         assert (set != null) && (set instanceof PictureSet);
 
         int index = 0;
-        for (PictureSet pictureSet : this.pictureSets) {
+        for (final PictureSet pictureSet : this.pictureSets) {
             if (pictureSet.compareTo(set) > 0) {
                 break;
             } else {
@@ -429,13 +428,13 @@ public class ProjectModel extends AbstractModel {
 
         try {
             this.pictureSets.add(index, set);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             isAdded = false;
         }
 
         if (isAdded) {
             this.reloadData();
-            this.updateViews();            
+            this.updateViews();
         }
         return isAdded;
     }
@@ -602,7 +601,7 @@ public class ProjectModel extends AbstractModel {
      * -- THE PICTURE SET CONTENTS
      * ################################################################################################################
      */
-    
+
     /**
      * Add a picture set content of a picture set.
      * 
@@ -710,7 +709,7 @@ public class ProjectModel extends AbstractModel {
         final List<PictureInterface> pictures = new ArrayList<PictureInterface>();
 
         if ((set != null) && (content == null)) {
-            String key = "s" + set.hashCode();
+            final String key = "s" + set.hashCode();
 
             if (this.store.containsKey(key)) {
                 return this.store.get(key);
@@ -722,7 +721,7 @@ public class ProjectModel extends AbstractModel {
             this.store.put(key, pictures.toArray(new Picture[] {}));
 
         } else if ((content != null)) {
-            String key = "c" + content.hashCode();
+            final String key = "c" + content.hashCode();
 
             if (this.store.containsKey(key)) {
                 return this.store.get(key);
@@ -733,7 +732,7 @@ public class ProjectModel extends AbstractModel {
             }
             this.store.put(key, pictures.toArray(new Picture[] {}));
         } else {
-            String key = "a" + this.id;
+            final String key = "a" + this.id;
 
             if (this.store.containsKey(key)) {
                 return this.store.get(key);

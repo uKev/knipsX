@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 
@@ -27,11 +28,13 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import javax.swing.GroupLayout.ParallelGroup;
@@ -41,6 +44,10 @@ import javax.swing.table.TableModel;
 import javax.swing.text.JTextComponent;
 
 import org.apache.log4j.Logger;
+import org.jdesktop.swingx.JXMultiSplitPane;
+import org.jdesktop.swingx.JXStatusBar;
+import org.jdesktop.swingx.MultiSplitLayout;
+import org.jdesktop.swingx.plaf.basic.BasicStatusBarUI;
 import org.knipsX.Messages;
 import org.knipsX.controller.projectview.PictureListClickOnController;
 import org.knipsX.controller.projectview.PictureSetContentListAddController;
@@ -68,6 +75,7 @@ import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.utils.Resource;
+import org.knipsX.utils.Values;
 import org.knipsX.view.JAbstractView;
 import org.knipsX.view.reportmanagement.ReportHelper;
 
@@ -81,7 +89,13 @@ import org.knipsX.view.reportmanagement.ReportHelper;
  */
 public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
+    private static final int PREFERRED_LEFT_COMPONENT_WIDTH = 300;
+    private static final int PREFERRED_MIDDLE_COMPONENT_WIDTH = 400;
+    private static final int PREFERRED_RIGHT_COMPONENT_WIDTH = 300;
+
     private static final long serialVersionUID = 6747507429332590686L;
+
+    private JXStatusBar jPanelStatusInformation = null;
 
     private JPanel jContentPane = null;
     private JPanel jPanelProjectOptions = null;
@@ -90,11 +104,10 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
     private JPanel jPanelPictureSetOptions = null;
     private JPanel jPanelPictureSetContent = null;
     private JPanel jPanelPictureSetContentOptions = null;
-    private JPanel jPanelPictureSetActive = null;
     private JPanel jPanelReport = null;
     private JPanel jPanelReportOptions = null;
-    private JPanel jPanelStatusInformation = null;
-    private JPanel jPanelExif = null;
+
+    private JScrollPane jScrollPanePictureSetActive = null;
 
     private JLabel jLabelTotalPictures = null;
 
@@ -154,6 +167,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* change size to preferred size */
         this.pack();
+//        this.setSize(Values.PREFERRED_WINDOW_WIDTH, Values.PREFERRED_WINDOW_HEIGHT);
 
         /* set location to the center of the screen */
         this.setLocationRelativeTo(null);
@@ -190,7 +204,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* the action listener must know view and model */
             final ActionListener listener = new ProjectSwitchController<M, JProjectView<M>>(this.model, this);
 
-            /* INTERNATIONALIZE */
             this.jButtonProjectChange = this.getNewButton(Messages.getString("JProjectView.0"), "",
                     "actions/go-jump.png", listener);
         }
@@ -205,7 +218,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* the action listener must know view and model */
             final ActionListener listener = new ProjectSaveController<M, JProjectView<M>>(this.model, this);
 
-            /* INTERNATIONALIZE */
             this.jButtonProjectSave = this.getNewButton(Messages.getString("JProjectView.4"), "",
                     "actions/document-save.png", listener);
         }
@@ -220,7 +232,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* the action listener must know view and model */
             final ActionListener listener = new PictureSetListCopyController<M, JProjectView<M>>(this.model, this);
 
-            /* INTERNATIONALIZE */
             this.jButtonPictureSetCopy = this.getNewButton(Messages.getString("JProjectView.7"), "",
                     "actions/edit-copy.png", listener);
         }
@@ -235,7 +246,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* the action listener must know view and model */
             final ActionListener listener = new PictureSetListCreateController<M, JProjectView<M>>(this.model, this);
 
-            /* INTERNATIONALIZE */
             this.jButtonPictureSetCreate = this.getNewButton(Messages.getString("JProjectView.1"), "",
                     "actions/document-new.png", listener);
         }
@@ -250,7 +260,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* the action listener must know view and model */
             final ActionListener listener = new PictureSetListDeleteController<M, JProjectView<M>>(this.model, this);
 
-            /* INTERNATIONALIZE */
             this.jButtonPictureSetDelete = this.getNewButton(Messages.getString("JProjectView.13"), "",
                     "actions/edit-delete.png", listener);
         }
@@ -265,7 +274,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* the action listener must know view and model */
             final ActionListener listener = new PictureSetContentListAddController<M, JProjectView<M>>(this.model, this);
 
-            /* INTERNATIONALIZE */
             this.jButtonPictureSetContentAdd = this.getNewButton(Messages.getString("JProjectView.16"), "",
                     "actions/list-add.png", listener);
         }
@@ -281,7 +289,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new PictureSetContentListDeleteController<M, JProjectView<M>>(this.model,
                     this);
 
-            /* INTERNATIONALIZE */
             this.jButtonPictureSetContentDelete = this.getNewButton(Messages.getString("JProjectView.19"), "",
                     "actions/list-remove.png", listener);
         }
@@ -297,7 +304,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             final ActionListener listener = new PictureSetContentListRefreshController<M, JProjectView<M>>(this.model,
                     this);
 
-            /* INTERNATIONALIZE */
             this.jButtonPictureSetContentRefresh = this.getNewButton(Messages.getString("JProjectView.22"), "",
                     "actions/view-refresh.png", listener);
         }
@@ -312,7 +318,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* the action listener must know view and model */
             final ActionListener listener = new ReportCreateController<M, JProjectView<M>>(this.model, this);
 
-            /* INTERNATIONALIZE */
             this.jButtonReportCreate = this.getNewButton(Messages.getString("JProjectView.25"), "",
                     "actions/document-new.png", listener);
         }
@@ -327,7 +332,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* the action listener must know view and model */
             final ActionListener listener = new ReportOpenController<M, JProjectView<M>>(this.model, this);
 
-            /* INTERNATIONALIZE */
             this.jButtonReportOpen = this.getNewButton(Messages.getString("JProjectView.28"), "",
                     "actions/document-open.png", listener);
         }
@@ -342,7 +346,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* the action listener must know view and model */
             final ActionListener listener = new ReportDeleteController<M, JProjectView<M>>(this.model, this);
 
-            /* INTERNATIONALIZE */
             this.jButtonReportDelete = this.getNewButton(Messages.getString("JProjectView.31"), "",
                     "actions/edit-delete.png", listener);
         }
@@ -359,78 +362,61 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jContentPane == null) {
-
             this.jContentPane = new JPanel(new BorderLayout());
 
-            final JPanel mainPanel = new JPanel();
+            final JXMultiSplitPane multiSplitPane = new JXMultiSplitPane();
+            final MultiSplitLayout multiSplitLayout = multiSplitPane.getMultiSplitLayout();
 
-            /* create new layout for this panel */
-            final GroupLayout jContentPaneLayout = new GroupLayout(mainPanel);
+            final MultiSplitLayout.Leaf leafProjectOptions = new MultiSplitLayout.Leaf("ProjectOptions");
+            final MultiSplitLayout.Leaf leafProjectDescription = new MultiSplitLayout.Leaf("ProjectDescription");
+            final MultiSplitLayout.Leaf leafPictureSet = new MultiSplitLayout.Leaf("PictureSet");
+            final MultiSplitLayout.Leaf leafPictureSetContent = new MultiSplitLayout.Leaf("PictureSetContent");
+            final MultiSplitLayout.Leaf leafPictureSetActive = new MultiSplitLayout.Leaf("PictureSetActive");
+            final MultiSplitLayout.Leaf leafReport = new MultiSplitLayout.Leaf("Report");
+            final MultiSplitLayout.Leaf leafExif = new MultiSplitLayout.Leaf("Exif");
 
-            /* represents the horizontal left area of the window */
-            final ParallelGroup horiLeftArea = jContentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING);
+            final MultiSplitLayout.ColSplit leftSplit = new MultiSplitLayout.ColSplit();
 
-            /* the maximum width of the left area */
-            final int widthLeft = 300;
+            List<MultiSplitLayout.Node> childrens = new LinkedList<MultiSplitLayout.Node>();
+            childrens.add(leafProjectOptions);
+            childrens.add(new MultiSplitLayout.Divider());
+            childrens.add(leafProjectDescription);
+            childrens.add(new MultiSplitLayout.Divider());
+            childrens.add(leafPictureSet);
+            childrens.add(new MultiSplitLayout.Divider());
+            childrens.add(leafPictureSetContent);
+            leftSplit.setChildren(childrens);
 
-            horiLeftArea.addComponent(this.getJPanelProjectOptions(), widthLeft, widthLeft, widthLeft);
-            horiLeftArea.addComponent(this.getJPanelProjectDescription(), widthLeft, widthLeft, widthLeft);
-            horiLeftArea.addComponent(this.getJPanelPictureSet(), widthLeft, widthLeft, widthLeft);
-            horiLeftArea.addComponent(this.getJPanelPictureSetContent(), widthLeft, widthLeft, widthLeft);
+            final MultiSplitLayout.ColSplit rightSplit = new MultiSplitLayout.ColSplit();
 
-            /* represents the horizontal right area of the window */
-            final ParallelGroup horiRightArea = jContentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING);
+            childrens = new LinkedList<MultiSplitLayout.Node>();
+            childrens.add(leafReport);
+            childrens.add(new MultiSplitLayout.Divider());
+            childrens.add(leafExif);
+            rightSplit.setChildren(childrens);
 
-            /* the maximum width of the right area */
-            final int widthRight = 250;
+            final MultiSplitLayout.Split modelRoot = new MultiSplitLayout.Split();
 
-            horiRightArea.addComponent(this.getJPanelReport(), widthRight, widthRight, widthRight);
-            horiRightArea.addComponent(this.getJPanelExif(), widthRight, widthRight, widthRight);
+            childrens = new LinkedList<MultiSplitLayout.Node>();
+            childrens.add(leftSplit);
+            childrens.add(new MultiSplitLayout.Divider());
+            childrens.add(leafPictureSetActive);
+            childrens.add(new MultiSplitLayout.Divider());
+            childrens.add(rightSplit);
+            modelRoot.setChildren(childrens);
 
-            /* we have three horizontal areas: left, middle, right */
-            final SequentialGroup horiMainArea = jContentPaneLayout.createSequentialGroup();
+            multiSplitLayout.setModel(modelRoot);
 
-            /* add the groups horizontal left and right and the component for the horizontal middle area */
-            horiMainArea.addGroup(horiLeftArea);
-            horiMainArea.addComponent(this.getJPanelPictureSetActive());
-            horiMainArea.addGroup(horiRightArea);
-
-            /* set the horizontal assignment */
-            jContentPaneLayout.setHorizontalGroup(horiMainArea);
-
-            /* represents the vertical left area of the window */
-            final SequentialGroup vertLeftArea = jContentPaneLayout.createSequentialGroup();
-
-            vertLeftArea.addComponent(this.getJPanelProjectOptions(), 75, 75, 75);
-            vertLeftArea.addComponent(this.getJPanelProjectDescription(), 100, 100, 100);
-            vertLeftArea.addComponent(this.getJPanelPictureSet(), 100, 100, Short.MAX_VALUE);
-            vertLeftArea.addComponent(this.getJPanelPictureSetContent(), 100, 100, Short.MAX_VALUE);
-
-            /* represents the vertical right area of the window */
-            final SequentialGroup vertRightArea = jContentPaneLayout.createSequentialGroup();
-
-            vertRightArea.addComponent(this.getJPanelReport(), 250, 250, Short.MAX_VALUE);
-            vertRightArea.addComponent(this.getJPanelExif(), 200, 200, Short.MAX_VALUE);
-
-            /* we have three vertical areas: left, middle, right */
-            final ParallelGroup vertMainArea = jContentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING);
-
-            /* add the groups vertical left and right and the component for the vertical middle area */
-            vertMainArea.addGroup(GroupLayout.Alignment.TRAILING, vertLeftArea);
-            vertMainArea.addComponent(this.getJPanelPictureSetActive());
-            vertMainArea.addGroup(vertRightArea);
-
-            /* set the vertical assignment */
-            jContentPaneLayout.setVerticalGroup(vertMainArea);
-
-            /* set the layout to the panel */
-            mainPanel.setLayout(jContentPaneLayout);
-
-            this.jContentPane.add(mainPanel, BorderLayout.CENTER);
+            multiSplitPane.add(this.getJPanelProjectOptions(), "ProjectOptions");
+            multiSplitPane.add(this.getJPanelProjectDescription(), "ProjectDescription");
+            multiSplitPane.add(this.getJPanelPictureSet(), "PictureSet");
+            multiSplitPane.add(this.getJPanelPictureSetContent(), "PictureSetContent");
+            multiSplitPane.add(this.getPictureSetActiveList(), "PictureSetActive");
+            multiSplitPane.add(this.getJPanelReport(), "Report");
+            multiSplitPane.add(this.getExifTable(), "Exif");
+            multiSplitPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            this.jContentPane.add(multiSplitPane, BorderLayout.CENTER);
             this.jContentPane.add(this.getJPanelStatusInformation(), BorderLayout.SOUTH);
-
-            /* draw an invisible border around the panel to make it more readable */
-            this.jContentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         }
         return this.jContentPane;
     }
@@ -445,7 +431,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jPanelProjectOptions == null) {
-
             this.jPanelProjectOptions = new JPanel();
 
             /* create new layout for this panel */
@@ -489,7 +474,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jPanelProjectOptions.setLayout(jPanelProjectOptionsLayout);
 
             /* add a border to the panel */
-            /* INTERNATIONALIZE */
+
             final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
                     .getString("JProjectView.34"));
             this.jPanelProjectOptions.setBorder(title);
@@ -519,18 +504,20 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jPanelProjectDescription == null) {
-
             this.jPanelProjectDescription = new JPanel();
 
             this.jPanelProjectDescription.setLayout(new BorderLayout());
 
             /* add a border to the panel */
-            /* INTERNATIONALIZE */
+
             final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
                     .getString("JProjectView.75"));
             this.jPanelProjectDescription.setBorder(title);
 
             this.jPanelProjectDescription.add(this.getProjectDescriptionEditorPane(), BorderLayout.CENTER);
+
+            this.jPanelProjectDescription.setPreferredSize(new Dimension(JProjectView.PREFERRED_LEFT_COMPONENT_WIDTH,
+                    150));
         }
         return this.jPanelProjectDescription;
     }
@@ -558,19 +545,20 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jPanelPictureSet == null) {
-
             this.jPanelPictureSet = new JPanel();
 
             this.jPanelPictureSet.setLayout(new BoxLayout(this.jPanelPictureSet, BoxLayout.Y_AXIS));
 
             /* add a border to the panel */
-            /* INTERNATIONALIZE */
+
             final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
                     .getString("JProjectView.35"));
             this.jPanelPictureSet.setBorder(title);
 
             this.jPanelPictureSet.add(this.getPictureSetList());
             this.jPanelPictureSet.add(this.getJPanelPictureSetOptions());
+
+            this.jPanelPictureSet.setPreferredSize(new Dimension(JProjectView.PREFERRED_LEFT_COMPONENT_WIDTH, 250));
         }
         return this.jPanelPictureSet;
     }
@@ -604,7 +592,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jPanelPictureSetOptions == null) {
-
             this.jPanelPictureSetOptions = new JPanel();
 
             this.jPanelPictureSetOptions.setLayout(new BoxLayout(this.jPanelPictureSetOptions, BoxLayout.X_AXIS));
@@ -612,9 +599,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jPanelPictureSetOptions.add(this.getJButtonPictureSetCreate());
             this.jPanelPictureSetOptions.add(this.getJButtonPictureSetDelete());
             this.jPanelPictureSetOptions.add(this.getJButtonPictureSetCopy());
-
-            /* draw an invisible border around the panel to make it more readable */
-            this.jPanelPictureSetOptions.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
         }
         return this.jPanelPictureSetOptions;
     }
@@ -629,19 +613,21 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jPanelPictureSetContent == null) {
-
             this.jPanelPictureSetContent = new JPanel();
 
             this.jPanelPictureSetContent.setLayout(new BoxLayout(this.jPanelPictureSetContent, BoxLayout.Y_AXIS));
 
             /* add a border to the panel */
-            /* INTERNATIONALIZE */
+
             final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
                     .getString("JProjectView.77"));
             this.jPanelPictureSetContent.setBorder(title);
 
             this.jPanelPictureSetContent.add(this.getPictureSetContentList());
             this.jPanelPictureSetContent.add(this.getJPanelPictureSetContentOptions());
+
+            this.jPanelPictureSetContent.setPreferredSize(new Dimension(JProjectView.PREFERRED_LEFT_COMPONENT_WIDTH,
+                    250));
         }
         return this.jPanelPictureSetContent;
     }
@@ -664,7 +650,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
             /* we store different objects in the list, so we have to set a special rendering */
             this.jListPictureSetContent.setCellRenderer(new PictureSetContentListCellRenderer());
-
         }
         final JScrollPane listScroller = new JScrollPane(this.jListPictureSetContent);
 
@@ -675,7 +660,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jPanelPictureSetContentOptions == null) {
-
             this.jPanelPictureSetContentOptions = new JPanel();
 
             this.jPanelPictureSetContentOptions.setLayout(new BoxLayout(this.jPanelPictureSetContentOptions,
@@ -684,9 +668,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jPanelPictureSetContentOptions.add(this.getJButtonPictureSetContentAdd());
             this.jPanelPictureSetContentOptions.add(this.getJButtonPictureSetContentDelete());
             this.jPanelPictureSetContentOptions.add(this.getJButtonPictureSetContentRefresh());
-
-            /* draw an invisible border around the panel to make it more readable */
-            this.jPanelPictureSetContentOptions.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
         }
         return this.jPanelPictureSetContentOptions;
     }
@@ -696,34 +677,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
      * THE FIFTH PANE (ACTIVE PICTURES)
      * ################################################################################################################
      */
-
-    private JPanel getJPanelPictureSetActive() {
-
-        /* create only if not set */
-        if (this.jPanelPictureSetActive == null) {
-
-            this.jPanelPictureSetActive = new JPanel();
-
-            this.jPanelPictureSetActive.setLayout(new BorderLayout());
-
-            /* add a border to the panel */
-            /* INTERNATIONALIZE */
-            if (this.model.getSelectedPictureSetContent() != null) {
-                final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
-                        .getString("JProjectView.41")
-                        + this.model.getSelectedPictureSetContent().getName());
-                this.jPanelPictureSetActive.setBorder(title);
-            } else if (this.model.getSelectedPictureSet() != null) {
-                final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
-                        .getString("JProjectView.43")
-                        + this.model.getSelectedPictureSet().getName());
-                this.jPanelPictureSetActive.setBorder(title);
-            }
-
-            this.jPanelPictureSetActive.add(this.getPictureSetActiveList(), BorderLayout.CENTER);
-        }
-        return this.jPanelPictureSetActive;
-    }
 
     private JScrollPane getPictureSetActiveList() {
 
@@ -742,13 +695,26 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             /* we store picture objects in the list, so we have to set a special rendering */
             this.jListPictureSetActive.setCellRenderer(new PictureListCellRenderer());
         }
-        final JScrollPane listScroller = new JScrollPane(this.jListPictureSetActive);
 
-        /* FIXME correct size */
-        listScroller.setMinimumSize(new Dimension(146, 400));
-        listScroller.setPreferredSize(new Dimension(146, 400));
+        if (this.jScrollPanePictureSetActive == null) {
+            this.jScrollPanePictureSetActive = new JScrollPane(this.jListPictureSetActive);
 
-        return listScroller;
+            final TitledBorder title;
+            if (this.model.getSelectedPictureSetContent() != null) {
+                title = BorderFactory.createTitledBorder(Messages.getString("JProjectView.41")
+                        + this.model.getSelectedPictureSetContent().getName());
+            } else if (this.model.getSelectedPictureSet() != null) {
+                title = BorderFactory.createTitledBorder(Messages.getString("JProjectView.43")
+                        + this.model.getSelectedPictureSet().getName());
+            } else {
+                title = BorderFactory.createTitledBorder("");
+            }
+            title.setTitlePosition(TitledBorder.ABOVE_TOP);
+            this.jScrollPanePictureSetActive.setBorder(title);
+
+            this.jScrollPanePictureSetActive.setPreferredSize(new Dimension(PREFERRED_MIDDLE_COMPONENT_WIDTH, 400));
+        }
+        return this.jScrollPanePictureSetActive;
     }
 
     /*
@@ -761,19 +727,19 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jPanelReport == null) {
-
             this.jPanelReport = new JPanel();
 
             this.jPanelReport.setLayout(new BoxLayout(this.jPanelReport, BoxLayout.Y_AXIS));
 
             /* add a border to the panel */
-            /* INTERNATIONALIZE */
             final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
                     .getString("JProjectView.79"));
             this.jPanelReport.setBorder(title);
 
             this.jPanelReport.add(this.getReportList());
             this.jPanelReport.add(this.getJPanelReportOptions());
+
+            this.jPanelReport.setPreferredSize(new Dimension(JProjectView.PREFERRED_RIGHT_COMPONENT_WIDTH, 250));
         }
         return this.jPanelReport;
     }
@@ -802,7 +768,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jPanelReportOptions == null) {
-
             this.jPanelReportOptions = new JPanel();
 
             this.jPanelReportOptions.setLayout(new BoxLayout(this.jPanelReportOptions, BoxLayout.X_AXIS));
@@ -810,9 +775,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jPanelReportOptions.add(this.getJButtonReportCreate());
             this.jPanelReportOptions.add(this.getJButtonReportOpen());
             this.jPanelReportOptions.add(this.getJButtonReportDelete());
-
-            /* draw an invisible border around the panel to make it more readable */
-            this.jPanelReportOptions.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
         }
         return this.jPanelReportOptions;
     }
@@ -823,39 +785,18 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
      * ################################################################################################################
      */
 
-    private JPanel getJPanelExif() {
-
-        /* create only if not set */
-        if (this.jPanelExif == null) {
-
-            this.jPanelExif = new JPanel();
-
-            this.jPanelExif.setLayout(new BorderLayout());
-
-            /* add a border to the panel */
-            /* INTERNATIONALIZE */
-            final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), Messages
-                    .getString("JProjectView.36"));
-
-            this.jPanelExif.setBorder(title);
-
-            this.jPanelExif.add(this.getExifTable(), BorderLayout.CENTER);
-        }
-        return this.jPanelExif;
-    }
-
     private JScrollPane getExifTable() {
 
         /* create only if not set */
         if (this.jTableExif == null) {
-
-            // INTERNATIONALIZE
             final String[] columnNames = { Messages.getString("JProjectView.37"), Messages.getString("JProjectView.38") };
             final Object[][] data = this.model.getExifParameter();
 
             /* create new table for the exif parameters of an active image */
             this.jTableExif = new JTable(data, columnNames);
             this.jTableExif.setDefaultRenderer(Object.class, new MyExifTableCellRenderer());
+
+            this.jTableExif.setPreferredSize(new Dimension(JProjectView.PREFERRED_RIGHT_COMPONENT_WIDTH, 250));
         }
         return new JScrollPane(this.jTableExif);
     }
@@ -866,40 +807,40 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
      * ################################################################################################################
      */
 
-    private JPanel getJPanelStatusInformation() {
+    private JXStatusBar getJPanelStatusInformation() {
 
         /* create only if not set */
         if (this.jPanelStatusInformation == null) {
+            JLabel infoLabel = new JLabel(Messages.getString("JProjectView.40"));
+            infoLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
-            this.jPanelStatusInformation = new JPanel();
+            JLabel versionLabel = new JLabel(Values.VERSION);
+            versionLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
-            this.jPanelStatusInformation.setLayout(new BoxLayout(this.jPanelStatusInformation, BoxLayout.LINE_AXIS));
+            this.jPanelStatusInformation = new JXStatusBar();
 
-            this.jPanelStatusInformation.add(this.getJProgressBarPictureData());
+            this.jPanelStatusInformation.putClientProperty(BasicStatusBarUI.AUTO_ADD_SEPARATOR, false);
 
-            /* INTERNATIONALIZE */
             this.jPanelStatusInformation.add(this.getJLabelTotalPictures());
-
-            this.jPanelStatusInformation.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 5));
+            this.jPanelStatusInformation.add(new JSeparator(SwingConstants.VERTICAL));
+            this.jPanelStatusInformation.add(infoLabel);
+            this.jPanelStatusInformation.add(this.getJProgressBarPictureData(), new JXStatusBar.Constraint(
+                    JXStatusBar.Constraint.ResizeBehavior.FILL));
+            this.jPanelStatusInformation.add(new JSeparator(SwingConstants.VERTICAL));
+            this.jPanelStatusInformation.add(versionLabel);
         }
         return this.jPanelStatusInformation;
     }
 
-    private JPanel getJProgressBarPictureData() {
+    private JProgressBar getJProgressBarPictureData() {
 
         /* create only if not set */
         if (this.pictureDataProgress == null) {
             this.pictureDataProgress = new JProgressBar(0, 1);
             this.pictureDataProgress.setStringPainted(true);
+            this.pictureDataProgress.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         }
-        final JPanel main = new JPanel(new BorderLayout());
-
-        /* INTERNATIONALIZE */
-        main.add(new JLabel(Messages.getString("JProjectView.40")), BorderLayout.WEST);
-        main.add(this.pictureDataProgress, BorderLayout.CENTER);
-        main.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
-
-        return main;
+        return this.pictureDataProgress;
     }
 
     private JLabel getJLabelTotalPictures() {
@@ -908,6 +849,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         if (this.jLabelTotalPictures == null) {
             this.jLabelTotalPictures = new JLabel(Messages.getString("JProjectView.85")
                     + this.model.getNumberOfPictures());
+            this.jLabelTotalPictures.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         }
         return this.jLabelTotalPictures;
     }
@@ -1010,7 +952,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
     @Override
     public void update(final Observable o, final Object arg) {
-
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 JProjectView.this.doUpdateProgressBar((ProjectModel) o);
@@ -1041,17 +982,18 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                 JProjectView.this.setJListCommon(JProjectView.this.jListReport, JProjectView.this.model.getReports());
 
                 /* change border of the panel */
+                final TitledBorder title;
                 if (JProjectView.this.model.getSelectedPictureSetContent() != null) {
-                    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                            Messages.getString("JProjectView.41")
-                                    + JProjectView.this.model.getSelectedPictureSetContent().getName());
-                    JProjectView.this.jPanelPictureSetActive.setBorder(title);
+                    title = BorderFactory.createTitledBorder(Messages.getString("JProjectView.41")
+                            + JProjectView.this.model.getSelectedPictureSetContent().getName());
                 } else if (JProjectView.this.model.getSelectedPictureSet() != null) {
-                    final TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                            Messages.getString("JProjectView.43")
-                                    + JProjectView.this.model.getSelectedPictureSet().getName());
-                    JProjectView.this.jPanelPictureSetActive.setBorder(title);
+                    title = BorderFactory.createTitledBorder(Messages.getString("JProjectView.43")
+                            + JProjectView.this.model.getSelectedPictureSet().getName());
+                } else {
+                    title = BorderFactory.createTitledBorder("");
                 }
+                title.setTitlePosition(TitledBorder.ABOVE_TOP);
+                JProjectView.this.jScrollPanePictureSetActive.setBorder(title);
 
                 if (JProjectView.this.model.getSelectedPicture() != null) {
                     final TableModel exifModel = JProjectView.this.jTableExif.getModel();
@@ -1077,11 +1019,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
                 JProjectView.this.repaint();
             }
         });
-
     }
 
-    private void setJListPictureSets(final JList list, final PictureContainer selectedAtModel,
-            final Object[] data) {
+    private void setJListPictureSets(final JList list, final PictureContainer selectedAtModel, final Object[] data) {
 
         /* store the selected values */
         final int selectedIndex = list.getSelectedIndex();
@@ -1331,7 +1271,7 @@ class PictureListCellRenderer implements ListCellRenderer {
             } else {
                 renderer.setIcon(this.noImageIcon);
             }
-            String imagePath = picture.getBigThumbnailPath();
+            final String imagePath = picture.getBigThumbnailPath();
 
             if (imagePath != null) {
                 renderer.setToolTipText("<html><img src=\"file:" + imagePath + "\"> </html>");

@@ -52,8 +52,6 @@ public abstract class JAbstractView<M extends AbstractModel> extends JFrame impl
         }
     }
 
-
-
     /**
      * Has the same behavior like the normal dispose(), but also disconnects the view from a model.
      */
