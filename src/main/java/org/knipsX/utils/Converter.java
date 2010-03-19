@@ -41,6 +41,9 @@ public final class Converter {
                 throw new ClassCastException("Converter.objectToDouble: can not handle empty String");
             }
 
+        } else if (object == null) {
+            returnValue = 0.0;
+            throw new ClassCastException("Converter.objectToDouble: can not handle null objects");
         } else {
 
             returnValue = 0.0;

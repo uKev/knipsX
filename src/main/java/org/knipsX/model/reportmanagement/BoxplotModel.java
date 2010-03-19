@@ -47,8 +47,6 @@ public class BoxplotModel extends AbstractSingleAxisModel {
 
         this.boxplots = new ArrayList<Boxplot>(pictureContainers.size());
 
-//        this.calculateIfRequired();
-
     }
 
     @Override
@@ -78,8 +76,7 @@ public class BoxplotModel extends AbstractSingleAxisModel {
         this.maxX = this.boxplots.size();
         this.minX = 0;
 
-        this.wilcoxonTest.setPictureContainer(this.getPictureContainer());
-        this.wilcoxonTest.setExifparameter(this.xAxis.getParameter());
+
 
         List<PictureInterface> validPictures = Validator.getValidPictures(this.getPictureContainer(), this.xAxis
                 .getParameter(), this.getExifFilterKeywords());
@@ -109,7 +106,9 @@ public class BoxplotModel extends AbstractSingleAxisModel {
      * @return the wilcoxonTest. Returns null if wilcoxonTest is not active.
      */
     public WilcoxonTest getWilcoxonTest() {
-//        this.calculateIfRequired();
+        
+        this.wilcoxonTest.setPictureContainer(this.getPictureContainer());
+        this.wilcoxonTest.setExifparameter(this.xAxis.getParameter());
 
         return this.wilcoxonTest;
     }
