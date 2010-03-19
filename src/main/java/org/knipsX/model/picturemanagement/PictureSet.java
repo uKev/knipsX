@@ -67,20 +67,15 @@ public class PictureSet implements PictureContainer {
 	 * @return true if it can be added, false if not
 	 */
 	public boolean add(final PictureContainer container) {
-		if (checkContent(container, this)) {
-			logger.info("Can not add to content because its hirachicaly higher or already in the content!");
-			return false;
-		} else {
-			if (container instanceof PictureSet) {
-				if (this.hashCode() == ((PictureSet) container).hashCode()) {
-					System.out.println("Can´t add PictureSet");
-					return false;
-				} else {
-					return this.children.add(container);
-				}
+
+		if (container instanceof PictureSet) {
+			if (checkContent((PictureSet) container, this)) {
+				return false;
 			} else {
 				return this.children.add(container);
 			}
+		} else {
+			return this.children.add(container);
 		}
 	}
 
@@ -200,14 +195,22 @@ public class PictureSet implements PictureContainer {
 		}
 	}
 
-	private synchronized boolean checkContent(PictureContainer base, PictureContainer container) {
-		if (base == container) {
-			return true;
-		} else {
-			for (final PictureContainer element : base.getItems()) {
-				return this.checkContent(element, container);
-			}
-		}
+	private synchronized boolean checkContent(PictureSet base, PictureSet container) {
+//		boolean is = false;
+//		if (base == container) {
+//			is=true;
+//		} else {
+//			for (final PictureContainer element : base.getItems()) {
+//				if (element instanceof PictureSet) {
+//					boolean ist = this.checkContent((PictureSet) element, container);
+//					if(ist) {
+//						is = ist;
+//						break;
+//					}
+//				}				
+//			}
+//		}
+//		return is;
 		return false;
 	}
 }
