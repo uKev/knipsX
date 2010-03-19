@@ -6,12 +6,15 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.imageio.ImageIO;
 
@@ -24,6 +27,8 @@ import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
  *************************************************************************************************/
 public class Picture extends Observable implements PictureInterface {
 
+    private static final ExecutorService executor = Executors.newFixedThreadPool(1);
+    
     /* The abstract representation of this picture in filesystem */
     private final File pictureFile;
 
@@ -112,12 +117,10 @@ public class Picture extends Observable implements PictureInterface {
     public String getBigThumbnailPath() {
 
         if ((this.bigThumbnail != null) && (this.bigTempFilePath != null)) {
-
-            // try {
-            // ImageIO.write((RenderedImage) this.bigThumbnail, "jpg", new File(this.bigTempFilePath));
-            // } catch (IOException e) {
-            // this.logger.error(e.getMessage());
-            // }
+            
+            if(new File(this.bigTempFilePath).length() == 0) {
+                Picture.executor.execute(new Worker());    
+            }
         }
         return this.bigTempFilePath;
     }
@@ -457,6 +460,19 @@ public class Picture extends Observable implements PictureInterface {
             return 1;
         } else {
             return -1;
+        }
+    }
+    
+    private class Worker extends Thread {
+
+        @Override
+        public void run() {
+            this.setPriority(Thread.MIN_PRIORITY);
+            try {
+                ImageIO.write((RenderedImage) Picture.this.bigThumbnail, "jpg", new File(Picture.this.bigTempFilePath));
+            } catch (IOException e) {
+                Picture.this.logger.error(e.getMessage());
+            }
         }
     }
 }
