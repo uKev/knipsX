@@ -366,17 +366,17 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jContentPane = new JPanel(new BorderLayout());
                         
             JPanel left = new JPanel(new MigLayout("fill, wrap 1", "", ""));
-            left.add(this.getJPanelProjectOptions(), "width 300!, growy");
-            left.add(this.getJPanelProjectDescription(), "width 300!, growy");
-            left.add(this.getJPanelPictureSet(), "width 300!, growy");
-            left.add(this.getJPanelPictureSetContent(), "width 300!, growy");
+            left.add(this.getJPanelProjectOptions(), "height 75!, width 300!, dock north");
+            left.add(this.getJPanelProjectDescription(), "height 100:100:, width 300!, growy");
+            left.add(this.getJPanelPictureSet(), "height :200:, width 300!, growy");
+            left.add(this.getJPanelPictureSetContent(), "height :200:, width 300!, growy");
             
             JPanel middle = new JPanel(new MigLayout("fill, wrap 1", "", ""));
             middle.add(this.getPictureSetActiveList(), "width 400:400:, grow");
             
             JPanel right = new JPanel(new MigLayout("fill, wrap 1", "", ""));
             right.add(this.getJPanelReport(), "width 300!, growy");
-            right.add(this.getExifTable(), "width 300!, growy");
+            right.add(this.getExifTable(), "height :200:200, width 300!, dock south");
             
             JPanel main = new JPanel(new BorderLayout());
             
