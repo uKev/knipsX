@@ -43,6 +43,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.TableModel;
 import javax.swing.text.JTextComponent;
 
+import net.miginfocom.swing.MigLayout;
+
 import org.apache.log4j.Logger;
 import org.jdesktop.swingx.JXMultiSplitPane;
 import org.jdesktop.swingx.JXStatusBar;
@@ -167,7 +169,6 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* change size to preferred size */
         this.pack();
-//        this.setSize(Values.PREFERRED_WINDOW_WIDTH, Values.PREFERRED_WINDOW_HEIGHT);
 
         /* set location to the center of the screen */
         this.setLocationRelativeTo(null);
@@ -363,59 +364,28 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         /* create only if not set */
         if (this.jContentPane == null) {
             this.jContentPane = new JPanel(new BorderLayout());
-
-            final JXMultiSplitPane multiSplitPane = new JXMultiSplitPane();
-            final MultiSplitLayout multiSplitLayout = multiSplitPane.getMultiSplitLayout();
-
-            final MultiSplitLayout.Leaf leafProjectOptions = new MultiSplitLayout.Leaf("ProjectOptions");
-            final MultiSplitLayout.Leaf leafProjectDescription = new MultiSplitLayout.Leaf("ProjectDescription");
-            final MultiSplitLayout.Leaf leafPictureSet = new MultiSplitLayout.Leaf("PictureSet");
-            final MultiSplitLayout.Leaf leafPictureSetContent = new MultiSplitLayout.Leaf("PictureSetContent");
-            final MultiSplitLayout.Leaf leafPictureSetActive = new MultiSplitLayout.Leaf("PictureSetActive");
-            final MultiSplitLayout.Leaf leafReport = new MultiSplitLayout.Leaf("Report");
-            final MultiSplitLayout.Leaf leafExif = new MultiSplitLayout.Leaf("Exif");
-
-            final MultiSplitLayout.ColSplit leftSplit = new MultiSplitLayout.ColSplit();
-
-            List<MultiSplitLayout.Node> childrens = new LinkedList<MultiSplitLayout.Node>();
-            childrens.add(leafProjectOptions);
-            childrens.add(new MultiSplitLayout.Divider());
-            childrens.add(leafProjectDescription);
-            childrens.add(new MultiSplitLayout.Divider());
-            childrens.add(leafPictureSet);
-            childrens.add(new MultiSplitLayout.Divider());
-            childrens.add(leafPictureSetContent);
-            leftSplit.setChildren(childrens);
-
-            final MultiSplitLayout.ColSplit rightSplit = new MultiSplitLayout.ColSplit();
-
-            childrens = new LinkedList<MultiSplitLayout.Node>();
-            childrens.add(leafReport);
-            childrens.add(new MultiSplitLayout.Divider());
-            childrens.add(leafExif);
-            rightSplit.setChildren(childrens);
-
-            final MultiSplitLayout.Split modelRoot = new MultiSplitLayout.Split();
-
-            childrens = new LinkedList<MultiSplitLayout.Node>();
-            childrens.add(leftSplit);
-            childrens.add(new MultiSplitLayout.Divider());
-            childrens.add(leafPictureSetActive);
-            childrens.add(new MultiSplitLayout.Divider());
-            childrens.add(rightSplit);
-            modelRoot.setChildren(childrens);
-
-            multiSplitLayout.setModel(modelRoot);
-
-            multiSplitPane.add(this.getJPanelProjectOptions(), "ProjectOptions");
-            multiSplitPane.add(this.getJPanelProjectDescription(), "ProjectDescription");
-            multiSplitPane.add(this.getJPanelPictureSet(), "PictureSet");
-            multiSplitPane.add(this.getJPanelPictureSetContent(), "PictureSetContent");
-            multiSplitPane.add(this.getPictureSetActiveList(), "PictureSetActive");
-            multiSplitPane.add(this.getJPanelReport(), "Report");
-            multiSplitPane.add(this.getExifTable(), "Exif");
-            multiSplitPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-            this.jContentPane.add(multiSplitPane, BorderLayout.CENTER);
+                        
+            JPanel left = new JPanel(new MigLayout("fill, wrap 1", "", ""));
+            left.add(this.getJPanelProjectOptions(), "width 300!, growy");
+            left.add(this.getJPanelProjectDescription(), "width 300!, growy");
+            left.add(this.getJPanelPictureSet(), "width 300!, growy");
+            left.add(this.getJPanelPictureSetContent(), "width 300!, growy");
+            
+            JPanel middle = new JPanel(new MigLayout("fill, wrap 1", "", ""));
+            middle.add(this.getPictureSetActiveList(), "width 400:400:, grow");
+            
+            JPanel right = new JPanel(new MigLayout("fill, wrap 1", "", ""));
+            right.add(this.getJPanelReport(), "width 300!, growy");
+            right.add(this.getExifTable(), "width 300!, growy");
+            
+            JPanel main = new JPanel(new BorderLayout());
+            
+            main.add(left, BorderLayout.WEST);
+            main.add(middle, BorderLayout.CENTER);
+            main.add(right, BorderLayout.EAST);
+            main.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+          
+            this.jContentPane.add(main, BorderLayout.CENTER);
             this.jContentPane.add(this.getJPanelStatusInformation(), BorderLayout.SOUTH);
         }
         return this.jContentPane;
@@ -515,9 +485,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jPanelProjectDescription.setBorder(title);
 
             this.jPanelProjectDescription.add(this.getProjectDescriptionEditorPane(), BorderLayout.CENTER);
-
-            this.jPanelProjectDescription.setPreferredSize(new Dimension(JProjectView.PREFERRED_LEFT_COMPONENT_WIDTH,
-                    150));
+            
+//            this.jPanelProjectDescription.setPreferredSize(new Dimension(JProjectView.PREFERRED_LEFT_COMPONENT_WIDTH,
+//                    150));
         }
         return this.jPanelProjectDescription;
     }
@@ -558,7 +528,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jPanelPictureSet.add(this.getPictureSetList());
             this.jPanelPictureSet.add(this.getJPanelPictureSetOptions());
 
-            this.jPanelPictureSet.setPreferredSize(new Dimension(JProjectView.PREFERRED_LEFT_COMPONENT_WIDTH, 250));
+//            this.jPanelPictureSet.setPreferredSize(new Dimension(JProjectView.PREFERRED_LEFT_COMPONENT_WIDTH, 250));
         }
         return this.jPanelPictureSet;
     }
@@ -626,8 +596,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jPanelPictureSetContent.add(this.getPictureSetContentList());
             this.jPanelPictureSetContent.add(this.getJPanelPictureSetContentOptions());
 
-            this.jPanelPictureSetContent.setPreferredSize(new Dimension(JProjectView.PREFERRED_LEFT_COMPONENT_WIDTH,
-                    250));
+//            this.jPanelPictureSetContent.setPreferredSize(new Dimension(JProjectView.PREFERRED_LEFT_COMPONENT_WIDTH,
+//                    250));
         }
         return this.jPanelPictureSetContent;
     }
@@ -712,7 +682,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             title.setTitlePosition(TitledBorder.ABOVE_TOP);
             this.jScrollPanePictureSetActive.setBorder(title);
 
-            this.jScrollPanePictureSetActive.setPreferredSize(new Dimension(PREFERRED_MIDDLE_COMPONENT_WIDTH, 400));
+//            this.jScrollPanePictureSetActive.setPreferredSize(new Dimension(PREFERRED_MIDDLE_COMPONENT_WIDTH, 400));
         }
         return this.jScrollPanePictureSetActive;
     }
@@ -739,7 +709,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jPanelReport.add(this.getReportList());
             this.jPanelReport.add(this.getJPanelReportOptions());
 
-            this.jPanelReport.setPreferredSize(new Dimension(JProjectView.PREFERRED_RIGHT_COMPONENT_WIDTH, 250));
+//            this.jPanelReport.setPreferredSize(new Dimension(JProjectView.PREFERRED_RIGHT_COMPONENT_WIDTH, 250));
         }
         return this.jPanelReport;
     }
@@ -796,7 +766,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jTableExif = new JTable(data, columnNames);
             this.jTableExif.setDefaultRenderer(Object.class, new MyExifTableCellRenderer());
 
-            this.jTableExif.setPreferredSize(new Dimension(JProjectView.PREFERRED_RIGHT_COMPONENT_WIDTH, 250));
+//            this.jTableExif.setPreferredSize(new Dimension(JProjectView.PREFERRED_RIGHT_COMPONENT_WIDTH, 250));
         }
         return new JScrollPane(this.jTableExif);
     }
