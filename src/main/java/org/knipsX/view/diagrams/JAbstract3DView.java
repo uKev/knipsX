@@ -57,6 +57,7 @@ import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.Resource;
+import org.knipsX.utils.Values;
 
 import com.sun.j3d.utils.geometry.Box;
 import com.sun.j3d.utils.geometry.Cone;
@@ -893,7 +894,7 @@ public abstract class JAbstract3DView<M extends AbstractReportModel> extends JAb
             this.setLayout(new BorderLayout());
 
             final Component diagramView = this.canvas3D;
-            diagramView.setPreferredSize(new Dimension(800, 600));
+            diagramView.setPreferredSize(new Dimension(Values.PREFERRED_WINDOW_WIDTH, Values.PREFERRED_WINDOW_HEIGHT));
 
             this.add(diagramView, BorderLayout.CENTER);
 

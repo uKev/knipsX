@@ -21,6 +21,7 @@ import org.knipsX.model.reportmanagement.Cluster3DModel;
 import org.knipsX.model.reportmanagement.Histogram2DModel;
 import org.knipsX.model.reportmanagement.Histogram3DModel;
 import org.knipsX.model.reportmanagement.TableModel;
+import org.knipsX.utils.Values;
 
 /**
  * This class represents the report configuration utility for an existing report. It
@@ -43,8 +44,7 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
     
     private Logger logger = Logger.getLogger(this.getClass());
 
-    //TODO don't use fixed sizes here. Get size from a utility class
-    private final int[] mysize = { 800, 600 };
+    private final int[] windowSize = { Values.PREFERRED_WINDOW_WIDTH, Values.PREFERRED_WINDOW_HEIGHT };
 
     /**
      * This constructor creates a new report configuration utility of an existing
@@ -105,8 +105,8 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
         this.add(this.basic);
 
        
-        this.setPreferredSize(new Dimension(this.mysize[0], this.mysize[1]));
-        this.setSize(new Dimension(this.mysize[0], this.mysize[1]));
+        this.setPreferredSize(new Dimension(this.windowSize[0], this.windowSize[1]));
+        this.setSize(new Dimension(this.windowSize[0], this.windowSize[1]));
         this.pack();  
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -155,8 +155,8 @@ public class JReportConfig<M extends AbstractReportModel, V extends AbstractRepo
     public void setReportType(final AbstractReportCompilation reportconfig) {
 
         /* remember the size of the current configuration utility so that it can be resized properly */
-        this.mysize[1] = this.getBounds().height;
-        this.mysize[0] = this.getBounds().width;
+        this.windowSize[1] = this.getBounds().height;
+        this.windowSize[0] = this.getBounds().width;
 
         /* remove the basic panel from the view because it is no longer needed */
         this.remove(this.basic);

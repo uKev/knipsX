@@ -16,6 +16,7 @@ import org.knipsX.controller.reportmanagement.ReportSaveController;
 import org.knipsX.controller.reportmanagement.WizardNextPanelController;
 import org.knipsX.controller.reportmanagement.WizardPreviousPanelController;
 import org.knipsX.model.reportmanagement.AbstractReportModel;
+import org.knipsX.utils.Values;
 
 /**
  * This class represents the report creation wizard. It is responsible for creating
@@ -35,9 +36,8 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 
     private final JButton nextPanelButton;
     private final JButton previousPanelButton;
-
-    //TODO don't use fixed sizes here. Get size from a utility class
-    private final int[] mysize = { 800, 600 };
+    
+    private final int[] windowSize = { Values.PREFERRED_WINDOW_WIDTH, Values.PREFERRED_WINDOW_HEIGHT };
 
     /* keeps track of the current panel in the wizard */
     private int wizardcounter = 0;
@@ -115,7 +115,7 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
         this.basic.add(Box.createRigidArea(new Dimension(0, 15)));
 
         this.add(this.basic);
-        this.setPreferredSize(new Dimension(this.mysize[0], this.mysize[1]));
+        this.setPreferredSize(new Dimension(this.windowSize[0], this.windowSize[1]));
         this.pack();
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); 
         this.setLocationRelativeTo(null);
@@ -145,8 +145,8 @@ public class JReportWizard<M extends AbstractReportModel, V extends AbstractRepo
 
     /* Remember the size of the current configuration utility so that it can be resized properly */
     private void rememberSize() {
-        this.mysize[1] = this.getBounds().height;
-        this.mysize[0] = this.getBounds().width;
+        this.windowSize[1] = this.getBounds().height;
+        this.windowSize[0] = this.getBounds().width;
     }
 
     @Override
