@@ -38,14 +38,13 @@ public final class Resource {
 
         ImageIcon imageIcon = null;
 
-        String completePath = "../images/icons/" + path;
+        String completePath = "/org/knipsX/images/icons/" + path;
         if (size != null) {
-            completePath = "../images/icons/" + size + "x" + size + "/" + path;
+            completePath = "/org/knipsX/images/icons/" + size + "x" + size + "/" + path;
         }
 
         /* return the path, where knipsX is installed, connected with the relative path to the icon */
         final URL imgURL = Resource.class.getResource(completePath);
-
         if (imgURL == null) {
             throw new FileNotFoundException("[createImageIcon()] - Couldn't find file: " + completePath);
         } else {
