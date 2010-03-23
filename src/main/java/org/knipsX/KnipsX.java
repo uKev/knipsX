@@ -22,7 +22,7 @@ import org.knipsX.view.projectmanagement.JProjectManagement;
  *****************************************************************************/
 public final class KnipsX {
 
-    /* private constructor - this class should never have an instace */
+    /* private constructor - this class should never have an instance */
     private KnipsX() {
     }
 

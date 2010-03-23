@@ -37,7 +37,7 @@ public abstract class JAbstractDiagram<M extends AbstractReportModel> extends JA
     protected boolean displayDiagram = true;
     
     /** Specifies a list a further diagram which are displayed after the main diagram */
-    protected List<JAbstractDiagram> furtherDiagrams = new ArrayList<JAbstractDiagram>();
+    protected List<JAbstractDiagram<?>> furtherDiagrams = new ArrayList<JAbstractDiagram<?>>();
 
     /**
      * Constructor.
