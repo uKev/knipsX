@@ -323,6 +323,9 @@ public class ProjectModel extends AbstractModel {
 
         this.store.clear();
         
+        this.dataFinished.set(0);
+        this.thumbFinished.set(0);
+        
         this.isInitialized = false;
         
         /* restart the workers */
