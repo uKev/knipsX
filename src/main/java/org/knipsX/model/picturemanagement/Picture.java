@@ -27,8 +27,8 @@ import org.knipsX.utils.exifAdapter.jexifviewer.ExifAdapter;
  *************************************************************************************************/
 public class Picture extends Observable implements PictureInterface {
 
-    private static final ExecutorService executor = Executors.newFixedThreadPool(1);
-    
+    private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(1);
+
     /* The abstract representation of this picture in filesystem */
     private final File pictureFile;
 
@@ -117,9 +117,9 @@ public class Picture extends Observable implements PictureInterface {
     public String getBigThumbnailPath() {
 
         if ((this.bigThumbnail != null) && (this.bigTempFilePath != null)) {
-            
-            if(new File(this.bigTempFilePath).length() == 0) {
-                Picture.executor.execute(new Worker());    
+
+            if (new File(this.bigTempFilePath).length() == 0) {
+                Picture.EXECUTOR.execute(new Worker());
             }
         }
         return this.bigTempFilePath;
@@ -462,7 +462,7 @@ public class Picture extends Observable implements PictureInterface {
             return -1;
         }
     }
-    
+
     private class Worker extends Thread {
 
         @Override
@@ -470,7 +470,7 @@ public class Picture extends Observable implements PictureInterface {
             this.setPriority(Thread.MIN_PRIORITY);
             try {
                 ImageIO.write((RenderedImage) Picture.this.bigThumbnail, "jpg", new File(Picture.this.bigTempFilePath));
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 Picture.this.logger.error(e.getMessage());
             }
         }

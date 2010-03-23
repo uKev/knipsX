@@ -3,6 +3,8 @@
  */
 package org.knipsX;
 
+import java.io.File;
+
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -33,6 +35,7 @@ public final class KnipsX {
      *            stores parameters which are set up by a user during program start.
      */
     public static void main(final String[] args) {
+
         /*
          * the logger
          * see http://logging.apache.org/log4j/1.2/manual.html for usage
@@ -54,11 +57,8 @@ public final class KnipsX {
          */
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-
                 JFrame.setDefaultLookAndFeelDecorated(true);
                 JDialog.setDefaultLookAndFeelDecorated(true);
-                // Toolkit.getDefaultToolkit().setDynamicLayout(true);
-                // System.setProperty("sun.awt.noerasebackground", "true");
 
                 try {
                     UIManager.setLookAndFeel(new SubstanceBusinessBlackSteelLookAndFeel());
@@ -75,5 +75,15 @@ public final class KnipsX {
                 logger.info("knipsX started");
             }
         });
+
+        /* delete temporary files if some exist from a abnormal program termination in the past */
+        final File tmpDirectory = new File(System.getProperty("java.io.tmpdir") + File.separator + "knipsX");
+        tmpDirectory.mkdir();
+        for (File file : tmpDirectory.listFiles()) {
+            file.deleteOnExit();
+        }
+        logger.info("temporary files of knipsX will be deleted");
+        tmpDirectory.deleteOnExit();
+        logger.info("temporary folder of knipsX will be deleted");
     }
 }

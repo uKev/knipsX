@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureInterface;
+import org.knipsX.view.reportmanagement.ReportHelper;
 
 /**
  * Utility class to validate different things.
@@ -30,16 +31,22 @@ public final class Validator {
 
         for (final PictureContainer pictureContainer : pictureContainers) {
 
-            for (final PictureInterface picture : pictureContainer) {
+            PictureInterface[] pictures = ReportHelper.getCurrentProjectModel().getAllPictures(null, pictureContainer);
+            
+            for (final PictureInterface picture : pictures) {
                 valid = true;
 
                 for (final ExifParameter exifParameter : exifParameters) {
                     try {
                         if (picture.getExifParameter(exifParameter) == null) {
                             valid = false;
+                            break;
                         }
                     } catch (final NullPointerException e) {
+                        
+                        /* FIXME logger */
                         valid = false;
+                        break;
                     }
                 }
                 if (valid) {
@@ -149,18 +156,24 @@ public final class Validator {
 
         for (final PictureContainer pictureContainer : pictureContainers) {
 
-            for (final PictureInterface picture : pictureContainer) {
+            PictureInterface[] pictures = ReportHelper.getCurrentProjectModel().getAllPictures(null, pictureContainer);
+            
+            for (final PictureInterface picture : pictures) {
                 valid = true;
 
                 for (final ExifParameter exifParameter : exifParameters) {
                     try {
                         if (picture.getExifParameter(exifParameter) == null) {
                             valid = false;
+                            break;
                         } else if (!picture.hasMinOneKeywordOf(filterKeywords)) {
                             valid = false;
+                            break;
                         }
                     } catch (final NullPointerException e) {
+                        /* FIXME logger */
                         valid = false;
+                        break;
                     }
                 }
 

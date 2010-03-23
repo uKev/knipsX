@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 
@@ -46,9 +45,7 @@ import javax.swing.text.JTextComponent;
 import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
-import org.jdesktop.swingx.JXMultiSplitPane;
 import org.jdesktop.swingx.JXStatusBar;
-import org.jdesktop.swingx.MultiSplitLayout;
 import org.jdesktop.swingx.plaf.basic.BasicStatusBarUI;
 import org.knipsX.Messages;
 import org.knipsX.controller.projectview.PictureListClickOnController;
@@ -90,10 +87,6 @@ import org.knipsX.view.reportmanagement.ReportHelper;
  *            The model.
  */
 public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
-
-    private static final int PREFERRED_LEFT_COMPONENT_WIDTH = 300;
-    private static final int PREFERRED_MIDDLE_COMPONENT_WIDTH = 400;
-    private static final int PREFERRED_RIGHT_COMPONENT_WIDTH = 300;
 
     private static final long serialVersionUID = 6747507429332590686L;
 
@@ -364,27 +357,27 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         /* create only if not set */
         if (this.jContentPane == null) {
             this.jContentPane = new JPanel(new BorderLayout());
-                        
-            JPanel left = new JPanel(new MigLayout("fill, wrap 1", "", ""));
+
+            final JPanel left = new JPanel(new MigLayout("fill, wrap 1", "", ""));
             left.add(this.getJPanelProjectOptions(), "height 75!, width 300!, dock north");
             left.add(this.getJPanelProjectDescription(), "height 100:100:, width 300!, growy");
             left.add(this.getJPanelPictureSet(), "height :200:, width 300!, growy");
             left.add(this.getJPanelPictureSetContent(), "height :200:, width 300!, growy");
-            
-            JPanel middle = new JPanel(new MigLayout("fill, wrap 1", "", ""));
+
+            final JPanel middle = new JPanel(new MigLayout("fill, wrap 1", "", ""));
             middle.add(this.getPictureSetActiveList(), "width 400:400:, grow");
-            
-            JPanel right = new JPanel(new MigLayout("fill, wrap 1", "", ""));
+
+            final JPanel right = new JPanel(new MigLayout("fill, wrap 1", "", ""));
             right.add(this.getJPanelReport(), "width 300!, growy");
             right.add(this.getExifTable(), "height :200:200, width 300!, dock south");
-            
-            JPanel main = new JPanel(new BorderLayout());
-            
+
+            final JPanel main = new JPanel(new BorderLayout());
+
             main.add(left, BorderLayout.WEST);
             main.add(middle, BorderLayout.CENTER);
             main.add(right, BorderLayout.EAST);
             main.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-          
+
             this.jContentPane.add(main, BorderLayout.CENTER);
             this.jContentPane.add(this.getJPanelStatusInformation(), BorderLayout.SOUTH);
         }
@@ -485,9 +478,9 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jPanelProjectDescription.setBorder(title);
 
             this.jPanelProjectDescription.add(this.getProjectDescriptionEditorPane(), BorderLayout.CENTER);
-            
-//            this.jPanelProjectDescription.setPreferredSize(new Dimension(JProjectView.PREFERRED_LEFT_COMPONENT_WIDTH,
-//                    150));
+
+            // this.jPanelProjectDescription.setPreferredSize(new Dimension(JProjectView.PREFERRED_LEFT_COMPONENT_WIDTH,
+            // 150));
         }
         return this.jPanelProjectDescription;
     }
@@ -528,7 +521,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jPanelPictureSet.add(this.getPictureSetList());
             this.jPanelPictureSet.add(this.getJPanelPictureSetOptions());
 
-//            this.jPanelPictureSet.setPreferredSize(new Dimension(JProjectView.PREFERRED_LEFT_COMPONENT_WIDTH, 250));
+            // this.jPanelPictureSet.setPreferredSize(new Dimension(JProjectView.PREFERRED_LEFT_COMPONENT_WIDTH, 250));
         }
         return this.jPanelPictureSet;
     }
@@ -596,8 +589,8 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jPanelPictureSetContent.add(this.getPictureSetContentList());
             this.jPanelPictureSetContent.add(this.getJPanelPictureSetContentOptions());
 
-//            this.jPanelPictureSetContent.setPreferredSize(new Dimension(JProjectView.PREFERRED_LEFT_COMPONENT_WIDTH,
-//                    250));
+            // this.jPanelPictureSetContent.setPreferredSize(new Dimension(JProjectView.PREFERRED_LEFT_COMPONENT_WIDTH,
+            // 250));
         }
         return this.jPanelPictureSetContent;
     }
@@ -682,7 +675,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             title.setTitlePosition(TitledBorder.ABOVE_TOP);
             this.jScrollPanePictureSetActive.setBorder(title);
 
-//            this.jScrollPanePictureSetActive.setPreferredSize(new Dimension(PREFERRED_MIDDLE_COMPONENT_WIDTH, 400));
+            // this.jScrollPanePictureSetActive.setPreferredSize(new Dimension(PREFERRED_MIDDLE_COMPONENT_WIDTH, 400));
         }
         return this.jScrollPanePictureSetActive;
     }
@@ -709,7 +702,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jPanelReport.add(this.getReportList());
             this.jPanelReport.add(this.getJPanelReportOptions());
 
-//            this.jPanelReport.setPreferredSize(new Dimension(JProjectView.PREFERRED_RIGHT_COMPONENT_WIDTH, 250));
+            // this.jPanelReport.setPreferredSize(new Dimension(JProjectView.PREFERRED_RIGHT_COMPONENT_WIDTH, 250));
         }
         return this.jPanelReport;
     }
@@ -766,7 +759,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
             this.jTableExif = new JTable(data, columnNames);
             this.jTableExif.setDefaultRenderer(Object.class, new MyExifTableCellRenderer());
 
-//            this.jTableExif.setPreferredSize(new Dimension(JProjectView.PREFERRED_RIGHT_COMPONENT_WIDTH, 250));
+            // this.jTableExif.setPreferredSize(new Dimension(JProjectView.PREFERRED_RIGHT_COMPONENT_WIDTH, 250));
         }
         return new JScrollPane(this.jTableExif);
     }
@@ -781,10 +774,10 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
 
         /* create only if not set */
         if (this.jPanelStatusInformation == null) {
-            JLabel infoLabel = new JLabel(Messages.getString("JProjectView.40"));
+            final JLabel infoLabel = new JLabel(Messages.getString("JProjectView.40"));
             infoLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
-            JLabel versionLabel = new JLabel(Values.VERSION);
+            final JLabel versionLabel = new JLabel(Values.VERSION);
             versionLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
             this.jPanelStatusInformation = new JXStatusBar();
@@ -1046,7 +1039,7 @@ public class JProjectView<M extends ProjectModel> extends JAbstractView<M> {
         final int totalPictures = this.model.getNumberOfPictures();
 
         if (totalPictures > 0) {
-            this.pictureDataProgress.setValue(this.model.getNumberOfPicturesProcessed());
+            this.pictureDataProgress.setValue(this.model.getNumberOfPicturesWithoutThumb());
             this.pictureDataProgress.setMaximum(totalPictures);
         }
 

@@ -2,13 +2,14 @@ package org.knipsX.controller.projectview;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
 import org.knipsX.Messages;
 import org.knipsX.controller.AbstractController;
-import org.knipsX.controller.worker.InitializePictureDataWorker;
-import org.knipsX.controller.worker.InitializePictureThumbnailWorker;
 import org.knipsX.model.picturemanagement.Directory;
 import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
@@ -32,6 +33,8 @@ import org.knipsX.view.projectview.JProjectView;
 public class PictureSetContentListAddController<M extends ProjectModel, V extends JProjectView<M>> extends
         AbstractController<M, V> {
 
+    private final Logger logger = Logger.getLogger(this.getClass());
+
     /**
      * Creates a new controller which is connected to a view and a model.
      * 
@@ -45,31 +48,27 @@ public class PictureSetContentListAddController<M extends ProjectModel, V extend
     }
 
     @Override
-    public void actionPerformed(final ActionEvent e) {
+    public void actionPerformed(final ActionEvent actionEvent) {
         if (this.model.getPictureSets().length > 0) {
             final File[] files = JExtendedFileChooser.selectDirectoriesAndImages();
 
             if (files != null) {
+                final PictureSet pictureSet = this.model.getSelectedPictureSet();
+                final List<PictureContainer> contents = new LinkedList<PictureContainer>();
 
                 for (final File file : files) {
-                    final PictureSet pictureSet = this.model.getSelectedPictureSet();
-                    PictureContainer newContent = null;
-
                     if (file.isDirectory()) {
-                        newContent = new Directory(file.getAbsolutePath());
+                        contents.add(new Directory(file.getAbsolutePath()));
                     } else {
                         try {
-                            newContent = new Picture(file, true);
-                        } catch (PictureNotFoundException e1) {
-                            // FIXME Auto-generated catch block
-                            e1.printStackTrace();
+                            contents.add(new Picture(file, true));
+                        } catch (final PictureNotFoundException e) {
+                            this.logger.error(e.getMessage());
                         }
                     }
-                    this.model.addContentToPictureSet(pictureSet, newContent);
 
-                    new InitializePictureDataWorker(this.model).execute();
-                    new InitializePictureThumbnailWorker(this.model).execute();
                 }
+                this.model.addContentToPictureSet(pictureSet, contents.toArray(new PictureContainer[] {}));
             }
         } else {
 

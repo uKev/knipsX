@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.TransferHandler;
 
 import org.knipsX.controller.AbstractController;
+import org.knipsX.model.picturemanagement.PictureContainer;
 import org.knipsX.model.picturemanagement.PictureSet;
 import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.view.projectview.JProjectView;
@@ -111,7 +112,7 @@ public class PictureSetContentListDropController<M extends ProjectModel, V exten
             }
 
             final PictureSet set = PictureSetContentListDropController.this.model.getSelectedPictureSet();
-            PictureSetContentListDropController.this.model.addContentToPictureSet(set, data);
+            PictureSetContentListDropController.this.model.addContentToPictureSet(set, new PictureContainer[] { data });
             return true;
         }
     }

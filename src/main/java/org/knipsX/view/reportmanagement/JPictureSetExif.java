@@ -18,17 +18,20 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
+import javax.swing.SwingWorker;
 
 import org.apache.log4j.Logger;
+import org.jdesktop.swingx.JXBusyLabel;
 import org.knipsX.Messages;
 import org.knipsX.controller.reportmanagement.ReportAddExifKeywordController;
 import org.knipsX.controller.reportmanagement.ReportAddPictureSetController;
 import org.knipsX.controller.reportmanagement.ReportPictureSetRemoveController;
 import org.knipsX.controller.reportmanagement.ReportRemoveExifKeywordController;
 import org.knipsX.model.AbstractModel;
-import org.knipsX.model.picturemanagement.Picture;
 import org.knipsX.model.picturemanagement.PictureContainer;
+import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.model.picturemanagement.PictureSet;
+import org.knipsX.model.projectview.ProjectModel;
 import org.knipsX.model.reportmanagement.Axis;
 import org.knipsX.utils.ExifParameter;
 import org.knipsX.utils.Resource;
@@ -53,7 +56,14 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     private JFlexibleList availableExifTags;
     private JFlexibleList associatedExifTags;
 
+    private JXBusyLabel busyValidationLabel;
+
     private JLabel errorMessage;
+
+    private final JButton insertPictureSet = new JButton(Messages.getString("JPictureSetExif.3"));
+    private final JButton removePictureSet = new JButton(Messages.getString("JPictureSetExif.4"));
+    private final JButton insertExifTag = new JButton(">>");
+    private final JButton removeExifTag = new JButton("<<");
 
     /**
      * Constructor which initialized this picture set management and the EXIF keyword management panel
@@ -103,27 +113,44 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
     /* add button panel top button panel to the specified panel */
     private void addTopButtonPanel(final JPanel topButtonPanel) {
-        final JButton insertPictureSet = new JButton(Messages.getString("JPictureSetExif.3"));
-        final JButton removePictureSet = new JButton(Messages.getString("JPictureSetExif.4"));
 
         /* to prevent popping and fixing alignment of layout add fixed dimension */
         final Dimension size = new Dimension(32, 32);
 
-        insertPictureSet.setAlignmentX(Component.CENTER_ALIGNMENT);
-        insertPictureSet.addActionListener(new ReportAddPictureSetController<AbstractModel, JPictureSetExif>(this));
+        this.insertPictureSet.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.removePictureSet.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        removePictureSet.setAlignmentX(Component.CENTER_ALIGNMENT);
-        removePictureSet.addActionListener(new ReportPictureSetRemoveController<AbstractModel, JPictureSetExif>(this));
+        this.insertPictureSet
+                .addActionListener(new ReportAddPictureSetController<AbstractModel, JPictureSetExif>(this));
+        this.removePictureSet.addActionListener(new ReportPictureSetRemoveController<AbstractModel, JPictureSetExif>(
+                this));
+
+        this.insertPictureSet.setEnabled(false);
+        this.removePictureSet.setEnabled(false);
 
         this.errorMessage = new JLabel();
         this.errorMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         topButtonPanel.add(new Box.Filler(size, size, size));
-        topButtonPanel.add(insertPictureSet);
+        topButtonPanel.add(this.insertPictureSet);
         topButtonPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        topButtonPanel.add(removePictureSet);
+        topButtonPanel.add(this.removePictureSet);
         topButtonPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         topButtonPanel.add(this.errorMessage);
+        topButtonPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        topButtonPanel.add(this.addBusyValidationPanel());
+    }
+
+    private JXBusyLabel addBusyValidationPanel() {
+
+        if (this.busyValidationLabel == null) {
+            this.busyValidationLabel = new JXBusyLabel();
+            this.busyValidationLabel.setBusy(true);
+            this.busyValidationLabel.setToolTipText("Es müssen alle Metadaten aller Bilder eingelesen sein, um Bildmengen auswählen zu können!");
+
+            new InitializeValidatorWorker().execute();
+        }
+        return this.busyValidationLabel;
     }
 
     private void addAssociatedPictureSetsPanel(final JPanel topPanel) {
@@ -154,15 +181,16 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     }
 
     private void addBottomButtonPanel(final JPanel bottomButtonPanel) {
-        final JButton insertexiftag = new JButton(">>");
-        final JButton removeexiftag = new JButton("<<");
+        this.insertExifTag.addActionListener(new ReportAddExifKeywordController<AbstractModel, JPictureSetExif>(this));
+        this.removeExifTag
+                .addActionListener(new ReportRemoveExifKeywordController<AbstractModel, JPictureSetExif>(this));
 
-        insertexiftag.addActionListener(new ReportAddExifKeywordController<AbstractModel, JPictureSetExif>(this));
-        removeexiftag.addActionListener(new ReportRemoveExifKeywordController<AbstractModel, JPictureSetExif>(this));
+        this.insertExifTag.setEnabled(false);
+        this.removeExifTag.setEnabled(false);
 
-        bottomButtonPanel.add(insertexiftag);
+        bottomButtonPanel.add(this.insertExifTag);
         bottomButtonPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        bottomButtonPanel.add(removeexiftag);
+        bottomButtonPanel.add(this.removeExifTag);
     }
 
     private void addAssociatedExifTagsPanel(final JPanel bottomPanel) {
@@ -270,9 +298,9 @@ public class JPictureSetExif extends JAbstractSinglePanel {
     private List<String> getKeywordsFromPictureSet(final PictureSet pictureSet) {
         final List<String> xmpKeywords = new ArrayList<String>();
 
-        final Picture[] pictures = ReportHelper.getProjectModel().getAllPictures(pictureSet, null);
+        final PictureInterface[] pictures = ReportHelper.getProjectModel().getAllPictures(pictureSet, null);
 
-        for (final Picture picture : pictures) {
+        for (final PictureInterface picture : pictures) {
 
             String[] xmpPictureKeyword = new String[0];
 
@@ -640,6 +668,33 @@ public class JPictureSetExif extends JAbstractSinglePanel {
             renderer.setText(theText);
 
             return renderer;
+        }
+    }
+
+    private class InitializeValidatorWorker extends SwingWorker<Void, Void> {
+
+        @Override
+        protected Void doInBackground() {
+            final ProjectModel currentModel = ReportHelper.getCurrentProjectModel();
+
+            while (currentModel.getNumberOfPicturesWithoutData() != currentModel.getNumberOfPictures()) {
+
+                try {
+                    Thread.sleep(1000);
+                } catch (final InterruptedException e) {
+                    JPictureSetExif.this.logger.error(e.getMessage());
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void done() {
+            JPictureSetExif.this.busyValidationLabel.setBusy(false);
+            JPictureSetExif.this.insertPictureSet.setEnabled(true);
+            JPictureSetExif.this.removePictureSet.setEnabled(true);
+            JPictureSetExif.this.insertExifTag.setEnabled(true);
+            JPictureSetExif.this.removeExifTag.setEnabled(true);
         }
     }
 }
