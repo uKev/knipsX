@@ -145,6 +145,7 @@ public class JPictureSetExif extends JAbstractSinglePanel {
 
         if (this.busyValidationLabel == null) {
             this.busyValidationLabel = new JXBusyLabel();
+            this.busyValidationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             this.busyValidationLabel.setBusy(true);
             this.busyValidationLabel.setToolTipText("Es müssen alle Metadaten aller Bilder eingelesen sein, um Bildmengen auswählen zu können!");
 
