@@ -1,6 +1,7 @@
 package org.knipsX.view.diagrams;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.swing.table.AbstractTableModel;
 import org.knipsX.model.picturemanagement.PictureInterface;
 import org.knipsX.model.reportmanagement.TableModel;
 import org.knipsX.utils.ExifParameter;
+import org.knipsX.utils.Values;
 import org.knipsX.view.projectview.MyExifTableCellRenderer;
 
 /**
@@ -92,6 +94,7 @@ public class JTableDiagram<M extends TableModel> extends JAbstractDiagram<M> {
         this.add(this.mainpanel);
 
         /* set the size of the diagram based on the preferred size of its components */
+        this.setPreferredSize(new Dimension(Values.PREFERRED_WINDOW_WIDTH, Values.PREFERRED_WINDOW_HEIGHT));
         this.pack();
     }
 
