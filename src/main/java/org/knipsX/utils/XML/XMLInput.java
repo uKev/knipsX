@@ -299,7 +299,7 @@ public class XMLInput {
             final Element wilcoxonTest = (Element) item;
             model.getWilcoxonTest().setActiveStatus(Boolean.parseBoolean(wilcoxonTest.getChildText("isActive")));
             model.getWilcoxonTest()
-                    .setWilcoxonTestType(WilcoxonTestType.valueOf(wilcoxonTest.getChildText("testType")));
+                    .setWilcoxonTestType(WilcoxonTestType.values()[Integer.parseInt(wilcoxonTest.getChildText("testType"))]);
             model.getWilcoxonTest().setSignificance(Double.parseDouble(wilcoxonTest.getChildText("significance")));
 
         }

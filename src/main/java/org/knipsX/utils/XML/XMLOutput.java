@@ -248,8 +248,7 @@ public class XMLOutput {
         Element wilcoxonTest = new Element("wilcoxonTest");
 
         wilcoxonTest.addContent(new Element("isActive").setText("" + model.getWilcoxonTest().isActive()));
-        wilcoxonTest.addContent(new Element("testType").setText(model.getWilcoxonTest().getWilcoxonTestType()
-                .toString().toUpperCase()));
+        wilcoxonTest.addContent(new Element("testType").setText(Integer.toString(model.getWilcoxonTest().getWilcoxonTestType().ordinal())));
         wilcoxonTest.addContent(new Element("significance").setText("" + model.getWilcoxonTest().getSignificance()));
         return wilcoxonTest;
     }
